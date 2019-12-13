@@ -1,0 +1,22 @@
+name: moengage_flutter
+description: Flutter Plugin for MoEngage Platform
+version: 0.0.1
+author: MoEngage Inc
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    androidPackage: com.moengage.flutter
+    pluginClass: MoEngageFlutterPlugin
+

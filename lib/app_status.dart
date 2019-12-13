@@ -1,0 +1,1 @@
+enum MoEAppStatus { install, update }
