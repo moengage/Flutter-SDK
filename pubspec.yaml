@@ -17,10 +17,6 @@ dev_dependencies:
 
 flutter:
   plugin:
-    platforms:
-        android:
-            androidPackage: com.moengage.flutter
-            pluginClass: MoEngageFlutterPlugin
-        ios:
-            pluginClass: MOFlutterRegistrant
+    androidPackage: com.moengage.flutter
+    pluginClass: MoEngageFlutterPlugin
 
