@@ -4,18 +4,18 @@
 Pod::Spec.new do |s|
   s.name             = 'moengage_flutter'
   s.version          = '0.0.1'
-  s.summary          = 'Flutter Plugin for MoEngage Platform'
+  s.summary          = 'A flutter plugin for MoEngage iOS and Android SDKs.'
   s.description      = <<-DESC
-Flutter Plugin for MoEngage Platform
+  A flutter plugin for MoEngage iOS and Android SDKs.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://www.moengage.com/'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'MoEngage Inc.' => 'mobiledevs@moengage.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files     = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.dependency 'MoEngage-iOS-SDK', '>=5.2.4', '< 6.0'
 
-  s.ios.deployment_target = '8.0'
 end
 

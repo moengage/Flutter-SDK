@@ -1,8 +1,8 @@
-#import "MoengageFlutterPlugin.h"
+#import "MOFlutterRegistrant.h"
 #import <moengage_flutter/moengage_flutter-Swift.h>
 
-@implementation MoengageFlutterPlugin
+@implementation MOFlutterRegistrant
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftMoengageFlutterPlugin registerWithRegistrar:registrar];
+  [MOFlutterPlugin registerWithRegistrar:registrar];
 }
 @end
