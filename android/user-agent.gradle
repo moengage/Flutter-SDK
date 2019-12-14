@@ -2,7 +2,6 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 String libraryVersionName = "UNKNOWN"
-String libraryName = "flutter-fire-fcm"
 File pubspec = new File(project.projectDir.parentFile,  'pubspec.yaml')
 
 if (pubspec.exists()) {
@@ -15,8 +14,6 @@ if (pubspec.exists()) {
 android {
     defaultConfig {
         // BuildConfig.VERSION_NAME
-        buildConfigField 'String', 'LIBRARY_VERSION', "\"${libraryVersionName}\""
-        // BuildConfig.LIBRARY_NAME
-        buildConfigField 'String', 'LIBRARY_NAME', "\"${libraryName}\""
+        buildConfigField 'String', 'MOENGAGE_FLUTTER_LIBRARY_VERSION', "\"${libraryVersionName}\""
     }
 }

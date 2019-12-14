@@ -14,7 +14,7 @@ public class MoEInitializer{
   public static void initialize(MoEngage moEngage) {
     MoEngage.initialise(moEngage);
     ConfigurationCache.getInstance().setIntegrationType(Constants.INTEGRATION_TYPE);
-    ConfigurationCache.getInstance().setIntegrationVersion(Constants.SDK_VERSION);
+    ConfigurationCache.getInstance().setIntegrationVersion(BuildConfig.MOENGAGE_FLUTTER_LIBRARY_VERSION);
     PushManager.getInstance().setMessageListener(new FlutterPushMessageListener());
     InAppManager.getInstance().setInAppListener(new FlutterInAppCallback());
   }
