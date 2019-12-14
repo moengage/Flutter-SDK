@@ -268,9 +268,9 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
     MoEHelper.getInstance(context).setUserAttributeISODate(attributeName, attributeValue);
   }
 
-  public static void sendOrQueueCallback(String methodName, Map<String, Object> message) {
+  static void sendOrQueueCallback(String methodName, Map<String, Object> message) {
     if (isInitialised) {
-      Logger.v(TAG + " sendOrQueueCallback() : Flutter Engine initialised will ");
+      Logger.v(TAG + " sendOrQueueCallback() : Flutter Engine initialised will send message");
       sendCallback(methodName, message);
     } else {
       Logger.v(TAG + " sendOrQueueCallback() : Flutter Engine not initialised adding message to "
@@ -279,11 +279,13 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
     }
   }
 
-  public static void  sendCallback(final String methodName, final Map<String, Object> message){
-    message.put("platform", "android");
+  static void  sendCallback(final String methodName, final Map<String, Object> message){
+    final Map<String, Object> messagePayload = new HashMap<>();
+    messagePayload.put(Constants.PARAM_PLATFORM, Constants.PARAM_PLATFORM_VALUE);
+    messagePayload.put(Constants.PARAM_PAYLOAD, message);
     new Handler(Looper.getMainLooper()).post(new Runnable() {
       @Override public void run() {
-        channel.invokeMethod(methodName, message);
+        channel.invokeMethod(methodName, messagePayload);
       }
     });
   }

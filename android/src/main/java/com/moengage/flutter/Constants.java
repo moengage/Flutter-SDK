@@ -20,5 +20,13 @@ public interface Constants {
   String METHOD_NAME_ON_INAPP_SHOWN = "onInAppShown";
   String METHOD_NAME_ON_INAPP_CLICKED = "onInAppClick";
 
+  String PARAM_PLATFORM = "platform";
+  String PARAM_PAYLOAD = "payload";
+  String PARAM_CAMPAIGN_ID = "campaignId";
+  String PARAM_SCREEN_NAME = "screenName";
+  String PARAM_DEEP_LINK = "deepLinkUrl";
+  String PARAM_KEY_VALUE_PAIR = "kvPairs";
+  String PARAM_PLATFORM_VALUE = "android";
+
   String INTEGRATION_TYPE = "flutter";
 }

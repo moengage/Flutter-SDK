@@ -14,7 +14,7 @@ import java.util.Map;
 public class FlutterInAppCallback implements InAppManager.InAppMessageListener {
   @Override public void onInAppShown(InAppMessage message) {
     Map<String, Object> messageMap = new HashMap<>();
-    messageMap.put("campaignId", message.rules.campaignId);
+    messageMap.put(Constants.PARAM_CAMPAIGN_ID, message.rules.campaignId);
     MoEngageFlutterPlugin.sendOrQueueCallback(Constants.METHOD_NAME_ON_INAPP_SHOWN, messageMap);
   }
 
@@ -29,13 +29,13 @@ public class FlutterInAppCallback implements InAppManager.InAppMessageListener {
   @Override public boolean onInAppClick(String screenName, Bundle extras, Uri deepLinkUri) {
     Map<String, Object> message = new HashMap<>();
     if (screenName != null) {
-      message.put("screenName", screenName);
+      message.put(Constants.PARAM_SCREEN_NAME, screenName);
     }
     if (deepLinkUri != null) {
-      message.put("deeplinkUrl", deepLinkUri.toString());
+      message.put(Constants.PARAM_DEEP_LINK, deepLinkUri.toString());
     }
     if (extras != null) {
-      message.putAll(Utils.bundleToMap(extras));
+      message.put(Constants.PARAM_KEY_VALUE_PAIR, Utils.bundleToMap(extras));
     }
     MoEngageFlutterPlugin.sendOrQueueCallback(Constants.METHOD_NAME_ON_INAPP_CLICKED, message);
     return true;

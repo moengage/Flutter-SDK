@@ -11,11 +11,14 @@ import io.flutter.app.FlutterApplication;
  * Date: 2019-12-13
  */
 public class SampleApplication extends FlutterApplication {
+
   @Override public void onCreate() {
     super.onCreate();
     MoEngage.Builder builder = new Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
         .setLogLevel(Logger.VERBOSE)
-        .optOutTokenRegistration();
+        .setNotificationSmallIcon(R.drawable.icon)
+        .setNotificationLargeIcon(R.drawable.ic_launcher);
+
     MoEInitializer.initialize(builder.build());
   }
 }
