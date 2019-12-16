@@ -18,31 +18,26 @@ class MoEngageFlutter {
     _channel.invokeMethod("initialise");
   }
 
-  void setUpPushCallbacks(MessageHandler onPushClick){
+  void setUpPushCallbacks(MessageHandler onPushClick) {
     _onPushClick = onPushClick;
   }
 
-  void setUpInAppCallbacks({MessageHandler onInAppClick, MessageHandler onInAppShown}){
+  void setUpInAppCallbacks(
+      {MessageHandler onInAppClick, MessageHandler onInAppShown}) {
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
   }
 
   Future<dynamic> _handler(MethodCall call) async {
     print("Received callback in dart. Payload" + call.toString());
-    if (call.method == "onPushClick") {
-      if (_onPushClick != null) {
-        _onPushClick(call.arguments.cast<String, dynamic>());
-      } 
+    if (call.method == "onPushClick" && _onPushClick != null) {
+      _onPushClick(call.arguments.cast<String, dynamic>());
     }
-    if (call.method == "onInAppClick") {
-      if (_onInAppClick != null) {
-        _onInAppClick(call.arguments.cast<String, dynamic>());
-      }
+    if (call.method == "onInAppClick" && _onInAppClick != null) {
+      _onInAppClick(call.arguments.cast<String, dynamic>());
     }
-    if (call.method == "onInAppShown") {
-      if (_onInAppShown != null) {
-        _onInAppShown(call.arguments.cast<String, dynamic>());
-      }
+    if (call.method == "onInAppShown" && _onInAppShown != null) {
+      _onInAppShown(call.arguments.cast<String, dynamic>());
     }
   }
 

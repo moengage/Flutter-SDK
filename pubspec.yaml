@@ -1,7 +1,7 @@
 name: moengage_flutter
 description: Flutter Plugin for MoEngage Platform
-version: 0.0.1
-author: MoEngage Inc
+version: 1.0.0
+author: MoEngage Inc<mobiledevs@moengage.com>
 homepage: https://moengage.com
 
 environment:
