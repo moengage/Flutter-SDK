@@ -19,6 +19,13 @@ class _MyAppState extends State<MyApp> {
   void _onPushClick(Map<String, dynamic> message) {
     print("This is a push click callback from native to flutter. Payload " +
         message.toString());
+    var payload = message["payload"];
+    var moe = payload["moengage"];
+    var cid = moe["cid"];
+    var details = MoEProperties();
+    details
+    .addString("cid", cid);
+    _moengagePlugin.trackEvent('notif_clicked', details);
   }
 
   void _onInAppClick(Map<String, dynamic> message) {
@@ -35,10 +42,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    _moengagePlugin.initialise(
-        onPushClick: _onPushClick,
-        onInAppClick: _onInAppClick,
-        onInAppShown: _onInAppShown);
+    _moengagePlugin.initialise();
+    _moengagePlugin.setUpPushCallbacks(_onPushClick);
+    _moengagePlugin.setUpInAppCallbacks(onInAppClick: _onInAppClick, onInAppShown: _onInAppShown);
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
