@@ -162,6 +162,12 @@ class _MyAppState extends State<MyApp> {
                   _moengagePlugin.setIsoDate(
                       "timeStamp", "2019-12-02T08:26:21.170Z");
                 },
+              ),
+              new ListTile(
+                title: Text("Logout"),
+                onTap: (){
+                  _moengagePlugin.logout();
+                },
               )
             ]).toList(),
           ),
