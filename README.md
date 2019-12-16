@@ -8,7 +8,7 @@ To add the MoEngage Flutter SDK to your application, edit your application's `pu
 
 ```yaml
 dependencies:
-	moengage_flutter: 1.0.0
+ moengage_flutter: 1.0.0
 ```
  Run flutter packages get to install the SDK.
  
