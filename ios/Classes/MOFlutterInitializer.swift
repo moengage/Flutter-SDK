@@ -55,7 +55,7 @@ public class MOFlutterInitializer : NSObject, MOInAppDelegate, UNUserNotificatio
     
     @objc func clickedRemoteNotifications(_ notif:Notification){
         if let userInfo = notif.userInfo as? Dictionary<String,Any>{
-            let infoDict : Dictionary<String,Any> = ["pushPayload": userInfo]
+            let infoDict : Dictionary<String,Any> = ["payload": userInfo]
             MOFlutterPlugin.sendCallback(MOFlutterConstants.CallbackNames.kPushClicked, withInfo:infoDict);
         }
     }
@@ -76,20 +76,23 @@ public class MOFlutterInitializer : NSObject, MOInAppDelegate, UNUserNotificatio
     //MARK:- MOInAppDelegate Callbacks
     public func inAppShown(withCampaignID campaignID: String?) {
         if let campaignID = campaignID{
-            var msgDict : Dictionary<String,String> = Dictionary()
-            msgDict["campaignId"] = campaignID
+            var msgDict : Dictionary<String,Any> = Dictionary()
+            msgDict["payload"] = ["campaignId":campaignID]
+            
             MOFlutterPlugin.sendCallback(MOFlutterConstants.CallbackNames.kInAppShown, withInfo: msgDict);
         }
     }
     
     public func inAppClicked(for widget: InAppWidget, screenName: String?, andDataDict dataDict: [AnyHashable : Any]?) {
-        var msgDict : Dictionary<String,Any> = Dictionary()
+        var inAppDict : Dictionary<String,Any> = Dictionary()
         if let screenName = screenName{
-            msgDict["screenName"] = screenName
+            inAppDict["screenName"] = screenName
         }
         if let dataDict = dataDict as? Dictionary<String, Any>{
-            msgDict["kvPairs"] = dataDict
+            inAppDict["kvPairs"] = dataDict
         }
+        var msgDict : Dictionary<String,Any> = Dictionary()
+        msgDict["payload"] = inAppDict
         MOFlutterPlugin.sendCallback(MOFlutterConstants.CallbackNames.kInAppClicked, withInfo: msgDict);
     }
     
