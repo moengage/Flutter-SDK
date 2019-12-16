@@ -12,14 +12,6 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
         channel = FlutterMethodChannel(name: MOFlutterConstants.kPluginChannelName, binaryMessenger: registrar.messenger())
         let instance = MOFlutterPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel!)
-        channelInitialized = true
-        
-        if messageQueue.count > 0 {
-            for msg in messageQueue {
-                self.invokeChannelCallback(msg.msgMethodName, withInfo: msg.msgInfoDict)
-            }
-        }
-        messageQueue.removeAll()
     }
     
     // MARK:- Handle Invocation
@@ -44,11 +36,22 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
             setAppStatus(call)
         case MOFlutterConstants.MethodNames.kRegisterForPush:
             registerForPushNotification()
+        case MOFlutterConstants.MethodNames.kInitializeFlutter:
+            MOFlutterPlugin.initializedFlutterPlugin()
         default:
             print("Invalid method invoked: \(call.method)")
         }
     }
     
+    private static func initializedFlutterPlugin(){
+        channelInitialized = true
+        if messageQueue.count > 0 {
+            for msg in messageQueue {
+                self.invokeChannelCallback(msg.msgMethodName, withInfo: msg.msgInfoDict)
+            }
+        }
+        messageQueue.removeAll()
+    }
     
     // MARK:- App Status Tracking
     private func setAppStatus(_ call: FlutterMethodCall){

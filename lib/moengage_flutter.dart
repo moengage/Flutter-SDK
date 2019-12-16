@@ -13,27 +13,36 @@ class MoEngageFlutter {
   MessageHandler _onInAppClick;
   MessageHandler _onInAppShown;
 
-  void initialise(
-      {MessageHandler onPushClick,
-      MessageHandler onInAppClick,
-      MessageHandler onInAppShown}) {
+  void initialise() {
     _channel.setMethodCallHandler(_handler);
+    _channel.invokeMethod("initialise");
+  }
+
+  void setUpPushCallbacks(MessageHandler onPushClick){
     _onPushClick = onPushClick;
+  }
+
+  void setUpInAppCallbacks({MessageHandler onInAppClick, MessageHandler onInAppShown}){
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
-    _channel.invokeMethod("initialise");
   }
 
   Future<dynamic> _handler(MethodCall call) async {
     print("Received callback in dart. Payload" + call.toString());
     if (call.method == "onPushClick") {
-      _onPushClick(call.arguments.cast<String, dynamic>());
+      if (_onPushClick != null) {
+        _onPushClick(call.arguments.cast<String, dynamic>());
+      } 
     }
     if (call.method == "onInAppClick") {
-      _onInAppClick(call.arguments.cast<String, dynamic>());
+      if (_onInAppClick != null) {
+        _onInAppClick(call.arguments.cast<String, dynamic>());
+      }
     }
     if (call.method == "onInAppShown") {
-      _onInAppShown(call.arguments.cast<String, dynamic>());
+      if (_onInAppShown != null) {
+        _onInAppShown(call.arguments.cast<String, dynamic>());
+      }
     }
   }
 
