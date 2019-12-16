@@ -39,7 +39,7 @@ Get APP ID from the [Settings Page](http://app.moengage.com/v3/#/settings/0/0) o
 val moEngage =
         new MoEngage.Builder(this, "XXXXXXXXXXX")
         .build()
-MoEngage.initialise(moEngage)
+MoEInitializer.initialize(builder.build())
 ```
 Refer to the [API reference doc](https://moengage.github.io/MoEngage-Android-SDK/) for a detailed list of possible configurations.
 
