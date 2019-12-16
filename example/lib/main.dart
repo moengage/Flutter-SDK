@@ -154,6 +154,11 @@ class _MyAppState extends State<MyApp> {
                 title: Text("Set Birthday"),
                 onTap: () {
                   _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
+                }),
+              new ListTile(
+                title: Text("Set Alias"),
+                onTap: (){
+                  _moengagePlugin.setAlias('testUser@moengage.com');
                 },
               ),
               new ListTile(
@@ -161,8 +166,12 @@ class _MyAppState extends State<MyApp> {
                 onTap: () {
                   _moengagePlugin.setIsoDate(
                       "timeStamp", "2019-12-02T08:26:21.170Z");
-                },
-              )
+                }),
+              new ListTile(
+                title: Text("Logout"),
+                onTap: () {
+                  _moengagePlugin.logout();
+                })
             ]).toList(),
           ),
         ),

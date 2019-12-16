@@ -1,9 +1,9 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (5.2.5)
+  - MoEngage-iOS-SDK (5.2.6)
   - moengage_flutter (0.0.1):
     - Flutter
-    - MoEngage-iOS-SDK (< 6.0, >= 5.2.4)
+    - MoEngage-iOS-SDK (< 6.0, >= 5.2.6)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  MoEngage-iOS-SDK: f1ca0868794e90a965cf338173c92988aecabba9
-  moengage_flutter: 8e9dddca28dcae9838639fe06341cb2ec7b257b2
+  MoEngage-iOS-SDK: c5caecd39936c6ea9486a929a657cbae699c6247
+  moengage_flutter: 04b482837eafde29572a9580a5af2195b73c87da
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
