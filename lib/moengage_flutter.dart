@@ -7,15 +7,16 @@ import 'package:moengage_flutter/gender.dart';
 typedef void MessageHandler(Map<String, dynamic> message);
 
 class MoEngageFlutter {
-  MethodChannel _channel = MethodChannel('flutter_moengage_plugin');
+  MethodChannel _channel = MethodChannel(channelName);
 
   MessageHandler _onPushClick;
   MessageHandler _onInAppClick;
   MessageHandler _onInAppShown;
 
-  void initialise({MessageHandler onPushClick,
-    MessageHandler onInAppClick,
-    MessageHandler onInAppShown}) {
+  void initialise(
+      {MessageHandler onPushClick,
+      MessageHandler onInAppClick,
+      MessageHandler onInAppShown}) {
     _channel.setMethodCallHandler(_handler);
     _onPushClick = onPushClick;
     _onInAppClick = onInAppClick;
@@ -36,7 +37,7 @@ class MoEngageFlutter {
     }
   }
 
-  // Track Event Method
+  /// Tracks an event with the given attributes.
   void trackEvent(String eventName, MoEProperties eventAttributes) {
     if (eventAttributes == null) {
       eventAttributes = MoEProperties();
@@ -49,8 +50,7 @@ class MoEngageFlutter {
     });
   }
 
-  // User Attribute Unique ID methods
-
+  /// Set a unique identifier for a user.<br/>
   void setUniqueId(String uniqueId) {
     _channel.invokeMethod("setUserAttribute", <String, String>{
       attributeName: "USER_ATTRIBUTE_UNIQUE_ID",
@@ -58,14 +58,14 @@ class MoEngageFlutter {
     });
   }
 
+  /// Update user's unique id which was previously set by setUniqueId().
   void setAlias(String newUniqueId) {
     _channel.invokeMethod(
         "setAlias", <String, String>{attributeValue: newUniqueId});
     _channel.invokeMethod('setAlias', newUniqueId);
   }
 
-  // Default User Attribute methods
-
+  /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
     _channel.invokeMethod("setUserAttribute", <String, dynamic>{
       attributeName: "USER_ATTRIBUTE_USER_NAME",
@@ -73,6 +73,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks first name as a user attribute.
   void setFirstName(String firstName) {
     _channel.invokeMethod("setUserAttribute", <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_FIRST_NAME",
@@ -80,6 +81,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks last name as a user attribute.
   void setLastName(String lastName) {
     _channel.invokeMethod("setUserAttribute", <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_LAST_NAME",
@@ -87,6 +89,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks user's email-id as a user attribute.
   void setEmail(String emailId) {
     _channel.invokeMethod('setUserAttribute', <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_EMAIL",
@@ -94,6 +97,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks phone number as a user attribute.
   void setPhoneNumber(String phoneNumber) {
     _channel.invokeMethod("setUserAttribute", <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_MOBILE",
@@ -101,6 +105,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks gender as a user attribute.
   void setGender(MoEGender gender) {
     _channel.invokeMethod("setUserAttribute", <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_GENDER",
@@ -108,6 +113,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Set's user's location
   void setLocation(MoEGeoLocation location) {
     _channel.invokeMethod("setUserAttributeLocation", <String, dynamic>{
       attributeName: "USER_ATTRIBUTE_USER_LOCATION",
@@ -116,15 +122,16 @@ class MoEngageFlutter {
     });
   }
 
-  void setBirthdate(String birthdate) {
+  /// Set user's birth-date.
+  /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
+  void setBirthDate(String birthDate) {
     _channel.invokeMethod("setUserAttributeTimestamp", <String, String>{
       attributeName: "USER_ATTRIBUTE_USER_BDAY",
-      attributeValue: birthdate
+      attributeValue: birthDate
     });
   }
 
-  // Custom User Attributes
-
+  /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     _channel.invokeMethod("setUserAttribute", <String, dynamic>{
       attributeName: userAttributeName,
@@ -132,6 +139,8 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks th given time as user-attribute.<br/>
+  /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setIsoDate(String userAttributeName, String isoDateString) {
     _channel.invokeMethod("setUserAttributeTimestamp", <String, String>{
       attributeName: userAttributeName,
@@ -139,6 +148,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// Tracks the given location as user attribute.
   void setUserLocation(String userAttributeName, MoEGeoLocation location) {
     _channel.invokeMethod("setUserAttributeLocation", <String, dynamic>{
       attributeName: userAttributeName,
@@ -147,6 +157,7 @@ class MoEngageFlutter {
     });
   }
 
+  /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus(MoEAppStatus appStatus) {
     _channel.invokeListMethod("setAppStatus", <String, String>{
       attributeValue: appStatus == MoEAppStatus.install ? "INSTALL" : "UPDATE"
@@ -158,16 +169,17 @@ class MoEngageFlutter {
     _channel.invokeMethod("registerForiOSPushNotification");
   }
 
-  // InApp Methods
+  /// Try to show an InApp Message.
   void showInApp() {
     _channel.invokeMethod("showInApp");
   }
 
-  // Logout Method
+  /// Invalidates the existing user and session. A new user and session is created.
   void logout() {
     _channel.invokeMethod("logout");
   }
 
   static const String attributeValue = "attributeValue";
   static const String attributeName = "attributeName";
+  static const String channelName = "flutter_moengage_plugin";
 }

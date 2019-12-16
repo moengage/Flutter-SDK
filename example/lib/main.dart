@@ -147,7 +147,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                 title: Text("Set Birthday"),
                 onTap: () {
-                  _moengagePlugin.setBirthdate("2019-12-02T08:26:21.170Z");
+                  _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
                 },
               ),
               new ListTile(
