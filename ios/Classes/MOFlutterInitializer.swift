@@ -39,12 +39,7 @@ public class MOFlutterInitializer : NSObject, MOInAppDelegate, UNUserNotificatio
     }
     
     func setSDKVersion() {
-        var version = "1.0.0"
-        let bundle = Bundle(for: type(of: self))
-        if let versionStr = bundle.infoDictionary?["CFBundleShortVersionString"] as? String {
-            version = versionStr
-        }
-        UserDefaults.standard.set(version, forKey:MoEngage_Flutter_SDK_Version)
+        UserDefaults.standard.set(MOFlutterPluginInfo.kVersion, forKey:MoEngage_Flutter_SDK_Version)
     }
     
     //MARK:- Push Observer

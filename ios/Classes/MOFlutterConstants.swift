@@ -21,7 +21,7 @@ struct MOFlutterConstants{
         static let kResetUser                   = "logout"
         static let kRegisterForPush             = "registerForiOSPushNotification"
         static let kShowInApp                   = "showInApp"
-        static let kInitializeFlutter               = "initialise"
+        static let kInitializeFlutter           = "initialise"
     }
     
     struct CallbackNames {

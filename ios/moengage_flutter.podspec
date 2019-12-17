@@ -1,6 +1,8 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
+
+require 'yaml'
+pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
+libraryVersion = pubspec['version'].gsub('+', '-')
+
 Pod::Spec.new do |s|
   s.name             = 'moengage_flutter'
   s.version          = '0.0.1'
@@ -16,6 +18,12 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'MoEngage-iOS-SDK', '>=5.2.6', '< 6.0'
+
+  s.prepare_command = <<-CMD
+      echo // Generated file, do not edit > Classes/MOFlutterPluginInfo.swift
+      echo "import Foundation" >> Classes/MOFlutterPluginInfo.swift
+      echo "struct MOFlutterPluginInfo{\n  static let kVersion = \\"#{libraryVersion}\\" \n }" >> Classes/MOFlutterPluginInfo.swift
+    CMD
 
 end
 
