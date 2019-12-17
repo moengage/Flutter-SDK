@@ -66,7 +66,6 @@ class MoEngageFlutter {
   void setAlias(String newUniqueId) {
     _channel.invokeMethod(
         "setAlias", <String, String>{attributeValue: newUniqueId});
-    _channel.invokeMethod('setAlias', newUniqueId);
   }
 
   /// Tracks user-name as a user attribute.

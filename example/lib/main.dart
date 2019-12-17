@@ -19,13 +19,6 @@ class _MyAppState extends State<MyApp> {
   void _onPushClick(Map<String, dynamic> message) {
     print("This is a push click callback from native to flutter. Payload " +
         message.toString());
-    var payload = message["payload"];
-    var moe = payload["moengage"];
-    var cid = moe["cid"];
-    var details = MoEProperties();
-    details
-    .addString("cid", cid);
-    _moengagePlugin.trackEvent('notif_clicked', details);
   }
 
   void _onInAppClick(Map<String, dynamic> message) {
