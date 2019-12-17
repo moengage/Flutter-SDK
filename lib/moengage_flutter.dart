@@ -3,6 +3,7 @@ import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
+import 'package:moengage_flutter/constants.dart';
 
 typedef void MessageHandler(Map<String, dynamic> message);
 
@@ -15,7 +16,7 @@ class MoEngageFlutter {
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
-    _channel.invokeMethod("initialise");
+    _channel.invokeMethod(methodInitialise);
   }
 
   void setUpPushCallbacks(MessageHandler onPushClick) {
@@ -30,13 +31,13 @@ class MoEngageFlutter {
 
   Future<dynamic> _handler(MethodCall call) async {
     print("Received callback in dart. Payload" + call.toString());
-    if (call.method == "onPushClick" && _onPushClick != null) {
+    if (call.method == callbackOnPushClick && _onPushClick != null) {
       _onPushClick(call.arguments.cast<String, dynamic>());
     }
-    if (call.method == "onInAppClick" && _onInAppClick != null) {
+    if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
       _onInAppClick(call.arguments.cast<String, dynamic>());
     }
-    if (call.method == "onInAppShown" && _onInAppShown != null) {
+    if (call.method == callbackOnInAppShown && _onInAppShown != null) {
       _onInAppShown(call.arguments.cast<String, dynamic>());
     }
   }
@@ -48,141 +49,137 @@ class MoEngageFlutter {
     }
     var attributes = eventAttributes.getEventAttributeJson();
     print(attributes);
-    _channel.invokeMethod("trackEvent", <String, dynamic>{
-      "eventName": eventName,
-      "eventAttributes": attributes
+    _channel.invokeMethod(methodTrackEvent, <String, dynamic>{
+      keyEventName: eventName,
+      keyEventAttributes: attributes
     });
   }
 
   /// Set a unique identifier for a user.<br/>
   void setUniqueId(String uniqueId) {
-    _channel.invokeMethod("setUserAttribute", <String, String>{
-      attributeName: "USER_ATTRIBUTE_UNIQUE_ID",
-      attributeValue: uniqueId
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNameUniqueId,
+      keyAttributeValue: uniqueId
     });
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
   void setAlias(String newUniqueId) {
     _channel.invokeMethod(
-        "setAlias", <String, String>{attributeValue: newUniqueId});
+        methodSetAlias, <String, String>{keyAttributeValue: newUniqueId});
   }
 
   /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
-    _channel.invokeMethod("setUserAttribute", <String, dynamic>{
-      attributeName: "USER_ATTRIBUTE_USER_NAME",
-      attributeValue: userName
+    _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
+      keyAttributeName: userAttrNameUserName,
+      keyAttributeValue: userName
     });
   }
 
   /// Tracks first name as a user attribute.
   void setFirstName(String firstName) {
-    _channel.invokeMethod("setUserAttribute", <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_FIRST_NAME",
-      attributeValue: firstName
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNameFirstName,
+      keyAttributeValue: firstName
     });
   }
 
   /// Tracks last name as a user attribute.
   void setLastName(String lastName) {
-    _channel.invokeMethod("setUserAttribute", <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_LAST_NAME",
-      attributeValue: lastName
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNameLastName,
+      keyAttributeValue: lastName
     });
   }
 
   /// Tracks user's email-id as a user attribute.
   void setEmail(String emailId) {
-    _channel.invokeMethod('setUserAttribute', <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_EMAIL",
-      attributeValue: emailId
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNameEmailId,
+      keyAttributeValue: emailId
     });
   }
 
   /// Tracks phone number as a user attribute.
   void setPhoneNumber(String phoneNumber) {
-    _channel.invokeMethod("setUserAttribute", <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_MOBILE",
-      attributeValue: phoneNumber
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNamePhoneNum,
+      keyAttributeValue: phoneNumber
     });
   }
 
   /// Tracks gender as a user attribute.
   void setGender(MoEGender gender) {
-    _channel.invokeMethod("setUserAttribute", <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_GENDER",
-      attributeValue: gender == MoEGender.female ? "female" : "male"
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
+      keyAttributeName: userAttrNameGender,
+      keyAttributeValue: gender == MoEGender.female ? genderFemale : genderMale
     });
   }
 
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
-    _channel.invokeMethod("setUserAttributeLocation", <String, dynamic>{
-      attributeName: "USER_ATTRIBUTE_USER_LOCATION",
-      "latitude": location.latitude,
-      "longitude": location.longitude
+    _channel.invokeMethod(methodSetUserAttributeLocation, <String, dynamic>{
+      keyAttributeName: userAttrNameLocation,
+      keyAttrLatitudeName: location.latitude,
+      keyAttrLongitudeName: location.longitude
     });
   }
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setBirthDate(String birthDate) {
-    _channel.invokeMethod("setUserAttributeTimestamp", <String, String>{
-      attributeName: "USER_ATTRIBUTE_USER_BDAY",
-      attributeValue: birthDate
+    _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
+      keyAttributeName: userAttrNameBirtdate,
+      keyAttributeValue: birthDate
     });
   }
 
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
-    _channel.invokeMethod("setUserAttribute", <String, dynamic>{
-      attributeName: userAttributeName,
-      attributeValue: userAttributeValue
+    _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
+      keyAttributeName: userAttributeName,
+      keyAttributeValue: userAttributeValue
     });
   }
 
   /// Tracks th given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setIsoDate(String userAttributeName, String isoDateString) {
-    _channel.invokeMethod("setUserAttributeTimestamp", <String, String>{
-      attributeName: userAttributeName,
-      attributeValue: isoDateString
+    _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
+      keyAttributeName: userAttributeName,
+      keyAttributeValue: isoDateString
     });
   }
 
   /// Tracks the given location as user attribute.
   void setUserLocation(String userAttributeName, MoEGeoLocation location) {
-    _channel.invokeMethod("setUserAttributeLocation", <String, dynamic>{
-      attributeName: userAttributeName,
-      "latitude": location.latitude,
-      "longitude": location.longitude
+    _channel.invokeMethod(methodSetUserAttributeLocation, <String, dynamic>{
+      keyAttributeName: userAttributeName,
+      keyAttrLatitudeName: location.latitude,
+      keyAttrLongitudeName: location.longitude
     });
   }
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus(MoEAppStatus appStatus) {
-    _channel.invokeListMethod("setAppStatus", <String, String>{
-      attributeValue: appStatus == MoEAppStatus.install ? "INSTALL" : "UPDATE"
+    _channel.invokeListMethod(methodSetAppStatus, <String, String>{
+      keyAttributeValue: appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate
     });
   }
 
   // Push Notification Registration
   void registerForPushNotification() {
-    _channel.invokeMethod("registerForiOSPushNotification");
+    _channel.invokeMethod(methodRegisterForiOSPush);
   }
 
   /// Try to show an InApp Message.
   void showInApp() {
-    _channel.invokeMethod("showInApp");
+    _channel.invokeMethod(methodShowInApp);
   }
 
   /// Invalidates the existing user and session. A new user and session is created.
   void logout() {
-    _channel.invokeMethod("logout");
+    _channel.invokeMethod(methodLogout);
   }
-
-  static const String attributeValue = "attributeValue";
-  static const String attributeName = "attributeName";
-  static const String channelName = "flutter_moengage_plugin";
 }
