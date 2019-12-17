@@ -5,7 +5,7 @@ libraryVersion = pubspec['version'].gsub('+', '-')
 
 Pod::Spec.new do |s|
   s.name             = 'moengage_flutter'
-  s.version          = '0.0.1'
+  s.version          = libraryVersion
   s.summary          = 'A flutter plugin for MoEngage iOS and Android SDKs.'
   s.description      = <<-DESC
   A flutter plugin for MoEngage iOS and Android SDKs.
