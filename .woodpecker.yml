@@ -1,0 +1,24 @@
+---
+pipeline:
+  download:
+    image: docker
+    commands:
+      - docker pull 612427630422.dkr.ecr.us-east-1.amazonaws.com/sre/moe-trufflehog
+      - docker pull 612427630422.dkr.ecr.us-east-1.amazonaws.com/sre/checkov
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/ec2-user/.docker:/root/.docker
+
+  secret-checker:
+    image: 612427630422.dkr.ecr.us-east-1.amazonaws.com/sre/moe-trufflehog
+    commands:
+      - python /moe-truffleHog/truffleHog/truffleHog.py --regex --rules /moe-truffleHog/rules.json --max_depth 1 --branch "${DRONE_BRANCH}" "https://github.com/${DRONE_REPO}.git" --entropy true
+  
+  notify_to_slack:
+    image: plugins/slack
+    when:
+      status: [ failure ]
+    secrets: [ SLACK_WEBHOOK ]
+    settings:
+      template: >
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed. Tokens Found, Please remove tokens {{ build.author }}.
