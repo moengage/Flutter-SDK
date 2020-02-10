@@ -10,6 +10,8 @@ import com.moengage.core.Logger;
 import com.moengage.core.MoEUtils;
 import com.moengage.core.model.AppStatus;
 import com.moengage.inapp.MoEInAppHelper;
+import com.moengage.push.PushManager;
+import com.moengage.pushbase.MoEPushHelper;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -80,6 +82,12 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
           break;
         case Constants.METHOD_NAME_SET_USER_ATTRIBUTE_TIMESTAMP:
           setTimestamp(call);
+          break;
+        case Constants.METHOD_NAME_PUSH_PAYLOAD:
+          passPushPayload(call);
+          break;
+        case Constants.METHOD_NAME_PUSH_TOKEN:
+          passPushToken(call);
           break;
         default:
           Logger.e(TAG + " onMethodCall() : No mapping for this method.");
@@ -256,7 +264,7 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
 
 
   private void setTimestamp(MethodCall methodCall) {
-    if (methodCall.arguments == null)  return;
+    if (methodCall.arguments == null) return;
     Logger.v(TAG + " setTimestamp() : Arguments: " + methodCall.arguments);
     if (!methodCall.hasArgument(ARGUMENT_ATTRIBUTE_NAME) || !methodCall.hasArgument(
         ARGUMENT_ATTRIBUTE_VALUE)) return;
@@ -266,6 +274,25 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
     String attributeValue = methodCall.argument(ARGUMENT_ATTRIBUTE_VALUE);
     if (MoEUtils.isEmptyString(attributeName) || MoEUtils.isEmptyString(attributeValue)) return;
     MoEHelper.getInstance(context).setUserAttributeISODate(attributeName, attributeValue);
+  }
+
+  private void passPushToken(MethodCall methodCall) {
+    if (methodCall.arguments == null) return;
+    Logger.v(TAG + " passPushToken() : Arguments: " + methodCall.arguments);
+    if (!methodCall.hasArgument(ARGUMENT_PUSH_TOKEN)) return;
+    if (!(methodCall.argument(ARGUMENT_PUSH_TOKEN) instanceof String)) return;
+    String pushToken = methodCall.argument(ARGUMENT_PUSH_TOKEN);
+    PushManager.getInstance().refreshToken(context, pushToken);
+  }
+
+  private void passPushPayload(MethodCall methodCall) {
+    if (methodCall.arguments == null) return;
+    Logger.v(TAG + " passPushPayload() : Arguments: " + methodCall.arguments);
+    if (!methodCall.hasArgument(ARGUMENT_PUSH_PAYLOAD)) return;
+    if (!(methodCall.argument(ARGUMENT_PUSH_PAYLOAD) instanceof HashMap)) return;
+    HashMap<String, String> payload = methodCall.argument(ARGUMENT_PUSH_PAYLOAD);
+    if (payload == null) return;
+    MoEPushHelper.getInstance().handlePushPayload(context, payload);
   }
 
   static void sendOrQueueCallback(String methodName, Map<String, Object> message) {
@@ -292,6 +319,8 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
 
   private static final String ARGUMENT_ATTRIBUTE_NAME = "attributeName";
   private static final String ARGUMENT_ATTRIBUTE_VALUE = "attributeValue";
+  private static final String ARGUMENT_PUSH_TOKEN = "pushToken";
+  private static final String ARGUMENT_PUSH_PAYLOAD = "pushPayload";
 
   private static final String ARGUMENT_EVENT_NAME = "eventName";
   private static final String ARGUMENT_EVENT_ATTRIBUTES = "eventAttributes";
