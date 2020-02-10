@@ -182,4 +182,16 @@ class MoEngageFlutter {
   void logout() {
     _channel.invokeMethod(methodLogout);
   }
+
+  void passPushToken(String pushToken){
+    _channel.invokeMethod(methodPushToken, <String, String>{
+      keyPushToken: pushToken
+    });
+  }
+
+    void passPushPayload(Map<String, String> payload){
+      _channel.invokeMethod(methodPushPayLoad, <String, dynamic>{
+        keyPushPayload: payload
+      });
+    }
 }

@@ -33,6 +33,6 @@ android {
     }
 }
 dependencies{
-    compileOnly "com.moengage:moe-android-sdk:9.8.01"
+    compileOnly "com.moengage:moe-android-sdk:9.8.03"
 }
 apply from: file("./user-agent.gradle")

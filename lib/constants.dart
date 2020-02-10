@@ -12,6 +12,8 @@ const String methodRegisterForiOSPush  = "registerForiOSPushNotification";
 const String methodSetAppStatus = "setAppStatus";
 const String methodShowInApp = "showInApp";
 const String methodLogout = "logout";
+const String methodPushToken = "pushToken";
+const String methodPushPayLoad = "pushPayload";
 
 // Callback Names
 const String callbackOnPushClick    = "onPushClick";
@@ -44,3 +46,5 @@ const String keyAttributeValue    = "attributeValue";
 const String keyAttributeName     = "attributeName";
 const String keyAttrLatitudeName  = "latitude";
 const String keyAttrLongitudeName = "longitude";
+const String keyPushToken = "pushToken";
+const String keyPushPayload = "pushPayload";

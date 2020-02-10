@@ -37,7 +37,8 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
     _moengagePlugin.initialise();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
-    _moengagePlugin.setUpInAppCallbacks(onInAppClick: _onInAppClick, onInAppShown: _onInAppShown);
+    _moengagePlugin.setUpInAppCallbacks(
+        onInAppClick: _onInAppClick, onInAppShown: _onInAppShown);
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -144,13 +145,13 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.trackEvent("testEvent", null);
                   }),
               new ListTile(
-                title: Text("Set Birthday"),
-                onTap: () {
-                  _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
-                }),
+                  title: Text("Set Birthday"),
+                  onTap: () {
+                    _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
+                  }),
               new ListTile(
                 title: Text("Set Alias"),
-                onTap: (){
+                onTap: () {
                   _moengagePlugin.setAlias('testUser@moengage.com');
                 },
               ),
@@ -162,11 +163,30 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
               new ListTile(
+                  title: Text("Push Token"),
+                  onTap: () {
+                    _moengagePlugin.passPushToken("dummyToken");
+                  }
+              ),
+              new ListTile(
+                  title: Text("Push Payload"),
+                  onTap: () {
+                    var pushPayload = Map<String, String>();
+                    pushPayload.putIfAbsent("push_from", () => "moengage");
+                    pushPayload.putIfAbsent("gcm_title", () => "Title");
+                    pushPayload.putIfAbsent("gcm_notificationType", () => "normal notification");
+                    pushPayload.putIfAbsent("gcm_alert", () => "Message");
+                    pushPayload.putIfAbsent("gcm_campaign_id", () => "123456");
+                    pushPayload.putIfAbsent("gcm_activityName", () => "com.moe.pushlibrary.activities.MoEActivity");
+                    _moengagePlugin.passPushPayload(pushPayload);
+                  }
+              ),
+              new ListTile(
                 title: Text("Logout"),
-                onTap: (){
+                onTap: () {
                   _moengagePlugin.logout();
                 },
-              )
+              ),
             ]).toList(),
           ),
         ),

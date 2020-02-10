@@ -57,7 +57,7 @@ dependencies {
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-  implementation 'com.moengage:moe-android-sdk:9.8.01'
+  implementation 'com.moengage:moe-android-sdk:9.8.03'
   implementation "com.google.firebase:firebase-messaging:17.3.2"
 }
 
