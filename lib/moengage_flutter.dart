@@ -164,7 +164,8 @@ class MoEngageFlutter {
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus(MoEAppStatus appStatus) {
     _channel.invokeListMethod(methodSetAppStatus, <String, String>{
-      keyAttributeValue: appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate
+      keyAttributeValue:
+          appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate
     });
   }
 
@@ -183,15 +184,17 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodLogout);
   }
 
-  void passPushToken(String pushToken){
-    _channel.invokeMethod(methodPushToken, <String, String>{
-      keyPushToken: pushToken
-    });
+  /// Pass FCM Push Token to the MoEngage SDK.
+  /// Note: This API is only for Android Platform.
+  void passPushToken(String pushToken) {
+    _channel.invokeMethod(
+        methodPushToken, <String, String>{keyPushToken: pushToken});
   }
 
-    void passPushPayload(Map<String, String> payload){
-      _channel.invokeMethod(methodPushPayLoad, <String, dynamic>{
-        keyPushPayload: payload
-      });
-    }
+  /// Pass FCM Push Payload to the MoEngage SDK.
+  /// Note: This API is only for Android Platform.
+  void passPushPayload(Map<String, String> payload) {
+    _channel.invokeMethod(
+        methodPushPayLoad, <String, dynamic>{keyPushPayload: payload});
+  }
 }
