@@ -4,6 +4,7 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
+import 'dart:js' as js;
 
 typedef void MessageHandler(Map<String, dynamic> message);
 
@@ -13,6 +14,9 @@ class MoEngageFlutter {
   MessageHandler _onPushClick;
   MessageHandler _onInAppClick;
   MessageHandler _onInAppShown;
+
+  var moengage = js.JsObject.fromBrowserObject(js.context['Moengage']);
+
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
@@ -48,11 +52,13 @@ class MoEngageFlutter {
       eventAttributes = MoEProperties();
     }
     var attributes = eventAttributes.getEventAttributeJson();
-    print(attributes);
+    
     _channel.invokeMethod(methodTrackEvent, <String, dynamic>{
       keyEventName: eventName,
       keyEventAttributes: attributes
     });
+   
+    moengage.callMethod('track_event', [eventName, js.JsObject.jsify(attributes)]);
   }
 
   /// Set a unique identifier for a user.<br/>
@@ -61,12 +67,14 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameUniqueId,
       keyAttributeValue: uniqueId
     });
+    moengage.callMethod('add_unique_user_id', [uniqueId]);
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
   void setAlias(String newUniqueId) {
     _channel.invokeMethod(
         methodSetAlias, <String, String>{keyAttributeValue: newUniqueId});
+    moengage.callMethod('update_unique_user_id', [newUniqueId]);
   }
 
   /// Tracks user-name as a user attribute.
@@ -75,6 +83,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameUserName,
       keyAttributeValue: userName
     });
+    moengage.callMethod('add_user_name', [userName]);
   }
 
   /// Tracks first name as a user attribute.
@@ -83,6 +92,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameFirstName,
       keyAttributeValue: firstName
     });
+    moengage.callMethod('add_first_name', [firstName]);
   }
 
   /// Tracks last name as a user attribute.
@@ -91,6 +101,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameLastName,
       keyAttributeValue: lastName
     });
+    moengage.callMethod('add_last_name', [lastName]);
   }
 
   /// Tracks user's email-id as a user attribute.
@@ -99,6 +110,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameEmailId,
       keyAttributeValue: emailId
     });
+    moengage.callMethod('add_email', [emailId]);
   }
 
   /// Tracks phone number as a user attribute.
@@ -107,6 +119,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNamePhoneNum,
       keyAttributeValue: phoneNumber
     });
+    moengage.callMethod('add_mobile', [phoneNumber]);
   }
 
   /// Tracks gender as a user attribute.
@@ -115,6 +128,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameGender,
       keyAttributeValue: gender == MoEGender.female ? genderFemale : genderMale
     });
+    moengage.callMethod('add_gender', [gender]);
   }
 
   /// Set's user's location
@@ -124,6 +138,7 @@ class MoEngageFlutter {
       keyAttrLatitudeName: location.latitude,
       keyAttrLongitudeName: location.longitude
     });
+    // TODO: add location for web sdk
   }
 
   /// Set user's birth-date.
@@ -133,6 +148,8 @@ class MoEngageFlutter {
       keyAttributeName: userAttrNameBirtdate,
       keyAttributeValue: birthDate
     });
+    // TODO: check date format
+    moengage.callMethod('add_birthday', [birthDate]);
   }
 
   /// Tracks a user attribute.
@@ -141,6 +158,7 @@ class MoEngageFlutter {
       keyAttributeName: userAttributeName,
       keyAttributeValue: userAttributeValue
     });
+    moengage.callMethod('add_user_attribute', [userAttributeName, userAttributeValue]);
   }
 
   /// Tracks th given time as user-attribute.<br/>
@@ -150,6 +168,8 @@ class MoEngageFlutter {
       keyAttributeName: userAttributeName,
       keyAttributeValue: isoDateString
     });
+    // TODO: convert date
+    moengage.callMethod('add_user_attribute', [userAttributeName, isoDateString]);
   }
 
   /// Tracks the given location as user attribute.
@@ -182,6 +202,7 @@ class MoEngageFlutter {
   /// Invalidates the existing user and session. A new user and session is created.
   void logout() {
     _channel.invokeMethod(methodLogout);
+    moengage.callMethod('destroy_session');
   }
 
   /// Pass FCM Push Token to the MoEngage SDK.
