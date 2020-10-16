@@ -7,6 +7,8 @@ class MoEProperties {
   Map<String, String> dateTimeAttributes;
   bool isNonInteractive;
 
+  //todo add JSON object and JSONArray
+
   MoEProperties() {
     generalAttributes = new Map();
     locationAttributes = new Map();
@@ -77,9 +79,11 @@ class MoEProperties {
 
   Map<String, dynamic> getEventAttributeJson() {
     return {
+    "eventAttributes": {
       'generalAttributes': this.generalAttributes,
       'locationAttributes': this.locationAttributes,
-      'dateTimeAttributes': this.dateTimeAttributes,
+      'dateTimeAttributes': this.dateTimeAttributes
+    },
       'isNonInteractive': this.isNonInteractive
     };
   }

@@ -14,15 +14,25 @@ const String methodShowInApp = "showInApp";
 const String methodLogout = "logout";
 const String methodPushToken = "pushToken";
 const String methodPushPayLoad = "pushPayload";
+const String methodEnableSDKLogs = "enableSDKLogs";
+const String methodSelfHandledInApp = "selfHandledInApp";
+const String methodSelfHandledCallback = "selfHandledCallback";
+const String methodSetAppContext = "setAppContext";
+const String methodResetAppContext = "resetCurrentContext";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
 const String callbackOnInAppShown = "onInAppShown";
 const String callbackOnInAppClicked = "onInAppClick";
+const String callbackOnInAppDismissed = "onInAppDismiss";
+const String callbackOnInAppCustomAction = "onInAppCustomAction";
+const String callbackOnInAppSelfHandled = "onInAppSelfHandle";
+
 
 // Gender Value Constants
 const String genderMale = "male";
 const String genderFemale = "female";
+const String genderOther = "other";
 
 // AppStatus Value Constants
 const String appStatusInstall = "INSTALL";
@@ -48,3 +58,21 @@ const String keyAttrLatitudeName = "latitude";
 const String keyAttrLongitudeName = "longitude";
 const String keyPushToken = "pushToken";
 const String keyPushPayload = "pushPayload";
+const String keyAttributeType = "type";
+const String keyAlias = "alias";
+const String keyLocationAttribute = "locationAttribute";
+
+//InApp Campaign Constants
+
+String keyPlatform = "platform";
+String keyCampaignId = "campaignId";
+String keyCampaignName = "campaignName";
+String keyNavigation = "navigation";
+String keySelfHandled = "selfHandled";
+String keyCustomAction = "customAction";
+
+//PushPayload Constants
+String keyIsDefaultAction = "isDefaultAction";
+String keyClickedAction = "clickedAction";
+String keyPayload = "payload";
+

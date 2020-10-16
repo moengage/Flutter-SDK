@@ -17,6 +17,11 @@ public interface Constants {
   String METHOD_NAME_LOGOUT = "logout";
   String METHOD_NAME_PUSH_TOKEN = "pushToken";
   String METHOD_NAME_PUSH_PAYLOAD = "pushPayload";
+  String METHOD_NAME_ENABLE_SDK_LOGS = "enableSDKLogs";
+  String METHOD_NAME_SELF_HANDLED_INAPP = "selfHandledInApp";
+  String METHOD_NAME_SELF_HANDLED_CALLBACK = "selfHandledCallback";
+  String METHOD_NAME_SET_APP_CONTEXT = "setAppContext";
+  String METHOD_NAME_RESET_APP_CONTEXT = "resetCurrentContext";
 
   String METHOD_NAME_ON_PUSH_CLICK = "onPushClick";
   String METHOD_NAME_ON_INAPP_SHOWN = "onInAppShown";

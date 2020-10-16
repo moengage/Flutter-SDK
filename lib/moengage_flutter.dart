@@ -1,9 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/app_status.dart';
+import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/user_attribute_type.dart';
+import 'package:moengage_flutter/utils.dart';
+
+import 'constants.dart';
+import 'gender.dart';
 
 typedef void MessageHandler(Map<String, dynamic> message);
 
@@ -13,6 +19,9 @@ class MoEngageFlutter {
   MessageHandler _onPushClick;
   MessageHandler _onInAppClick;
   MessageHandler _onInAppShown;
+  MessageHandler _onInAppDismiss;
+  MessageHandler _onInAppCustomAction;
+  MessageHandler _onInAppSelfHandle;
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
@@ -24,9 +33,14 @@ class MoEngageFlutter {
   }
 
   void setUpInAppCallbacks(
-      {MessageHandler onInAppClick, MessageHandler onInAppShown}) {
+      {MessageHandler onInAppClick, MessageHandler onInAppShown,
+        MessageHandler onInAppDismiss, MessageHandler onInAppCustomAction,
+        MessageHandler onInAppSelfHandle}) {
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
+    _onInAppDismiss = onInAppDismiss;
+    _onInAppCustomAction = onInAppCustomAction;
+    _onInAppSelfHandle = onInAppSelfHandle;
   }
 
   Future<dynamic> _handler(MethodCall call) async {
@@ -40,25 +54,32 @@ class MoEngageFlutter {
     if (call.method == callbackOnInAppShown && _onInAppShown != null) {
       _onInAppShown(call.arguments.cast<String, dynamic>());
     }
+    if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
+      _onInAppShown(call.arguments.cast<String, dynamic>());
+    }
+    if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
+      _onInAppShown(call.arguments.cast<String, dynamic>());
+    }
+    if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
+      _onInAppShown(call.arguments.cast<String, dynamic>());
+    }
+  }
+
+  /// Enables MoEngage logs.
+  void enableSDKLogs() {
+    _channel.invokeMethod(methodEnableSDKLogs);
   }
 
   /// Tracks an event with the given attributes.
   void trackEvent(String eventName, MoEProperties eventAttributes) {
-    if (eventAttributes == null) {
-      eventAttributes = MoEProperties();
-    }
-    var attributes = eventAttributes.getEventAttributeJson();
-    print(attributes);
-    _channel.invokeMethod(methodTrackEvent, <String, dynamic>{
-      keyEventName: eventName,
-      keyEventAttributes: attributes
-    });
+    _channel.invokeMethod(methodTrackEvent, getEventPayload(eventName, eventAttributes));
   }
 
   /// Set a unique identifier for a user.<br/>
   void setUniqueId(String uniqueId) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameUniqueId,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: uniqueId
     });
   }
@@ -66,13 +87,14 @@ class MoEngageFlutter {
   /// Update user's unique id which was previously set by setUniqueId().
   void setAlias(String newUniqueId) {
     _channel.invokeMethod(
-        methodSetAlias, <String, String>{keyAttributeValue: newUniqueId});
+        methodSetAlias, <String, String>{keyAlias: newUniqueId});
   }
 
   /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
       keyAttributeName: userAttrNameUserName,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: userName
     });
   }
@@ -81,6 +103,7 @@ class MoEngageFlutter {
   void setFirstName(String firstName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameFirstName,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: firstName
     });
   }
@@ -89,6 +112,7 @@ class MoEngageFlutter {
   void setLastName(String lastName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameLastName,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: lastName
     });
   }
@@ -97,6 +121,7 @@ class MoEngageFlutter {
   void setEmail(String emailId) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameEmailId,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: emailId
     });
   }
@@ -105,6 +130,7 @@ class MoEngageFlutter {
   void setPhoneNumber(String phoneNumber) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNamePhoneNum,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: phoneNumber
     });
   }
@@ -113,17 +139,16 @@ class MoEngageFlutter {
   void setGender(MoEGender gender) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameGender,
-      keyAttributeValue: gender == MoEGender.female ? genderFemale : genderMale
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeValue: moEGenderToString(gender)
     });
   }
 
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttributeLocation, <String, dynamic>{
-      keyAttributeName: userAttrNameLocation,
-      keyAttrLatitudeName: location.latitude,
-      keyAttrLongitudeName: location.longitude
-    });
+    _channel.invokeMethod(methodSetUserAttributeLocation,
+        getLocationPayload(keyLocationAttribute, location)
+    );
   }
 
   /// Set user's birth-date.
@@ -131,6 +156,7 @@ class MoEngageFlutter {
   void setBirthDate(String birthDate) {
     _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
       keyAttributeName: userAttrNameBirtdate,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
       keyAttributeValue: birthDate
     });
   }
@@ -139,6 +165,7 @@ class MoEngageFlutter {
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
       keyAttributeName: userAttributeName,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
       keyAttributeValue: userAttributeValue
     });
   }
@@ -148,17 +175,16 @@ class MoEngageFlutter {
   void setIsoDate(String userAttributeName, String isoDateString) {
     _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
       keyAttributeName: userAttributeName,
+      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
       keyAttributeValue: isoDateString
     });
   }
 
   /// Tracks the given location as user attribute.
   void setUserLocation(String userAttributeName, MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttributeLocation, <String, dynamic>{
-      keyAttributeName: userAttributeName,
-      keyAttrLatitudeName: location.latitude,
-      keyAttrLongitudeName: location.longitude
-    });
+    _channel.invokeMethod(methodSetUserAttributeLocation,
+        getLocationPayload(userAttributeName, location)
+    );
   }
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
@@ -182,6 +208,40 @@ class MoEngageFlutter {
   /// Invalidates the existing user and session. A new user and session is created.
   void logout() {
     _channel.invokeMethod(methodLogout);
+  }
+
+  void getSelfHandledInApp() {
+    _channel.invokeMethod(methodLogout);
+  }
+
+  void selfHandledShown(InAppCampaign inAppCampaign) {
+    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    payload[keyAttributeType] = "impression";
+    _channel.invokeMethod(methodSelfHandledCallback, payload);
+  }
+
+  void selfHandledPrimaryClicked(InAppCampaign inAppCampaign) {
+    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    payload[keyAttributeType] = "primary_clicked";
+    _channel.invokeMethod(methodSelfHandledCallback, payload);
+  }
+
+  void selfHandledClicked(InAppCampaign inAppCampaign) {
+    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    payload[keyAttributeType] = "click";
+    _channel.invokeMethod(methodSelfHandledCallback, payload);
+  }
+
+  void selfHandledDismissed(InAppCampaign inAppCampaign) {
+    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    payload[keyAttributeType] = "dismissed";
+    _channel.invokeMethod(methodSelfHandledCallback, payload);
+  }
+
+  void setCurrentContext(List<String> contexts) {
+    _channel.invokeMethod(methodSetAppContext, <String, dynamic> {
+      "contexts": contexts
+    });
   }
 
   /// Pass FCM Push Token to the MoEngage SDK.

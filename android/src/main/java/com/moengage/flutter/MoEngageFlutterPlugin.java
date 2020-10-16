@@ -3,6 +3,8 @@ package com.moengage.flutter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import com.moe.pushlibrary.MoEHelper;
 import com.moe.pushlibrary.PayloadBuilder;
 import com.moe.pushlibrary.models.GeoLocation;
@@ -12,6 +14,7 @@ import com.moengage.core.model.AppStatus;
 import com.moengage.inapp.MoEInAppHelper;
 import com.moengage.push.PushManager;
 import com.moengage.pushbase.MoEPushHelper;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -23,7 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MoEngageFlutterPlugin implements MethodCallHandler {
+public class MoEngageFlutterPlugin implements FlutterPlugin, MethodCallHandler {
 
   private static final String TAG = "MoEngageFlutterPlugin";
   private static Context context;
@@ -59,6 +62,10 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
         case Constants.METHOD_NAME_INITIALISE:
           onInitialised();
           break;
+
+        case Constants.METHOD_NAME_ENABLE_SDK_LOGS:
+          enableSDKLogs();
+          break;
         case Constants.METHOD_NAME_SET_USER_ATTRIBUTE:
           setUserAttribute(call);
           break;
@@ -82,6 +89,15 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
           break;
         case Constants.METHOD_NAME_SET_USER_ATTRIBUTE_TIMESTAMP:
           setTimestamp(call);
+          break;
+        case Constants.METHOD_NAME_SELF_HANDLED_INAPP:
+          getSelfHandledInAPP(call);
+          break;
+        case Constants.METHOD_NAME_SET_APP_CONTEXT:
+          setAppContext(call);
+          break;
+        case Constants.METHOD_NAME_RESET_APP_CONTEXT:
+          resetAppContext();
           break;
         case Constants.METHOD_NAME_PUSH_PAYLOAD:
           passPushPayload(call);
@@ -109,6 +125,10 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
       }
       messageQueue.clear();
     }
+  }
+
+  private void enableSDKLogs() {
+    MoEHelper.getInstance(context).enableSDKLogs();
   }
 
   private void setUserAttribute(MethodCall methodCall) {
@@ -276,6 +296,18 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
     MoEHelper.getInstance(context).setUserAttributeISODate(attributeName, attributeValue);
   }
 
+  private void getSelfHandledInAPP(MethodCall methodCall) {
+
+  }
+
+  private void setAppContext(MethodCall methodCall) {
+
+  }
+
+  private void resetAppContext() {
+
+  }
+
   private void passPushToken(MethodCall methodCall) {
     if (methodCall.arguments == null) return;
     Logger.v(TAG + " passPushToken() : Arguments: " + methodCall.arguments);
@@ -330,4 +362,12 @@ public class MoEngageFlutterPlugin implements MethodCallHandler {
   private static final String ARGUMENT_IS_NON_INTERACTIVE_EVENT = "isNonInteractive";
   private static final String ARGUMENT_LATITUDE = "latitude";
   private static final String ARGUMENT_LONGITUDE = "longitude";
+
+  @Override public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+
+  }
+
+  @Override public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+
+  }
 }

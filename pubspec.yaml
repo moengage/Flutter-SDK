@@ -6,6 +6,7 @@ homepage: https://www.moengage.com
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.10.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -17,6 +18,11 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.moengage.flutter
-    pluginClass: MoEngageFlutterPlugin
+    platforms:
+      android:
+        package: com.moengage.flutter
+        pluginClass: MoEngageFlutterPlugin
+      ios:
+        pluginClass: MoEngageFlutterPlugin
+
 
