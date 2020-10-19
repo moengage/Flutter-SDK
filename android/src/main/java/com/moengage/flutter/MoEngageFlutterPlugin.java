@@ -105,6 +105,15 @@ public class MoEngageFlutterPlugin implements FlutterPlugin, MethodCallHandler {
         case Constants.METHOD_NAME_PUSH_TOKEN:
           passPushToken(call);
           break;
+        case Constants.METHOD_NAME_OPT_OUT_DATA_TRACKING:
+          optOutDataTracking(call);
+          break;
+        case Constants.METHOD_NAME_OPT_OUT_PUSH_TRACKING:
+          optOutPushNotification(call);
+          break;
+        case Constants.METHOD_NAME_OPT_OUT_INAPP_TRACKING:
+          optOutInAppNotification(call);
+          break;
         default:
           Logger.e(TAG + " onMethodCall() : No mapping for this method.");
       }
@@ -128,7 +137,7 @@ public class MoEngageFlutterPlugin implements FlutterPlugin, MethodCallHandler {
   }
 
   private void enableSDKLogs() {
-    MoEHelper.getInstance(context).enableSDKLogs();
+    //MoEHelper.getInstance(context).enableSDKLogs();
   }
 
   private void setUserAttribute(MethodCall methodCall) {
@@ -325,6 +334,18 @@ public class MoEngageFlutterPlugin implements FlutterPlugin, MethodCallHandler {
     HashMap<String, String> payload = methodCall.argument(ARGUMENT_PUSH_PAYLOAD);
     if (payload == null) return;
     MoEPushHelper.getInstance().handlePushPayload(context, payload);
+  }
+
+  private void optOutDataTracking(MethodCall methodCall) {
+
+  }
+
+  private void optOutPushNotification(MethodCall methodCall) {
+
+  }
+
+  private void optOutInAppNotification(MethodCall methodCall) {
+
   }
 
   static void sendOrQueueCallback(String methodName, Map<String, Object> message) {

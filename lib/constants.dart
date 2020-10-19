@@ -19,6 +19,9 @@ const String methodSelfHandledInApp = "selfHandledInApp";
 const String methodSelfHandledCallback = "selfHandledCallback";
 const String methodSetAppContext = "setAppContext";
 const String methodResetAppContext = "resetCurrentContext";
+const String methodOptOutDataTracking = "optOutDataTracking";
+const String methodOptOutPushTracking = "optOutPushNotification";
+const String methodOptOutInAppNotification = "optOutInAppNotification";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -61,18 +64,37 @@ const String keyPushPayload = "pushPayload";
 const String keyAttributeType = "type";
 const String keyAlias = "alias";
 const String keyLocationAttribute = "locationAttribute";
+const String keyState = "state";
+
+const String keyPayload = "payload";
+const String keyKvPair = "kvPair";
 
 //InApp Campaign Constants
+const String keyPlatform = "platform";
+const String keyCampaignId = "campaignId";
+const String keyCampaignName = "campaignName";
+const String keyNavigation = "navigation";
+const String keySelfHandled = "selfHandled";
+const String keyCustomAction = "customAction";
 
-String keyPlatform = "platform";
-String keyCampaignId = "campaignId";
-String keyCampaignName = "campaignName";
-String keyNavigation = "navigation";
-String keySelfHandled = "selfHandled";
-String keyCustomAction = "customAction";
+// Navigation action Constants
+const String keyNavigationType = "navigationType";
+const String keyValue = "value";
+
+// SelHandled InApp Constants
+const String keyDismissInterval = "dismissInterval";
+const String keyIsCancellable = "isCancellable";
 
 //PushPayload Constants
-String keyIsDefaultAction = "isDefaultAction";
-String keyClickedAction = "clickedAction";
-String keyPayload = "payload";
+const String keyIsDefaultAction = "isDefaultAction";
+const String keyClickedAction = "clickedAction";
 
+// User Attribute Type value Constants
+const String userAttrTypeGeneral = "general";
+const String userAttrTypeTimestamp = "timestamp";
+const String userAttrTypeLocation = "location";
+
+// GDPR Opt-Outs Constants
+const String gdprOptOutTypeData = "data";
+const String gdprOptOutTypePush = "push";
+const String gdprOptOutTypeInApp = "inapp";

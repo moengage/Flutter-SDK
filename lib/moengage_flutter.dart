@@ -8,9 +8,6 @@ import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/user_attribute_type.dart';
 import 'package:moengage_flutter/utils.dart';
 
-import 'constants.dart';
-import 'gender.dart';
-
 typedef void MessageHandler(Map<String, dynamic> message);
 
 class MoEngageFlutter {
@@ -248,13 +245,38 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passPushToken(String pushToken) {
     _channel.invokeMethod(
-        methodPushToken, <String, String>{keyPushToken: pushToken});
+        methodPushToken, <String, String> {
+          keyPushToken: pushToken
+        });
   }
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
   void passPushPayload(Map<String, String> payload) {
     _channel.invokeMethod(
-        methodPushPayLoad, <String, dynamic>{keyPushPayload: payload});
+        methodPushPayLoad, <String, dynamic> {
+          keyPushPayload: payload
+        });
+  }
+
+  void optOutDataTracking(bool shouldOptOutDataTracking) {
+    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+      keyAttributeType: gdprOptOutTypeData,
+      keyState: shouldOptOutDataTracking
+    });
+  }
+
+  void optOutPushTracking(bool shouldOptOutDataTracking) {
+    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+      keyAttributeType: gdprOptOutTypePush,
+      keyState: shouldOptOutDataTracking
+    });
+  }
+
+  void optOutInAppTracking(bool shouldOptOutDataTracking) {
+    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+      keyAttributeType: gdprOptOutTypeInApp,
+      keyState: shouldOptOutDataTracking
+    });
   }
 }

@@ -1,17 +1,20 @@
 import 'constants.dart';
 
 class CustomAction {
+
   Map<String, dynamic> keyValuePair;
 
-  CustomAction(Map<String, dynamic> kvPair) {
-    keyValuePair = kvPair;
-  }
+  CustomAction(this.keyValuePair);
 
   Map<String, dynamic> toJSON() {
     return {
-      _keyKVPair: keyValuePair.isEmpty? "": keyValuePair
+      keyKvPair: this.keyValuePair,
     };
   }
 
-  String _keyKVPair = "kvPair";
+  String toString() {
+    return "{\n" +
+        "keyValuePairs:" + keyValuePair.toString() + "\n" +
+        "}";
+  }
 }

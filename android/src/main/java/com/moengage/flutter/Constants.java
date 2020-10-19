@@ -22,6 +22,9 @@ public interface Constants {
   String METHOD_NAME_SELF_HANDLED_CALLBACK = "selfHandledCallback";
   String METHOD_NAME_SET_APP_CONTEXT = "setAppContext";
   String METHOD_NAME_RESET_APP_CONTEXT = "resetCurrentContext";
+  String METHOD_NAME_OPT_OUT_DATA_TRACKING = "optOutDataTracking";
+  String METHOD_NAME_OPT_OUT_PUSH_TRACKING = "optOutPushNotification";
+  String METHOD_NAME_OPT_OUT_INAPP_TRACKING = "optOutInAppNotification";
 
   String METHOD_NAME_ON_PUSH_CLICK = "onPushClick";
   String METHOD_NAME_ON_INAPP_SHOWN = "onInAppShown";

@@ -45,19 +45,50 @@ import 'properties.dart';
     }
 
     if (campaignId.isNotEmpty || campaignName.isNotEmpty) {
-  // todo log and return
+      print("ERROR: InAppCampaign fromMap() : campaignId or campaignName is empty.");
     }
     if (inAppCampaignMap.containsKey(keyPlatform)) {
      platform = inAppCampaignMap[keyPlatform];
     }
     if (inAppCampaignMap.containsKey(keyNavigation)) {
-      navigationAction = NavigationAction((inAppCampaignMap[keyNavigation]));
+      String navigationType;
+      String url;
+      Map<String, dynamic> keyValuePairs;
+
+      Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
+      if (navigationMap.containsKey(keyNavigationType)) {
+        navigationType = navigationMap[keyNavigationType];
+      }
+      if (navigationMap.containsKey(keyValue)) {
+        url = navigationMap[keyValue];
+      }
+      if (navigationMap.containsKey(keyKvPair)) {
+        keyValuePairs = navigationMap[keyKvPair];
+      }
+      navigationAction = NavigationAction(navigationType, url, keyValuePairs);
     }
     if (inAppCampaignMap.containsKey(keySelfHandled)) {
-     selfHandled = SelfHandled((inAppCampaignMap[keySelfHandled]));
+      String campaignContent;
+      int dismissInterval;
+      bool cancellable;
+
+      Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
+
+      if (selfHandledMap.containsKey(keyPayload)) {
+        campaignContent = selfHandledMap[keyPayload];
+      }
+      if (selfHandledMap.containsKey(keyDismissInterval)) {
+        cancellable = selfHandledMap[keyDismissInterval];
+      }
+      if (selfHandledMap.containsKey(keyIsCancellable)) {
+        campaignContent = selfHandledMap[keyIsCancellable];
+      }
+      selfHandled = SelfHandled(campaignContent, dismissInterval, cancellable);
     }
     if (inAppCampaignMap.containsKey(keyCustomAction)) {
-      customAction = CustomAction((inAppCampaignMap[keyCustomAction]));
+      customAction = CustomAction(inAppCampaignMap[keyCustomAction]);
     }
 
+    return InAppCampaign(campaignId, campaignName, platform, navigationAction,
+        selfHandled, customAction);
   }
