@@ -5,6 +5,8 @@ import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/app_status.dart';
+import 'package:moengage_flutter/push_campaign.dart';
+import 'package:moengage_flutter/inapp_campaign.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,18 +18,33 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
 
-  void _onPushClick(Map<String, dynamic> message) {
+  void _onPushClick(PushCampaign message) {
     print("This is a push click callback from native to flutter. Payload " +
         message.toString());
   }
 
-  void _onInAppClick(Map<String, dynamic> message) {
+  void _onInAppClick(InAppCampaign message) {
     print("This is a inapp click callback from native to flutter. Payload " +
         message.toString());
   }
 
-  void _onInAppShown(Map<String, dynamic> message) {
+  void _onInAppShown(InAppCampaign message) {
     print("This is a callback on inapp shown from native to flutter. Payload " +
+        message.toString());
+  }
+
+  void _onInAppDismiss(InAppCampaign message) {
+    print("This is a callback on inapp dismiss from native to flutter. Payload " +
+        message.toString());
+  }
+
+  void _onInAppCustomAction(InAppCampaign message) {
+    print("This is a callback on inapp custom action from native to flutter. Payload " +
+        message.toString());
+  }
+
+  void _onInAppSelfHandle(InAppCampaign message) {
+    print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
   }
 
@@ -38,7 +55,12 @@ class _MyAppState extends State<MyApp> {
     _moengagePlugin.initialise();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
     _moengagePlugin.setUpInAppCallbacks(
-        onInAppClick: _onInAppClick, onInAppShown: _onInAppShown);
+      onInAppClick: _onInAppClick,
+      onInAppShown: _onInAppShown,
+      onInAppDismiss: _onInAppDismiss,
+      onInAppCustomAction: _onInAppCustomAction,
+      onInAppSelfHandle: _onInAppSelfHandle
+    );
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

@@ -1,4 +1,5 @@
 import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/self_handled.dart';
 import 'package:moengage_flutter/user_attribute_type.dart';
 
@@ -29,7 +30,7 @@ import 'properties.dart';
     };
   }
 
-  InAppCampaign fromMap(Map<String, dynamic> inAppCampaignMap) {
+  InAppCampaign inAppCampaignFromMap(Map<String, dynamic> inAppCampaignMap) {
     String campaignId;
     String campaignName;
     String platform;
@@ -37,34 +38,42 @@ import 'properties.dart';
     SelfHandled selfHandled;
     CustomAction customAction;
 
-    if (inAppCampaignMap.containsKey(keyCampaignId) ) {
-      campaignId = inAppCampaignMap[keyCampaignId];
-    }
-    if (inAppCampaignMap.containsKey(keyCampaignName)) {
-     campaignName = inAppCampaignMap[keyCampaignName];
+    campaignId = inAppCampaignMap.containsKey(keyCampaignId)?
+    inAppCampaignMap[keyCampaignId]: null;
+
+    if (campaignId.isEmpty) {
+      throw Exception("error: inAppCampaignFromMap : campaignId or campaignName is empty.");
     }
 
-    if (campaignId.isNotEmpty || campaignName.isNotEmpty) {
-      print("ERROR: InAppCampaign fromMap() : campaignId or campaignName is empty.");
+    campaignName = inAppCampaignMap.containsKey(keyCampaignName)?
+    inAppCampaignMap[keyCampaignName]: null;
+
+    if (campaignName.isEmpty) {
+      throw Exception("error: inAppCampaignFromMap : campaignId or campaignName is empty.");
     }
-    if (inAppCampaignMap.containsKey(keyPlatform)) {
-     platform = inAppCampaignMap[keyPlatform];
+
+    platform = inAppCampaignMap.containsKey(keyPlatform)?
+    inAppCampaignMap[keyPlatform]: null;
+
+    if (platform.isEmpty) {
+      throw Exception("error: inAppCampaignFromMap() : platform is null.");
     }
+
     if (inAppCampaignMap.containsKey(keyNavigation)) {
       String navigationType;
       String url;
       Map<String, dynamic> keyValuePairs;
 
       Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
-      if (navigationMap.containsKey(keyNavigationType)) {
-        navigationType = navigationMap[keyNavigationType];
-      }
-      if (navigationMap.containsKey(keyValue)) {
-        url = navigationMap[keyValue];
-      }
-      if (navigationMap.containsKey(keyKvPair)) {
-        keyValuePairs = navigationMap[keyKvPair];
-      }
+      navigationType = navigationMap.containsKey(keyNavigationType)?
+      navigationMap[keyNavigationType]: null;
+
+      url = navigationMap.containsKey(keyValue)?
+      navigationMap[keyValue]: null;
+
+      keyValuePairs = navigationMap.containsKey(keyKvPair)?
+      navigationMap[keyKvPair]: null;
+
       navigationAction = NavigationAction(navigationType, url, keyValuePairs);
     }
     if (inAppCampaignMap.containsKey(keySelfHandled)) {
@@ -74,21 +83,40 @@ import 'properties.dart';
 
       Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
 
-      if (selfHandledMap.containsKey(keyPayload)) {
-        campaignContent = selfHandledMap[keyPayload];
-      }
-      if (selfHandledMap.containsKey(keyDismissInterval)) {
-        cancellable = selfHandledMap[keyDismissInterval];
-      }
-      if (selfHandledMap.containsKey(keyIsCancellable)) {
-        campaignContent = selfHandledMap[keyIsCancellable];
-      }
+      campaignContent = selfHandledMap.containsKey(keyPayload)?
+      selfHandledMap[keyPayload]: null;
+
+      cancellable = selfHandledMap.containsKey(keyDismissInterval)?
+      selfHandledMap[keyDismissInterval]: null;
+
+      campaignContent = selfHandledMap.containsKey(keyIsCancellable)?
+      selfHandledMap[keyIsCancellable]: null;
+
       selfHandled = SelfHandled(campaignContent, dismissInterval, cancellable);
     }
-    if (inAppCampaignMap.containsKey(keyCustomAction)) {
-      customAction = CustomAction(inAppCampaignMap[keyCustomAction]);
-    }
+    customAction = inAppCampaignMap.containsKey(keyCustomAction)?
+    CustomAction(inAppCampaignMap[keyCustomAction]): null;
 
     return InAppCampaign(campaignId, campaignName, platform, navigationAction,
         selfHandled, customAction);
+  }
+
+  PushCampaign pushCampaignFromMap(Map<String, dynamic> pushCampaignMap) {
+    String platform = pushCampaignMap.containsKey(keyPlatform)?
+    pushCampaignMap[keyPlatform]: null;
+
+    if (platform == null) {
+      throw Exception("error: pushCampaignFromMap() : platform is null.");
+    }
+
+    bool isDefaultAction = pushCampaignMap.containsKey(keyIsDefaultAction)?
+    pushCampaignMap[keyIsDefaultAction]: false;
+
+    Map<String, dynamic> clickedAction = pushCampaignMap.containsKey(keyClickedAction)?
+    pushCampaignMap[keyClickedAction]: null;
+
+    Map<String, dynamic> payload = pushCampaignMap.containsKey(keyPayload)?
+    pushCampaignMap[keyPayload]: null;
+
+    return PushCampaign(platform, isDefaultAction, clickedAction, payload);
   }

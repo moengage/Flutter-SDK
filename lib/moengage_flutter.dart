@@ -5,34 +5,39 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/user_attribute_type.dart';
 import 'package:moengage_flutter/utils.dart';
 
-typedef void MessageHandler(Map<String, dynamic> message);
+typedef void PushCallbackHandler(PushCampaign pushCampaign);
+typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
 
 class MoEngageFlutter {
   MethodChannel _channel = MethodChannel(channelName);
 
-  MessageHandler _onPushClick;
-  MessageHandler _onInAppClick;
-  MessageHandler _onInAppShown;
-  MessageHandler _onInAppDismiss;
-  MessageHandler _onInAppCustomAction;
-  MessageHandler _onInAppSelfHandle;
+  PushCallbackHandler _onPushClick;
+  InAppCallbackHandler _onInAppClick;
+  InAppCallbackHandler _onInAppShown;
+  InAppCallbackHandler _onInAppDismiss;
+  InAppCallbackHandler _onInAppCustomAction;
+  InAppCallbackHandler _onInAppSelfHandle;
+
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
     _channel.invokeMethod(methodInitialise);
   }
 
-  void setUpPushCallbacks(MessageHandler onPushClick) {
+  void setUpPushCallbacks(PushCallbackHandler onPushClick) {
     _onPushClick = onPushClick;
   }
 
   void setUpInAppCallbacks(
-      {MessageHandler onInAppClick, MessageHandler onInAppShown,
-        MessageHandler onInAppDismiss, MessageHandler onInAppCustomAction,
-        MessageHandler onInAppSelfHandle}) {
+      {InAppCallbackHandler onInAppClick,
+        InAppCallbackHandler onInAppShown,
+        InAppCallbackHandler onInAppDismiss,
+        InAppCallbackHandler onInAppCustomAction,
+        InAppCallbackHandler onInAppSelfHandle}) {
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
     _onInAppDismiss = onInAppDismiss;
@@ -42,23 +47,27 @@ class MoEngageFlutter {
 
   Future<dynamic> _handler(MethodCall call) async {
     print("Received callback in dart. Payload" + call.toString());
-    if (call.method == callbackOnPushClick && _onPushClick != null) {
-      _onPushClick(call.arguments.cast<String, dynamic>());
-    }
-    if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-      _onInAppClick(call.arguments.cast<String, dynamic>());
-    }
-    if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-      _onInAppShown(call.arguments.cast<String, dynamic>());
-    }
-    if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-      _onInAppShown(call.arguments.cast<String, dynamic>());
-    }
-    if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
-      _onInAppShown(call.arguments.cast<String, dynamic>());
-    }
-    if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
-      _onInAppShown(call.arguments.cast<String, dynamic>());
+    try {
+      if (call.method == callbackOnPushClick && _onPushClick != null) {
+        _onPushClick(pushCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+      if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
+        _onInAppClick(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+      if (call.method == callbackOnInAppShown && _onInAppShown != null) {
+        _onInAppShown(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+      if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
+        _onInAppDismiss(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+      if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
+        _onInAppCustomAction(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+      if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
+        _onInAppSelfHandle(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+      }
+    } catch (exception) {
+      print(exception);
     }
   }
 

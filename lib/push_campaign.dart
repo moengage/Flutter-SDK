@@ -7,24 +7,24 @@ class PushCampaign {
   Map<String, dynamic> clickedAction;
   Map<String, dynamic> payload;
 
-  PushCampaign(Map<String, dynamic> pushCampaign) {
-    if (pushCampaign.containsKey(keyPlatform)) {
-      this.platform = pushCampaign[keyPlatform];
-    }
-    if (pushCampaign.containsKey(keyIsDefaultAction)) {
-      this.isDefaultAction = pushCampaign[keyIsDefaultAction];
-    }
-    if (pushCampaign.containsKey(keyClickedAction)) {
-      this.clickedAction = pushCampaign[keyClickedAction];
-    }
-    if (pushCampaign.containsKey(keyPayload)) {
-      this.payload = pushCampaign[keyPayload];
-    }
-  }
+  PushCampaign(this.platform, this.isDefaultAction, this.clickedAction,
+      this.payload);
 
   Map<String, dynamic> toJSON() {
-
+    return {
+      keyPlatform: platform,
+      keyIsDefaultAction: isDefaultAction,
+      keyClickedAction: clickedAction,
+      keyPayload: payload
+    };
   }
 
-
+  String toString() {
+    return "{\n" +
+        "platform:" + platform + "\n" +
+        "isDefaultAction:" + isDefaultAction.toString() + "\n" +
+        "clickedAction:" + clickedAction.toString() + "\n" +
+        "payload:" + payload.toString() + "\n" +
+        "}";
+  }
 }
