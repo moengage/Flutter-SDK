@@ -39,6 +39,8 @@
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/.settings
+**/android/app/keystore.properties
+**/android/app/moengage123.jks
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

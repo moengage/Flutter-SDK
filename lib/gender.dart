@@ -1,1 +1,0 @@
-enum MoEGender { male, female }

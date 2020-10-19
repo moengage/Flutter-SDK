@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.huawei.agconnect'
 
 android {
   compileSdkVersion 28
@@ -33,17 +34,35 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdkVersion 16
+    minSdkVersion 17
     targetSdkVersion 28
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+  }
+
+  signingConfigs {
+    Properties properties = new Properties()
+    properties.load(file('keystore.properties').newDataInputStream())
+    release {
+      storeFile file(properties.getProperty("storeFilePath"))
+      storePassword properties.getProperty("storePassword")
+      keyAlias properties.getProperty("keyAlias")
+      keyPassword properties.getProperty("keyPassword")
+    }
+    debug {
+      storeFile file(properties.getProperty("storeFilePath"))
+      storePassword properties.getProperty("storePassword")
+      keyAlias properties.getProperty("keyAlias")
+      keyPassword properties.getProperty("keyPassword")
+    }
   }
 
   buildTypes {
     release {
-      // TODO: Add your own signing config for the release build.
-      // Signing with the debug keys for now, so `flutter run --release` works.
+      signingConfig signingConfigs.release
+    }
+    debug {
       signingConfig signingConfigs.debug
     }
   }
@@ -54,11 +73,15 @@ flutter {
 }
 
 dependencies {
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-  implementation 'com.moengage:moe-android-sdk:9.8.03'
-  implementation "com.google.firebase:firebase-messaging:17.3.2"
+  testImplementation 'junit:junit:4.13'
+  androidTestImplementation("androidx.test.ext:junit:1.1.2")
+  androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+  implementation("com.moengage:moe-android-sdk:10.4.03")
+  implementation("com.google.firebase:firebase-messaging:20.3.0")
+  implementation("androidx.lifecycle:lifecycle-process:2.2.0")
+  implementation("com.moengage:hms-pushkit:1.1.00")
+  implementation("com.moengage:rich-notification:1.2.00")
+  implementation("com.moengage:addon-inbox:5.3.0")
 }
 
 apply plugin: 'com.google.gms.google-services'
