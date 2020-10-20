@@ -6,7 +6,6 @@ import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/push_campaign.dart';
-import 'package:moengage_flutter/user_attribute_type.dart';
 import 'package:moengage_flutter/utils.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
@@ -85,7 +84,7 @@ class MoEngageFlutter {
   void setUniqueId(String uniqueId) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameUniqueId,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: uniqueId
     });
   }
@@ -100,7 +99,7 @@ class MoEngageFlutter {
   void setUserName(String userName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
       keyAttributeName: userAttrNameUserName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: userName
     });
   }
@@ -109,7 +108,7 @@ class MoEngageFlutter {
   void setFirstName(String firstName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameFirstName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: firstName
     });
   }
@@ -118,7 +117,7 @@ class MoEngageFlutter {
   void setLastName(String lastName) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameLastName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: lastName
     });
   }
@@ -127,7 +126,7 @@ class MoEngageFlutter {
   void setEmail(String emailId) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameEmailId,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: emailId
     });
   }
@@ -136,7 +135,7 @@ class MoEngageFlutter {
   void setPhoneNumber(String phoneNumber) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNamePhoneNum,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: phoneNumber
     });
   }
@@ -145,7 +144,7 @@ class MoEngageFlutter {
   void setGender(MoEGender gender) {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameGender,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: moEGenderToString(gender)
     });
   }
@@ -162,7 +161,7 @@ class MoEngageFlutter {
   void setBirthDate(String birthDate) {
     _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
       keyAttributeName: userAttrNameBirtdate,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
+      keyAttributeType: userAttrTypeTimestamp,
       keyAttributeValue: birthDate
     });
   }
@@ -171,7 +170,7 @@ class MoEngageFlutter {
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
       keyAttributeName: userAttributeName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.general),
+      keyAttributeType: userAttrTypeGeneral,
       keyAttributeValue: userAttributeValue
     });
   }
@@ -181,7 +180,7 @@ class MoEngageFlutter {
   void setIsoDate(String userAttributeName, String isoDateString) {
     _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
       keyAttributeName: userAttributeName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
+      keyAttributeType: userAttrTypeTimestamp,
       keyAttributeValue: isoDateString
     });
   }

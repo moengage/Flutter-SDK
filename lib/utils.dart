@@ -1,7 +1,6 @@
 import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/self_handled.dart';
-import 'package:moengage_flutter/user_attribute_type.dart';
 
 import 'constants.dart';
 import 'geo_location.dart';
@@ -25,7 +24,7 @@ import 'properties.dart';
       MoEGeoLocation location) {
     return {
       keyAttributeName: userAttributeName,
-      keyAttributeType: moEAttributeTypeToString(MoEAttributeType.location),
+      keyAttributeType: userAttrTypeLocation,
       keyLocationAttribute: location.getLocationJson()
     };
   }
