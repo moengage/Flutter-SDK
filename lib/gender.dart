@@ -2,19 +2,15 @@ import 'constants.dart';
 
 enum MoEGender { male, female, other }
 
-String moEGenderToString(MoEGender gender) {
-  String genderStr;
+String genderToString(MoEGender gender) {
   switch(gender) {
     case MoEGender.male:
-      genderStr = genderMale;
-      break;
+     return genderMale;
     case MoEGender.female:
-      genderStr = genderFemale;
-      break;
+      return genderFemale;
     case MoEGender.other:
-      genderStr = genderOther;
-      break;
+      return genderOther;
   }
-  return genderStr;
+  return "";
 }
 

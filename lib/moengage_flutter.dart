@@ -145,7 +145,7 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameGender,
       keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: moEGenderToString(gender)
+      keyAttributeValue: genderToString(gender)
     });
   }
 
