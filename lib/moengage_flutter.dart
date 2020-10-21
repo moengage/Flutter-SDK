@@ -33,6 +33,7 @@ class MoEngageFlutter {
     _onPushClick = onPushClick;
   }
 
+  /// set up callback APIs for in-app events
   void setUpInAppCallbacks(
       {InAppCallbackHandler onInAppClick,
         InAppCallbackHandler onInAppShown,
@@ -195,39 +196,51 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodShowInApp);
   }
 
-  /// Invalidates the existing user and session. A new user and session is created.
+  /// Invalidates the existing user and session. A new user
+  /// and session is created.
   void logout() {
     _channel.invokeMethod(methodLogout);
   }
 
+  /// Try to return a self handled in-app to the callback listener.
+  /// Ensure self handled in-app listener is set before you call this.
   void getSelfHandledInApp() {
     _channel.invokeMethod(methodLogout);
   }
 
+  /// Mark self-handled campaign as shown.
+  /// API to be called only when in-app is self handled
   void selfHandledShown(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "impression";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
+  /// Mark self-handled campaign as primary clicked.
+  /// API to be called only when in-app is self handled
   void selfHandledPrimaryClicked(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "primary_clicked";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
+  /// Mark self-handled campaign as clicked.
+  /// API to be called only when in-app is self handled
   void selfHandledClicked(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "click";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
+  /// Mark self-handled campaign as dismissed.
+  /// API to be called only when in-app is self handled
   void selfHandledDismissed(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "dismissed";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
+  ///Set the current context for the given user.
   void setCurrentContext(List<String> contexts) {
     _channel.invokeMethod(methodSetAppContext, <String, dynamic> {
       keyContexts : contexts
@@ -236,6 +249,7 @@ class MoEngageFlutter {
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
+  @Deprecated("message")
   void passPushToken(String pushToken) {
     _channel.invokeMethod(
         methodPushToken, <String, String> {
@@ -245,23 +259,29 @@ class MoEngageFlutter {
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
+  @Deprecated("message")
   void passPushPayload(Map<String, String> payload) {
     _channel.invokeMethod(
         methodPushPayLoad, <String, dynamic> {
           keyPushPayload: payload
         });
   }
-
+  ///Optionally opt-out of data tracking. When data tracking is opted no event
+  ///or user attribute is tracked on MoEngage Platform.
   void optOutDataTracking(bool shouldOptOutDataTracking) {
     _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
         gdprOptOutTypeData, shouldOptOutDataTracking));
   }
 
+  ///Optionally opt-out of push campaigns.
+  ///No push campaigns will be shown once this is opted out.
   void optOutPushTracking(bool shouldOptOutDataTracking) {
     _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
         gdprOptOutTypePush, shouldOptOutDataTracking));
   }
 
+  ///Optionally opt-out of in-app campaigns.
+  ///No in-app campaigns will be shown once this is  opted out.
   void optOutInAppTracking(bool shouldOptOutDataTracking) {
     _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
         gdprOptOutTypeInApp, shouldOptOutDataTracking));

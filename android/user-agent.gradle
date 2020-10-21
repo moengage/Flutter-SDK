@@ -14,6 +14,6 @@ if (pubspec.exists()) {
 android {
     defaultConfig {
         // BuildConfig.VERSION_NAME
-        buildConfigField 'String', 'MOENGAGE_FLUTTER_LIBRARY_VERSION', "\"${libraryVersionName}\""
+        buildConfigField("String", 'MOENGAGE_FLUTTER_LIBRARY_VERSION', "\"${libraryVersionName}\"")
     }
 }

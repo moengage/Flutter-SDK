@@ -7,7 +7,7 @@ package com.moengage.flutter
 
 const val MODULE_TAG = "MoEFlutter_"
 const val INTEGRATION_TYPE = "flutter"
-const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core";
+const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core"
 
 //Method name constants
 const val METHOD_NAME_INITIALISE = "initialise"

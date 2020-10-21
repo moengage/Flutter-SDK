@@ -72,7 +72,7 @@ class EventEmitterImpl : EventEmitter {
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
         init {
-            eventMap[EventType.PUSH_CLICKED] = "onPushClick";
+            eventMap[EventType.PUSH_CLICKED] = "onPushClick"
             eventMap[EventType.INAPP_SHOWN] = "onInAppShown"
             eventMap[EventType.INAPP_NAVIGATION] = "onInAppClick"
             eventMap[EventType.INAPP_CLOSED] = "onInAppDismiss"
