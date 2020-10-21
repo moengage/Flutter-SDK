@@ -1,14 +1,8 @@
 import 'package:moengage_flutter/inapp_custom_action.dart';
-import 'package:moengage_flutter/inapp_navigation.dart';
 import 'package:moengage_flutter/self_handled.dart';
 
 import 'constants.dart';
-import 'constants.dart';
-import 'constants.dart';
-import 'constants.dart';
-import 'constants.dart';
-import 'constants.dart';
-import 'constants.dart';
+import 'navigation_action.dart';
 
 
 class InAppCampaign {
@@ -25,10 +19,11 @@ class InAppCampaign {
       this.customAction);
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> inAppMap = Map<String, dynamic> ();
-    inAppMap[keyCampaignId] = this.campaignId;
-    inAppMap[keyCampaignName] = this.campaignName;
-    inAppMap[keyPlatform] = this.platform;
+    Map<String, dynamic> inAppMap = {
+      keyCampaignId: campaignId,
+      keyCampaignName: campaignName,
+      keyPlatform: platform
+    };
 
     if (navigationAction != null) {
       inAppMap[keyNavigation] = navigationAction.toMap();

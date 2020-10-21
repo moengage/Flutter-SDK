@@ -39,7 +39,7 @@ class EventEmitterImpl : EventEmitter {
                 eventMap[inAppEvent.eventType] ?: return
             val campaign = inAppCampaignToJson(inAppEvent.inAppCampaign)
             campaign.put(KEY_TYPE, eventType)
-            Logger.e("$tag emitInAppEvent() : campaignJSON: $campaign")
+            Logger.v("$tag emitInAppEvent() : campaignJSON: $campaign")
             emit(eventType, campaign)
         } catch (e: Exception) {
             Logger.e("$tag inAppToJSON() : Exception: ", e)
@@ -52,7 +52,7 @@ class EventEmitterImpl : EventEmitter {
             val eventType =
                 eventMap[pushEvent.eventType] ?: return
             val payload = pushPayloadToJson(pushEvent.payload)
-            emit(eventType, payload.getJSONObject("payload"))
+            emit(eventType, payload)
         } catch (e: Exception) {
             Logger.e("$tag inAppToJSON() : Exception: ", e)
         }

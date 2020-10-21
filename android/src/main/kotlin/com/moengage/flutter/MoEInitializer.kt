@@ -12,10 +12,8 @@ import com.moengage.plugin.base.PluginInitializer.initialize
  * Date: 2019-12-03
  */
 class MoEInitializer {
-
     companion object {
-
-        private const val tag: String = "${MODULE_TAG}MoEInitializer}"
+        private const val tag: String = "${MODULE_TAG}MoEInitializer"
 
         @JvmStatic
         fun initialize(context: Context, builder: MoEngage.Builder) {

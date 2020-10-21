@@ -31,8 +31,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         try {
             if (call == null) {
-                Logger.e("$tag onMethodCall() : MethodCall instance is null cannot proceed "
-                            + "further.")
+                Logger.e(
+                    "$tag onMethodCall() : MethodCall instance is null cannot proceed "
+                            + "further."
+                )
                 return
             }
             if (context == null) {
@@ -113,7 +115,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             Logger.v("$tag trackEvent() : Argument :$payload")
             pluginHelper.trackEvent(context, payload)
         } catch (e: Exception) {
-            Logger.e("$tag trackEvent() : exception: ",e)
+            Logger.e("$tag trackEvent() : exception: ", e)
         }
     }
 
@@ -218,7 +220,11 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
 
         fun sendCallback(methodName: String, message: String) {
-            Handler(Looper.getMainLooper()).post { channel?.invokeMethod(methodName, message) }
+            try {
+                Handler(Looper.getMainLooper()).post { channel?.invokeMethod(methodName, message) }
+            } catch (ex: Exception) {
+                Logger.e("$tag sendCallback() : exception: ", ex)
+            }
         }
     }
 }

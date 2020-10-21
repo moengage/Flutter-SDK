@@ -107,7 +107,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Track Only Event"),
                   onTap: () {
-                    _moengagePlugin.trackEvent("testEvent", null);
+                    _moengagePlugin.trackEvent("testEvent", MoEProperties());
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),

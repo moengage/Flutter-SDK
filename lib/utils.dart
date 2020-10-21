@@ -5,7 +5,7 @@ import 'package:moengage_flutter/self_handled.dart';
 
 import 'constants.dart';
 import 'inapp_custom_action.dart';
-import 'inapp_navigation.dart';
+import 'navigation_action.dart';
 import 'properties.dart';
 
   Map<String, dynamic> getEventPayload(String eventName,
@@ -69,31 +69,31 @@ import 'properties.dart';
     try {
       Map<String, dynamic> inAppCampaignMap = json.decode(methodCallArgs);
 
-      if (inAppCampaignMap.isEmpty) {
+      if (inAppCampaignMap == null || inAppCampaignMap.isEmpty) {
         throw Exception("error: inAppCampaignFromMap() : map is empty");
       }
 
       String campaignId = inAppCampaignMap.containsKey(keyCampaignId) ?
       inAppCampaignMap[keyCampaignId] : null;
 
-      if (campaignId.isEmpty) {
+      if (campaignId == null || campaignId.isEmpty) {
         throw Exception(
-            "error: inAppCampaignFromMap : campaignId or campaignName is empty.");
+            "error: inAppCampaignFromMap : campaignId is null/empty.");
       }
 
      String campaignName = inAppCampaignMap.containsKey(keyCampaignName) ?
       inAppCampaignMap[keyCampaignName] : null;
 
-      if (campaignName.isEmpty) {
+      if (campaignName == null || campaignName.isEmpty) {
         throw Exception(
-            "error: inAppCampaignFromMap : campaignId or campaignName is empty.");
+            "error: inAppCampaignFromMap : campaignName is null/empty.");
       }
 
       String platform = inAppCampaignMap.containsKey(keyPlatform) ?
       inAppCampaignMap[keyPlatform] : null;
 
-      if (platform.isEmpty) {
-        throw Exception("error: inAppCampaignFromMap() : platform is empty.");
+      if (platform == null || platform.isEmpty) {
+        throw Exception("error: inAppCampaignFromMap() : platform is null/empty.");
       }
 
       NavigationAction navigationAction;
@@ -101,43 +101,40 @@ import 'properties.dart';
       CustomAction customAction;
 
       if (inAppCampaignMap.containsKey(keyNavigation)) {
-        String navigationType;
-        String url;
-        Map<String, dynamic> keyValuePairs;
-
         Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
-        navigationType = navigationMap.containsKey(keyNavigationType) ?
+
+        String navigationType = navigationMap.containsKey(keyNavigationType) ?
         navigationMap[keyNavigationType] : null;
 
-        url = navigationMap.containsKey(keyValue) ?
+        String url = navigationMap.containsKey(keyValue) ?
         navigationMap[keyValue] : null;
 
-        keyValuePairs = navigationMap.containsKey(keyKvPair) ?
+        Map<String, dynamic> keyValuePairs = navigationMap.containsKey(keyKvPair) ?
         navigationMap[keyKvPair] : null;
 
         navigationAction = NavigationAction(navigationType, url, keyValuePairs);
       }
       if (inAppCampaignMap.containsKey(keySelfHandled)) {
-        String campaignContent;
-        int dismissInterval;
-        bool cancellable;
-
         Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
 
-        campaignContent = selfHandledMap.containsKey(keyPayload) ?
+        String campaignContent = selfHandledMap.containsKey(keyPayload) ?
         selfHandledMap[keyPayload] : null;
 
-        cancellable = selfHandledMap.containsKey(keyDismissInterval) ?
+        int dismissInterval = selfHandledMap.containsKey(keyDismissInterval) ?
         selfHandledMap[keyDismissInterval] : null;
 
-        campaignContent = selfHandledMap.containsKey(keyIsCancellable) ?
+        bool cancellable = selfHandledMap.containsKey(keyIsCancellable) ?
         selfHandledMap[keyIsCancellable] : null;
 
         selfHandled =
             SelfHandled(campaignContent, dismissInterval, cancellable);
       }
-      customAction = inAppCampaignMap.containsKey(keyCustomAction) ?
-      CustomAction(inAppCampaignMap[keyCustomAction]) : null;
+
+      if (inAppCampaignMap.containsKey(keyCustomAction)) {
+        Map<String, dynamic> customActionMap = inAppCampaignMap[keyCustomAction];
+        customAction = customActionMap.containsKey(keyKvPair) ?
+        CustomAction(customActionMap[keyKvPair]) : null;
+      }
 
       return InAppCampaign(campaignId, campaignName, platform, navigationAction,
           selfHandled, customAction);
