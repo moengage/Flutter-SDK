@@ -86,9 +86,10 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     var details = MoEProperties();
                     details
-                        .addInteger("temp", 1)
+                        .addInteger("temp", 567)
                         .addBoolean("temp1", true)
                         .addDouble("temp2", 12.30)
+                        .addString("stringAttr", "string val")
                         .setNonInteractiveEvent()
                         .addLocation(
                             "location1", new MoEGeoLocation(12.1, 77.18))
@@ -99,7 +100,12 @@ class _MyAppState extends State<MyApp> {
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
                             "dateTime2", "2019-12-06T08:26:21.170Z");
-                    _moengagePlugin.trackEvent('testEvent', details);
+                    _moengagePlugin.trackEvent('event flutter 01', details);
+                  }),
+              new ListTile(
+                  title: Text("Track Only Event"),
+                  onTap: () {
+                    _moengagePlugin.trackEvent("testEvent", null);
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),
@@ -142,6 +148,31 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.setLocation(new MoEGeoLocation(23.1, 21.2));
                   }),
               new ListTile(
+                  title: Text("Set Birthday"),
+                  onTap: () {
+                    _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
+                  }),
+              new ListTile(
+                title: Text("Set Alias"),
+                onTap: () {
+                  _moengagePlugin.setAlias('testUser@moengage.com');
+                },
+              ),
+              new ListTile(
+                title: Text("Set UserAttribute Timestamp"),
+                onTap: () {
+                  _moengagePlugin.setUserAttributeIsoDate(
+                      "timeStamp", "2019-12-02T08:26:21.170Z");
+                },
+              ),
+              new ListTile(
+                title: Text("Set UserAttribute Location"),
+                onTap: () {
+                  _moengagePlugin.setUserAttributeLocation(
+                      "locationAttr", new MoEGeoLocation(72.8, 53.2));
+                },
+              ),
+              new ListTile(
                   title: Text("App Status - Install"),
                   onTap: () {
                     _moengagePlugin.setAppStatus(MoEAppStatus.install);
@@ -162,28 +193,20 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.showInApp();
                   }),
               new ListTile(
-                  title: Text("Only Event"),
+                  title: Text("Show Self Handled InApp"),
                   onTap: () {
-                    _moengagePlugin.trackEvent("testEvent", null);
+                    _moengagePlugin.getSelfHandledInApp();
                   }),
               new ListTile(
-                  title: Text("Set Birthday"),
+                  title: Text("Set InApp Contexts"),
                   onTap: () {
-                    _moengagePlugin.setBirthDate("2019-12-02T08:26:21.170Z");
+                    _moengagePlugin.setCurrentContext(["HOME","SETTINGS"]);
                   }),
               new ListTile(
-                title: Text("Set Alias"),
-                onTap: () {
-                  _moengagePlugin.setAlias('testUser@moengage.com');
-                },
-              ),
-              new ListTile(
-                title: Text("Set Time"),
-                onTap: () {
-                  _moengagePlugin.setUserAttributeIsoDate(
-                      "timeStamp", "2019-12-02T08:26:21.170Z");
-                },
-              ),
+                  title: Text("Reset Contexts"),
+                  onTap: () {
+                    _moengagePlugin.resetCurrentContext();
+                  }),
               new ListTile(
                   title: Text("Push Token"),
                   onTap: () {
@@ -204,6 +227,25 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moe.pushlibrary.activities.MoEActivity");
                     _moengagePlugin.passPushPayload(pushPayload);
+                  }),
+              new ListTile(
+                  title: Text("Opt-Out Data, Push, InApp"),
+                  onTap: () {
+                    _moengagePlugin.optOutDataTracking(true);
+                    _moengagePlugin.optOutPushTracking(true);
+                    _moengagePlugin.optOutInAppTracking(true);
+                  }),
+              new ListTile(
+                  title: Text("Opt-In Data, Push, InApp"),
+                  onTap: () {
+                    _moengagePlugin.optOutDataTracking(false);
+                    _moengagePlugin.optOutPushTracking(false);
+                    _moengagePlugin.optOutInAppTracking(false);
+                  }),
+              new ListTile(
+                  title: Text("Enable logs"),
+                  onTap: () {
+                    _moengagePlugin.enableSDKLogs();
                   }),
               new ListTile(
                 title: Text("Logout"),

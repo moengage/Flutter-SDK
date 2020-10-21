@@ -216,7 +216,7 @@ class MoEngageFlutter {
   }
 
   void getSelfHandledInApp() {
-    _channel.invokeMethod(methodLogout);
+    _channel.invokeMethod(methodSelfHandledInApp);
   }
 
   void selfHandledShown(InAppCampaign inAppCampaign) {
@@ -247,6 +247,10 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodSetAppContext, <String, dynamic> {
       keyContexts : contexts
     });
+  }
+
+  void resetCurrentContext() {
+     _channel.invokeMethod(methodResetAppContext);
   }
 
   /// Pass FCM Push Token to the MoEngage SDK.

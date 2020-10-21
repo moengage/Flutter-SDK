@@ -17,7 +17,7 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case MOFlutterConstants.MethodNames.kInitializeFlutter:
-            MoEPluginBridge.sharedInstance()?.pluginInitialized()
+            pluginInitialized()
         case MOFlutterConstants.MethodNames.kRegisterForPush:
             MoEPluginBridge.sharedInstance()?.registerForPush()
         case MOFlutterConstants.MethodNames.kShowInApp:
@@ -33,6 +33,11 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
         default:
             handleBridgeMethodWithPayload(forMethodCall: call)
         }
+    }
+    
+    private func pluginInitialized(){
+        MoEPluginBridge.sharedInstance()?.bridgeDelegate = self
+        MoEPluginBridge.sharedInstance()?.pluginInitialized()
     }
     
     private func handleBridgeMethodWithPayload(forMethodCall call: FlutterMethodCall){
@@ -70,7 +75,12 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
     // MARK: MoEPluginBridgeDelegate Method
     public func sendMessage(withName name: String!, andPayload payloadDict: [AnyHashable : Any]!) {
         if let callbackName = getCallbackName(forEventName: name){
-            MOFlutterPlugin.sendCallback(callbackName, withInfo: payloadDict)
+            if let payloadToSend = payloadDict["payload"] as? [AnyHashable : Any]{
+                MOFlutterPlugin.sendCallback(callbackName, withInfo: payloadToSend)
+            }
+            else{
+                MOFlutterPlugin.sendCallback(callbackName, withInfo: [:])
+            }
         }
     }
     
