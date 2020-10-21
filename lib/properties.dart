@@ -67,7 +67,7 @@ class MoEProperties {
     if (isAttributeNameEmpty(key)) {
       return this;
     }
-    locationAttributes.putIfAbsent(key, () => location.getLocationJson());
+    locationAttributes.putIfAbsent(key, () => location.toMap());
     return this;
   }
 
@@ -80,11 +80,11 @@ class MoEProperties {
   Map<String, dynamic> getEventAttributeJson() {
     return {
     "eventAttributes": {
-      'generalAttributes': this.generalAttributes,
-      'locationAttributes': this.locationAttributes,
-      'dateTimeAttributes': this.dateTimeAttributes
+      "generalAttributes": this.generalAttributes,
+      "locationAttributes": this.locationAttributes,
+      "dateTimeAttributes": this.dateTimeAttributes
     },
-      'isNonInteractive': this.isNonInteractive
+      "isNonInteractive": this.isNonInteractive
     };
   }
 

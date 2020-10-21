@@ -8,7 +8,7 @@ class NavigationAction {
 
   NavigationAction(this.navigationType, this.url, this.keyValuePairs);
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toMap() {
     return {
       keyNavigationType: this.navigationType,
       keyValue: this.url,

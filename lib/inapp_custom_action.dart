@@ -6,7 +6,7 @@ class CustomAction {
 
   CustomAction(this.keyValuePair);
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toMap() {
     return {
       keyKvPair: this.keyValuePair,
     };

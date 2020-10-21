@@ -8,7 +8,7 @@ class SelfHandled {
 
   SelfHandled(this.campaignContent, this.dismissInterval, this.cancellable);
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toMap() {
     return {
       keyPayload: this.campaignContent,
       keyDismissInterval: this.dismissInterval,

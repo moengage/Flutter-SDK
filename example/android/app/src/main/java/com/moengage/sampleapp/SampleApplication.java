@@ -1,9 +1,9 @@
 package com.moengage.sampleapp;
 
+import android.src.main.kotlin.com.moengage.flutter.MoEInitializer;
 import com.moengage.core.Logger;
 import com.moengage.core.MoEngage;
 import com.moengage.core.MoEngage.Builder;
-import com.moengage.flutter.MoEInitializer;
 import io.flutter.app.FlutterApplication;
 
 /**
@@ -20,6 +20,6 @@ public class SampleApplication extends FlutterApplication {
         .setNotificationLargeIcon(R.drawable.ic_launcher)
         .optOutDefaultInAppDisplay();
 
-    MoEInitializer.initialize(builder.build());
+    MoEInitializer.initialize(getApplicationContext(), builder);
   }
 }
