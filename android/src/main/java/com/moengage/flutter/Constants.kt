@@ -7,6 +7,9 @@ package com.moengage.flutter
 
 const val MODULE_TAG = "MoEFlutter_"
 const val INTEGRATION_TYPE = "flutter"
+const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core";
+
+//Method name constants
 const val METHOD_NAME_INITIALISE = "initialise"
 const val METHOD_NAME_TRACK_EVENT = "trackEvent"
 const val METHOD_NAME_SET_USER_ATTRIBUTE = "setUserAttribute"
@@ -24,18 +27,4 @@ const val METHOD_NAME_SET_APP_CONTEXT = "setAppContext"
 const val METHOD_NAME_RESET_APP_CONTEXT = "resetCurrentContext"
 const val METHOD_NAME_OPT_OUT_TRACKING = "optOutTracking"
 
-const val METHOD_NAME_ON_PUSH_CLICK = "onPushClick"
-const val METHOD_NAME_ON_INAPP_SHOWN = "onInAppShown"
-const val METHOD_NAME_ON_INAPP_CLICK = "onInAppClick"
-const val METHOD_NAME_ON_INAPP_DISMISS = "onInAppDismiss"
-const val METHOD_NAME_ON_INAPP_CUSTOM_ACTION = "onInAppCustomAction"
-const val METHOD_NAME_ON_INAPP_SEL_HANDLE = "onInAppSelfHandle"
-
 const val KEY_TYPE = "type"
-const val PARAM_PLATFORM = "platform"
-const val PARAM_PAYLOAD = "payload"
-const val PARAM_CAMPAIGN_ID = "campaignId"
-const val PARAM_SCREEN_NAME = "screenName"
-const val PARAM_DEEP_LINK = "deepLinkUrl"
-const val PARAM_KEY_VALUE_PAIR = "kvPairs"
-const val PARAM_PLATFORM_VALUE = "android"

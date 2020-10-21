@@ -18,7 +18,7 @@ import java.util.*
 class EventEmitterImpl : EventEmitter {
 
     private val tag: String = "${MODULE_TAG}EventEmitterImpl"
-    
+
     override fun emit(event: Event) {
         try {
             Logger.v("$tag emit() : $event")
@@ -42,10 +42,7 @@ class EventEmitterImpl : EventEmitter {
             Logger.e("$tag emitInAppEvent() : campaignJSON: $campaign")
             emit(eventType, campaign)
         } catch (e: Exception) {
-            Logger.e(
-                "$tag inAppToJSON() : Exception: ",
-                e
-            )
+            Logger.e("$tag inAppToJSON() : Exception: ", e)
         }
     }
 
@@ -57,10 +54,7 @@ class EventEmitterImpl : EventEmitter {
             val payload = pushPayloadToJson(pushEvent.payload)
             emit(eventType, payload.getJSONObject("payload"))
         } catch (e: Exception) {
-            Logger.e(
-                "$tag inAppToJSON() : Exception: ",
-                e
-            )
+            Logger.e("$tag inAppToJSON() : Exception: ", e)
         }
     }
 
@@ -78,12 +72,12 @@ class EventEmitterImpl : EventEmitter {
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
         init {
-            eventMap[EventType.PUSH_CLICKED] = METHOD_NAME_ON_PUSH_CLICK;
-            eventMap[EventType.INAPP_SHOWN] = METHOD_NAME_ON_INAPP_SHOWN
-            eventMap[EventType.INAPP_NAVIGATION] = METHOD_NAME_ON_INAPP_CLICK
-            eventMap[EventType.INAPP_CLOSED] = METHOD_NAME_ON_INAPP_DISMISS
-            eventMap[EventType.INAPP_CUSTOM_ACTION] = METHOD_NAME_ON_INAPP_CUSTOM_ACTION
-            eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = METHOD_NAME_ON_INAPP_SEL_HANDLE
+            eventMap[EventType.PUSH_CLICKED] = "onPushClick";
+            eventMap[EventType.INAPP_SHOWN] = "onInAppShown"
+            eventMap[EventType.INAPP_NAVIGATION] = "onInAppClick"
+            eventMap[EventType.INAPP_CLOSED] = "onInAppDismiss"
+            eventMap[EventType.INAPP_CUSTOM_ACTION] = "onInAppCustomAction"
+            eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
         }
     }
 }
