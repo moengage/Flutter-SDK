@@ -142,7 +142,7 @@ class MoEngageFlutter {
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayload(keyLocationAttribute,
+        getUserAttributePayload(userAttrNameLocation,
             userAttrTypeLocation, location.toMap())
     );
   }

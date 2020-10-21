@@ -8,23 +8,34 @@ import 'inapp_custom_action.dart';
 import 'inapp_navigation.dart';
 import 'properties.dart';
 
-  String getEventPayload(String eventName,
+  Map<String, dynamic> getEventPayload(String eventName,
       MoEProperties eventAttributes) {
     if (eventAttributes == null) {
       eventAttributes = MoEProperties();
     }
     Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
     eventPayload[keyEventName] = eventName;
-    return json.encode(eventPayload);
+    //json.encode(eventPayload);
+    return eventPayload;
   }
 
   Map<String, dynamic> getUserAttributePayload(String attributeName,
       String attributeType, dynamic attributeValue) {
-    return <String, dynamic>{
-      keyAttributeName: attributeName,
-      keyAttributeType: attributeType,
-      keyAttributeValue: attributeValue
-    };
+    if (attributeType == userAttrTypeLocation) {
+      return <String, dynamic>{
+        keyAttributeName: attributeName,
+        keyAttributeType: attributeType,
+        keyLocationAttribute: attributeValue
+      };
+    }
+    else{
+      return <String, dynamic>{
+        keyAttributeName: attributeName,
+        keyAttributeType: attributeType,
+        keyAttributeValue: attributeValue
+      };
+    }
+    
   }
 
   Map<String, dynamic> getOptOutTrackingPayload(String type,
