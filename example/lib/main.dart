@@ -180,7 +180,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                 title: Text("Set Time"),
                 onTap: () {
-                  _moengagePlugin.setIsoDate(
+                  _moengagePlugin.setUserAttributeIsoDate(
                       "timeStamp", "2019-12-02T08:26:21.170Z");
                 },
               ),
