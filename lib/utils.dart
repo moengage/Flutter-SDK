@@ -14,11 +14,9 @@ import 'properties.dart';
     if (eventAttributes == null) {
       eventAttributes = MoEProperties();
     }
-    var attributes = eventAttributes.getEventAttributeJson();
-    return {
-      keyEventName: eventName,
-      keyEventAttributes: attributes
-    };
+    Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
+    eventPayload[keyEventName] = eventName;
+    return eventPayload;
   }
 
   Map<String, dynamic> getLocationPayload(String userAttributeName,

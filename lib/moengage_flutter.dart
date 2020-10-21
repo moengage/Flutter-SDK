@@ -152,15 +152,15 @@ class MoEngageFlutter {
 
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttributeLocation,
-        getLocationPayload(keyLocationAttribute, location)
+    _channel.invokeMethod(methodSetUserAttribute,
+        getLocationPayload(userAttrNameLocation, location)
     );
   }
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setBirthDate(String birthDate) {
-    _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttrNameBirtdate,
       keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
       keyAttributeValue: birthDate
@@ -178,8 +178,8 @@ class MoEngageFlutter {
 
   /// Tracks th given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
-  void setIsoDate(String userAttributeName, String isoDateString) {
-    _channel.invokeMethod(methodSetUserAttributeTimestamp, <String, String>{
+  void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
+    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
       keyAttributeName: userAttributeName,
       keyAttributeType: moEAttributeTypeToString(MoEAttributeType.timestamp),
       keyAttributeValue: isoDateString
@@ -187,8 +187,8 @@ class MoEngageFlutter {
   }
 
   /// Tracks the given location as user attribute.
-  void setUserLocation(String userAttributeName, MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttributeLocation,
+  void setUserAttributeLocation(String userAttributeName, MoEGeoLocation location) {
+    _channel.invokeMethod(methodSetUserAttribute, 
         getLocationPayload(userAttributeName, location)
     );
   }
@@ -196,7 +196,7 @@ class MoEngageFlutter {
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus(MoEAppStatus appStatus) {
     _channel.invokeListMethod(methodSetAppStatus, <String, String>{
-      keyAttributeValue:
+      keyAppStatus:
           appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate
     });
   }
@@ -246,7 +246,7 @@ class MoEngageFlutter {
 
   void setCurrentContext(List<String> contexts) {
     _channel.invokeMethod(methodSetAppContext, <String, dynamic> {
-      "contexts": contexts
+      keyContexts : contexts
     });
   }
 
@@ -269,23 +269,23 @@ class MoEngageFlutter {
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
       keyAttributeType: gdprOptOutTypeData,
       keyState: shouldOptOutDataTracking
     });
   }
 
-  void optOutPushTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+  void optOutPushTracking(bool shouldOptOutPushTracking) {
+    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
       keyAttributeType: gdprOptOutTypePush,
-      keyState: shouldOptOutDataTracking
+      keyState: shouldOptOutPushTracking
     });
   }
 
-  void optOutInAppTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutDataTracking,  <String, dynamic> {
+  void optOutInAppTracking(bool shouldOptOutInAppTracking) {
+    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
       keyAttributeType: gdprOptOutTypeInApp,
-      keyState: shouldOptOutDataTracking
+      keyState: shouldOptOutInAppTracking
     });
   }
 }

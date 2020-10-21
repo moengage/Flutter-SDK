@@ -1,27 +1,23 @@
 // Plugin Channel
-const String channelName = "flutter_moengage_plugin";
+const String channelName = "com.moengage/core";
 
 // Method Names
 const String methodInitialise = "initialise";
+const String methodSetAppStatus = "setAppStatus";
 const String methodTrackEvent = "trackEvent";
 const String methodSetUserAttribute = "setUserAttribute";
-const String methodSetUserAttributeLocation = "setUserAttributeLocation";
-const String methodSetUserAttributeTimestamp = "setUserAttributeTimestamp";
 const String methodSetAlias = "setAlias";
 const String methodRegisterForiOSPush = "registerForiOSPushNotification";
-const String methodSetAppStatus = "setAppStatus";
-const String methodShowInApp = "showInApp";
-const String methodLogout = "logout";
 const String methodPushToken = "pushToken";
 const String methodPushPayLoad = "pushPayload";
-const String methodEnableSDKLogs = "enableSDKLogs";
+const String methodShowInApp = "showInApp";
 const String methodSelfHandledInApp = "selfHandledInApp";
 const String methodSelfHandledCallback = "selfHandledCallback";
 const String methodSetAppContext = "setAppContext";
 const String methodResetAppContext = "resetCurrentContext";
-const String methodOptOutDataTracking = "optOutDataTracking";
-const String methodOptOutPushTracking = "optOutPushNotification";
-const String methodOptOutInAppNotification = "optOutInAppNotification";
+const String methodOptOutTracking = "optOutTracking";
+const String methodEnableSDKLogs = "enableSDKLogs";
+const String methodLogout = "logout";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -65,6 +61,8 @@ const String keyAttributeType = "type";
 const String keyAlias = "alias";
 const String keyLocationAttribute = "locationAttribute";
 const String keyState = "state";
+const String keyAppStatus = "appStatus";
+const String keyContexts = "contexts";
 
 const String keyPayload = "payload";
 const String keyKvPair = "kvPair";
