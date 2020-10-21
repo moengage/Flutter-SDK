@@ -10,7 +10,7 @@ class PushCampaign {
   PushCampaign(this.platform, this.isDefaultAction, this.clickedAction,
       this.payload);
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toMap() {
     return {
       keyPlatform: platform,
       keyIsDefaultAction: isDefaultAction,

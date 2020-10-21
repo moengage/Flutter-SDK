@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.5.4'
     }
 }
 
@@ -20,6 +20,7 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -33,6 +34,12 @@ android {
     }
 }
 dependencies{
-    compileOnly "com.moengage:moe-android-sdk:10.4.03"
+    compileOnly("com.moengage:moe-android-sdk:10.4.03")
+    implementation("com.moengage:plugin-base:1.1.00")
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
+repositories {
+    mavenCentral()
+}

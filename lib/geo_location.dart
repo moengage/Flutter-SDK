@@ -7,7 +7,14 @@ class MoEGeoLocation {
     this.longitude = longitude;
   }
 
-  Map<String, double> getLocationJson() {
+  Map<String, double> toMap() {
     return {"latitude": this.latitude, "longitude": this.longitude};
+  }
+
+  String toString() {
+    return "{\n" +
+        "latitude:" + latitude.toString() + "\n" +
+        "latitude:" + longitude.toString() + "\n" +
+        "}";
   }
 }

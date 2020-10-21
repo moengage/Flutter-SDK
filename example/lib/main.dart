@@ -61,6 +61,8 @@ class _MyAppState extends State<MyApp> {
       onInAppCustomAction: _onInAppCustomAction,
       onInAppSelfHandle: _onInAppSelfHandle
     );
+
+    _moengagePlugin.enableSDKLogs();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

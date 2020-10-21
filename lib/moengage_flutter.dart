@@ -8,6 +8,8 @@ import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/utils.dart';
 
+import 'constants.dart';
+
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
 
@@ -48,22 +50,22 @@ class MoEngageFlutter {
     print("Received callback in dart. Payload" + call.toString());
     try {
       if (call.method == callbackOnPushClick && _onPushClick != null) {
-        _onPushClick(pushCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onPushClick(pushCampaignFromMap(call.arguments));
       }
       if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-        _onInAppClick(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onInAppClick(inAppCampaignFromMap(call.arguments));
       }
       if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-        _onInAppShown(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onInAppShown(inAppCampaignFromMap(call.arguments));
       }
       if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-        _onInAppDismiss(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onInAppDismiss(inAppCampaignFromMap(call.arguments));
       }
       if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
-        _onInAppCustomAction(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onInAppCustomAction(inAppCampaignFromMap(call.arguments));
       }
       if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
-        _onInAppSelfHandle(inAppCampaignFromMap(call.arguments.cast<String, dynamic>()));
+        _onInAppSelfHandle(inAppCampaignFromMap(call.arguments));
       }
     } catch (exception) {
       print(exception);
@@ -77,16 +79,15 @@ class MoEngageFlutter {
 
   /// Tracks an event with the given attributes.
   void trackEvent(String eventName, MoEProperties eventAttributes) {
-    _channel.invokeMethod(methodTrackEvent, getEventPayload(eventName, eventAttributes));
+    _channel.invokeMethod(methodTrackEvent,
+        getEventPayload(eventName, eventAttributes));
   }
 
   /// Set a unique identifier for a user.<br/>
   void setUniqueId(String uniqueId) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameUniqueId,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: uniqueId
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameUniqueId,
+            userAttrTypeGeneral, uniqueId));
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
@@ -97,98 +98,82 @@ class MoEngageFlutter {
 
   /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
-      keyAttributeName: userAttrNameUserName,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: userName
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameUserName,
+            userAttrTypeGeneral, userName));
   }
 
   /// Tracks first name as a user attribute.
   void setFirstName(String firstName) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameFirstName,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: firstName
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameFirstName,
+        userAttrTypeGeneral, firstName));
   }
 
   /// Tracks last name as a user attribute.
   void setLastName(String lastName) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameLastName,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: lastName
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameLastName,
+        userAttrTypeGeneral, lastName));
   }
 
   /// Tracks user's email-id as a user attribute.
   void setEmail(String emailId) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameEmailId,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: emailId
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameEmailId,
+            userAttrTypeGeneral, emailId));
   }
 
   /// Tracks phone number as a user attribute.
   void setPhoneNumber(String phoneNumber) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNamePhoneNum,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: phoneNumber
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNamePhoneNum,
+            userAttrTypeGeneral, phoneNumber));
   }
 
   /// Tracks gender as a user attribute.
   void setGender(MoEGender gender) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameGender,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: genderToString(gender)
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameGender,
+            userAttrTypeGeneral, genderToString(gender)));
   }
 
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getLocationPayload(userAttrNameLocation, location)
+        getUserAttributePayload(keyLocationAttribute,
+            userAttrTypeLocation, location.toMap())
     );
   }
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setBirthDate(String birthDate) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttrNameBirtdate,
-      keyAttributeType: userAttrTypeTimestamp,
-      keyAttributeValue: birthDate
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttrNameBirtdate,
+        userAttrTypeTimestamp, birthDate));
   }
 
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, dynamic>{
-      keyAttributeName: userAttributeName,
-      keyAttributeType: userAttrTypeGeneral,
-      keyAttributeValue: userAttributeValue
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttributeName,
+        userAttrTypeGeneral, userAttributeValue));
   }
 
   /// Tracks th given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
-    _channel.invokeMethod(methodSetUserAttribute, <String, String>{
-      keyAttributeName: userAttributeName,
-      keyAttributeType: userAttrTypeTimestamp,
-      keyAttributeValue: isoDateString
-    });
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload( userAttributeName,
+        userAttrTypeTimestamp, isoDateString));
   }
 
   /// Tracks the given location as user attribute.
   void setUserAttributeLocation(String userAttributeName, MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttribute, 
-        getLocationPayload(userAttributeName, location)
+    _channel.invokeMethod(methodSetUserAttribute,
+        getUserAttributePayload(userAttributeName,
+            userAttrTypeLocation, location.toMap())
     );
   }
 
@@ -220,25 +205,25 @@ class MoEngageFlutter {
   }
 
   void selfHandledShown(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "impression";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
   void selfHandledPrimaryClicked(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "primary_clicked";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
   void selfHandledClicked(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "click";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
 
   void selfHandledDismissed(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toJSON();
+    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = "dismissed";
     _channel.invokeMethod(methodSelfHandledCallback, payload);
   }
@@ -268,23 +253,17 @@ class MoEngageFlutter {
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
-      keyAttributeType: gdprOptOutTypeData,
-      keyState: shouldOptOutDataTracking
-    });
+    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
+        gdprOptOutTypeData, shouldOptOutDataTracking));
   }
 
-  void optOutPushTracking(bool shouldOptOutPushTracking) {
-    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
-      keyAttributeType: gdprOptOutTypePush,
-      keyState: shouldOptOutPushTracking
-    });
+  void optOutPushTracking(bool shouldOptOutDataTracking) {
+    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
+        gdprOptOutTypePush, shouldOptOutDataTracking));
   }
 
-  void optOutInAppTracking(bool shouldOptOutInAppTracking) {
-    _channel.invokeMethod(methodOptOutTracking,  <String, dynamic> {
-      keyAttributeType: gdprOptOutTypeInApp,
-      keyState: shouldOptOutInAppTracking
-    });
+  void optOutInAppTracking(bool shouldOptOutDataTracking) {
+    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
+        gdprOptOutTypeInApp, shouldOptOutDataTracking));
   }
 }

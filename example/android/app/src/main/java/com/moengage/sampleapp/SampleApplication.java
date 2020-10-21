@@ -20,6 +20,6 @@ public class SampleApplication extends FlutterApplication {
         .setNotificationLargeIcon(R.drawable.ic_launcher)
         .optOutDefaultInAppDisplay();
 
-    MoEInitializer.initialize(builder.build());
+    MoEInitializer.initialize(getApplicationContext(), builder);
   }
 }

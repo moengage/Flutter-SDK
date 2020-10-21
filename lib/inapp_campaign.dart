@@ -3,6 +3,12 @@ import 'package:moengage_flutter/inapp_navigation.dart';
 import 'package:moengage_flutter/self_handled.dart';
 
 import 'constants.dart';
+import 'constants.dart';
+import 'constants.dart';
+import 'constants.dart';
+import 'constants.dart';
+import 'constants.dart';
+import 'constants.dart';
 
 
 class InAppCampaign {
@@ -18,15 +24,22 @@ class InAppCampaign {
       this.navigationAction, this.selfHandled,
       this.customAction);
 
-  Map<String, dynamic> toJSON() {
-    return {
-      keyCampaignId: this.campaignId,
-      keyCampaignName: this.campaignName,
-      keyPlatform: this.platform,
-      keyNavigation: this.navigationAction.toJSON(),
-      keySelfHandled: this.selfHandled.toJSON(),
-      keyCustomAction: this.customAction.toJSON()
-    };
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> inAppMap = Map<String, dynamic> ();
+    inAppMap[keyCampaignId] = this.campaignId;
+    inAppMap[keyCampaignName] = this.campaignName;
+    inAppMap[keyPlatform] = this.platform;
+
+    if (navigationAction != null) {
+      inAppMap[keyNavigation] = navigationAction.toMap();
+    }
+    if (selfHandled != null) {
+      inAppMap[keySelfHandled] = selfHandled.toMap();
+    }
+    if (customAction != null) {
+      inAppMap[keyCustomAction] = customAction.toMap();
+    }
+     return inAppMap;
   }
 
   String toString() {
