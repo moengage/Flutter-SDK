@@ -61,7 +61,7 @@ class EventEmitterImpl : EventEmitter {
     private fun emit(methodName: String, payload: JSONObject) {
         try {
             Logger.v("$tag emit() : methodName: $methodName")
-            MoEngageFlutterPlugin.sendOrQueueCallback(methodName, payload.toString())
+            MoEngageFlutterPlugin.sendCallback(methodName, payload.toString())
         } catch (e: Exception) {
             Logger.e("$tag emit() : ", e)
         }

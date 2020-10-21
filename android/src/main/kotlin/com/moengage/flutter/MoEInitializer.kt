@@ -1,12 +1,10 @@
-package android.src.main.kotlin.com.moengage.flutter
+package com.moengage.flutter
 
 import android.content.Context
 import com.moengage.core.Logger
 import com.moengage.core.MoEngage
 import com.moengage.core.model.IntegrationMeta
 import com.moengage.flutter.BuildConfig.MOENGAGE_FLUTTER_LIBRARY_VERSION
-import com.moengage.flutter.INTEGRATION_TYPE
-import com.moengage.flutter.MODULE_TAG
 import com.moengage.plugin.base.PluginInitializer.initialize
 
 /**

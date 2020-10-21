@@ -13,7 +13,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.PluginRegistry
-import java.util.*
 
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
@@ -25,6 +24,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
+        //todo notify base  plugin
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -75,16 +75,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun onInitialised() {
         Logger.v("$tag onInitialised() : MoEngage Flutter plugin initialised.")
         pluginHelper.initialize()
-        isInitialised = true
-        synchronized(messageQueue) {
-            Logger.v("$tag onInitialised() : Message queue: $messageQueue")
-            // Handle all the messages received before the Dart isolate was
-            // initialized, then clear the queue.
-            for ((key, value) in messageQueue) {
-                sendCallback(key, value)
-            }
-            messageQueue.clear()
-        }
     }
 
     private fun enableSDKLogs() {
@@ -216,18 +206,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     companion object {
 
         private const val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
-        private val messageQueue = Collections.synchronizedMap(LinkedHashMap<String, String>())
         private lateinit var context: Context
-        private var isInitialised = false
         private var channel: MethodChannel? = null
         private val pluginHelper = PluginHelper()
-
-        @JvmStatic
-        fun registerWith(registrar: PluginRegistry.Registrar) {
-            Logger.v("$tag registerWith() : Registering MoEngageFlutterPlugin")
-            context = registrar.context()
-            initPlugin(registrar.messenger())
-        }
 
         private fun initPlugin(binaryMessenger: BinaryMessenger) {
             channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
@@ -236,20 +217,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             pluginHelper.setEventCallback(EventEmitterImpl())
         }
 
-        fun sendOrQueueCallback(methodName: String, message: String) {
-            if (isInitialised) {
-                Logger.v("$tag sendOrQueueCallback() : Flutter Engine initialised will" +
-                        " send message")
-                sendCallback(methodName, message)
-            } else {
-                Logger.v("$tag sendOrQueueCallback() : Flutter Engine not initialised " +
-                        "adding message to queue"
-                )
-                messageQueue[methodName] = message
-            }
-        }
-
-        private fun sendCallback(methodName: String, message: String) {
+        fun sendCallback(methodName: String, message: String) {
             Handler(Looper.getMainLooper()).post { channel?.invokeMethod(methodName, message) }
         }
     }

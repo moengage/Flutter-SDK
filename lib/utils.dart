@@ -15,8 +15,12 @@ import 'properties.dart';
     }
     Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
     eventPayload[keyEventName] = eventName;
-    //json.encode(eventPayload);
     return eventPayload;
+  }
+
+  String getEventPayloadJSON(String eventName,
+    MoEProperties eventAttributes) {
+    return json.encode(getEventPayload(eventName, eventAttributes));
   }
 
   Map<String, dynamic> getUserAttributePayload(String attributeName,
@@ -28,14 +32,19 @@ import 'properties.dart';
         keyLocationAttribute: attributeValue
       };
     }
-    else{
+    else {
       return <String, dynamic>{
         keyAttributeName: attributeName,
         keyAttributeType: attributeType,
         keyAttributeValue: attributeValue
       };
     }
-    
+  }
+
+  String getUserAttributePayloadJSON(String attributeName,
+    String attributeType, dynamic attributeValue) {
+    return json.encode(getUserAttributePayload(attributeName,
+        attributeType, attributeValue));
   }
 
   Map<String, dynamic> getOptOutTrackingPayload(String type,
@@ -44,6 +53,16 @@ import 'properties.dart';
       keyAttributeType: type,
       keyState: shouldOptOutDataTracking
     };
+  }
+
+  String getOptOutTrackingPayloadJSON(String type,
+    bool shouldOptOutDataTracking) {
+    return json.encode(
+      getOptOutTrackingPayload(type, shouldOptOutDataTracking));
+  }
+
+  Map<String, String> getMap(String key, dynamic value) {
+    return <String, String>{key: value} ;
   }
 
   InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
