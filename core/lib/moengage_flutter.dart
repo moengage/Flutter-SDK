@@ -211,12 +211,21 @@ class MoEngageFlutter {
 
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
-    if (Platform.isAndroid) {
-      _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
-    } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
+    if (userAttributeName.isEmpty) {
+      print("User Attribute Name cannot be empty");
+      return;
+    }
+    if (userAttributeValue is String || userAttributeValue is int || userAttributeValue is double || userAttributeValue is bool) {
+        if (Platform.isAndroid) {
+          _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
+        } else if (Platform.isIOS) {
+          _channel.invokeMethod(methodSetUserAttribute,
           getUserAttributePayload(userAttributeName,
               userAttrTypeGeneral, userAttributeValue));
+        }
+    }
+    else{
+      print("Only String, Numbers and Bool values supported as User Attributes");
     }
   }
 

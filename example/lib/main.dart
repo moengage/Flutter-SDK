@@ -92,7 +92,10 @@ class _MyAppState extends State<MyApp> {
                         .addBoolean("temp1", true)
                         .addDouble("temp2", 12.30)
                         .addString("stringAttr", "string val")
-                        .addArray("arrayAttr", ["str1", 12.8, "str2", 123, true, {"hello": "testing"}])
+                        .addAttribute("attrName1", "attrVal")
+                        .addAttribute("attrName2", false)
+                        .addAttribute("attrName3", 123563563)
+                        .addArrayAttribute("arrayAttr", ["str1", 12.8, "str2", 123, true, {"hello": "testing"}])
                         .setNonInteractiveEvent()
                         .addLocation(
                             "location1", new MoEGeoLocation(12.1, 77.18))

@@ -17,6 +17,7 @@ class MoEProperties {
   }
 
   /// Adds an event attribute of type String.
+  @Deprecated('Use addAttribute() instead')
   MoEProperties addString(String key, String value) {
     if (isAttributeNameEmpty(key)) {
       return this;
@@ -26,6 +27,7 @@ class MoEProperties {
   }
 
   /// Adds an event attribute of type integer.
+  @Deprecated('Use addAttribute() instead')
   MoEProperties addInteger(String key, int value) {
     if (isAttributeNameEmpty(key)) {
       return this;
@@ -35,6 +37,7 @@ class MoEProperties {
   }
 
   /// Adds an event attribute of type double.
+  @Deprecated('Use addAttribute() instead')
   MoEProperties addDouble(String key, double value) {
     if (isAttributeNameEmpty(key)) {
       return this;
@@ -44,6 +47,7 @@ class MoEProperties {
   }
 
   /// Adds an event attribute of type boolean.
+  @Deprecated('Use addAttribute() instead')
   MoEProperties addBoolean(String key, bool value) {
     if (isAttributeNameEmpty(key)) {
       return this;
@@ -52,7 +56,35 @@ class MoEProperties {
     return this;
   }
 
-  /// Adds an event attribute of type Date.
+   /// Adds an event attribute of type string, number or boolean.
+  MoEProperties addAttribute(String key, dynamic value) {
+    if (isAttributeNameEmpty(key)) {
+      return this;
+    }
+    if (value is String || value is int || value is double || value is bool) {
+        generalAttributes.putIfAbsent(key, () => value);
+    }
+    return this;
+  }
+
+  /// Adds an event attribute of type Array.
+  MoEProperties addArrayAttribute(String key, List<dynamic> arr) {
+    if (isAttributeNameEmpty(key)) {
+      return this;
+    }
+    
+    // Type check for String and number 
+    List<dynamic> typeCheckedArray = [];
+    for (var val in arr) {
+      if (val is String || val is int || val is double) {
+        typeCheckedArray.add(val);
+      }
+    }
+    generalAttributes.putIfAbsent(key, () => typeCheckedArray);
+    return this;
+  }
+
+    /// Adds an event attribute of type Date.
   /// Date should be in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   MoEProperties addISODateTime(String key, String value) {
     if (isAttributeNameEmpty(key)) {
@@ -68,23 +100,6 @@ class MoEProperties {
       return this;
     }
     locationAttributes.putIfAbsent(key, () => location.toMap());
-    return this;
-  }
-
-  /// Adds an event attribute of type Array.
-  MoEProperties addArray(String key, List<dynamic> arr) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    
-    // Type check for String and number 
-    List<dynamic> typeCheckedArray = [];
-    for (var val in arr) {
-      if (val is String || val is int || val is double) {
-        typeCheckedArray.add(val);
-      }
-    }
-    generalAttributes.putIfAbsent(key, () => typeCheckedArray);
     return this;
   }
 
