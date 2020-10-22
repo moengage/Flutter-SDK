@@ -176,7 +176,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
             Logger.v("$tag passPushToken() : Arguments: $payload")
-            pluginHelper.passPushToken(context, payload, PushService.FCM)
+            pluginHelper.passPushToken(context, payload)
         } catch (e: Exception) {
             Logger.e("$tag passPushToken() : exception: ", e)
         }
@@ -187,7 +187,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
             Logger.v("$tag passPushPayload() : Arguments: $payload")
-            pluginHelper.passPushPayload(context, payload, PushService.FCM)
+            pluginHelper.passPushPayload(context, payload)
         } catch (e: Exception) {
             Logger.e("$tag passPushPayload() : exception: ", e)
         }

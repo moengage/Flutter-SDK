@@ -427,7 +427,7 @@ class MoEngageFlutter {
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
-  void passFCMPushPayload(Map<String, String> payload) {
+  void passFCMPushPayload(Map<String, dynamic> payload) {
     if (Platform.isAndroid) {
       _moEAndroid.passPushPayload(payload, pushServiceFCM);
     }

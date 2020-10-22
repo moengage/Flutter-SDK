@@ -142,7 +142,7 @@ class MoEAndroidCore {
         methodPushToken, _getPushTokenPayload(pushToken, pushService));
   }
 
-  void passPushPayload(Map<String, String> payload, String pushService) {
+  void passPushPayload(Map<String, dynamic> payload, String pushService) {
     _channel.invokeMethod(
         methodPushPayLoad, _getPushPayload(payload, pushService));
   }
@@ -184,9 +184,9 @@ class MoEAndroidCore {
     });
   }
 
-  String _getPushPayload(Map<String, String> payload, String pushService) {
+  String _getPushPayload(Map<String, dynamic> payload, String pushService) {
     return json.encode({
-      keyPayload: json.encode(payload),
+      keyPayload: payload,
       keyPushService: pushService
     });
   }

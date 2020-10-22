@@ -55,7 +55,7 @@ const String keyAttributeValue = "attributeValue";
 const String keyAttributeName = "attributeName";
 const String keyAttrLatitudeName = "latitude";
 const String keyAttrLongitudeName = "longitude";
-const String keyPushToken = "pushToken";
+const String keyPushToken = "token";
 const String keyPushPayload = "pushPayload";
 const String keyPushService = "service";
 const String keyAttributeType = "type";
@@ -99,9 +99,9 @@ const String gdprOptOutTypePush = "push";
 const String gdprOptOutTypeInApp = "inapp";
 
 // Push Service Types
-const String pushServiceFCM = "fcm";
-const String pushServicePushKit = "pushkit";
-const String pushServiceMiPush = "mi_push";
+const String pushServiceFCM = "FCM";
+const String pushServicePushKit = "PUSH_KIT";
+const String pushServiceMiPush = "MI_PUSH";
 
 // SelfHandled Callback Action Types
 const String selfHandledActionShown = "impression";

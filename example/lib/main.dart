@@ -218,10 +218,16 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.resetCurrentContext();
                   }),
               new ListTile(
-                  title: Text("Push Token"),
+                  title: Text("FCM Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
                     _moengagePlugin.passFCMPushToken("dummyToken");
+                  }),
+              new ListTile(
+                  title: Text("PushKit Push Token"),
+                  onTap: () {
+                    // Token passed here is just for illustration purposes. Please pass the actual token instead.
+                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
                   }),
               new ListTile(
                   title: Text("Push Payload"),
