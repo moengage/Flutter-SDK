@@ -38,6 +38,11 @@ class MoEAndroidCore {
         methodSetAlias, json.encode(getMap(keyAlias, newUniqueId)));
   }
 
+  void setUserName(String userName){
+    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayloadJSON
+      (userAttrNameUserName, userAttrTypeGeneral, userName));
+  }
+
   void setFirstName(String firstName) {
     _channel.invokeMethod(methodSetUserAttribute,
         getUserAttributePayloadJSON(userAttrNameFirstName,
@@ -124,7 +129,7 @@ class MoEAndroidCore {
 
   void setCurrentContext(List<String> contexts) {
     _channel.invokeMethod(methodSetAppContext,
-      json.encode(getMap(keyContexts, contexts)));
+      json.encode(<String, dynamic>{keyContexts: contexts}));
   }
 
   void resetCurrentContext() {

@@ -121,13 +121,12 @@ class MoEngageFlutter {
   /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
     if (Platform.isAndroid) {
-
+      _moEAndroid.setUserName(userName);
     } else if (Platform.isIOS) {
-
+      _channel.invokeMethod(methodSetUserAttribute,
+          getUserAttributePayload(userAttrNameUserName,
+              userAttrTypeGeneral, userName));
     }
-    _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayload(userAttrNameUserName,
-            userAttrTypeGeneral, userName));
   }
 
   /// Tracks first name as a user attribute.
