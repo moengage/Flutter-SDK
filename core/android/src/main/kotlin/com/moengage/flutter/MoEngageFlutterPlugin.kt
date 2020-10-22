@@ -12,7 +12,6 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.PluginRegistry
 
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
@@ -53,12 +52,13 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_SET_ALIAS -> setAlias(call)
                 METHOD_NAME_SET_APP_STATUS -> setAppStatus(call)
                 METHOD_NAME_SET_USER_ATTRIBUTE_TIMESTAMP -> setTimestamp(call)
-                METHOD_NAME_SELF_HANDLED_INAPP -> getSelfHandledInAPP()
+                METHOD_NAME_SELF_HANDLED_INAPP -> getSelfHandledInApp()
                 METHOD_NAME_SET_APP_CONTEXT -> setAppContext(call)
                 METHOD_NAME_RESET_APP_CONTEXT -> resetAppContext()
                 METHOD_NAME_PUSH_PAYLOAD -> passPushPayload(call)
                 METHOD_NAME_PUSH_TOKEN -> passPushToken(call)
                 METHOD_NAME_OPT_OUT_TRACKING -> optOutTracking(call)
+                METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
                 else -> Logger.e("$tag onMethodCall() : No mapping for this method.")
             }
         } catch (e: Exception) {
@@ -152,7 +152,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun getSelfHandledInAPP() {
+    private fun getSelfHandledInApp() {
         pluginHelper.getSelfHandledInApp(context)
     }
 
@@ -201,6 +201,17 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             pluginHelper.optOutTracking(context, payload)
         } catch (e: Exception) {
             Logger.e("$tag optOutTracking() : exception: ", e)
+        }
+    }
+
+    private fun selfHandledCallback(methodCall: MethodCall){
+        try{
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.v("$tag selfHandledCallback() : Arguments: $payload")
+            pluginHelper.selfHandledCallback(context, payload)
+        }catch(e: Exception){
+            Logger.e("$tag selfHandledCallback() : ", e)
         }
     }
 
