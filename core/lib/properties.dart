@@ -19,61 +19,47 @@ class MoEProperties {
   /// Adds an event attribute of type String.
   @Deprecated('Use addAttribute() instead')
   MoEProperties addString(String key, String value) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    generalAttributes.putIfAbsent(key, () => value);
+    _addAttribute(key, value);
     return this;
   }
 
   /// Adds an event attribute of type integer.
   @Deprecated('Use addAttribute() instead')
   MoEProperties addInteger(String key, int value) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    generalAttributes.putIfAbsent(key, () => value);
+    _addAttribute(key, value);
     return this;
   }
 
   /// Adds an event attribute of type double.
   @Deprecated('Use addAttribute() instead')
   MoEProperties addDouble(String key, double value) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    generalAttributes.putIfAbsent(key, () => value);
+    _addAttribute(key, value);
     return this;
   }
 
   /// Adds an event attribute of type boolean.
   @Deprecated('Use addAttribute() instead')
   MoEProperties addBoolean(String key, bool value) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    generalAttributes.putIfAbsent(key, () => value);
+    _addAttribute(key, value);
     return this;
   }
 
    /// Adds an event attribute of type string, number or boolean.
   MoEProperties addAttribute(String key, dynamic value) {
-    if (isAttributeNameEmpty(key)) {
+    if (!_isAcceptedDataType(value)) {
       return this;
     }
-    if (value is String || value is int || value is double || value is bool) {
-        generalAttributes.putIfAbsent(key, () => value);
-    }
+    _addAttribute(key, value);
     return this;
   }
 
   /// Adds an event attribute of type Array.
-  MoEProperties addArrayAttribute(String key, List<dynamic> arr) {
+/*  MoEProperties addArrayAttribute(String key, List<dynamic> arr) {
     if (isAttributeNameEmpty(key)) {
       return this;
     }
-    
-    // Type check for String and number 
+
+    // Type check for String and number
     List<dynamic> typeCheckedArray = [];
     for (var val in arr) {
       if (val is String || val is int || val is double) {
@@ -82,7 +68,7 @@ class MoEProperties {
     }
     generalAttributes.putIfAbsent(key, () => typeCheckedArray);
     return this;
-  }
+  }*/
 
     /// Adds an event attribute of type Date.
   /// Date should be in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
@@ -95,11 +81,9 @@ class MoEProperties {
   }
 
   /// Adds an event attribute of type [MoEGeoLocation].
+  @Deprecated('Use addAttribute() instead')
   MoEProperties addLocation(String key, MoEGeoLocation location) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-    locationAttributes.putIfAbsent(key, () => location.toMap());
+    _addAttribute(key, location);
     return this;
   }
 
@@ -122,5 +106,31 @@ class MoEProperties {
 
   bool isAttributeNameEmpty(String name) {
     return name.isEmpty;
+  }
+
+  bool _isAcceptedDataType(dynamic attributeType) {
+    return attributeType is String ||
+        attributeType is int ||
+        attributeType is double ||
+        attributeType is bool ||
+        attributeType is MoEGeoLocation ||
+        attributeType is List;
+  }
+
+  void _addAttribute(String key, dynamic value) {
+    if (isAttributeNameEmpty(key)) return;
+    if (value is String || value is int || value is double || value is bool) {
+      generalAttributes.putIfAbsent(key, () => value);
+    } else if (value is MoEGeoLocation) {
+      locationAttributes.putIfAbsent(key, () => value.toMap());
+    } else if (value is List) {
+      List<dynamic> typeCheckedArray = [];
+      for (var val in value) {
+        if (val is String || val is int || val is double) {
+          typeCheckedArray.add(val);
+        }
+      }
+      generalAttributes.putIfAbsent(key, () => typeCheckedArray);
+    }
   }
 }
