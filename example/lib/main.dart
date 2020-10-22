@@ -46,6 +46,9 @@ class _MyAppState extends State<MyApp> {
   void _onInAppSelfHandle(InAppCampaign message) {
     print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
+    _moengagePlugin.selfHandledShown(message);
+    _moengagePlugin.selfHandledClicked(message);
+    _moengagePlugin.selfHandledDismissed(message);
   }
 
   @override
