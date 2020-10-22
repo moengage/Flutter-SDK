@@ -8,167 +8,169 @@ import 'inapp_custom_action.dart';
 import 'navigation_action.dart';
 import 'properties.dart';
 
-  Map<String, dynamic> getEventPayload(String eventName,
-      MoEProperties eventAttributes) {
-    if (eventAttributes == null) {
-      eventAttributes = MoEProperties();
-    }
-    Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
-    eventPayload[keyEventName] = eventName;
-    return eventPayload;
+Map<String, dynamic> getEventPayload(
+    String eventName, MoEProperties eventAttributes) {
+  if (eventAttributes == null) {
+    eventAttributes = MoEProperties();
   }
+  Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
+  eventPayload[keyEventName] = eventName;
+  return eventPayload;
+}
 
-  String getEventPayloadJSON(String eventName,
-    MoEProperties eventAttributes) {
-    return json.encode(getEventPayload(eventName, eventAttributes));
-  }
+String getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
+  return json.encode(getEventPayload(eventName, eventAttributes));
+}
 
-  Map<String, dynamic> getUserAttributePayload(String attributeName,
-      String attributeType, dynamic attributeValue) {
-    if (attributeType == userAttrTypeLocation) {
-      return <String, dynamic>{
-        keyAttributeName: attributeName,
-        keyAttributeType: attributeType,
-        keyLocationAttribute: attributeValue
-      };
-    }
-    else {
-      return <String, dynamic>{
-        keyAttributeName: attributeName,
-        keyAttributeType: attributeType,
-        keyAttributeValue: attributeValue
-      };
-    }
-  }
-
-  String getUserAttributePayloadJSON(String attributeName,
-    String attributeType, dynamic attributeValue) {
-    return json.encode(getUserAttributePayload(attributeName,
-        attributeType, attributeValue));
-  }
-
-  Map<String, dynamic> getOptOutTrackingPayload(String type,
-      bool shouldOptOutDataTracking) {
-    return {
-      keyAttributeType: type,
-      keyState: shouldOptOutDataTracking
+Map<String, dynamic> getUserAttributePayload(
+    String attributeName, String attributeType, dynamic attributeValue) {
+  if (attributeType == userAttrTypeLocation) {
+    return <String, dynamic>{
+      keyAttributeName: attributeName,
+      keyAttributeType: attributeType,
+      keyLocationAttribute: attributeValue
+    };
+  } else {
+    return <String, dynamic>{
+      keyAttributeName: attributeName,
+      keyAttributeType: attributeType,
+      keyAttributeValue: attributeValue
     };
   }
+}
 
-  String getOptOutTrackingPayloadJSON(String type,
-    bool shouldOptOutDataTracking) {
-    return json.encode(
-      getOptOutTrackingPayload(type, shouldOptOutDataTracking));
-  }
+String getUserAttributePayloadJSON(
+    String attributeName, String attributeType, dynamic attributeValue) {
+  return json.encode(
+      getUserAttributePayload(attributeName, attributeType, attributeValue));
+}
 
-  Map<String, String> getMap(String key, dynamic value) {
-    return <String, String>{key: value} ;
-  }
+Map<String, dynamic> getOptOutTrackingPayload(
+    String type, bool shouldOptOutDataTracking) {
+  return {keyAttributeType: type, keyState: shouldOptOutDataTracking};
+}
 
-  InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
-    try {
-      Map<String, dynamic> inAppCampaignMap = json.decode(methodCallArgs);
+String getOptOutTrackingPayloadJSON(
+    String type, bool shouldOptOutDataTracking) {
+  return json.encode(getOptOutTrackingPayload(type, shouldOptOutDataTracking));
+}
 
-      if (inAppCampaignMap == null || inAppCampaignMap.isEmpty) {
-        throw Exception("error: inAppCampaignFromMap() : map is empty");
-      }
+Map<String, String> getMap(String key, dynamic value) {
+  return <String, String>{key: value};
+}
 
-      String campaignId = inAppCampaignMap.containsKey(keyCampaignId) ?
-      inAppCampaignMap[keyCampaignId] : null;
+InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
+  try {
+    Map<String, dynamic> inAppCampaignMap = json.decode(methodCallArgs);
 
-      if (campaignId == null || campaignId.isEmpty) {
-        throw Exception(
-            "error: inAppCampaignFromMap : campaignId is null/empty.");
-      }
-
-     String campaignName = inAppCampaignMap.containsKey(keyCampaignName) ?
-      inAppCampaignMap[keyCampaignName] : null;
-
-      if (campaignName == null || campaignName.isEmpty) {
-        throw Exception(
-            "error: inAppCampaignFromMap : campaignName is null/empty.");
-      }
-
-      String platform = inAppCampaignMap.containsKey(keyPlatform) ?
-      inAppCampaignMap[keyPlatform] : null;
-
-      if (platform == null || platform.isEmpty) {
-        throw Exception("error: inAppCampaignFromMap() : platform is null/empty.");
-      }
-
-      NavigationAction navigationAction;
-      SelfHandled selfHandled;
-      CustomAction customAction;
-
-      if (inAppCampaignMap.containsKey(keyNavigation)) {
-        Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
-
-        String navigationType = navigationMap.containsKey(keyNavigationType) ?
-        navigationMap[keyNavigationType] : null;
-
-        String url = navigationMap.containsKey(keyValue) ?
-        navigationMap[keyValue] : null;
-
-        Map<String, dynamic> keyValuePairs = navigationMap.containsKey(keyKvPair) ?
-        navigationMap[keyKvPair] : null;
-
-        navigationAction = NavigationAction(navigationType, url, keyValuePairs);
-      }
-      if (inAppCampaignMap.containsKey(keySelfHandled)) {
-        Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
-
-        String campaignContent = selfHandledMap.containsKey(keyPayload) ?
-        selfHandledMap[keyPayload] : null;
-
-        int dismissInterval = selfHandledMap.containsKey(keyDismissInterval) ?
-        selfHandledMap[keyDismissInterval] : null;
-
-        bool cancellable = selfHandledMap.containsKey(keyIsCancellable) ?
-        selfHandledMap[keyIsCancellable] : null;
-
-        selfHandled =
-            SelfHandled(campaignContent, dismissInterval, cancellable);
-      }
-
-      if (inAppCampaignMap.containsKey(keyCustomAction)) {
-        Map<String, dynamic> customActionMap = inAppCampaignMap[keyCustomAction];
-        customAction = customActionMap.containsKey(keyKvPair) ?
-        CustomAction(customActionMap[keyKvPair]) : null;
-      }
-
-      return InAppCampaign(campaignId, campaignName, platform, navigationAction,
-          selfHandled, customAction);
-    } catch (ex) {
-      print("error: inAppCampaignFromMap : $ex");
-    }
-    return null;
-  }
-
-  PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
-    try {
-      Map<String, dynamic> pushCampaignMap = json.decode(
-          methodCallArgs as String);
-      String platform = pushCampaignMap.containsKey(keyPlatform) ?
-      pushCampaignMap[keyPlatform] : null;
-
-      if (platform == null) {
-        throw Exception("error: pushCampaignFromMap() : platform is null.");
-      }
-
-      bool isDefaultAction = pushCampaignMap.containsKey(keyIsDefaultAction) ?
-      pushCampaignMap[keyIsDefaultAction] : false;
-
-      Map<String, dynamic> clickedAction = pushCampaignMap.containsKey(
-          keyClickedAction) ?
-      pushCampaignMap[keyClickedAction] : null;
-
-      Map<String, dynamic> payload = pushCampaignMap.containsKey(keyPayload) ?
-      pushCampaignMap[keyPayload] : null;
-
-      return PushCampaign(platform, isDefaultAction, clickedAction, payload);
-    } catch (ex) {
-      print("error: pushCampaignFromMap : $ex");
+    if (inAppCampaignMap == null || inAppCampaignMap.isEmpty) {
+      throw Exception("error: inAppCampaignFromMap() : map is empty");
     }
 
+    String campaignId = inAppCampaignMap[keyCampaignId];
+    if (campaignId == null || campaignId.isEmpty) {
+      throw Exception(
+          "error: inAppCampaignFromMap : campaignId is null/empty.");
+    }
+
+    String campaignName = inAppCampaignMap[keyCampaignName];
+
+    if (campaignName == null || campaignName.isEmpty) {
+      throw Exception(
+          "error: inAppCampaignFromMap : campaignName is null/empty.");
+    }
+
+    String platform = inAppCampaignMap[keyPlatform];
+
+    if (platform == null || platform.isEmpty) {
+      throw Exception(
+          "error: inAppCampaignFromMap() : platform is null/empty.");
+    }
+
+    return InAppCampaign(
+        campaignId,
+        campaignName,
+        platform,
+        navigationActionFromCampaignMap(inAppCampaignMap),
+        selfHandledFromCampaignMap(inAppCampaignMap),
+        customActionFromCampaignMap(inAppCampaignMap));
+  } catch (ex) {
+    print("error: inAppCampaignFromMap : $ex");
+  }
+  return null;
+}
+
+SelfHandled selfHandledFromCampaignMap(Map<String, dynamic> inAppCampaignMap) {
+  if (inAppCampaignMap.containsKey(keySelfHandled)) {
+    Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
+
+    return SelfHandled(
+        selfHandledMap[keyPayload],
+        selfHandledMap.containsKey(keyDismissInterval)
+            ? selfHandledMap[keyDismissInterval]
+            : -1,
+        selfHandledMap.containsKey(keyIsCancellable)
+            ? selfHandledMap[keyIsCancellable]
+            : true);
+  } else {
     return null;
   }
+}
+
+NavigationAction navigationActionFromCampaignMap(
+    Map<String, dynamic> inAppCampaignMap) {
+  if (inAppCampaignMap.containsKey(keyNavigation)) {
+    Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
+    return NavigationAction(
+        navigationMap[keyNavigationType],
+        navigationMap[keyValue],
+        navigationMap.containsKey(keyKvPair) ? navigationMap[keyKvPair] : null);
+  } else {
+    return null;
+  }
+}
+
+CustomAction customActionFromCampaignMap(
+    Map<String, dynamic> inAppCampaignMap) {
+  if (inAppCampaignMap.containsKey(keyCustomAction)) {
+    Map<String, dynamic> customActionMap = inAppCampaignMap[keyCustomAction];
+    return customActionMap.containsKey(keyKvPair)
+        ? CustomAction(customActionMap[keyKvPair])
+        : null;
+  } else {
+    return null;
+  }
+}
+
+PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
+  try {
+    Map<String, dynamic> pushCampaignMap =
+        json.decode(methodCallArgs as String);
+    String platform = pushCampaignMap.containsKey(keyPlatform)
+        ? pushCampaignMap[keyPlatform]
+        : null;
+
+    if (platform == null) {
+      throw Exception("error: pushCampaignFromMap() : platform is null.");
+    }
+
+    bool isDefaultAction = pushCampaignMap.containsKey(keyIsDefaultAction)
+        ? pushCampaignMap[keyIsDefaultAction]
+        : false;
+
+    Map<String, dynamic> clickedAction =
+        pushCampaignMap.containsKey(keyClickedAction)
+            ? pushCampaignMap[keyClickedAction]
+            : null;
+
+    Map<String, dynamic> payload = pushCampaignMap.containsKey(keyPayload)
+        ? pushCampaignMap[keyPayload]
+        : null;
+
+    return PushCampaign(platform, isDefaultAction, clickedAction, payload);
+  } catch (ex) {
+    print("error: pushCampaignFromMap : $ex");
+  }
+
+  return null;
+}
