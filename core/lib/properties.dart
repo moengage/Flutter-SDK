@@ -44,7 +44,7 @@ class MoEProperties {
     return this;
   }
 
-   /// Adds an event attribute of type string, number or boolean.
+  /// Adds an event attribute of type string, number or boolean.
   MoEProperties addAttribute(String key, dynamic value) {
     if (!_isAcceptedDataType(value)) {
       return this;
@@ -53,27 +53,10 @@ class MoEProperties {
     return this;
   }
 
-  /// Adds an event attribute of type Array.
-/*  MoEProperties addArrayAttribute(String key, List<dynamic> arr) {
-    if (isAttributeNameEmpty(key)) {
-      return this;
-    }
-
-    // Type check for String and number
-    List<dynamic> typeCheckedArray = [];
-    for (var val in arr) {
-      if (val is String || val is int || val is double) {
-        typeCheckedArray.add(val);
-      }
-    }
-    generalAttributes.putIfAbsent(key, () => typeCheckedArray);
-    return this;
-  }*/
-
-    /// Adds an event attribute of type Date.
+  /// Adds an event attribute of type Date.
   /// Date should be in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   MoEProperties addISODateTime(String key, String value) {
-    if (isAttributeNameEmpty(key)) {
+    if (_isAttributeNameEmpty(key)) {
       return this;
     }
     dateTimeAttributes.putIfAbsent(key, () => value);
@@ -95,16 +78,16 @@ class MoEProperties {
 
   Map<String, dynamic> getEventAttributeJson() {
     return {
-    "eventAttributes": {
-      "generalAttributes": this.generalAttributes,
-      "locationAttributes": this.locationAttributes,
-      "dateTimeAttributes": this.dateTimeAttributes
-    },
+      "eventAttributes": {
+        "generalAttributes": this.generalAttributes,
+        "locationAttributes": this.locationAttributes,
+        "dateTimeAttributes": this.dateTimeAttributes
+      },
       "isNonInteractive": this.isNonInteractive
     };
   }
 
-  bool isAttributeNameEmpty(String name) {
+  bool _isAttributeNameEmpty(String name) {
     return name.isEmpty;
   }
 
@@ -117,8 +100,14 @@ class MoEProperties {
         attributeType is List;
   }
 
+  bool _isAcceptedArrayType(dynamic attributeType) {
+    return attributeType is String ||
+        attributeType is int ||
+        attributeType is double;
+  }
+
   void _addAttribute(String key, dynamic value) {
-    if (isAttributeNameEmpty(key)) return;
+    if (_isAttributeNameEmpty(key)) return;
     if (value is String || value is int || value is double || value is bool) {
       generalAttributes.putIfAbsent(key, () => value);
     } else if (value is MoEGeoLocation) {
@@ -126,9 +115,8 @@ class MoEProperties {
     } else if (value is List) {
       List<dynamic> typeCheckedArray = [];
       for (var val in value) {
-        if (val is String || val is int || val is double) {
-          typeCheckedArray.add(val);
-        }
+        if (!_isAcceptedArrayType(val)) continue;
+        typeCheckedArray.add(val);
       }
       generalAttributes.putIfAbsent(key, () => typeCheckedArray);
     }
