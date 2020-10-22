@@ -18,10 +18,6 @@ Map<String, dynamic> getEventPayload(
   return eventPayload;
 }
 
-String getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
-  return json.encode(getEventPayload(eventName, eventAttributes));
-}
-
 Map<String, dynamic> getUserAttributePayload(
     String attributeName, String attributeType, dynamic attributeValue) {
   if (attributeType == userAttrTypeLocation) {
@@ -39,20 +35,9 @@ Map<String, dynamic> getUserAttributePayload(
   }
 }
 
-String getUserAttributePayloadJSON(
-    String attributeName, String attributeType, dynamic attributeValue) {
-  return json.encode(
-      getUserAttributePayload(attributeName, attributeType, attributeValue));
-}
-
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking) {
   return {keyAttributeType: type, keyState: shouldOptOutDataTracking};
-}
-
-String getOptOutTrackingPayloadJSON(
-    String type, bool shouldOptOutDataTracking) {
-  return json.encode(getOptOutTrackingPayload(type, shouldOptOutDataTracking));
 }
 
 Map<String, String> getMap(String key, dynamic value) {
@@ -142,10 +127,8 @@ CustomAction customActionFromCampaignMap(
   }
 }
 
-PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
+PushCampaign pushCampaignFromMap(Map<String, dynamic> pushCampaignMap) {
   try {
-    Map<String, dynamic> pushCampaignMap =
-        json.decode(methodCallArgs as String);
     String platform = pushCampaignMap.containsKey(keyPlatform)
         ? pushCampaignMap[keyPlatform]
         : null;

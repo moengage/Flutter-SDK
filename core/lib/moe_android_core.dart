@@ -7,6 +7,7 @@ import 'package:moengage_flutter/utils.dart';
 
 import 'app_status.dart';
 import 'constants.dart';
+import 'constants.dart';
 import 'gender.dart';
 import 'geo_location.dart';
 
@@ -24,12 +25,12 @@ class MoEAndroidCore {
 
   void trackEvent(String eventName, MoEProperties eventAttributes) {
     _channel.invokeMethod(methodTrackEvent,
-        getEventPayloadJSON(eventName, eventAttributes));
+        _getEventPayloadJSON(eventName, eventAttributes));
   }
 
   void setUniqueId(String uniqueId) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameUniqueId,
+        _getUserAttributePayloadJSON(userAttrNameUniqueId,
             userAttrTypeGeneral, uniqueId));
   }
 
@@ -39,68 +40,68 @@ class MoEAndroidCore {
   }
 
   void setUserName(String userName){
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayloadJSON
+    _channel.invokeMethod(methodSetUserAttribute, _getUserAttributePayloadJSON
       (userAttrNameUserName, userAttrTypeGeneral, userName));
   }
 
   void setFirstName(String firstName) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameFirstName,
+        _getUserAttributePayloadJSON(userAttrNameFirstName,
             userAttrTypeGeneral, firstName));
   }
 
   void setLastName(String lastName) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameLastName,
+        _getUserAttributePayloadJSON(userAttrNameLastName,
             userAttrTypeGeneral, lastName));
   }
 
   void setEmail(String emailId) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameEmailId,
+        _getUserAttributePayloadJSON(userAttrNameEmailId,
             userAttrTypeGeneral, emailId));
   }
 
   void setPhoneNumber(String phoneNumber) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNamePhoneNum,
+        _getUserAttributePayloadJSON(userAttrNamePhoneNum,
             userAttrTypeGeneral, phoneNumber));
   }
 
   void setGender(MoEGender gender) {
       _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayloadJSON(userAttrNameGender,
+          _getUserAttributePayloadJSON(userAttrNameGender,
               userAttrTypeGeneral, genderToString(gender)));
   }
 
   void setLocation(MoEGeoLocation location) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameLocation,
+        _getUserAttributePayloadJSON(userAttrNameLocation,
             userAttrTypeLocation, location.toMap())
     );
   }
 
   void setBirthDate(String birthDate) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttrNameBirtdate,
+        _getUserAttributePayloadJSON(userAttrNameBirtdate,
             userAttrTypeTimestamp, birthDate));
   }
 
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttributeName,
+        _getUserAttributePayloadJSON(userAttributeName,
             userAttrTypeGeneral, userAttributeValue));
   }
 
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON( userAttributeName,
+        _getUserAttributePayloadJSON(userAttributeName,
             userAttrTypeTimestamp, isoDateString));
   }
 
   void setUserAttributeLocation(String userAttributeName, MoEGeoLocation location) {
     _channel.invokeMethod(methodSetUserAttribute,
-        getUserAttributePayloadJSON(userAttributeName,
+        _getUserAttributePayloadJSON(userAttributeName,
             userAttrTypeLocation, location.toMap())
     );
   }
@@ -136,30 +137,57 @@ class MoEAndroidCore {
     _channel.invokeMethod(methodResetAppContext);
   }
 
-  void passPushToken(String pushToken) {
+  void passPushToken(String pushToken, String pushService) {
     _channel.invokeMethod(
-        methodPushToken,
-        json.encode(getMap(keyPushToken, pushToken)));
+        methodPushToken, _getPushTokenPayload(pushToken, pushService));
   }
 
-  void passPushPayload(Map<String, String> payload) {
+  void passPushPayload(Map<String, String> payload, String pushService) {
     _channel.invokeMethod(
-        methodPushPayLoad,
-        json.encode(getMap(keyPushPayload, payload)));
+        methodPushPayLoad, _getPushPayload(payload, pushService));
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayloadJSON(
+    _channel.invokeMethod(methodOptOutTracking, _getOptOutTrackingPayloadJSON(
         gdprOptOutTypeData, shouldOptOutDataTracking));
   }
 
   void optOutPushTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayloadJSON(
+    _channel.invokeMethod(methodOptOutTracking, _getOptOutTrackingPayloadJSON(
         gdprOptOutTypePush, shouldOptOutDataTracking));
   }
 
   void optOutInAppTracking(bool shouldOptOutDataTracking) {
-    _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayloadJSON(
+    _channel.invokeMethod(methodOptOutTracking, _getOptOutTrackingPayloadJSON(
         gdprOptOutTypeInApp, shouldOptOutDataTracking));
+  }
+
+  String _getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
+    return json.encode(getEventPayload(eventName, eventAttributes));
+  }
+
+  String _getUserAttributePayloadJSON(
+      String attributeName, String attributeType, dynamic attributeValue) {
+    return json.encode(
+        getUserAttributePayload(attributeName, attributeType, attributeValue));
+  }
+
+  String _getOptOutTrackingPayloadJSON(
+      String type, bool shouldOptOutDataTracking) {
+    return json.encode(getOptOutTrackingPayload(type, shouldOptOutDataTracking));
+  }
+
+  String _getPushTokenPayload(String pushToken, String pushService) {
+    return json.encode({
+      keyPushToken: pushToken,
+      keyPushService: pushService
+    });
+  }
+
+  String _getPushPayload(Map<String, String> payload, String pushService) {
+    return json.encode({
+      keyPayload: json.encode(payload),
+      keyPushService: pushService
+    });
   }
 }

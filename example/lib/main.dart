@@ -218,7 +218,7 @@ class _MyAppState extends State<MyApp> {
                   title: Text("Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushToken("dummyToken");
+                    _moengagePlugin.passFCMPushToken("dummyToken");
                   }),
               new ListTile(
                   title: Text("Push Payload"),
@@ -233,7 +233,7 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent("gcm_campaign_id", () => "123456");
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moe.pushlibrary.activities.MoEActivity");
-                    _moengagePlugin.passPushPayload(pushPayload);
+                    _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
                   title: Text("Opt-Out Data, Push, InApp"),

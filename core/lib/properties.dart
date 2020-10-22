@@ -78,12 +78,12 @@ class MoEProperties {
 
   Map<String, dynamic> getEventAttributeJson() {
     return {
-      "eventAttributes": {
-        "generalAttributes": this.generalAttributes,
-        "locationAttributes": this.locationAttributes,
-        "dateTimeAttributes": this.dateTimeAttributes
+      _keyEventAttributes: {
+        _keyGeneralAttributes: generalAttributes,
+        _keyLocationAttributes: locationAttributes,
+        _keyDateTimeAttributes: dateTimeAttributes
       },
-      "isNonInteractive": this.isNonInteractive
+      _keyIsNonInteractive: isNonInteractive
     };
   }
 
@@ -121,4 +121,10 @@ class MoEProperties {
       generalAttributes.putIfAbsent(key, () => typeCheckedArray);
     }
   }
+
+  String _keyEventAttributes = "eventAttributes";
+  String _keyGeneralAttributes = "generalAttributes";
+  String _keyLocationAttributes = "locationAttributes";
+  String _keyDateTimeAttributes = "dateTimeAttributes";
+  String _keyIsNonInteractive = "isNonInteractive";
 }
