@@ -71,6 +71,23 @@ class MoEProperties {
     return this;
   }
 
+  /// Adds an event attribute of type Array.
+  MoEProperties addArray(String key, List<dynamic> arr) {
+    if (isAttributeNameEmpty(key)) {
+      return this;
+    }
+    
+    // Type check for String and number 
+    List<dynamic> typeCheckedArray = [];
+    for (var val in arr) {
+      if (val is String || val is int || val is double) {
+        typeCheckedArray.add(val);
+      }
+    }
+    generalAttributes.putIfAbsent(key, () => typeCheckedArray);
+    return this;
+  }
+
   /// Marks an event as non-interactive.
   MoEProperties setNonInteractiveEvent() {
     this.isNonInteractive = true;
