@@ -10,11 +10,11 @@ import 'constants.dart';
 import 'gender.dart';
 import 'geo_location.dart';
 
-class MoEAndroid {
+class MoEAndroidCore {
 
   MethodChannel _channel;
 
-  MoEAndroid(MethodChannel channel) {
+  MoEAndroidCore(MethodChannel channel) {
     _channel = channel;
   }
 

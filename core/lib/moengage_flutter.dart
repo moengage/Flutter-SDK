@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
-import 'package:moengage_flutter/moe_android.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
@@ -12,6 +11,7 @@ import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/utils.dart';
 
 import 'constants.dart';
+import 'moe_android_core.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
@@ -19,7 +19,7 @@ typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
 class MoEngageFlutter {
 
   MethodChannel _channel = MethodChannel(channelName);
-  MoEAndroid _moEAndroid;
+  MoEAndroidCore _moEAndroid;
 
   PushCallbackHandler _onPushClick;
   InAppCallbackHandler _onInAppClick;
@@ -31,7 +31,7 @@ class MoEngageFlutter {
   void initialise() {
     _channel.setMethodCallHandler(_handler);
     _channel.invokeMethod(methodInitialise);
-    _moEAndroid = MoEAndroid(_channel);
+    _moEAndroid = MoEAndroidCore(_channel);
   }
 
   void setUpPushCallbacks(PushCallbackHandler onPushClick) {

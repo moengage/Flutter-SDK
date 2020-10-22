@@ -18,7 +18,7 @@ dev_dependencies:
     sdk: flutter
 
   moengage_flutter:
-    path: ../
+    path: ../core/
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
