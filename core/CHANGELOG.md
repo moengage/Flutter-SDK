@@ -1,4 +1,4 @@
-## 2.0.0 
+## 2.0.0 (23-10-2020)
 - Support for Self-Handled In-App
 - Support for In-App V3
 - Android SDK updated to support `10.4.03` and above.
