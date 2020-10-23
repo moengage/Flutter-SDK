@@ -40,8 +40,8 @@ Map<String, dynamic> getOptOutTrackingPayload(
   return {keyAttributeType: type, keyState: shouldOptOutDataTracking};
 }
 
-Map<String, String> getMap(String key, dynamic value) {
-  return <String, String>{key: value};
+Map<String, dynamic> getMap(String key, dynamic value) {
+  return <String, dynamic>{key: value};
 }
 
 InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {

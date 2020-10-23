@@ -9,6 +9,7 @@ import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/utils.dart';
+import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
@@ -18,6 +19,7 @@ class MoEngageFlutter {
 
   MethodChannel _channel = MethodChannel(channelName);
   MoEAndroidCore _moEAndroid;
+  MoEiOSCore _moEiOS;
 
   PushCallbackHandler _onPushClick;
   InAppCallbackHandler _onInAppClick;
@@ -30,6 +32,7 @@ class MoEngageFlutter {
     _channel.setMethodCallHandler(_handler);
     _channel.invokeMethod(methodInitialise);
     _moEAndroid = MoEAndroidCore(_channel);
+    _moEiOS = MoEiOSCore(_channel);
   }
 
   void setUpPushCallbacks(PushCallbackHandler onPushClick) {
@@ -99,7 +102,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.enableSDKLogs();
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodEnableSDKLogs);
+      _moEiOS.enableSDKLogs();
     }
   }
 
@@ -108,8 +111,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.trackEvent(eventName, eventAttributes);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodTrackEvent,
-          getEventPayload(eventName, eventAttributes));
+      _moEiOS.trackEvent(eventName, eventAttributes);
     }
   }
 
@@ -118,9 +120,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setUniqueId(uniqueId);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameUniqueId,
-              userAttrTypeGeneral, uniqueId));
+      _moEiOS.setUniqueId(uniqueId);
     }
   }
 
@@ -129,8 +129,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setAlias(newUniqueId);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(
-          methodSetAlias, getMap(keyAlias, newUniqueId));
+      _moEiOS.setAlias(newUniqueId);
     }
   }
 
@@ -139,9 +138,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setUserName(userName);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameUserName,
-              userAttrTypeGeneral, userName));
+      _moEiOS.setUserName(userName);
     }
   }
 
@@ -150,9 +147,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setFirstName(firstName);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameFirstName,
-              userAttrTypeGeneral, firstName));
+      _moEiOS.setFirstName(firstName);
     }
   }
 
@@ -161,9 +156,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setLastName(lastName);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameLastName,
-              userAttrTypeGeneral, lastName));
+      _moEiOS.setLastName(lastName);
     }
   }
 
@@ -172,9 +165,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setEmail(emailId);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameEmailId,
-              userAttrTypeGeneral, emailId));
+      _moEiOS.setEmail(emailId);
     }
   }
 
@@ -183,9 +174,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setPhoneNumber(phoneNumber);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNamePhoneNum,
-              userAttrTypeGeneral, phoneNumber));
+      _moEiOS.setPhoneNumber(phoneNumber);
     }
   }
 
@@ -194,9 +183,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setGender(gender);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameGender,
-              userAttrTypeGeneral, genderToString(gender)));
+      _moEiOS.setGender(gender);
     }
   }
 
@@ -205,10 +192,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setLocation(location);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameLocation,
-              userAttrTypeLocation, location.toMap())
-      );
+      _moEiOS.setLocation(location);
     }
   }
 
@@ -218,9 +202,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setBirthDate(birthDate);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttrNameBirtdate,
-              userAttrTypeTimestamp, birthDate));
+      _moEiOS.setBirthDate(birthDate);
     }
   }
 
@@ -234,9 +216,7 @@ class MoEngageFlutter {
         if (Platform.isAndroid) {
           _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
         } else if (Platform.isIOS) {
-          _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttributeName,
-              userAttrTypeGeneral, userAttributeValue));
+          _moEiOS.setUserAttribute(userAttributeName, userAttributeValue);
         }
     }
     else{
@@ -250,9 +230,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setUserAttributeIsoDate(userAttributeName, isoDateString);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttributeName,
-              userAttrTypeTimestamp, isoDateString));
+      _moEiOS.setUserAttributeIsoDate(userAttributeName, isoDateString);
     }
   }
 
@@ -261,9 +239,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setUserAttributeLocation(userAttributeName, location);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetUserAttribute,
-          getUserAttributePayload(userAttributeName,
-              userAttrTypeLocation, location.toMap()));
+      _moEiOS.setUserAttributeLocation(userAttributeName, location);
     }
   }
 
@@ -272,16 +248,8 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setAppStatus(appStatus);
     } else if (Platform.isIOS) {
-      _channel.invokeListMethod(methodSetAppStatus, <String, String>{
-        keyAppStatus:
-        appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate
-      });
+      _moEiOS.setAppStatus(appStatus);
     }
-  }
-
-  // Push Notification Registration
-  void registerForPushNotification() {
-    _channel.invokeMethod(methodRegisterForiOSPush);
   }
 
   /// Try to show an InApp Message.
@@ -289,7 +257,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.showInApp();
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodShowInApp);
+      _moEiOS.showInApp();
     }
   }
 
@@ -299,7 +267,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.logout();
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodLogout);
+      _moEiOS.logout();
     }
   }
 
@@ -309,7 +277,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.getSelfHandledInApp();
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSelfHandledInApp);
+      _moEiOS.getSelfHandledInApp();
     }
   }
 
@@ -321,7 +289,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSelfHandledCallback, payload);
+      _moEiOS.selfHandledCallback(payload);
     }
   }
 
@@ -333,7 +301,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSelfHandledCallback, payload);
+      _moEiOS.selfHandledCallback(payload);
     }
   }
 
@@ -345,7 +313,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSelfHandledCallback, payload);
+      _moEiOS.selfHandledCallback(payload);
     }
   }
 
@@ -357,7 +325,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSelfHandledCallback, payload);
+      _moEiOS.selfHandledCallback(payload);
     }
   }
 
@@ -366,8 +334,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.setCurrentContext(contexts);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodSetAppContext,
-        getMap(keyContexts, contexts));
+      _moEiOS.setCurrentContext(contexts);
     }
   }
 
@@ -375,7 +342,15 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.resetCurrentContext();
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodResetAppContext);
+      _moEiOS.resetCurrentContext();
+    }
+  }
+
+  /// Push Notification Registration
+  /// Note: This API is only for iOS Platform.
+  void registerForPushNotification() {
+    if (Platform.isIOS) {
+      _moEiOS.registerForPushNotification();
     }
   }
 
@@ -385,30 +360,27 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.optOutDataTracking(shouldOptOutDataTracking);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
-          gdprOptOutTypeData, shouldOptOutDataTracking));
+      _moEiOS.optOutDataTracking(shouldOptOutDataTracking);
     }
   }
 
   ///Optionally opt-out of push campaigns.
   ///No push campaigns will be shown once this is opted out.
-  void optOutPushTracking(bool shouldOptOutDataTracking) {
+  void optOutPushTracking(bool shouldOptOutPushTracking) {
     if (Platform.isAndroid) {
-      _moEAndroid.optOutPushTracking(shouldOptOutDataTracking);
+      _moEAndroid.optOutPushTracking(shouldOptOutPushTracking);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
-          gdprOptOutTypePush, shouldOptOutDataTracking));
+      _moEiOS.optOutPushTracking(shouldOptOutPushTracking);
     }
   }
 
   ///Optionally opt-out of in-app campaigns.
   ///No in-app campaigns will be shown once this is  opted out.
-  void optOutInAppTracking(bool shouldOptOutDataTracking) {
+  void optOutInAppTracking(bool shouldOptOutinAppTracking) {
     if (Platform.isAndroid) {
-      _moEAndroid.optOutInAppTracking(shouldOptOutDataTracking);
+      _moEAndroid.optOutInAppTracking(shouldOptOutinAppTracking);
     } else if (Platform.isIOS) {
-      _channel.invokeMethod(methodOptOutTracking, getOptOutTrackingPayload(
-          gdprOptOutTypeInApp, shouldOptOutDataTracking));
+      _moEiOS.optOutInAppTracking(shouldOptOutinAppTracking);
     }
   }
 
