@@ -1,4 +1,4 @@
-import 'constants.dart';
+import 'package:moengage_flutter/constants.dart';
 
 class CustomAction {
 

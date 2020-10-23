@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:moengage_flutter/inapp_campaign.dart';
+
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/self_handled.dart';
-
-import 'constants.dart';
-import 'inapp_custom_action.dart';
-import 'navigation_action.dart';
-import 'properties.dart';
+import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/inapp_custom_action.dart';
+import 'package:moengage_flutter/navigation_action.dart';
+import 'package:moengage_flutter/properties.dart';
+import 'package:moengage_flutter/inapp_campaign.dart';
 
 Map<String, dynamic> getEventPayload(
     String eventName, MoEProperties eventAttributes) {
@@ -72,13 +72,15 @@ InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
           "error: inAppCampaignFromMap() : platform is null/empty.");
     }
 
-    return InAppCampaign(
+    InAppCampaign inAppCampaign =  InAppCampaign(
         campaignId,
         campaignName,
-        platform,
-        navigationActionFromCampaignMap(inAppCampaignMap),
-        selfHandledFromCampaignMap(inAppCampaignMap),
-        customActionFromCampaignMap(inAppCampaignMap));
+        platform);
+    inAppCampaign.navigationAction = navigationActionFromCampaignMap(
+        inAppCampaignMap
+    );
+    inAppCampaign.selfHandled = selfHandledFromCampaignMap(inAppCampaignMap);
+    inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
   } catch (ex) {
     print("error: inAppCampaignFromMap : $ex");
   }

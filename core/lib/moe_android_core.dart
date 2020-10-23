@@ -4,12 +4,10 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/utils.dart';
-
-import 'app_status.dart';
-import 'constants.dart';
-import 'constants.dart';
-import 'gender.dart';
-import 'geo_location.dart';
+import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/app_status.dart';
+import 'package:moengage_flutter/gender.dart';
+import 'package:moengage_flutter/geo_location.dart';
 
 class MoEAndroidCore {
 
