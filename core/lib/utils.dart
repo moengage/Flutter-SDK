@@ -81,6 +81,8 @@ InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
     );
     inAppCampaign.selfHandled = selfHandledFromCampaignMap(inAppCampaignMap);
     inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
+
+    return inAppCampaign;
   } catch (ex) {
     print("error: inAppCampaignFromMap : $ex");
   }
