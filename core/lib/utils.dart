@@ -44,32 +44,32 @@ Map<String, dynamic> getMap(String key, dynamic value) {
   return <String, dynamic>{key: value};
 }
 
-InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
+InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
   try {
     Map<String, dynamic> inAppCampaignMap = json.decode(methodCallArgs);
 
     if (inAppCampaignMap == null || inAppCampaignMap.isEmpty) {
-      throw Exception("error: inAppCampaignFromMap() : map is empty");
+      throw Exception("error: inAppCampaignFromJson() : map is empty");
     }
 
     String campaignId = inAppCampaignMap[keyCampaignId];
     if (campaignId == null || campaignId.isEmpty) {
       throw Exception(
-          "error: inAppCampaignFromMap : campaignId is null/empty.");
+          "error: inAppCampaignFromJson : campaignId is null/empty.");
     }
 
     String campaignName = inAppCampaignMap[keyCampaignName];
 
     if (campaignName == null || campaignName.isEmpty) {
       throw Exception(
-          "error: inAppCampaignFromMap : campaignName is null/empty.");
+          "error: inAppCampaignFromJson : campaignName is null/empty.");
     }
 
     String platform = inAppCampaignMap[keyPlatform];
 
     if (platform == null || platform.isEmpty) {
       throw Exception(
-          "error: inAppCampaignFromMap() : platform is null/empty.");
+          "error: inAppCampaignFromJson() : platform is null/empty.");
     }
 
     InAppCampaign inAppCampaign =  InAppCampaign(
@@ -84,7 +84,7 @@ InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
 
     return inAppCampaign;
   } catch (ex) {
-    print("error: inAppCampaignFromMap : $ex");
+    print("error: inAppCampaignFromJson : $ex");
   }
   return null;
 }
@@ -131,7 +131,7 @@ CustomAction customActionFromCampaignMap(
   }
 }
 
-PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
+PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
   try {
     Map<String, dynamic> pushCampaignMap = json.decode(methodCallArgs);
     String platform = pushCampaignMap.containsKey(keyPlatform)
@@ -139,7 +139,7 @@ PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
         : null;
 
     if (platform == null) {
-      throw Exception("error: pushCampaignFromMap() : platform is null.");
+      throw Exception("error: pushCampaignFromJson() : platform is null.");
     }
 
     bool isDefaultAction = pushCampaignMap.containsKey(keyIsDefaultAction)
@@ -157,7 +157,7 @@ PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
 
     return PushCampaign(platform, isDefaultAction, clickedAction, payload);
   } catch (ex) {
-    print("error: pushCampaignFromMap : $ex");
+    print("error: pushCampaignFromJson : $ex");
   }
 
   return null;

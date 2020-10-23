@@ -19,6 +19,7 @@ public class SampleApplication extends FlutterApplication {
         .setNotificationSmallIcon(R.drawable.icon)
         .setNotificationLargeIcon(R.drawable.ic_launcher)
         .optOutDefaultInAppDisplay()
+        .setLogLevel(Logger.VERBOSE)
         .enablePushKitTokenRegistration();
 
     MoEInitializer.initialize(getApplicationContext(), builder);
