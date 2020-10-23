@@ -131,8 +131,9 @@ CustomAction customActionFromCampaignMap(
   }
 }
 
-PushCampaign pushCampaignFromMap(Map<String, dynamic> pushCampaignMap) {
+PushCampaign pushCampaignFromMap(dynamic methodCallArgs) {
   try {
+    Map<String, dynamic> pushCampaignMap = json.decode(methodCallArgs);
     String platform = pushCampaignMap.containsKey(keyPlatform)
         ? pushCampaignMap[keyPlatform]
         : null;

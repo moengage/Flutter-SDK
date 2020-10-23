@@ -1,6 +1,3 @@
-
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/gender.dart';

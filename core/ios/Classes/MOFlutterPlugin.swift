@@ -78,11 +78,13 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
     public func sendMessage(withName name: String!, andPayload payloadDict: [AnyHashable : Any]!) {
         if let callbackName = getCallbackName(forEventName: name){
             if let payloadToSend = payloadDict["payload"] as? [AnyHashable : Any]{
-                MOFlutterPlugin.sendCallback(callbackName, withInfo: payloadToSend)
+                let jsonData = try! JSONSerialization.data(withJSONObject: payloadToSend)
+                if let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue){
+                    MOFlutterPlugin.sendCallback(callbackName, withInfo: jsonString)
+                    return
+                }
             }
-            else{
-                MOFlutterPlugin.sendCallback(callbackName, withInfo: [:])
-            }
+            MOFlutterPlugin.sendCallback(callbackName, withInfo: "{}")
         }
     }
     
@@ -107,7 +109,7 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
     }
     
     // MARK: Send Callback to Flutter
-    internal static func sendCallback(_ callbackName: String, withInfo infoDict: [AnyHashable : Any]){
-        channel?.invokeMethod(callbackName, arguments: infoDict)
+    internal static func sendCallback(_ callbackName: String, withInfo info: NSString){
+        channel?.invokeMethod(callbackName, arguments: info)
     }
 }
