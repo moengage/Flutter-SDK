@@ -14,9 +14,7 @@ class InAppCampaign {
   SelfHandled selfHandled;
   CustomAction customAction;
 
-  InAppCampaign(this.campaignId, this.campaignName, this.platform,
-      this.navigationAction, this.selfHandled,
-      this.customAction);
+  InAppCampaign(this.campaignId, this.campaignName, this.platform);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> inAppMap = {

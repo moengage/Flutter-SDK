@@ -224,10 +224,14 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         private val pluginHelper = PluginHelper()
 
         private fun initPlugin(binaryMessenger: BinaryMessenger) {
-            channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
-            val plugin = MoEngageFlutterPlugin()
-            channel?.setMethodCallHandler(plugin)
-            pluginHelper.setEventCallback(EventEmitterImpl())
+            try {
+                channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
+                val plugin = MoEngageFlutterPlugin()
+                channel?.setMethodCallHandler(plugin)
+                pluginHelper.setEventCallback(EventEmitterImpl())
+            } catch (ex: Exception) {
+                Logger.e("$tag initPlugin() : exception : ", ex)
+            }
         }
 
         fun sendCallback(methodName: String, message: String) {

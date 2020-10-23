@@ -4,6 +4,7 @@ import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/self_handled.dart';
 
 import 'constants.dart';
+import 'inapp_campaign.dart';
 import 'inapp_custom_action.dart';
 import 'navigation_action.dart';
 import 'properties.dart';
@@ -72,13 +73,15 @@ InAppCampaign inAppCampaignFromMap(dynamic methodCallArgs) {
           "error: inAppCampaignFromMap() : platform is null/empty.");
     }
 
-    return InAppCampaign(
+    InAppCampaign inAppCampaign =  InAppCampaign(
         campaignId,
         campaignName,
-        platform,
-        navigationActionFromCampaignMap(inAppCampaignMap),
-        selfHandledFromCampaignMap(inAppCampaignMap),
-        customActionFromCampaignMap(inAppCampaignMap));
+        platform);
+    inAppCampaign.navigationAction = navigationActionFromCampaignMap(
+        inAppCampaignMap
+    );
+    inAppCampaign.selfHandled = selfHandledFromCampaignMap(inAppCampaignMap);
+    inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
   } catch (ex) {
     print("error: inAppCampaignFromMap : $ex");
   }
