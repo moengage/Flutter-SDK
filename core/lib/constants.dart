@@ -55,8 +55,9 @@ const String keyAttributeValue = "attributeValue";
 const String keyAttributeName = "attributeName";
 const String keyAttrLatitudeName = "latitude";
 const String keyAttrLongitudeName = "longitude";
-const String keyPushToken = "pushToken";
+const String keyPushToken = "token";
 const String keyPushPayload = "pushPayload";
+const String keyPushService = "service";
 const String keyAttributeType = "type";
 const String keyAlias = "alias";
 const String keyLocationAttribute = "locationAttribute";
@@ -96,3 +97,15 @@ const String userAttrTypeLocation = "location";
 const String gdprOptOutTypeData = "data";
 const String gdprOptOutTypePush = "push";
 const String gdprOptOutTypeInApp = "inapp";
+
+// Push Service Types
+const String pushServiceFCM = "FCM";
+const String pushServicePushKit = "PUSH_KIT";
+const String pushServiceMiPush = "MI_PUSH";
+
+// SelfHandled Callback Action Types
+const String selfHandledActionShown = "impression";
+const String selfHandledActionPrimaryClicked = "primary_clicked";
+const String selfHandledActionClick = "click";
+const String selfHandledActionDismissed = "dismissed";
+

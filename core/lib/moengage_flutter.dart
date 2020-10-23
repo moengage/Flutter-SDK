@@ -57,22 +57,40 @@ class MoEngageFlutter {
     print("Received callback in dart. Payload" + call.toString());
     try {
       if (call.method == callbackOnPushClick && _onPushClick != null) {
-        _onPushClick(pushCampaignFromMap(call.arguments));
+        PushCampaign pushCampaign= pushCampaignFromMap(call.arguments);
+        if (pushCampaign != null) {
+          _onPushClick(pushCampaign);
+        }
       }
       if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-        _onInAppClick(inAppCampaignFromMap(call.arguments));
+        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        if (inAppCampaign != null) {
+          _onInAppClick(inAppCampaign);
+        }
       }
       if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-        _onInAppShown(inAppCampaignFromMap(call.arguments));
+        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        if (inAppCampaign != null) {
+          _onInAppShown(inAppCampaign);
+        }
       }
       if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-        _onInAppDismiss(inAppCampaignFromMap(call.arguments));
+        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        if (inAppCampaign != null) {
+          _onInAppDismiss(inAppCampaign);
+        }
       }
       if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
-        _onInAppCustomAction(inAppCampaignFromMap(call.arguments));
+        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        if (inAppCampaign != null) {
+          _onInAppCustomAction(inAppCampaign);
+        }
       }
       if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
-        _onInAppSelfHandle(inAppCampaignFromMap(call.arguments));
+        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        if (inAppCampaign != null) {
+          _onInAppSelfHandle(inAppCampaign);
+        }
       }
     } catch (exception) {
       print(exception);
@@ -267,7 +285,7 @@ class MoEngageFlutter {
   /// API to be called only when in-app is self handled
   void selfHandledShown(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = "impression";
+    payload[keyAttributeType] = selfHandledActionShown;
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
@@ -279,7 +297,7 @@ class MoEngageFlutter {
   /// API to be called only when in-app is self handled
   void selfHandledPrimaryClicked(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = "primary_clicked";
+    payload[keyAttributeType] = selfHandledActionPrimaryClicked;
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
@@ -291,7 +309,7 @@ class MoEngageFlutter {
   /// API to be called only when in-app is self handled
   void selfHandledClicked(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = "click";
+    payload[keyAttributeType] = selfHandledActionClick;
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
@@ -303,7 +321,7 @@ class MoEngageFlutter {
   /// API to be called only when in-app is self handled
   void selfHandledDismissed(InAppCampaign inAppCampaign) {
     Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = "dismissed";
+    payload[keyAttributeType] = selfHandledActionDismissed;
     if (Platform.isAndroid) {
       _moEAndroid.selfHandledCallback(payload);
     } else if (Platform.isIOS) {
@@ -336,24 +354,6 @@ class MoEngageFlutter {
     }
   }
 
-  /// Pass FCM Push Token to the MoEngage SDK.
-  /// Note: This API is only for Android Platform.
-  @Deprecated("message")
-  void passPushToken(String pushToken) {
-    if (Platform.isAndroid) {
-      _moEAndroid.passPushToken(pushToken);
-    }
-  }
-
-  /// Pass FCM Push Payload to the MoEngage SDK.
-  /// Note: This API is only for Android Platform.
-  @Deprecated("message")
-  void passPushPayload(Map<String, String> payload) {
-    if (Platform.isAndroid) {
-      _moEAndroid.passPushPayload(payload);
-    }
-  }
-
   ///Optionally opt-out of data tracking. When data tracking is opted no event
   ///or user attribute is tracked on MoEngage Platform.
   void optOutDataTracking(bool shouldOptOutDataTracking) {
@@ -381,6 +381,30 @@ class MoEngageFlutter {
       _moEAndroid.optOutInAppTracking(shouldOptOutinAppTracking);
     } else if (Platform.isIOS) {
       _moEiOS.optOutInAppTracking(shouldOptOutinAppTracking);
+    }
+  }
+
+  /// Pass FCM Push Token to the MoEngage SDK.
+  /// Note: This API is only for Android Platform.
+  void passFCMPushToken(String pushToken) {
+    if (Platform.isAndroid) {
+      _moEAndroid.passPushToken(pushToken, pushServiceFCM);
+    }
+  }
+
+  /// Pass FCM Push Payload to the MoEngage SDK.
+  /// Note: This API is only for Android Platform.
+  void passFCMPushPayload(Map<String, dynamic> payload) {
+    if (Platform.isAndroid) {
+      _moEAndroid.passPushPayload(payload, pushServiceFCM);
+    }
+  }
+
+  /// Pass FCM Push Token to the MoEngage SDK.
+  /// Note: This API is only for Android Platform.
+  void passPushKitPushToken(String pushToken) {
+    if (Platform.isAndroid) {
+      _moEAndroid.passPushToken(pushToken, pushServicePushKit);
     }
   }
 }

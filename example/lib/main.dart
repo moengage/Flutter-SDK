@@ -46,6 +46,9 @@ class _MyAppState extends State<MyApp> {
   void _onInAppSelfHandle(InAppCampaign message) {
     print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
+    _moengagePlugin.selfHandledShown(message);
+    _moengagePlugin.selfHandledClicked(message);
+    _moengagePlugin.selfHandledDismissed(message);
   }
 
   @override
@@ -215,10 +218,16 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.resetCurrentContext();
                   }),
               new ListTile(
-                  title: Text("Push Token"),
+                  title: Text("FCM Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushToken("dummyToken");
+                    _moengagePlugin.passFCMPushToken("dummyToken");
+                  }),
+              new ListTile(
+                  title: Text("PushKit Push Token"),
+                  onTap: () {
+                    // Token passed here is just for illustration purposes. Please pass the actual token instead.
+                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
                   }),
               new ListTile(
                   title: Text("Push Payload"),
@@ -233,7 +242,7 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent("gcm_campaign_id", () => "123456");
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moe.pushlibrary.activities.MoEActivity");
-                    _moengagePlugin.passPushPayload(pushPayload);
+                    _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
                   title: Text("Opt-Out Data, Push, InApp"),
