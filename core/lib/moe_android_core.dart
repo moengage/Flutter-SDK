@@ -38,6 +38,10 @@ class MoEAndroidCore {
         methodSetAlias, json.encode(getMap(keyAlias, newUniqueId)));
   }
 
+   void setUserName(String userName) {
+    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayloadJSON(userAttrNameUserName, userAttrTypeGeneral, userName));
+  }
+  
   void setFirstName(String firstName) {
     _channel.invokeMethod(methodSetUserAttribute,
         getUserAttributePayloadJSON(userAttrNameFirstName,
