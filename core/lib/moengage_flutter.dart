@@ -9,12 +9,7 @@ import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/utils.dart';
-
-import 'constants.dart';
-import 'inapp_campaign.dart';
-import 'moe_android_core.dart';
-import 'push_campaign.dart';
-import 'utils.dart';
+import 'package:moengage_flutter/moe_android_core.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);

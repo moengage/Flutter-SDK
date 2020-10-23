@@ -1,9 +1,7 @@
 import 'package:moengage_flutter/inapp_custom_action.dart';
 import 'package:moengage_flutter/self_handled.dart';
-
-import 'constants.dart';
-import 'navigation_action.dart';
-
+import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/navigation_action.dart';
 
 class InAppCampaign {
 
