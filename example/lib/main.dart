@@ -198,6 +198,11 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.registerForPushNotification();
                   }),
               new ListTile(
+                  title: Text("iOS -- Start Geofence"),
+                  onTap: () {
+                    _moengagePlugin.startGeofenceMonitoring();
+                  }),
+              new ListTile(
                   title: Text("Show InApp"),
                   onTap: () {
                     _moengagePlugin.showInApp();

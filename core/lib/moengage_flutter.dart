@@ -346,14 +346,6 @@ class MoEngageFlutter {
     }
   }
 
-  /// Push Notification Registration
-  /// Note: This API is only for iOS Platform.
-  void registerForPushNotification() {
-    if (Platform.isIOS) {
-      _moEiOS.registerForPushNotification();
-    }
-  }
-
   ///Optionally opt-out of data tracking. When data tracking is opted no event
   ///or user attribute is tracked on MoEngage Platform.
   void optOutDataTracking(bool shouldOptOutDataTracking) {
@@ -383,6 +375,24 @@ class MoEngageFlutter {
       _moEiOS.optOutInAppTracking(shouldOptOutinAppTracking);
     }
   }
+
+
+  /// Push Notification Registration
+  /// Note: This API is only for iOS Platform.
+  void registerForPushNotification() {
+    if (Platform.isIOS) {
+      _moEiOS.registerForPushNotification();
+    }
+  }
+
+  /// Start Geofence Monitoring, Will work only if MOGeofence CocoaPod is integrated
+  /// Note: This API is only for iOS Platform.
+  void startGeofenceMonitoring() {
+    if (Platform.isIOS) {
+      _moEiOS.startGeofenceMonitoring();
+    }
+  }
+
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.

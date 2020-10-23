@@ -26,6 +26,8 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
             MoEPluginBridge.sharedInstance()?.getSelfHandledInApp()
         case MOFlutterConstants.MethodNames.kInvalidateAppContext:
             MoEPluginBridge.sharedInstance()?.invalidateInAppContexts()
+        case MOFlutterConstants.MethodNames.kStartGeofence:
+            MoEPluginBridge.sharedInstance()?.startGeofenceMonitoring()
         case MOFlutterConstants.MethodNames.kEnableLogs:
             MoEPluginBridge.sharedInstance()?.enableLogs()
         case MOFlutterConstants.MethodNames.kResetUser:
