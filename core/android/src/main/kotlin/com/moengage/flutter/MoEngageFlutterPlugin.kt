@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import com.moengage.core.Logger
 import com.moengage.plugin.base.PluginHelper
-import com.moengage.plugin.base.model.PushService
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -23,7 +22,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
-        //todo notify base  plugin
+        pluginHelper.onFrameworkDetached()
     }
 
     @Suppress("SENSELESS_COMPARISON")
