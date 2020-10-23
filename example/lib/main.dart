@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/geo_location.dart';
@@ -7,6 +8,8 @@ import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:huawei_push/push.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,6 +20,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
+  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 
   void _onPushClick(PushCampaign message) {
     print("This is a push click callback from native to flutter. Payload " +
@@ -47,7 +51,8 @@ class _MyAppState extends State<MyApp> {
     print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
     _moengagePlugin.selfHandledShown(message);
-    _moengagePlugin.selfHandledClicked(message);
+//    _moengagePlugin.selfHandledClicked(message);
+//    _moengagePlugin.selfHandledPrimaryClicked(message);
     _moengagePlugin.selfHandledDismissed(message);
   }
 
@@ -56,6 +61,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     _moengagePlugin.initialise();
+    _moengagePlugin.enableSDKLogs();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
     _moengagePlugin.setUpInAppCallbacks(
       onInAppClick: _onInAppClick,
@@ -65,15 +71,36 @@ class _MyAppState extends State<MyApp> {
       onInAppSelfHandle: _onInAppSelfHandle
     );
 
-    _moengagePlugin.enableSDKLogs();
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('onMessage called: $message');
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('onResume called: $message');
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('onLaunch called: $message');
+      },
+    );
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
+
   Future<void> initPlatformState() async {
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
+    Push.getTokenStream.listen(_onTokenEvent, onError: _onTokenError);
+  }
+
+  String _token = "";
+  _onTokenEvent(String event) {
+    setState(() {
+      _token = event;
+    });
+    print("Token obtained: " + _token);
+  }
+
+  _onTokenError(Object error) {
+    PlatformException e = error;
+    print("TokenErrorEvent" + e.message);
   }
 
   @override
@@ -91,10 +118,10 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     var details = MoEProperties();
                     details
-                        .addInteger("temp", 567)
-                        .addBoolean("temp1", true)
-                        .addDouble("temp2", 12.30)
-                        .addString("stringAttr", "string val")
+                        .addAttribute("temp", 567)
+                        .addAttribute("temp1", true)
+                        .addAttribute("temp2", 12.30)
+                        .addAttribute("stringAttr", "string val")
                         .addAttribute("attrName1", "attrVal")
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
@@ -103,14 +130,39 @@ class _MyAppState extends State<MyApp> {
                         .setNonInteractiveEvent()
                         .addAttribute(
                             "location1", new MoEGeoLocation(12.1, 77.18))
-                        .addLocation(
+                        .addAttribute(
                             "location2", new MoEGeoLocation(12.2, 77.28))
-                        .addLocation(
+                        .addAttribute(
                             "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
                             "dateTime2", "2019-12-06T08:26:21.170Z");
                     _moengagePlugin.trackEvent('event flutter 01', details);
+                  }),
+              new ListTile(
+                  title: new Text("Track Interactive Event with Attributes"),
+                  onTap: () {
+                    var details = MoEProperties();
+                    details
+                        .addAttribute("temp", 567)
+                        .addAttribute("temp1", true)
+                        .addAttribute("temp2", 12.30)
+                        .addAttribute("stringAttr", "string val")
+                        .addAttribute("attrName1", "attrVal")
+                        .addAttribute("attrName2", false)
+                        .addAttribute("attrName3", 123563563)
+                        .addAttribute("arrayAttr", ["str1", 12.8, "str2", 123, true,
+                      {"hello": "testing"}])
+                        .addAttribute(
+                        "location1", new MoEGeoLocation(12.1, 77.18))
+                        .addAttribute(
+                        "location2", new MoEGeoLocation(12.2, 77.28))
+                        .addAttribute(
+                        "location3", new MoEGeoLocation(12.3, 77.38))
+                        .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
+                        .addISODateTime(
+                        "dateTime2", "2019-12-06T08:26:21.170Z");
+                    _moengagePlugin.trackEvent('interactive event flutter 01', details);
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
@@ -150,7 +202,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: new Text("Set Gender"),
                   onTap: () {
-                    _moengagePlugin.setGender(MoEGender.male);
+                    _moengagePlugin.setGender(MoEGender.female);
                   }),
               new ListTile(
                   title: new Text("Set Location"),
@@ -226,13 +278,18 @@ class _MyAppState extends State<MyApp> {
                   title: Text("FCM Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passFCMPushToken("dummyToken");
+//                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
+                    firebaseMessaging.getToken().then((token){
+                      print('FCM Token: $token');
+                      _moengagePlugin.passFCMPushToken(token);
+                    });
                   }),
               new ListTile(
                   title: Text("PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
+//                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
+                    Push.getToken();
                   }),
               new ListTile(
                   title: Text("Push Payload"),
@@ -272,6 +329,30 @@ class _MyAppState extends State<MyApp> {
                 title: Text("Logout"),
                 onTap: () {
                   _moengagePlugin.logout();
+                },
+              ),
+              new ListTile(
+                title: Text("Set User Attribute: String"),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute("userAttr-String", "This is a string");
+                },
+              ),
+              new ListTile(
+                title: Text("Set User Attribute: int "),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
+                },
+              ),
+              new ListTile(
+                title: Text("Set User Attribute: Double"),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
+                },
+              ),
+              new ListTile(
+                title: Text("Set User Attribute: bool"),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute("userAttr-bool", true);
                 },
               ),
             ]).toList(),
