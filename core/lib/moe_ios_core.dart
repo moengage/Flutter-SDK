@@ -104,7 +104,11 @@ class MoEiOSCore {
   }
 
   void registerForPushNotification() {
-    _channel.invokeMethod(methodRegisterForiOSPush);
+    _channel.invokeMethod(methodiOSRegisterPush);
+  }
+
+   void startGeofenceMonitoring() {
+    _channel.invokeMethod(methodiOSStartGeofence);
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking) {

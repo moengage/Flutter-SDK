@@ -10,17 +10,21 @@ PODS:
   - MoEPluginBase (1.0.0):
     - MoEngage-iOS-SDK (< 7.0.0, >= 6.2.1)
     - MoEngageInApp (~> 1.0.0)
+  - MOGeofence (2.0.1):
+    - MoEngage-iOS-SDK (~> 6.0)
   - MORichNotification (4.0.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
+  - MOGeofence (~> 2.0.0)
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
     - MoEngage-iOS-SDK
     - MoEngageInApp
     - MoEPluginBase
+    - MOGeofence
     - MORichNotification
 
 EXTERNAL SOURCES:
@@ -35,8 +39,9 @@ SPEC CHECKSUMS:
   moengage_flutter: d1cbd21c47e59b5fc9d8d3447b09420e372a7bc0
   MoEngageInApp: 719c2c31b6429a670f17e37afc0b2d23744f8f9e
   MoEPluginBase: 7b491a0e03c710b1376dae8c2d1f5ae25e781741
+  MOGeofence: b00e8bb191b514b3d4b4f52673edd1dbdf453f74
   MORichNotification: f1903895ef2b2e8c2af27208c0257fb2a3b5cb40
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: 5d188472aaf2c8f100c3ac95e9ee99a6f03c3b80
 
 COCOAPODS: 1.9.3
