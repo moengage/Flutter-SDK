@@ -80,6 +80,7 @@ dependencies {
   implementation("com.google.firebase:firebase-messaging:20.3.0")
   implementation("androidx.lifecycle:lifecycle-process:2.2.0")
   implementation("com.moengage:hms-pushkit:1.1.00")
+  implementation("com.moengage:rich-notification:1.2.00")
 }
 
 apply plugin: 'com.google.gms.google-services'

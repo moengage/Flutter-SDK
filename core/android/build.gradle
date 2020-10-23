@@ -18,7 +18,6 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        mavenLocal()
     }
 }
 
@@ -42,7 +41,7 @@ android {
 }
 dependencies{
     compileOnly("com.moengage:moe-android-sdk:10.4.03")
-    implementation("com.moengage:plugin-base:1.1.01")
+    implementation("com.moengage:plugin-base:1.1.02")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
