@@ -57,37 +57,37 @@ class MoEngageFlutter {
     print("Received callback in dart. Payload" + call.toString());
     try {
       if (call.method == callbackOnPushClick && _onPushClick != null) {
-        PushCampaign pushCampaign= pushCampaignFromMap(call.arguments);
+        PushCampaign pushCampaign= pushCampaignFromJson(call.arguments);
         if (pushCampaign != null) {
           _onPushClick(pushCampaign);
         }
       }
       if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppClick(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppShown(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppDismiss(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppCustomAction(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromMap(call.arguments);
+        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppSelfHandle(inAppCampaign);
         }

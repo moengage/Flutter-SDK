@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
-  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+  //FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 
   void _onPushClick(PushCampaign message) {
     print("This is a push click callback from native to flutter. Payload " +
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
       onInAppCustomAction: _onInAppCustomAction,
       onInAppSelfHandle: _onInAppSelfHandle
     );
-
+/*
     firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) {
         print('onMessage called: $message');
@@ -81,13 +81,12 @@ class _MyAppState extends State<MyApp> {
       onLaunch: (Map<String, dynamic> message) {
         print('onLaunch called: $message');
       },
-    );
+    );*/
   }
-
 
   Future<void> initPlatformState() async {
     if (!mounted) return;
-    Push.getTokenStream.listen(_onTokenEvent, onError: _onTokenError);
+    //Push.getTokenStream.listen(_onTokenEvent, onError: _onTokenError);
   }
 
   String _token = "";
@@ -221,6 +220,15 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
               new ListTile(
+                title: Text("Set Custom User Attributes"),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute("userAttr-bool", true);
+                  _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
+                  _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
+                  _moengagePlugin.setUserAttribute("userAttr-String", "This is a string");
+                },
+              ),
+              new ListTile(
                 title: Text("Set UserAttribute Timestamp"),
                 onTap: () {
                   _moengagePlugin.setUserAttributeIsoDate(
@@ -279,17 +287,18 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
 //                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
-                    firebaseMessaging.getToken().then((token){
+                    
+                    /*firebaseMessaging.getToken().then((token){
                       print('FCM Token: $token');
                       _moengagePlugin.passFCMPushToken(token);
-                    });
+                    });*/
                   }),
               new ListTile(
                   title: Text("PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
 //                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
-                    Push.getToken();
+                    //Push.getToken();
                   }),
               new ListTile(
                   title: Text("Push Payload"),
@@ -329,30 +338,6 @@ class _MyAppState extends State<MyApp> {
                 title: Text("Logout"),
                 onTap: () {
                   _moengagePlugin.logout();
-                },
-              ),
-              new ListTile(
-                title: Text("Set User Attribute: String"),
-                onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-String", "This is a string");
-                },
-              ),
-              new ListTile(
-                title: Text("Set User Attribute: int "),
-                onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
-                },
-              ),
-              new ListTile(
-                title: Text("Set User Attribute: Double"),
-                onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
-                },
-              ),
-              new ListTile(
-                title: Text("Set User Attribute: bool"),
-                onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-bool", true);
                 },
               ),
             ]).toList(),
