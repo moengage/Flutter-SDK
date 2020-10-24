@@ -13,8 +13,12 @@ class MoEGeoLocation {
 
   String toString() {
     return "{\n" +
-        "latitude:" + latitude.toString() + "\n" +
-        "latitude:" + longitude.toString() + "\n" +
+        "latitude:" +
+        latitude.toString() +
+        "\n" +
+        "latitude:" +
+        longitude.toString() +
+        "\n" +
         "}";
   }
 }

@@ -3,13 +3,24 @@ import 'package:moengage_flutter/self_handled.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/navigation_action.dart';
 
+/// Object representation of InApp Callback payload.
 class InAppCampaign {
-
+  /// Unique identifier for each campaign.
   String campaignId;
+
+  /// Campaign Name
   String campaignName;
+
+  /// Native platform from which the callback was triggered.
   String platform;
+
+  /// Instance of [NavigationAction]
   NavigationAction navigationAction;
+
+  /// Instance of [SelfHandled]
   SelfHandled selfHandled;
+
+  /// Instance of [CustomAction]
   CustomAction customAction;
 
   InAppCampaign(this.campaignId, this.campaignName, this.platform);
@@ -30,17 +41,29 @@ class InAppCampaign {
     if (customAction != null) {
       inAppMap[keyCustomAction] = customAction.toMap();
     }
-     return inAppMap;
+    return inAppMap;
   }
 
   String toString() {
     return "{\n" +
-        "campaignId:" + campaignId + "\n" +
-        "campaignName:" + campaignName + "\n" +
-        "platform:" + platform + "\n" +
-        "navigationAction:" + navigationAction.toString() + "\n" +
-        "selfHandled:" + selfHandled.toString() + "\n" +
-        "customAction:" + customAction.toString() + "\n" +
+        "campaignId:" +
+        campaignId +
+        "\n" +
+        "campaignName:" +
+        campaignName +
+        "\n" +
+        "platform:" +
+        platform +
+        "\n" +
+        "navigationAction:" +
+        navigationAction.toString() +
+        "\n" +
+        "selfHandled:" +
+        selfHandled.toString() +
+        "\n" +
+        "customAction:" +
+        customAction.toString() +
+        "\n" +
         "}";
   }
 }

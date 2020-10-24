@@ -28,7 +28,6 @@ const String callbackOnInAppDismissed = "onInAppDismiss";
 const String callbackOnInAppCustomAction = "onInAppCustomAction";
 const String callbackOnInAppSelfHandled = "onInAppSelfHandle";
 
-
 // Gender Value Constants
 const String genderMale = "male";
 const String genderFemale = "female";
@@ -109,4 +108,3 @@ const String selfHandledActionShown = "impression";
 const String selfHandledActionPrimaryClicked = "primary_clicked";
 const String selfHandledActionClick = "click";
 const String selfHandledActionDismissed = "dismissed";
-

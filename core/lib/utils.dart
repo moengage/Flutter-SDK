@@ -72,13 +72,10 @@ InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
           "error: inAppCampaignFromJson() : platform is null/empty.");
     }
 
-    InAppCampaign inAppCampaign =  InAppCampaign(
-        campaignId,
-        campaignName,
-        platform);
-    inAppCampaign.navigationAction = navigationActionFromCampaignMap(
-        inAppCampaignMap
-    );
+    InAppCampaign inAppCampaign =
+        InAppCampaign(campaignId, campaignName, platform);
+    inAppCampaign.navigationAction =
+        navigationActionFromCampaignMap(inAppCampaignMap);
     inAppCampaign.selfHandled = selfHandledFromCampaignMap(inAppCampaignMap);
     inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
 

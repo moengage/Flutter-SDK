@@ -7,7 +7,6 @@ import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/geo_location.dart';
 
 class MoEiOSCore {
-
   MethodChannel _channel;
 
   MoEiOSCore(MethodChannel channel) {
@@ -19,11 +18,15 @@ class MoEiOSCore {
   }
 
   void trackEvent(String eventName, MoEProperties eventAttributes) {
-    _channel.invokeMethod(methodTrackEvent, getEventPayload(eventName, eventAttributes));
+    _channel.invokeMethod(
+        methodTrackEvent, getEventPayload(eventName, eventAttributes));
   }
 
   void setUniqueId(String uniqueId) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameUniqueId, userAttrTypeGeneral, uniqueId));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameUniqueId, userAttrTypeGeneral, uniqueId));
   }
 
   void setAlias(String newUniqueId) {
@@ -31,53 +34,91 @@ class MoEiOSCore {
   }
 
   void setUserName(String userName) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameUserName, userAttrTypeGeneral, userName));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameUserName, userAttrTypeGeneral, userName));
   }
 
   void setFirstName(String firstName) {
-    _channel.invokeMethod(methodSetUserAttribute,getUserAttributePayload(userAttrNameFirstName, userAttrTypeGeneral, firstName));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameFirstName, userAttrTypeGeneral, firstName));
   }
 
   void setLastName(String lastName) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameLastName, userAttrTypeGeneral, lastName));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameLastName, userAttrTypeGeneral, lastName));
   }
 
   void setEmail(String emailId) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameEmailId, userAttrTypeGeneral, emailId));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameEmailId, userAttrTypeGeneral, emailId));
   }
 
   void setPhoneNumber(String phoneNumber) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNamePhoneNum, userAttrTypeGeneral, phoneNumber));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNamePhoneNum, userAttrTypeGeneral, phoneNumber));
   }
 
   void setGender(MoEGender gender) {
-      _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameGender, userAttrTypeGeneral, genderToString(gender)));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameGender, userAttrTypeGeneral, genderToString(gender)));
   }
 
   void setLocation(MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameLocation, userAttrTypeLocation, location.toMap())
-    );
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameLocation, userAttrTypeLocation, location.toMap()));
   }
 
   void setBirthDate(String birthDate) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttrNameBirtdate, userAttrTypeTimestamp, birthDate));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttrNameBirtdate, userAttrTypeTimestamp, birthDate));
   }
 
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttributeName, userAttrTypeGeneral, userAttributeValue));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttributeName, userAttrTypeGeneral, userAttributeValue));
   }
 
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload( userAttributeName, userAttrTypeTimestamp, isoDateString));
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttributeName, userAttrTypeTimestamp, isoDateString));
   }
 
-  void setUserAttributeLocation(String userAttributeName, MoEGeoLocation location) {
-    _channel.invokeMethod(methodSetUserAttribute, getUserAttributePayload(userAttributeName, userAttrTypeLocation, location.toMap())
-    );
+  void setUserAttributeLocation(
+      String userAttributeName, MoEGeoLocation location) {
+    _channel.invokeMethod(
+        methodSetUserAttribute,
+        getUserAttributePayload(
+            userAttributeName, userAttrTypeLocation, location.toMap()));
   }
 
   void setAppStatus(MoEAppStatus appStatus) {
-    _channel.invokeListMethod(methodSetAppStatus, getMap(keyAppStatus, appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate));
+    _channel.invokeListMethod(
+        methodSetAppStatus,
+        getMap(
+            keyAppStatus,
+            appStatus == MoEAppStatus.install
+                ? appStatusInstall
+                : appStatusUpdate));
   }
 
   void showInApp() {
@@ -104,22 +145,25 @@ class MoEiOSCore {
     _channel.invokeMethod(methodiOSRegisterPush);
   }
 
-   void startGeofenceMonitoring() {
+  void startGeofenceMonitoring() {
     _channel.invokeMethod(methodiOSStartGeofence);
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking) {
-    var optOutPayload = getOptOutTrackingPayload(gdprOptOutTypeData, shouldOptOutDataTracking);
+    var optOutPayload =
+        getOptOutTrackingPayload(gdprOptOutTypeData, shouldOptOutDataTracking);
     _channel.invokeMethod(methodOptOutTracking, optOutPayload);
   }
 
   void optOutPushTracking(bool shouldOptOutPushTracking) {
-    var optOutPayload = getOptOutTrackingPayload(gdprOptOutTypePush, shouldOptOutPushTracking);
+    var optOutPayload =
+        getOptOutTrackingPayload(gdprOptOutTypePush, shouldOptOutPushTracking);
     _channel.invokeMethod(methodOptOutTracking, optOutPayload);
   }
 
   void optOutInAppTracking(bool shouldOptOutInAppTracking) {
-    var optOutPayload = getOptOutTrackingPayload(gdprOptOutTypeInApp, shouldOptOutInAppTracking);
+    var optOutPayload = getOptOutTrackingPayload(
+        gdprOptOutTypeInApp, shouldOptOutInAppTracking);
     _channel.invokeMethod(methodOptOutTracking, optOutPayload);
   }
 

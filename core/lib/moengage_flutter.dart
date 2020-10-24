@@ -16,7 +16,6 @@ typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
 
 class MoEngageFlutter {
-
   MethodChannel _channel = MethodChannel(channelName);
   MoEAndroidCore _moEAndroid;
   MoEiOSCore _moEiOS;
@@ -42,10 +41,10 @@ class MoEngageFlutter {
   /// set up callback APIs for in-app events
   void setUpInAppCallbacks(
       {InAppCallbackHandler onInAppClick,
-        InAppCallbackHandler onInAppShown,
-        InAppCallbackHandler onInAppDismiss,
-        InAppCallbackHandler onInAppCustomAction,
-        InAppCallbackHandler onInAppSelfHandle}) {
+      InAppCallbackHandler onInAppShown,
+      InAppCallbackHandler onInAppDismiss,
+      InAppCallbackHandler onInAppCustomAction,
+      InAppCallbackHandler onInAppSelfHandle}) {
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
     _onInAppDismiss = onInAppDismiss;
@@ -57,7 +56,7 @@ class MoEngageFlutter {
     print("Received callback in dart. Payload" + call.toString());
     try {
       if (call.method == callbackOnPushClick && _onPushClick != null) {
-        PushCampaign pushCampaign= pushCampaignFromJson(call.arguments);
+        PushCampaign pushCampaign = pushCampaignFromJson(call.arguments);
         if (pushCampaign != null) {
           _onPushClick(pushCampaign);
         }
@@ -80,13 +79,15 @@ class MoEngageFlutter {
           _onInAppDismiss(inAppCampaign);
         }
       }
-      if (call.method == callbackOnInAppCustomAction && _onInAppCustomAction != null) {
+      if (call.method == callbackOnInAppCustomAction &&
+          _onInAppCustomAction != null) {
         InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppCustomAction(inAppCampaign);
         }
       }
-      if (call.method == callbackOnInAppSelfHandled && _onInAppSelfHandle != null) {
+      if (call.method == callbackOnInAppSelfHandled &&
+          _onInAppSelfHandle != null) {
         InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppSelfHandle(inAppCampaign);
@@ -212,15 +213,18 @@ class MoEngageFlutter {
       print("User Attribute Name cannot be empty");
       return;
     }
-    if (userAttributeValue is String || userAttributeValue is int || userAttributeValue is double || userAttributeValue is bool) {
-        if (Platform.isAndroid) {
-          _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
-        } else if (Platform.isIOS) {
-          _moEiOS.setUserAttribute(userAttributeName, userAttributeValue);
-        }
-    }
-    else{
-      print("Only String, Numbers and Bool values supported as User Attributes");
+    if (userAttributeValue is String ||
+        userAttributeValue is int ||
+        userAttributeValue is double ||
+        userAttributeValue is bool) {
+      if (Platform.isAndroid) {
+        _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
+      } else if (Platform.isIOS) {
+        _moEiOS.setUserAttribute(userAttributeName, userAttributeValue);
+      }
+    } else {
+      print(
+          "Only String, Numbers and Bool values supported as User Attributes");
     }
   }
 
@@ -235,7 +239,8 @@ class MoEngageFlutter {
   }
 
   /// Tracks the given location as user attribute.
-  void setUserAttributeLocation(String userAttributeName, MoEGeoLocation location) {
+  void setUserAttributeLocation(
+      String userAttributeName, MoEGeoLocation location) {
     if (Platform.isAndroid) {
       _moEAndroid.setUserAttributeLocation(userAttributeName, location);
     } else if (Platform.isIOS) {
@@ -376,7 +381,6 @@ class MoEngageFlutter {
     }
   }
 
-
   /// Push Notification Registration
   /// Note: This API is only for iOS Platform.
   void registerForPushNotification() {
@@ -392,7 +396,6 @@ class MoEngageFlutter {
       _moEiOS.startGeofenceMonitoring();
     }
   }
-
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
