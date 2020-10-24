@@ -39,10 +39,8 @@ Get APP ID from the [Settings Page](https://app.moengage.com/v3/#/settings/0/0) 
 
 ```kotlin
 // this is the instance of the application class and "XXXXXXXXXXX" is the APP ID from the dashboard.
-val moEngage =
-        new MoEngage.Builder(this, "XXXXXXXXXXX")
-        .build()
-MoEInitializer.initialize(builder.build())
+val moEngage = new MoEngage.Builder(this, "XXXXXXXXXXX")
+MoEInitializer.initialize(appicationContext, builder)
 ```
 Refer to the [API reference doc](https://moengage.github.io/MoEngage-Android-SDK/) for a detailed list of possible configurations.
 

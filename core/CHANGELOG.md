@@ -24,6 +24,12 @@
 | passPushToken(String)                               	| passFCMPushToken(String)                       	|
 | passPushPayload(Map<String, String>)                	| passFCMPushPayload(Map<String, String>)        	|
 
+- Removed APIs Android 
+
+|                 Then                |                          Now                         |
+|:-----------------------------------:|:----------------------------------------------------:|
+| MoEInitializer.initialize(MoEngage) | MoEInitializer.initialize(Context, MoEngage.Builder) |
+
 ## 1.1.0 (10-02-2020)
 
 - Add Dart APIs for passing FCM Push Token and FCM Push Payload from Android Platform.
