@@ -50,6 +50,9 @@ InboxMessage messageFromJson(Map<String, dynamic> message) {
         message[CAMPAIGN_ID],
         textContentFromMap(message[TEXT_CONTENT]),
         message[IS_CLICKED],
+        message.containsKey(MEDIA_CONTENT)
+            ? mediaFromMap(message[MEDIA_CONTENT])
+            : null,
         mediaFromMap(message[MEDIA_CONTENT]),
         actionsFromMap(message[ACTION]),
         message.containsKey(TAG) ? message[TAG] : "general",
@@ -77,7 +80,7 @@ TextContent textContentFromMap(Map<String, dynamic> textMap) {
 }
 
 Media mediaFromMap(Map<String, dynamic> mediaMap) {
-  if (mediaMap == null || mediaMap.isEmpty) {
+  if (mediaMap.isEmpty) {
     return null;
   }
   return Media(MediaTypeExt.fromString(mediaMap[TYPE]), mediaMap[URL]);
