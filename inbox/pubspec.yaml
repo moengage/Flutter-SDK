@@ -1,5 +1,5 @@
 name: moengage_inbox
-description: A new flutter plugin project.
+description: Flutter Plugin for using Notification Center feature of MoEngage Platform, to provide an Inbox to view all the notifications received by your application.
 version: 1.0.1
 homepage: https://moengage.com
 
