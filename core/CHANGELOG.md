@@ -7,6 +7,7 @@
 -------------------------------------------
 - Bugfix: AppStatus method was getting called for other channel method calls as well.
 
+
 ### 2.0.0  *(23rd October, 2020)*
 -------------------------------------------
 - Support for Self-Handled In-App
@@ -40,19 +41,19 @@
 |:-----------------------------------:|:----------------------------------------------------:|
 | MoEInitializer.initialize(MoEngage) | MoEInitializer.initialize(Context, MoEngage.Builder) |
 
+
 ### 1.1.0 *(10th February, 2020)*
 -------------------------------------------
-
 - Add Dart APIs for passing FCM Push Token and FCM Push Payload from Android Platform.
+
 
 ### 1.0.1 *(17th December, 2019)*
 -------------------------------------------
-
 - Sample Updated
 - ReadMe Updated
 - Improved logging
 
+
 ### 1.0.0 *(16th December, 2019)*
 -------------------------------------------
-
 - Initial Release
