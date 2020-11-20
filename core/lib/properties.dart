@@ -1,4 +1,5 @@
 import 'package:moengage_flutter/geo_location.dart';
+import 'package:moengage_flutter/constants.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
@@ -83,6 +84,20 @@ class MoEProperties {
         _keyLocationAttributes: locationAttributes,
         _keyDateTimeAttributes: dateTimeAttributes
       },
+      _keyIsNonInteractive: isNonInteractive
+    };
+  }
+
+  Map<String, dynamic> getNormalizedEventAttributeJson() {
+    var dateTimeAttributesParsed = {};
+    dateTimeAttributes.forEach((k, v) => {
+      // modifying it to meet the web sdk structure requirement for datetime attribute
+      dateTimeAttributesParsed[k] = {
+        keyTimeStampWeb: DateTime.parse(v).millisecondsSinceEpoch.toString()
+      }
+    });
+    return {
+      _keyEventAttributes: {...generalAttributes, ...locationAttributes, ...dateTimeAttributesParsed},
       _keyIsNonInteractive: isNonInteractive
     };
   }

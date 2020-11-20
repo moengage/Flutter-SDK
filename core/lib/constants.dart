@@ -6,6 +6,7 @@ const String methodInitialise = "initialise";
 const String methodSetAppStatus = "setAppStatus";
 const String methodTrackEvent = "trackEvent";
 const String methodSetUserAttribute = "setUserAttribute";
+const String methodSetUserAttributeTimeStamp = "setUserAttributeTimeStamp";
 const String methodSetAlias = "setAlias";
 const String methodiOSRegisterPush = "registerForPush";
 const String methodiOSStartGeofence = "startGeofenceMonitoring";
@@ -64,7 +65,7 @@ const String keyLocationAttribute = "locationAttribute";
 const String keyState = "state";
 const String keyAppStatus = "appStatus";
 const String keyContexts = "contexts";
-
+const String keyTimeStampWeb = "dartTimeStamp";
 const String keyPayload = "payload";
 const String keyKvPair = "kvPair";
 
