@@ -12,6 +12,7 @@ import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
 import 'package:moengage_flutter/moe_web_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
@@ -23,6 +24,7 @@ class MoEngageFlutter {
   MoEWebCore _moEWeb;
   bool isAndroid = false;
   bool isIOS = false;
+  bool isWeb = false;
 
   PushCallbackHandler _onPushClick;
   InAppCallbackHandler _onInAppClick;
@@ -40,13 +42,15 @@ class MoEngageFlutter {
 
     
     try{
-        if(Platform.isAndroid) {
+        if(kIsWeb) {
+          isWeb = true;
+        } else if(Platform.isAndroid) {
           isAndroid = true;
         } else if(Platform.isIOS) {
           isIOS = true;
-        }
+        } 
     } catch (e) {
-      print("Platform is neither Android nor iOS");
+      print("Platform is neither Android, iOS nor Web");
     }
   }
 
@@ -129,7 +133,7 @@ class MoEngageFlutter {
       _moEAndroid.trackEvent(eventName, eventAttributes);
     } else if (isIOS) {
       _moEiOS.trackEvent(eventName, eventAttributes);
-    } else {
+    } else if(isWeb) {
       _moEWeb.trackEvent(eventName, eventAttributes);
     }
   }
@@ -140,7 +144,7 @@ class MoEngageFlutter {
       _moEAndroid.setUniqueId(uniqueId);
     } else if (isIOS) {
       _moEiOS.setUniqueId(uniqueId);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setUniqueId(uniqueId);
     }
   }
@@ -151,7 +155,7 @@ class MoEngageFlutter {
       _moEAndroid.setAlias(newUniqueId);
     } else if (isIOS) {
       _moEiOS.setAlias(newUniqueId);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setAlias(newUniqueId);
     }
   }
@@ -162,7 +166,7 @@ class MoEngageFlutter {
       _moEAndroid.setUserName(userName);
     } else if (isIOS) {
       _moEiOS.setUserName(userName);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setUserName(userName);
     }
   }
@@ -173,7 +177,7 @@ class MoEngageFlutter {
       _moEAndroid.setFirstName(firstName);
     } else if (isIOS) {
       _moEiOS.setFirstName(firstName);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setFirstName(firstName);
     }
   }
@@ -184,7 +188,7 @@ class MoEngageFlutter {
       _moEAndroid.setLastName(lastName);
     } else if (isIOS) {
       _moEiOS.setLastName(lastName);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setLastName(lastName);
     }
   }
@@ -195,7 +199,7 @@ class MoEngageFlutter {
       _moEAndroid.setEmail(emailId);
     } else if (isIOS) {
       _moEiOS.setEmail(emailId);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setEmail(emailId);
     }
   }
@@ -206,7 +210,7 @@ class MoEngageFlutter {
       _moEAndroid.setPhoneNumber(phoneNumber);
     } else if (isIOS) {
       _moEiOS.setPhoneNumber(phoneNumber);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setPhoneNumber(phoneNumber);
     }
   }
@@ -217,7 +221,7 @@ class MoEngageFlutter {
       _moEAndroid.setGender(gender);
     } else if (isIOS) {
       _moEiOS.setGender(gender);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setGender(gender);
     }
   }
@@ -238,7 +242,7 @@ class MoEngageFlutter {
       _moEAndroid.setBirthDate(birthDate);
     } else if (isIOS) {
       _moEiOS.setBirthDate(birthDate);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setBirthDate(birthDate);
     }
   }
@@ -257,7 +261,7 @@ class MoEngageFlutter {
         _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
       } else if (isIOS) {
         _moEiOS.setUserAttribute(userAttributeName, userAttributeValue);
-      } else {
+      } else if(isWeb) {
       _moEWeb.setUserAttribute(userAttributeName, userAttributeValue);
       }
     } else {
@@ -273,7 +277,7 @@ class MoEngageFlutter {
       _moEAndroid.setUserAttributeIsoDate(userAttributeName, isoDateString);
     } else if (isIOS) {
       _moEiOS.setUserAttributeIsoDate(userAttributeName, isoDateString);
-    } else {
+    } else if(isWeb) {
       _moEWeb.setUserAttributeIsoDate(userAttributeName, isoDateString);
     }
   }
@@ -313,7 +317,7 @@ class MoEngageFlutter {
       _moEAndroid.logout();
     } else if (isIOS) {
       _moEiOS.logout();
-    } else {
+    } else if(isWeb) {
       _moEWeb.logout();
     }
   }
