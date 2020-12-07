@@ -3,6 +3,7 @@
 ### 2.0.2 *(7th December 2020)*
 
 - Android Base plugin update for enabling callback extension.
+- Android Native SDK updated to `10.5.00`
 
 ### 2.0.1  *(6th November, 2020)*
 
