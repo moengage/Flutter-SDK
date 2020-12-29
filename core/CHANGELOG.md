@@ -1,15 +1,17 @@
-# moengage_flutter
-=================================
+# MoEngage Flutter Plugin
 
-## Change Log:
+### 2.0.2 *(7th December 2020)*
 
-### Version 2.0.1  *(6th November, 2020)*
--------------------------------------------
+- Android Base plugin update for enabling callback extension.
+- Android Native SDK updated to `10.5.00`
+
+### 2.0.1  *(6th November, 2020)*
+
 - Bugfix: AppStatus method was getting called for other channel method calls as well.
 
 
 ### 2.0.0  *(23rd October, 2020)*
--------------------------------------------
+
 - Support for Self-Handled In-App
 - Support for In-App V3
 - Android SDK updated to support `10.4.03` and above.
@@ -43,17 +45,16 @@
 
 
 ### 1.1.0 *(10th February, 2020)*
--------------------------------------------
+
 - Add Dart APIs for passing FCM Push Token and FCM Push Payload from Android Platform.
 
 
 ### 1.0.1 *(17th December, 2019)*
--------------------------------------------
 - Sample Updated
 - ReadMe Updated
 - Improved logging
 
 
 ### 1.0.0 *(16th December, 2019)*
--------------------------------------------
+
 - Initial Release
