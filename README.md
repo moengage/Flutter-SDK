@@ -10,6 +10,7 @@ This repository contains the Flutter plugins for the [MoEngage](https://www.moen
 |---------|------------------------------------------------------------------------------------|
 | core    | Contains the implementation for the SDK implementation for Core MoEngage Platform  |
 | inbox   | Contains the implementation for the SDK implementation for Inbox Fetaure           |
+| web     | Contains the implementation for the SDK implementation for Moengae Web Platform    |
 | example | Sample Integration for reference.                                                  |
 
 
