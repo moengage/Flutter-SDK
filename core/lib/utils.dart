@@ -18,6 +18,16 @@ Map<String, dynamic> getEventPayload(
   return eventPayload;
 }
 
+Map<String, dynamic> getEventPayloadWeb(
+    String eventName, MoEProperties eventAttributes) {
+  if (eventAttributes == null) {
+    eventAttributes = MoEProperties();
+  }
+  Map<String, dynamic> eventPayload = eventAttributes.getNormalizedEventAttributeJson();
+  eventPayload[keyEventName] = eventName;
+  return eventPayload;
+}
+
 Map<String, dynamic> getUserAttributePayload(
     String attributeName, String attributeType, dynamic attributeValue) {
   if (attributeType == userAttrTypeLocation) {
