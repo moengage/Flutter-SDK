@@ -1,5 +1,9 @@
 # MoEngage Flutter Plugin
 
+### 3.0.0-beta.1 *(30th December 2020)*
+
+- Added Flutter Web Support
+
 ### 2.0.2 *(7th December 2020)*
 
 - Android Base plugin update for enabling callback extension.
