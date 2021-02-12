@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/push_campaign.dart';
+import 'package:moengage_flutter/push_token.dart';
 import 'package:moengage_flutter/self_handled.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/inapp_custom_action.dart';
@@ -155,6 +156,28 @@ PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
     return PushCampaign(platform, isDefaultAction, clickedAction, payload);
   } catch (ex) {
     print("error: pushCampaignFromJson : $ex");
+  }
+
+  return null;
+}
+
+PushToken pushTokenFromJson(dynamic methodCallArgs) {
+  try {
+    Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
+    String platform = pushTokenPayload.containsKey(keyPlatform)
+        ? pushTokenPayload[keyPlatform]
+        : null;
+
+    String token = pushTokenPayload.containsKey(keyPushToken)
+        ? pushTokenPayload[keyPushToken]
+        : null;
+
+    String pushService = pushTokenPayload.containsKey(keyPushService)
+        ? pushTokenPayload[keyPushService]
+        : null;
+    return PushToken(platform, token, pushService);
+  } catch(ex) {
+    print("error: pushTokenFromJson : $ex");
   }
 
   return null;

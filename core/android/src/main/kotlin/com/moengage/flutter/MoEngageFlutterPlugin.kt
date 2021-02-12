@@ -3,7 +3,7 @@ package com.moengage.flutter
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import com.moengage.core.Logger
+import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.PluginHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
@@ -23,6 +23,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
         pluginHelper.onFrameworkDetached()
+        channel?.setMethodCallHandler(null)
     }
 
     @Suppress("SENSELESS_COMPARISON")

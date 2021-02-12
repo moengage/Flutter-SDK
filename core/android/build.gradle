@@ -16,6 +16,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        mavenLocal()
         google()
         jcenter()
     }
@@ -38,10 +39,14 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:10.5.00")
-    api("com.moengage:plugin-base:1.1.04")
+    compileOnly("com.moengage:moe-android-sdk:11.0.03")
+    api("com.moengage:plugin-base:2.0.00")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

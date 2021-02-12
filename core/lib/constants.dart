@@ -27,6 +27,7 @@ const String callbackOnInAppClicked = "onInAppClick";
 const String callbackOnInAppDismissed = "onInAppDismiss";
 const String callbackOnInAppCustomAction = "onInAppCustomAction";
 const String callbackOnInAppSelfHandled = "onInAppSelfHandle";
+const String callbackPushTokenGenerated = "onPushTokenGenerated";
 
 // Gender Value Constants
 const String genderMale = "male";

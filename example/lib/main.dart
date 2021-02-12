@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -13,8 +14,7 @@ import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:huawei_push/push.dart';
+import 'package:moengage_flutter/push_token.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,7 +26,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
   final MoEngageInbox _moEngageInbox = MoEngageInbox();
-  //FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 
   void _onPushClick(PushCampaign message) {
     print("This is a push click callback from native to flutter. Payload " +
@@ -58,8 +57,12 @@ class _MyAppState extends State<MyApp> {
         message.toString());
     _moengagePlugin.selfHandledShown(message);
 //    _moengagePlugin.selfHandledClicked(message);
-//    _moengagePlugin.selfHandledPrimaryClicked(message);
+    _moengagePlugin.selfHandledPrimaryClicked(message);
     _moengagePlugin.selfHandledDismissed(message);
+  }
+
+  void _onPushTokenGenerated(PushToken pushToken) {
+    print("This is callback on push token generated from native to flutter: PushToken: " + pushToken.toString());
   }
 
   @override
@@ -76,36 +79,12 @@ class _MyAppState extends State<MyApp> {
       onInAppCustomAction: _onInAppCustomAction,
       onInAppSelfHandle: _onInAppSelfHandle
     );
-/*
-    firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) {
-        print('onMessage called: $message');
-      },
-      onResume: (Map<String, dynamic> message) {
-        print('onResume called: $message');
-      },
-      onLaunch: (Map<String, dynamic> message) {
-        print('onLaunch called: $message');
-      },
-    );*/
+    _moengagePlugin.setUpPushTokenCallback(_onPushTokenGenerated);
   }
 
   Future<void> initPlatformState() async {
     if (!mounted) return;
     //Push.getTokenStream.listen(_onTokenEvent, onError: _onTokenError);
-  }
-
-  String _token = "";
-  _onTokenEvent(String event) {
-    setState(() {
-      _token = event;
-    });
-    print("Token obtained: " + _token);
-  }
-
-  _onTokenError(Object error) {
-    PlatformException e = error;
-    print("TokenErrorEvent" + e.message);
   }
 
   @override
@@ -291,20 +270,14 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Android -- FCM Push Token"),
                   onTap: () {
-                    // Token passed here is just for illustration purposes. Please pass the actual token instead.
-//                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
-                    
-                    /*firebaseMessaging.getToken().then((token){
-                      print('FCM Token: $token');
-                      _moengagePlugin.passFCMPushToken(token);
-                    });*/
+//                     Token passed here is just for illustration purposes. Please pass the actual token instead.
+                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
                   }),
               new ListTile(
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-//                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
-                    //Push.getToken();
+                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
@@ -316,7 +289,7 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
-                    pushPayload.putIfAbsent("gcm_campaign_id", () => "123456");
+                    pushPayload.putIfAbsent("gcm_campaign_id", () => "1234567");
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moe.pushlibrary.activities.MoEActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
@@ -357,7 +330,11 @@ class _MyAppState extends State<MyApp> {
                 title: Text("Get all messages"),
                 onTap: () async{
                   InboxData data = await _moEngageInbox.fetchAllMessages();
-                  print("messages: " + data.toString());
+                  print("Inbox messages: " + data.toString());
+                  if (data.messages.length > 0) {
+                    _moEngageInbox.trackMessageClicked(data.messages[0]);
+                    _moEngageInbox.deleteMessage(data.messages[0]);
+                  }
                   for(final message in data.messages){
                     print(message.toString());
                   }

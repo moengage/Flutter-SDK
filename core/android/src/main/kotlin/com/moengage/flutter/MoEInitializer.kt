@@ -1,9 +1,9 @@
 package com.moengage.flutter
 
 import android.content.Context
-import com.moengage.core.Logger
 import com.moengage.core.MoEngage
-import com.moengage.core.model.IntegrationMeta
+import com.moengage.core.internal.logger.Logger
+import com.moengage.core.internal.model.IntegrationMeta
 import com.moengage.flutter.BuildConfig.MOENGAGE_FLUTTER_LIBRARY_VERSION
 import com.moengage.plugin.base.PluginInitializer.initialize
 

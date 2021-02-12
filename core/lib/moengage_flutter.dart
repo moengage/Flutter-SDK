@@ -8,12 +8,14 @@ import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/push_campaign.dart';
+import 'package:moengage_flutter/push_token.dart';
 import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
+typedef void PushTokenCallbackHandler(PushToken pushToken);
 
 class MoEngageFlutter {
   MethodChannel _channel = MethodChannel(channelName);
@@ -26,6 +28,7 @@ class MoEngageFlutter {
   InAppCallbackHandler _onInAppDismiss;
   InAppCallbackHandler _onInAppCustomAction;
   InAppCallbackHandler _onInAppSelfHandle;
+  PushTokenCallbackHandler _onPushTokenGenerated;
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
@@ -50,6 +53,10 @@ class MoEngageFlutter {
     _onInAppDismiss = onInAppDismiss;
     _onInAppCustomAction = onInAppCustomAction;
     _onInAppSelfHandle = onInAppSelfHandle;
+  }
+
+  void setUpPushTokenCallback(PushTokenCallbackHandler onPushTokenGenerated) {
+    _onPushTokenGenerated = onPushTokenGenerated;
   }
 
   Future<dynamic> _handler(MethodCall call) async {
@@ -91,6 +98,14 @@ class MoEngageFlutter {
         InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppSelfHandle(inAppCampaign);
+        }
+      }
+
+      if (call.method == callbackPushTokenGenerated &&
+      _onPushTokenGenerated != null) {
+        PushToken pushToken = pushTokenFromJson(call.arguments);
+        if (pushToken != null) {
+          _onPushTokenGenerated(pushToken);
         }
       }
     } catch (exception) {
