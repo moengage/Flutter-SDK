@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+### 2.0.3 *(15th February 2021)*
+- Android artifacts use manven central instead of Jcenter.
+- Native SDK version `10.6.01`
+- Plugin Base `1.2.01`
+
 ### 2.0.2 *(7th December 2020)*
 
 - Android Base plugin update for enabling callback extension.
