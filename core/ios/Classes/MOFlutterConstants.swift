@@ -30,6 +30,7 @@ struct MOFlutterConstants{
     }
     
     struct CallbackNames {
+        static let kPushTokenGenerated          = "onPushTokenGenerated"
         static let kPushClicked                 = "onPushClick"
         static let kInAppShown                  = "onInAppShown"
         static let kInAppClicked                = "onInAppClick"

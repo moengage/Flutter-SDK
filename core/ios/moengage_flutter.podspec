@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files     = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'MoEPluginBase', '~> 1.1.0'
+  s.dependency 'MoEPluginBase','>= 2.0.2','< 2.1.0'
 
   s.prepare_command = <<-CMD
       echo // Generated file, do not edit > Classes/MOFlutterPluginInfo.swift

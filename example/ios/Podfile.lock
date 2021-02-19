@@ -1,12 +1,12 @@
 PODS:
-  - Firebase/Core (7.0.0):
+  - Firebase/Core (7.6.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 7.0.0)
-  - Firebase/CoreOnly (7.0.0):
-    - FirebaseCore (= 7.0.0)
-  - Firebase/Messaging (7.0.0):
+    - FirebaseAnalytics (= 7.6.0)
+  - Firebase/CoreOnly (7.6.0):
+    - FirebaseCore (= 7.6.0)
+  - Firebase/Messaging (7.6.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.0.0)
+    - FirebaseMessaging (~> 7.6.0)
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
@@ -16,35 +16,35 @@ PODS:
     - Firebase/Core
     - Firebase/Messaging
     - Flutter
-  - FirebaseAnalytics (7.0.0):
+  - FirebaseAnalytics (7.6.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
-    - GoogleAppMeasurement (= 7.0.0)
+    - GoogleAppMeasurement (= 7.6.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
     - GoogleUtilities/Network (~> 7.0)
     - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30906.0)
-  - FirebaseCore (7.0.0):
-    - FirebaseCoreDiagnostics (~> 7.0)
+    - nanopb (~> 2.30907.0)
+  - FirebaseCore (7.6.0):
+    - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.0.0):
+  - FirebaseCoreDiagnostics (7.6.0):
     - GoogleDataTransport (~> 8.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-    - nanopb (~> 2.30906.0)
-  - FirebaseInstallations (7.0.0):
+    - nanopb (~> 2.30907.0)
+  - FirebaseInstallations (7.6.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.0.0):
+  - FirebaseInstanceID (7.6.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.0.0):
+  - FirebaseMessaging (7.6.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstanceID (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
@@ -52,57 +52,57 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
   - Flutter (1.0.0)
-  - GoogleAppMeasurement (7.0.0):
+  - GoogleAppMeasurement (7.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
     - GoogleUtilities/Network (~> 7.0)
     - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30906.0)
-  - GoogleDataTransport (8.0.0):
-    - nanopb (~> 2.30906.0)
-  - GoogleUtilities/AppDelegateSwizzler (7.0.0):
+    - nanopb (~> 2.30907.0)
+  - GoogleDataTransport (8.2.0):
+    - nanopb (~> 2.30907.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.2.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.0.0):
+  - GoogleUtilities/Environment (7.2.2):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (7.0.0):
+  - GoogleUtilities/Logger (7.2.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.0.0):
+  - GoogleUtilities/MethodSwizzler (7.2.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.0.0):
+  - GoogleUtilities/Network (7.2.2):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.0.0)"
-  - GoogleUtilities/Reachability (7.0.0):
+  - "GoogleUtilities/NSData+zlib (7.2.2)"
+  - GoogleUtilities/Reachability (7.2.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.0.0):
+  - GoogleUtilities/UserDefaults (7.2.2):
     - GoogleUtilities/Logger
   - huawei_push (5.0.2.301):
     - Flutter
-  - MoEngage-iOS-SDK (6.2.2):
-    - MORichNotification (~> 4.0)
-  - moengage_flutter (2.0.1):
+  - MoEngage-iOS-SDK (7.0.1):
+    - MORichNotification (= 5.0)
+  - moengage_flutter (3.0.0):
     - Flutter
-    - MoEPluginBase (~> 1.1.0)
-  - moengage_inbox (1.0.0):
+    - MoEPluginBase (< 2.1.0, >= 2.0.2)
+  - moengage_inbox (2.0.0):
     - Flutter
-    - MoEPluginBase (~> 1.1.0)
-  - MoEngageInApp (1.0.2):
-    - MoEngage-iOS-SDK (~> 6.0)
-  - MoEPluginBase (1.1.0):
-    - MoEngage-iOS-SDK (< 7.0.0, >= 6.2.1)
-    - MoEngageInApp (~> 1.0.0)
-  - MOGeofence (2.0.2):
-    - MoEngage-iOS-SDK (~> 6.0)
-  - MORichNotification (4.0.1)
-  - nanopb (2.30906.0):
-    - nanopb/decode (= 2.30906.0)
-    - nanopb/encode (= 2.30906.0)
-  - nanopb/decode (2.30906.0)
-  - nanopb/encode (2.30906.0)
-  - PromisesObjC (1.2.11)
+    - MoEPluginBase (< 2.1.0, >= 2.0.2)
+  - MoEngageInApp (2.0.1):
+    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.0)
+  - MoEPluginBase (2.0.2):
+    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.1)
+    - MoEngageInApp (< 2.1.0, >= 2.0.0)
+  - MOGeofence (3.0.1):
+    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.0)
+  - MORichNotification (5.0.0)
+  - nanopb (2.30907.0):
+    - nanopb/decode (= 2.30907.0)
+    - nanopb/encode (= 2.30907.0)
+  - nanopb/decode (2.30907.0)
+  - nanopb/encode (2.30907.0)
+  - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -112,7 +112,7 @@ DEPENDENCIES:
   - huawei_push (from `.symlinks/plugins/huawei_push/ios`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
   - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
-  - MOGeofence (~> 2.0.0)
+  - MOGeofence (~> 3.0.0)
   - MORichNotification
 
 SPEC REPOS:
@@ -152,31 +152,31 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/moengage_inbox/ios"
 
 SPEC CHECKSUMS:
-  Firebase: 50be68416f50eb4eb2ecb0e78acab9a051ef95df
+  Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
   firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_messaging: 21344b3b3a7d9d325d63a70e3750c0c798fe1e03
-  FirebaseAnalytics: c1166b7990bae464c6436132510bb718c6680f80
-  FirebaseCore: cf3122185fce1cf71cedbbc498ea84d2b3e7cb69
-  FirebaseCoreDiagnostics: 5f4aa04fdb04923693cc704c7ef9158bdf41a48b
-  FirebaseInstallations: c28d4bcbb5c6884d1a39afbc0bd7fc590e31e9b7
-  FirebaseInstanceID: c03b49743725092f7eb9d4b96ff40efadd830426
-  FirebaseMessaging: ecf9e04716b7ff1f1d92debab4d6f0e6bdb490aa
+  FirebaseAnalytics: 9f8f4feab1f3fddf4e4515f8f022fe6aa9e51043
+  FirebaseCore: 0a43b7f1c5b36f3358cd703011ca4c7e0df55870
+  FirebaseCoreDiagnostics: ee1184d51da3293335b83355aad20f537acc24cf
+  FirebaseInstallations: 6e4e77396559bc2ae0504823837ed737b1c7e47f
+  FirebaseInstanceID: cf243611700eddc916b093353adbd4da822cfa63
+  FirebaseMessaging: 4b9b2850fcfcaac2820097ee3703ba6cfff3df84
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  GoogleAppMeasurement: 7790ef975d1d463c8614cd949a847e612edf087a
-  GoogleDataTransport: 6ce8004a961db1b905740d7be106c61ba7e89c21
-  GoogleUtilities: ffb2f4159f2c897c6e8992bd7fbcdef8a300589c
+  GoogleAppMeasurement: c542a2feaac9ab98fd074e8f1a02c3585bbfbd47
+  GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
+  GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   huawei_push: adc683ee314d0313b9362f5ecfbf654a20f24a01
-  MoEngage-iOS-SDK: 72bb655216b1e1bc5034f5fff23f89608730e437
-  moengage_flutter: 958f3a491a8e9986135a749e993e4ffe44d838f1
-  moengage_inbox: ae4246662b87cc4e512cacbc65f539304cbcceb9
-  MoEngageInApp: fe20af7e7093e16f2269935dffdaedfae368441f
-  MoEPluginBase: 7580ad39d4a9efee509341d19fb34672b9e5993b
-  MOGeofence: cf1952a62aa4dc5cd6a075f7540c2c80c38394b8
-  MORichNotification: ea538956693eb6e831e894a422482bc53da52beb
-  nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
-  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  MoEngage-iOS-SDK: 4ac34dc84bc363ea877d1dd067ed33caab68252c
+  moengage_flutter: 43002c2069bd38df5f4f2af0372e1d0bf637b25a
+  moengage_inbox: dca8deb6c9f36d3fa9454d583294ec78018f1860
+  MoEngageInApp: 3a3de7e7659ab3c582578b8428ae5d817cdc3a01
+  MoEPluginBase: 490c5b1ab57761ff0aa44c09bdd7662a13f8e1ee
+  MOGeofence: 5e139f99a3b319e9ca17ab39dd1dcae5dfd53df8
+  MORichNotification: abf1f1aaed3a9366dc8e966c55652bff7716b3b8
+  nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: cc80e78081936feca90bf5fba555e70c0647d50e
+PODFILE CHECKSUM: 0e95b9e8886141e75720d4af46c86c69804222a4
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

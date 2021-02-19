@@ -90,6 +90,8 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
     // MARK: Utils
     func getCallbackName(forEventName name: String) -> String?{
         switch name {
+        case kEventNamePushTokenGenerated:
+            return MOFlutterConstants.CallbackNames.kPushTokenGenerated
         case kEventNamePushClicked:
             return MOFlutterConstants.CallbackNames.kPushClicked
         case kEventNameInAppCampaignShown:
