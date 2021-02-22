@@ -1,9 +1,10 @@
 import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/moe_push_service.dart';
 
 class PushToken {
   String platform;
   String token;
-  String pushService;
+  MoEPushService pushService;
 
   PushToken(this.platform, this.token, this.pushService);
 
@@ -11,7 +12,7 @@ class PushToken {
     return {
       keyPlatform: platform,
       keyPushToken: token,
-      keyPushService: pushService
+      keyPushService: pushService.asString
     };
   }
 
@@ -22,7 +23,7 @@ class PushToken {
         "\n" +
         "token: $token" +
         "\n" +
-        "pushService: $pushService" +
+        "pushService: ${pushService.asString}" +
         "\n" +
         "}";
   }

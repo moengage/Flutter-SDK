@@ -12,6 +12,7 @@ import 'package:moengage_flutter/push_token.dart';
 import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
+import 'package:moengage_flutter/moe_push_service.dart';
 
 typedef void PushCallbackHandler(PushCampaign pushCampaign);
 typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
@@ -416,7 +417,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passFCMPushToken(String pushToken) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushToken(pushToken, pushServiceFCM);
+      _moEAndroid.passPushToken(pushToken, MoEPushService.fcm);
     }
   }
 
@@ -424,7 +425,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passFCMPushPayload(Map<String, dynamic> payload) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushPayload(payload, pushServiceFCM);
+      _moEAndroid.passPushPayload(payload, MoEPushService.fcm);
     }
   }
 
@@ -432,7 +433,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passPushKitPushToken(String pushToken) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushToken(pushToken, pushServicePushKit);
+      _moEAndroid.passPushToken(pushToken, MoEPushService.push_kit);
     }
   }
 

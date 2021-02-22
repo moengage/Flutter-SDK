@@ -8,6 +8,7 @@ import 'package:moengage_flutter/inapp_custom_action.dart';
 import 'package:moengage_flutter/navigation_action.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_flutter/moe_push_service.dart';
 
 Map<String, dynamic> getEventPayload(
     String eventName, MoEProperties eventAttributes) {
@@ -172,8 +173,8 @@ PushToken pushTokenFromJson(dynamic methodCallArgs) {
         ? pushTokenPayload[keyPushToken]
         : null;
 
-    String pushService = pushTokenPayload.containsKey(keyPushService)
-        ? pushTokenPayload[keyPushService]
+    MoEPushService pushService = pushTokenPayload.containsKey(keyPushService)
+        ? MoEPushServiceExt.fromString(pushTokenPayload[keyPushService])
         : null;
     return PushToken(platform, token, pushService);
   } catch(ex) {
