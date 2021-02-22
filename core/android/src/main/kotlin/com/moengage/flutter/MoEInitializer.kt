@@ -28,5 +28,20 @@ class MoEInitializer {
                 Logger.e("$tag initialize() : Exception: ", e)
             }
         }
+
+        @JvmStatic
+        fun initialize(context: Context, builder: MoEngage.Builder, isSdkEnabled: Boolean) {
+            try {
+                Logger.v("$tag initialize() : Will try to initialize the sdk.")
+                initialize(
+                    context,
+                    builder,
+                    IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
+                    isSdkEnabled
+                )
+            } catch (e: Exception) {
+                Logger.e("$tag initialize() : Exception: ", e)
+            }
+        }
     }
 }

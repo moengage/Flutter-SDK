@@ -339,6 +339,18 @@ class _MyAppState extends State<MyApp> {
                     print(message.toString());
                   }
                 },
+              ),
+              new ListTile(
+                title: Text("Enable Sdk"),
+                onTap: () async {
+                  _moengagePlugin.enableSdk();
+                },
+              ),
+              new ListTile(
+                title: Text("Disable Sdk"),
+                onTap: () async {
+                  _moengagePlugin.disableSdk();
+                },
               )
             ]).toList(),
           ),

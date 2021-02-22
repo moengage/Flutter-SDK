@@ -435,4 +435,24 @@ class MoEngageFlutter {
       _moEAndroid.passPushToken(pushToken, pushServicePushKit);
     }
   }
+
+  /// API to enable SDK usage.
+  /// Note: By default the SDK is enabled, should only be called to enabled the
+  /// SDK if you have called [disableSdk()] at some point.
+  void enableSdk() {
+    if (Platform.isAndroid) {
+      _moEAndroid.updateSdkState(true);
+    } else if (Platform.isIOS) {
+
+    }
+  }
+
+  /// API to disable all features of the SDK.
+  void disableSdk() {
+    if (Platform.isAndroid) {
+      _moEAndroid.updateSdkState(false);
+    } else if (Platform.isIOS) {
+    }
+  }
+
 }

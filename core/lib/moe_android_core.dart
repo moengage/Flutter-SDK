@@ -180,6 +180,13 @@ class MoEAndroidCore {
             gdprOptOutTypeInApp, shouldOptOutDataTracking));
   }
 
+  void updateSdkState(bool shouldEnableSdk) {
+    _channel.invokeMethod(
+        methodUpdateSdkState,
+        _getUpdateSdkStatePayloadJSON(
+            shouldEnableSdk));
+  }
+
   String _getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
     return json.encode(getEventPayload(eventName, eventAttributes));
   }
@@ -202,5 +209,9 @@ class MoEAndroidCore {
 
   String _getPushPayload(Map<String, dynamic> payload, String pushService) {
     return json.encode({keyPayload: payload, keyPushService: pushService});
+  }
+
+  String _getUpdateSdkStatePayloadJSON(bool shouldEnableSdk) {
+    return json.encode({keyIsSdkEnabled: shouldEnableSdk});
   }
 }

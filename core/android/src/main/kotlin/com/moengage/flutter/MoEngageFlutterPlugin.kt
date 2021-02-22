@@ -59,6 +59,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_PUSH_TOKEN -> passPushToken(call)
                 METHOD_NAME_OPT_OUT_TRACKING -> optOutTracking(call)
                 METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
+                METHOD_NAME_UPDATE_SDK_STATE -> updateSdkState(call)
                 else -> Logger.e("$tag onMethodCall() : No mapping for this method.")
             }
         } catch (e: Exception) {
@@ -215,6 +216,16 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    private fun updateSdkState(methodCall: MethodCall) {
+        try{
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.v("$tag selfHandledCallback() : Arguments: $payload")
+            pluginHelper.storeFeatureStatus(context, payload);
+        }catch(e: Exception){
+            Logger.e("$tag selfHandledCallback() : ", e)
+        }
+    }
 
     companion object {
 

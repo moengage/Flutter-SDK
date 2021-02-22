@@ -19,6 +19,7 @@ const String methodResetAppContext = "resetCurrentContext";
 const String methodOptOutTracking = "optOutTracking";
 const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
+const String methodUpdateSdkState = "updateSdkState";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -109,3 +110,6 @@ const String selfHandledActionShown = "impression";
 const String selfHandledActionPrimaryClicked = "primary_clicked";
 const String selfHandledActionClick = "click";
 const String selfHandledActionDismissed = "dismissed";
+
+// SDK Status update
+const String keyIsSdkEnabled = "isSdkEnabled";
