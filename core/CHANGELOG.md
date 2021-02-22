@@ -5,6 +5,12 @@
 - Android Native SDK updated to `11.0.03`
 - Add Dart APIs to enable and disable MoEngage Sdk.
 - Add Dart API to register a callback when for push token generated event.
+- Plugin Base ``
+
+### 2.0.3 *(15th February 2021)*
+- Android artifacts use manven central instead of Jcenter.
+- Native SDK version `10.6.01`
+- Plugin Base `1.2.01`
 
 ### 2.0.2 *(7th December 2020)*
 
