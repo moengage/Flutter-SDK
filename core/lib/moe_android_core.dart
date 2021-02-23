@@ -7,6 +7,7 @@ import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/geo_location.dart';
+import 'package:moengage_flutter/moe_push_service.dart';
 
 class MoEAndroidCore {
   MethodChannel _channel;
@@ -149,12 +150,12 @@ class MoEAndroidCore {
     _channel.invokeMethod(methodResetAppContext);
   }
 
-  void passPushToken(String pushToken, String pushService) {
+  void passPushToken(String pushToken, MoEPushService pushService) {
     _channel.invokeMethod(
         methodPushToken, _getPushTokenPayload(pushToken, pushService));
   }
 
-  void passPushPayload(Map<String, dynamic> payload, String pushService) {
+  void passPushPayload(Map<String, dynamic> payload, MoEPushService pushService) {
     _channel.invokeMethod(
         methodPushPayLoad, _getPushPayload(payload, pushService));
   }
@@ -180,6 +181,13 @@ class MoEAndroidCore {
             gdprOptOutTypeInApp, shouldOptOutDataTracking));
   }
 
+  void updateSdkState(bool shouldEnableSdk) {
+    _channel.invokeMethod(
+        methodUpdateSdkState,
+        _getUpdateSdkStatePayloadJSON(
+            shouldEnableSdk));
+  }
+
   String _getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
     return json.encode(getEventPayload(eventName, eventAttributes));
   }
@@ -196,11 +204,15 @@ class MoEAndroidCore {
         .encode(getOptOutTrackingPayload(type, shouldOptOutDataTracking));
   }
 
-  String _getPushTokenPayload(String pushToken, String pushService) {
-    return json.encode({keyPushToken: pushToken, keyPushService: pushService});
+  String _getPushTokenPayload(String pushToken, MoEPushService pushService) {
+    return json.encode({keyPushToken: pushToken, keyService: pushService.asString});
   }
 
-  String _getPushPayload(Map<String, dynamic> payload, String pushService) {
-    return json.encode({keyPayload: payload, keyPushService: pushService});
+  String _getPushPayload(Map<String, dynamic> payload, MoEPushService pushService) {
+    return json.encode({keyPayload: payload, keyService: pushService.asString});
+  }
+
+  String _getUpdateSdkStatePayloadJSON(bool shouldEnableSdk) {
+    return json.encode({keyIsSdkEnabled: shouldEnableSdk});
   }
 }

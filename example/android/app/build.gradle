@@ -76,12 +76,12 @@ dependencies {
   testImplementation 'junit:junit:4.13'
   androidTestImplementation("androidx.test.ext:junit:1.1.2")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-  implementation("com.moengage:moe-android-sdk:10.6.01")
+  implementation("com.moengage:moe-android-sdk:11.0.03")
   implementation("com.google.firebase:firebase-messaging:20.3.0")
   implementation("androidx.lifecycle:lifecycle-process:2.2.0")
-  implementation("com.moengage:hms-pushkit:1.2.01")
-  implementation("com.moengage:rich-notification:1.2.02")
-  implementation("com.moengage:addon-inbox:5.3.1")
+  implementation("com.moengage:hms-pushkit:2.0.01")
+  implementation("com.moengage:rich-notification:2.0.01")
+  implementation("com.moengage:addon-inbox:6.0.1")
 }
 
 apply plugin: 'com.google.gms.google-services'

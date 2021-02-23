@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+### 3.0.0
+
+- Android Native SDK updated to support version `11.0.03` and above.
+- Add Dart APIs to enable and disable MoEngage Sdk.
+- Add Dart API to register a callback when for push token generated event.
+- Plugin Base `2.0.00`
+
 ### 2.0.3 *(15th February 2021)*
 - Android artifacts use manven central instead of Jcenter.
 - Native SDK version `10.6.01`

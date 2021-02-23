@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
+import com.moengage.core.internal.logger.Logger
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import com.moengage.core.Logger
 import com.moengage.plugin.base.inbox.InboxPluginHelper
 import java.util.concurrent.Executors
 
