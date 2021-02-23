@@ -82,8 +82,8 @@ InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
     inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
 
     return inAppCampaign;
-  } catch (ex) {
-    print("error: inAppCampaignFromJson : $ex");
+  } catch (e) {
+    print("error: inAppCampaignFromJson():: $e");
   }
   return null;
 }
@@ -155,31 +155,17 @@ PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
         : null;
 
     return PushCampaign(platform, isDefaultAction, clickedAction, payload);
-  } catch (ex) {
-    print("error: pushCampaignFromJson : $ex");
+  } catch (e) {
+    print("error: pushCampaignFromJson():: $e");
   }
 
   return null;
 }
 
 PushToken pushTokenFromJson(dynamic methodCallArgs) {
-  try {
-    Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
-    String platform = pushTokenPayload.containsKey(keyPlatform)
-        ? pushTokenPayload[keyPlatform]
-        : null;
-
-    String token = pushTokenPayload.containsKey(keyPushToken)
-        ? pushTokenPayload[keyPushToken]
-        : null;
-
-    MoEPushService pushService = pushTokenPayload.containsKey(keyPushService)
-        ? MoEPushServiceExt.fromString(pushTokenPayload[keyPushService])
-        : null;
-    return PushToken(platform, token, pushService);
-  } catch(ex) {
-    print("error: pushTokenFromJson : $ex");
-  }
-
-  return null;
+  Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
+  return PushToken(
+      pushTokenPayload[keyPlatform], pushTokenPayload[keyPushToken],
+      MoEPushServiceExt.fromString(
+          pushTokenPayload[keyPushService]));
 }
