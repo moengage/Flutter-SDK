@@ -18,8 +18,7 @@ replace `$latestSdkVersion` with the latest SDK version.
  
  ### Android Installation
  
- ![Download](https://api.bintray.com/packages/moengage/android-sdk/moe-android-sdk/images/download.svg)
-
+![MavenBadge](http://maven-badges.herokuapp.com/maven-central/com.moengage/moe-android-sdk/badge.svg)
  
   Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android project of your application.
   Navigate to `android --> app --> build.gradle`. Add the MoEngage Android SDK's dependency in the `dependencies` block

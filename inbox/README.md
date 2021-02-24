@@ -21,8 +21,7 @@ Run flutter packages get to install the SDK.
  
  ### Android Installation
  
- ![Download](https://api.bintray.com/packages/moengage/android-sdk/addon-inbox/images/download.svg)
-
+![MavenBadge](http://maven-badges.herokuapp.com/maven-central/com.moengage/addon-inbox/badge.svg) 
  
   Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android project of your application.
   Navigate to `android --> app --> build.gradle`. Add the MoEngage Android SDK's dependency in the `dependencies` block
