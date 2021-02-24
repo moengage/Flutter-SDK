@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/push_campaign.dart';
+import 'package:moengage_flutter/push_token.dart';
 import 'package:moengage_flutter/self_handled.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/inapp_custom_action.dart';
 import 'package:moengage_flutter/navigation_action.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_flutter/moe_push_service.dart';
 
 Map<String, dynamic> getEventPayload(
     String eventName, MoEProperties eventAttributes) {
@@ -80,8 +82,8 @@ InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
     inAppCampaign.customAction = customActionFromCampaignMap(inAppCampaignMap);
 
     return inAppCampaign;
-  } catch (ex) {
-    print("error: inAppCampaignFromJson : $ex");
+  } catch (e) {
+    print("error: inAppCampaignFromJson():: $e");
   }
   return null;
 }
@@ -153,9 +155,17 @@ PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
         : null;
 
     return PushCampaign(platform, isDefaultAction, clickedAction, payload);
-  } catch (ex) {
-    print("error: pushCampaignFromJson : $ex");
+  } catch (e) {
+    print("error: pushCampaignFromJson():: $e");
   }
 
   return null;
+}
+
+PushToken pushTokenFromJson(dynamic methodCallArgs) {
+  Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
+  return PushToken(
+      pushTokenPayload[keyPlatform], pushTokenPayload[keyPushToken],
+      MoEPushServiceExt.fromString(
+          pushTokenPayload[keyPushService]));
 }

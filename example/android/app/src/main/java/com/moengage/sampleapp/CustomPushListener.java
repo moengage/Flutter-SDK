@@ -3,7 +3,7 @@ package com.moengage.sampleapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import com.moengage.core.Logger;
+import com.moengage.core.internal.logger.Logger;
 import com.moengage.plugin.base.PluginPushCallback;
 
 /**

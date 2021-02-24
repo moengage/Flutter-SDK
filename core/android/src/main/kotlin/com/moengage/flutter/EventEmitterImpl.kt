@@ -1,15 +1,15 @@
 package com.moengage.flutter
 
-import com.moengage.core.Logger
+import android.content.ContentValues.TAG
+import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.EventEmitter
 import com.moengage.plugin.base.inAppCampaignToJson
-import com.moengage.plugin.base.model.Event
-import com.moengage.plugin.base.model.EventType
-import com.moengage.plugin.base.model.InAppEvent
-import com.moengage.plugin.base.model.PushEvent
+import com.moengage.plugin.base.model.*
 import com.moengage.plugin.base.pushPayloadToJson
+import com.moengage.plugin.base.pushTokenToJson
 import org.json.JSONObject
 import java.util.*
+
 
 /**
  * @author Arshiya Khanum
@@ -26,6 +26,8 @@ class EventEmitterImpl : EventEmitter {
                 emitInAppEvent(event)
             } else if (event is PushEvent) {
                 emitPushEvent(event)
+            } else if (event is TokenEvent) {
+                emitPushTokenEvent(event)
             }
         } catch (e: Exception) {
             Logger.e("$tag emit() : Exception: ", e)
@@ -58,6 +60,17 @@ class EventEmitterImpl : EventEmitter {
         }
     }
 
+    private fun emitPushTokenEvent(tokenEvent: TokenEvent) {
+        try {
+            Logger.v("$TAG emitPushTokenEvent() : $tokenEvent")
+            val eventType =
+                eventMap[tokenEvent.eventType] ?: return
+            val payload = pushTokenToJson(tokenEvent.pushToken)
+            emit(eventType, payload)
+        } catch (e: Exception) {
+            Logger.e("$TAG emitPushTokenEvent() : ", e)
+        }
+    }
     private fun emit(methodName: String, payload: JSONObject) {
         try {
             Logger.v("$tag emit() : methodName: $methodName")
@@ -78,6 +91,7 @@ class EventEmitterImpl : EventEmitter {
             eventMap[EventType.INAPP_CLOSED] = "onInAppDismiss"
             eventMap[EventType.INAPP_CUSTOM_ACTION] = "onInAppCustomAction"
             eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
+            eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
         }
     }
 }
