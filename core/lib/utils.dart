@@ -42,6 +42,10 @@ Map<String, dynamic> getOptOutTrackingPayload(
   return {keyAttributeType: type, keyState: shouldOptOutDataTracking};
 }
 
+Map<String, dynamic> getUpdateSdkStatePayload(bool shouldEnableSdk) {
+    return {keyIsSdkEnabled: shouldEnableSdk};
+}
+
 Map<String, dynamic> getMap(String key, dynamic value) {
   return <String, dynamic>{key: value};
 }

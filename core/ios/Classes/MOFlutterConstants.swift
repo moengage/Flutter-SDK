@@ -24,12 +24,14 @@ struct MOFlutterConstants{
         static let kSetAppContext               = "setAppContext"
         static let kInvalidateAppContext        = "resetCurrentContext"
         static let kOptOutTracking              = "optOutTracking"
+        static let kUpdateSDKState              = "updateSdkState"
         static let kStartGeofence               = "startGeofenceMonitoring"
         static let kEnableLogs                  = "enableSDKLogs"
         static let kResetUser                   = "logout"
     }
     
     struct CallbackNames {
+        static let kPushTokenGenerated          = "onPushTokenGenerated"
         static let kPushClicked                 = "onPushClick"
         static let kInAppShown                  = "onInAppShown"
         static let kInAppClicked                = "onInAppClick"

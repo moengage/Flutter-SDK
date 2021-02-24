@@ -1,6 +1,10 @@
+require 'yaml'
+pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
+libraryVersion = pubspec['version'].gsub('+', '-')
+
 Pod::Spec.new do |s|
   s.name             = 'moengage_inbox'
-  s.version          = '1.0.0'
+  s.version          = libraryVersion
   s.summary          = 'A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs.'
   s.description      = <<-DESC
 A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs.
@@ -11,6 +15,6 @@ A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'MoEPluginBase', '~> 1.1.0'
+  s.dependency 'MoEPluginBase','>= 2.0.2','< 2.1.0'
   s.swift_version = '5.0'
 end

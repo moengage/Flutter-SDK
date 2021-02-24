@@ -1,9 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
 ### Version 2.0.0
-
-- Android Native SDK updated to support version `11.0.03` and above.
-- Plugin Base `2.0.00`
+- iOS 
+    - Native Dependencies updated to support MoEngage-iOS-SDK `7.*` and above
+    - Base plugin version dependency updated to `~> 2.0.2`.
+- Android 
+    - Native SDK updated to support version `11.0.03` and above.
+    - Plugin Base `2.0.00`
 
 ### 1.0.2 *(15th February 2021)*
 - Android artifacts use manven central instead of Jcenter.

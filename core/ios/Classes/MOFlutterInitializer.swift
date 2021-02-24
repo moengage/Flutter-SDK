@@ -15,12 +15,16 @@ public class MOFlutterInitializer : NSObject {
     static public let sharedInstance = MOFlutterInitializer()
     private override init() {super.init()}
     
-    public func initializeWithAppID(_ appID: String, withLaunchOptions options: [UIApplication.LaunchOptionsKey: Any]?) {
+    public func initializeWithSDKConfig(_ config: MOSDKConfig, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        self.initializeWithSDKConfig(config, withSDKState: MoEngageCore.sharedInstance().isSDKEnabled(), andLaunchOptions: launchOptions)
+    }
+    
+    public func initializeWithSDKConfig(_ config: MOSDKConfig, withSDKState state:Bool, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         // Track Integration type
         MoEPluginBridge.sharedInstance()?.trackPluginVersion(MOFlutterPluginInfo.kVersion, for: Flutter)
         
         // Initialize SDK
-        MoEPluginInitializer.sharedInstance().intializeSDK(withAppID: appID, andLaunchOptions: options ?? [:])
+        MoEPluginInitializer.sharedInstance().intializeSDK(with: config, withSDKState: state, andLaunchOptions: launchOptions ?? [:])
     }
     
 }

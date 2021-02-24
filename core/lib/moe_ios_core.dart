@@ -170,4 +170,9 @@ class MoEiOSCore {
   void logout() {
     _channel.invokeMethod(methodLogout);
   }
+
+  void updateSdkState(bool shouldEnableSdk) {
+    var sdkStatePayload = getUpdateSdkStatePayload(shouldEnableSdk);
+    _channel.invokeMethod(methodUpdateSdkState, sdkStatePayload);
+  }
 }
