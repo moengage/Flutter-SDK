@@ -24,7 +24,7 @@ struct MOFlutterConstants{
         static let kSetAppContext               = "setAppContext"
         static let kInvalidateAppContext        = "resetCurrentContext"
         static let kOptOutTracking              = "optOutTracking"
-        static let kUpdateSDKState              = "updateSDKState"
+        static let kUpdateSDKState              = "updateSdkState"
         static let kStartGeofence               = "startGeofenceMonitoring"
         static let kEnableLogs                  = "enableSDKLogs"
         static let kResetUser                   = "logout"

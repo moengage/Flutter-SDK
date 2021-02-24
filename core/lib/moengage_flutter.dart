@@ -23,13 +23,13 @@ class MoEngageFlutter {
   MoEAndroidCore _moEAndroid;
   MoEiOSCore _moEiOS;
 
+  PushTokenCallbackHandler _onPushTokenGenerated;
   PushCallbackHandler _onPushClick;
   InAppCallbackHandler _onInAppClick;
   InAppCallbackHandler _onInAppShown;
   InAppCallbackHandler _onInAppDismiss;
   InAppCallbackHandler _onInAppCustomAction;
   InAppCallbackHandler _onInAppSelfHandle;
-  PushTokenCallbackHandler _onPushTokenGenerated;
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
@@ -63,6 +63,13 @@ class MoEngageFlutter {
   Future<dynamic> _handler(MethodCall call) async {
     print("Received callback in dart. Payload" + call.toString());
     try {
+      if (call.method == callbackPushTokenGenerated &&
+      _onPushTokenGenerated != null) {
+        PushToken pushToken = pushTokenFromJson(call.arguments);
+        if (pushToken != null) {
+          _onPushTokenGenerated(pushToken);
+        }
+      }
       if (call.method == callbackOnPushClick && _onPushClick != null) {
         PushCampaign pushCampaign = pushCampaignFromJson(call.arguments);
         if (pushCampaign != null) {
@@ -99,14 +106,6 @@ class MoEngageFlutter {
         InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
           _onInAppSelfHandle(inAppCampaign);
-        }
-      }
-
-      if (call.method == callbackPushTokenGenerated &&
-      _onPushTokenGenerated != null) {
-        PushToken pushToken = pushTokenFromJson(call.arguments);
-        if (pushToken != null) {
-          _onPushTokenGenerated(pushToken);
         }
       }
     } catch (exception) {
@@ -444,7 +443,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.updateSdkState(true);
     } else if (Platform.isIOS) {
-
+      _moEiOS.updateSdkState(true);
     }
   }
 
@@ -453,6 +452,7 @@ class MoEngageFlutter {
     if (Platform.isAndroid) {
       _moEAndroid.updateSdkState(false);
     } else if (Platform.isIOS) {
+      _moEiOS.updateSdkState(false);
     }
   }
 

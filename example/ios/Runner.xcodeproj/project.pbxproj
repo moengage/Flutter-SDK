@@ -103,6 +103,7 @@
 		AFAA33C325E4CA1D00ABC6F1 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		AFAA33C625E4CA1D00ABC6F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		AFAA33C825E4CA1D00ABC6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFAA347025E65DF200ABC6F1 /* PushTemplates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushTemplates.entitlements; sourceTree = "<group>"; };
 		B0E31C804065C3C13B834CC6 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		CB58377AD9A576F1E923EABF /* Pods-NotificationServices.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServices.release.xcconfig"; path = "Target Support Files/Pods-NotificationServices/Pods-NotificationServices.release.xcconfig"; sourceTree = "<group>"; };
 		DE6EACFF1DE6F6BD7EEDBA63 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +240,7 @@
 		AFAA33C225E4CA1D00ABC6F1 /* PushTemplates */ = {
 			isa = PBXGroup;
 			children = (
+				AFAA347025E65DF200ABC6F1 /* PushTemplates.entitlements */,
 				AFAA33C325E4CA1D00ABC6F1 /* NotificationViewController.swift */,
 				AFAA33C525E4CA1D00ABC6F1 /* MainInterface.storyboard */,
 				AFAA33C825E4CA1D00ABC6F1 /* Info.plist */,
@@ -908,6 +910,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = PushTemplates/PushTemplates.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BPWYRAF5X7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -936,6 +939,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = PushTemplates/PushTemplates.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BPWYRAF5X7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -961,6 +965,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = PushTemplates/PushTemplates.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BPWYRAF5X7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
