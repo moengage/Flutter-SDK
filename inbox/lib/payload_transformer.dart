@@ -50,7 +50,9 @@ InboxMessage messageFromJson(Map<String, dynamic> message) {
         message[CAMPAIGN_ID],
         textContentFromMap(message[TEXT_CONTENT]),
         message[IS_CLICKED],
-        message.containsKey(MEDIA_CONTENT) ? mediaFromMap(message[MEDIA_CONTENT]): null,
+        message.containsKey(MEDIA_CONTENT)
+            ? mediaFromMap(message[MEDIA_CONTENT])
+            : null,
         actionsFromMap(message[ACTION]),
         message.containsKey(TAG) ? message[TAG] : "general",
         message[RECEIVED_TIME],

@@ -43,7 +43,7 @@ Map<String, dynamic> getOptOutTrackingPayload(
 }
 
 Map<String, dynamic> getUpdateSdkStatePayload(bool shouldEnableSdk) {
-    return {keyIsSdkEnabled: shouldEnableSdk};
+  return {keyIsSdkEnabled: shouldEnableSdk};
 }
 
 Map<String, dynamic> getMap(String key, dynamic value) {
@@ -169,7 +169,7 @@ PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
 PushToken pushTokenFromJson(dynamic methodCallArgs) {
   Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
   return PushToken(
-      pushTokenPayload[keyPlatform], pushTokenPayload[keyPushToken],
-      MoEPushServiceExt.fromString(
-          pushTokenPayload[keyPushService]));
+      pushTokenPayload[keyPlatform],
+      pushTokenPayload[keyPushToken],
+      MoEPushServiceExt.fromString(pushTokenPayload[keyPushService]));
 }

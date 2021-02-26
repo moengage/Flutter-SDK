@@ -1,7 +1,6 @@
 enum MoEPushService { apns, fcm, push_kit, mi_push }
 
 extension MoEPushServiceExt on MoEPushService {
-
   String get asString {
     switch (this) {
       case MoEPushService.apns:

@@ -43,18 +43,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onInAppDismiss(InAppCampaign message) {
-    print("This is a callback on inapp dismiss from native to flutter. Payload " +
-        message.toString());
+    print(
+        "This is a callback on inapp dismiss from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppCustomAction(InAppCampaign message) {
-    print("This is a callback on inapp custom action from native to flutter. Payload " +
-        message.toString());
+    print(
+        "This is a callback on inapp custom action from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppSelfHandle(InAppCampaign message) {
-    print("This is a callback on inapp self handle from native to flutter. Payload " +
-        message.toString());
+    print(
+        "This is a callback on inapp self handle from native to flutter. Payload " +
+            message.toString());
     _moengagePlugin.selfHandledShown(message);
     _moengagePlugin.selfHandledClicked(message);
     _moengagePlugin.selfHandledPrimaryClicked(message);
@@ -62,7 +65,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onPushTokenGenerated(PushToken pushToken) {
-    print("This is callback on push token generated from native to flutter: PushToken: " + pushToken.toString());
+    print(
+        "This is callback on push token generated from native to flutter: PushToken: " +
+            pushToken.toString());
   }
 
   @override
@@ -73,12 +78,11 @@ class _MyAppState extends State<MyApp> {
     _moengagePlugin.enableSDKLogs();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
     _moengagePlugin.setUpInAppCallbacks(
-      onInAppClick: _onInAppClick,
-      onInAppShown: _onInAppShown,
-      onInAppDismiss: _onInAppDismiss,
-      onInAppCustomAction: _onInAppCustomAction,
-      onInAppSelfHandle: _onInAppSelfHandle
-    );
+        onInAppClick: _onInAppClick,
+        onInAppShown: _onInAppShown,
+        onInAppDismiss: _onInAppDismiss,
+        onInAppCustomAction: _onInAppCustomAction,
+        onInAppSelfHandle: _onInAppSelfHandle);
     _moengagePlugin.setUpPushTokenCallback(_onPushTokenGenerated);
   }
 
@@ -109,8 +113,14 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName1", "attrVal")
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
-                        .addAttribute("arrayAttr", ["str1", 12.8, "str2", 123, true,
-                      {"hello": "testing"}])
+                        .addAttribute("arrayAttr", [
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .setNonInteractiveEvent()
                         .addAttribute(
                             "location1", new MoEGeoLocation(12.1, 77.18))
@@ -135,18 +145,25 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName1", "attrVal")
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
-                        .addAttribute("arrayAttr", ["str1", 12.8, "str2", 123, true,
-                      {"hello": "testing"}])
+                        .addAttribute("arrayAttr", [
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .addAttribute(
-                        "location1", new MoEGeoLocation(12.1, 77.18))
+                            "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                        "location2", new MoEGeoLocation(12.2, 77.28))
+                            "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                        "location3", new MoEGeoLocation(12.3, 77.38))
+                            "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                        "dateTime2", "2019-12-06T08:26:21.170Z");
-                    _moengagePlugin.trackEvent('interactive event flutter 01', details);
+                            "dateTime2", "2019-12-06T08:26:21.170Z");
+                    _moengagePlugin.trackEvent(
+                        'interactive event flutter 01', details);
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
@@ -210,7 +227,8 @@ class _MyAppState extends State<MyApp> {
                   _moengagePlugin.setUserAttribute("userAttr-bool", true);
                   _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
                   _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
-                  _moengagePlugin.setUserAttribute("userAttr-String", "This is a string");
+                  _moengagePlugin.setUserAttribute(
+                      "userAttr-String", "This is a string");
                 },
               ),
               new ListTile(
@@ -260,7 +278,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Set InApp Contexts"),
                   onTap: () {
-                    _moengagePlugin.setCurrentContext(["HOME","SETTINGS"]);
+                    _moengagePlugin.setCurrentContext(["HOME", "SETTINGS"]);
                   }),
               new ListTile(
                   title: Text("Reset Contexts"),
@@ -271,13 +289,15 @@ class _MyAppState extends State<MyApp> {
                   title: Text("Android -- FCM Push Token"),
                   onTap: () {
 //                     Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passFCMPushToken("fjt-NFxzQey7Y8mSNBig0M:APA91bGRrvQxbgebauzU4xp6yz-uQkNsPk52t1RLn5ZSZK4LTd_jpC0wGKSrI1mUHyRKgmlQbQ8r3Xt1C9aJiBCCx2F9hThJVoONSAf8fkJ31ikPkrGOYkvxcQb1s9zYtoKyCYANdZJq");
+                    _moengagePlugin.passFCMPushToken(
+                        "fjt-NFxzQey7Y8mSNBig0M:APA91bGRrvQxbgebauzU4xp6yz-uQkNsPk52t1RLn5ZSZK4LTd_jpC0wGKSrI1mUHyRKgmlQbQ8r3Xt1C9aJiBCCx2F9hThJVoONSAf8fkJ31ikPkrGOYkvxcQb1s9zYtoKyCYANdZJq");
                   }),
               new ListTile(
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken("IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
+                    _moengagePlugin.passPushKitPushToken(
+                        "IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
@@ -328,14 +348,14 @@ class _MyAppState extends State<MyApp> {
               ),
               new ListTile(
                 title: Text("Get all messages"),
-                onTap: () async{
+                onTap: () async {
                   InboxData data = await _moEngageInbox.fetchAllMessages();
                   print("Inbox messages: " + data.toString());
                   if (data.messages.length > 0) {
                     _moEngageInbox.trackMessageClicked(data.messages[0]);
                     _moEngageInbox.deleteMessage(data.messages[0]);
                   }
-                  for(final message in data.messages){
+                  for (final message in data.messages) {
                     print(message.toString());
                   }
                 },

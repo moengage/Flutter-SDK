@@ -64,7 +64,7 @@ class MoEngageFlutter {
     print("Received callback in dart. Payload" + call.toString());
     try {
       if (call.method == callbackPushTokenGenerated &&
-      _onPushTokenGenerated != null) {
+          _onPushTokenGenerated != null) {
         PushToken pushToken = pushTokenFromJson(call.arguments);
         if (pushToken != null) {
           _onPushTokenGenerated(pushToken);
@@ -455,5 +455,4 @@ class MoEngageFlutter {
       _moEiOS.updateSdkState(false);
     }
   }
-
 }

@@ -155,7 +155,8 @@ class MoEAndroidCore {
         methodPushToken, _getPushTokenPayload(pushToken, pushService));
   }
 
-  void passPushPayload(Map<String, dynamic> payload, MoEPushService pushService) {
+  void passPushPayload(
+      Map<String, dynamic> payload, MoEPushService pushService) {
     _channel.invokeMethod(
         methodPushPayLoad, _getPushPayload(payload, pushService));
   }
@@ -183,9 +184,7 @@ class MoEAndroidCore {
 
   void updateSdkState(bool shouldEnableSdk) {
     _channel.invokeMethod(
-        methodUpdateSdkState,
-        _getUpdateSdkStatePayloadJSON(
-            shouldEnableSdk));
+        methodUpdateSdkState, _getUpdateSdkStatePayloadJSON(shouldEnableSdk));
   }
 
   String _getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
@@ -205,10 +204,12 @@ class MoEAndroidCore {
   }
 
   String _getPushTokenPayload(String pushToken, MoEPushService pushService) {
-    return json.encode({keyPushToken: pushToken, keyService: pushService.asString});
+    return json
+        .encode({keyPushToken: pushToken, keyService: pushService.asString});
   }
 
-  String _getPushPayload(Map<String, dynamic> payload, MoEPushService pushService) {
+  String _getPushPayload(
+      Map<String, dynamic> payload, MoEPushService pushService) {
     return json.encode({keyPayload: payload, keyService: pushService.asString});
   }
 

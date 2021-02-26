@@ -22,8 +22,7 @@ class MoEngageInbox {
   void trackMessageClicked(InboxMessage message) {
     if (Platform.isAndroid) {
       _androidInbox.trackMessageClicked(message);
-    }
-    else if (Platform.isIOS) {
+    } else if (Platform.isIOS) {
       _iOSInbox.trackMessageClicked(message);
     }
   }
@@ -31,8 +30,7 @@ class MoEngageInbox {
   void deleteMessage(InboxMessage message) {
     if (Platform.isAndroid) {
       _androidInbox.deleteMessage(message);
-    }
-    else if (Platform.isIOS) {
+    } else if (Platform.isIOS) {
       _iOSInbox.deleteMessage(message);
     }
   }
@@ -40,8 +38,7 @@ class MoEngageInbox {
   Future<InboxData> fetchAllMessages() async {
     if (Platform.isAndroid) {
       return _androidInbox.fetchAllMessages();
-    }
-    else if (Platform.isIOS) {
+    } else if (Platform.isIOS) {
       return _iOSInbox.fetchAllMessages();
     }
   }
@@ -50,8 +47,7 @@ class MoEngageInbox {
     int count = 0;
     if (Platform.isAndroid) {
       count = await _androidInbox.getUnClickedCount();
-    }
-    else if (Platform.isIOS) {
+    } else if (Platform.isIOS) {
       count = await _iOSInbox.getUnClickedCount();
     }
     return count;
