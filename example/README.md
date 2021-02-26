@@ -14,17 +14,19 @@ dependencies:
  
  ### Android Installation
  
- ![Download](https://api.bintray.com/packages/moengage/android-sdk/moe-android-sdk/images/download.svg)
+ ![MavenBadge](http://maven-badges.herokuapp.com/maven-central/com.moengage/moe-android-sdk/badge.svg)
 
  
   Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android project of your application.
   Navigate to `android --> app --> build.gradle`. Add the MoEngage Android SDK's dependency in the `dependencies` block
   
   ```groovy
-  dependencies {
+dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.0.1'
-    implementation "com.moengage:moe-android-sdk:$sdkVersion"
+    implementation("androidx.core:core:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.2.0")
+    implementation("com.moengage:moe-android-sdk:$sdkVersion")
 }
   ```
 where `$sdkVersion` should be replaced by the latest version of the MoEngage SDK.
@@ -36,10 +38,9 @@ Get APP ID from the [Settings Page](http://app.moengage.com/v3/#/settings/0/0) o
 
 ```kotlin
 // this is the instance of the application class and "XXXXXXXXXXX" is the APP ID from the dashboard.
-val moEngage =
-        new MoEngage.Builder(this, "XXXXXXXXXXX")
-        .build()
-MoEInitializer.initialize(builder.build())
+val moEngage = new MoEngage.Builder(this, "XXXXXXXXXXX")
+
+MoEInitializer.initialize(context, builder)
 ```
 Refer to the [API reference doc](https://moengage.github.io/MoEngage-Android-SDK/) for a detailed list of possible configurations.
 

@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
     print("This is a callback on inapp self handle from native to flutter. Payload " +
         message.toString());
     _moengagePlugin.selfHandledShown(message);
-//    _moengagePlugin.selfHandledClicked(message);
+    _moengagePlugin.selfHandledClicked(message);
     _moengagePlugin.selfHandledPrimaryClicked(message);
     _moengagePlugin.selfHandledDismissed(message);
   }
@@ -271,13 +271,13 @@ class _MyAppState extends State<MyApp> {
                   title: Text("Android -- FCM Push Token"),
                   onTap: () {
 //                     Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
+                    _moengagePlugin.passFCMPushToken("fjt-NFxzQey7Y8mSNBig0M:APA91bGRrvQxbgebauzU4xp6yz-uQkNsPk52t1RLn5ZSZK4LTd_jpC0wGKSrI1mUHyRKgmlQbQ8r3Xt1C9aJiBCCx2F9hThJVoONSAf8fkJ31ikPkrGOYkvxcQb1s9zYtoKyCYANdZJq");
                   }),
               new ListTile(
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
+                    _moengagePlugin.passPushKitPushToken("IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
