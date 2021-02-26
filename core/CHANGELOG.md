@@ -2,7 +2,7 @@
 
 ### 3.0.0 *(26th February 2021)*
 - Android 
-    - Native SDK updated to support version `11.0.03` and above.
+    - Native SDK updated to support version `11.0.04` and above.
     - Plugin Base `2.0.00`
 - iOS 
     - Plugin now supports iOS 10.0 and above.

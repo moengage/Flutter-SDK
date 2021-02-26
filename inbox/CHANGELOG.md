@@ -5,7 +5,8 @@
     - Native Dependencies updated to support MoEngage-iOS-SDK `7.*` and above
     - Base plugin version dependency updated to `~> 2.0.2`.
 - Android 
-    - Native SDK updated to support version `11.0.03` and above.
+    - Native SDK updated to support version `11.0.04` and above.
+    - Native Inbox SDK updated to support version `6.0.2` and above.
     - Plugin Base `2.0.00`
 
 ### 1.0.2 *(15th February 2021)*
