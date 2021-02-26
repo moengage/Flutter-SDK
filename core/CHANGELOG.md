@@ -1,6 +1,6 @@
 # MoEngage Flutter Plugin
 
-### 3.0.0
+### 3.0.0 *(26th February 2021)*
 - Android 
     - Native SDK updated to support version `11.0.03` and above.
     - Plugin Base `2.0.00`

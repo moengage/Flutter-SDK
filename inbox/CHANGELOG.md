@@ -1,6 +1,6 @@
 # MoEngage Flutter Inbox Plugin
 
-### Version 2.0.0
+### Version 2.0.0 *(26th February 2021)*
 - iOS 
     - Native Dependencies updated to support MoEngage-iOS-SDK `7.*` and above
     - Base plugin version dependency updated to `~> 2.0.2`.
