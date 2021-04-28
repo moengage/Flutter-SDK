@@ -20,8 +20,9 @@ import MoEPluginBase
     }
     
     @objc public func initializeWithSDKConfig(_ config: MOSDKConfig, withSDKState state:Bool, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-        // Track Integration type
-        MoEPluginBridge.sharedInstance()?.trackPluginVersion(MOFlutterPluginInfo.kVersion, for: Flutter)
+        // Track Integration type and version
+        config.pluginIntegrationType = FLUTTER
+        config.pluginIntegrationVersion = MOFlutterPluginInfo.kVersion
         
         // Initialize SDK
         MoEPluginInitializer.sharedInstance().intializeSDK(with: config, withSDKState: state, andLaunchOptions: launchOptions ?? [:])

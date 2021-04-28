@@ -5,7 +5,7 @@ PODS:
   - moengage_flutter (3.0.1):
     - Flutter
     - MoEPluginBase (~> 2.0.2)
-  - moengage_inbox (2.0.0):
+  - moengage_inbox (2.0.1):
     - Flutter
     - MoEPluginBase (~> 2.0.2)
   - MoEngageInApp (2.0.2):
@@ -44,7 +44,7 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   MoEngage-iOS-SDK: 6c417155f8a8bd39f1047aa64a7773c73ca1953b
   moengage_flutter: 3e3d8cfd05a77491c4b8679587aabfdca049433f
-  moengage_inbox: cf70468410b3d7aeacc3c269456670cbca6977b2
+  moengage_inbox: a08fa1a56d0f405a82e762815e8cab585f909fd3
   MoEngageInApp: daf85a52c4a3d5dc663f31c23589a60b513acb64
   MoEPluginBase: 490c5b1ab57761ff0aa44c09bdd7662a13f8e1ee
   MOGeofence: 5e139f99a3b319e9ca17ab39dd1dcae5dfd53df8
