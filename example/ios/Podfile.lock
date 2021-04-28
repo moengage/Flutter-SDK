@@ -1,14 +1,14 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (7.0.1):
-    - MORichNotification (= 5.0)
-  - moengage_flutter (3.0.0):
+  - MoEngage-iOS-SDK (7.0.2):
+    - MORichNotification (< 5.1.0, >= 5.0.0)
+  - moengage_flutter (3.0.1):
     - Flutter
-    - MoEPluginBase (< 2.1.0, >= 2.0.2)
+    - MoEPluginBase (~> 2.0.2)
   - moengage_inbox (2.0.0):
     - Flutter
-    - MoEPluginBase (< 2.1.0, >= 2.0.2)
-  - MoEngageInApp (2.0.1):
+    - MoEPluginBase (~> 2.0.2)
+  - MoEngageInApp (2.0.2):
     - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.0)
   - MoEPluginBase (2.0.2):
     - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.1)
@@ -42,10 +42,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  MoEngage-iOS-SDK: 4ac34dc84bc363ea877d1dd067ed33caab68252c
-  moengage_flutter: 43002c2069bd38df5f4f2af0372e1d0bf637b25a
-  moengage_inbox: dca8deb6c9f36d3fa9454d583294ec78018f1860
-  MoEngageInApp: 3a3de7e7659ab3c582578b8428ae5d817cdc3a01
+  MoEngage-iOS-SDK: 6c417155f8a8bd39f1047aa64a7773c73ca1953b
+  moengage_flutter: 3e3d8cfd05a77491c4b8679587aabfdca049433f
+  moengage_inbox: cf70468410b3d7aeacc3c269456670cbca6977b2
+  MoEngageInApp: daf85a52c4a3d5dc663f31c23589a60b513acb64
   MoEPluginBase: 490c5b1ab57761ff0aa44c09bdd7662a13f8e1ee
   MOGeofence: 5e139f99a3b319e9ca17ab39dd1dcae5dfd53df8
   MORichNotification: abf1f1aaed3a9366dc8e966c55652bff7716b3b8
