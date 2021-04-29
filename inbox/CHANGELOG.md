@@ -1,10 +1,10 @@
 # MoEngage Flutter Inbox Plugin
 
-### Version 2.0.1 *(28th April 2021)*
--iOS
- - Podspec changes to set deployment target to iOS 10.0.
+### 2.0.1 *(28th April 2021)*
+- iOS
+    - Podspec changes to set deployment target to iOS 10.0.
 
-### Version 2.0.0 *(26th February 2021)*
+### 2.0.0 *(26th February 2021)*
 - iOS 
     - Native Dependencies updated to support MoEngage-iOS-SDK `7.*` and above
     - Base plugin version dependency updated to `~> 2.0.2`.
@@ -18,12 +18,10 @@
 - Native SDK version `5.3.1`
 - Plugin Base `1.0.01`
 
-### Version 1.0.1  *(7th November, 2020)*
-
+### 1.0.1  *(7th November, 2020)*
 - Media Content parsing fixes
 
-### Version 1.0.0  *(6th November, 2020)*
-
+### 1.0.0  *(6th November, 2020)*
 - Initial release
 - APIs
   - Fetch All Messages
