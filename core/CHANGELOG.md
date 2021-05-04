@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+### 3.0.1 *(28th April 2021)*
+- iOS
+    - Added ObjC support for `MOFlutterInitializer` class
+    - PodSpec changes to set deployment target to iOS 10.0.  
+ 
 ### 3.0.0 *(26th February 2021)*
 - Android 
     - Native SDK updated to support version `11.0.04` and above.
