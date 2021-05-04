@@ -3,26 +3,22 @@ description: Demonstrates how to use the moengage_flutter plugin.
 publish_to: 'none'
 version: 1.0.0+1
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
   moengage_inbox:
     path: ../inbox/
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
   moengage_flutter:
     path: ../core/
-
-  moengage_inbox:
-    path: ../inbox/
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

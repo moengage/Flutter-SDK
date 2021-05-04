@@ -9,15 +9,13 @@ import 'package:moengage_flutter/geo_location.dart';
 class MoEiOSCore {
   MethodChannel _channel;
 
-  MoEiOSCore(MethodChannel channel) {
-    _channel = channel;
-  }
+  MoEiOSCore(this._channel);
 
   void enableSDKLogs() {
     _channel.invokeMethod(methodEnableSDKLogs);
   }
 
-  void trackEvent(String eventName, MoEProperties eventAttributes) {
+  void trackEvent(String eventName, MoEProperties? eventAttributes) {
     _channel.invokeMethod(
         methodTrackEvent, getEventPayload(eventName, eventAttributes));
   }

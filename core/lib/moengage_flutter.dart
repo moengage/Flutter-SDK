@@ -29,16 +29,16 @@ class MoEngageFlutter {
   MoEngageFlutter._internal();
 
   MethodChannel _channel = MethodChannel(channelName);
-  MoEAndroidCore _moEAndroid;
-  MoEiOSCore _moEiOS;
+  late MoEAndroidCore _moEAndroid;
+  late MoEiOSCore _moEiOS;
 
-  PushTokenCallbackHandler _onPushTokenGenerated;
-  PushCallbackHandler _onPushClick;
-  InAppCallbackHandler _onInAppClick;
-  InAppCallbackHandler _onInAppShown;
-  InAppCallbackHandler _onInAppDismiss;
-  InAppCallbackHandler _onInAppCustomAction;
-  InAppCallbackHandler _onInAppSelfHandle;
+  PushTokenCallbackHandler? _onPushTokenGenerated;
+  PushCallbackHandler? _onPushClick;
+  InAppCallbackHandler? _onInAppClick;
+  InAppCallbackHandler? _onInAppShown;
+  InAppCallbackHandler? _onInAppDismiss;
+  InAppCallbackHandler? _onInAppCustomAction;
+  InAppCallbackHandler? _onInAppSelfHandle;
 
   void initialise() {
     _channel.setMethodCallHandler(_handler);
@@ -53,11 +53,11 @@ class MoEngageFlutter {
 
   /// set up callback APIs for in-app events
   void setUpInAppCallbacks(
-      {InAppCallbackHandler onInAppClick,
-      InAppCallbackHandler onInAppShown,
-      InAppCallbackHandler onInAppDismiss,
-      InAppCallbackHandler onInAppCustomAction,
-      InAppCallbackHandler onInAppSelfHandle}) {
+      {InAppCallbackHandler? onInAppClick,
+      InAppCallbackHandler? onInAppShown,
+      InAppCallbackHandler? onInAppDismiss,
+      InAppCallbackHandler? onInAppCustomAction,
+      InAppCallbackHandler? onInAppSelfHandle}) {
     _onInAppClick = onInAppClick;
     _onInAppShown = onInAppShown;
     _onInAppDismiss = onInAppDismiss;
@@ -76,45 +76,45 @@ class MoEngageFlutter {
           _onPushTokenGenerated != null) {
         PushToken pushToken = pushTokenFromJson(call.arguments);
         if (pushToken != null) {
-          _onPushTokenGenerated(pushToken);
+          _onPushTokenGenerated!(pushToken);
         }
       }
       if (call.method == callbackOnPushClick && _onPushClick != null) {
-        PushCampaign pushCampaign = pushCampaignFromJson(call.arguments);
+        PushCampaign? pushCampaign = pushCampaignFromJson(call.arguments);
         if (pushCampaign != null) {
-          _onPushClick(pushCampaign);
+          _onPushClick!(pushCampaign);
         }
       }
       if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
+        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppClick(inAppCampaign);
+          _onInAppClick!(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
+        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppShown(inAppCampaign);
+          _onInAppShown!(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
+        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppDismiss(inAppCampaign);
+          _onInAppDismiss!(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppCustomAction &&
           _onInAppCustomAction != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
+        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppCustomAction(inAppCampaign);
+          _onInAppCustomAction!(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppSelfHandled &&
           _onInAppSelfHandle != null) {
-        InAppCampaign inAppCampaign = inAppCampaignFromJson(call.arguments);
+        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppSelfHandle(inAppCampaign);
+          _onInAppSelfHandle!(inAppCampaign);
         }
       }
     } catch (exception) {
@@ -132,7 +132,7 @@ class MoEngageFlutter {
   }
 
   /// Tracks an event with the given attributes.
-  void trackEvent(String eventName, MoEProperties eventAttributes) {
+  void trackEvent(String eventName, MoEProperties? eventAttributes) {
     if (Platform.isAndroid) {
       _moEAndroid.trackEvent(eventName, eventAttributes);
     } else if (Platform.isIOS) {

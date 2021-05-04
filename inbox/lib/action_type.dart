@@ -6,7 +6,6 @@ extension ActionTypeExt on ActionType {
       case ActionType.navigation:
         return _valueNavigation;
     }
-    throw Exception("unsupported type");
   }
 
   static ActionType fromString(String string) {

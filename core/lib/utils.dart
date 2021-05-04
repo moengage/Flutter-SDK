@@ -11,7 +11,7 @@ import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/moe_push_service.dart';
 
 Map<String, dynamic> getEventPayload(
-    String eventName, MoEProperties eventAttributes) {
+    String eventName, MoEProperties? eventAttributes) {
   if (eventAttributes == null) {
     eventAttributes = MoEProperties();
   }
@@ -50,7 +50,7 @@ Map<String, dynamic> getMap(String key, dynamic value) {
   return <String, dynamic>{key: value};
 }
 
-InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
+InAppCampaign? inAppCampaignFromJson(dynamic methodCallArgs) {
   try {
     Map<String, dynamic> inAppCampaignMap = json.decode(methodCallArgs);
 
@@ -92,7 +92,7 @@ InAppCampaign inAppCampaignFromJson(dynamic methodCallArgs) {
   return null;
 }
 
-SelfHandled selfHandledFromCampaignMap(Map<String, dynamic> inAppCampaignMap) {
+SelfHandled? selfHandledFromCampaignMap(Map<String, dynamic> inAppCampaignMap) {
   if (inAppCampaignMap.containsKey(keySelfHandled)) {
     Map<String, dynamic> selfHandledMap = inAppCampaignMap[keySelfHandled];
 
@@ -109,7 +109,7 @@ SelfHandled selfHandledFromCampaignMap(Map<String, dynamic> inAppCampaignMap) {
   }
 }
 
-NavigationAction navigationActionFromCampaignMap(
+NavigationAction? navigationActionFromCampaignMap(
     Map<String, dynamic> inAppCampaignMap) {
   if (inAppCampaignMap.containsKey(keyNavigation)) {
     Map<String, dynamic> navigationMap = inAppCampaignMap[keyNavigation];
@@ -122,7 +122,7 @@ NavigationAction navigationActionFromCampaignMap(
   }
 }
 
-CustomAction customActionFromCampaignMap(
+CustomAction? customActionFromCampaignMap(
     Map<String, dynamic> inAppCampaignMap) {
   if (inAppCampaignMap.containsKey(keyCustomAction)) {
     Map<String, dynamic> customActionMap = inAppCampaignMap[keyCustomAction];
@@ -134,7 +134,7 @@ CustomAction customActionFromCampaignMap(
   }
 }
 
-PushCampaign pushCampaignFromJson(dynamic methodCallArgs) {
+PushCampaign? pushCampaignFromJson(dynamic methodCallArgs) {
   try {
     Map<String, dynamic> pushCampaignMap = json.decode(methodCallArgs);
     String platform = pushCampaignMap.containsKey(keyPlatform)

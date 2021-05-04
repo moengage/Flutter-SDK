@@ -12,7 +12,6 @@ extension MoEPushServiceExt on MoEPushService {
       case MoEPushService.mi_push:
         return _pushServiceMiPush;
     }
-    return "";
   }
 
   static MoEPushService fromString(String pushService) {
@@ -26,6 +25,7 @@ extension MoEPushServiceExt on MoEPushService {
         return MoEPushService.push_kit;
       case _pushServiceMiPush:
         return MoEPushService.mi_push;
+      default: throw Exception("error: MoEPushService.fromString() : $pushService is not a valid pushService type.");
     }
   }
 }

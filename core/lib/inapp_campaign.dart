@@ -15,13 +15,13 @@ class InAppCampaign {
   String platform;
 
   /// Instance of [NavigationAction]
-  NavigationAction navigationAction;
+  NavigationAction? navigationAction;
 
   /// Instance of [SelfHandled]
-  SelfHandled selfHandled;
+  SelfHandled? selfHandled;
 
   /// Instance of [CustomAction]
-  CustomAction customAction;
+  CustomAction? customAction;
 
   InAppCampaign(this.campaignId, this.campaignName, this.platform);
 
@@ -33,13 +33,13 @@ class InAppCampaign {
     };
 
     if (navigationAction != null) {
-      inAppMap[keyNavigation] = navigationAction.toMap();
+      inAppMap[keyNavigation] = navigationAction?.toMap();
     }
     if (selfHandled != null) {
-      inAppMap[keySelfHandled] = selfHandled.toMap();
+      inAppMap[keySelfHandled] = selfHandled?.toMap();
     }
     if (customAction != null) {
-      inAppMap[keyCustomAction] = customAction.toMap();
+      inAppMap[keyCustomAction] = customAction?.toMap();
     }
     return inAppMap;
   }

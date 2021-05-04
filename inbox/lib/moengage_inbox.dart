@@ -9,9 +9,9 @@ import 'package:moengage_inbox/moe_android_inbox.dart';
 import 'package:moengage_inbox/moe_ios_inbox.dart';
 
 class MoEngageInbox {
-  MethodChannel _channel;
-  MoEAndroidInbox _androidInbox;
-  MoEiOSInbox _iOSInbox;
+  late MethodChannel _channel;
+  late MoEAndroidInbox _androidInbox;
+  late MoEiOSInbox _iOSInbox;
 
   MoEngageInbox() {
     _channel = MethodChannel(CHANNEL_NAME);
@@ -35,12 +35,13 @@ class MoEngageInbox {
     }
   }
 
-  Future<InboxData> fetchAllMessages() async {
+  Future<InboxData?> fetchAllMessages() async {
     if (Platform.isAndroid) {
       return _androidInbox.fetchAllMessages();
     } else if (Platform.isIOS) {
       return _iOSInbox.fetchAllMessages();
     }
+    return null;
   }
 
   Future<int> getUnClickedCount() async {
