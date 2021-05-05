@@ -20,14 +20,6 @@ typedef void PushTokenCallbackHandler(PushToken pushToken);
 
 class MoEngageFlutter {
 
-  static final MoEngageFlutter _sharedInstance = new MoEngageFlutter._internal();
-
-  factory MoEngageFlutter() {
-    return _sharedInstance;
-  }
-
-  MoEngageFlutter._internal();
-
   MethodChannel _channel = MethodChannel(channelName);
   late MoEAndroidCore _moEAndroid;
   late MoEiOSCore _moEiOS;

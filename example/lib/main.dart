@@ -256,10 +256,9 @@ class _MyAppState extends State<MyApp> {
                     _moengagePlugin.setAppStatus(MoEAppStatus.update);
                   }),
               new ListTile(
-                  title: Text("iOS -- Register For Push[New Instance]"),
+                  title: Text("iOS -- Register For Push"),
                   onTap: () {
-                    MoEngageFlutter newInstance = MoEngageFlutter();
-                    newInstance.registerForPushNotification();
+                    _moengagePlugin.registerForPushNotification();
                   }),
               new ListTile(
                   title: Text("iOS -- Start Geofence"),
