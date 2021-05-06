@@ -68,49 +68,49 @@ class MoEngageFlutter {
           _onPushTokenGenerated != null) {
         PushToken pushToken = pushTokenFromJson(call.arguments);
         if (pushToken != null) {
-          _onPushTokenGenerated!(pushToken);
+          _onPushTokenGenerated?.call(pushToken);
         }
       }
       if (call.method == callbackOnPushClick && _onPushClick != null) {
         PushCampaign? pushCampaign = pushCampaignFromJson(call.arguments);
         if (pushCampaign != null) {
-          _onPushClick!(pushCampaign);
+          _onPushClick?.call(pushCampaign);
         }
       }
       if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
         InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppClick!(inAppCampaign);
+          _onInAppClick?.call(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppShown && _onInAppShown != null) {
         InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppShown!(inAppCampaign);
+          _onInAppShown?.call(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
         InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppDismiss!(inAppCampaign);
+          _onInAppDismiss?.call(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppCustomAction &&
           _onInAppCustomAction != null) {
         InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppCustomAction!(inAppCampaign);
+          _onInAppCustomAction?.call(inAppCampaign);
         }
       }
       if (call.method == callbackOnInAppSelfHandled &&
           _onInAppSelfHandle != null) {
         InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
         if (inAppCampaign != null) {
-          _onInAppSelfHandle!(inAppCampaign);
+          _onInAppSelfHandle?.call(inAppCampaign);
         }
       }
     } catch (exception) {
-      print(exception);
+      print("MoEngageFlutter _handler() : " + call.toString() + " has an Exception: " + exception.toString());
     }
   }
 
