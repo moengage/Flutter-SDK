@@ -23,7 +23,7 @@ Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
   };
   Media? media = inboxMessage.media;
   if (media != null) {
-    message[MEDIA_CONTENT] = mapFromMedia(media);;
+    message[MEDIA_CONTENT] = mapFromMedia(media);
   }
   return message;
 }
