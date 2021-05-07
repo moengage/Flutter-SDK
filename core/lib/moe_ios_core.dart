@@ -15,7 +15,7 @@ class MoEiOSCore {
     _channel.invokeMethod(methodEnableSDKLogs);
   }
 
-  void trackEvent(String eventName, MoEProperties? eventAttributes) {
+  void trackEvent(String eventName, MoEProperties eventAttributes) {
     _channel.invokeMethod(
         methodTrackEvent, getEventPayload(eventName, eventAttributes));
   }

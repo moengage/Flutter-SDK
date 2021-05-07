@@ -18,7 +18,7 @@ class MoEAndroidCore {
     _channel.invokeMethod(methodEnableSDKLogs);
   }
 
-  void trackEvent(String eventName, MoEProperties? eventAttributes) {
+  void trackEvent(String eventName, MoEProperties eventAttributes) {
     _channel.invokeMethod(
         methodTrackEvent, _getEventPayloadJSON(eventName, eventAttributes));
   }
@@ -185,7 +185,7 @@ class MoEAndroidCore {
         methodUpdateSdkState, _getUpdateSdkStatePayloadJSON(shouldEnableSdk));
   }
 
-  String _getEventPayloadJSON(String eventName, MoEProperties? eventAttributes) {
+  String _getEventPayloadJSON(String eventName, MoEProperties eventAttributes) {
     return json.encode(getEventPayload(eventName, eventAttributes));
   }
 

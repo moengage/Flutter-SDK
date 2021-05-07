@@ -11,10 +11,7 @@ import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_flutter/moe_push_service.dart';
 
 Map<String, dynamic> getEventPayload(
-    String eventName, MoEProperties? eventAttributes) {
-  if (eventAttributes == null) {
-    eventAttributes = MoEProperties();
-  }
+    String eventName, MoEProperties eventAttributes) {
   Map<String, dynamic> eventPayload = eventAttributes.getEventAttributeJson();
   eventPayload[keyEventName] = eventName;
   return eventPayload;
@@ -166,10 +163,15 @@ PushCampaign? pushCampaignFromJson(dynamic methodCallArgs) {
   return null;
 }
 
-PushToken pushTokenFromJson(dynamic methodCallArgs) {
-  Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
-  return PushToken(
-      pushTokenPayload[keyPlatform],
-      pushTokenPayload[keyPushToken],
-      MoEPushServiceExt.fromString(pushTokenPayload[keyPushService]));
+PushToken? pushTokenFromJson(dynamic methodCallArgs) {
+  try {
+    Map<String, dynamic> pushTokenPayload = json.decode(methodCallArgs);
+    return PushToken(
+        pushTokenPayload[keyPlatform],
+        pushTokenPayload[keyPushToken],
+        MoEPushServiceExt.fromString(pushTokenPayload[keyPushService]));
+  } catch(exception) {
+    print("Error: pushTokenFromJson() : ${exception.toString()}");
+  }
+  return null;
 }

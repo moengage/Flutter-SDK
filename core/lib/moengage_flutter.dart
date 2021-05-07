@@ -66,7 +66,7 @@ class MoEngageFlutter {
     try {
       if (call.method == callbackPushTokenGenerated &&
           _onPushTokenGenerated != null) {
-        PushToken pushToken = pushTokenFromJson(call.arguments);
+        PushToken? pushToken = pushTokenFromJson(call.arguments);
         if (pushToken != null) {
           _onPushTokenGenerated?.call(pushToken);
         }
@@ -124,7 +124,7 @@ class MoEngageFlutter {
   }
 
   /// Tracks an event with the given attributes.
-  void trackEvent(String eventName, MoEProperties? eventAttributes) {
+  void trackEvent(String eventName, MoEProperties eventAttributes) {
     if (Platform.isAndroid) {
       _moEAndroid.trackEvent(eventName, eventAttributes);
     } else if (Platform.isIOS) {
