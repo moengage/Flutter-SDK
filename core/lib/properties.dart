@@ -15,7 +15,6 @@ class MoEProperties {
         this.dateTimeAttributes = new Map(),
         this.isNonInteractive = false;
 
-
   /// Adds an event attribute of type String.
   @Deprecated('Use addAttribute() instead')
   MoEProperties addString(String key, String value) {

@@ -170,7 +170,7 @@ PushToken? pushTokenFromJson(dynamic methodCallArgs) {
         pushTokenPayload[keyPlatform],
         pushTokenPayload[keyPushToken],
         MoEPushServiceExt.fromString(pushTokenPayload[keyPushService]));
-  } catch(exception) {
+  } catch (exception) {
     print("Error: pushTokenFromJson() : ${exception.toString()}");
   }
   return null;

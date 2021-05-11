@@ -19,7 +19,6 @@ typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
 typedef void PushTokenCallbackHandler(PushToken pushToken);
 
 class MoEngageFlutter {
-
   MethodChannel _channel = MethodChannel(channelName);
   late MoEAndroidCore _moEAndroid;
   late MoEiOSCore _moEiOS;
@@ -32,11 +31,14 @@ class MoEngageFlutter {
   InAppCallbackHandler? _onInAppCustomAction;
   InAppCallbackHandler? _onInAppSelfHandle;
 
+  MoEngageFlutter() {
+    _moEAndroid = MoEAndroidCore(_channel);
+    _moEiOS = MoEiOSCore(_channel);
+  }
+
   void initialise() {
     _channel.setMethodCallHandler(_handler);
     _channel.invokeMethod(methodInitialise);
-    _moEAndroid = MoEAndroidCore(_channel);
-    _moEiOS = MoEiOSCore(_channel);
   }
 
   void setUpPushCallbacks(PushCallbackHandler onPushClick) {
@@ -110,7 +112,10 @@ class MoEngageFlutter {
         }
       }
     } catch (exception) {
-      print("MoEngageFlutter _handler() : " + call.toString() + " has an Exception: " + exception.toString());
+      print("MoEngageFlutter _handler() : " +
+          call.toString() +
+          " has an Exception: " +
+          exception.toString());
     }
   }
 

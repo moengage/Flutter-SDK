@@ -24,18 +24,21 @@ class _MyAppState extends State<MyApp> {
   final MoEngageInbox _moEngageInbox = MoEngageInbox();
 
   void _onPushClick(PushCampaign message) {
-    print("Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppClick(InAppCampaign message) {
-    print("Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppShown(InAppCampaign message) {
-    print("Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppDismiss(InAppCampaign message) {
@@ -110,23 +113,23 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                      "str1",
-                      12.8,
-                      "str2",
-                      123,
-                      true,
-                      {"hello": "testing"}
-                    ])
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .setNonInteractiveEvent()
                         .addAttribute(
-                        "location1", new MoEGeoLocation(12.1, 77.18))
+                            "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                        "location2", new MoEGeoLocation(12.2, 77.28))
+                            "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                        "location3", new MoEGeoLocation(12.3, 77.38))
+                            "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                        "dateTime2", "2019-12-06T08:26:21.170Z");
+                            "dateTime2", "2019-12-06T08:26:21.170Z");
                     _moengagePlugin.trackEvent('event flutter 01', details);
                   }),
               new ListTile(
@@ -142,22 +145,22 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                      "str1",
-                      12.8,
-                      "str2",
-                      123,
-                      true,
-                      {"hello": "testing"}
-                    ])
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .addAttribute(
-                        "location1", new MoEGeoLocation(12.1, 77.18))
+                            "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                        "location2", new MoEGeoLocation(12.2, 77.28))
+                            "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                        "location3", new MoEGeoLocation(12.3, 77.38))
+                            "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                        "dateTime2", "2019-12-06T08:26:21.170Z");
+                            "dateTime2", "2019-12-06T08:26:21.170Z");
                     _moengagePlugin.trackEvent(
                         'interactive event flutter 01', details);
                   }),
@@ -311,7 +314,7 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
                     pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
                     pushPayload.putIfAbsent("gcm_activityName",
-                            () => "com.moengage.sampleapp.MainActivity");
+                        () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(

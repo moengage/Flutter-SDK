@@ -25,7 +25,9 @@ extension MoEPushServiceExt on MoEPushService {
         return MoEPushService.push_kit;
       case _pushServiceMiPush:
         return MoEPushService.mi_push;
-      default: throw Exception("error: MoEPushService.fromString() : $pushService is not a valid pushService type.");
+      default:
+        throw Exception(
+            "error: MoEPushService.fromString() : $pushService is not a valid pushService type.");
     }
   }
 }
