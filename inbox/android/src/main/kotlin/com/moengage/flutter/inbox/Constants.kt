@@ -10,3 +10,5 @@ const val METHOD_NAME_UN_CLICKED_COUNT = "unClickedCount";
 const val METHOD_NAME_FETCH_MESSAGES = "fetchMessages";
 const val METHOD_NAME_DELETE_MESSAGE = "deleteMessage";
 const val METHOD_NAME_TRACK_CLICKED = "trackMessageClicked";
+
+const val INTEGRATION_TYPE = "flutter"

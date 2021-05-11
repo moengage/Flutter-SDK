@@ -24,35 +24,35 @@ class _MyAppState extends State<MyApp> {
   final MoEngageInbox _moEngageInbox = MoEngageInbox();
 
   void _onPushClick(PushCampaign message) {
-    print("This is a push click callback from native to flutter. Payload " +
+    print("Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
         message.toString());
   }
 
   void _onInAppClick(InAppCampaign message) {
-    print("This is a inapp click callback from native to flutter. Payload " +
+    print("Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
         message.toString());
   }
 
   void _onInAppShown(InAppCampaign message) {
-    print("This is a callback on inapp shown from native to flutter. Payload " +
+    print("Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
         message.toString());
   }
 
   void _onInAppDismiss(InAppCampaign message) {
     print(
-        "This is a callback on inapp dismiss from native to flutter. Payload " +
+        "Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " +
             message.toString());
   }
 
   void _onInAppCustomAction(InAppCampaign message) {
     print(
-        "This is a callback on inapp custom action from native to flutter. Payload " +
+        "Main : _onInAppCustomAction() : This is a callback on inapp custom action from native to flutter. Payload " +
             message.toString());
   }
 
   void _onInAppSelfHandle(InAppCampaign message) {
     print(
-        "This is a callback on inapp self handle from native to flutter. Payload " +
+        "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
     _moengagePlugin.selfHandledShown(message);
     _moengagePlugin.selfHandledClicked(message);
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
 
   void _onPushTokenGenerated(PushToken pushToken) {
     print(
-        "This is callback on push token generated from native to flutter: PushToken: " +
+        "Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
             pushToken.toString());
   }
 
@@ -164,8 +164,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Track Only Event"),
                   onTap: () {
-                    _moengagePlugin.trackEvent("trackOnlyEventName", null);
-
+                    _moengagePlugin.trackEvent("trackOnlyEventName");
                     _moengagePlugin.trackEvent("testEvent", MoEProperties());
                   }),
               new ListTile(

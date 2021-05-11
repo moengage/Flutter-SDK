@@ -124,7 +124,10 @@ class MoEngageFlutter {
   }
 
   /// Tracks an event with the given attributes.
-  void trackEvent(String eventName, MoEProperties eventAttributes) {
+  void trackEvent(String eventName, [MoEProperties? eventAttributes]) {
+    if (eventAttributes == null) {
+      eventAttributes = MoEProperties();
+    }
     if (Platform.isAndroid) {
       _moEAndroid.trackEvent(eventName, eventAttributes);
     } else if (Platform.isIOS) {

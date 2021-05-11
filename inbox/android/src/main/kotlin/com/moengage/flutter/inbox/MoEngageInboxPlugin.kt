@@ -7,6 +7,7 @@ import androidx.annotation.NonNull
 import com.moengage.core.internal.logger.Logger
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import com.moengage.flutter.inbox.BuildConfig.MOENGAGE_INBOX_FLUTTER_LIBRARY_VERSION
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -29,6 +30,7 @@ class MoEngageInboxPlugin: FlutterPlugin, MethodCallHandler {
   private val inboxHelper = InboxPluginHelper()
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    inboxHelper.logPluginMeta(INTEGRATION_TYPE, MOENGAGE_INBOX_FLUTTER_LIBRARY_VERSION)
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
     channel.setMethodCallHandler(this)
     context = flutterPluginBinding.applicationContext
