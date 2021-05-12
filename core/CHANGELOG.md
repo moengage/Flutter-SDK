@@ -1,12 +1,11 @@
 # MoEngage Flutter Plugin
 
-### 3.1.0
+### 4.0.0 *(12th May 2021)*
 - Migrated the main library to null safety.
     - Require Dart 2.12 or greater.
 - Bumped flutter dependency constraint to min version `1.17.0`
 - Android
     - Native SDK updated to support version `11.2.00` and above.
-    - Plugin base `2.1.00`
     
 ### 3.0.1 *(28th April 2021)*
 - iOS
