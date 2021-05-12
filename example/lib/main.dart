@@ -1,8 +1,4 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/geo_location.dart';
@@ -28,35 +24,38 @@ class _MyAppState extends State<MyApp> {
   final MoEngageInbox _moEngageInbox = MoEngageInbox();
 
   void _onPushClick(PushCampaign message) {
-    print("This is a push click callback from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppClick(InAppCampaign message) {
-    print("This is a inapp click callback from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppShown(InAppCampaign message) {
-    print("This is a callback on inapp shown from native to flutter. Payload " +
-        message.toString());
+    print(
+        "Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppDismiss(InAppCampaign message) {
     print(
-        "This is a callback on inapp dismiss from native to flutter. Payload " +
+        "Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " +
             message.toString());
   }
 
   void _onInAppCustomAction(InAppCampaign message) {
     print(
-        "This is a callback on inapp custom action from native to flutter. Payload " +
+        "Main : _onInAppCustomAction() : This is a callback on inapp custom action from native to flutter. Payload " +
             message.toString());
   }
 
   void _onInAppSelfHandle(InAppCampaign message) {
     print(
-        "This is a callback on inapp self handle from native to flutter. Payload " +
+        "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
     _moengagePlugin.selfHandledShown(message);
     _moengagePlugin.selfHandledClicked(message);
@@ -66,7 +65,7 @@ class _MyAppState extends State<MyApp> {
 
   void _onPushTokenGenerated(PushToken pushToken) {
     print(
-        "This is callback on push token generated from native to flutter: PushToken: " +
+        "Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
             pushToken.toString());
   }
 
@@ -168,11 +167,14 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Track Only Event"),
                   onTap: () {
+                    _moengagePlugin.trackEvent("trackOnlyEventName");
                     _moengagePlugin.trackEvent("testEvent", MoEProperties());
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),
                   onTap: () {
+//                    _moengagePlugin.setUniqueId(null);
+
                     _moengagePlugin.setUniqueId('mobiledevs@moengage.com');
                   }),
               new ListTile(
@@ -289,6 +291,7 @@ class _MyAppState extends State<MyApp> {
                   title: Text("Android -- FCM Push Token"),
                   onTap: () {
 //                     Token passed here is just for illustration purposes. Please pass the actual token instead.
+//                    _moengagePlugin.passFCMPushToken(null);
                     _moengagePlugin.passFCMPushToken(
                         "fjt-NFxzQey7Y8mSNBig0M:APA91bGRrvQxbgebauzU4xp6yz-uQkNsPk52t1RLn5ZSZK4LTd_jpC0wGKSrI1mUHyRKgmlQbQ8r3Xt1C9aJiBCCx2F9hThJVoONSAf8fkJ31ikPkrGOYkvxcQb1s9zYtoKyCYANdZJq");
                   }),
@@ -296,8 +299,8 @@ class _MyAppState extends State<MyApp> {
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken(
-                        "IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
+//                    _moengagePlugin.passPushKitPushToken(
+//                        "IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
@@ -309,9 +312,9 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
-                    pushPayload.putIfAbsent("gcm_campaign_id", () => "1234567");
+                    pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
                     pushPayload.putIfAbsent("gcm_activityName",
-                        () => "com.moe.pushlibrary.activities.MoEActivity");
+                        () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
@@ -349,14 +352,17 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                 title: Text("Get all messages"),
                 onTap: () async {
-                  InboxData data = await _moEngageInbox.fetchAllMessages();
-                  print("Inbox messages: " + data.toString());
-                  if (data.messages.length > 0) {
-                    _moEngageInbox.trackMessageClicked(data.messages[0]);
-                    _moEngageInbox.deleteMessage(data.messages[0]);
-                  }
-                  for (final message in data.messages) {
-                    print(message.toString());
+                  InboxData? data = await _moEngageInbox.fetchAllMessages();
+                  if (data != null && data.messages.length > 0) {
+                    InboxMessage message = data.messages[0];
+                    _moEngageInbox.trackMessageClicked(message);
+                    _moEngageInbox.deleteMessage(message);
+
+                    for (final message in data.messages) {
+                      print(message.toString());
+                    }
+                  } else {
+//                    print("Inbox messages: " + data?.toString());
                   }
                 },
               ),

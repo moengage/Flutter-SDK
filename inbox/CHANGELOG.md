@@ -1,5 +1,14 @@
 # MoEngage Flutter Inbox Plugin
 
+### 2.1.0
+- Migrated the main library to null safety.
+    - Require Dart 2.12 or greater.
+- Android
+    - Native SDK updated to support version `11.2.00` and above.
+    - Removed Native `addon-inbox` SDK support
+    - Native Inbox artifact changed to support `inbox-core`, version `1.0.00` and above.
+    - Plugin base `2.1.00`
+
 ### 2.0.1 *(28th April 2021)*
 - iOS
     - Podspec changes to set deployment target to iOS 10.0.

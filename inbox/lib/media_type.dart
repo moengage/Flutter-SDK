@@ -10,7 +10,6 @@ extension MediaTypeExt on MediaType {
       case MediaType.video:
         return _valueVideo;
     }
-    throw Exception("unsupported type");
   }
 
   static MediaType fromString(String string) {

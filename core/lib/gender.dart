@@ -11,5 +11,4 @@ String genderToString(MoEGender gender) {
     case MoEGender.other:
       return genderOther;
   }
-  return "";
 }

@@ -12,9 +12,7 @@ import 'package:moengage_flutter/moe_push_service.dart';
 class MoEAndroidCore {
   MethodChannel _channel;
 
-  MoEAndroidCore(MethodChannel channel) {
-    _channel = channel;
-  }
+  MoEAndroidCore(this._channel);
 
   void enableSDKLogs() {
     _channel.invokeMethod(methodEnableSDKLogs);

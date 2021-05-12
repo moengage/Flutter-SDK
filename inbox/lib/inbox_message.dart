@@ -16,7 +16,7 @@ class InboxMessage {
   bool isClicked;
 
   /// Media content associated with the message.
-  Media media;
+  Media? media;
 
   /// List of actions to be executed on click.
   List<Action> action;

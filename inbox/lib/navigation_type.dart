@@ -10,7 +10,6 @@ extension NavigationTypeExt on NavigationType {
       case NavigationType.richLanding:
         return _valueRichLanding;
     }
-    throw Exception("unsupported type");
   }
 
   static NavigationType fromString(String string) {

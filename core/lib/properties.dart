@@ -9,12 +9,11 @@ class MoEProperties {
 
   //todo add JSON object and JSONArray
 
-  MoEProperties() {
-    generalAttributes = new Map();
-    locationAttributes = new Map();
-    dateTimeAttributes = new Map();
-    isNonInteractive = false;
-  }
+  MoEProperties()
+      : this.generalAttributes = new Map(),
+        this.locationAttributes = new Map(),
+        this.dateTimeAttributes = new Map(),
+        this.isNonInteractive = false;
 
   /// Adds an event attribute of type String.
   @Deprecated('Use addAttribute() instead')

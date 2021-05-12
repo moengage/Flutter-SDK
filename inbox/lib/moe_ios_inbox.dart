@@ -10,12 +10,11 @@ import 'package:moengage_inbox/constants.dart';
 class MoEiOSInbox {
   MethodChannel _channel;
 
-  MoEiOSInbox(MethodChannel channel) {
-    _channel = channel;
-  }
+  MoEiOSInbox(this._channel);
 
-  Future<int> getUnClickedCount() {
-    return _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT);
+  Future<int> getUnClickedCount() async {
+    int count = await _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT);
+    return count;
   }
 
   void trackMessageClicked(InboxMessage message) {
