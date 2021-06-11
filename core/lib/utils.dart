@@ -149,11 +149,11 @@ PushCampaign? pushCampaignFromJson(dynamic methodCallArgs) {
     Map<String, dynamic> clickedAction =
         pushCampaignMap.containsKey(keyClickedAction)
             ? pushCampaignMap[keyClickedAction]
-            : null;
+            : new Map();
 
     Map<String, dynamic> payload = pushCampaignMap.containsKey(keyPayload)
         ? pushCampaignMap[keyPayload]
-        : null;
+        : new Map();
 
     return PushCampaign(platform, isDefaultAction, clickedAction, payload);
   } catch (e) {
