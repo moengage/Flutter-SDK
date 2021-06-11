@@ -1,7 +1,7 @@
 # MoEngage Flutter Plugin
 ### 4.0.1 
 - Bugfix: 
-    - MOEN-11355: Push click notification callback is not received.
+    - Push click notification callback is not received.
 
 ### 4.0.0 *(12th May 2021)*
 - Migrated the main library to null safety.
