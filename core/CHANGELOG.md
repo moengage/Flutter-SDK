@@ -1,5 +1,8 @@
 # MoEngage Flutter Plugin
-
+### 4.0.1 
+- Bugfix: 
+    - Push click notification callback is not received when clicked action is null.
+    
 ### 4.0.0 *(12th May 2021)*
 - Migrated the main library to null safety.
     - Require Dart 2.12 or greater.
