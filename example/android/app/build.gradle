@@ -80,7 +80,7 @@ dependencies {
   implementation("com.google.firebase:firebase-messaging:20.3.0")
   implementation("androidx.lifecycle:lifecycle-process:2.2.0")
   implementation("com.moengage:hms-pushkit:2.0.01")
-  implementation("com.moengage:rich-notification:2.0.01")
+  implementation("com.moengage:rich-notification:2.2.00")
   implementation("com.huawei.hms:push:4.0.4.301")
   implementation("com.moengage:inbox-core:1.0.00")
 }
