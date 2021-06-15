@@ -1,5 +1,5 @@
 # MoEngage Flutter Plugin
-### 4.0.1 
+### 4.0.1 *(15th June 2021)
 - Bugfix: 
     - Push click notification callback is not received when clicked action is null.
     
