@@ -14,6 +14,11 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
+    private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
+    private lateinit var channel: MethodChannel
+    private lateinit var context: Context
+    private val pluginHelper = PluginHelper()
+
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.v("$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin")
         context = binding.applicationContext
@@ -23,7 +28,25 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
         pluginHelper.onFrameworkDetached()
-        channel?.setMethodCallHandler(null)
+        channel.setMethodCallHandler(null)
+    }
+
+    private fun initPlugin(binaryMessenger: BinaryMessenger) {
+        try {
+            channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
+            channel.setMethodCallHandler(this)
+            pluginHelper.setEventCallback(EventEmitterImpl(::sendCallback))
+        } catch (ex: Exception) {
+            Logger.e("$tag initPlugin() : exception : ", ex)
+        }
+    }
+
+    private fun sendCallback(methodName: String, message: String) {
+        try {
+            Handler(Looper.getMainLooper()).post { channel.invokeMethod(methodName, message) }
+        } catch (ex: Exception) {
+            Logger.e("$tag sendCallback() : exception: ", ex)
+        }
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -224,33 +247,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             pluginHelper.storeFeatureStatus(context, payload);
         }catch(e: Exception){
             Logger.e("$tag selfHandledCallback() : ", e)
-        }
-    }
-
-    companion object {
-
-        private const val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
-        private lateinit var context: Context
-        private var channel: MethodChannel? = null
-        private val pluginHelper = PluginHelper()
-
-        private fun initPlugin(binaryMessenger: BinaryMessenger) {
-            try {
-                channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
-                val plugin = MoEngageFlutterPlugin()
-                channel?.setMethodCallHandler(plugin)
-                pluginHelper.setEventCallback(EventEmitterImpl())
-            } catch (ex: Exception) {
-                Logger.e("$tag initPlugin() : exception : ", ex)
-            }
-        }
-
-        fun sendCallback(methodName: String, message: String) {
-            try {
-                Handler(Looper.getMainLooper()).post { channel?.invokeMethod(methodName, message) }
-            } catch (ex: Exception) {
-                Logger.e("$tag sendCallback() : exception: ", ex)
-            }
         }
     }
 }
