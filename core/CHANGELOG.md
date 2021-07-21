@@ -1,6 +1,6 @@
 # MoEngage Flutter Plugin
 
-### 4.0.2
+### 4.0.2 (21st July 2021)
 - Bugfix
   - Calling MoEngage APIs when application in background is not working on Android.
 
