@@ -26,9 +26,13 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
-        Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
-        pluginHelper.onFrameworkDetached()
-        channel.setMethodCallHandler(null)
+        try {
+            Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
+            pluginHelper.onFrameworkDetached()
+            channel.setMethodCallHandler(null)
+        } catch (e: Exception) {
+            Logger.e("$tag onDetachedFromEngine() ", e)
+        }
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
@@ -43,7 +47,13 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun sendCallback(methodName: String, message: String) {
         try {
-            Handler(Looper.getMainLooper()).post { channel.invokeMethod(methodName, message) }
+            Handler(Looper.getMainLooper()).post {
+                try {
+                    channel.invokeMethod(methodName, message)
+                } catch (e: Exception) {
+                    Logger.e("$tag sendCallback() ", e)
+                }
+            }
         } catch (ex: Exception) {
             Logger.e("$tag sendCallback() : exception: ", ex)
         }
