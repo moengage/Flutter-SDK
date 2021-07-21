@@ -23,12 +23,16 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
     override fun emit(event: Event) {
         try {
             Logger.v("$tag emit() : $event")
-            if (event is InAppEvent) {
-                emitInAppEvent(event)
-            } else if (event is PushEvent) {
-                emitPushEvent(event)
-            } else if (event is TokenEvent) {
-                emitPushTokenEvent(event)
+            when (event) {
+                is InAppEvent -> {
+                    emitInAppEvent(event)
+                }
+                is PushEvent -> {
+                    emitPushEvent(event)
+                }
+                is TokenEvent -> {
+                    emitPushTokenEvent(event)
+                }
             }
         } catch (e: Exception) {
             Logger.e("$tag emit() : Exception: ", e)
