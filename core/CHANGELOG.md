@@ -1,4 +1,9 @@
 # MoEngage Flutter Plugin
+
+### 4.0.2
+- Bugfix
+  - Calling MoEngage APIs when application in background is not working on Android.
+
 ### 4.0.1 *(15th June 2021)*
 - Bugfix: 
     - Push click notification callback is not received when clicked action is null.
