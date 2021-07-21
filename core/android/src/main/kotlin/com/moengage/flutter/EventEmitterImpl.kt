@@ -15,7 +15,8 @@ import java.util.*
  * @author Arshiya Khanum
  * Date: 2020/10/21
  */
-class EventEmitterImpl : EventEmitter {
+class EventEmitterImpl(private val onEvent: (methodName: String, payload: String) -> Unit) :
+    EventEmitter {
 
     private val tag: String = "${MODULE_TAG}EventEmitterImpl"
 
@@ -71,17 +72,18 @@ class EventEmitterImpl : EventEmitter {
             Logger.e("$TAG emitPushTokenEvent() : ", e)
         }
     }
+
     private fun emit(methodName: String, payload: JSONObject) {
         try {
             Logger.v("$tag emit() : methodName: $methodName")
-            MoEngageFlutterPlugin.sendCallback(methodName, payload.toString())
+            onEvent(methodName, payload.toString())
         } catch (e: Exception) {
             Logger.e("$tag emit() : ", e)
         }
     }
 
     companion object {
-        
+
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
         init {
