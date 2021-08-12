@@ -75,8 +75,15 @@ InAppCampaign? inAppCampaignFromJson(dynamic methodCallArgs) {
           "error: inAppCampaignFromJson() : platform is null/empty.");
     }
 
+    Map<String,dynamic> campaignContext = inAppCampaignMap[keyCampaignContext];
+
+    if (campaignContext == null) {
+      throw Exception(
+          "error: inAppCampaignFromJson() : campaignContext is null.");
+    }
+
     InAppCampaign inAppCampaign =
-        InAppCampaign(campaignId, campaignName, platform);
+        InAppCampaign(campaignId, campaignName, platform, campaignContext);
     inAppCampaign.navigationAction =
         navigationActionFromCampaignMap(inAppCampaignMap);
     inAppCampaign.selfHandled = selfHandledFromCampaignMap(inAppCampaignMap);

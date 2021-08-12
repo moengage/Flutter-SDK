@@ -78,6 +78,7 @@ const String keyCampaignName = "campaignName";
 const String keyNavigation = "navigation";
 const String keySelfHandled = "selfHandled";
 const String keyCustomAction = "customAction";
+const String keyCampaignContext = "campaignContext";
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";
