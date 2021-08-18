@@ -116,9 +116,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             FlatButton(
               textColor: Colors.white,
               onPressed: () {
-                _moengagePlugin.onConfigurationChanged();
+                _moengagePlugin.onOrientationChanged();
               },
-              child: Text("configChange"),
+              child: Text("Orientation Change"),
               shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
           ],

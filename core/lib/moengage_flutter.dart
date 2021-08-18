@@ -465,9 +465,9 @@ class MoEngageFlutter {
     }
   }
 
-  void onConfigurationChanged() {
+  void onOrientationChanged() {
     if (Platform.isAndroid) {
-      _moEAndroid.onConfigurationChanged();
+      _moEAndroid.onOrientationChanged();
     }
   }
 }

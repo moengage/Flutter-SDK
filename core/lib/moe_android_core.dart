@@ -215,7 +215,7 @@ class MoEAndroidCore {
     return json.encode(getUpdateSdkStatePayload(shouldEnableSdk));
   }
 
-  void onConfigurationChanged() {
-    _channel.invokeMethod(methodOnConfigurationChanged);
+  void onOrientationChanged() {
+    _channel.invokeMethod(methodOnOrientationChanged);
   }
 }

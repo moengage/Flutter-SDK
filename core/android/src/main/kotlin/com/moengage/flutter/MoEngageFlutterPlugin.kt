@@ -93,7 +93,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_OPT_OUT_TRACKING -> optOutTracking(call)
                 METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
                 METHOD_NAME_UPDATE_SDK_STATE -> updateSdkState(call)
-                METHOD_NAME_ON_CONFIGURATION_CHANGED -> onConfigurationChanged()
+                METHOD_NAME_ON_ORIENTATION_CHANGED -> onOrientationChanged()
                 else -> Logger.e("$tag onMethodCall() : No mapping for this method.")
             }
         } catch (e: Exception) {
@@ -261,8 +261,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun onConfigurationChanged() {
-        Logger.v("$tag onConfigurationChanged() : ")
+    private fun onOrientationChanged() {
+        Logger.v("$tag onOrientationChanged() : ")
         pluginHelper.onConfigurationChanged()
     }
 }

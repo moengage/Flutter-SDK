@@ -20,7 +20,7 @@ const String methodOptOutTracking = "optOutTracking";
 const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
-const String methodOnConfigurationChanged = "onConfigurationChanged";
+const String methodOnOrientationChanged = "onOrientationChanged";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
