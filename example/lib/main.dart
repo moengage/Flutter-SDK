@@ -11,15 +11,16 @@ import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:moengage_flutter/push_token.dart';
+import 'utils.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(home: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
   final MoEngageInbox _moEngageInbox = MoEngageInbox();
 
@@ -53,14 +54,27 @@ class _MyAppState extends State<MyApp> {
             message.toString());
   }
 
-  void _onInAppSelfHandle(InAppCampaign message) {
+  void _onInAppSelfHandle(InAppCampaign message) async {
     print(
         "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
-    _moengagePlugin.selfHandledShown(message);
-    _moengagePlugin.selfHandledClicked(message);
-    _moengagePlugin.selfHandledPrimaryClicked(message);
-    _moengagePlugin.selfHandledDismissed(message);
+
+    final SelfHandledActions action = await asyncSelfHandledDialog(
+        buildContext);
+    switch (action) {
+      case SelfHandledActions.Shown:
+        _moengagePlugin.selfHandledShown(message);
+        break;
+      case SelfHandledActions.PrimaryClicked:
+        _moengagePlugin.selfHandledPrimaryClicked(message);
+        break;
+      case SelfHandledActions.Clicked:
+        _moengagePlugin.selfHandledClicked(message);
+        break;
+      case SelfHandledActions.Dismissed:
+        _moengagePlugin.selfHandledDismissed(message);
+        break;
+    }
   }
 
   void _onPushTokenGenerated(PushToken pushToken) {
@@ -74,7 +88,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     _moengagePlugin.initialise();
-    _moengagePlugin.enableSDKLogs();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
     _moengagePlugin.setUpInAppCallbacks(
         onInAppClick: _onInAppClick,
@@ -90,19 +103,32 @@ class _MyAppState extends State<MyApp> {
     //Push.getTokenStream.listen(_onTokenEvent, onError: _onTokenError);
   }
 
+  late BuildContext buildContext;
+
   @override
   Widget build(BuildContext context) {
+    print("Main : build() ");
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
+          actions: <Widget>[
+            FlatButton(
+              textColor: Colors.white,
+              onPressed: () {
+                _moengagePlugin.onConfigurationChanged();
+              },
+              child: Text("configChange"),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            ),
+          ],
         ),
         body: new Center(
           child: new ListView(
             children: ListTile.divideTiles(context: context, tiles: [
               new ListTile(
                   title: new Text("Track Event with Attributes"),
-                  onTap: () {
+                  onTap: () async {
                     var details = MoEProperties();
                     details
                         .addAttribute("temp", 567)
@@ -113,28 +139,31 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                          "str1",
-                          12.8,
-                          "str2",
-                          123,
-                          true,
-                          {"hello": "testing"}
-                        ])
+                      "str1",
+                      12.8,
+                      "str2",
+                      123,
+                      true,
+                      {"hello": "testing"}
+                    ])
                         .setNonInteractiveEvent()
                         .addAttribute(
-                            "location1", new MoEGeoLocation(12.1, 77.18))
+                        "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                            "location2", new MoEGeoLocation(12.2, 77.28))
+                        "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                            "location3", new MoEGeoLocation(12.3, 77.38))
+                        "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                            "dateTime2", "2019-12-06T08:26:21.170Z");
-                    _moengagePlugin.trackEvent('event flutter 01', details);
+                        "dateTime2", "2019-12-06T08:26:21.170Z");
+                    final String value = await asyncInputDialog(
+                        context, "Event name");
+                    print("Main: Event name : $value");
+                    _moengagePlugin.trackEvent(value, details);
                   }),
               new ListTile(
                   title: new Text("Track Interactive Event with Attributes"),
-                  onTap: () {
+                  onTap: () async {
                     var details = MoEProperties();
                     details
                         .addAttribute("temp", 567)
@@ -145,62 +174,86 @@ class _MyAppState extends State<MyApp> {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                          "str1",
-                          12.8,
-                          "str2",
-                          123,
-                          true,
-                          {"hello": "testing"}
-                        ])
+                      "str1",
+                      12.8,
+                      "str2",
+                      123,
+                      true,
+                      {"hello": "testing"}
+                    ])
                         .addAttribute(
-                            "location1", new MoEGeoLocation(12.1, 77.18))
+                        "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                            "location2", new MoEGeoLocation(12.2, 77.28))
+                        "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                            "location3", new MoEGeoLocation(12.3, 77.38))
+                        "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                            "dateTime2", "2019-12-06T08:26:21.170Z");
+                        "dateTime2", "2019-12-06T08:26:21.170Z");
+                    final String value = await asyncInputDialog(
+                        context, "Event name");
+                    print("Main: Event name : $value");
                     _moengagePlugin.trackEvent(
-                        'interactive event flutter 01', details);
+                        value, details);
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
-                  onTap: () {
-                    _moengagePlugin.trackEvent("trackOnlyEventName");
-                    _moengagePlugin.trackEvent("testEvent", MoEProperties());
+                  onTap: () async {
+                    final String value = await asyncInputDialog(
+                        context, "Event name");
+                    print("Main: Event name : $value");
+                    _moengagePlugin.trackEvent(value);
+                    _moengagePlugin.trackEvent(value, MoEProperties());
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),
-                  onTap: () {
+                  onTap: () async {
 //                    _moengagePlugin.setUniqueId(null);
-
-                    _moengagePlugin.setUniqueId('mobiledevs@moengage.com');
+                    final String value = await asyncInputDialog(
+                        context, "Unique Id");
+                    print("Main: UniqueId: $value");
+                    _moengagePlugin.setUniqueId(value);
                   }),
               new ListTile(
                   title: new Text("Set UserName"),
-                  onTap: () {
-                    _moengagePlugin.setUserName('MoEngage Inc');
+                  onTap: () async {
+                    _moengagePlugin.setUserName("tesst");
+                    final String value = await asyncInputDialog(
+                        context, "User Name");
+                    print("Main: UserName: $value");
+                    _moengagePlugin.setUserName(value);
                   }),
               new ListTile(
                   title: new Text("Set FirstName"),
-                  onTap: () {
-                    _moengagePlugin.setFirstName("MoEngage");
+                  onTap: () async {
+                    final String value = await asyncInputDialog(
+                        context, "First Name");
+                    print("Main: FisrtName: $value");
+                    _moengagePlugin.setFirstName(value);
                   }),
               new ListTile(
                   title: new Text("Set LastName"),
-                  onTap: () {
-                    _moengagePlugin.setLastName("Inc");
+                  onTap: () async {
+                    final String value = await asyncInputDialog(
+                        context, "Last Name");
+                    print("Main: Last Name: $value");
+                    _moengagePlugin.setLastName(value);
                   }),
               new ListTile(
                   title: new Text("Set Email-Id"),
-                  onTap: () {
-                    _moengagePlugin.setEmail("mobiledevs@moengage.com");
+                  onTap: () async {
+                    final String value = await asyncInputDialog(
+                        context, "EmailId");
+                    print("Main: EmailId: $value");
+                    _moengagePlugin.setEmail(value);
                   }),
               new ListTile(
                   title: new Text("Set Phone Number"),
-                  onTap: () {
-                    _moengagePlugin.setPhoneNumber("1234567890");
+                  onTap: () async {
+                    final String value = await asyncInputDialog(
+                        context, "Phone Number");
+                    print("Main: Phone Number: $value");
+                    _moengagePlugin.setPhoneNumber(value);
                   }),
               new ListTile(
                   title: new Text("Set Gender"),
@@ -219,8 +272,10 @@ class _MyAppState extends State<MyApp> {
                   }),
               new ListTile(
                 title: Text("Set Alias"),
-                onTap: () {
-                  _moengagePlugin.setAlias('testUser@moengage.com');
+                onTap: () async {
+                  final String value = await asyncInputDialog(context, "Alias");
+                  print("Main: Alias : $value");
+                  _moengagePlugin.setAlias(value);
                 },
               ),
               new ListTile(
@@ -275,6 +330,7 @@ class _MyAppState extends State<MyApp> {
               new ListTile(
                   title: Text("Show Self Handled InApp"),
                   onTap: () {
+                    buildContext = context;
                     _moengagePlugin.getSelfHandledInApp();
                   }),
               new ListTile(
@@ -314,7 +370,7 @@ class _MyAppState extends State<MyApp> {
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
                     pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
                     pushPayload.putIfAbsent("gcm_activityName",
-                        () => "com.moengage.sampleapp.MainActivity");
+                            () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
@@ -361,8 +417,6 @@ class _MyAppState extends State<MyApp> {
                     for (final message in data.messages) {
                       print(message.toString());
                     }
-                  } else {
-//                    print("Inbox messages: " + data?.toString());
                   }
                 },
               ),

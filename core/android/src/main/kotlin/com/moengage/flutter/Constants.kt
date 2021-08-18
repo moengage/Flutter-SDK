@@ -28,5 +28,6 @@ const val METHOD_NAME_RESET_APP_CONTEXT = "resetCurrentContext"
 const val METHOD_NAME_OPT_OUT_TRACKING = "optOutTracking"
 const val METHOD_NAME_SELF_HANDLED_CALLBACK = "selfHandledCallback"
 const val METHOD_NAME_UPDATE_SDK_STATE = "updateSdkState"
+const val METHOD_NAME_ON_CONFIGURATION_CHANGED = "onConfigurationChanged"
 
 const val KEY_TYPE = "type"

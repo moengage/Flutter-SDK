@@ -464,4 +464,10 @@ class MoEngageFlutter {
       _moEiOS.updateSdkState(false);
     }
   }
+
+  void onConfigurationChanged() {
+    if (Platform.isAndroid) {
+      _moEAndroid.onConfigurationChanged();
+    }
+  }
 }

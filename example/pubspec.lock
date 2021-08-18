@@ -87,14 +87,14 @@ packages:
       path: "../core"
       relative: true
     source: path
-    version: "3.0.1"
+    version: "4.0.2"
   moengage_inbox:
     dependency: "direct main"
     description:
       path: "../inbox"
       relative: true
     source: path
-    version: "2.0.1"
+    version: "3.0.0"
   path:
     dependency: transitive
     description:

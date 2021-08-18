@@ -214,4 +214,8 @@ class MoEAndroidCore {
   String _getUpdateSdkStatePayloadJSON(bool shouldEnableSdk) {
     return json.encode(getUpdateSdkStatePayload(shouldEnableSdk));
   }
+
+  void onConfigurationChanged() {
+    _channel.invokeMethod(methodOnConfigurationChanged);
+  }
 }

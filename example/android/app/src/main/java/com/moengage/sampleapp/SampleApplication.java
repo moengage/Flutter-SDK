@@ -20,7 +20,7 @@ public class SampleApplication extends FlutterApplication {
 
   @Override public void onCreate() {
     super.onCreate();
-    MoEngage.Builder moEngage = new MoEngage.Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
+    MoEngage.Builder moEngage = new MoEngage.Builder(this, "")
         .configureNotificationMetaData(new NotificationConfig(R.drawable.icon, R.drawable.ic_launcher, -1, null, true,false, true))
         .configureLogs(new LogConfig(LogLevel.VERBOSE, true))
         .configureFcm(new FcmConfig(true))
