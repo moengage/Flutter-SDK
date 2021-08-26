@@ -60,8 +60,10 @@ repositories {
 dependencies{
     compileOnly("com.moengage:moe-android-sdk:11.3.01"){
         exclude group: 'com.moengage', module: 'inapp'
+        exclude group: 'com.moengage', module: 'core'
     }
     compileOnly("com.moengage:inapp:5.2.0-SNAPSHOT")
+    compileOnly("com.moengage:core:5.2.04-SNAPSHOT")
     api("com.moengage:plugin-base:2.2.0-SNAPSHOT")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
