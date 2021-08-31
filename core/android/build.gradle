@@ -49,22 +49,9 @@ android {
         jvmTarget = '1.8'
     }
 }
-
-repositories {
-    maven {
-        url("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
-    mavenCentral()
-}
-
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:11.3.01"){
-        exclude group: 'com.moengage', module: 'inapp'
-        exclude group: 'com.moengage', module: 'core'
-    }
-    compileOnly("com.moengage:inapp:5.2.0-SNAPSHOT")
-    compileOnly("com.moengage:core:5.2.04-SNAPSHOT")
-    api("com.moengage:plugin-base:2.2.0-SNAPSHOT")
+    compileOnly("com.moengage:moe-android-sdk:11.4.00")
+    api("com.moengage:plugin-base:2.2.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
