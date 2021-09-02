@@ -1,27 +1,27 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (7.0.2):
-    - MORichNotification (< 5.1.0, >= 5.0.0)
-  - moengage_flutter (3.0.1):
+  - MoEngage-iOS-SDK (7.1.0):
+    - MORichNotification (< 5.2.0, >= 5.1.0)
+  - moengage_flutter (4.0.2):
     - Flutter
-    - MoEPluginBase (~> 2.0.2)
-  - moengage_inbox (2.0.1):
+    - MoEPluginBase (~> 2.1.0)
+  - moengage_inbox (3.0.0):
     - Flutter
-    - MoEPluginBase (~> 2.0.2)
-  - MoEngageInApp (2.0.2):
-    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.0)
-  - MoEPluginBase (2.0.2):
-    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.1)
-    - MoEngageInApp (< 2.1.0, >= 2.0.0)
-  - MOGeofence (3.0.1):
-    - MoEngage-iOS-SDK (< 7.1.0, >= 7.0.0)
-  - MORichNotification (5.0.0)
+    - MoEPluginBase (~> 2.1.0)
+  - MoEngageInApp (2.1.0):
+    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
+  - MoEPluginBase (2.1.0):
+    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
+    - MoEngageInApp (< 2.2.0, >= 2.1.0)
+  - MOGeofence (3.1.0):
+    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
+  - MORichNotification (5.1.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
   - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
-  - MOGeofence (~> 3.0.0)
+  - MOGeofence (~> 3.1.0)
   - MORichNotification
 
 SPEC REPOS:
@@ -42,14 +42,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  MoEngage-iOS-SDK: 6c417155f8a8bd39f1047aa64a7773c73ca1953b
-  moengage_flutter: 3e3d8cfd05a77491c4b8679587aabfdca049433f
-  moengage_inbox: a08fa1a56d0f405a82e762815e8cab585f909fd3
-  MoEngageInApp: daf85a52c4a3d5dc663f31c23589a60b513acb64
-  MoEPluginBase: 490c5b1ab57761ff0aa44c09bdd7662a13f8e1ee
-  MOGeofence: 5e139f99a3b319e9ca17ab39dd1dcae5dfd53df8
-  MORichNotification: abf1f1aaed3a9366dc8e966c55652bff7716b3b8
+  MoEngage-iOS-SDK: f96c05b33bdf39b83b8fcd61d93ed9e90ef70c04
+  moengage_flutter: 90fc827eae2376ae08fe5b1230d39088b40893b4
+  moengage_inbox: 57d3c55346314dff75a28824623d8449b741bd10
+  MoEngageInApp: 0713efdeb1123bac134db942f5588745c8c78c0c
+  MoEPluginBase: e6bbb816b6292d4f248b5a4d6ecd9e6b593668d6
+  MOGeofence: 63ac8906b7cdba22bc60747cbc85a2db89e161af
+  MORichNotification: bc588aa1b09b37d9b3a6031c9a05a510f014464d
 
-PODFILE CHECKSUM: 0e95b9e8886141e75720d4af46c86c69804222a4
+PODFILE CHECKSUM: 91bf7bf92287d6f3f3deff9bd2132fa17f0bf9eb
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2
