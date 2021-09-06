@@ -4,20 +4,20 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
   String teamName = '';
   return showDialog(
     context: context,
-    barrierDismissible: false, // dialog is dismissible with a tap on the barrier
+    barrierDismissible:
+        false, // dialog is dismissible with a tap on the barrier
     builder: (BuildContext context) {
       return AlertDialog(
         content: new Row(
           children: [
             new Expanded(
                 child: new TextField(
-                  autofocus: true,
-                  decoration: new InputDecoration(
-                      labelText: prompt),
-                  onChanged: (value) {
-                    teamName = value;
-                  },
-                ))
+              autofocus: true,
+              decoration: new InputDecoration(labelText: prompt),
+              onChanged: (value) {
+                teamName = value;
+              },
+            ))
           ],
         ),
         actions: [
@@ -32,6 +32,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
     },
   );
 }
+
 enum SelfHandledActions { Shown, PrimaryClicked, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {

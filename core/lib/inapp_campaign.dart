@@ -26,7 +26,8 @@ class InAppCampaign {
   /// Campaign Context
   Map<String, dynamic> campaignContext;
 
-  InAppCampaign(this.campaignId, this.campaignName, this.platform, this.campaignContext);
+  InAppCampaign(
+      this.campaignId, this.campaignName, this.platform, this.campaignContext);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> inAppMap = {
