@@ -23,13 +23,17 @@ class InAppCampaign {
   /// Instance of [CustomAction]
   CustomAction? customAction;
 
-  InAppCampaign(this.campaignId, this.campaignName, this.platform);
+  /// Campaign Context
+  Map<String, dynamic> campaignContext;
+
+  InAppCampaign(this.campaignId, this.campaignName, this.platform, this.campaignContext);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> inAppMap = {
       keyCampaignId: campaignId,
       keyCampaignName: campaignName,
-      keyPlatform: platform
+      keyPlatform: platform,
+      keyCampaignContext: campaignContext
     };
 
     if (navigationAction != null) {
@@ -54,6 +58,9 @@ class InAppCampaign {
         "\n" +
         "platform:" +
         platform +
+        "\n" +
+        "campaignContext:" +
+        campaignContext.toString() +
         "\n" +
         "navigationAction:" +
         navigationAction.toString() +

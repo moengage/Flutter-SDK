@@ -1,5 +1,8 @@
 # MoEngage Flutter Plugin
 
+### 4.1.0 (--)
+- Support for HTML InApps
+  
 ### 4.0.2 (21st July 2021)
 - Bugfix
   - Calling MoEngage APIs when application in background is not working on Android.

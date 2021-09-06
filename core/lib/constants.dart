@@ -20,6 +20,7 @@ const String methodOptOutTracking = "optOutTracking";
 const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
+const String methodOnOrientationChanged = "onOrientationChanged";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -78,6 +79,7 @@ const String keyCampaignName = "campaignName";
 const String keyNavigation = "navigation";
 const String keySelfHandled = "selfHandled";
 const String keyCustomAction = "customAction";
+const String keyCampaignContext = "campaignContext";
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";

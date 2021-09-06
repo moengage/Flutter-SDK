@@ -464,4 +464,10 @@ class MoEngageFlutter {
       _moEiOS.updateSdkState(false);
     }
   }
+
+  void onOrientationChanged() {
+    if (Platform.isAndroid) {
+      _moEAndroid.onOrientationChanged();
+    }
+  }
 }

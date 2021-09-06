@@ -50,11 +50,8 @@ android {
     }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:11.2.00")
-    api("com.moengage:plugin-base:2.1.00")
+    compileOnly("com.moengage:moe-android-sdk:11.4.00")
+    api("com.moengage:plugin-base:2.2.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
-repositories {
-    mavenCentral()
-}
