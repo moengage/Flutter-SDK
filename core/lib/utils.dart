@@ -75,7 +75,7 @@ InAppCampaign? inAppCampaignFromJson(dynamic methodCallArgs) {
           "error: inAppCampaignFromJson() : platform is null/empty.");
     }
 
-    Map<String,dynamic> campaignContext = inAppCampaignMap[keyCampaignContext];
+    Map<String, dynamic> campaignContext = inAppCampaignMap[keyCampaignContext];
 
     if (campaignContext == null) {
       throw Exception(

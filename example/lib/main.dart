@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
 
-    final SelfHandledActions action = await asyncSelfHandledDialog(
-        buildContext);
+    final SelfHandledActions action =
+        await asyncSelfHandledDialog(buildContext);
     switch (action) {
       case SelfHandledActions.Shown:
         _moengagePlugin.selfHandledShown(message);
@@ -139,25 +139,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                      "str1",
-                      12.8,
-                      "str2",
-                      123,
-                      true,
-                      {"hello": "testing"}
-                    ])
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .setNonInteractiveEvent()
                         .addAttribute(
-                        "location1", new MoEGeoLocation(12.1, 77.18))
+                            "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                        "location2", new MoEGeoLocation(12.2, 77.28))
+                            "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                        "location3", new MoEGeoLocation(12.3, 77.38))
+                            "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                        "dateTime2", "2019-12-06T08:26:21.170Z");
-                    final String value = await asyncInputDialog(
-                        context, "Event name");
+                            "dateTime2", "2019-12-06T08:26:21.170Z");
+                    final String value =
+                        await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
                     _moengagePlugin.trackEvent(value, details);
                   }),
@@ -174,33 +174,32 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         .addAttribute("attrName2", false)
                         .addAttribute("attrName3", 123563563)
                         .addAttribute("arrayAttr", [
-                      "str1",
-                      12.8,
-                      "str2",
-                      123,
-                      true,
-                      {"hello": "testing"}
-                    ])
+                          "str1",
+                          12.8,
+                          "str2",
+                          123,
+                          true,
+                          {"hello": "testing"}
+                        ])
                         .addAttribute(
-                        "location1", new MoEGeoLocation(12.1, 77.18))
+                            "location1", new MoEGeoLocation(12.1, 77.18))
                         .addAttribute(
-                        "location2", new MoEGeoLocation(12.2, 77.28))
+                            "location2", new MoEGeoLocation(12.2, 77.28))
                         .addAttribute(
-                        "location3", new MoEGeoLocation(12.3, 77.38))
+                            "location3", new MoEGeoLocation(12.3, 77.38))
                         .addISODateTime("dateTime1", "2019-12-02T08:26:21.170Z")
                         .addISODateTime(
-                        "dateTime2", "2019-12-06T08:26:21.170Z");
-                    final String value = await asyncInputDialog(
-                        context, "Event name");
+                            "dateTime2", "2019-12-06T08:26:21.170Z");
+                    final String value =
+                        await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
-                    _moengagePlugin.trackEvent(
-                        value, details);
+                    _moengagePlugin.trackEvent(value, details);
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
                   onTap: () async {
-                    final String value = await asyncInputDialog(
-                        context, "Event name");
+                    final String value =
+                        await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
                     _moengagePlugin.trackEvent(value);
                     _moengagePlugin.trackEvent(value, MoEProperties());
@@ -209,8 +208,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   title: new Text("Set Unique Id"),
                   onTap: () async {
 //                    _moengagePlugin.setUniqueId(null);
-                    final String value = await asyncInputDialog(
-                        context, "Unique Id");
+                    final String value =
+                        await asyncInputDialog(context, "Unique Id");
                     print("Main: UniqueId: $value");
                     _moengagePlugin.setUniqueId(value);
                   }),
@@ -218,40 +217,40 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   title: new Text("Set UserName"),
                   onTap: () async {
                     _moengagePlugin.setUserName("tesst");
-                    final String value = await asyncInputDialog(
-                        context, "User Name");
+                    final String value =
+                        await asyncInputDialog(context, "User Name");
                     print("Main: UserName: $value");
                     _moengagePlugin.setUserName(value);
                   }),
               new ListTile(
                   title: new Text("Set FirstName"),
                   onTap: () async {
-                    final String value = await asyncInputDialog(
-                        context, "First Name");
+                    final String value =
+                        await asyncInputDialog(context, "First Name");
                     print("Main: FisrtName: $value");
                     _moengagePlugin.setFirstName(value);
                   }),
               new ListTile(
                   title: new Text("Set LastName"),
                   onTap: () async {
-                    final String value = await asyncInputDialog(
-                        context, "Last Name");
+                    final String value =
+                        await asyncInputDialog(context, "Last Name");
                     print("Main: Last Name: $value");
                     _moengagePlugin.setLastName(value);
                   }),
               new ListTile(
                   title: new Text("Set Email-Id"),
                   onTap: () async {
-                    final String value = await asyncInputDialog(
-                        context, "EmailId");
+                    final String value =
+                        await asyncInputDialog(context, "EmailId");
                     print("Main: EmailId: $value");
                     _moengagePlugin.setEmail(value);
                   }),
               new ListTile(
                   title: new Text("Set Phone Number"),
                   onTap: () async {
-                    final String value = await asyncInputDialog(
-                        context, "Phone Number");
+                    final String value =
+                        await asyncInputDialog(context, "Phone Number");
                     print("Main: Phone Number: $value");
                     _moengagePlugin.setPhoneNumber(value);
                   }),
@@ -370,7 +369,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
                     pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
                     pushPayload.putIfAbsent("gcm_activityName",
-                            () => "com.moengage.sampleapp.MainActivity");
+                        () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
