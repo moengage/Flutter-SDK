@@ -1,7 +1,11 @@
 # MoEngage Flutter Plugin
 
-### 4.1.0 (--)
+### 4.1.0 *(6th September 2021)*
 - Support for HTML InApps
+- Android
+  - Native SDK updated to support version `11.4.00` and above.
+- iOS
+  - Native Dependencies updated to support MoEngage-iOS-SDK `7.1.0` and above
   
 ### 4.0.2 (21st July 2021)
 - Bugfix
