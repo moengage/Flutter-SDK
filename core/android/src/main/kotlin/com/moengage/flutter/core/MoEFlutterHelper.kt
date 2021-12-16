@@ -1,4 +1,4 @@
-package com.moengage.flutter
+package com.moengage.flutter.core
 
 import com.moengage.inapp.MoEInAppHelper;
 import com.moengage.core.internal.logger.Logger
@@ -9,7 +9,7 @@ import com.moengage.core.internal.inapp.InAppManager;
  */
 public class MoEFlutterHelper {
 
-    private val tag = "${MODULE_TAG}MoEFlutterHelper"
+    private val tag = "${CORE_MODULE_TAG}MoEFlutterHelper"
 
     public companion object {
 

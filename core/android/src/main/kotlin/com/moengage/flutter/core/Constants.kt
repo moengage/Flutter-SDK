@@ -1,13 +1,13 @@
-package com.moengage.flutter
+package com.moengage.flutter.core
 
 /**
  * @author Umang Chamaria
  * Date: 2019-12-12
  */
 
-const val MODULE_TAG = "MoEFlutter_"
+const val CORE_MODULE_TAG = "MoEFlutter_"
 const val INTEGRATION_TYPE = "flutter"
-const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core"
+const val FLUTTER_PLUGIN_CORE_CHANNEL_NAME = "com.moengage/core"
 
 //Method name constants
 const val METHOD_NAME_INITIALISE = "initialise"

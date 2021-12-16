@@ -1,4 +1,4 @@
-package com.moengage.flutter
+package com.moengage.flutter.core
 
 import android.content.ContentValues.TAG
 import com.moengage.core.internal.logger.Logger
@@ -16,9 +16,9 @@ import java.util.*
  * Date: 2020/10/21
  */
 class EventEmitterImpl(private val onEvent: (methodName: String, payload: String) -> Unit) :
-    EventEmitter {
+        EventEmitter {
 
-    private val tag: String = "${MODULE_TAG}EventEmitterImpl"
+    private val tag: String = "${CORE_MODULE_TAG}EventEmitterImpl"
 
     override fun emit(event: Event) {
         try {
@@ -43,7 +43,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         try {
             Logger.v("$tag emitInAppEvent() : $inAppEvent")
             val eventType =
-                eventMap[inAppEvent.eventType] ?: return
+                    eventMap[inAppEvent.eventType] ?: return
             val campaign = inAppCampaignToJson(inAppEvent.inAppCampaign)
             campaign.put(KEY_TYPE, eventType)
             Logger.v("$tag emitInAppEvent() : campaignJSON: $campaign")
@@ -57,7 +57,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         try {
             Logger.v("$tag emitPushEvent() : $pushEvent")
             val eventType =
-                eventMap[pushEvent.eventType] ?: return
+                    eventMap[pushEvent.eventType] ?: return
             val payload = pushPayloadToJson(pushEvent.payload)
             emit(eventType, payload)
         } catch (e: Exception) {
@@ -69,7 +69,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         try {
             Logger.v("$TAG emitPushTokenEvent() : $tokenEvent")
             val eventType =
-                eventMap[tokenEvent.eventType] ?: return
+                    eventMap[tokenEvent.eventType] ?: return
             val payload = pushTokenToJson(tokenEvent.pushToken)
             emit(eventType, payload)
         } catch (e: Exception) {

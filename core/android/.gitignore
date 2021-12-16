@@ -6,3 +6,5 @@
 .DS_Store
 /build
 /captures
+/jars/flutter_embedding_release-1.0.0-f0826da7ef2d301eb8f4ead91aaf026aa2b52881.jar
+/jars/flutter_embedding_release-1.0.0-f0826da7ef2d301eb8f4ead91aaf026aa2b52881-sources.jar

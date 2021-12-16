@@ -1,268 +1,80 @@
 package com.moengage.flutter
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import com.moengage.core.internal.logger.Logger
+import com.moengage.flutter.core.CORE_MODULE_TAG
+import com.moengage.flutter.core.CoreCallHandler
+import com.moengage.flutter.core.FLUTTER_PLUGIN_CORE_CHANNEL_NAME
+import com.moengage.flutter.sribuu.FLUTTER_PLUGIN_SRIBUU_CHANNEL_NAME
+import com.moengage.flutter.sribuu.SRIBUU_MODULE_TAG
+import com.moengage.flutter.sribuu.SribuuCallHandler
 import com.moengage.plugin.base.PluginHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
-class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
+class MoEngageFlutterPlugin : FlutterPlugin {
+    private val coreTag = "${CORE_MODULE_TAG}MoEngageFlutterPlugin"
+    private val sribuuTag = "${SRIBUU_MODULE_TAG}MoEngageFlutterPlugin"
 
-    private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
-    private lateinit var channel: MethodChannel
     private lateinit var context: Context
-    private val pluginHelper = PluginHelper()
+    private lateinit var coreChannel: MethodChannel
+    private lateinit var sribuuChannel: MethodChannel
+    private val corePluginHelper = PluginHelper()
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
-        Logger.v("$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin")
+        Logger.v("onAttachedToEngine() : Registering MoEngageFlutterPlugin")
         context = binding.applicationContext
-        initPlugin(binding.binaryMessenger)
+        initPlugins(binding)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
-            Logger.v("$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
-            pluginHelper.onFrameworkDetached()
-            channel.setMethodCallHandler(null)
+            Logger.v("onDetachedFromEngine() : Registering MoEngageFlutterPlugin")
+            removePlugins()
         } catch (e: Exception) {
-            Logger.e("$tag onDetachedFromEngine() ", e)
+            Logger.e("onDetachedFromEngine() ", e)
         }
     }
 
-    private fun initPlugin(binaryMessenger: BinaryMessenger) {
+    private fun initPlugins(binding: FlutterPluginBinding) {
+        initSribuuPlugin(binding.binaryMessenger)
+        initCorePlugin(binding.binaryMessenger)
+    }
+
+    private fun removePlugins() {
+        removeCorePlugin()
+        removeSribuuPlugin()
+    }
+
+    private fun initCorePlugin(binaryMessenger: BinaryMessenger) {
         try {
-            channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
-            channel.setMethodCallHandler(this)
-            pluginHelper.setEventCallback(EventEmitterImpl(::sendCallback))
+            coreChannel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CORE_CHANNEL_NAME)
+            val coreCallHandler = CoreCallHandler(context, coreChannel, corePluginHelper, coreTag)
+            coreChannel.setMethodCallHandler(coreCallHandler)
+            coreCallHandler.init();
         } catch (ex: Exception) {
-            Logger.e("$tag initPlugin() : exception : ", ex)
+            Logger.e("$coreTag initCorePlugin() : exception : ", ex)
         }
     }
 
-    private fun sendCallback(methodName: String, message: String) {
+    private fun removeCorePlugin() {
+        corePluginHelper.onFrameworkDetached()
+        coreChannel.setMethodCallHandler(null)
+    }
+
+    private fun initSribuuPlugin(binaryMessenger: BinaryMessenger) {
         try {
-            Handler(Looper.getMainLooper()).post {
-                try {
-                    channel.invokeMethod(methodName, message)
-                } catch (e: Exception) {
-                    Logger.e("$tag sendCallback() ", e)
-                }
-            }
+            sribuuChannel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_SRIBUU_CHANNEL_NAME)
+            val sribuuCallHandler = SribuuCallHandler(context, sribuuChannel, sribuuTag)
+            sribuuChannel.setMethodCallHandler(sribuuCallHandler)
         } catch (ex: Exception) {
-            Logger.e("$tag sendCallback() : exception: ", ex)
+            Logger.e("$sribuuTag initSribuuPlugin() : exception : ", ex)
         }
     }
 
-    @Suppress("SENSELESS_COMPARISON")
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        try {
-            if (call == null) {
-                Logger.e(
-                    "$tag onMethodCall() : MethodCall instance is null cannot proceed "
-                            + "further."
-                )
-                return
-            }
-            if (context == null) {
-                Logger.e("$tag onMethodCall() : Context is null cannot proceed further.")
-                return
-            }
-            Logger.v(tag + " onMethodCall() : Method " + call.method)
-            when (call.method) {
-                METHOD_NAME_INITIALISE -> onInitialised()
-                METHOD_NAME_ENABLE_SDK_LOGS -> enableSDKLogs()
-                METHOD_NAME_SET_USER_ATTRIBUTE -> setUserAttribute(call)
-                METHOD_NAME_SET_USER_ATTRIBUTE_LOCATION -> setUserLocation(call)
-                METHOD_NAME_TRACK_EVENT -> trackEvent(call)
-                METHOD_NAME_SHOW_IN_APP -> showInApp()
-                METHOD_NAME_LOGOUT -> logout()
-                METHOD_NAME_SET_ALIAS -> setAlias(call)
-                METHOD_NAME_SET_APP_STATUS -> setAppStatus(call)
-                METHOD_NAME_SET_USER_ATTRIBUTE_TIMESTAMP -> setTimestamp(call)
-                METHOD_NAME_SELF_HANDLED_INAPP -> getSelfHandledInApp()
-                METHOD_NAME_SET_APP_CONTEXT -> setAppContext(call)
-                METHOD_NAME_RESET_APP_CONTEXT -> resetAppContext()
-                METHOD_NAME_PUSH_PAYLOAD -> passPushPayload(call)
-                METHOD_NAME_PUSH_TOKEN -> passPushToken(call)
-                METHOD_NAME_OPT_OUT_TRACKING -> optOutTracking(call)
-                METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
-                METHOD_NAME_UPDATE_SDK_STATE -> updateSdkState(call)
-                METHOD_NAME_ON_ORIENTATION_CHANGED -> onOrientationChanged()
-                else -> Logger.e("$tag onMethodCall() : No mapping for this method.")
-            }
-        } catch (e: Exception) {
-            Logger.e("$tag onMethodCall() : exception: ", e)
-        }
-    }
-
-    private fun logout() {
-        pluginHelper.logout(context)
-    }
-
-    private fun showInApp() {
-        pluginHelper.showInApp(context)
-    }
-
-    private fun onInitialised() {
-        Logger.v("$tag onInitialised() : MoEngage Flutter plugin initialised.")
-        pluginHelper.initialize()
-    }
-
-    private fun enableSDKLogs() {
-        pluginHelper.enableSDKLogs()
-    }
-
-    private fun setUserAttribute(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setUserAttribute() : Arguments: $payload")
-            pluginHelper.setUserAttribute(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setUserAttribute() : exception: ", e)
-        }
-    }
-
-    private fun setUserLocation(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setUserLocation() : Argument: $payload")
-            pluginHelper.setUserAttribute(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setUserLocation() : exception: ", e)
-        }
-    }
-
-    private fun trackEvent(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) {
-                Logger.e("$tag trackEvent() : Arguments are null, cannot trackEvent")
-                return
-            }
-            val payload = methodCall.arguments as String
-            Logger.v("$tag trackEvent() : Argument :$payload")
-            pluginHelper.trackEvent(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag trackEvent() : exception: ", e)
-        }
-    }
-
-    private fun setAlias(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setAlias() : Argument :$payload")
-            pluginHelper.setAlias(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setAlias() : exception: ", e)
-        }
-    }
-
-    private fun setAppStatus(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setAppStatus() : Argument :$payload")
-            pluginHelper.setAppStatus(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setAppStatus() : exception: ", e)
-        }
-    }
-
-    private fun setTimestamp(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setTimestamp() : Arguments: $payload")
-            pluginHelper.setUserAttribute(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setTimestamp() : exception: ", e)
-        }
-    }
-
-    private fun getSelfHandledInApp() {
-        pluginHelper.getSelfHandledInApp(context)
-    }
-
-    private fun setAppContext(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag setAppContext() : Arguments: $payload")
-            pluginHelper.setAppContext(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag setAppContext() : exception: ", e)
-        }
-    }
-
-    private fun resetAppContext() {
-        pluginHelper.resetAppContext(context)
-    }
-
-    private fun passPushToken(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag passPushToken() : Arguments: $payload")
-            pluginHelper.passPushToken(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag passPushToken() : exception: ", e)
-        }
-    }
-
-    private fun passPushPayload(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag passPushPayload() : Arguments: $payload")
-            pluginHelper.passPushPayload(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag passPushPayload() : exception: ", e)
-        }
-    }
-
-    private fun optOutTracking(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag optOutTracking() : Arguments: $payload")
-            pluginHelper.optOutTracking(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag optOutTracking() : exception: ", e)
-        }
-    }
-
-    private fun selfHandledCallback(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag selfHandledCallback() : Arguments: $payload")
-            pluginHelper.selfHandledCallback(context, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag selfHandledCallback() : ", e)
-        }
-    }
-
-    private fun updateSdkState(methodCall: MethodCall) {
-        try {
-            if (methodCall.arguments == null) return
-            val payload = methodCall.arguments.toString()
-            Logger.v("$tag selfHandledCallback() : Arguments: $payload")
-            pluginHelper.storeFeatureStatus(context, payload);
-        } catch (e: Exception) {
-            Logger.e("$tag selfHandledCallback() : ", e)
-        }
-    }
-
-    private fun onOrientationChanged() {
-        Logger.v("$tag onOrientationChanged() : ")
-        pluginHelper.onConfigurationChanged()
+    private fun removeSribuuPlugin() {
+        sribuuChannel.setMethodCallHandler(null)
     }
 }

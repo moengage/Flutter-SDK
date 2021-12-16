@@ -50,6 +50,7 @@ android {
     }
 }
 dependencies{
+    // implementation files('jars/flutter_embedding_release-1.0.0-f0826da7ef2d301eb8f4ead91aaf026aa2b52881.jar')
     compileOnly("com.moengage:moe-android-sdk:11.4.00")
     api("com.moengage:plugin-base:2.2.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

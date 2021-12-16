@@ -1,4 +1,4 @@
-package com.moengage.flutter
+package com.moengage.flutter.core
 
 import android.content.Context
 import com.moengage.core.MoEngage
@@ -13,16 +13,16 @@ import com.moengage.plugin.base.PluginInitializer.initialize
  */
 class MoEInitializer {
     companion object {
-        private const val tag: String = "${MODULE_TAG}MoEInitializer"
+        private const val tag: String = "${CORE_MODULE_TAG}MoEInitializer"
 
         @JvmStatic
         fun initialize(context: Context, builder: MoEngage.Builder) {
             try {
                 Logger.v("$tag initialize() : Will try to initialize the sdk.")
                 initialize(
-                    context,
-                    builder,
-                    true
+                        context,
+                        builder,
+                        true
                 )
             } catch (e: Exception) {
                 Logger.e("$tag initialize() : Exception: ", e)
@@ -34,10 +34,10 @@ class MoEInitializer {
             try {
                 Logger.v("$tag initialize() : Will try to initialize the sdk.")
                 initialize(
-                    context,
-                    builder,
-                    IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
-                    isSdkEnabled
+                        context,
+                        builder,
+                        IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
+                        isSdkEnabled
                 )
             } catch (e: Exception) {
                 Logger.e("$tag initialize() : Exception: ", e)
