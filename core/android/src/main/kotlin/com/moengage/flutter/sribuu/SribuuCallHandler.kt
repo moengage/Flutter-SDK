@@ -17,7 +17,7 @@ class SribuuCallHandler(
 
     @Suppress("SENSELESS_COMPARISON")
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        System.out.println("================================ [sribuu plugin] onMethodCall ================================")
+        System.out.println("================================ [sribuu plugin] onMethodCall (on sribuu repo) ================================")
         if (call.method.equals("configureMoEngage")) {
             configureMoEngage()
         }

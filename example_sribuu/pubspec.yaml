@@ -1,0 +1,24 @@
+name: example_sribuu
+description: Demonstrates how to use the moengage_flutter plugin.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  moengage_inbox:
+    path: ../inbox/
+  moengage_flutter:
+    path: ../core/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
