@@ -1,9 +1,17 @@
+
 import 'package:flutter/services.dart';
 
-class SribuuMoengage {
-  MethodChannel _channel = MethodChannel('com.moengage/sribuu');
+const String sribuuChannelName = "com.moengage/sribuu";
+const String methodConfigureMoEngage = 'configureMoEngage';
 
-  void configureMoEngage() {
-    _channel.invokeMethod('configureMoEngage');
+class SribuuMoengage {
+  MethodChannel _sribuuMethodChannel = MethodChannel(sribuuChannelName);
+
+  void configureMoEngage({required String appId}) {
+    var arguments = {
+      'appId': appId,
+    };
+
+    _sribuuMethodChannel.invokeMethod(methodConfigureMoEngage, arguments);
   }
 }

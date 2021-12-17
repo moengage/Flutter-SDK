@@ -103,8 +103,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   Future<void> initSribuuPlugin() async {
+    String exampleAppId = 'P8WBQ4TY4B5RZ6TX8129B79XX';
     SribuuMoengage sribuuMoengage = SribuuMoengage();
-    sribuuMoengage.configureMoEngage();
+    sribuuMoengage.configureMoEngage(appId: exampleAppId);
   }
 
   Future<void> initPlatformState() async {
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Sribuu MoEnggage POC App'),
           actions: <Widget>[
             FlatButton(
               textColor: Colors.white,
