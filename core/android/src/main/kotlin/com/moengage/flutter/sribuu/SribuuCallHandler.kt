@@ -17,20 +17,15 @@ class SribuuCallHandler(
 
     @Suppress("SENSELESS_COMPARISON")
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        System.out.println("================================ [sribuu plugin] onMethodCall (on sribuu repo) ================================")
         if (call.method.equals("configureMoEngage")) {
             configureMoEngage()
         }
     }
 
     private fun configureMoEngage() {
-        System.out.println("================================ [sribuu plugin] configureMoEngage (start) ================================")
-
         val appId = "P8WBQ4TY4B5RZ6TX8129B79X"
 //        val appId = "P8WBQ4TY4B5RZ6TX8129B79X"
         val moEngage = MoEngage.Builder( context as Application, appId).configureLogs(LogConfig(LogLevel.VERBOSE, true))
         MoEInitializer.initialize(context, moEngage)
-
-        System.out.println("================================ [sribuu plugin] configureMoEngage (end) ================================")
     }
 }

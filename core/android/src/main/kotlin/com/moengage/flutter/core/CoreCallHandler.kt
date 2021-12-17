@@ -34,8 +34,6 @@ class CoreCallHandler(
 
     @Suppress("SENSELESS_COMPARISON")
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        System.out.println("================================ [core plugin] onMethodCall ================================")
-
         try {
             if (call == null) {
                 Logger.e(
