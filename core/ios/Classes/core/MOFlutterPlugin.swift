@@ -4,17 +4,18 @@ import MoEPluginBase
 
 public class MOFlutterPlugin: NSObject, FlutterPlugin {
     
-    private static var channel : FlutterMethodChannel? = nil
+    private static var coreChannel : FlutterMethodChannel? = nil
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        channel = FlutterMethodChannel(name: MOFlutterConstants.kPluginChannelName, binaryMessenger: registrar.messenger())
+        coreChannel = FlutterMethodChannel(name: MOFlutterConstants.kPluginChannelName, binaryMessenger: registrar.messenger())
         let instance = MOFlutterPlugin()
-        registrar.addMethodCallDelegate(instance, channel: channel!)
+        registrar.addMethodCallDelegate(instance, channel: coreChannel!)
     }
     
     // MARK:- Handle Invocation
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+
         switch call.method {
         case MOFlutterConstants.MethodNames.kInitializeFlutter:
             pluginInitialized()
@@ -36,12 +37,12 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
             handleBridgeMethodWithPayload(forMethodCall: call)
         }
     }
-    
+
     private func pluginInitialized(){
         MoEPluginBridge.sharedInstance()?.bridgeDelegate = self
         MoEPluginBridge.sharedInstance()?.pluginInitialized()
     }
-    
+
     private func handleBridgeMethodWithPayload(forMethodCall call: FlutterMethodCall){
         if let payload = call.arguments as? [String: Any]{
             switch call.method {
@@ -69,12 +70,12 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
             print("Payload not present for method: \(call.method)")
         }
     }
-    
+
 }
 
 
 extension MOFlutterPlugin: MoEPluginBridgeDelegate{
-    
+
     // MARK: MoEPluginBridgeDelegate Method
     public func sendMessage(withName name: String!, andPayload payloadDict: [AnyHashable : Any]!) {
         if let callbackName = getCallbackName(forEventName: name){
@@ -88,7 +89,7 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
             MOFlutterPlugin.sendCallback(callbackName, withInfo: "{}")
         }
     }
-    
+
     // MARK: Utils
     func getCallbackName(forEventName name: String) -> String?{
         switch name {
@@ -110,11 +111,11 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
             return nil
         }
     }
-    
+
     // MARK: Send Callback to Flutter
     internal static func sendCallback(_ callbackName: String, withInfo info: NSString){
         DispatchQueue.main.async {
-            channel?.invokeMethod(callbackName, arguments: info)
+            coreChannel?.invokeMethod(callbackName, arguments: info)
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 struct MOFlutterConstants{
     
     static let kPluginChannelName               = "com.moengage/core"
-    
+
     struct MethodNames {
         static let kInitializeFlutter           = "initialise"
         static let kSetAppStatus                = "setAppStatus"
@@ -29,7 +29,7 @@ struct MOFlutterConstants{
         static let kEnableLogs                  = "enableSDKLogs"
         static let kResetUser                   = "logout"
     }
-    
+
     struct CallbackNames {
         static let kPushTokenGenerated          = "onPushTokenGenerated"
         static let kPushClicked                 = "onPushClick"

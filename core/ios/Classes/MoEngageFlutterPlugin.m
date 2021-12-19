@@ -4,5 +4,6 @@
 @implementation MoEngageFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     [MOFlutterPlugin registerWithRegistrar:registrar];
+    [SribuuFlutterPlugin registerWithRegistrar:registrar];
 }
 @end
