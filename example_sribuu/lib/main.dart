@@ -9,7 +9,9 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/push_token.dart';
-import 'package:moengage_flutter/sribuu_moengage.dart';
+import 'package:moengage_flutter/sribuu/android_builder.dart';
+import 'package:moengage_flutter/sribuu/ios_builder.dart';
+import 'package:moengage_flutter/sribuu/sribuu_moengage.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
@@ -103,9 +105,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   Future<void> initSribuuPlugin() async {
-    String exampleAppId = 'P8WBQ4TY4B5RZ6TX8129B79XX';
-    SribuuMoengage sribuuMoengage = SribuuMoengage();
-    sribuuMoengage.configureMoEngage(appId: exampleAppId);
+    String exampleAppId = 'P8WBQ4TY4B5RZ6TX8129B79X';
+
+    SribuuMoEngage sribuuMoEngage = SribuuMoEngage(
+      appId: exampleAppId,
+      androidOption: AndroidOptionBuilder()
+          .configureNotificationMetaData(NotificationConfig(smallIcon: 1, largeIcon: 2, notificationColor: -1, tone: null, isMultipleNotificationInDrawerEnabled: true, isBuildingBackStackEnabled: false, isLargeIconDisplayEnabled: true))
+          .configureLogs(LogConfig(level: LogLevel.DEBUG, isEnabledForReleaseBuild: true))
+          .configureFcm(FcmConfig(isRegistrationEnabled: true))
+          .configurePushKit(PushKitConfig(isRegistrationEnabled: true))
+          .configureMiPushConfig(MiPushConfig(appId: "MI_APP_ID", appKey: "MI_APP_KEY", isRegistrationEnabled: true)),
+      iosOption: IosOptionBuilder(),
+    ).build();
+
+    SribuuMoEngage.initialise(sribuuMoEngage);
   }
 
   Future<void> initPlatformState() async {
