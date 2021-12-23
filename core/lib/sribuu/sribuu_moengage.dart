@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 const String sribuuChannelName = "com.moengage/sribuu";
 const String methodConfigureMoEngage = 'configureMoEngage';
 
-class SribuuMoengage {
+class SribuuMoEngageBridge {
   MethodChannel _sribuuMethodChannel = MethodChannel(sribuuChannelName);
 
   void configureMoEngage({required String appId}) {
@@ -15,3 +15,8 @@ class SribuuMoengage {
     _sribuuMethodChannel.invokeMethod(methodConfigureMoEngage, arguments);
   }
 }
+
+class SribuuMoEngage {
+  
+}
+
