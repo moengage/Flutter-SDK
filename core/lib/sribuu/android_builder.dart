@@ -1,103 +1,103 @@
-class AndroidBuilder {
-  Map<String, Map<String, dynamic>?> methodCalls = {};
+class AndroidOptionBuilder {
+  Map<String, Map<String, dynamic>?> setupCalls = {};
 
   @deprecated
-  AndroidBuilder setNotificationLargeIcon(int largeIcon) {
-    methodCalls['setNotificationLargeIcon'] = {'largeIcon': largeIcon};
-    return this;
-  }
-
-  @deprecated
-  AndroidBuilder setNotificationSmallIcon(int smallIcon) {
-    methodCalls['setNotificationSmallIcon'] = {'smallIcon': smallIcon};
+  AndroidOptionBuilder setNotificationLargeIcon(int largeIcon) {
+    setupCalls['setNotificationLargeIcon'] = {'largeIcon': largeIcon};
     return this;
   }
 
   @deprecated
-  AndroidBuilder setSenderId(String senderId) {
-    methodCalls['setSenderId'] = {'senderId': senderId};
+  AndroidOptionBuilder setNotificationSmallIcon(int smallIcon) {
+    setupCalls['setNotificationSmallIcon'] = {'smallIcon': smallIcon};
     return this;
   }
 
   @deprecated
-  AndroidBuilder setNotificationColor(int color) {
-    methodCalls['setNotificationColor'] = {'color': color};
+  AndroidOptionBuilder setSenderId(String senderId) {
+    setupCalls['setSenderId'] = {'senderId': senderId};
     return this;
   }
 
   @deprecated
-  AndroidBuilder setNotificationTone(String tone) {
-    methodCalls['setNotificationTone'] = {'tone': tone};
+  AndroidOptionBuilder setNotificationColor(int color) {
+    setupCalls['setNotificationColor'] = {'color': color};
     return this;
   }
 
   @deprecated
-  AndroidBuilder enableMultipleNotificationInDrawer() {
-    methodCalls['enableMultipleNotificationInDrawer'] = null;
+  AndroidOptionBuilder setNotificationTone(String tone) {
+    setupCalls['setNotificationTone'] = {'tone': tone};
     return this;
   }
 
   @deprecated
-  AndroidBuilder optOutInAppOnActivity(List<String> inAppOptOutClassNameList) {
-    methodCalls['optOutInAppOnActivity'] = {'inAppOptOutClassNameList': inAppOptOutClassNameList};
+  AndroidOptionBuilder enableMultipleNotificationInDrawer() {
+    setupCalls['enableMultipleNotificationInDrawer'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder optOutBackStackBuilder() {
-    methodCalls['optOutBackStackBuilder'] = null;
+  AndroidOptionBuilder optOutInAppOnActivity(List<String> inAppOptOutClassNameList) {
+    setupCalls['optOutInAppOnActivity'] = {'inAppOptOutClassNameList': inAppOptOutClassNameList};
     return this;
   }
 
   @deprecated
-  AndroidBuilder optOutNavBar() {
-    methodCalls['optOutNavBar'] = null;
+  AndroidOptionBuilder optOutBackStackBuilder() {
+    setupCalls['optOutBackStackBuilder'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder optOutTokenRegistration() {
-    methodCalls['optOutTokenRegistration'] = null;
+  AndroidOptionBuilder optOutNavBar() {
+    setupCalls['optOutNavBar'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder enableLogsForSignedBuild() {
-    methodCalls['enableLogsForSignedBuild'] = null;
+  AndroidOptionBuilder optOutTokenRegistration() {
+    setupCalls['optOutTokenRegistration'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder optOutNotificationLargeIcon() {
-    methodCalls['optOutNotificationLargeIcon'] = null;
+  AndroidOptionBuilder enableLogsForSignedBuild() {
+    setupCalls['enableLogsForSignedBuild'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder enableSegmentIntegration() {
-    methodCalls['enableSegmentIntegration'] = null;
+  AndroidOptionBuilder optOutNotificationLargeIcon() {
+    setupCalls['optOutNotificationLargeIcon'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder enablePushKitTokenRegistration() {
-    methodCalls['enablePushKitTokenRegistration'] = null;
-    return this;
-  }
-
-  AndroidBuilder setTokenRetryInterval(int tokenRetryInterval) {
-    methodCalls['setTokenRetryInterval'] = {'tokenRetryInterval': tokenRetryInterval};
-    return this;
-  }
-
-  AndroidBuilder enableEncryption() {
-    methodCalls['enableEncryption'] = null;
+  AndroidOptionBuilder enableSegmentIntegration() {
+    setupCalls['enableSegmentIntegration'] = null;
     return this;
   }
 
   @deprecated
-  AndroidBuilder configureMiPush(String appId, String appKey, bool enableTokenRegistration) {
-    methodCalls['configureMiPush'] = {
+  AndroidOptionBuilder enablePushKitTokenRegistration() {
+    setupCalls['enablePushKitTokenRegistration'] = null;
+    return this;
+  }
+
+  AndroidOptionBuilder setTokenRetryInterval(int tokenRetryInterval) {
+    setupCalls['setTokenRetryInterval'] = {'tokenRetryInterval': tokenRetryInterval};
+    return this;
+  }
+
+  AndroidOptionBuilder enableEncryption() {
+    setupCalls['enableEncryption'] = null;
+    return this;
+  }
+
+  @deprecated
+  AndroidOptionBuilder configureMiPush(String appId, String appKey, bool enableTokenRegistration) {
+    setupCalls['configureMiPush'] = {
       'appId': appId,
       'appKey': appKey,
       'enableTokenRegistration': enableTokenRegistration,
@@ -106,18 +106,18 @@ class AndroidBuilder {
   }
 
   @deprecated
-  AndroidBuilder enableLogs(int level) {
-    methodCalls['enableLogs'] = {'level': level};
+  AndroidOptionBuilder enableLogs(int level) {
+    setupCalls['enableLogs'] = {'level': level};
     return this;
   }
 
-  AndroidBuilder setDataCenter(DataCenter dataCenter) {
-    methodCalls['setDataCenter'] = {'dataCenter': dataCenter.toString()};
+  AndroidOptionBuilder setDataCenter(DataCenter dataCenter) {
+    setupCalls['setDataCenter'] = {'dataCenter': dataCenter.toString().split(".").last};
     return this;
   }
 
-  AndroidBuilder configureFcm(FcmConfig config) {
-    methodCalls['configureFcm'] = {
+  AndroidOptionBuilder configureFcm(FcmConfig config) {
+    setupCalls['configureFcm'] = {
       'isRegistrationEnabled': config.isRegistrationEnabled,
       'senderId': config.senderId,
     };
@@ -125,8 +125,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureCards(CardConfig config) {
-    methodCalls['configureCards'] = {
+  AndroidOptionBuilder configureCards(CardConfig config) {
+    setupCalls['configureCards'] = {
       'cardPlaceHolderImage': config.cardPlaceHolderImage,
       'inboxEmptyImage': config.inboxEmptyImage,
       'cardsDateFormat': config.cardsDateFormat,
@@ -136,8 +136,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureMiPushConfig(MiPushConfig config) {
-    methodCalls['configureMiPush'] = {
+  AndroidOptionBuilder configureMiPushConfig(MiPushConfig config) {
+    setupCalls['configureMiPushConfig'] = {
       'appId': config.appId,
       'appKey': config.appKey,
       'isRegistrationEnabled': config.isRegistrationEnabled,
@@ -146,8 +146,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureTrackingOptOut(TrackingOptOutConfig config) {
-    methodCalls['configureTrackingOptOut'] = {
+  AndroidOptionBuilder configureTrackingOptOut(TrackingOptOutConfig config) {
+    setupCalls['configureTrackingOptOut'] = {
       'isGaidTrackingEnabled': config.isGaidTrackingEnabled,
       'isAndroidIdTrackingEnabled': config.isAndroidIdTrackingEnabled,
       'isCarrierTrackingEnabled': config.isCarrierTrackingEnabled,
@@ -158,20 +158,20 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureRealTimeTrigger(RttConfig config) {
-    methodCalls['configureRealTimeTrigger'] = {'isBackgroundSyncEnabled': config.isBackgroundSyncEnabled};
+  AndroidOptionBuilder configureRealTimeTrigger(RttConfig config) {
+    setupCalls['configureRealTimeTrigger'] = {'isBackgroundSyncEnabled': config.isBackgroundSyncEnabled};
 
     return this;
   }
 
-  AndroidBuilder configurePushKit(PushKitConfig config) {
-    methodCalls['configurePushKit'] = {'isRegistrationEnabled': config.isRegistrationEnabled};
+  AndroidOptionBuilder configurePushKit(PushKitConfig config) {
+    setupCalls['configurePushKit'] = {'isRegistrationEnabled': config.isRegistrationEnabled};
 
     return this;
   }
 
-  AndroidBuilder configureNotificationMetaData(NotificationConfig config) {
-    methodCalls['configureNotificationMetaData'] = {
+  AndroidOptionBuilder configureNotificationMetaData(NotificationConfig config) {
+    setupCalls['configureNotificationMetaData'] = {
       'smallIcon': config.smallIcon,
       'largeIcon': config.largeIcon,
       'notificationColor': config.notificationColor,
@@ -184,8 +184,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureInAppconfig(InAppConfig config) {
-    methodCalls['configureInAppconfig'] = {
+  AndroidOptionBuilder configureInAppConfig(InAppConfig config) {
+    setupCalls['configureInAppConfig'] = {
       'shouldHideStatusBar': config.shouldHideStatusBar,
       'isJavascriptEnabled': config.isJavascriptEnabled,
       'optOutActivitiesClassName': config.optOutActivitiesClassName,
@@ -195,8 +195,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureLogs(LogConfig config) {
-    methodCalls['configureLogs'] = {
+  AndroidOptionBuilder configureLogs(LogConfig config) {
+    setupCalls['configureLogs'] = {
       'level': config.level,
       'isEnabledForReleaseBuild': config.isEnabledForReleaseBuild,
     };
@@ -204,8 +204,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder configureGeofence(GeofenceConfig config) {
-    methodCalls['configureGeofence'] = {
+  AndroidOptionBuilder configureGeofence(GeofenceConfig config) {
+    setupCalls['configureGeofence'] = {
       'isGeofenceEnabled': config.isGeofenceEnabled,
       'isBackgroundSyncEnabled': config.isBackgroundSyncEnabled,
     };
@@ -213,8 +213,8 @@ class AndroidBuilder {
     return this;
   }
 
-  AndroidBuilder enablePartnerIntegration(IntegrationPartner integrationPartner) {
-    methodCalls['enablePartnerIntegration'] = {'integrationPartner': integrationPartner.toString()};
+  AndroidOptionBuilder enablePartnerIntegration(IntegrationPartner integrationPartner) {
+    setupCalls['enablePartnerIntegration'] = {'integrationPartner': integrationPartner.toString().split(".").last};
 
     return this;
   }
@@ -399,4 +399,18 @@ class GeofenceConfig {
 
 enum IntegrationPartner {
   SEGMENT
+}
+
+class LogLevel {
+  static const int NO_LOG = 0;
+
+  static const int ERROR = 1;
+
+  static const int WARN = 2;
+
+  static const int INFO = 3;
+
+  static const int DEBUG = 4;
+
+  static const int VERBOSE = 5;
 }
