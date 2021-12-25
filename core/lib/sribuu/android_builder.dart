@@ -1,97 +1,115 @@
+import 'package:moengage_flutter/sribuu/datacenter.dart';
+
 class AndroidOptionBuilder {
   Map<String, Map<String, dynamic>?> setupCalls = {};
 
   @deprecated
   AndroidOptionBuilder setNotificationLargeIcon(int largeIcon) {
     setupCalls['setNotificationLargeIcon'] = {'largeIcon': largeIcon};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder setNotificationSmallIcon(int smallIcon) {
     setupCalls['setNotificationSmallIcon'] = {'smallIcon': smallIcon};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder setSenderId(String senderId) {
     setupCalls['setSenderId'] = {'senderId': senderId};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder setNotificationColor(int color) {
     setupCalls['setNotificationColor'] = {'color': color};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder setNotificationTone(String tone) {
     setupCalls['setNotificationTone'] = {'tone': tone};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder enableMultipleNotificationInDrawer() {
     setupCalls['enableMultipleNotificationInDrawer'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder optOutInAppOnActivity(List<String> inAppOptOutClassNameList) {
     setupCalls['optOutInAppOnActivity'] = {'inAppOptOutClassNameList': inAppOptOutClassNameList};
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder optOutBackStackBuilder() {
     setupCalls['optOutBackStackBuilder'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder optOutNavBar() {
     setupCalls['optOutNavBar'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder optOutTokenRegistration() {
     setupCalls['optOutTokenRegistration'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder enableLogsForSignedBuild() {
     setupCalls['enableLogsForSignedBuild'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder optOutNotificationLargeIcon() {
     setupCalls['optOutNotificationLargeIcon'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder enableSegmentIntegration() {
     setupCalls['enableSegmentIntegration'] = null;
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder enablePushKitTokenRegistration() {
     setupCalls['enablePushKitTokenRegistration'] = null;
+
     return this;
   }
 
   AndroidOptionBuilder setTokenRetryInterval(int tokenRetryInterval) {
     setupCalls['setTokenRetryInterval'] = {'tokenRetryInterval': tokenRetryInterval};
+
     return this;
   }
 
   AndroidOptionBuilder enableEncryption() {
     setupCalls['enableEncryption'] = null;
+
     return this;
   }
 
@@ -102,17 +120,20 @@ class AndroidOptionBuilder {
       'appKey': appKey,
       'enableTokenRegistration': enableTokenRegistration,
     };
+
     return this;
   }
 
   @deprecated
   AndroidOptionBuilder enableLogs(int level) {
     setupCalls['enableLogs'] = {'level': level};
+
     return this;
   }
 
   AndroidOptionBuilder setDataCenter(DataCenter dataCenter) {
     setupCalls['setDataCenter'] = {'dataCenter': dataCenter.toString().split(".").last};
+
     return this;
   }
 
@@ -218,12 +239,6 @@ class AndroidOptionBuilder {
 
     return this;
   }
-}
-
-enum DataCenter {
-  DATA_CENTER_1,
-  DATA_CENTER_2,
-  DATA_CENTER_3
 }
 
 class FcmConfig {
