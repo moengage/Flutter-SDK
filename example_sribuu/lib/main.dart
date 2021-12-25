@@ -10,6 +10,7 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/push_token.dart';
 import 'package:moengage_flutter/sribuu/android_builder.dart';
+import 'package:moengage_flutter/sribuu/datacenter.dart';
 import 'package:moengage_flutter/sribuu/ios_builder.dart';
 import 'package:moengage_flutter/sribuu/sribuu_moengage.dart';
 import 'package:moengage_inbox/inbox_data.dart';
@@ -115,7 +116,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           .configureFcm(FcmConfig(isRegistrationEnabled: true))
           .configurePushKit(PushKitConfig(isRegistrationEnabled: true))
           .configureMiPushConfig(MiPushConfig(appId: "MI_APP_ID", appKey: "MI_APP_KEY", isRegistrationEnabled: true)),
-      iosOption: IosOptionBuilder(),
+      iosOption: IosOptionBuilder()
+          .setAppGroupId("sribuu.id")
+          .setDataCenter(DataCenter.DATA_CENTER_2)
+          .setAnalyticsDisablePeriodicFlush(true)
+          .setAnalyticsPeriodicFlushDuration(99)
+          .setEncryptNetworkRequests(true)
+          .setOptOutDataTracking(true)
+          .setOptOutPushNotification(true)
+          .setOptOutInAppCampaign(true)
+          .setOptOutIDFATracking(true)
+          .setOptOutIDFVTracking(true),
     ).build();
 
     SribuuMoEngage.initialise(sribuuMoEngage);
