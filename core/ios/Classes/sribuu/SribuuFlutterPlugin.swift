@@ -42,7 +42,6 @@ class MoEngageInitializerHelper {
     }
     
     public func initialize() {
-        print(setupCalls)
         setAppGroupIdIfDeclared()
         setDataCenterIfDeclared()
         setAnalyticsDisablePeriodicFlushIfDeclared()
