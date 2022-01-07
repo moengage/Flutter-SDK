@@ -38,7 +38,9 @@ Get APP ID from the [Settings Page](http://app.moengage.com/v3/#/settings/0/0) o
 
 ```kotlin
 // this is the instance of the application class and "XXXXXXXXXXX" is the APP ID from the dashboard.
-val moEngage = MoEngage.Builder(this, "XXXXXXXXXXX")
+val moEngage = MoEngage.Builder(this, "XXXXXXXXXXX").configureNotificationMetaData(
+            NotificationConfig(YOUR_SMALL_ICON, YOUR_LARGE_ICON, -1, null, true, false, true)
+)
 
 MoEInitializer.initialize(context, builder)
 ```
