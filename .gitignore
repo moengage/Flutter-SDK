@@ -9,3 +9,4 @@ build/
 *.iml
 android/.settings
 exampleObjC
+example/android/app/local.properties
