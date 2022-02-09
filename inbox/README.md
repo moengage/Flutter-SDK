@@ -34,4 +34,4 @@ Run flutter packages get to install the SDK.
   ```
 where `$sdkVersion` should be replaced by the latest version of the MoEngage SDK.
 
-Refer to the [Documentation](https://docs.moengage.com/docs/flutter-notification-center) for complete integration guide.
+Refer to the [Documentation](https://developers.moengage.com/hc/en-us/articles/4404365709588-Notification-Center) for complete integration guide.

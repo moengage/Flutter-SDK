@@ -34,7 +34,7 @@ where `$sdkVersion` should be replaced by the latest version of the MoEngage SDK
 ## SDK Initialization
 
 ### Android SDK Initialization
-Get APP ID from the [Settings Page](http://app.moengage.com/v3/#/settings/0/0) on the MoEngage dashboard and initialize the MoEngage SDK in the `Application` class's `onCreate()`
+Get APP ID from the Settings Page on the MoEngage dashboard and initialize the MoEngage SDK in the `Application` class's `onCreate()`
 
 ```kotlin
 // this is the instance of the application class and "XXXXXXXXXXX" is the APP ID from the dashboard.
@@ -42,7 +42,7 @@ val moEngage = MoEngage.Builder(this, "XXXXXXXXXXX")
 
 MoEInitializer.initialize(context, builder)
 ```
-Refer to the [API reference doc](https://moengage.github.io/MoEngage-Android-SDK/) for a detailed list of possible configurations.
+Refer to the [API reference doc](https://moengage.github.io/android-api-reference/) for a detailed list of possible configurations.
 
 ```
 Note:
@@ -59,4 +59,4 @@ To initialize the iOS Application with the MoEngage App ID from Settings in Dash
   MOFlutterInitializer.sharedInstance.initializeWithAppID("Your App ID", withLaunchOptions: launchOptions)
 ```
 
-Refer to the [Documentation](https://docs.moengage.com/docs/sdk-integration-4) for complete integration guide. 
+Refer to the [Documentation](https://developers.moengage.com/hc/en-us/categories/4404300700308-Flutter-SDK) for complete integration guide. 
