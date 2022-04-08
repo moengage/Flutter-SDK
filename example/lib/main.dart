@@ -87,7 +87,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     initPlatformState();
-    _moengagePlugin.initialise();
     _moengagePlugin.setUpPushCallbacks(_onPushClick);
     _moengagePlugin.setUpInAppCallbacks(
         onInAppClick: _onInAppClick,
@@ -96,6 +95,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         onInAppCustomAction: _onInAppCustomAction,
         onInAppSelfHandle: _onInAppSelfHandle);
     _moengagePlugin.setUpPushTokenCallback(_onPushTokenGenerated);
+    _moengagePlugin.initialise();
   }
 
   Future<void> initPlatformState() async {
