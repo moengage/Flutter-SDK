@@ -1,6 +1,6 @@
 import 'package:moengage_flutter/constants.dart';
 
-class SelfHandled {
+class SelfHandledCampaign {
   /// Self handled campaign payload.
   String campaignContent;
 
@@ -12,7 +12,7 @@ class SelfHandled {
   /// back press.
   bool cancellable;
 
-  SelfHandled(this.campaignContent, this.dismissInterval, this.cancellable);
+  SelfHandledCampaign(this.campaignContent, this.dismissInterval, this.cancellable);
 
   Map<String, dynamic> toMap() {
     return {

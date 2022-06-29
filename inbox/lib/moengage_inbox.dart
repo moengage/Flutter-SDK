@@ -9,15 +9,19 @@ import 'package:moengage_inbox/moe_android_inbox.dart';
 import 'package:moengage_inbox/moe_ios_inbox.dart';
 
 class MoEngageInbox {
+  static MoEngageInbox _instance = MoEngageInbox.internal();
   late MethodChannel _channel;
   late MoEAndroidInbox _androidInbox;
   late MoEiOSInbox _iOSInbox;
 
-  MoEngageInbox() {
+  MoEngageInbox.internal() {
+    _instance = this;
     _channel = MethodChannel(CHANNEL_NAME);
     _androidInbox = MoEAndroidInbox(_channel);
     _iOSInbox = MoEiOSInbox(_channel);
   }
+
+  factory MoEngageInbox() => _instance;
 
   void trackMessageClicked(InboxMessage message) {
     if (Platform.isAndroid) {

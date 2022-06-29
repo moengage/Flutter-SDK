@@ -76,7 +76,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             Logger.v(tag + " onMethodCall() : Method " + call.method)
             when (call.method) {
                 METHOD_NAME_INITIALISE -> onInitialised()
-                METHOD_NAME_ENABLE_SDK_LOGS -> enableSDKLogs()
                 METHOD_NAME_SET_USER_ATTRIBUTE -> setUserAttribute(call)
                 METHOD_NAME_SET_USER_ATTRIBUTE_LOCATION -> setUserLocation(call)
                 METHOD_NAME_TRACK_EVENT -> trackEvent(call)
@@ -112,10 +111,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun onInitialised() {
         Logger.v("$tag onInitialised() : MoEngage Flutter plugin initialised.")
         pluginHelper.initialize()
-    }
-
-    private fun enableSDKLogs() {
-        pluginHelper.enableSDKLogs()
     }
 
     private fun setUserAttribute(methodCall: MethodCall) {

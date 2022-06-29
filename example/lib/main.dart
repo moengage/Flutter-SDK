@@ -7,6 +7,7 @@ import 'package:moengage_flutter/gender.dart';
 import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_flutter/singleton_test.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
@@ -203,6 +204,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     print("Main: Event name : $value");
                     _moengagePlugin.trackEvent(value);
                     _moengagePlugin.trackEvent(value, MoEProperties());
+                    SingleTon ton = SingleTon();
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),

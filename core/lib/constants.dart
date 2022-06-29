@@ -17,7 +17,6 @@ const String methodSelfHandledCallback = "selfHandledCallback";
 const String methodSetAppContext = "setAppContext";
 const String methodResetAppContext = "resetCurrentContext";
 const String methodOptOutTracking = "optOutTracking";
-const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
@@ -80,6 +79,8 @@ const String keyNavigation = "navigation";
 const String keySelfHandled = "selfHandled";
 const String keyCustomAction = "customAction";
 const String keyCampaignContext = "campaignContext";
+const String keyFormattedCampaignId = "cid";
+const String keyActionType = "actionType";
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";
@@ -100,8 +101,6 @@ const String userAttrTypeLocation = "location";
 
 // GDPR Opt-Outs Constants
 const String gdprOptOutTypeData = "data";
-const String gdprOptOutTypePush = "push";
-const String gdprOptOutTypeInApp = "inapp";
 
 // SelfHandled Callback Action Types
 const String selfHandledActionShown = "impression";
@@ -111,3 +110,7 @@ const String selfHandledActionDismissed = "dismissed";
 
 // SDK Status update
 const String keyIsSdkEnabled = "isSdkEnabled";
+
+const String keyAppId = "appId";
+const String keyAccountMeta = "accountMeta";
+const String keyData = "data";

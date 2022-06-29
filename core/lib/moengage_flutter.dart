@@ -1,131 +1,74 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/app_status.dart';
-import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_flutter/model/app_status.dart';
+import 'package:moengage_flutter/core_instance_provider.dart';
+import 'package:moengage_flutter/model/inapp/click_data.dart';
+import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/push/push_campaign_data.dart';
+import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/geo_location.dart';
-import 'package:moengage_flutter/gender.dart';
+import 'package:moengage_flutter/model/geo_location.dart';
+import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/push_campaign.dart';
-import 'package:moengage_flutter/push_token.dart';
-import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
-import 'package:moengage_flutter/moe_push_service.dart';
+import 'package:moengage_flutter/model/push/moe_push_service.dart';
+import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 
-typedef void PushCallbackHandler(PushCampaign pushCampaign);
-typedef void InAppCallbackHandler(InAppCampaign inAppCampaign);
-typedef void PushTokenCallbackHandler(PushToken pushToken);
+
+typedef void PushClickCallbackHandler(PushCampaignData data);
+typedef void PushTokenCallbackHandler(PushTokenData data);
+
+typedef void SelfHandledInAppCallbackHandler(SelfHandledCampaignData data);
+typedef void InAppClickCallbackHandler(ClickData data);
+typedef void InAppShownCallbackHandler(InAppData data);
+typedef void InAppDismissedCallbackHandler(InAppData data);
 
 class MoEngageFlutter {
+  String appId;
   MethodChannel _channel = MethodChannel(channelName);
   late MoEAndroidCore _moEAndroid;
   late MoEiOSCore _moEiOS;
 
-  PushTokenCallbackHandler? _onPushTokenGenerated;
-  PushCallbackHandler? _onPushClick;
-  InAppCallbackHandler? _onInAppClick;
-  InAppCallbackHandler? _onInAppShown;
-  InAppCallbackHandler? _onInAppDismiss;
-  InAppCallbackHandler? _onInAppCustomAction;
-  InAppCallbackHandler? _onInAppSelfHandle;
-
-  MoEngageFlutter() {
+  MoEngageFlutter(this.appId) {
     _moEAndroid = MoEAndroidCore(_channel);
     _moEiOS = MoEiOSCore(_channel);
   }
 
   void initialise() {
-    _channel.setMethodCallHandler(_handler);
+    // _channel.setMethodCallHandler(_handler);
     _channel.invokeMethod(methodInitialise);
   }
 
-  void setUpPushCallbacks(PushCallbackHandler onPushClick) {
-    _onPushClick = onPushClick;
+  void setPushClickCallbackHanlder(PushClickCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .pushClickCallbackHandler = handler;
   }
 
-  /// set up callback APIs for in-app events
-  void setUpInAppCallbacks(
-      {InAppCallbackHandler? onInAppClick,
-      InAppCallbackHandler? onInAppShown,
-      InAppCallbackHandler? onInAppDismiss,
-      InAppCallbackHandler? onInAppCustomAction,
-      InAppCallbackHandler? onInAppSelfHandle}) {
-    _onInAppClick = onInAppClick;
-    _onInAppShown = onInAppShown;
-    _onInAppDismiss = onInAppDismiss;
-    _onInAppCustomAction = onInAppCustomAction;
-    _onInAppSelfHandle = onInAppSelfHandle;
+  void setPushTokenCallbackHandler(PushTokenCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .pushTokenCallbackHandler = handler;
   }
 
-  void setUpPushTokenCallback(PushTokenCallbackHandler onPushTokenGenerated) {
-    _onPushTokenGenerated = onPushTokenGenerated;
+  void setInAppClickHandler(InAppClickCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .inAppClickCallbackHandler = handler;
   }
 
-  Future<dynamic> _handler(MethodCall call) async {
-    print("Received callback in dart. Payload" + call.toString());
-    try {
-      if (call.method == callbackPushTokenGenerated &&
-          _onPushTokenGenerated != null) {
-        PushToken? pushToken = pushTokenFromJson(call.arguments);
-        if (pushToken != null) {
-          _onPushTokenGenerated?.call(pushToken);
-        }
-      }
-      if (call.method == callbackOnPushClick && _onPushClick != null) {
-        PushCampaign? pushCampaign = pushCampaignFromJson(call.arguments);
-        if (pushCampaign != null) {
-          _onPushClick?.call(pushCampaign);
-        }
-      }
-      if (call.method == callbackOnInAppClicked && _onInAppClick != null) {
-        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
-        if (inAppCampaign != null) {
-          _onInAppClick?.call(inAppCampaign);
-        }
-      }
-      if (call.method == callbackOnInAppShown && _onInAppShown != null) {
-        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
-        if (inAppCampaign != null) {
-          _onInAppShown?.call(inAppCampaign);
-        }
-      }
-      if (call.method == callbackOnInAppDismissed && _onInAppDismiss != null) {
-        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
-        if (inAppCampaign != null) {
-          _onInAppDismiss?.call(inAppCampaign);
-        }
-      }
-      if (call.method == callbackOnInAppCustomAction &&
-          _onInAppCustomAction != null) {
-        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
-        if (inAppCampaign != null) {
-          _onInAppCustomAction?.call(inAppCampaign);
-        }
-      }
-      if (call.method == callbackOnInAppSelfHandled &&
-          _onInAppSelfHandle != null) {
-        InAppCampaign? inAppCampaign = inAppCampaignFromJson(call.arguments);
-        if (inAppCampaign != null) {
-          _onInAppSelfHandle?.call(inAppCampaign);
-        }
-      }
-    } catch (exception) {
-      print("MoEngageFlutter _handler() : " +
-          call.toString() +
-          " has an Exception: " +
-          exception.toString());
-    }
+  void setInAppShownCallbackHAndler(InAppShownCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .inAppShownCallbackHandler = handler;
   }
 
-  /// Enables MoEngage logs.
-  void enableSDKLogs() {
-    if (Platform.isAndroid) {
-      _moEAndroid.enableSDKLogs();
-    } else if (Platform.isIOS) {
-      _moEiOS.enableSDKLogs();
-    }
+  void setInAppDismissedCallbackHAndler(InAppDismissedCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .inAppDismissedCallbackHandler = handler;
+  }
+
+  void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+        .selfHandledInAppCallbackHandler = handler;
   }
 
   /// Tracks an event with the given attributes.
@@ -134,90 +77,90 @@ class MoEngageFlutter {
       eventAttributes = MoEProperties();
     }
     if (Platform.isAndroid) {
-      _moEAndroid.trackEvent(eventName, eventAttributes);
+      _moEAndroid.trackEvent(eventName, eventAttributes, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.trackEvent(eventName, eventAttributes);
+      _moEiOS.trackEvent(eventName, eventAttributes, appId);
     }
   }
 
   /// Set a unique identifier for a user.<br/>
   void setUniqueId(String uniqueId) {
     if (Platform.isAndroid) {
-      _moEAndroid.setUniqueId(uniqueId);
+      _moEAndroid.setUniqueId(uniqueId, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setUniqueId(uniqueId);
+      _moEiOS.setUniqueId(uniqueId, appId);
     }
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
   void setAlias(String newUniqueId) {
     if (Platform.isAndroid) {
-      _moEAndroid.setAlias(newUniqueId);
+      _moEAndroid.setAlias(newUniqueId, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setAlias(newUniqueId);
+      _moEiOS.setAlias(newUniqueId, appId);
     }
   }
 
   /// Tracks user-name as a user attribute.
   void setUserName(String userName) {
     if (Platform.isAndroid) {
-      _moEAndroid.setUserName(userName);
+      _moEAndroid.setUserName(userName, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setUserName(userName);
+      _moEiOS.setUserName(userName, appId);
     }
   }
 
   /// Tracks first name as a user attribute.
   void setFirstName(String firstName) {
     if (Platform.isAndroid) {
-      _moEAndroid.setFirstName(firstName);
+      _moEAndroid.setFirstName(firstName, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setFirstName(firstName);
+      _moEiOS.setFirstName(firstName, appId);
     }
   }
 
   /// Tracks last name as a user attribute.
   void setLastName(String lastName) {
     if (Platform.isAndroid) {
-      _moEAndroid.setLastName(lastName);
+      _moEAndroid.setLastName(lastName, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setLastName(lastName);
+      _moEiOS.setLastName(lastName, appId);
     }
   }
 
   /// Tracks user's email-id as a user attribute.
   void setEmail(String emailId) {
     if (Platform.isAndroid) {
-      _moEAndroid.setEmail(emailId);
+      _moEAndroid.setEmail(emailId, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setEmail(emailId);
+      _moEiOS.setEmail(emailId, appId);
     }
   }
 
   /// Tracks phone number as a user attribute.
   void setPhoneNumber(String phoneNumber) {
     if (Platform.isAndroid) {
-      _moEAndroid.setPhoneNumber(phoneNumber);
+      _moEAndroid.setPhoneNumber(phoneNumber, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setPhoneNumber(phoneNumber);
+      _moEiOS.setPhoneNumber(phoneNumber, appId);
     }
   }
 
   /// Tracks gender as a user attribute.
   void setGender(MoEGender gender) {
     if (Platform.isAndroid) {
-      _moEAndroid.setGender(gender);
+      _moEAndroid.setGender(gender, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setGender(gender);
+      _moEiOS.setGender(gender, appId);
     }
   }
 
   /// Set's user's location
   void setLocation(MoEGeoLocation location) {
     if (Platform.isAndroid) {
-      _moEAndroid.setLocation(location);
+      _moEAndroid.setLocation(location, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setLocation(location);
+      _moEiOS.setLocation(location, appId);
     }
   }
 
@@ -225,9 +168,9 @@ class MoEngageFlutter {
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setBirthDate(String birthDate) {
     if (Platform.isAndroid) {
-      _moEAndroid.setBirthDate(birthDate);
+      _moEAndroid.setBirthDate(birthDate, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setBirthDate(birthDate);
+      _moEiOS.setBirthDate(birthDate, appId);
     }
   }
 
@@ -242,9 +185,9 @@ class MoEngageFlutter {
         userAttributeValue is double ||
         userAttributeValue is bool) {
       if (Platform.isAndroid) {
-        _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue);
+        _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue, appId);
       } else if (Platform.isIOS) {
-        _moEiOS.setUserAttribute(userAttributeName, userAttributeValue);
+        _moEiOS.setUserAttribute(userAttributeName, userAttributeValue, appId);
       }
     } else {
       print(
@@ -256,9 +199,9 @@ class MoEngageFlutter {
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
     if (Platform.isAndroid) {
-      _moEAndroid.setUserAttributeIsoDate(userAttributeName, isoDateString);
+      _moEAndroid.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setUserAttributeIsoDate(userAttributeName, isoDateString);
+      _moEiOS.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
     }
   }
 
@@ -266,27 +209,27 @@ class MoEngageFlutter {
   void setUserAttributeLocation(
       String userAttributeName, MoEGeoLocation location) {
     if (Platform.isAndroid) {
-      _moEAndroid.setUserAttributeLocation(userAttributeName, location);
+      _moEAndroid.setUserAttributeLocation(userAttributeName, location, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setUserAttributeLocation(userAttributeName, location);
+      _moEiOS.setUserAttributeLocation(userAttributeName, location, appId);
     }
   }
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus(MoEAppStatus appStatus) {
     if (Platform.isAndroid) {
-      _moEAndroid.setAppStatus(appStatus);
+      _moEAndroid.setAppStatus(appStatus, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setAppStatus(appStatus);
+      _moEiOS.setAppStatus(appStatus, appId);
     }
   }
 
   /// Try to show an InApp Message.
   void showInApp() {
     if (Platform.isAndroid) {
-      _moEAndroid.showInApp();
+      _moEAndroid.showInApp(appId);
     } else if (Platform.isIOS) {
-      _moEiOS.showInApp();
+      _moEiOS.showInApp(appId);
     }
   }
 
@@ -294,9 +237,9 @@ class MoEngageFlutter {
   /// and session is created.
   void logout() {
     if (Platform.isAndroid) {
-      _moEAndroid.logout();
+      _moEAndroid.logout(appId);
     } else if (Platform.isIOS) {
-      _moEiOS.logout();
+      _moEiOS.logout(appId);
     }
   }
 
@@ -304,74 +247,62 @@ class MoEngageFlutter {
   /// Ensure self handled in-app listener is set before you call this.
   void getSelfHandledInApp() {
     if (Platform.isAndroid) {
-      _moEAndroid.getSelfHandledInApp();
+      _moEAndroid.getSelfHandledInApp(appId);
     } else if (Platform.isIOS) {
-      _moEiOS.getSelfHandledInApp();
+      _moEiOS.getSelfHandledInApp(appId);
     }
   }
 
   /// Mark self-handled campaign as shown.
   /// API to be called only when in-app is self handled
-  void selfHandledShown(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = selfHandledActionShown;
-    if (Platform.isAndroid) {
-      _moEAndroid.selfHandledCallback(payload);
-    } else if (Platform.isIOS) {
-      _moEiOS.selfHandledCallback(payload);
-    }
-  }
-
-  /// Mark self-handled campaign as primary clicked.
-  /// API to be called only when in-app is self handled
-  void selfHandledPrimaryClicked(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toMap();
-    payload[keyAttributeType] = selfHandledActionPrimaryClicked;
-    if (Platform.isAndroid) {
-      _moEAndroid.selfHandledCallback(payload);
-    } else if (Platform.isIOS) {
-      _moEiOS.selfHandledCallback(payload);
-    }
+  void selfHandledShown(SelfHandledCampaignData data) {
+    // Map<String, dynamic> payload = inAppCampaign.toMap();
+    // payload[keyAttributeType] = selfHandledActionShown;
+    // if (Platform.isAndroid) {
+    //   _moEAndroid.selfHandledCallback(payload, appId);
+    // } else if (Platform.isIOS) {
+    //   _moEiOS.selfHandledCallback(payload);
+    // }
   }
 
   /// Mark self-handled campaign as clicked.
   /// API to be called only when in-app is self handled
-  void selfHandledClicked(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toMap();
+  void selfHandledClicked(SelfHandledCampaignData data) {
+/*    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = selfHandledActionClick;
     if (Platform.isAndroid) {
-      _moEAndroid.selfHandledCallback(payload);
+      _moEAndroid.selfHandledCallback(payload, appId);
     } else if (Platform.isIOS) {
       _moEiOS.selfHandledCallback(payload);
-    }
+    }*/
   }
 
   /// Mark self-handled campaign as dismissed.
   /// API to be called only when in-app is self handled
-  void selfHandledDismissed(InAppCampaign inAppCampaign) {
-    Map<String, dynamic> payload = inAppCampaign.toMap();
+  void selfHandledDismissed(SelfHandledCampaignData data) {
+/*    Map<String, dynamic> payload = inAppCampaign.toMap();
     payload[keyAttributeType] = selfHandledActionDismissed;
     if (Platform.isAndroid) {
-      _moEAndroid.selfHandledCallback(payload);
+      _moEAndroid.selfHandledCallback(payload, appId);
     } else if (Platform.isIOS) {
       _moEiOS.selfHandledCallback(payload);
-    }
+    }*/
   }
 
   ///Set the current context for the given user.
   void setCurrentContext(List<String> contexts) {
     if (Platform.isAndroid) {
-      _moEAndroid.setCurrentContext(contexts);
+      _moEAndroid.setCurrentContext(contexts, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.setCurrentContext(contexts);
+      _moEiOS.setCurrentContext(contexts, appId);
     }
   }
 
   void resetCurrentContext() {
     if (Platform.isAndroid) {
-      _moEAndroid.resetCurrentContext();
+      _moEAndroid.resetCurrentContext(appId);
     } else if (Platform.isIOS) {
-      _moEiOS.resetCurrentContext();
+      _moEiOS.resetCurrentContext(appId);
     }
   }
 
@@ -379,29 +310,9 @@ class MoEngageFlutter {
   ///or user attribute is tracked on MoEngage Platform.
   void optOutDataTracking(bool shouldOptOutDataTracking) {
     if (Platform.isAndroid) {
-      _moEAndroid.optOutDataTracking(shouldOptOutDataTracking);
+      _moEAndroid.optOutDataTracking(shouldOptOutDataTracking, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.optOutDataTracking(shouldOptOutDataTracking);
-    }
-  }
-
-  ///Optionally opt-out of push campaigns.
-  ///No push campaigns will be shown once this is opted out.
-  void optOutPushTracking(bool shouldOptOutPushTracking) {
-    if (Platform.isAndroid) {
-      _moEAndroid.optOutPushTracking(shouldOptOutPushTracking);
-    } else if (Platform.isIOS) {
-      _moEiOS.optOutPushTracking(shouldOptOutPushTracking);
-    }
-  }
-
-  ///Optionally opt-out of in-app campaigns.
-  ///No in-app campaigns will be shown once this is  opted out.
-  void optOutInAppTracking(bool shouldOptOutinAppTracking) {
-    if (Platform.isAndroid) {
-      _moEAndroid.optOutInAppTracking(shouldOptOutinAppTracking);
-    } else if (Platform.isIOS) {
-      _moEiOS.optOutInAppTracking(shouldOptOutinAppTracking);
+      _moEiOS.optOutDataTracking(shouldOptOutDataTracking, appId);
     }
   }
 
@@ -425,7 +336,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passFCMPushToken(String pushToken) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushToken(pushToken, MoEPushService.fcm);
+      _moEAndroid.passPushToken(pushToken, MoEPushService.fcm, appId);
     }
   }
 
@@ -433,7 +344,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passFCMPushPayload(Map<String, dynamic> payload) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushPayload(payload, MoEPushService.fcm);
+      _moEAndroid.passPushPayload(payload, MoEPushService.fcm, appId);
     }
   }
 
@@ -441,7 +352,7 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void passPushKitPushToken(String pushToken) {
     if (Platform.isAndroid) {
-      _moEAndroid.passPushToken(pushToken, MoEPushService.push_kit);
+      _moEAndroid.passPushToken(pushToken, MoEPushService.push_kit, appId);
     }
   }
 
@@ -450,18 +361,18 @@ class MoEngageFlutter {
   /// SDK if you have called [disableSdk()] at some point.
   void enableSdk() {
     if (Platform.isAndroid) {
-      _moEAndroid.updateSdkState(true);
+      _moEAndroid.updateSdkState(true, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.updateSdkState(true);
+      _moEiOS.updateSdkState(true, appId);
     }
   }
 
   /// API to disable all features of the SDK.
   void disableSdk() {
     if (Platform.isAndroid) {
-      _moEAndroid.updateSdkState(false);
+      _moEAndroid.updateSdkState(false, appId);
     } else if (Platform.isIOS) {
-      _moEiOS.updateSdkState(false);
+      _moEiOS.updateSdkState(false, appId);
     }
   }
 

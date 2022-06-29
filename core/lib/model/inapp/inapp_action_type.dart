@@ -1,0 +1,1 @@
+enum ActionType { navigation, custom }
