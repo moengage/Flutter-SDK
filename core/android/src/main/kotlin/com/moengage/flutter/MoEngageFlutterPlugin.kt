@@ -94,6 +94,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
                 METHOD_NAME_UPDATE_SDK_STATE -> updateSdkState(call)
                 METHOD_NAME_ON_ORIENTATION_CHANGED -> onOrientationChanged()
+                METHOD_NAME_DEVICE_IDENTIFIER -> deviceIdentifierTrackingStatusUpdate(call)
                 else -> Logger.e("$tag onMethodCall() : No mapping for this method.")
             }
         } catch (e: Exception) {
@@ -264,5 +265,16 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun onOrientationChanged() {
         Logger.v("$tag onOrientationChanged() : ")
         pluginHelper.onConfigurationChanged()
+    }
+
+    private fun deviceIdentifierTrackingStatusUpdate(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.v("$tag deviceIdentifierTrackingStatusUpdate() : Arguments: $payload")
+            pluginHelper.deviceIdentifierTrackingStatusUpdate(context, payload)
+        } catch (e: Exception) {
+            Logger.e("$tag deviceIdentifierTrackingStatusUpdate() : ", e)
+        }
     }
 }

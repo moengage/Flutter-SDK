@@ -430,6 +430,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   _moengagePlugin.disableSdk();
                 },
+              ),
+              new ListTile(
+                title: Text("Enable Ad-Id"),
+                onTap: () async {
+                  _moengagePlugin.enableAdIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Disable Ad-Id"),
+                onTap: () async {
+                  _moengagePlugin.disableAdIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Enable Android-Id"),
+                onTap: () async {
+                  _moengagePlugin.enableAndroidIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Disable Android-Id"),
+                onTap: () async {
+                  _moengagePlugin.disableAdIdTracking();
+                },
               )
             ]).toList(),
           ),

@@ -470,4 +470,28 @@ class MoEngageFlutter {
       _moEAndroid.onOrientationChanged();
     }
   }
+
+  void enableAdIdTracking() {
+    if (Platform.isAndroid) {
+      _moEAndroid.enableAdIdTracking();
+    }
+  }
+
+  void disableAdIdTracking() {
+    if (Platform.isAndroid) {
+      _moEAndroid.disableAdIdTracking();
+    }
+  }
+
+  void enableAndroidIdTracking() {
+    if (Platform.isAndroid) {
+      _moEAndroid.enableAndroidIdTracking();
+    }
+  }
+
+  void disableAndroidIdTracking() {
+    if (Platform.isAndroid) {
+      _moEAndroid.disableAndroidIdTracking();
+    }
+  }
 }
