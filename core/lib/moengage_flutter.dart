@@ -7,6 +7,8 @@ import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
+import 'package:moengage_flutter/moe_cache.dart';
+import 'package:moengage_flutter/moe_core_controller.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/gender.dart';
@@ -15,7 +17,6 @@ import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-
 
 typedef void PushClickCallbackHandler(PushCampaignData data);
 typedef void PushTokenCallbackHandler(PushTokenData data);
@@ -30,10 +31,10 @@ class MoEngageFlutter {
   MethodChannel _channel = MethodChannel(channelName);
   late MoEAndroidCore _moEAndroid;
   late MoEiOSCore _moEiOS;
+  late CoreController controller;
 
   MoEngageFlutter(this.appId) {
-    _moEAndroid = MoEAndroidCore(_channel);
-    _moEiOS = MoEiOSCore(_channel);
+    controller = CoreController();
   }
 
   void initialise() {
@@ -41,33 +42,38 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodInitialise);
   }
 
-  void setPushClickCallbackHanlder(PushClickCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+  void setPushClickCallbackHanlder(PushClickCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
         .pushClickCallbackHandler = handler;
   }
 
-  void setPushTokenCallbackHandler(PushTokenCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
-        .pushTokenCallbackHandler = handler;
+  void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) {
+    Cache().pushTokenCallbackHandler = handler;
   }
 
-  void setInAppClickHandler(InAppClickCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+  void setInAppClickHandler(InAppClickCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
         .inAppClickCallbackHandler = handler;
   }
 
-  void setInAppShownCallbackHAndler(InAppShownCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+  void setInAppShownCallbackHAndler(InAppShownCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
         .inAppShownCallbackHandler = handler;
   }
 
-  void setInAppDismissedCallbackHAndler(InAppDismissedCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+  void setInAppDismissedCallbackHAndler(
+      InAppDismissedCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
         .inAppDismissedCallbackHandler = handler;
   }
 
-  void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId)
+  void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
         .selfHandledInAppCallbackHandler = handler;
   }
 
@@ -77,7 +83,7 @@ class MoEngageFlutter {
       eventAttributes = MoEProperties();
     }
     if (Platform.isAndroid) {
-      _moEAndroid.trackEvent(eventName, eventAttributes, appId);
+      controller.moEAndroid.trackEvent(eventName, eventAttributes, appId);
     } else if (Platform.isIOS) {
       _moEiOS.trackEvent(eventName, eventAttributes, appId);
     }
@@ -185,7 +191,8 @@ class MoEngageFlutter {
         userAttributeValue is double ||
         userAttributeValue is bool) {
       if (Platform.isAndroid) {
-        _moEAndroid.setUserAttribute(userAttributeName, userAttributeValue, appId);
+        _moEAndroid.setUserAttribute(
+            userAttributeName, userAttributeValue, appId);
       } else if (Platform.isIOS) {
         _moEiOS.setUserAttribute(userAttributeName, userAttributeValue, appId);
       }
@@ -199,7 +206,8 @@ class MoEngageFlutter {
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
     if (Platform.isAndroid) {
-      _moEAndroid.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
+      _moEAndroid.setUserAttributeIsoDate(
+          userAttributeName, isoDateString, appId);
     } else if (Platform.isIOS) {
       _moEiOS.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
     }
