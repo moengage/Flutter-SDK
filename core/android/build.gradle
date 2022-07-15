@@ -53,11 +53,8 @@ android {
     }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:11.6.01") {
-        exclude group:"com.moengage", module: "core"
-    }
-    compileOnly("com.moengage:core:5.4.3-SNAPSHOT")
-    api("com.moengage:plugin-base:2.2.1-SNAPSHOT")
+    compileOnly("com.moengage:moe-android-sdk:11.6.02")
+    api("com.moengage:plugin-base:2.2.2")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

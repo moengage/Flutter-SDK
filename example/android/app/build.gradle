@@ -82,11 +82,7 @@ dependencies {
   implementation("com.moengage:rich-notification:2.4.0")
   implementation("com.huawei.hms:push:6.1.0.300")
   implementation("com.moengage:inbox-core:1.0.00")
-
-  implementation("com.moengage:moe-android-sdk:11.6.01") {
-    exclude group: "com.moengage", module: "core"
-  }
-  implementation("com.moengage:core:5.4.3-SNAPSHOT")
+  implementation("com.moengage:moe-android-sdk:11.6.02")
 }
 
 apply plugin: 'com.google.gms.google-services'
