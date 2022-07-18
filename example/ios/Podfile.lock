@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (7.2.1):
+  - MoEngage-iOS-SDK (7.2.2):
     - MORichNotification (< 5.4.0, >= 5.3.0)
   - moengage_flutter (4.1.0):
     - Flutter
@@ -38,13 +38,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  MoEngage-iOS-SDK: 5aea08d7eb58070a6d4cd75e33fff6e05864ad0f
+  MoEngage-iOS-SDK: eeedf235fd0db9d2eacb0becee489b3f66582f1e
   moengage_flutter: 3297cf323553e4d2d733744f5557a025705fbb41
   moengage_inbox: be6b7e1cf11e5c546644d1ec3093915db8531422
   MoEngageInApp: 927ca955e6f06784c217605fcf7cc1cfb17b0c87
   MoEPluginBase: 872ff6f3c68c3b5cbf8935e0bcaa8930494bdfed
   MORichNotification: 3f4c3f3e6aa4f961811b15e9b6d25c27d923812c
 
-PODFILE CHECKSUM: a9243978f48695b4d034e4c427c9847b591e3ec1
+PODFILE CHECKSUM: 55b0cc9eedd7d7d5b556267bf0b10fbc72656ca7
 
 COCOAPODS: 1.11.3
