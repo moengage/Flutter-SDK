@@ -20,9 +20,6 @@ rootProject.allprojects {
         google()
         mavenCentral()
         jcenter()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
 }
 
@@ -52,11 +49,8 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly("com.moengage:moe-android-sdk:11.6.01") {
-        exclude group:"com.moengage", module:"core"
-    }
-    compileOnly("com.moengage:core:5.4.3-SNAPSHOT")
-    api("com.moengage:plugin-base:2.2.1-SNAPSHOT")
+    compileOnly("com.moengage:moe-android-sdk:11.6.02")
+    api("com.moengage:plugin-base:2.2.2")
     compileOnly("com.moengage:inbox-core:1.0.00")
     implementation("com.moengage:plugin-base-inbox:2.2.0")
 }
