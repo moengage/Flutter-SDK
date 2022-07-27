@@ -10,4 +10,3 @@ build/
 android/.settings
 exampleObjC
 example/android/app/local.properties
-*pubspec.lock

@@ -30,8 +30,6 @@ import MoEngage
     
     MOFlutterInitializer.sharedInstance.initializeWithSDKConfig(sdkConfig, andLaunchOptions: launchOptions)
     
-    MoEngage.enableSDKLogs(true)
-      
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
