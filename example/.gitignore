@@ -41,7 +41,6 @@
 **/android/.settings
 **/android/app/keystore.properties
 **/android/app/moengage123.jks
-.gradle
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

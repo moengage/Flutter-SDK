@@ -25,7 +25,7 @@ import MoEPluginBase
         config.pluginIntegrationVersion = MOFlutterPluginInfo.kVersion
         
         // Initialize SDK
-        MoEPluginInitializer.sharedInstance().initializeSDK(with: config, withSDKState: state, andLaunchOptions: launchOptions ?? [:])
+        MoEPluginInitializer.sharedInstance().intializeSDK(with: config, withSDKState: state, andLaunchOptions: launchOptions ?? [:])
     }
     
 }
