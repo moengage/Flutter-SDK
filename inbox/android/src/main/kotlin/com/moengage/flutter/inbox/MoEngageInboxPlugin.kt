@@ -98,7 +98,7 @@ class MoEngageInboxPlugin: FlutterPlugin, MethodCallHandler {
   private fun deleteMessage(call: MethodCall, result: Result){
     try {
       if (call.arguments == null) return
-      val payload: String = call.arguments.toString()
+      val payload: String = call.arguments as String
       inboxHelper.deleteMessage(context, payload)
     } catch (e: Exception) {
       Logger.e("$tag deleteMessage() : ", e)
@@ -108,7 +108,7 @@ class MoEngageInboxPlugin: FlutterPlugin, MethodCallHandler {
   private fun trackMessageClicked(call: MethodCall, result: Result) {
     try{
       if (call.arguments == null) return
-      val payload: String = call.arguments.toString()
+      val payload: String = call.arguments as String
       inboxHelper.trackMessageClicked(context, payload)
     }catch(e: Exception){
         Logger.e("$tag trackMessageClicked() : ", e)
