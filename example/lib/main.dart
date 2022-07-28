@@ -409,12 +409,32 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
                   if (data != null && data.messages.length > 0) {
-                    InboxMessage message = data.messages[0];
-                    _moEngageInbox.trackMessageClicked(message);
-                    _moEngageInbox.deleteMessage(message);
-
                     for (final message in data.messages) {
                       print(message.toString());
+                    }
+                  }
+                },
+              ),
+              new ListTile(
+                title: Text("Track all messages"),
+                onTap: () async {
+                  InboxData? data = await _moEngageInbox.fetchAllMessages();
+                  if (data != null && data.messages.length > 0) {
+                    for (final message in data.messages) {
+                      print("Tracking inbox message: " + message.toString());
+                      _moEngageInbox.trackMessageClicked(message);
+                    }
+                  }
+                },
+              ),
+              new ListTile(
+                title: Text("Delete all messages"),
+                onTap: () async {
+                  InboxData? data = await _moEngageInbox.fetchAllMessages();
+                  if (data != null && data.messages.length > 0) {
+                    for (final message in data.messages) {
+                      print("Deleting inbox message: " + message.toString());
+                      _moEngageInbox.deleteMessage(message);
                     }
                   }
                 },
