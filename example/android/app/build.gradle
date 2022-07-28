@@ -76,13 +76,13 @@ dependencies {
   testImplementation 'junit:junit:4.13'
   androidTestImplementation("androidx.test.ext:junit:1.1.2")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-  implementation("com.moengage:moe-android-sdk:11.6.02")
   implementation("com.google.firebase:firebase-messaging:22.0.0")
   implementation("androidx.lifecycle:lifecycle-process:2.2.0")
   implementation("com.moengage:hms-pushkit:3.0.0")
-  implementation("com.moengage:rich-notification:2.2.00")
+  implementation("com.moengage:rich-notification:2.4.0")
   implementation("com.huawei.hms:push:6.1.0.300")
   implementation("com.moengage:inbox-core:1.0.00")
+  implementation("com.moengage:moe-android-sdk:11.6.02")
 }
 
 apply plugin: 'com.google.gms.google-services'
