@@ -1,6 +1,6 @@
 # MoEngage Flutter Plugin
 
-### Next Release
+### 4.2.0 (29th July 2022)
 - Added Flutter 3 support
 - Device identifier tracking update as per Google's User Data policy. Advertising Id is only tracked after user consent.
 - Android

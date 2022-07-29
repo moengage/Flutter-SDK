@@ -471,24 +471,32 @@ class MoEngageFlutter {
     }
   }
 
+  /// API to enable Advertising Id tracking for Android.
   void enableAdIdTracking() {
     if (Platform.isAndroid) {
       _moEAndroid.enableAdIdTracking();
     }
   }
 
+  /// API to disable Advertising Id tracking for Android.
+  ///
+  /// By default Advertising Id tracking is disabled, call this method only if you have enabled Advertising Id tracking at some point.
   void disableAdIdTracking() {
     if (Platform.isAndroid) {
       _moEAndroid.disableAdIdTracking();
     }
   }
 
+  /// API to enable Android Id tracking for Android.
   void enableAndroidIdTracking() {
     if (Platform.isAndroid) {
       _moEAndroid.enableAndroidIdTracking();
     }
   }
 
+  /// API to disable Android Id tracking for Android.
+  /// 
+  /// By default Android Id tracking is disabled, call this method only if you have enabled Android Id tracking at some point.
   void disableAndroidIdTracking() {
     if (Platform.isAndroid) {
       _moEAndroid.disableAndroidIdTracking();
