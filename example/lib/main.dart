@@ -108,6 +108,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     print("Main : build() ");
+    buildContext = context;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -329,7 +330,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                   title: Text("Show Self Handled InApp"),
                   onTap: () {
-                    buildContext = context;
                     _moengagePlugin.getSelfHandledInApp();
                   }),
               new ListTile(
