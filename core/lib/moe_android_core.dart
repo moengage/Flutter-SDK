@@ -218,4 +218,24 @@ class MoEAndroidCore {
   void onOrientationChanged() {
     _channel.invokeMethod(methodOnOrientationChanged);
   }
+
+  void enableAdIdTracking() {
+    String payload = json.encode({keyAdIdTracking: true});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void disableAdIdTracking() {
+    String payload = json.encode({keyAdIdTracking: false});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void enableAndroidIdTracking() {
+    String payload = json.encode({keyAndroidIdTracking: true});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void disableAndroidIdTracking() {
+    String payload = json.encode({keyAndroidIdTracking: false});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
 }

@@ -21,6 +21,7 @@ const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
+const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -111,3 +112,7 @@ const String selfHandledActionDismissed = "dismissed";
 
 // SDK Status update
 const String keyIsSdkEnabled = "isSdkEnabled";
+
+//device attribute tracking
+const String keyAndroidIdTracking = "isAndroidIdTrackingEnabled";
+const String keyAdIdTracking = "isAdIdTrackingEnabled";
