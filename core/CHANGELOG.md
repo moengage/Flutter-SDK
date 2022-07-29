@@ -2,6 +2,7 @@
 
 ### Next Release
 - Added Flutter 3 support
+- Device identifier tracking update as per Google's User Data policy. Advertising Id is only tracked after user consent.
 - Android
   - Native SDK updated to support version `11.6.02` and above. 
 
