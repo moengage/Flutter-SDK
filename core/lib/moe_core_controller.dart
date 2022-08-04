@@ -21,7 +21,7 @@ class CoreController {
   static late CoreController _instance;
   static MethodChannel _channel = MethodChannel(channelName);
 
-  late MoEAndroidCore moEAndroid;
+  late MoEAndroidCore _moEAndroid;
   late MoEiOSCore _moEiOS;
 
   CoreController._internal() {

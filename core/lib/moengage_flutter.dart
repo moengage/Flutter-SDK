@@ -42,7 +42,7 @@ class MoEngageFlutter {
     _channel.invokeMethod(methodInitialise);
   }
 
-  void setPushClickCallbackHanlder(PushClickCallbackHandler? handler) {
+  void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .pushClickCallbackHandler = handler;
@@ -58,13 +58,13 @@ class MoEngageFlutter {
         .inAppClickCallbackHandler = handler;
   }
 
-  void setInAppShownCallbackHAndler(InAppShownCallbackHandler? handler) {
+  void setInAppShownCallbackHandler(InAppShownCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .inAppShownCallbackHandler = handler;
   }
 
-  void setInAppDismissedCallbackHAndler(
+  void setInAppDismissedCallbackHandler(
       InAppDismissedCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)

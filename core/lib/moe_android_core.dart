@@ -114,7 +114,7 @@ class MoEAndroidCore {
 
   void setAppStatus(MoEAppStatus appStatus, String appId) {
     _channel.invokeMethod(
-        methodSetAppStatus, json.encode(getAppStatusPaylod(appStatus, appId)));
+        methodSetAppStatus, json.encode(getAppStatusPayload(appStatus, appId)));
   }
 
   void showInApp(String appId) {

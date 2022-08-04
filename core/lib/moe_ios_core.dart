@@ -110,7 +110,7 @@ class MoEiOSCore {
 
   void setAppStatus(MoEAppStatus appStatus, String appId) {
     _channel.invokeListMethod(
-        methodSetAppStatus, getAppStatusPaylod(appStatus, appId));
+        methodSetAppStatus, getAppStatusPayload(appStatus, appId));
   }
 
   void showInApp(String appId) {

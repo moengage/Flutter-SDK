@@ -63,7 +63,7 @@ Map<String, dynamic> getAliasPayload(String alias, String appId) {
   return payload;
 }
 
-Map<String, dynamic> getAppStatusPaylod(MoEAppStatus appStatus, String appId) {
+Map<String, dynamic> getAppStatusPayload(MoEAppStatus appStatus, String appId) {
   Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = getMap(keyAppStatus,
       appStatus == MoEAppStatus.install ? appStatusInstall : appStatusUpdate);
