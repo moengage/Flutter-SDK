@@ -6,9 +6,12 @@ import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 
-class MoEiOSCore {
-  MethodChannel _channel;
+import 'in_app_payload_mapper.dart';
+import 'model/inapp/self_handled_data.dart';
 
+class MoEiOSCore {
+
+  MethodChannel _channel;
   MoEiOSCore(this._channel);
 
   void trackEvent(

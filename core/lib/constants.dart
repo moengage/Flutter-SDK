@@ -81,6 +81,8 @@ const String keyCustomAction = "customAction";
 const String keyCampaignContext = "campaignContext";
 const String keyFormattedCampaignId = "cid";
 const String keyActionType = "actionType";
+const String keyType = "type";
+
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";
@@ -88,7 +90,6 @@ const String keyValue = "value";
 
 // SelHandled InApp Constants
 const String keyDismissInterval = "dismissInterval";
-const String keyIsCancellable = "isCancellable";
 
 //PushPayload Constants
 const String keyIsDefaultAction = "isDefaultAction";
@@ -104,7 +105,6 @@ const String gdprOptOutTypeData = "data";
 
 // SelfHandled Callback Action Types
 const String selfHandledActionShown = "impression";
-const String selfHandledActionPrimaryClicked = "primary_clicked";
 const String selfHandledActionClick = "click";
 const String selfHandledActionDismissed = "dismissed";
 

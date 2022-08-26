@@ -18,17 +18,16 @@ import 'constants.dart';
 
 class CoreController {
 
-  static late CoreController _instance;
-  static MethodChannel _channel = MethodChannel(channelName);
+  static late CoreController _instance = CoreController._internal();
+  late MethodChannel channel = MethodChannel(channelName);
 
-  late MoEAndroidCore _moEAndroid;
-  late MoEiOSCore _moEiOS;
+  late MoEAndroidCore moEAndroid;
+  late MoEiOSCore moEiOS;
 
   CoreController._internal() {
-    _instance = this;
-    _moEAndroid = MoEAndroidCore(_channel);
-    _moEiOS = MoEiOSCore(_channel);
-    _channel.setMethodCallHandler(_handler);
+    moEAndroid = MoEAndroidCore(channel);
+    moEiOS = MoEiOSCore(channel);
+    channel.setMethodCallHandler(_handler);
   }
 
   factory CoreController() => _instance;

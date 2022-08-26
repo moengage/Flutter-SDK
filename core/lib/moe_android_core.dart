@@ -9,9 +9,10 @@ import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
 
-class MoEAndroidCore {
-  MethodChannel _channel;
 
+class MoEAndroidCore {
+
+  MethodChannel _channel;
   MoEAndroidCore(this._channel);
 
   void trackEvent(
@@ -130,7 +131,7 @@ class MoEAndroidCore {
         methodSelfHandledInApp, json.encode(getAccountMeta(appId)));
   }
 
-  void selfHandledCallback(Map<String, dynamic> payload, String appId) {
+  void selfHandledCallback(Map<String, dynamic> payload) {
     _channel.invokeMethod(methodSelfHandledCallback, json.encode(payload));
   }
 
