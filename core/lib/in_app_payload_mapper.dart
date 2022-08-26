@@ -83,8 +83,8 @@ class InAppPayloadMapper {
   }
 
   CampaignData campaignDataFromMap(Map<String, dynamic> dataPayload) {
-    return CampaignData(dataPayload[keyCampaignId], dataPayload[keyCampaignName],
-        dataPayload[keyCampaignContext]);
+    return CampaignData(dataPayload[keyCampaignId],
+        dataPayload[keyCampaignName], dataPayload[keyCampaignContext]);
   }
 
   CampaignContext campaignContextFromMap(Map<String, dynamic> dataPayload) {
@@ -97,10 +97,33 @@ class InAppPayloadMapper {
         dataPayload[keyPayload],
         dataPayload.containsKey(keyDismissInterval)
             ? dataPayload[keyDismissInterval]
-            : -1,
-        dataPayload[keyIsCancellable]);
+            : -1);
   }
 
+  Map<String, dynamic> selfHandleCampaignDataToMap(
+      SelfHandledCampaignData campaignData,
+      String actionType) {
+    Map<String, dynamic> payload = accountMetaToMap(campaignData.accountMeta);
+    payload[keyData] = {
+      keyType: actionType,
+      keyCampaignName: campaignData.campaignData.campaignName,
+      keyCampaignId: campaignData.campaignData.campaignId,
+      keyCampaignContext: campaignData.campaignData.context.attributes,
+      keySelfHandled: selfHandleCampaignToMap(campaignData.campaign),
+      keyPlatform: getPlatform()
+    };
+
+    return payload;
+  }
+
+  Map<String, dynamic> selfHandleCampaignToMap(
+      SelfHandledCampaign selfHandledCampaign) {
+    return {
+        keyPayload: selfHandledCampaign.campaignContent,
+        keyDismissInterval: selfHandledCampaign.dismissInterval
+    };
+  }
 }
+
 const String _actionNavigation = "navigation";
 const String _actionCustomAction = "customAction";

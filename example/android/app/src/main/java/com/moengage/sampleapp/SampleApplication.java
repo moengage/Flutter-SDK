@@ -21,14 +21,21 @@ public class SampleApplication extends FlutterApplication {
   @Override public void onCreate() {
     super.onCreate();
     MoEngage.Builder moEngage = new MoEngage.Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
-        .configureNotificationMetaData(new NotificationConfig(R.drawable.icon, R.drawable.ic_launcher, -1, null, true,false, true))
+        .configureNotificationMetaData(
+            new NotificationConfig(
+                R.drawable.icon,
+                R.drawable.ic_launcher,
+                -1,
+                false,
+                true,
+                true))
         .configureLogs(new LogConfig(LogLevel.VERBOSE, true))
         .configureFcm(new FcmConfig(true))
         .configurePushKit(new PushKitConfig(true))
         .configureMiPush(new MiPushConfig("MI_APP_ID", "MI_APP_KEY", true));
 
-    MoEInitializer.initialize(getApplicationContext(), moEngage);
+    MoEInitializer.initialize(moEngage);
     // optional, required in-case notification customisation is required.
-    MoEPushHelper.getInstance().setMessageListener(new CustomPushListener());
+    MoEPushHelper.getInstance().registerMessageListener(new CustomPushListener());
   }
 }

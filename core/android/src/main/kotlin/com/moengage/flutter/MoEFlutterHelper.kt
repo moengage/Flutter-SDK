@@ -1,8 +1,8 @@
 package com.moengage.flutter
 
-import com.moengage.inapp.MoEInAppHelper;
+import com.moengage.inapp.MoEInAppHelper
 import com.moengage.core.internal.logger.Logger
-import com.moengage.core.internal.inapp.InAppManager;
+import com.moengage.core.internal.inapp.InAppManager
 
 /**
  * @author Arshiya Khanum
@@ -26,9 +26,9 @@ public class MoEFlutterHelper {
     }
 
     public fun onConfigurationChanged() {
-        Logger.v("$tag onConfigurationChanged() : ")
-        if (!InAppManager.getInstance().hasModule()) {
-            Logger.v("$tag onConfigurationChanged() : InApp module not found.")
+        Logger.print { "$tag onConfigurationChanged() : " }
+        if (!InAppManager.hasModule()) {
+            Logger.print { "$tag onConfigurationChanged() : InApp module not found." }
             return
         }
         MoEInAppHelper.getInstance().onConfigurationChanged()

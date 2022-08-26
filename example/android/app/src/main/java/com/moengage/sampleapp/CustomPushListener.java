@@ -3,8 +3,9 @@ package com.moengage.sampleapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import com.moengage.core.internal.logger.Logger;
-import com.moengage.plugin.base.PluginPushCallback;
+import com.moengage.plugin.base.push.PluginPushCallback;
 
 /**
  * @author Umang Chamaria
@@ -14,13 +15,17 @@ public class CustomPushListener extends PluginPushCallback {
 
   private static final String TAG = "CustomPushListener";
 
-  @Override public void onHandleRedirection(Activity activity, Bundle payload) {
-    super.onHandleRedirection(activity, payload);
-    Logger.v(TAG + " onHandleRedirection() : ");
+  public CustomPushListener() {
+    super();
   }
 
-  @Override public void onNotificationReceived(Context context, Bundle payload) {
-    super.onNotificationReceived(context, payload);
-    Logger.v(TAG + " onNotificationReceived() : ");
+  @Override public void handleCustomAction(@NonNull Context context, @NonNull String payload) {
+    super.handleCustomAction(context, payload);
+    Logger.print(() -> TAG + " handleCustomAction() : ");
+  }
+
+  @Override public void onNotificationClick(@NonNull Activity activity, @NonNull Bundle payload) {
+    super.onNotificationClick(activity, payload);
+    Logger.print(() -> TAG + " onNotificationClick() : ");
   }
 }

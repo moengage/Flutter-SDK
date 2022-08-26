@@ -2,15 +2,18 @@ group 'com.moengage.flutter'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.4.20'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "com.android.tools.build:gradle:7.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -34,7 +37,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     lintOptions {
@@ -50,8 +53,9 @@ android {
     }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:11.4.00")
-    api("com.moengage:plugin-base:2.2.0")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compileOnly("com.moengage:moe-android-sdk:12.2.04")
+    compileOnly("com.moengage:inapp:6.3.0")
+    api("com.moengage:plugin-base:3.1.0-SNAPSHOT")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

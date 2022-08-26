@@ -7,20 +7,7 @@ class SelfHandledCampaign {
   /// Interval after which in-app should be dismissed, unit - Seconds
   int dismissInterval;
 
-  /// Should the campaign be dismissed by pressing the back button or using
-  /// the back gesture. if the value is true campaign should be dismissed on
-  /// back press.
-  bool cancellable;
-
-  SelfHandledCampaign(this.campaignContent, this.dismissInterval, this.cancellable);
-
-  Map<String, dynamic> toMap() {
-    return {
-      keyPayload: this.campaignContent,
-      keyDismissInterval: this.dismissInterval,
-      keyIsCancellable: this.cancellable,
-    };
-  }
+  SelfHandledCampaign(this.campaignContent, this.dismissInterval);
 
   String toString() {
     return "{\n" +
@@ -29,9 +16,6 @@ class SelfHandledCampaign {
         "\n" +
         "dismissInterval:" +
         dismissInterval.toString() +
-        "\n" +
-        "cancellable:" +
-        cancellable.toString() +
         "\n" +
         "}";
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/account_meta.dart';
 import 'package:moengage_flutter/constants.dart';
@@ -19,13 +21,13 @@ Map<String, dynamic> getUserAttributePayload(String attributeName,
   if (attributeType == userAttrTypeLocation) {
     data = <String, dynamic> {
       keyAttributeName: attributeName,
-      keyAttributeType: attributeType,
+      keyType: attributeType,
       keyLocationAttribute: attributeValue
     };
   } else {
     data = <String, dynamic> {
       keyAttributeName: attributeName,
-      keyAttributeType: attributeType,
+      keyType: attributeType,
       keyAttributeValue: attributeValue
     };
   }
@@ -79,4 +81,8 @@ Map<String, dynamic> getInAppContextPayload(
 
 AccountMeta accountMetaFromMap(Map<String, dynamic> metaPayload) {
   return AccountMeta(metaPayload[keyAppId]);
+}
+
+Map<String, dynamic> accountMetaToMap(AccountMeta accountMeta) {
+  return getAccountMeta(accountMeta.appId);
 }
