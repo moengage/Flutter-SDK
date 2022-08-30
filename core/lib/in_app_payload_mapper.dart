@@ -16,36 +16,41 @@ import 'package:moengage_flutter/model/platforms.dart';
 import 'package:moengage_flutter/utils.dart';
 
 class InAppPayloadMapper {
+  String _tag = "${TAG}InAppPayloadMapper";
+
   SelfHandledCampaignData? selfHandledCampaignFromJson(dynamic methodCallArgs) {
     try {
       Map<String, dynamic> selfHandledPayload = json.decode(methodCallArgs);
-      Map<String, dynamic> campaignData = selfHandledPayload[keyData];
+      Map<String, dynamic> data = selfHandledPayload[keyData];
       return SelfHandledCampaignData(
-          campaignDataFromMap(campaignData),
-          selfHandledPayload[keyAccountMeta],
-          selfHandledCampaignFromMap(campaignData[keySelfHandled]),
-          PlatformsExtension.fromString(campaignData[keyPlatform]));
-    } catch (e) {}
+          campaignDataFromMap(data),
+          accountMetaFromMap(selfHandledPayload[keyAccountMeta]),
+          selfHandledCampaignFromMap(data[keySelfHandled]),
+          PlatformsExtension.fromString(data[keyPlatform]));
+    } catch (e) {
+      print("$_tag Error: selfHandledCampaignFromJson() : $e");
+    }
     return null;
   }
 
   InAppData? inAppDataFromJson(dynamic methodCallArgs) {
     try {
       Map<String, dynamic> inAppDataPayload = json.decode(methodCallArgs);
-      Map<String, dynamic> campaignData = inAppDataPayload[keyData];
+      Map<String, dynamic> data = inAppDataPayload[keyData];
       return InAppData(
-          PlatformsExtension.fromString(campaignData[keyPlatform]),
+          PlatformsExtension.fromString(data[keyPlatform]),
           accountMetaFromMap(inAppDataPayload[keyAccountMeta]),
-          campaignDataFromMap(campaignData));
+          campaignDataFromMap(data));
     } catch (e) {
-      print(e);
+      print("$_tag Error: inAppDataFromJson() : $e");
     }
     return null;
   }
 
-  ClickData? actionFromJson(dynamic methodCallArgs) {
+  ClickData? actionFromJson(dynamic payload) {
     try {
-      Map<String, dynamic> actionPayload = json.decode(methodCallArgs);
+      print("actionFromJson() : ${payload.toString()}");
+      Map<String, dynamic> actionPayload = json.decode(payload);
       Map<String, dynamic> actionData = actionPayload[keyData];
       return ClickData(
           PlatformsExtension.fromString(actionData[keyPlatform]),
@@ -53,7 +58,7 @@ class InAppPayloadMapper {
           campaignDataFromMap(actionData),
           actionFromMap(actionData));
     } catch (e) {
-      print(e);
+      print("$_tag Error: actionFromJson() : $e");
     }
     return null;
   }
@@ -70,6 +75,7 @@ class InAppPayloadMapper {
   }
 
   NavigationAction navigationActionFromMap(Map<String, dynamic> actionData) {
+    print("navigationActionFromMap() : ${actionData.toString()}");
     return NavigationAction(
         ActionType.navigation,
         NavigationTypeExtension.fromString(actionData[keyNavigationType]),
@@ -78,13 +84,15 @@ class InAppPayloadMapper {
   }
 
   CustomAction customActionFromMap(Map<String, dynamic> actionData) {
-    Map<String, dynamic> customActionData = actionData[keyCustomAction];
-    return CustomAction(ActionType.custom, customActionData[keyKvPair]);
+    print("customActionFromMap() : ${actionData.toString()}");
+    return CustomAction(ActionType.custom, actionData[keyKvPair]);
   }
 
   CampaignData campaignDataFromMap(Map<String, dynamic> dataPayload) {
-    return CampaignData(dataPayload[keyCampaignId],
-        dataPayload[keyCampaignName], dataPayload[keyCampaignContext]);
+    return CampaignData(
+        dataPayload[keyCampaignId],
+        dataPayload[keyCampaignName],
+        campaignContextFromMap(dataPayload[keyCampaignContext]));
   }
 
   CampaignContext campaignContextFromMap(Map<String, dynamic> dataPayload) {

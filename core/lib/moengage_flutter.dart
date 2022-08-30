@@ -6,6 +6,7 @@ import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
+import 'package:moengage_flutter/moe_cache.dart';
 import 'package:moengage_flutter/moe_core_controller.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
@@ -44,9 +45,7 @@ class MoEngageFlutter {
   }
 
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) {
-    CoreInstanceProvider()
-        .getCallbackCacheForInstance(appId)
-        .pushTokenCallbackHandler = handler;
+    Cache().pushTokenCallbackHandler = handler;
   }
 
   void setInAppClickHandler(InAppClickCallbackHandler? handler) {
@@ -312,13 +311,22 @@ class MoEngageFlutter {
     }
   }
 
-  ///Optionally opt-out of data tracking. When data tracking is opted no event
-  ///or user attribute is tracked on MoEngage Platform.
-  void optOutDataTracking(bool shouldOptOutDataTracking) {
+  ///Optionally opt-in data tracking.
+  void enableDataTracking() {
     if (Platform.isAndroid) {
-      controller.moEAndroid.optOutDataTracking(shouldOptOutDataTracking, appId);
+      controller.moEAndroid.optOutDataTracking(false, appId);
     } else if (Platform.isIOS) {
-      controller.moEiOS.optOutDataTracking(shouldOptOutDataTracking, appId);
+      controller.moEiOS.optOutDataTracking(false, appId);
+    }
+  }
+
+  ///Optionally opt-out of data tracking. When data tracking is opted-out no
+  ///event or user attribute is tracked on MoEngage Platform.
+  void disableDataTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.optOutDataTracking(true, appId);
+    } else if (Platform.isIOS) {
+      controller.moEiOS.optOutDataTracking(true, appId);
     }
   }
 
@@ -386,6 +394,42 @@ class MoEngageFlutter {
   void onOrientationChanged() {
     if (Platform.isAndroid) {
       controller.moEAndroid.onOrientationChanged();
+    }
+  }
+
+  ///API to enable Android-id tracking for the given instance.
+  /// Note: This API is only for Android Platform.
+  void enableAndroidIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, true);
+    }
+  }
+
+  ///API to enable Android-id tracking for the given instance.
+  ///By default Android-id tracking is disabled, call this method only if you
+  ///have enabled Android-id tracking at some point.
+  /// Note: This API is only for Android Platform.
+  void disableAndroidIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, false);
+    }
+  }
+
+  ///API to enable Advertising Id tracking for the given instance.
+  /// Note: This API is only for Android Platform.
+  void enableAdIdIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(appId, keyAdId, true);
+    }
+  }
+
+  ///API to disable Advertising Id tracking for the account configured as default.
+  ///By default Advertising Id tracking is disabled, call this method only if
+  ///you have enabled Advertising Id tracking at some point
+  /// Note: This API is only for Android Platform.
+  void disableAdIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(appId, keyAdId, false);
     }
   }
 }

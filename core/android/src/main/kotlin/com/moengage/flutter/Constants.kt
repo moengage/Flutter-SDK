@@ -28,5 +28,7 @@ const val METHOD_NAME_OPT_OUT_TRACKING = "optOutTracking"
 const val METHOD_NAME_SELF_HANDLED_CALLBACK = "selfHandledCallback"
 const val METHOD_NAME_UPDATE_SDK_STATE = "updateSdkState"
 const val METHOD_NAME_ON_ORIENTATION_CHANGED = "onOrientationChanged"
+const val METHOD_NAME_UPDATE_DEVICE_IDENTIFIER_TRACKING_STATUS =
+    "updateDeviceIdentifierTrackingStatus"
 
 const val KEY_TYPE = "type"

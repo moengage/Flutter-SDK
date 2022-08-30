@@ -50,17 +50,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             message.toString());
   }
 
-  // void _onInAppCustomAction(InAppCampaign message) {
-  //   print(
-  //       "Main : _onInAppCustomAction() : This is a callback on inapp custom action from native to flutter. Payload " +
-  //           message.toString());
-  // }
-
   void _onInAppSelfHandle(SelfHandledCampaignData message) async {
     print(
         "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
-
     final SelfHandledActions action =
         await asyncSelfHandledDialog(buildContext);
     switch (action) {
@@ -86,19 +79,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     initPlatformState();
+    print("initState() : start ");
     _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
     _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
     _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
     _moengagePlugin.setSelfHandledInAppHandler(_onInAppSelfHandle);
-    // _moengagePlugin.setUpInAppCallbacks(
-    //     onInAppClick: _onInAppClick,
-    //     onInAppShown: _onInAppShown,
-    //     onInAppDismiss: _onInAppDismiss,
-    //     // onInAppCustomAction: _onInAppCustomAction,
-    //     onInAppSelfHandle: _onInAppSelfHandle);
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.initialise();
+    print("initState() : end ");
   }
 
   Future<void> initPlatformState() async {
@@ -367,6 +356,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     var pushPayload = Map<String, String>();
                     pushPayload.putIfAbsent("push_from", () => "moengage");
                     pushPayload.putIfAbsent("gcm_title", () => "Title");
+                    pushPayload.putIfAbsent("moe_app_id", () => "DAO6UGZ73D9RTK8B5W96TPYN");
                     pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
@@ -376,20 +366,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
-                  title: Text("Opt-Out Data"),
+                  title: Text("Enable data tracking"),
                   onTap: () {
-                    _moengagePlugin.optOutDataTracking(true);
+                    _moengagePlugin.enableDataTracking();
                   }),
               new ListTile(
-                  title: Text("Opt-In Data"),
+                  title: Text("Disable data tracking"),
                   onTap: () {
-                    _moengagePlugin.optOutDataTracking(false);
+                    _moengagePlugin.disableDataTracking();
                   }),
-/*              new ListTile(
-                  title: Text("Enable logs"),
-                  onTap: () {
-                    _moengagePlugin.enableSDKLogs();
-                  }),*/
               new ListTile(
                 title: Text("Logout"),
                 onTap: () {
@@ -428,6 +413,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Disable Sdk"),
                 onTap: () async {
                   _moengagePlugin.disableSdk();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Enable Android Id"),
+                onTap: () async {
+                  _moengagePlugin.enableAndroidIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Disable Android Id"),
+                onTap: () async {
+                  _moengagePlugin.disableAndroidIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Enable Ad Id"),
+                onTap: () async {
+                  _moengagePlugin.enableAdIdIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Disable Ad Id"),
+                onTap: () async {
+                  _moengagePlugin.disableAdIdTracking();
                 },
               )
             ]).toList(),

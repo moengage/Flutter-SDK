@@ -18,4 +18,21 @@ class NavigationAction extends Action {
   NavigationAction(
       ActionType actionType, this.navigationType, this.url, this.keyValuePairs)
       : super(actionType);
+
+  String toString() {
+    return "{\n" +
+        "actionType:" +
+        actionType.toString() +
+        "\n" +
+        "navigationType:" +
+        navigationType.toString() +
+        "\n" +
+        "url:" +
+        url +
+        "\n" +
+        "keyValuePairs:" +
+        keyValuePairs.toString() +
+        "\n" +
+        "}";
+  }
 }

@@ -6,4 +6,18 @@ class CampaignData {
   CampaignContext context;
 
   CampaignData(this.campaignId, this.campaignName, this.context);
+
+  String toString() {
+    return "{\n" +
+        "campaignId:" +
+        campaignId +
+        "\n" +
+        "campaignId:" +
+        campaignId +
+        "\n" +
+        "context:" +
+        context.toString() +
+        "\n" +
+        "}";
+  }
 }

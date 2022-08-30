@@ -3,17 +3,23 @@ import 'package:moengage_flutter/model/inapp/action.dart';
 
 class CustomAction extends Action {
   ///Key-Value Pair entered on the MoEngage Platform during campaign creation.
-  Map<String, dynamic> keyValuePair;
+  Map<String, dynamic> keyValuePairs;
 
-  CustomAction(actionType, this.keyValuePair): super(actionType);
+  CustomAction(actionType, this.keyValuePairs): super(actionType);
 
   Map<String, dynamic> toMap() {
     return {
-      keyKvPair: this.keyValuePair,
+      keyActionType: actionType,
+      keyKvPair: this.keyValuePairs,
     };
   }
 
   String toString() {
-    return "{\n" + "keyValuePairs:" + keyValuePair.toString() + "\n" + "}";
+    return "{\n" +
+        "actionType:" + actionType.toString() +
+        "\n"
+        "keyValuePairs:" + keyValuePairs.toString() +
+        "\n"
+        + "}";
   }
 }

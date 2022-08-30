@@ -44,7 +44,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             channel.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag initPlugin() : exception : " }
+            Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
         }
     }
 
@@ -76,7 +76,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 }
                 return
             }
-            Logger.print { "$tag onMethodCall() : Method ${call.method}" }
+            Logger.print { "$tag onMethodCall() : method:  ${call.method}" }
             when (call.method) {
                 METHOD_NAME_INITIALISE -> onInitialised(call)
                 METHOD_NAME_SET_USER_ATTRIBUTE -> setUserAttribute(call)
@@ -96,6 +96,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_SELF_HANDLED_CALLBACK -> selfHandledCallback(call)
                 METHOD_NAME_UPDATE_SDK_STATE -> updateSdkState(call)
                 METHOD_NAME_ON_ORIENTATION_CHANGED -> onOrientationChanged()
+                METHOD_NAME_UPDATE_DEVICE_IDENTIFIER_TRACKING_STATUS ->
+                    updateDeviceIdentifierTrackingStatus(call)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -109,22 +111,22 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun logout(methodCall: MethodCall) {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
-        Logger.print { "$tag logout() : $payload" }
+        Logger.print { "$tag logout() : Arguments: $payload" }
         pluginHelper.logout(context, payload)
     }
 
     private fun showInApp(methodCall: MethodCall) {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
-        Logger.print { "$tag showInApp() : $payload" }
+        Logger.print { "$tag showInApp() : Arguments: $payload" }
         pluginHelper.showInApp(context, payload)
     }
 
     private fun onInitialised(methodCall: MethodCall) {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
-        Logger.print { "$tag onInitialised() : MoEngage Flutter plugin initialised." }
         pluginHelper.initialise(payload)
+        Logger.print { "$tag onInitialised() : MoEngage Flutter plugin initialised." }
     }
 
     private fun setUserAttribute(methodCall: MethodCall) {
@@ -181,7 +183,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setAppStatus() : Argument :$payload" }
+            Logger.print { "$tag setAppStatus() : Arguments :$payload" }
             pluginHelper.setAppStatus(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag setAppStatus() : " }
@@ -267,6 +269,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun selfHandledCallback(methodCall: MethodCall) {
         try {
+            Logger.print { "$tag selfHandledCallback() : Arguments: $methodCall" }
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
             Logger.print { "$tag selfHandledCallback() : Arguments: $payload" }
@@ -290,5 +293,16 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun onOrientationChanged() {
         Logger.print { "$tag onOrientationChanged() : " }
         pluginHelper.onConfigurationChanged()
+    }
+
+    private fun updateDeviceIdentifierTrackingStatus(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag updateDeviceIdentifierTrackingStatus() : Arguments: $payload" }
+            pluginHelper.deviceIdentifierTrackingStatusUpdate(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag updateDeviceIdentifierTrackingStatus() : " }
+        }
     }
 }

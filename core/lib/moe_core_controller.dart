@@ -18,6 +18,7 @@ import 'constants.dart';
 
 class CoreController {
 
+  String _tag = "${TAG}CoreController";
   static late CoreController _instance = CoreController._internal();
   late MethodChannel channel = MethodChannel(channelName);
 
@@ -34,7 +35,7 @@ class CoreController {
 
 
   Future<dynamic> _handler(MethodCall call) async {
-    print("Received callback in dart. Payload" + call.toString());
+    print("$_tag _handler() : Received callback. Payload " + call.method);
     try {
       if (call.method == callbackPushTokenGenerated) {
         PushTokenData? data =
@@ -97,21 +98,24 @@ class CoreController {
       if (call.method == callbackOnInAppSelfHandled) {
         SelfHandledCampaignData? data =
         InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
+        print("$_tag _handler() : data: $data");
         if (data != null) {
           SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .selfHandledInAppCallbackHandler;
+          print("$_tag _handler() : handler: $handler");
           if (handler != null) {
             handler.call(data);
           }
         }
       }
     } catch (exception) {
-      print("MoEngageFlutter _handler() : " +
+      print("$_tag MoEngageFlutter _handler() : " +
           call.toString() +
           " has an Exception: " +
           exception.toString());
     }
   }
+
 
 }

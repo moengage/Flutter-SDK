@@ -1,4 +1,7 @@
 // Plugin Channel
+const String TAG = "MoEFlutter_";
+
+// Plugin Channel
 const String channelName = "com.moengage/core";
 
 // Method Names
@@ -20,6 +23,7 @@ const String methodOptOutTracking = "optOutTracking";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
+const String methodUpdateDeviceIdentifierTrackingStatus = "updateDeviceIdentifierTrackingStatus";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -114,3 +118,6 @@ const String keyIsSdkEnabled = "isSdkEnabled";
 const String keyAppId = "appId";
 const String keyAccountMeta = "accountMeta";
 const String keyData = "data";
+
+const String keyAndroidId = "isAndroidIdTrackingEnabled";
+const String keyAdId = "isAdIdTrackingEnabled";

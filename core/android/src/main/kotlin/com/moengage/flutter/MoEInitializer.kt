@@ -25,7 +25,7 @@ class MoEInitializer {
                     true
                 )
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : Exception: " }
+                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : " }
             }
         }
 
@@ -39,7 +39,7 @@ class MoEInitializer {
                     if (isSdkEnabled) SdkState.ENABLED else SdkState.DISABLED
                 )
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : Exception: " }
+                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : " }
             }
         }
     }

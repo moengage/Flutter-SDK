@@ -10,5 +10,4 @@ class Cache {
   factory Cache() => _instance;
 
   PushTokenCallbackHandler? pushTokenCallbackHandler;
-
 }

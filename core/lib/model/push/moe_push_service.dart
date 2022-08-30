@@ -1,4 +1,8 @@
+import '../../constants.dart';
+
 enum MoEPushService { apns, fcm, push_kit, mi_push }
+
+String _tag = "${TAG}MoEPushService";
 
 extension MoEPushServiceExtention on MoEPushService {
   String get asString {
@@ -15,7 +19,7 @@ extension MoEPushServiceExtention on MoEPushService {
   }
 
   static MoEPushService fromString(String pushService) {
-    print("MoEPushServiceExt: fromString() :: $pushService");
+    print("$_tag fromString() : pushService: $pushService");
     switch (pushService.toUpperCase()) {
       case _pushServiceAPNS:
         return MoEPushService.apns;

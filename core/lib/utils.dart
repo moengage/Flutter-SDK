@@ -38,7 +38,10 @@ Map<String, dynamic> getUserAttributePayload(String attributeName,
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking, String appId) {
   Map<String, dynamic> payload = getAccountMeta(appId);
-  payload[keyData] = getMap(type, shouldOptOutDataTracking);
+  payload[keyData] = {
+    keyType: type,
+    keyState: shouldOptOutDataTracking
+  };
   return payload;
 }
 

@@ -84,6 +84,7 @@ dependencies {
 //  implementation("com.moengage:rich-notification:3.3.1")
   implementation("com.huawei.hms:push:6.3.0.304")
   implementation("com.moengage:inbox-core:2.1.1")
+  implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
 }
 
 apply plugin: 'com.google.gms.google-services'

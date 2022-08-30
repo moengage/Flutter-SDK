@@ -11,4 +11,21 @@ class SelfHandledCampaignData {
   Platforms platform;
 
   SelfHandledCampaignData(this.campaignData, this.accountMeta, this.campaign, this.platform);
+
+  String toString() {
+    return "{\n" +
+        "campaignData:" +
+        campaignData.toString() +
+        "\n" +
+        "accountMeta:" +
+        accountMeta.toString() +
+        "\n" +
+        "campaign:" +
+        campaign.toString() +
+        "\n" +
+        "platform:" +
+        platform.asString +
+        "\n" +
+        "}";
+  }
 }

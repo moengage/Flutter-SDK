@@ -22,11 +22,11 @@ public class MainActivity extends FlutterActivity {
     super.onConfigurationChanged(newConfig);
     Log.d("MainActivity", " : onConfigurationChanged() : " + newConfig.orientation);
     // Checks the orientation of the screen
-//    MoEFlutterHelper.getInstance().onConfigurationChanged();
+    MoEFlutterHelper.getInstance().onConfigurationChanged();
   }
 
   @Override public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
     super.configureFlutterEngine(flutterEngine);
-    GeneratedPluginRegistrant.registerWith(flutterEngine);
+//    GeneratedPluginRegistrant.registerWith(flutterEngine);
   }
 }
