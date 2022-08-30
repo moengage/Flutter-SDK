@@ -17,7 +17,6 @@ import 'package:moengage_flutter/utils.dart';
 import 'constants.dart';
 
 class CoreController {
-
   String _tag = "${TAG}CoreController";
   static late CoreController _instance = CoreController._internal();
   late MethodChannel channel = MethodChannel(channelName);
@@ -33,13 +32,12 @@ class CoreController {
 
   factory CoreController() => _instance;
 
-
   Future<dynamic> _handler(MethodCall call) async {
     print("$_tag _handler() : Received callback. Payload " + call.method);
     try {
       if (call.method == callbackPushTokenGenerated) {
         PushTokenData? data =
-        PushPayloadMapper().pushTokenFromJson(call.arguments);
+            PushPayloadMapper().pushTokenFromJson(call.arguments);
         if (data != null) {
           PushTokenCallbackHandler? handler = Cache().pushTokenCallbackHandler;
           if (handler != null) {
@@ -49,7 +47,7 @@ class CoreController {
       }
       if (call.method == callbackOnPushClick) {
         PushCampaignData? data =
-        PushPayloadMapper().pushCampaignFromJson(call.arguments);
+            PushPayloadMapper().pushCampaignFromJson(call.arguments);
         if (data != null) {
           PushClickCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
@@ -73,7 +71,7 @@ class CoreController {
       }
       if (call.method == callbackOnInAppShown) {
         InAppData? data =
-        InAppPayloadMapper().inAppDataFromJson(call.arguments);
+            InAppPayloadMapper().inAppDataFromJson(call.arguments);
         if (data != null) {
           InAppShownCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
@@ -85,7 +83,7 @@ class CoreController {
       }
       if (call.method == callbackOnInAppDismissed) {
         InAppData? data =
-        InAppPayloadMapper().inAppDataFromJson(call.arguments);
+            InAppPayloadMapper().inAppDataFromJson(call.arguments);
         if (data != null) {
           InAppDismissedCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
@@ -97,7 +95,7 @@ class CoreController {
       }
       if (call.method == callbackOnInAppSelfHandled) {
         SelfHandledCampaignData? data =
-        InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
+            InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
         print("$_tag _handler() : data: $data");
         if (data != null) {
           SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
@@ -109,13 +107,8 @@ class CoreController {
           }
         }
       }
-    } catch (exception) {
-      print("$_tag MoEngageFlutter _handler() : " +
-          call.toString() +
-          " has an Exception: " +
-          exception.toString());
+    } catch (e) {
+      print("$_tag Error: ${call.toString()} has an Exception: $e");
     }
   }
-
-
 }

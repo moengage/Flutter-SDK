@@ -11,11 +11,9 @@ class SelfHandledCampaign {
 
   String toString() {
     return "{\n" +
-        "campaignContent:" +
-        campaignContent +
+        "campaignContent: $campaignContent" +
         "\n" +
-        "dismissInterval:" +
-        dismissInterval.toString() +
+        "dismissInterval: $dismissInterval.toString()" +
         "\n" +
         "}";
   }

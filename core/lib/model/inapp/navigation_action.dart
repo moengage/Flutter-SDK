@@ -21,17 +21,13 @@ class NavigationAction extends Action {
 
   String toString() {
     return "{\n" +
-        "actionType:" +
-        actionType.toString() +
+        "actionType: ${actionType.toString()}" +
         "\n" +
-        "navigationType:" +
-        navigationType.toString() +
+        "navigationType: ${navigationType.toString()}" +
         "\n" +
-        "url:" +
-        url +
+        "url: $url" +
         "\n" +
-        "keyValuePairs:" +
-        keyValuePairs.toString() +
+        "keyValuePairs: ${keyValuePairs.toString()}" +
         "\n" +
         "}";
   }

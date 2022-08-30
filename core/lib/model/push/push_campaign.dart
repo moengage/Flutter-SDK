@@ -17,14 +17,11 @@ class PushCampaign {
 
   String toString() {
     return "{\n" +
-        "isDefaultAction:" +
-        isDefaultAction.toString() +
+        "isDefaultAction: ${isDefaultAction.toString()}" +
         "\n" +
-        "clickedAction:" +
-        clickedAction.toString() +
+        "clickedAction: ${clickedAction.toString()}" +
         "\n" +
-        "payload:" +
-        payload.toString() +
+        "payload: ${payload.toString()}" +
         "\n" +
         "}";
   }

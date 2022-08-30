@@ -10,11 +10,9 @@ class MoEGeoLocation {
 
   String toString() {
     return "{\n" +
-        "latitude:" +
-        latitude.toString() +
+        "latitude: ${latitude.toString()}" +
         "\n" +
-        "latitude:" +
-        longitude.toString() +
+        "latitude: ${longitude.toString()}" +
         "\n" +
         "}";
   }

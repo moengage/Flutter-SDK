@@ -9,14 +9,11 @@ class CampaignData {
 
   String toString() {
     return "{\n" +
-        "campaignId:" +
-        campaignId +
+        "campaignId: $campaignId" +
         "\n" +
-        "campaignId:" +
-        campaignId +
+        "campaignName: $campaignName" +
         "\n" +
-        "context:" +
-        context.toString() +
+        "context: ${context.toString()}" +
         "\n" +
         "}";
   }

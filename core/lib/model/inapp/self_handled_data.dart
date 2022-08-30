@@ -14,17 +14,13 @@ class SelfHandledCampaignData {
 
   String toString() {
     return "{\n" +
-        "campaignData:" +
-        campaignData.toString() +
+        "campaignData: ${campaignData.toString()}" +
         "\n" +
-        "accountMeta:" +
-        accountMeta.toString() +
+        "accountMeta: ${accountMeta.toString()}" +
         "\n" +
-        "campaign:" +
-        campaign.toString() +
+        "campaign: ${campaign.toString()}" +
         "\n" +
-        "platform:" +
-        platform.asString +
+        "platform: ${platform.asString}" +
         "\n" +
         "}";
   }

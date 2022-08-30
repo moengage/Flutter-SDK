@@ -9,8 +9,8 @@ import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/utils.dart';
 
 class PushPayloadMapper {
-
   String _tag = "${TAG}PushPayloadMapper";
+
   PushTokenData? pushTokenFromJson(dynamic methodCallArgs) {
     try {
       Map<String, dynamic> tokenData = json.decode(methodCallArgs);
@@ -26,7 +26,7 @@ class PushPayloadMapper {
 
   PushCampaignData? pushCampaignFromJson(dynamic methodCallArgs) {
     try {
-      print("$_tag Error: pushCampaignFromJson() : $methodCallArgs");
+      print("$_tag pushCampaignFromJson() : $methodCallArgs");
       Map<String, dynamic> pushCampaignPayload = json.decode(methodCallArgs);
       Map<String, dynamic> campaignData = pushCampaignPayload[keyData];
       return PushCampaignData(

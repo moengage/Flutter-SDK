@@ -10,20 +10,16 @@ class ClickData {
   Action action;
 
   ClickData(this.platform, this.accountMeta, this.campaignData, this.action);
-  
+
   String toString() {
     return "{\n" +
-        "platform:" +
-        platform.asString +
+        "platform: ${platform.asString}" +
         "\n" +
-        "accountMeta:" +
-        accountMeta.toString() +
+        "accountMeta: ${accountMeta.toString()}" +
         "\n" +
-        "campaignData:" +
-        campaignData.toString() +
+        "campaignData: ${campaignData.toString()}" +
         "\n" +
-        "action:" +
-        action.toString() +
+        "action: ${action.toString()}" +
         "\n" +
         "}";
   }

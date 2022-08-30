@@ -12,11 +12,11 @@ class InAppData {
   String toString() {
     return "{"
         "\n" +
-        "platform:" + platform.asString +
+        "platform: ${platform.asString}" +
         "\n" +
-        "accountMeta:" + accountMeta.toString() +
+        "accountMeta: ${accountMeta.toString()}" +
         "\n" +
-        "campaignData:" + campaignData.toString() +
+        "campaignData: ${campaignData.toString()}" +
         "\n" +
         "}";
   }

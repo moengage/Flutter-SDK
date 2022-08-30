@@ -5,7 +5,7 @@ class CustomAction extends Action {
   ///Key-Value Pair entered on the MoEngage Platform during campaign creation.
   Map<String, dynamic> keyValuePairs;
 
-  CustomAction(actionType, this.keyValuePairs): super(actionType);
+  CustomAction(actionType, this.keyValuePairs) : super(actionType);
 
   Map<String, dynamic> toMap() {
     return {
@@ -16,10 +16,10 @@ class CustomAction extends Action {
 
   String toString() {
     return "{\n" +
-        "actionType:" + actionType.toString() +
-        "\n"
-        "keyValuePairs:" + keyValuePairs.toString() +
-        "\n"
-        + "}";
+        "actionType: ${actionType.toString()}" +
+        "\n" +
+        "keyValuePairs: $keyValuePairs.toString()" +
+        "\n" +
+        "}";
   }
 }

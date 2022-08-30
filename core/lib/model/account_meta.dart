@@ -4,10 +4,6 @@ class AccountMeta {
   AccountMeta(this.appId);
 
   String toString() {
-    return "{\n" +
-        "appId:" +
-        appId +
-        "\n" +
-        "}";
+    return "{\n" + "appId: $appId" + "\n" + "}";
   }
 }

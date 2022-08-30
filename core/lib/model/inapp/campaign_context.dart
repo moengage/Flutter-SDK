@@ -6,11 +6,9 @@ class CampaignContext {
 
   String toString() {
     return "{\n" +
-        "formattedCampaignId:" +
-        formattedCampaignId +
+        "formattedCampaignId: $formattedCampaignId" +
         "\n" +
-        "attributes:" +
-        attributes.toString() +
+        "attributes: ${ attributes.toString()}" +
         "\n" +
         "}";
   }

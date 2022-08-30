@@ -70,12 +70,11 @@ class InAppPayloadMapper {
       case _actionCustomAction:
         return customActionFromMap(actionData[keyCustomAction]);
       default:
-        throw Exception("Not a valid action");
+        throw Exception("${actionData[keyActionType]} is not a valid action");
     }
   }
 
   NavigationAction navigationActionFromMap(Map<String, dynamic> actionData) {
-    print("navigationActionFromMap() : ${actionData.toString()}");
     return NavigationAction(
         ActionType.navigation,
         NavigationTypeExtension.fromString(actionData[keyNavigationType]),
@@ -84,7 +83,6 @@ class InAppPayloadMapper {
   }
 
   CustomAction customActionFromMap(Map<String, dynamic> actionData) {
-    print("customActionFromMap() : ${actionData.toString()}");
     return CustomAction(ActionType.custom, actionData[keyKvPair]);
   }
 
@@ -109,8 +107,7 @@ class InAppPayloadMapper {
   }
 
   Map<String, dynamic> selfHandleCampaignDataToMap(
-      SelfHandledCampaignData campaignData,
-      String actionType) {
+      SelfHandledCampaignData campaignData, String actionType) {
     Map<String, dynamic> payload = accountMetaToMap(campaignData.accountMeta);
     payload[keyData] = {
       keyType: actionType,
@@ -127,8 +124,8 @@ class InAppPayloadMapper {
   Map<String, dynamic> selfHandleCampaignToMap(
       SelfHandledCampaign selfHandledCampaign) {
     return {
-        keyPayload: selfHandledCampaign.campaignContent,
-        keyDismissInterval: selfHandledCampaign.dismissInterval
+      keyPayload: selfHandledCampaign.campaignContent,
+      keyDismissInterval: selfHandledCampaign.dismissInterval
     };
   }
 }

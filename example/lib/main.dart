@@ -346,8 +346,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-//                    _moengagePlugin.passPushKitPushToken(
-//                        "IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
+                   _moengagePlugin.passPushKitPushToken(
+                       "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
