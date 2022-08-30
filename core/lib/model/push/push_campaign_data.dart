@@ -8,4 +8,16 @@ class PushCampaignData {
   PushCampaign pushCampaign;
 
   PushCampaignData(this.platform, this.accountMeta, this.pushCampaign);
+
+  @override
+  String toString() {
+    return "{\n" +
+        "platform: ${platform.asString}" +
+        "\n" +
+        "accountMeta: ${accountMeta.toString()}" +
+        "\n" +
+        "pushCampaign: ${pushCampaign.toString()}" +
+        "\n" +
+        "}";
+  }
 }

@@ -121,7 +121,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             Logger.print { "$tag emitPushTokenEvent() : tokenEvent: $tokenEvent" }
             val eventType = eventMap[tokenEvent.eventType] ?: return
             val payload = tokenEventToJson(tokenEvent)
-            //payload.put(MoEConstants.KEY_TYPE, eventType);
             emit(eventType, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitPushTokenEvent() : " }
