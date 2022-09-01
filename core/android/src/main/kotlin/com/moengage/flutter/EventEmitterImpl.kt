@@ -70,7 +70,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 .eventType} , ${inAppActionEvent.clickData}" }
             val eventType = eventMap[inAppActionEvent.eventType] ?: return
             val campaign: JSONObject = clickDataToJson(inAppActionEvent.clickData)
-            campaign.put(KEY_TYPE, eventType)
             emit(eventType, campaign)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitInAppActionEvent() : " }
@@ -82,7 +81,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             Logger.print { "$tag emitInAppLifeCycleEvent() : inAppLifecycleEvent: $inAppLifecycleEvent" }
             val eventType = eventMap[inAppLifecycleEvent.eventType] ?: return
             val campaign = inAppDataToJson(inAppLifecycleEvent.inAppData)
-            campaign.put(KEY_TYPE, eventType)
             emit(eventType, campaign)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitInAppLifeCycleEvent() : " }
@@ -97,7 +95,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 ?: return
             val campaign: JSONObject =
                 selfHandledDataToJson(inAppSelfHandledEvent.data)
-            campaign.put(KEY_TYPE, eventType)
             emit(eventType, campaign)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitInAppSelfHandledEvent() : " }
@@ -109,7 +106,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             Logger.print { "$tag emitPushEvent() : pushEvent: $pushEvent" }
             val eventType = eventMap[pushEvent.eventType] ?: return
             val payload = pushPayloadToJson(pushEvent.payload)
-            payload.put(KEY_TYPE, eventType)
             emit(eventType, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitPushEvent() : " }
