@@ -7,7 +7,7 @@
 //
 
 import UserNotifications
-import MORichNotification
+import MoEngageRichNotification
 
 class NotificationService: UNNotificationServiceExtension {
 
@@ -18,7 +18,7 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         MORichNotification.setAppGroupID("group.com.alphadevs.MoEngage.NotificationServices")
-        MORichNotification.handle(request, withContentHandler: contentHandler)
+        MORichNotification.handle(richNotificationRequest: request, withContentHandler: contentHandler)
     }
     
     override func serviceExtensionTimeWillExpire() {

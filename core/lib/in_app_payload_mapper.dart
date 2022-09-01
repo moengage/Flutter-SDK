@@ -124,7 +124,7 @@ class InAppPayloadMapper {
   Map<String, dynamic> selfHandleCampaignToMap(
       SelfHandledCampaign selfHandledCampaign) {
     return {
-      keyPayload: selfHandledCampaign.campaignContent,
+      keyPayload: selfHandledCampaign.payload,
       keyDismissInterval: selfHandledCampaign.dismissInterval
     };
   }

@@ -16,6 +16,8 @@ dependencies:
 
   moengage_flutter:
     path: ../core/
+  moengage_geofence:
+    path: ../geofence/
 dev_dependencies:
   flutter_test:
     sdk: flutter

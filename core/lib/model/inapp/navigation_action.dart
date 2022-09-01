@@ -9,14 +9,14 @@ class NavigationAction extends Action {
   NavigationType navigationType;
 
   /// Deeplink Url or the Screen Name used for the action.
-  String url;
+  String navigationUrl;
 
   /// [Map] of Key-Value pairs entered on the MoEngage Platform for
   /// navigation action of the campaign.
   Map<String, dynamic> keyValuePairs;
 
-  NavigationAction(
-      ActionType actionType, this.navigationType, this.url, this.keyValuePairs)
+  NavigationAction(ActionType actionType, this.navigationType,
+      this.navigationUrl, this.keyValuePairs)
       : super(actionType);
 
   String toString() {
@@ -25,7 +25,7 @@ class NavigationAction extends Action {
         "\n" +
         "navigationType: ${navigationType.toString()}" +
         "\n" +
-        "url: $url" +
+        "navigationUrl: $navigationUrl" +
         "\n" +
         "keyValuePairs: ${keyValuePairs.toString()}" +
         "\n" +

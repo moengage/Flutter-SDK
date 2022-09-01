@@ -10,6 +10,7 @@ import Foundation
 struct MOFlutterConstants{
     
     static let kPluginChannelName               = "com.moengage/core"
+    static let kPluginName                      = "flutter"
     
     struct MethodNames {
         static let kInitializeFlutter           = "initialise"

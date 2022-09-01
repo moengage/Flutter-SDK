@@ -5,9 +5,9 @@ import 'package:moengage_flutter/model/push/push_campaign.dart';
 class PushCampaignData {
   Platforms platform;
   AccountMeta accountMeta;
-  PushCampaign pushCampaign;
+  PushCampaign data;
 
-  PushCampaignData(this.platform, this.accountMeta, this.pushCampaign);
+  PushCampaignData(this.platform, this.accountMeta, this.data);
 
   @override
   String toString() {
@@ -16,7 +16,7 @@ class PushCampaignData {
         "\n" +
         "accountMeta: ${accountMeta.toString()}" +
         "\n" +
-        "pushCampaign: ${pushCampaign.toString()}" +
+        "data: ${data.toString()}" +
         "\n" +
         "}";
   }
