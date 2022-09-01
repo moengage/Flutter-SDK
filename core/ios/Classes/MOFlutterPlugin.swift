@@ -13,98 +13,92 @@ public class MOFlutterPlugin: NSObject, FlutterPlugin {
     }
     
     // MARK:- Handle Invocation
-    
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case MOFlutterConstants.MethodNames.kInitializeFlutter:
-            pluginInitialized()
         case MOFlutterConstants.MethodNames.kRegisterForPush:
-            MoEPluginBridge.sharedInstance()?.registerForPush()
-        case MOFlutterConstants.MethodNames.kShowInApp:
-            MoEPluginBridge.sharedInstance()?.showInApp()
-        case MOFlutterConstants.MethodNames.kGetSelfHandledInApp:
-            MoEPluginBridge.sharedInstance()?.getSelfHandledInApp()
-        case MOFlutterConstants.MethodNames.kInvalidateAppContext:
-            MoEPluginBridge.sharedInstance()?.invalidateInAppContexts()
-        case MOFlutterConstants.MethodNames.kStartGeofence:
-            MoEPluginBridge.sharedInstance()?.startGeofenceMonitoring()
-        case MOFlutterConstants.MethodNames.kEnableLogs:
-            MoEPluginBridge.sharedInstance()?.enableLogs()
-        case MOFlutterConstants.MethodNames.kResetUser:
-            MoEPluginBridge.sharedInstance()?.resetUser()
+            MoEPluginBridge.sharedInstance.registerForPush()
+        
         default:
-            handleBridgeMethodWithPayload(forMethodCall: call)
+            handleWithPayload(call: call)
         }
     }
     
-    private func pluginInitialized(){
-        MoEPluginBridge.sharedInstance()?.bridgeDelegate = self
-        MoEPluginBridge.sharedInstance()?.pluginInitialized()
-    }
-    
-    private func handleBridgeMethodWithPayload(forMethodCall call: FlutterMethodCall){
-        if let payload = call.arguments as? [String: Any]{
-            switch call.method {
-            case MOFlutterConstants.MethodNames.kSetAppStatus:
-                MoEPluginBridge.sharedInstance()?.setAppStatus(payload)
-            case MOFlutterConstants.MethodNames.kTrackEvent:
-                MoEPluginBridge.sharedInstance()?.trackEvent(withPayload: payload)
-            case MOFlutterConstants.MethodNames.kSetUserAttribute:
-                MoEPluginBridge.sharedInstance()?.setUserAttributeWithPayload(payload)
-            case MOFlutterConstants.MethodNames.kSetAlias:
-                MoEPluginBridge.sharedInstance()?.setAlias(payload)
-            case MOFlutterConstants.MethodNames.kUpdateSelfHandledInAppState:
-                MoEPluginBridge.sharedInstance()?.updateSelfHandledInAppStatus(withPayload: payload)
-            case MOFlutterConstants.MethodNames.kSetAppContext:
-                MoEPluginBridge.sharedInstance()?.setInAppContexts(payload)
-            case MOFlutterConstants.MethodNames.kOptOutTracking:
-                MoEPluginBridge.sharedInstance()?.optOutTracking(payload)
-            case MOFlutterConstants.MethodNames.kUpdateSDKState:
-                MoEPluginBridge.sharedInstance()?.updateSDKState(payload)
-            default:
-                print("Invalid invocation: \(call.method)")
-            }
+    private func handleWithPayload(call: FlutterMethodCall) {
+        guard let payload = call.arguments as? [String: Any] else { return }
+        switch call.method {
+        case MOFlutterConstants.MethodNames.kInitializeFlutter:
+            pluginInitialized(payload: payload)
+            
+        case MOFlutterConstants.MethodNames.kShowInApp:
+            MoEPluginBridge.sharedInstance.showInApp(payload)
+        case MOFlutterConstants.MethodNames.kGetSelfHandledInApp:
+            MoEPluginBridge.sharedInstance.getSelfHandledInApp(payload)
+        case MOFlutterConstants.MethodNames.kUpdateSelfHandledInAppState:
+            MoEPluginBridge.sharedInstance.updateSelfHandledImpression(payload)
+        case MOFlutterConstants.MethodNames.kSetAppContext:
+            MoEPluginBridge.sharedInstance.setInAppContext(payload)
+        case MOFlutterConstants.MethodNames.kInvalidateAppContext:
+            MoEPluginBridge.sharedInstance.resetInAppContext(payload)
+
+
+        case MOFlutterConstants.MethodNames.kSetAppStatus:
+            MoEPluginBridge.sharedInstance.setAppStatus(payload)
+        case MOFlutterConstants.MethodNames.kOptOutTracking:
+            MoEPluginBridge.sharedInstance.optOutDataTracking(payload)
+        case MOFlutterConstants.MethodNames.kUpdateSDKState:
+            MoEPluginBridge.sharedInstance.updateSDKState(payload)
+        case MOFlutterConstants.MethodNames.kTrackEvent:
+            MoEPluginBridge.sharedInstance.trackEvent(payload)
+        case MOFlutterConstants.MethodNames.kSetUserAttribute:
+            MoEPluginBridge.sharedInstance.setUserAttribute(payload)
+        case MOFlutterConstants.MethodNames.kSetAlias:
+            MoEPluginBridge.sharedInstance.setAlias(payload)
+        case MOFlutterConstants.MethodNames.kResetUser:
+            MoEPluginBridge.sharedInstance.resetUser(payload)
+            
+        default:
+            print("Invalid invocation: \(call.method)")
         }
-        else{
-            print("Payload not present for method: \(call.method)")
-        }
     }
-    
+    private func pluginInitialized(payload: [String: Any]){
+        MoEPluginBridge.sharedInstance.setPluginBridgeDelegate(self, payload: payload)
+        MoEPluginBridge.sharedInstance.pluginInitialized(payload)
+    }
 }
 
 
 extension MOFlutterPlugin: MoEPluginBridgeDelegate{
-    
-    // MARK: MoEPluginBridgeDelegate Method
-    public func sendMessage(withName name: String!, andPayload payloadDict: [AnyHashable : Any]!) {
-        if let callbackName = getCallbackName(forEventName: name){
-            if let payloadToSend = payloadDict["payload"] as? [AnyHashable : Any]{
-                let jsonData = try! JSONSerialization.data(withJSONObject: payloadToSend)
+    public func sendMessage(event: String, message: [String : Any]) {
+        if let callbackName = getCallbackName(forEventName: event) {
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: message)
                 if let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue){
                     MOFlutterPlugin.sendCallback(callbackName, withInfo: jsonString)
                     return
                 }
+                MOFlutterPlugin.sendCallback(callbackName, withInfo: "{}")
+            } catch let error {
+                print(error.localizedDescription)
             }
-            MOFlutterPlugin.sendCallback(callbackName, withInfo: "{}")
         }
     }
     
     // MARK: Utils
-    func getCallbackName(forEventName name: String) -> String?{
+    func getCallbackName(forEventName name: String) -> String? {
         switch name {
-        case kEventNamePushTokenGenerated:
+        case MoEPluginConstants.CallBackEvents.pushTokenGenerated:
             return MOFlutterConstants.CallbackNames.kPushTokenGenerated
-        case kEventNamePushClicked:
+        case MoEPluginConstants.CallBackEvents.pushClicked:
             return MOFlutterConstants.CallbackNames.kPushClicked
-        case kEventNameInAppCampaignShown:
+        case MoEPluginConstants.CallBackEvents.inAppShown:
             return MOFlutterConstants.CallbackNames.kInAppShown
-        case kEventNameInAppCampaignClicked:
+        case MoEPluginConstants.CallBackEvents.inAppClicked:
             return MOFlutterConstants.CallbackNames.kInAppClicked
-        case kEventNameInAppCampaignCustomAction:
+        case MoEPluginConstants.CallBackEvents.inAppCustomAction:
             return MOFlutterConstants.CallbackNames.kInAppClickedCustomAction
-        case kEventNameInAppCampaignDismissed:
+        case MoEPluginConstants.CallBackEvents.inAppDismissed:
             return MOFlutterConstants.CallbackNames.kInAppDismissed
-        case kEventNameInAppSelfHandledCampaign:
+        case MoEPluginConstants.CallBackEvents.inAppSelfHandled:
             return MOFlutterConstants.CallbackNames.kInAppSelfHandled
         default:
             return nil
@@ -112,7 +106,7 @@ extension MOFlutterPlugin: MoEPluginBridgeDelegate{
     }
     
     // MARK: Send Callback to Flutter
-    internal static func sendCallback(_ callbackName: String, withInfo info: NSString){
+    internal static func sendCallback(_ callbackName: String, withInfo info: NSString) {
         DispatchQueue.main.async {
             channel?.invokeMethod(callbackName, arguments: info)
         }

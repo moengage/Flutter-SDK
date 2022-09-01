@@ -6,26 +6,24 @@
 //
 
 import Foundation
-import MoEngage
 import UserNotifications
 import MoEPluginBase
+import MoEngageSDK
 
 @objc public class MOFlutterInitializer : NSObject {
     
     @objc static public let sharedInstance = MOFlutterInitializer()
     private override init() {super.init()}
-    
-    @objc public func initializeWithSDKConfig(_ config: MOSDKConfig, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-        self.initializeWithSDKConfig(config, withSDKState: MoEngageCore.sharedInstance().isSDKEnabled(), andLaunchOptions: launchOptions)
+
+    @objc public func initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        let plugin = MoEPlugin()
+        plugin.initializeDefaultInstance(sdkConfig: config, sdkState: sdkState, launchOptions: launchOptions)
+        plugin.trackPluginInfo(MOFlutterConstants.kPluginName, version: MOFlutterPluginInfo.kVersion)
     }
     
-    @objc public func initializeWithSDKConfig(_ config: MOSDKConfig, withSDKState state:Bool, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-        // Track Integration type and version
-        config.pluginIntegrationType = FLUTTER
-        config.pluginIntegrationVersion = MOFlutterPluginInfo.kVersion
-        
-        // Initialize SDK
-        MoEPluginInitializer.sharedInstance().intializeSDK(with: config, withSDKState: state, andLaunchOptions: launchOptions ?? [:])
+    @objc public func initializeDefaultInstance(_ config: MOSDKConfig, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+        let plugin = MoEPlugin()
+        plugin.initializeDefaultInstance(sdkConfig: config, launchOptions: launchOptions)
+        plugin.trackPluginInfo(MOFlutterConstants.kPluginName, version: MOFlutterPluginInfo.kVersion)
     }
-    
 }

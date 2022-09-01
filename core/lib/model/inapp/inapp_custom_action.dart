@@ -18,7 +18,7 @@ class CustomAction extends Action {
     return "{\n" +
         "actionType: ${actionType.toString()}" +
         "\n" +
-        "keyValuePairs: $keyValuePairs.toString()" +
+        "keyValuePairs: ${keyValuePairs.toString()}" +
         "\n" +
         "}";
   }

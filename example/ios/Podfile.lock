@@ -1,55 +1,89 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (7.1.0):
-    - MORichNotification (< 5.2.0, >= 5.1.0)
-  - moengage_flutter (4.0.2):
+  - MoEngage-iOS-SDK (8.3.0)
+  - moengage_flutter (4.1.0):
     - Flutter
-    - MoEPluginBase (~> 2.1.0)
-  - moengage_inbox (3.0.0):
+    - MoEPluginBase (~> 3.0.0)
+  - moengage_geofence (1.0.0):
     - Flutter
-    - MoEPluginBase (~> 2.1.0)
-  - MoEngageInApp (2.1.0):
-    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
-  - MoEPluginBase (2.1.0):
-    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
-    - MoEngageInApp (< 2.2.0, >= 2.1.0)
-  - MOGeofence (3.1.0):
-    - MoEngage-iOS-SDK (< 7.2.0, >= 7.1.0)
-  - MORichNotification (5.1.0)
+    - MoEPluginGeofence (~> 1.0.0)
+  - MoEngageGeofence (4.3.0):
+    - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
+  - MoEngageInApp (3.3.0):
+    - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
+  - MoEngageInbox (1.3.0):
+    - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
+    - MoEngageRichNotification (< 6.4.0, >= 6.3.0)
+  - MoEngageRichNotification (6.3.1):
+    - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
+  - MoEPluginBase (3.0.0):
+    - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
+    - MoEngageInApp (< 3.4.0, >= 3.3.0)
+  - MoEPluginGeofence (1.0.0):
+    - MoEngageGeofence (< 4.4.0, >= 4.3.0)
+    - MoEPluginBase (< 3.1.0, >= 3.0.0)
+  - MoEPluginInbox (1.0.0):
+    - MoEngageInbox (< 1.4.0, >= 1.3.0)
+    - MoEPluginBase (< 3.1.0, >= 3.0.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
-  - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
-  - MOGeofence (~> 3.1.0)
-  - MORichNotification
+  - moengage_geofence (from `.symlinks/plugins/moengage_geofence/ios`)
+  - MoEngageRichNotification
+  - MoEPluginBase (from `https://github.com/moengage/MoEngage-iOS-Pods.git`, branch `pluginBase`)
+  - MoEPluginGeofence (from `https://github.com/moengage/MoEngage-iOS-Pods.git`, branch `pluginBase`)
+  - MoEPluginInbox (from `https://github.com/moengage/MoEngage-iOS-Pods.git`, branch `pluginBase`)
 
 SPEC REPOS:
-  https://cdn.cocoapods.org/:
+  trunk:
     - MoEngage-iOS-SDK
+    - MoEngageGeofence
     - MoEngageInApp
-    - MoEPluginBase
-    - MOGeofence
-    - MORichNotification
+    - MoEngageInbox
+    - MoEngageRichNotification
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   moengage_flutter:
     :path: ".symlinks/plugins/moengage_flutter/ios"
-  moengage_inbox:
-    :path: ".symlinks/plugins/moengage_inbox/ios"
+  moengage_geofence:
+    :path: ".symlinks/plugins/moengage_geofence/ios"
+  MoEPluginBase:
+    :branch: pluginBase
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
+  MoEPluginGeofence:
+    :branch: pluginBase
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
+  MoEPluginInbox:
+    :branch: pluginBase
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
+
+CHECKOUT OPTIONS:
+  MoEPluginBase:
+    :commit: 3ac271a4be7d875a27956dbea9ab3d8cdc9c7a48
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
+  MoEPluginGeofence:
+    :commit: 3ac271a4be7d875a27956dbea9ab3d8cdc9c7a48
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
+  MoEPluginInbox:
+    :commit: 3ac271a4be7d875a27956dbea9ab3d8cdc9c7a48
+    :git: https://github.com/moengage/MoEngage-iOS-Pods.git
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  MoEngage-iOS-SDK: f96c05b33bdf39b83b8fcd61d93ed9e90ef70c04
-  moengage_flutter: 90fc827eae2376ae08fe5b1230d39088b40893b4
-  moengage_inbox: 57d3c55346314dff75a28824623d8449b741bd10
-  MoEngageInApp: 0713efdeb1123bac134db942f5588745c8c78c0c
-  MoEPluginBase: e6bbb816b6292d4f248b5a4d6ecd9e6b593668d6
-  MOGeofence: 63ac8906b7cdba22bc60747cbc85a2db89e161af
-  MORichNotification: bc588aa1b09b37d9b3a6031c9a05a510f014464d
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  MoEngage-iOS-SDK: 5f11b1e47d34243f90fe322611dee0d89960ad18
+  moengage_flutter: bfe8e2d4f5bf7a56b0fbb5cf7f5a35bd444f5403
+  moengage_geofence: 6b05939fc00fe79db605265a2a9c1e25bc2f22d7
+  MoEngageGeofence: 813cba233d6272e46405da7564215cbc667249f1
+  MoEngageInApp: 77d7166cfc04ec6ceb3878794e78d2316645f718
+  MoEngageInbox: cba4be6581ff2a3357fa3b4ef7322ee9acb192d6
+  MoEngageRichNotification: b8fa7d97b77f029ec0a56878973efcb09290d37d
+  MoEPluginBase: 44794d43a218f67b7a40008013a993ca62ca0e97
+  MoEPluginGeofence: cf01f25b2591ed295dff586bd9a516a33e890819
+  MoEPluginInbox: 4f6f5ff38bb1d258affc7e44f2e9e2d944abd0f4
 
-PODFILE CHECKSUM: 91bf7bf92287d6f3f3deff9bd2132fa17f0bf9eb
+PODFILE CHECKSUM: 27acd8a6c61820afd349bb7bb7fc3051bc8aed02
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.3
