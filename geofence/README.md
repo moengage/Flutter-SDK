@@ -1,15 +1,20 @@
-# moengage_geofence
+# MoEngage Geofence Plugin
 
-A new Flutter plugin project.
+Geofence Plugin for MoEngage Platform
 
-## Getting Started
+## SDK Installation
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+To add the MoEngage Geofence SDK to your application, edit your application's `pubspec.yaml` file and add the below dependency to it:
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Download](https://img.shields.io/pub/v/moengage_geofence.svg)
 
+```yaml
+dependencies:
+ moengage_geofence: $latestSdkVersion
+```
+replace `$latestSdkVersion` with the latest SDK version.
+
+Run flutter packages get to install the SDK.
+ 
+ Note: This plugin is dependent on `moengage_flutter` plugin. Make sure you have installed the `moengage_flutter
+ ` make sure you have installed the `moengage_flutter` plugin as well.

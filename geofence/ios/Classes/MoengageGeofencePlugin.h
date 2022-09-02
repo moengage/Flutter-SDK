@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface MoengageGeofencePlugin : NSObject<FlutterPlugin>
+@interface MoEngageGeofencePlugin : NSObject<FlutterPlugin>
 @end

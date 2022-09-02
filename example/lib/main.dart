@@ -10,6 +10,7 @@ import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
+import 'package:moengage_geofence/moe_geofence.dart';
 // import 'package:moengage_inbox/inbox_data.dart';
 // import 'package:moengage_inbox/inbox_message.dart';
 // import 'package:moengage_inbox/moengage_inbox.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final MoEngageFlutter _moengagePlugin = MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+  final MoEngageFlutter _moengagePlugin =
+      MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+  final MoEngageGeofence _moEngageGeofence =
+      MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
   // final MoEngageInbox _moEngageInbox = MoEngageInbox();
 
   void _onPushClick(PushCampaignData message) {
@@ -311,7 +315,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                   title: Text("iOS -- Start Geofence"),
                   onTap: () {
-                    _moengagePlugin.startGeofenceMonitoring();
+                    _moEngageGeofence.startGeofenceMonitoring();
                   }),
               new ListTile(
                   title: Text("Show InApp"),

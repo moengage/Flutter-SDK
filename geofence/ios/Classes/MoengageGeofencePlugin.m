@@ -8,8 +8,8 @@
 #import "moengage_geofence-Swift.h"
 #endif
 
-@implementation MoengageGeofencePlugin
+@implementation MoEngageGeofencePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftMoengageGeofencePlugin registerWithRegistrar:registrar];
+  [MoEFlutterGeofence registerWithRegistrar:registrar];
 }
 @end

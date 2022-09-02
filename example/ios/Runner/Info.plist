@@ -35,6 +35,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Need Location permission to monitor Geofence</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need Location permission to monitor Geofence</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
