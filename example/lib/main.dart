@@ -11,9 +11,9 @@ import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
-// import 'package:moengage_inbox/inbox_data.dart';
-// import 'package:moengage_inbox/inbox_message.dart';
-// import 'package:moengage_inbox/moengage_inbox.dart';
+import 'package:moengage_inbox/inbox_data.dart';
+import 'package:moengage_inbox/inbox_message.dart';
+import 'package:moengage_inbox/moengage_inbox.dart';
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
@@ -28,7 +28,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
   final MoEngageGeofence _moEngageGeofence =
       MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
-  // final MoEngageInbox _moEngageInbox = MoEngageInbox();
+  final MoEngageInbox _moEngageInbox =
+      MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
 
   void _onPushClick(PushCampaignData message) {
     print(
@@ -385,28 +386,28 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _moengagePlugin.logout();
                 },
               ),
-              // new ListTile(
-              //   title: Text("Un Clicked Count"),
-              //   onTap: () async {
-              //     int count = await _moEngageInbox.getUnClickedCount();
-              //     print("Un-clicked Count " + count.toString());
-              //   },
-              // ),
-              // new ListTile(
-              //   title: Text("Get all messages"),
-              //   onTap: () async {
-              //     InboxData? data = await _moEngageInbox.fetchAllMessages();
-              //     if (data != null && data.messages.length > 0) {
-              //       InboxMessage message = data.messages[0];
-              //       _moEngageInbox.trackMessageClicked(message);
-              //       _moEngageInbox.deleteMessage(message);
-              //
-              //       for (final message in data.messages) {
-              //         print(message.toString());
-              //       }
-              //     }
-              //   },
-              // ),
+              new ListTile(
+                title: Text("Un Clicked Count"),
+                onTap: () async {
+                  int count = await _moEngageInbox.getUnClickedCount();
+                  print("Un-clicked Count " + count.toString());
+                },
+              ),
+              new ListTile(
+                title: Text("Get all messages"),
+                onTap: () async {
+                  InboxData? data = await _moEngageInbox.fetchAllMessages();
+                  if (data != null && data.messages.length > 0) {
+                    InboxMessage message = data.messages[0];
+                    _moEngageInbox.trackMessageClicked(message);
+                    _moEngageInbox.deleteMessage(message);
+
+                    for (final message in data.messages) {
+                      print(message.toString());
+                    }
+                  }
+                },
+              ),
               new ListTile(
                 title: Text("Enable Sdk"),
                 onTap: () async {

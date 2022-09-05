@@ -13,27 +13,23 @@ class MoEAndroidInbox {
 
   MoEAndroidInbox(this._channel);
 
-  Future<int> getUnClickedCount() async {
-    int count = await _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT);
-    return count;
+  Future<int> getUnClickedCount(Map<String, dynamic> payload) async {
+    String unClickedCountPayload =
+        await _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT, payload);
+    return fetchUnclickedCount(unClickedCountPayload);
   }
 
-  void trackMessageClicked(InboxMessage message) {
-    _channel.invokeMethod(METHOD_NAME_TRACK_CLICKED, _getInboxPayload(message));
+  void trackMessageClicked(Map<String, dynamic> payload) {
+    _channel.invokeMethod(METHOD_NAME_TRACK_CLICKED, payload);
   }
 
-  void deleteMessage(InboxMessage message) {
-    _channel.invokeMethod(
-        METHOD_NAME_DELETE_MESSAGE, _getInboxPayload(message));
+  void deleteMessage(Map<String, dynamic> payload) {
+    _channel.invokeMethod(METHOD_NAME_DELETE_MESSAGE, payload);
   }
 
-  Future<InboxData> fetchAllMessages() async {
+  Future<InboxData?> fetchAllMessages(Map<String, dynamic> payload) async {
     String serialisedMessages =
-        await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES);
+        await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
     return deSerializeInboxMessages(serialisedMessages);
-  }
-
-  String _getInboxPayload(InboxMessage message) {
-    return json.encode(messageToMap(message));
   }
 }

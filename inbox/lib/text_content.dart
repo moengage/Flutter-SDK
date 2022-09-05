@@ -16,4 +16,8 @@ class TextContent {
   String subtitle;
 
   TextContent(this.title, this.message, this.summary, this.subtitle);
+
+  String toString() {
+    return "title: $title, message: $message,  summary: $summary, subtitle: $subtitle";
+  }
 }

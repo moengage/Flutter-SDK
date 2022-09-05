@@ -11,32 +11,37 @@ public class SwiftMoEngageInboxPlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let payload = call.arguments as? [String: Any]
-        else{
-            print("Payload missing for the call \(call.method)")
-            return
-        }
+        guard let payload = call.arguments as? [String: Any] else{ return }
         
         switch call.method {
         case MOFlutterInboxConstants.MethodNames.kFetchMessages:
             MoEInboxBridge.sharedInstance.getInboxMessages(payload) { messagesPayload in
                 DispatchQueue.main.async {
-                    result(messagesPayload)
-                    return
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: messagesPayload),
+                     let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
+                        result(jsonString)
+                        return
+                    }
                 }
             }
+            
         case MOFlutterInboxConstants.MethodNames.kGetUnclickedCount:
             MoEInboxBridge.sharedInstance.getUnreadMessageCount(payload) { unreadCountPayload in
                 DispatchQueue.main.async {
-                    result(unreadCountPayload)
-                    return
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: unreadCountPayload),
+                    let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
+                        result(jsonString)
+                        return
+                    }
                 }
             }
             
         case MOFlutterInboxConstants.MethodNames.kTrackMessageClicked:
             MoEInboxBridge.sharedInstance.trackInboxClick(payload)
+            
         case MOFlutterInboxConstants.MethodNames.kDeleteMessage:
             MoEInboxBridge.sharedInstance.deleteInboxEntry(payload)
+            
         default:
             print("Invalid invocation: \(call.method)")
         }

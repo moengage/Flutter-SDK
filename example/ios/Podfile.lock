@@ -7,6 +7,9 @@ PODS:
   - moengage_geofence (1.0.0):
     - Flutter
     - MoEPluginGeofence (~> 1.0.0)
+  - moengage_inbox (3.1.0):
+    - Flutter
+    - MoEPluginInbox (~> 1.0.0)
   - MoEngageGeofence (4.3.0):
     - MoEngage-iOS-SDK (< 8.4.0, >= 8.3.0)
   - MoEngageInApp (3.3.0):
@@ -30,6 +33,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
   - moengage_geofence (from `.symlinks/plugins/moengage_geofence/ios`)
+  - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
   - MoEngageRichNotification
   - MoEPluginBase (from `https://github.com/moengage/MoEngage-iOS-Pods.git`, branch `pluginBase`)
   - MoEPluginGeofence (from `https://github.com/moengage/MoEngage-iOS-Pods.git`, branch `pluginBase`)
@@ -50,6 +54,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/moengage_flutter/ios"
   moengage_geofence:
     :path: ".symlinks/plugins/moengage_geofence/ios"
+  moengage_inbox:
+    :path: ".symlinks/plugins/moengage_inbox/ios"
   MoEPluginBase:
     :branch: pluginBase
     :git: https://github.com/moengage/MoEngage-iOS-Pods.git
@@ -76,6 +82,7 @@ SPEC CHECKSUMS:
   MoEngage-iOS-SDK: 5f11b1e47d34243f90fe322611dee0d89960ad18
   moengage_flutter: bfe8e2d4f5bf7a56b0fbb5cf7f5a35bd444f5403
   moengage_geofence: 6b05939fc00fe79db605265a2a9c1e25bc2f22d7
+  moengage_inbox: 2e4d22600615b3759498744e5d41bc77ad944cf3
   MoEngageGeofence: 813cba233d6272e46405da7564215cbc667249f1
   MoEngageInApp: 77d7166cfc04ec6ceb3878794e78d2316645f718
   MoEngageInbox: cba4be6581ff2a3357fa3b4ef7322ee9acb192d6

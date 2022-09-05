@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
 
 import 'package:moengage_inbox/action.dart';
 import 'package:moengage_inbox/action_type.dart';
@@ -9,6 +11,21 @@ import 'package:moengage_inbox/media_type.dart';
 import 'package:moengage_inbox/navigation_action.dart';
 import 'package:moengage_inbox/navigation_type.dart';
 import 'package:moengage_inbox/text_content.dart';
+import 'package:moengage_inbox/constants.dart';
+
+// Unclicked Count
+int fetchUnclickedCount(dynamic unClickedPayload) {
+  Map<String, dynamic> payload = json.decode(unClickedPayload);
+  Map<String, dynamic> dataPayload = payload[DATA];
+  if (dataPayload.isNotEmpty) {
+    int unclickedCount = dataPayload.containsKey(UNCLICKED_COUNT)
+        ? dataPayload[UNCLICKED_COUNT]
+        : 0;
+    return unclickedCount;
+  }
+
+  return 0;
+}
 
 Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
   Map<String, dynamic> message = {
@@ -28,9 +45,16 @@ Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
   return message;
 }
 
-InboxData deSerializeInboxMessages(dynamic messagesPayload) {
-  Map<String, dynamic> message = json.decode(messagesPayload);
-  return InboxData(message[PLATFORM], messagesJsonToList(message[MESSAGES]));
+InboxData? deSerializeInboxMessages(dynamic messagesPayload) {
+  try {
+    Map<String, dynamic> message = json.decode(messagesPayload);
+    Map<String, dynamic> dataPayload = message[DATA];
+    return InboxData(
+        dataPayload[PLATFORM], messagesJsonToList(dataPayload[MESSAGES]));
+  } catch (e) {
+    print(e);
+  }
+  return null;
 }
 
 List<InboxMessage> messagesJsonToList(List<dynamic> messageArray) {
@@ -156,31 +180,3 @@ Map<String, dynamic> navigationActionToMap(NavigationAction navigationAction) {
   };
   return navigationMap;
 }
-
-const String PLATFORM = "platform";
-const String MESSAGES = "messages";
-
-const String ID = "id";
-const String CAMPAIGN_ID = "campaignId";
-const String IS_CLICKED = "isClicked";
-const String RECEIVED_TIME = "receivedTime";
-const String EXPIRY_TIME = "expiry";
-const String PAYLOAD = "payload";
-const String TAG = "tag";
-
-const String TEXT_CONTENT = "text";
-const String TEXT_CONTENT_TITLE = "title";
-const String TEXT_CONTENT_MESSAGE = "message";
-const String TEXT_CONTENT_SUMMARY = "summary";
-const String TEXT_CONTENT_SUB_TITLE = "subtitle";
-
-const String MEDIA_CONTENT = "media";
-
-const String TYPE = "type";
-const String URL = "url";
-
-const String ACTION = "action";
-const String ACTION_TYPE = "actionType";
-const String NAVIGATION_TYPE = "navigationType";
-const String VALUE = "value";
-const String KV_PAIR = "kvPair";
