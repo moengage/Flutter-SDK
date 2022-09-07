@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+### 4.2.0 (29th July 2022)
+- Added Flutter 3 support
+- Device identifier tracking update as per Google's User Data policy. Advertising Id is only tracked after user consent.
+- Android
+  - Native SDK updated to support version `11.6.02` and above. 
+
 ### 4.1.0 *(6th September 2021)*
 - Support for HTML InApps
 - Android
@@ -40,7 +46,7 @@
 
 
 ### 2.0.3 *(15th February 2021)*
-- Android artifacts use manven central instead of Jcenter.
+- Android artifacts use maven central instead of Jcenter.
 - Native SDK version `10.6.01`
 - Plugin Base `1.2.01`
 

@@ -11,15 +11,13 @@ import 'package:moengage_flutter/model/push/moe_push_service.dart';
 
 import 'data_payload_mapper.dart';
 
-
 class MoEAndroidCore {
-
   MethodChannel _channel;
 
   MoEAndroidCore(this._channel);
 
-  void trackEvent(String eventName, MoEProperties eventAttributes,
-      String appId) {
+  void trackEvent(
+      String eventName, MoEProperties eventAttributes, String appId) {
     _channel.invokeMethod(methodTrackEvent,
         json.encode(getEventPayload(eventName, eventAttributes, appId)));
   }
@@ -92,24 +90,24 @@ class MoEAndroidCore {
             userAttrNameBirtdate, userAttrTypeTimestamp, birthDate, appId));
   }
 
-  void setUserAttribute(String userAttributeName, dynamic userAttributeValue,
-      String appId) {
+  void setUserAttribute(
+      String userAttributeName, dynamic userAttributeValue, String appId) {
     _channel.invokeMethod(
         methodSetUserAttribute,
         _getUserAttributePayloadJson(
             userAttributeName, userAttrTypeGeneral, userAttributeValue, appId));
   }
 
-  void setUserAttributeIsoDate(String userAttributeName, String isoDateString,
-      String appId) {
+  void setUserAttributeIsoDate(
+      String userAttributeName, String isoDateString, String appId) {
     _channel.invokeMethod(
         methodSetUserAttribute,
         _getUserAttributePayloadJson(
             userAttributeName, userAttrTypeTimestamp, isoDateString, appId));
   }
 
-  void setUserAttributeLocation(String userAttributeName,
-      MoEGeoLocation location, String appId) {
+  void setUserAttributeLocation(
+      String userAttributeName, MoEGeoLocation location, String appId) {
     _channel.invokeMethod(
         methodSetUserAttribute,
         _getUserAttributePayloadJson(
@@ -148,17 +146,16 @@ class MoEAndroidCore {
         methodResetAppContext, json.encode(getAccountMeta(appId)));
   }
 
-  void passPushToken(String pushToken, MoEPushService pushService,
-      String appId) {
+  void passPushToken(
+      String pushToken, MoEPushService pushService, String appId) {
     _channel.invokeMethod(
         methodPushToken, _getPushTokenPayload(pushToken, pushService, appId));
   }
 
-  void passPushPayload(Map<String, dynamic> payload, MoEPushService pushService,
-      String appId) {
+  void passPushPayload(
+      Map<String, dynamic> payload, MoEPushService pushService, String appId) {
     String pushPayload = _getPushPayload(payload, pushService, appId);
-    _channel.invokeMethod(
-        methodPushPayLoad, pushPayload);
+    _channel.invokeMethod(methodPushPayLoad, pushPayload);
   }
 
   void optOutDataTracking(bool shouldOptOutDataTracking, String appId) {
@@ -173,8 +170,8 @@ class MoEAndroidCore {
         json.encode(getUpdateSdkStatePayload(shouldEnableSdk, appId)));
   }
 
-  void updateDeviceIdentifierTrackingStatus(String appId, String identifierType,
-      bool state) {
+  void updateDeviceIdentifierTrackingStatus(
+      String appId, String identifierType, bool state) {
     _channel.invokeListMethod(methodUpdateDeviceIdentifierTrackingStatus,
         _getDeviceIdentifierJson(appId, identifierType, state));
   }
@@ -189,8 +186,8 @@ class MoEAndroidCore {
         attributeName, attributeType, attributeValue, appId));
   }
 
-  String _getPushTokenPayload(String pushToken, MoEPushService pushService,
-      String appId) {
+  String _getPushTokenPayload(
+      String pushToken, MoEPushService pushService, String appId) {
     Map<String, dynamic> payload = getAccountMeta(appId);
     payload[keyData] = {
       keyPushToken: pushToken,
@@ -202,15 +199,37 @@ class MoEAndroidCore {
   String _getPushPayload(Map<String, dynamic> pushPayload,
       MoEPushService pushService, String appId) {
     Map<String, dynamic> payload = getAccountMeta(appId);
-    payload[keyData] =
-    {keyPayload: pushPayload, keyService: pushService.asString};
+    payload[keyData] = {
+      keyPayload: pushPayload,
+      keyService: pushService.asString
+    };
     return json.encode(payload);
   }
 
-  String _getDeviceIdentifierJson(String appId, String identifierType,
-      bool state) {
+  String _getDeviceIdentifierJson(
+      String appId, String identifierType, bool state) {
     Map<String, dynamic> payload = getAccountMeta(appId);
     payload[keyData] = {identifierType: state};
     return json.encode(payload);
+  }
+
+  void enableAdIdTracking() {
+    String payload = json.encode({keyAdId: true});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void disableAdIdTracking() {
+    String payload = json.encode({keyAdId: false});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void enableAndroidIdTracking() {
+    String payload = json.encode({keyAndroidId: true});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
+  }
+
+  void disableAndroidIdTracking() {
+    String payload = json.encode({keyAndroidId: false});
+    _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
   }
 }

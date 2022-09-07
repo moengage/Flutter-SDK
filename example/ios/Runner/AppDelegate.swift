@@ -16,6 +16,8 @@ import MoEngageSDK
     
     MoEngageInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
     
+    MoEngage.enableSDKLogs(true)
+      
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

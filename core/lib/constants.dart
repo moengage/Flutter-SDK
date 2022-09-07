@@ -23,6 +23,7 @@ const String methodOptOutTracking = "optOutTracking";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
+const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
 const String methodUpdateDeviceIdentifierTrackingStatus = "updateDeviceIdentifierTrackingStatus";
 
 // Callback Names

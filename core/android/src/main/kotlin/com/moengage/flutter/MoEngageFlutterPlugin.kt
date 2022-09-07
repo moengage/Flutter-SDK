@@ -30,8 +30,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
             Logger.print { "$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin" }
-            //TODO Add API in base plugin if required
-//            pluginHelper.onFrameworkDetached()
+            pluginHelper.onFrameworkDetached()
             channel.setMethodCallHandler(null)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() " }
