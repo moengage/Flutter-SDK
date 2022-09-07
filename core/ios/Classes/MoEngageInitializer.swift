@@ -1,5 +1,5 @@
 //
-//  MoEngageFlutter.swift
+//  MoEngageInitializer.swift
 //  flutter_moengage_plugin
 //
 //  Created by Chengappa C D on 11/12/19.
@@ -10,9 +10,9 @@ import UserNotifications
 import MoEngagePluginBase
 import MoEngageSDK
 
-@objc public class MoEngageFlutter : NSObject {
+@objc public class MoEngageInitializer : NSObject {
     
-    @objc static public let sharedInstance = MoEngageFlutter()
+    @objc static public let sharedInstance = MoEngageInitializer()
     private override init() {super.init()}
 
     @objc public func initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
