@@ -9,6 +9,8 @@ import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
 
+import 'data_payload_mapper.dart';
+
 
 class MoEAndroidCore {
 

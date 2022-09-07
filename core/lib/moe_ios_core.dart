@@ -6,8 +6,7 @@ import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 
-import 'in_app_payload_mapper.dart';
-import 'model/inapp/self_handled_data.dart';
+import 'data_payload_mapper.dart';
 
 class MoEiOSCore {
 

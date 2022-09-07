@@ -30,7 +30,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -53,9 +53,9 @@ android {
     }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:12.2.04")
+    compileOnly("com.moengage:moe-android-sdk:12.2.05")
     compileOnly("com.moengage:inapp:6.3.0")
-    api("com.moengage:plugin-base:3.1.5-SNAPSHOT")
+    api("com.moengage:plugin-base:3.1.6-SNAPSHOT")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

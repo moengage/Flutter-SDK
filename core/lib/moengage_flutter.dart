@@ -338,14 +338,6 @@ class MoEngageFlutter {
     }
   }
 
-  /// Start Geofence Monitoring, Will work only if MOGeofence CocoaPod is integrated
-  /// Note: This API is only for iOS Platform.
-  void startGeofenceMonitoring() {
-    if (Platform.isIOS) {
-      controller.moEiOS.startGeofenceMonitoring();
-    }
-  }
-
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
   void passFCMPushToken(String pushToken) {

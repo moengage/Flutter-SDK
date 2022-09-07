@@ -34,7 +34,7 @@ public class SampleApplication extends FlutterApplication {
         .configurePushKit(new PushKitConfig(true))
         .configureMiPush(new MiPushConfig("MI_APP_ID", "MI_APP_KEY", true));
 
-    MoEInitializer.initialize(moEngage);
+    MoEInitializer.initialiseDefaultInstance(moEngage);
     // optional, required in-case notification customisation is required.
     MoEPushHelper.getInstance().registerMessageListener(new CustomPushListener());
   }

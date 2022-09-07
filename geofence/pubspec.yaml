@@ -18,8 +18,5 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      android:
-        package: com.moengage.geofence
-        pluginClass: MoEngageGeofencePlugin
       ios:
         pluginClass: MoEngageGeofencePlugin
