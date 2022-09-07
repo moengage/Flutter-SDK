@@ -3,9 +3,9 @@
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
-pod 'MoEPluginBase', :git => 'https://github.com/moengage/MoEngage-iOS-Pods.git', :branch => 'pluginBase'
-pod ‘MoEPluginInbox', :git => ‘https://github.com/moengage/MoEngage-iOS-Pods.git’, :branch => 'pluginBase'
-pod 'MoEPluginGeofence', :git => 'https://github.com/moengage/MoEngage-iOS-Pods.git', :branch => 'pluginBase'
+pod 'MoEngagePluginBase', :git => 'https://github.com/moengage/MoEngage-iOS-Pods.git', :branch => 'pluginBase'
+pod ‘MoEngagePluginInbox', :git => ‘https://github.com/moengage/MoEngage-iOS-Pods.git’, :branch => 'pluginBase'
+pod 'MoEngagePluginGeofence', :git => 'https://github.com/moengage/MoEngage-iOS-Pods.git', :branch => 'pluginBase'
 
 project 'Runner', {
   'Debug' => :debug,

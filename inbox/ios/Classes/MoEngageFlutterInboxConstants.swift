@@ -1,5 +1,5 @@
 //
-//  MOFlutterInboxConstants.swift
+//  MoEngageFlutterInboxConstants.swift
 //  moengage_inbox
 //
 //  Created by Chengappa C D on 06/11/20.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct MOFlutterInboxConstants{
+struct MoEngageFlutterInboxConstants{
     
     static let kPluginChannelName               = "com.moengage/inbox"
     

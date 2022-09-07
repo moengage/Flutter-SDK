@@ -10,6 +10,6 @@
 
 @implementation MoEngageGeofencePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [MoEFlutterGeofence registerWithRegistrar:registrar];
+  [MoEngageFlutterGeofence registerWithRegistrar:registrar];
 }
 @end

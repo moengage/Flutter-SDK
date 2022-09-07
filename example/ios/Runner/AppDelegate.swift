@@ -14,7 +14,7 @@ import MoEngageSDK
     let sdkConfig = MOSDKConfig(withAppID: yourAppID)
     sdkConfig.enableLogs = true
     
-    MOFlutterInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
+    MoEngageFlutter.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
     
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

@@ -3,6 +3,6 @@
 
 @implementation MoEngageFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-    [MOFlutterPlugin registerWithRegistrar:registrar];
+    [MoEngageFlutterBridge registerWithRegistrar:registrar];
 }
 @end

@@ -1,5 +1,5 @@
 //
-//  MOFlutterConstants.swift
+//  MoEngageFlutterConstants.swift
 //  flutter_moengage_plugin
 //
 //  Created by Chengappa C D on 09/12/19.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MOFlutterConstants{
+struct MoEngageFlutterConstants{
     
     static let kPluginChannelName               = "com.moengage/core"
     static let kPluginName                      = "flutter"
