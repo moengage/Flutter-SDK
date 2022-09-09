@@ -351,8 +351,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                   _moengagePlugin.passPushKitPushToken(
-                       "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
+                    _moengagePlugin.passPushKitPushToken(
+                        "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
@@ -361,7 +361,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     var pushPayload = Map<String, String>();
                     pushPayload.putIfAbsent("push_from", () => "moengage");
                     pushPayload.putIfAbsent("gcm_title", () => "Title");
-                    pushPayload.putIfAbsent("moe_app_id", () => "DAO6UGZ73D9RTK8B5W96TPYN");
+                    pushPayload.putIfAbsent(
+                        "moe_app_id", () => "DAO6UGZ73D9RTK8B5W96TPYN");
                     pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
@@ -387,47 +388,57 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               new ListTile(
-                title: Text("Un Clicked Count"),
+                title: Text("Inbox: Un-Clicked Count"),
                 onTap: () async {
                   int count = await _moEngageInbox.getUnClickedCount();
-                  print("Un-clicked Count " + count.toString());
+                  print("Main : Un-clicked Count " + count.toString());
                 },
               ),
               new ListTile(
-                title: Text("Get all messages"),
+                title: Text("Inbox: Get all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    InboxMessage message = data.messages[0];
-                    _moEngageInbox.trackMessageClicked(message);
-                    _moEngageInbox.deleteMessage(message);
-
-                    for (final message in data.messages) {
-                      print(message.toString());
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Inbox Messages " + message.toString());
+                      }
                     }
                   }
                 },
               ),
               new ListTile(
-                title: Text("Track all messages"),
+                title: Text("Inbox: Track all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    for (final message in data.messages) {
-                      print("Tracking inbox message: " + message.toString());
-                      _moEngageInbox.trackMessageClicked(message);
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Tracking inbox message: " +
+                            message.toString());
+                        _moEngageInbox.deleteMessage(message);
+                      }
                     }
                   }
                 },
               ),
               new ListTile(
-                title: Text("Delete all messages"),
+                title: Text("Inbox: Delete all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    for (final message in data.messages) {
-                      print("Deleting inbox message: " + message.toString());
-                      _moEngageInbox.deleteMessage(message);
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Deleting inbox message: " +
+                            message.toString());
+                        _moEngageInbox.deleteMessage(message);
+                      }
                     }
                   }
                 },

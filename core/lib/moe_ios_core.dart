@@ -9,7 +9,6 @@ import 'package:moengage_flutter/model/geo_location.dart';
 import 'data_payload_mapper.dart';
 
 class MoEiOSCore {
-
   MethodChannel _channel;
   MoEiOSCore(this._channel);
 

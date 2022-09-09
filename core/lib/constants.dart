@@ -24,7 +24,8 @@ const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
 const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
-const String methodUpdateDeviceIdentifierTrackingStatus = "updateDeviceIdentifierTrackingStatus";
+const String methodUpdateDeviceIdentifierTrackingStatus =
+    "updateDeviceIdentifierTrackingStatus";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -87,7 +88,6 @@ const String keyCampaignContext = "campaignContext";
 const String keyFormattedCampaignId = "cid";
 const String keyActionType = "actionType";
 const String keyType = "type";
-
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";

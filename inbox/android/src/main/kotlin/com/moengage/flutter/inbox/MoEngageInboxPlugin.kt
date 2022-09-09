@@ -15,6 +15,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import java.util.concurrent.Executors
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
+import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 
 /** MoengageInboxPlugin */
 class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
@@ -69,18 +70,17 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun getUnClickedCount(methodCall: MethodCall, result: Result) {
+    private fun getUnClickedCount(c: MethodCall, result: Result) {
         try {
-
-            if (methodCall.arguments == null) return
-            val payload: String = methodCall.arguments.toString()
+            if (c.arguments == null) return
+            val payload: String = c.arguments.toString()
             Logger.print { "$tag getUnClickedCount() : Will fetch unclicked count" }
             executorService.submit {
-                val count = inboxHelper.getUnClickedMessagesCount(context, payload)
-                Logger.print { "$tag getUnClickedCount() : Count: $count" }
+                val countJson = inboxHelper.getUnClickedMessagesCount(context, payload)
+                Logger.print { "$tag getUnClickedCount() : Count: $countJson" }
                 mainThread.post {
                     try {
-                        result.success(count)
+                        result.success(countJson)
                     } catch (t: Throwable) {
                         Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
                     }
@@ -95,32 +95,28 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call.arguments == null) return
             val payload: String = call.arguments.toString()
-            val messages = inboxHelper.fetchAllMessages(context, payload)
+            val inboxData = inboxHelper.fetchAllMessages(context, payload) ?: return
             executorService.submit {
-                Logger.print { "$tag fetchMessages() : Messages: $messages" }
-                val serialisedMessages = inboxHelper.serialiseInboxMessages(messages)
-                if (serialisedMessages != null) {
-                    mainThread.post {
-                        try {
-                            result.success(serialisedMessages.toString())
-                        } catch (t: Throwable) {
-                            Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
-                        }
+                val serialisedMessages = inboxDataToJson(inboxData)
+                mainThread.post {
+                    try {
+                        Logger.print { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
+                        result.success(serialisedMessages.toString())
+                    } catch (t: Throwable) {
+                        Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
+            Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
         }
     }
 
     private fun deleteMessage(call: MethodCall, result: Result) {
         try {
             if (call.arguments == null) return
-            val payload = call.arguments() as? String ?: run {
-                Logger.print(LogLevel.ERROR) { "$tag deleteMessage() : arguments is null" }
-                return
-            }
+            val payload = call.arguments.toString()
+            Logger.print { "$tag deleteMessage() : Argument :$payload" }
             inboxHelper.deleteMessage(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag deleteMessage() : " }
@@ -130,10 +126,8 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     private fun trackMessageClicked(call: MethodCall, result: Result) {
         try {
             if (call.arguments == null) return
-            val payload = call.arguments() as? String ?: run {
-                Logger.print(LogLevel.ERROR) { "$tag trackMessageClicked() : arguments is null" }
-                return
-            }
+            val payload = call.arguments.toString()
+            Logger.print { "$tag trackMessageClicked() : Argument :$payload" }
             inboxHelper.trackMessageClicked(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag trackMessageClicked() : " }

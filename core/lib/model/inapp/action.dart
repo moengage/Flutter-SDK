@@ -1,4 +1,3 @@
-
 import 'package:moengage_flutter/model/inapp/inapp_action_type.dart';
 
 abstract class Action {

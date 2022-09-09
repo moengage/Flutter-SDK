@@ -6,35 +6,35 @@ const String METHOD_NAME_DELETE_MESSAGE = "deleteMessage";
 const String METHOD_NAME_TRACK_CLICKED = "trackMessageClicked";
 
 // Payload keys
-const String APP_ID = "appId";
-const String UNCLICKED_COUNT = "unClickedCount";
-const String DATA = "data";
-const String ACCOUNT_META = "accountMeta";
+const String keyAppId = "appId";
+const String keyUnClickedCount = "unClickedCount";
+const String keyData = "data";
+const String keyAccountMeta = "accountMeta";
 
-const String PLATFORM = "platform";
-const String MESSAGES = "messages";
+const String keyPlatform = "platform";
+const String keyMessages = "messages";
 
-const String ID = "id";
-const String CAMPAIGN_ID = "campaignId";
-const String IS_CLICKED = "isClicked";
-const String RECEIVED_TIME = "receivedTime";
-const String EXPIRY_TIME = "expiry";
-const String PAYLOAD = "payload";
-const String TAG = "tag";
+const String keyId = "id";
+const String keyCampaignId = "campaignId";
+const String keyIsClicked = "isClicked";
+const String keyReceivedTime = "receivedTime";
+const String keyExpiryTime = "expiry";
+const String keyPayload = "payload";
+const String keyTag = "tag";
 
-const String TEXT_CONTENT = "text";
-const String TEXT_CONTENT_TITLE = "title";
-const String TEXT_CONTENT_MESSAGE = "message";
-const String TEXT_CONTENT_SUMMARY = "summary";
-const String TEXT_CONTENT_SUB_TITLE = "subtitle";
+const String keyTextContent = "text";
+const String keyTextContentTitle = "title";
+const String keyTextContentMessage = "message";
+const String keyTextContentSummary = "summary";
+const String keyTextContentSubTitle = "subtitle";
 
-const String MEDIA_CONTENT = "media";
+const String keyMediaContent = "media";
 
-const String TYPE = "type";
-const String URL = "url";
+const String keyType = "type";
+const String keyUrl = "url";
 
-const String ACTION = "action";
-const String ACTION_TYPE = "actionType";
-const String NAVIGATION_TYPE = "navigationType";
-const String VALUE = "value";
-const String KV_PAIR = "kvPair";
+const String keyAction = "action";
+const String keyActionType = "actionType";
+const String keyNavigationType = "navigationType";
+const String keyValue = "value";
+const String keyKvPair = "kvPair";

@@ -8,7 +8,7 @@ class CampaignContext {
     return "{\n" +
         "formattedCampaignId: $formattedCampaignId" +
         "\n" +
-        "attributes: ${ attributes.toString()}" +
+        "attributes: ${attributes.toString()}" +
         "\n" +
         "}";
   }

@@ -212,8 +212,8 @@ class MoEngageFlutter {
   }
 
   /// Tracks the given location as user attribute.
-  void setUserAttributeLocation(String userAttributeName,
-      MoEGeoLocation location) {
+  void setUserAttributeLocation(
+      String userAttributeName, MoEGeoLocation location) {
     if (Platform.isAndroid) {
       controller.moEAndroid
           .setUserAttributeLocation(userAttributeName, location, appId);
@@ -396,8 +396,8 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void enableAndroidIdTracking() {
     if (Platform.isAndroid) {
-      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(
-          appId, keyAndroidId, true);
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, true);
     }
   }
 
@@ -407,8 +407,8 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void disableAndroidIdTracking() {
     if (Platform.isAndroid) {
-      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(
-          appId, keyAndroidId, false);
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, false);
     }
   }
 
@@ -416,8 +416,8 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void enableAdIdIdTracking() {
     if (Platform.isAndroid) {
-      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(
-          appId, keyAdId, true);
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyAdId, true);
     }
   }
 
@@ -427,8 +427,8 @@ class MoEngageFlutter {
   /// Note: This API is only for Android Platform.
   void disableAdIdTracking() {
     if (Platform.isAndroid) {
-      controller.moEAndroid.updateDeviceIdentifierTrackingStatus(
-          appId, keyAdId, false);
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyAdId, false);
     }
   }
 }

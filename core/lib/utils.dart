@@ -7,10 +7,7 @@ import 'package:moengage_flutter/constants.dart';
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking, String appId) {
   Map<String, dynamic> payload = getAccountMeta(appId);
-  payload[keyData] = {
-    keyType: type,
-    keyState: shouldOptOutDataTracking
-  };
+  payload[keyData] = {keyType: type, keyState: shouldOptOutDataTracking};
   return payload;
 }
 

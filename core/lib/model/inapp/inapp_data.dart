@@ -10,7 +10,7 @@ class InAppData {
   InAppData(this.platform, this.accountMeta, this.campaignData);
 
   String toString() {
-    return "{"
+    return "{" +
         "\n" +
         "platform: ${platform.asString}" +
         "\n" +

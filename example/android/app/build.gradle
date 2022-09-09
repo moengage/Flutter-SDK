@@ -24,9 +24,14 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.huawei.agconnect'
+apply plugin: 'kotlin-android'
 
 android {
   compileSdkVersion 31
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 
   lintOptions {
     disable 'InvalidPackage'
@@ -72,6 +77,14 @@ android {
       dirs 'libs'
     }
   }
+  compileOptions {
+    sourceCompatibility 1.8
+    targetCompatibility 1.8
+  }
+
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
 }
 
 flutter {
@@ -93,6 +106,7 @@ dependencies {
   implementation("com.moengage:inbox-core:2.1.1")
   implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
   implementation("com.moengage:push-amp-plus:6.0.0")
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

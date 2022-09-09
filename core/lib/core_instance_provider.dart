@@ -1,7 +1,6 @@
 import 'package:moengage_flutter/callback_cache.dart';
 
 class CoreInstanceProvider {
-
   static CoreInstanceProvider _instance = CoreInstanceProvider._internal();
 
   Map<String, CallbackCache> _caches = Map<String, CallbackCache>();
