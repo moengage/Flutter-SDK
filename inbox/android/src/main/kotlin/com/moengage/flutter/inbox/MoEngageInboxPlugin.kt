@@ -5,17 +5,16 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import com.moengage.core.LogLevel
-
-import io.flutter.embedding.engine.plugins.FlutterPlugin
+import com.moengage.core.internal.logger.Logger
 import com.moengage.flutter.inbox.BuildConfig.MOENGAGE_INBOX_FLUTTER_LIBRARY_VERSION
+import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
+import com.moengage.plugin.base.inbox.internal.inboxDataToJson
+import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import java.util.concurrent.Executors
-import com.moengage.core.internal.logger.Logger
-import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
-import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 
 /** MoengageInboxPlugin */
 class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {

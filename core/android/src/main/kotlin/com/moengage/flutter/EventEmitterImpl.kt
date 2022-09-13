@@ -2,18 +2,8 @@ package com.moengage.flutter
 
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.inapp.model.ClickData
-import com.moengage.inapp.model.actions.CustomAction
-import com.moengage.inapp.model.actions.NavigationAction
-import com.moengage.inapp.model.enums.ActionType
-import com.moengage.plugin.base.internal.ARGUMENT_ACCOUNT_META
-import com.moengage.plugin.base.internal.ARGUMENT_PLATFORM
-import com.moengage.plugin.base.internal.ARGUMENT_PLATFORM_VALUE
 import com.moengage.plugin.base.internal.EventEmitter
-import com.moengage.plugin.base.internal.accountMetaToJson
-import com.moengage.plugin.base.internal.campaignDataToJson
 import com.moengage.plugin.base.internal.clickDataToJson
-import com.moengage.plugin.base.internal.customActionToJson
 import com.moengage.plugin.base.internal.inAppDataToJson
 import com.moengage.plugin.base.internal.model.events.Event
 import com.moengage.plugin.base.internal.model.events.EventType
@@ -22,7 +12,6 @@ import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
 import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
 import com.moengage.plugin.base.internal.model.events.push.TokenEvent
-import com.moengage.plugin.base.internal.navigationActionToJson
 import com.moengage.plugin.base.internal.pushPayloadToJson
 import com.moengage.plugin.base.internal.selfHandledDataToJson
 import com.moengage.plugin.base.internal.tokenEventToJson
