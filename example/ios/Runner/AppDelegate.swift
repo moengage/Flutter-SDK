@@ -40,9 +40,6 @@ import MoEngageSDK
         if let vc = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController {
             return
         }
-        
-        return
-
     }
 
     override func registrar(forPlugin: String) -> FlutterPluginRegistrar {
