@@ -420,7 +420,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       for (final message in data.messages) {
                         print("Main : Tracking inbox message: " +
                             message.toString());
-                        _moEngageInbox.deleteMessage(message);
+                        _moEngageInbox.trackMessageClicked(message);
                       }
                     }
                   }
