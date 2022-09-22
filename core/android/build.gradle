@@ -6,9 +6,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
         jcenter()
     }
 
@@ -54,7 +51,7 @@ android {
 dependencies{
     compileOnly("com.moengage:moe-android-sdk:12.2.05")
     compileOnly("com.moengage:inapp:6.3.2")
-    api("com.moengage:plugin-base:3.1.8-SNAPSHOT")
+    api("com.moengage:plugin-base:3.0.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

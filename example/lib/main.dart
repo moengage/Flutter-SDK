@@ -366,7 +366,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
-                    pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
+
+                    pushPayload.putIfAbsent("gcm_campaign_id", () => DateTime.now().millisecondsSinceEpoch.toString());
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
