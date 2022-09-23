@@ -24,9 +24,14 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.huawei.agconnect'
+apply plugin: 'kotlin-android'
 
 android {
   compileSdkVersion 31
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 
   lintOptions {
     disable 'InvalidPackage'
@@ -34,7 +39,7 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdkVersion 17
+    minSdkVersion 21
     targetSdkVersion 30
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
@@ -66,6 +71,20 @@ android {
       signingConfig signingConfigs.debug
     }
   }
+
+  repositories {
+    flatDir {
+      dirs 'libs'
+    }
+  }
+  compileOptions {
+    sourceCompatibility 1.8
+    targetCompatibility 1.8
+  }
+
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
 }
 
 flutter {
@@ -73,16 +92,21 @@ flutter {
 }
 
 dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
   testImplementation 'junit:junit:4.13'
   androidTestImplementation("androidx.test.ext:junit:1.1.2")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-  implementation("com.google.firebase:firebase-messaging:22.0.0")
-  implementation("androidx.lifecycle:lifecycle-process:2.2.0")
-  implementation("com.moengage:hms-pushkit:3.0.0")
-  implementation("com.moengage:rich-notification:2.4.0")
-  implementation("com.huawei.hms:push:6.1.0.300")
-  implementation("com.moengage:inbox-core:1.0.00")
-  implementation("com.moengage:moe-android-sdk:11.6.02")
+  implementation("com.moengage:moe-android-sdk:12.2.05")
+  implementation("com.moengage:inapp:6.3.2")
+  implementation("com.google.firebase:firebase-messaging:23.0.7")
+  implementation("androidx.lifecycle:lifecycle-process:2.5.1")
+  implementation("com.moengage:hms-pushkit:4.1.1")
+  implementation("com.moengage:rich-notification:4.0.0")
+  implementation("com.huawei.hms:push:6.3.0.304")
+  implementation("com.moengage:inbox-core:2.1.1")
+  implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
+  implementation("com.moengage:push-amp-plus:6.0.0")
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

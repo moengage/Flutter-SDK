@@ -10,6 +10,6 @@
 
 @implementation MoEngageInboxPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-    [SwiftMoEngageInboxPlugin registerWithRegistrar:registrar];
+    [MoEngageFlutterInbox registerWithRegistrar:registrar];
 }
 @end

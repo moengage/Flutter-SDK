@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.moengage.sampleapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name=".SampleApplication"
+        android:name="com.moengage.sampleapp.SampleApplication"
         android:label="moengage_flutter_example"
         android:icon="@mipmap/ic_launcher"
         tools:ignore="GoogleAppIndexingWarning">
@@ -45,6 +47,15 @@
                 <action android:name="FLUTTER_NOTIFICATION_CLICK"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+            <!-- Deep linking -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="moengage" android:host="moengagefluttersample.com" />
+            </intent-filter>
+
         </activity>
 
         <service android:name="com.moengage.firebase.MoEFireBaseMessagingService">
@@ -61,5 +72,19 @@
             </intent-filter>
         </service>
 
+
+        <receiver
+            android:name="com.moengage.push.amp.plus.MiPushReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

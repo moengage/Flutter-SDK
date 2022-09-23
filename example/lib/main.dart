@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:moengage_flutter/model/app_status.dart';
+import 'package:moengage_flutter/model/gender.dart';
+import 'package:moengage_flutter/model/geo_location.dart';
+import 'package:moengage_flutter/model/inapp/click_data.dart';
+import 'package:moengage_flutter/model/inapp/inapp_data.dart';
+import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/push/push_campaign_data.dart';
+import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
-import 'package:moengage_flutter/geo_location.dart';
 import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/gender.dart';
-import 'package:moengage_flutter/app_status.dart';
-import 'package:moengage_flutter/push_campaign.dart';
-import 'package:moengage_flutter/inapp_campaign.dart';
+import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
-import 'package:moengage_flutter/push_token.dart';
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
@@ -21,52 +24,46 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final MoEngageFlutter _moengagePlugin = MoEngageFlutter();
-  final MoEngageInbox _moEngageInbox = MoEngageInbox();
+  final MoEngageFlutter _moengagePlugin =
+      MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+  final MoEngageGeofence _moEngageGeofence =
+      MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
+  final MoEngageInbox _moEngageInbox =
+      MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
 
-  void _onPushClick(PushCampaign message) {
+  void _onPushClick(PushCampaignData message) {
     print(
         "Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
             message.toString());
   }
 
-  void _onInAppClick(InAppCampaign message) {
+  void _onInAppClick(ClickData message) {
     print(
         "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
             message.toString());
   }
 
-  void _onInAppShown(InAppCampaign message) {
+  void _onInAppShown(InAppData message) {
     print(
         "Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
             message.toString());
   }
 
-  void _onInAppDismiss(InAppCampaign message) {
+  void _onInAppDismiss(InAppData message) {
     print(
         "Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " +
             message.toString());
   }
 
-  void _onInAppCustomAction(InAppCampaign message) {
-    print(
-        "Main : _onInAppCustomAction() : This is a callback on inapp custom action from native to flutter. Payload " +
-            message.toString());
-  }
-
-  void _onInAppSelfHandle(InAppCampaign message) async {
+  void _onInAppSelfHandle(SelfHandledCampaignData message) async {
     print(
         "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
             message.toString());
-
     final SelfHandledActions action =
         await asyncSelfHandledDialog(buildContext);
     switch (action) {
       case SelfHandledActions.Shown:
         _moengagePlugin.selfHandledShown(message);
-        break;
-      case SelfHandledActions.PrimaryClicked:
-        _moengagePlugin.selfHandledPrimaryClicked(message);
         break;
       case SelfHandledActions.Clicked:
         _moengagePlugin.selfHandledClicked(message);
@@ -77,7 +74,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
-  void _onPushTokenGenerated(PushToken pushToken) {
+  void _onPushTokenGenerated(PushTokenData pushToken) {
     print(
         "Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
             pushToken.toString());
@@ -87,15 +84,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     initPlatformState();
-    _moengagePlugin.setUpPushCallbacks(_onPushClick);
-    _moengagePlugin.setUpInAppCallbacks(
-        onInAppClick: _onInAppClick,
-        onInAppShown: _onInAppShown,
-        onInAppDismiss: _onInAppDismiss,
-        onInAppCustomAction: _onInAppCustomAction,
-        onInAppSelfHandle: _onInAppSelfHandle);
-    _moengagePlugin.setUpPushTokenCallback(_onPushTokenGenerated);
+    print("initState() : start ");
+    _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
+    _moengagePlugin.setInAppClickHandler(_onInAppClick);
+    _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
+    _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
+    _moengagePlugin.setSelfHandledInAppHandler(_onInAppSelfHandle);
+    _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.initialise();
+    print("initState() : end ");
   }
 
   Future<void> initPlatformState() async {
@@ -108,7 +105,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     print("Main : build() ");
-    buildContext = context;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -320,7 +316,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                   title: Text("iOS -- Start Geofence"),
                   onTap: () {
-                    _moengagePlugin.startGeofenceMonitoring();
+                    _moEngageGeofence.startGeofenceMonitoring();
                   }),
               new ListTile(
                   title: Text("Show InApp"),
@@ -330,6 +326,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                   title: Text("Show Self Handled InApp"),
                   onTap: () {
+                    buildContext = context;
                     _moengagePlugin.getSelfHandledInApp();
                   }),
               new ListTile(
@@ -354,8 +351,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   title: Text("Android -- PushKit Push Token"),
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-//                    _moengagePlugin.passPushKitPushToken(
-//                        "IQAAAACy0T43AADshvE4JWn5zbicfxAYnljrKzjiHyUytoK-V6U0zmrjsluIB1a0oSybQlTI7_39bHJ3cix_vI6QnEx1_sT1gFULXZtCkjVn93PCdg");
+                    _moengagePlugin.passPushKitPushToken(
+                        "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),
@@ -365,31 +362,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     pushPayload.putIfAbsent("push_from", () => "moengage");
                     pushPayload.putIfAbsent("gcm_title", () => "Title");
                     pushPayload.putIfAbsent(
+                        "moe_app_id", () => "DAO6UGZ73D9RTK8B5W96TPYN");
+                    pushPayload.putIfAbsent(
                         "gcm_notificationType", () => "normal notification");
                     pushPayload.putIfAbsent("gcm_alert", () => "Message");
-                    pushPayload.putIfAbsent("gcm_campaign_id", () => "1234568");
+
+                    pushPayload.putIfAbsent("gcm_campaign_id", () => DateTime.now().millisecondsSinceEpoch.toString());
                     pushPayload.putIfAbsent("gcm_activityName",
                         () => "com.moengage.sampleapp.MainActivity");
                     _moengagePlugin.passFCMPushPayload(pushPayload);
                   }),
               new ListTile(
-                  title: Text("Opt-Out Data, Push, InApp"),
+                  title: Text("Enable data tracking"),
                   onTap: () {
-                    _moengagePlugin.optOutDataTracking(true);
-                    _moengagePlugin.optOutPushTracking(true);
-                    _moengagePlugin.optOutInAppTracking(true);
+                    _moengagePlugin.enableDataTracking();
                   }),
               new ListTile(
-                  title: Text("Opt-In Data, Push, InApp"),
+                  title: Text("Disable data tracking"),
                   onTap: () {
-                    _moengagePlugin.optOutDataTracking(false);
-                    _moengagePlugin.optOutPushTracking(false);
-                    _moengagePlugin.optOutInAppTracking(false);
-                  }),
-              new ListTile(
-                  title: Text("Enable logs"),
-                  onTap: () {
-                    _moengagePlugin.enableSDKLogs();
+                    _moengagePlugin.disableDataTracking();
                   }),
               new ListTile(
                 title: Text("Logout"),
@@ -398,43 +389,57 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               new ListTile(
-                title: Text("Un Clicked Count"),
+                title: Text("Inbox: Un-Clicked Count"),
                 onTap: () async {
                   int count = await _moEngageInbox.getUnClickedCount();
-                  print("Un-clicked Count " + count.toString());
+                  print("Main : Un-clicked Count " + count.toString());
                 },
               ),
               new ListTile(
-                title: Text("Get all messages"),
+                title: Text("Inbox: Get all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    for (final message in data.messages) {
-                      print(message.toString());
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Inbox Messages " + message.toString());
+                      }
                     }
                   }
                 },
               ),
               new ListTile(
-                title: Text("Track all messages"),
+                title: Text("Inbox: Track all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    for (final message in data.messages) {
-                      print("Tracking inbox message: " + message.toString());
-                      _moEngageInbox.trackMessageClicked(message);
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Tracking inbox message: " +
+                            message.toString());
+                        _moEngageInbox.trackMessageClicked(message);
+                      }
                     }
                   }
                 },
               ),
               new ListTile(
-                title: Text("Delete all messages"),
+                title: Text("Inbox: Delete all messages"),
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
-                  if (data != null && data.messages.length > 0) {
-                    for (final message in data.messages) {
-                      print("Deleting inbox message: " + message.toString());
-                      _moEngageInbox.deleteMessage(message);
+                  if (data != null) {
+                    print("Main : Inbox Messages count: " +
+                        data.messages.length.toString());
+                    if (data.messages.length > 0) {
+                      for (final message in data.messages) {
+                        print("Main : Deleting inbox message: " +
+                            message.toString());
+                        _moEngageInbox.deleteMessage(message);
+                      }
                     }
                   }
                 },
@@ -452,25 +457,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               new ListTile(
-                title: Text("Enable Ad-Id"),
-                onTap: () async {
-                  _moengagePlugin.enableAdIdTracking();
-                },
-              ),
-              new ListTile(
-                title: Text("Disable Ad-Id"),
-                onTap: () async {
-                  _moengagePlugin.disableAdIdTracking();
-                },
-              ),
-              new ListTile(
-                title: Text("Enable Android-Id"),
+                title: Text("Android- Enable Android Id"),
                 onTap: () async {
                   _moengagePlugin.enableAndroidIdTracking();
                 },
               ),
               new ListTile(
-                title: Text("Disable Android-Id"),
+                title: Text("Android- Disable Android Id"),
+                onTap: () async {
+                  _moengagePlugin.disableAndroidIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Enable Ad Id"),
+                onTap: () async {
+                  _moengagePlugin.enableAdIdIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Android- Disable Ad Id"),
                 onTap: () async {
                   _moengagePlugin.disableAdIdTracking();
                 },

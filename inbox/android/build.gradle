@@ -2,7 +2,7 @@ group 'com.moengage.moengage_inbox'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.4.20'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
         mavenCentral()
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -19,7 +19,6 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
@@ -27,13 +26,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -49,9 +48,9 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly("com.moengage:moe-android-sdk:11.6.02")
-    compileOnly("com.moengage:inbox-core:1.0.00")
-    implementation("com.moengage:plugin-base-inbox:2.2.0")
+    compileOnly("com.moengage:moe-android-sdk:12.2.05")
+    compileOnly("com.moengage:inbox-core:2.1.1")
+    implementation("com.moengage:plugin-base-inbox:3.0.0")
 }
 
 apply from: file("./user-agent.gradle")

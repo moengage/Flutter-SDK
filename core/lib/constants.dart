@@ -1,4 +1,7 @@
 // Plugin Channel
+const String TAG = "MoEFlutter_";
+
+// Plugin Channel
 const String channelName = "com.moengage/core";
 
 // Method Names
@@ -17,11 +20,12 @@ const String methodSelfHandledCallback = "selfHandledCallback";
 const String methodSetAppContext = "setAppContext";
 const String methodResetAppContext = "resetCurrentContext";
 const String methodOptOutTracking = "optOutTracking";
-const String methodEnableSDKLogs = "enableSDKLogs";
 const String methodLogout = "logout";
 const String methodUpdateSdkState = "updateSdkState";
 const String methodOnOrientationChanged = "onOrientationChanged";
 const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
+const String methodUpdateDeviceIdentifierTrackingStatus =
+    "updateDeviceIdentifierTrackingStatus";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -81,6 +85,9 @@ const String keyNavigation = "navigation";
 const String keySelfHandled = "selfHandled";
 const String keyCustomAction = "customAction";
 const String keyCampaignContext = "campaignContext";
+const String keyFormattedCampaignId = "cid";
+const String keyActionType = "actionType";
+const String keyType = "type";
 
 // Navigation action Constants
 const String keyNavigationType = "navigationType";
@@ -88,7 +95,6 @@ const String keyValue = "value";
 
 // SelHandled InApp Constants
 const String keyDismissInterval = "dismissInterval";
-const String keyIsCancellable = "isCancellable";
 
 //PushPayload Constants
 const String keyIsDefaultAction = "isDefaultAction";
@@ -101,18 +107,18 @@ const String userAttrTypeLocation = "location";
 
 // GDPR Opt-Outs Constants
 const String gdprOptOutTypeData = "data";
-const String gdprOptOutTypePush = "push";
-const String gdprOptOutTypeInApp = "inapp";
 
 // SelfHandled Callback Action Types
 const String selfHandledActionShown = "impression";
-const String selfHandledActionPrimaryClicked = "primary_clicked";
 const String selfHandledActionClick = "click";
 const String selfHandledActionDismissed = "dismissed";
 
 // SDK Status update
 const String keyIsSdkEnabled = "isSdkEnabled";
 
-//device attribute tracking
-const String keyAndroidIdTracking = "isAndroidIdTrackingEnabled";
-const String keyAdIdTracking = "isAdIdTrackingEnabled";
+const String keyAppId = "appId";
+const String keyAccountMeta = "accountMeta";
+const String keyData = "data";
+
+const String keyAndroidId = "isAndroidIdTrackingEnabled";
+const String keyAdId = "isAdIdTrackingEnabled";

@@ -1,12 +1,20 @@
 package com.moengage.flutter
 
-import android.content.ContentValues.TAG
+import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.plugin.base.EventEmitter
-import com.moengage.plugin.base.inAppCampaignToJson
-import com.moengage.plugin.base.model.*
-import com.moengage.plugin.base.pushPayloadToJson
-import com.moengage.plugin.base.pushTokenToJson
+import com.moengage.plugin.base.internal.EventEmitter
+import com.moengage.plugin.base.internal.clickDataToJson
+import com.moengage.plugin.base.internal.inAppDataToJson
+import com.moengage.plugin.base.internal.model.events.Event
+import com.moengage.plugin.base.internal.model.events.EventType
+import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
+import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
+import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
+import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
+import com.moengage.plugin.base.internal.model.events.push.TokenEvent
+import com.moengage.plugin.base.internal.pushPayloadToJson
+import com.moengage.plugin.base.internal.selfHandledDataToJson
+import com.moengage.plugin.base.internal.tokenEventToJson
 import org.json.JSONObject
 import java.util.*
 
@@ -22,67 +30,94 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     override fun emit(event: Event) {
         try {
-            Logger.v("$tag emit() : $event")
+            Logger.print { "$tag emit() : event: $event" }
             when (event) {
-                is InAppEvent -> {
-                    emitInAppEvent(event)
+                is InAppActionEvent -> {
+                    this.emitInAppActionEvent(event)
                 }
-                is PushEvent -> {
+                is InAppLifecycleEvent -> {
+                    this.emitInAppLifeCycleEvent(event)
+                }
+                is InAppSelfHandledEvent -> {
+                    this.emitInAppSelfHandledEvent(event)
+                }
+                is PushClickedEvent -> {
                     emitPushEvent(event)
                 }
                 is TokenEvent -> {
                     emitPushTokenEvent(event)
                 }
             }
-        } catch (e: Exception) {
-            Logger.e("$tag emit() : Exception: ", e)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emit() : " }
         }
     }
 
-    private fun emitInAppEvent(inAppEvent: InAppEvent) {
+    private fun emitInAppActionEvent(inAppActionEvent: InAppActionEvent) {
         try {
-            Logger.v("$tag emitInAppEvent() : $inAppEvent")
-            val eventType =
-                eventMap[inAppEvent.eventType] ?: return
-            val campaign = inAppCampaignToJson(inAppEvent.inAppCampaign)
-            campaign.put(KEY_TYPE, eventType)
-            Logger.v("$tag emitInAppEvent() : campaignJSON: $campaign")
+            Logger.print { "$tag emitInAppActionEvent() : inAppActionEvent: ${inAppActionEvent
+                .eventType} , ${inAppActionEvent.clickData}" }
+            val eventType = eventMap[inAppActionEvent.eventType] ?: return
+            val campaign: JSONObject = clickDataToJson(inAppActionEvent.clickData)
             emit(eventType, campaign)
-        } catch (e: Exception) {
-            Logger.e("$tag inAppToJSON() : Exception: ", e)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitInAppActionEvent() : " }
         }
     }
 
-    private fun emitPushEvent(pushEvent: PushEvent) {
+    private fun emitInAppLifeCycleEvent(inAppLifecycleEvent: InAppLifecycleEvent) {
         try {
-            Logger.v("$tag emitPushEvent() : $pushEvent")
-            val eventType =
-                eventMap[pushEvent.eventType] ?: return
+            Logger.print { "$tag emitInAppLifeCycleEvent() : inAppLifecycleEvent: $inAppLifecycleEvent" }
+            val eventType = eventMap[inAppLifecycleEvent.eventType] ?: return
+            val campaign = inAppDataToJson(inAppLifecycleEvent.inAppData)
+            emit(eventType, campaign)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitInAppLifeCycleEvent() : " }
+        }
+    }
+
+    private fun emitInAppSelfHandledEvent(inAppSelfHandledEvent: InAppSelfHandledEvent) {
+        try {
+            Logger.print { "$tag emitInAppSelfHandledEvent() : inAppSelfHandledEvent: " +
+                    "${inAppSelfHandledEvent.data}" }
+            val eventType = eventMap[inAppSelfHandledEvent.eventType]
+                ?: return
+            val campaign: JSONObject =
+                selfHandledDataToJson(inAppSelfHandledEvent.data)
+            emit(eventType, campaign)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitInAppSelfHandledEvent() : " }
+        }
+    }
+
+    private fun emitPushEvent(pushEvent: PushClickedEvent) {
+        try {
+            Logger.print { "$tag emitPushEvent() : pushEvent: $pushEvent" }
+            val eventType = eventMap[pushEvent.eventType] ?: return
             val payload = pushPayloadToJson(pushEvent.payload)
             emit(eventType, payload)
-        } catch (e: Exception) {
-            Logger.e("$tag inAppToJSON() : Exception: ", e)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitPushEvent() : " }
         }
     }
 
     private fun emitPushTokenEvent(tokenEvent: TokenEvent) {
         try {
-            Logger.v("$TAG emitPushTokenEvent() : $tokenEvent")
-            val eventType =
-                eventMap[tokenEvent.eventType] ?: return
-            val payload = pushTokenToJson(tokenEvent.pushToken)
+            Logger.print { "$tag emitPushTokenEvent() : tokenEvent: $tokenEvent" }
+            val eventType = eventMap[tokenEvent.eventType] ?: return
+            val payload = tokenEventToJson(tokenEvent)
             emit(eventType, payload)
-        } catch (e: Exception) {
-            Logger.e("$TAG emitPushTokenEvent() : ", e)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitPushTokenEvent() : " }
         }
     }
 
     private fun emit(methodName: String, payload: JSONObject) {
         try {
-            Logger.v("$tag emit() : methodName: $methodName")
+            Logger.print { "$tag emit() : methodName: $methodName , payload: $payload" }
             onEvent(methodName, payload.toString())
-        } catch (e: Exception) {
-            Logger.e("$tag emit() : ", e)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emit() : " }
         }
     }
 

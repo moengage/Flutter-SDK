@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/geo_location.dart';
+import 'package:moengage_flutter/model/geo_location.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
@@ -14,34 +14,6 @@ class MoEProperties {
         this.locationAttributes = new Map(),
         this.dateTimeAttributes = new Map(),
         this.isNonInteractive = false;
-
-  /// Adds an event attribute of type String.
-  @Deprecated('Use addAttribute() instead')
-  MoEProperties addString(String key, String value) {
-    _addAttribute(key, value);
-    return this;
-  }
-
-  /// Adds an event attribute of type integer.
-  @Deprecated('Use addAttribute() instead')
-  MoEProperties addInteger(String key, int value) {
-    _addAttribute(key, value);
-    return this;
-  }
-
-  /// Adds an event attribute of type double.
-  @Deprecated('Use addAttribute() instead')
-  MoEProperties addDouble(String key, double value) {
-    _addAttribute(key, value);
-    return this;
-  }
-
-  /// Adds an event attribute of type boolean.
-  @Deprecated('Use addAttribute() instead')
-  MoEProperties addBoolean(String key, bool value) {
-    _addAttribute(key, value);
-    return this;
-  }
 
   /// Adds an event attribute of type string, number or boolean.
   MoEProperties addAttribute(String key, dynamic value) {
@@ -59,13 +31,6 @@ class MoEProperties {
       return this;
     }
     dateTimeAttributes.putIfAbsent(key, () => value);
-    return this;
-  }
-
-  /// Adds an event attribute of type [MoEGeoLocation].
-  @Deprecated('Use addAttribute() instead')
-  MoEProperties addLocation(String key, MoEGeoLocation location) {
-    _addAttribute(key, location);
     return this;
   }
 

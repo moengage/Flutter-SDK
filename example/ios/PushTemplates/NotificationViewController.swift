@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import UserNotificationsUI
+import MoEngageRichNotification
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
 
@@ -16,11 +17,11 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any required interface initialization here.
+        MORichNotification.setAppGroupID("group.com.alphadevs.MoEngage.NotificationServices")
     }
     
     func didReceive(_ notification: UNNotification) {
-        self.label?.text = notification.request.content.body
+        MORichNotification.addPushTemplate(toController: self, withNotification: notification)
     }
 
 }

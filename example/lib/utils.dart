@@ -33,9 +33,10 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
   );
 }
 
-enum SelfHandledActions { Shown, PrimaryClicked, Clicked, Dismissed }
+enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
+  print("asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,
@@ -48,12 +49,6 @@ Future asyncSelfHandledDialog(BuildContext context) async {
                 Navigator.pop(context, SelfHandledActions.Shown);
               },
               child: const Text('Shown'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, SelfHandledActions.PrimaryClicked);
-              },
-              child: const Text('PrimaryClicked'),
             ),
             SimpleDialogOption(
               onPressed: () {
