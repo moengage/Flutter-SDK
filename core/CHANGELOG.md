@@ -7,11 +7,11 @@
 - Support for iOS SDK version `8.3.1` and above.
 - Breaking Changes
 
-| Then                      | Now                       |
-|---------------------------|---------------------------|
-| MoEFlutter()              | MoEFlutter("YOUR_APP_ID") |
-| optOutDataTracking(false) | enableDataTracking()      |
-| optOutDataTracking(true)  | disableDataTracking()     |
+| Then                      | Now                                |
+|---------------------------|------------------------------------|
+| MoEngageFlutter()         | MoEngageFlutter("YOUR_APP_ID")     |
+| optOutDataTracking(false) | enableDataTracking()               |
+| optOutDataTracking(true)  | disableDataTracking()              |
 
   - InApp Model `InAppCampaign` broken down from a single object to multiple objects
     - `InAppData`
