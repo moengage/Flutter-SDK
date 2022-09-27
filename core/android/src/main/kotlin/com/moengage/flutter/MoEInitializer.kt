@@ -1,5 +1,6 @@
 package com.moengage.flutter
 
+import android.content.Context
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.internal.logger.Logger
@@ -15,52 +16,19 @@ import com.moengage.plugin.base.internal.PluginInitializer
 class MoEInitializer {
     companion object {
         private const val tag: String = "${MODULE_TAG}MoEInitializer"
-
         @Deprecated(
             message = "This method is deprecated.",
             ReplaceWith(expression = "MoEInitializer.initialiseDefaultInstance()")
         )
-        @JvmStatic
-        fun initialize(builder: MoEngage.Builder) {
-            try {
-                Logger.print { "$tag initialize() : Will try to initialize the sdk." }
-                PluginInitializer.initialize(
-                    builder,
-                    IntegrationMeta(
-                        INTEGRATION_TYPE,
-                        MOENGAGE_FLUTTER_LIBRARY_VERSION
-                    )
-                )
-            } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : " }
-            }
-        }
-
-        @Deprecated(
-            message = "This method is deprecated.",
-            ReplaceWith(expression = "MoEInitializer.initialiseDefaultInstance()")
-        )
-        @JvmStatic
-        fun initialize(builder: MoEngage.Builder, isSdkEnabled: Boolean) {
-            try {
-                Logger.print { "$tag initialize() : Will try to initialize the sdk." }
-                PluginInitializer.initialize(
-                    builder,
-                    IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
-                    if (isSdkEnabled) SdkState.ENABLED else SdkState.DISABLED
-                )
-            } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialize() : " }
-            }
-        }
 
         /**
          * Initialise the default instance of SDK with configuration provided in [MoEngage.Builder]
          *
-         * @param moEngage: Instance of [MoEngage.Builder]
+         * @param context Context
+         * @param builder Instance of [MoEngage.Builder]
          */
         @JvmStatic
-        fun initialiseDefaultInstance(builder: MoEngage.Builder) {
+        fun initialiseDefaultInstance(context: Context, builder: MoEngage.Builder) {
             try {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
@@ -68,7 +36,8 @@ class MoEInitializer {
                     IntegrationMeta(
                         INTEGRATION_TYPE,
                         MOENGAGE_FLUTTER_LIBRARY_VERSION
-                    )
+                    ),
+                    SdkState.ENABLED
                 )
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
@@ -85,17 +54,18 @@ class MoEInitializer {
          * **Note:** State is persisted across session, once the SDK is disabled it will remain
          * in disabled state until enabled again.
          *
-         * @param builder: Instance of [MoEngage.Builder]
-         * @param isSdkEnabled true if SDK is enabled, else false.
+         * @param context Context
+         * @param builder Instance of [MoEngage.Builder]
+         * @param sdkState [SdkState]
          */
         @JvmStatic
-        fun initialiseDefaultInstance(builder: MoEngage.Builder, isSdkEnabled: Boolean) {
+        fun initialiseDefaultInstance(context: Context, builder: MoEngage.Builder, sdkState: SdkState) {
             try {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
                     IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
-                    if (isSdkEnabled) SdkState.ENABLED else SdkState.DISABLED
+                    sdkState
                 )
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }

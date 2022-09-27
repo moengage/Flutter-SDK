@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_inbox/moengage_inbox.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('moengage_inbox');

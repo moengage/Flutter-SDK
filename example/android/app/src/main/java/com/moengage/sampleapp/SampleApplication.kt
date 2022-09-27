@@ -1,5 +1,6 @@
 package com.moengage.sampleapp
 
+import android.content.Context
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
@@ -39,7 +40,7 @@ class SampleApplication : FlutterApplication() {
             appId = "2882303761518042309",
             region = Region.India
         )
-        initialiseDefaultInstance(moEngage)
+        initialiseDefaultInstance(applicationContext, moEngage)
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener())
     }
