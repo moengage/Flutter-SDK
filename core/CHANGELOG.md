@@ -42,6 +42,7 @@
 | enableSDKLogs()             |
 | optOutInAppNotification()   |
 | optOutPushNotification()    |
+| startGeofenceMonitoring()   |
 
 - Android
   - Build Configuration Updates
