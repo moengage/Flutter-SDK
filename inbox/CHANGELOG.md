@@ -1,5 +1,22 @@
 # MoEngage Flutter Inbox Plugin
 
+## Next Release
+
+### 4.0.0
+- Support for Android SDK version `12.2.05` and above and Native Inbox SDK Version `2.1.1` and above.
+- Support for iOS SDK version `8.3.1` and above Native Inbox SDK Version `1.3.0` and above.
+- Breaking changes
+
+| Then            | Now                         |
+|-----------------|-----------------------------|
+| MoEngageInbox() | MoEngageInbox("YOUR_APP_ID) |
+
+- Android
+  - Build Configuration Updates
+    - Minimum SDK version - 21
+    - Target SDK version - 30
+    - Compile SDK Version - 30
+
 ### 3.2.0 (29th July 2022)
 - Added Flutter 3 support
 

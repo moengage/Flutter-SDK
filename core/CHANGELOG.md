@@ -1,5 +1,70 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+
+### 5.0.0
+- Support for Android SDK version `12.2.05` and above.
+- Support for iOS SDK version `8.3.1` and above.
+- Breaking Changes
+
+| Then                      | Now                       |
+|---------------------------|---------------------------|
+| MoEFlutter()              | MoEFlutter("YOUR_APP_ID") |
+| optOutDataTracking(false) | enableDataTracking()      |
+| optOutDataTracking(true)  | disableDataTracking()     |
+
+  - InApp Model `InAppCampaign` broken down from a single object to multiple objects
+    - `InAppData`
+    - `ClickData`
+    - `SelfHandledCampaignData`
+  - InApp `setUpInAppCallbacks` removed and callbacks broken down into multiple listeners.
+  
+| Callback Type                            | Method                                                          |
+|------------------------------------------|-----------------------------------------------------------------|
+| InApp Shown                              | setInAppShownCallbackHandler(InAppShownCallbackHandler)         |
+| InApp Dismissed                          | setInAppDismissedCallbackHandler(InAppDismissedCallbackHandler) |
+| InApp Clicked(Navigation, Custom Action) | setInAppClickHandler(InAppClickCallbackHandler)                 |
+| InApp Self Handled                       | setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler)     |
+  
+  - Push campaign Model is restructured and renamed from `PushCampaign` to `PushCampaignData`
+  - Push callback APIs are renamed.
+
+| Then                                             | Now                                                   |
+|--------------------------------------------------|-------------------------------------------------------|
+| setUpPushCallbacks(PushCallbackHandler)          | setPushClickCallbackHandler(PushClickCallbackHandler) |
+| setUpPushTokenCallback(PushTokenCallbackHandler) | setPushTokenCallbackHandler(PushTokenCallbackHandler) |
+
+- Removed APIs
+
+| Removed APIs                |
+|-----------------------------|
+| selfHandledPrimaryClicked() |
+| enableSDKLogs()             |
+| optOutInAppNotification()   |
+| optOutPushNotification()    |
+
+- Android
+  - Build Configuration Updates
+    - Minimum SDK version - 21
+    - Target SDK version - 30
+    - Compile SDK Version - 30
+  - Mi SDK update to Version 5.x.x, refer to the [Configuring Xiaomi Push](https://developers.moengage.com/hc/en-us/articles/4403466194708) and update the integration.
+  - Removed and replaced APIs
+
+| Then                                                          | Now                                                                 |
+|---------------------------------------------------------------|---------------------------------------------------------------------|
+| MoEInitializer.initialize(Context, MoEngage.Builder)          | MoEInitializer.initialiseDefaultInstance(Context, MoEngage.Builder) |
+| MoEInitializer.initialize(Context, MoEngage.Builder, Boolean) | MoEInitializer.initialiseDefaultInstance(Context, MoEngage.Builder) |
+
+- iOS
+  -  `MOFlutterInitializer` has been renamed to `MoEngageInitializer`
+
+| Then                                                                                                                                            | Now                                                                                                                                  |
+|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| initializeWithSDKConfig(_ config: MOSDKConfig, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)                          | initializeDefaultInstance(_ config: MOSDKConfig, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)                        |
+| initializeWithSDKConfig(_ config: MOSDKConfig, withSDKState state:Bool, andLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) | initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) |
+
+
 ### 4.2.0 (29th July 2022)
 - Added Flutter 3 support
 - Device identifier tracking update as per Google's User Data policy. Advertising Id is only tracked after user consent.
