@@ -1,6 +1,6 @@
 # MoEngage Flutter Plugin
 
-## Next Release
+## 27.09.2022
 
 ### 5.0.0
 - Support for Android SDK version `12.2.05` and above.

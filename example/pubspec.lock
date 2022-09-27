@@ -94,7 +94,7 @@ packages:
       path: "../core"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "5.0.0"
   moengage_geofence:
     dependency: "direct main"
     description:

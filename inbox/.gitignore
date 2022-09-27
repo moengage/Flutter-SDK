@@ -10,3 +10,4 @@ build/
 android/.settings
 .flutter-plugins
 .flutter-plugins-dependencies
+pubspec.lock
