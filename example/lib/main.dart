@@ -112,7 +112,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: TextStyle(color: Colors.white),
+                foregroundColor: Colors.white,
                 shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
               ),
               onPressed: () {
