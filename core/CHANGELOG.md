@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+- Android
+  - Build Configuration Updates
+    - Compile SDK Version - 31
+
 ## 27.09.2022
 
 ### 5.0.0
