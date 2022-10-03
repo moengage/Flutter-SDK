@@ -110,15 +110,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         appBar: AppBar(
           title: const Text('Plugin example app'),
           actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-              ),
+            FlatButton(
+              textColor: Colors.white,
               onPressed: () {
                 _moengagePlugin.onOrientationChanged();
               },
               child: Text("Orientation Change"),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
           ],
         ),

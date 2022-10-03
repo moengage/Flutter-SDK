@@ -21,7 +21,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
           ],
         ),
         actions: [
-          TextButton(
+          FlatButton(
             child: Text('Ok'),
             onPressed: () {
               Navigator.of(context).pop(teamName);

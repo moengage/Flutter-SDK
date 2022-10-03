@@ -4,6 +4,7 @@
 - Android
   - Build Configuration Updates
     - Compile SDK Version - 31
+    - Target SDK version - 31
 
 ## 27.09.2022
 
