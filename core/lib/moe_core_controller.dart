@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/in_app_payload_mapper.dart';
+import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/moe_android_core.dart';
 import 'package:moengage_flutter/moe_ios_core.dart';
 import 'package:moengage_flutter/constants.dart';
@@ -105,6 +106,14 @@ class CoreController {
           if (handler != null) {
             handler.call(data);
           }
+        }
+      }
+      if (call.method == callbackPermissionResult) {
+        PermissionResultCallbackHandler? handler =
+            Cache().permissionResultCallbackHandler;
+        if (handler != null) {
+          PermissionResultData result = permissionResultFromMap(call.arguments);
+          handler.call(result);
         }
       }
     } catch (e) {

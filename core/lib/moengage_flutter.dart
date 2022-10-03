@@ -4,6 +4,8 @@ import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/permission_result.dart';
+import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moe_cache.dart';
@@ -25,6 +27,7 @@ typedef void SelfHandledInAppCallbackHandler(SelfHandledCampaignData data);
 typedef void InAppClickCallbackHandler(ClickData data);
 typedef void InAppShownCallbackHandler(InAppData data);
 typedef void InAppDismissedCallbackHandler(InAppData data);
+typedef void PermissionResultCallbackHandler(PermissionResultData data);
 
 class MoEngageFlutter {
   String appId;
@@ -430,5 +433,43 @@ class MoEngageFlutter {
       controller.moEAndroid
           .updateDeviceIdentifierTrackingStatus(appId, keyAdId, false);
     }
+  }
+
+  ///API to create notification channels on Android.
+  void setupNotificationChannelsAndroid() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.setupNotificationChannel();
+    }
+  }
+
+  /// Notify the SDK on notification permission granted to the application.
+  /// Note: This API is only for Android Platform.
+  void pushPermissionResponseAndroid(bool isGranted) {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.permissionResponse(isGranted, PermissionType.PUSH);
+    }
+  }
+
+  /// Navigates the user to the Notification settings on Android 8 or above,
+  /// on older versions the user is navigated the application settings or
+  /// application info screen.
+  /// Note: This API is only for Android Platform.
+  void navigateToSettingsAndroid() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.navigateToSettings();
+    }
+  }
+
+  /// Requests the push permission on Android 13 and above.
+  /// Note: This API is only for Android Platform.
+  void requestPushPermissionAndroid() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid.requestPushPermissionAndroid();
+    }
+  }
+
+  /// Setup a callback handler for getting the response permission
+  void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
+    Cache().permissionResultCallbackHandler = handler;
   }
 }

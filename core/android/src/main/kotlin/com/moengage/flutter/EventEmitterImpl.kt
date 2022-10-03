@@ -11,6 +11,7 @@ import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
 import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
+import com.moengage.plugin.base.internal.model.events.push.PushPermissionEvent
 import com.moengage.plugin.base.internal.model.events.push.TokenEvent
 import com.moengage.plugin.base.internal.pushPayloadToJson
 import com.moengage.plugin.base.internal.selfHandledDataToJson
@@ -46,6 +47,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 }
                 is TokenEvent -> {
                     emitPushTokenEvent(event)
+                }
+                is PushPermissionEvent -> {
+
                 }
             }
         } catch (t: Throwable) {

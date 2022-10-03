@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/constants.dart';
@@ -232,4 +233,22 @@ class MoEAndroidCore {
     String payload = json.encode({keyAndroidId: false});
     _channel.invokeMethod(methodDeviceIdentifierTracking, payload);
   }
+
+  void setupNotificationChannel() {
+    _channel.invokeMethod(methodSetupNotificationChannelAndroid);
+  }
+
+  void permissionResponse(bool isGranted, PermissionType type) {
+    _channel.invokeMethod(methodPermissionResponse,
+        getPermissionResponsePayload(isGranted, type));
+  }
+
+  void navigateToSettings() {
+    _channel.invokeMethod(methodNavigateToSettingsAndroid);
+  }
+
+  void requestPushPermissionAndroid() {
+    _channel.invokeMethod(methodRequestPushPermissionAndroid);
+  }
+
 }
