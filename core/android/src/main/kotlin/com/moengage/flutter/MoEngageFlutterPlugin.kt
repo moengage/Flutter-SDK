@@ -100,6 +100,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_SETUP_NOTIFICATION_CHANNEL -> setupNotificationChannels()
                 METHOD_NAME_NAVIGATE_TO_SETTINGS -> navigateToSettings()
                 METHOD_NAME_REQUEST_PUSH_PERMISSION -> requestPushPermission()
+                METHOD_NAME_PERMISSION_RESPONSE -> permissionResponse(call)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -312,7 +313,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             pluginHelper.setUpNotificationChannels(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setupNotificationChannel() " }
+            Logger.print(LogLevel.ERROR, t) { "$tag setupNotificationChannel() :" }
         }
     }
 
@@ -320,7 +321,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             pluginHelper.navigateToSettings(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag navigateToSettings() " }
+            Logger.print(LogLevel.ERROR, t) { "$tag navigateToSettings() :" }
         }
     }
 
@@ -328,7 +329,19 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             pluginHelper.requestPushPermission(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag requestPushPermission() " }
+            Logger.print(LogLevel.ERROR, t) { "$tag requestPushPermission() :" }
+        }
+    }
+
+    private fun permissionResponse(methodCall: MethodCall) {
+        try {
+            Logger.print { "$tag permissionResponse() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag selfHandledCallback() : Payload: $payload" }
+            pluginHelper.permissionResponse(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag permissionResponse() :" }
         }
     }
 }

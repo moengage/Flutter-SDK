@@ -240,7 +240,7 @@ class MoEAndroidCore {
 
   void permissionResponse(bool isGranted, PermissionType type) {
     _channel.invokeMethod(methodPermissionResponse,
-        getPermissionResponsePayload(isGranted, type));
+        json.encode(getPermissionResponsePayload(isGranted, type)));
   }
 
   void navigateToSettings() {

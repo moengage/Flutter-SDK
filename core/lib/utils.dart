@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:moengage_flutter/model/app_status.dart';
@@ -59,12 +60,12 @@ Map<String, dynamic> accountMetaToMap(AccountMeta accountMeta) {
   return getAccountMeta(accountMeta.appId);
 }
 
-PermissionResultData permissionResultFromMap(
-    Map<String, dynamic> permissionPayload) {
+PermissionResultData permissionResultFromMap(dynamic methodCallArgs) {
+  Map<String, dynamic> permissionPayload = json.decode(methodCallArgs);
   return PermissionResultData(
       PlatformsExtension.fromString(permissionPayload[keyPlatform]),
       permissionPayload[keyIsPermissionGranted],
-      PermissionTypeExtension.fromString(keyPermissionType));
+      PermissionTypeExtension.fromString(permissionPayload[keyPermissionType]));
 }
 
 Map<String, dynamic> getPermissionResponsePayload(

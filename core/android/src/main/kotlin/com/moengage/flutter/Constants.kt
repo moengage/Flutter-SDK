@@ -33,5 +33,6 @@ const val METHOD_NAME_UPDATE_DEVICE_IDENTIFIER_TRACKING_STATUS =
 const val METHOD_NAME_SETUP_NOTIFICATION_CHANNEL = "setupNotificationChannels"
 const val METHOD_NAME_NAVIGATE_TO_SETTINGS = "navigateToSettings"
 const val METHOD_NAME_REQUEST_PUSH_PERMISSION = "requestPushPermission"
+const val METHOD_NAME_PERMISSION_RESPONSE = "permissionResponse"
 
 const val KEY_TYPE = "type"

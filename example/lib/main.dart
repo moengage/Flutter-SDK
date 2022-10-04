@@ -5,6 +5,7 @@ import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'dart:async';
@@ -80,6 +81,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             pushToken.toString());
   }
 
+  void _permissionCallbackHandler(PermissionResultData data) {
+    print("Permission Result: " + data.toString());
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +96,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
     _moengagePlugin.setSelfHandledInAppHandler(_onInAppSelfHandle);
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
+    _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.initialise();
     print("initState() : end ");
   }
@@ -110,13 +116,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         appBar: AppBar(
           title: const Text('Plugin example app'),
           actions: <Widget>[
-            FlatButton(
-              textColor: Colors.white,
+            TextButton(
               onPressed: () {
                 _moengagePlugin.onOrientationChanged();
               },
               child: Text("Orientation Change"),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
             ),
           ],
         ),
@@ -479,6 +483,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Android- Disable Ad Id"),
                 onTap: () async {
                   _moengagePlugin.disableAdIdTracking();
+                },
+              ),
+              new ListTile(
+                title: Text("Navigate to Settings(Android)"),
+                onTap: () async {
+                  _moengagePlugin.navigateToSettingsAndroid();
+                },
+              ),
+              new ListTile(
+                title: Text("Request Push Permission(Android)"),
+                onTap: () async {
+                  _moengagePlugin.requestPushPermissionAndroid();
+                },
+              ),
+              new ListTile(
+                title: Text("Mock push permission granted(Android)"),
+                onTap: () async {
+                  _moengagePlugin.pushPermissionResponseAndroid(true);
+                },
+              ),
+              new ListTile(
+                title: Text("Mock push permission denied(Android)"),
+                onTap: () async {
+                  _moengagePlugin.pushPermissionResponseAndroid(false);
                 },
               )
             ]).toList(),

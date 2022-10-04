@@ -27,7 +27,7 @@ apply plugin: 'com.huawei.agconnect'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 31
+  compileSdkVersion 33
 
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
@@ -40,7 +40,7 @@ android {
   defaultConfig {
     applicationId "com.moengage.sampleapp"
     minSdkVersion 21
-    targetSdkVersion 30
+    targetSdkVersion 33
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -96,7 +96,10 @@ dependencies {
   testImplementation 'junit:junit:4.13'
   androidTestImplementation("androidx.test.ext:junit:1.1.2")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-  implementation("com.moengage:moe-android-sdk:12.2.05")
+  implementation("com.moengage:moe-android-sdk:12.3.02") {
+    exclude group: "com.moengage", module: "pushbase"
+  }
+  implementation("com.moengage:pushbase:6.3.3-SNAPSHOT")
   implementation("com.moengage:inapp:6.3.2")
   implementation("com.google.firebase:firebase-messaging:23.0.7")
   implementation("androidx.lifecycle:lifecycle-process:2.5.1")
