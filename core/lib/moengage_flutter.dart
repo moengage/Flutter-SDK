@@ -436,6 +436,7 @@ class MoEngageFlutter {
   }
 
   ///API to create notification channels on Android.
+  /// Note: This API is only for Android Platform.
   void setupNotificationChannelsAndroid() {
     if (Platform.isAndroid) {
       controller.moEAndroid.setupNotificationChannel();

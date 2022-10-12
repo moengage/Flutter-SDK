@@ -486,25 +486,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               new ListTile(
-                title: Text("Navigate to Settings(Android)"),
+                title: Text("Android- Navigate to Settings"),
                 onTap: () async {
                   _moengagePlugin.navigateToSettingsAndroid();
                 },
               ),
               new ListTile(
-                title: Text("Request Push Permission(Android)"),
+                title: Text("Android- Request Push Permission"),
                 onTap: () async {
                   _moengagePlugin.requestPushPermissionAndroid();
                 },
               ),
               new ListTile(
-                title: Text("Mock push permission granted(Android)"),
+                title: Text("Android- Mock push permission granted"),
                 onTap: () async {
                   _moengagePlugin.pushPermissionResponseAndroid(true);
                 },
               ),
               new ListTile(
-                title: Text("Mock push permission denied(Android)"),
+                title: Text("Android- Mock push permission denied"),
                 onTap: () async {
                   _moengagePlugin.pushPermissionResponseAndroid(false);
                 },

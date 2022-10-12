@@ -112,8 +112,8 @@ class CoreController {
         PermissionResultCallbackHandler? handler =
             Cache().permissionResultCallbackHandler;
         if (handler != null) {
-          PermissionResultData result = permissionResultFromMap(call.arguments);
-          handler.call(result);
+          PermissionResultData data = permissionResultFromMap(call.arguments);
+          handler.call(data);
         }
       }
     } catch (e) {
