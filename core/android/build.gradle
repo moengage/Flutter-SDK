@@ -19,6 +19,9 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 }
 
@@ -51,8 +54,7 @@ android {
 dependencies{
     compileOnly("com.moengage:moe-android-sdk:12.2.05")
     compileOnly("com.moengage:inapp:6.3.2")
-    // Todo: update the base plugin version
-    api("com.moengage:plugin-base:3.0.0")
+    api("com.moengage:plugin-base:3.0.8-SNAPSHOT")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

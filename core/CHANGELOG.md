@@ -6,6 +6,9 @@
     - Compile SDK Version - 31
     - Target SDK version - 31
 
+### 5.1.0
+- Support for Android 13 notification permission.
+
 ## 27.09.2022
 
 ### 5.0.0

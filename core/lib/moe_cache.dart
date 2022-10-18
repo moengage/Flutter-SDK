@@ -8,4 +8,5 @@ class Cache {
   factory Cache() => _instance;
 
   PushTokenCallbackHandler? pushTokenCallbackHandler;
+  PermissionResultCallbackHandler? permissionResultCallbackHandler;
 }
