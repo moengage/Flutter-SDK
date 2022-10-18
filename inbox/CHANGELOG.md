@@ -1,8 +1,11 @@
 # MoEngage Flutter Inbox Plugin
 
-## Next Release
+### Next Release
+
+### 4.1.0
 - Android
-  - Build Configuration Updates
+    - Android Gradle Plugin version updated to `7.3.1`
+    - Gradle version updated to `7.4`
     - Compile SDK Version - 31
     - Target SDK version - 31
 

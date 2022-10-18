@@ -7,7 +7,10 @@
     - Target SDK version - 31
 
 ### 5.1.0
-- Support for Android 13 notification permission.
+- Android
+  - Support for Android 13 notification permission.
+  - Android Gradle Plugin version updated to `7.3.1`
+  - Gradle version updated to `7.4`
 
 ## 27.09.2022
 
