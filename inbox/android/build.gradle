@@ -50,7 +50,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compileOnly("com.moengage:moe-android-sdk:12.2.05")
     compileOnly("com.moengage:inbox-core:2.1.1")
-    // Todo: update the base plugin version
     implementation("com.moengage:plugin-base-inbox:3.0.0")
 }
 
