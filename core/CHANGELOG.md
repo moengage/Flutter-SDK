@@ -1,7 +1,10 @@
 # MoEngage Flutter Plugin
 
-## Next Release
+## ### 5.1.0
 - Android
+  - Support for Android 13 notification permission.
+  - Android Gradle Plugin version updated to `7.3.1`
+  - Gradle version updated to `7.4`
   - Build Configuration Updates
     - Compile SDK Version - 31
     - Target SDK version - 31
@@ -11,12 +14,7 @@
 | Then                                                                                                                                 | Now                                                                                                                                                 |
 |:------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------:|
 | initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) | initializeDefaultInstance(config: MOSDKConfig, sdkState: MoEngageSDKState = .enabled, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)  |
-
-### 5.1.0
-- Android
-  - Support for Android 13 notification permission.
-  - Android Gradle Plugin version updated to `7.3.1`
-  - Gradle version updated to `7.4`
+  
 
 ## 27.09.2022
 
