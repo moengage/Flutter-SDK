@@ -6,6 +6,8 @@
 - Android
     - Android Gradle Plugin version updated to `7.3.1`
     - Gradle version updated to `7.4`
+    - Compile SDK Version - 31
+    - Target SDK version - 31
 
 ## 27.09.2022
 
