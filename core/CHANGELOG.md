@@ -1,6 +1,5 @@
 # MoEngage Flutter Plugin
 
-=======
 ## Next Release
 - Android
   - Build Configuration Updates
