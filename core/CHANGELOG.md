@@ -5,6 +5,12 @@
   - Build Configuration Updates
     - Compile SDK Version - 31
     - Target SDK version - 31
+- iOS
+  - Deprecated API
+
+| Then                                                                                                                                 | Now                                                                                                                                                 |
+|:------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------:|
+| initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) | initializeDefaultInstance(config: MOSDKConfig, sdkState: MoEngageSDKState = .enabled, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)  |
 
 ### 5.1.0
 - Android
