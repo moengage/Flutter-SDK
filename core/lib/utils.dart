@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/account_meta.dart';
 import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/model/permission_result.dart';
+import 'package:moengage_flutter/model/permission_type.dart';
+import 'package:moengage_flutter/model/platforms.dart';
 
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking, String appId) {
@@ -54,4 +58,17 @@ AccountMeta accountMetaFromMap(Map<String, dynamic> metaPayload) {
 
 Map<String, dynamic> accountMetaToMap(AccountMeta accountMeta) {
   return getAccountMeta(accountMeta.appId);
+}
+
+PermissionResultData permissionResultFromMap(dynamic methodCallArgs) {
+  Map<String, dynamic> permissionPayload = json.decode(methodCallArgs);
+  return PermissionResultData(
+      PlatformsExtension.fromString(permissionPayload[keyPlatform]),
+      permissionPayload[keyIsPermissionGranted],
+      PermissionTypeExtension.fromString(permissionPayload[keyPermissionType]));
+}
+
+Map<String, dynamic> getPermissionResponsePayload(
+    bool isGranted, PermissionType type) {
+  return {keyPermissionType: type.asString, keyIsPermissionGranted: isGranted};
 }

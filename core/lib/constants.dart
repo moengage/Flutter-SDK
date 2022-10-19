@@ -26,6 +26,10 @@ const String methodOnOrientationChanged = "onOrientationChanged";
 const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
 const String methodUpdateDeviceIdentifierTrackingStatus =
     "updateDeviceIdentifierTrackingStatus";
+const String methodSetupNotificationChannelAndroid = "setupNotificationChannels";
+const String methodNavigateToSettingsAndroid = "navigateToSettings";
+const String methodRequestPushPermissionAndroid = "requestPushPermission";
+const String methodPermissionResponse = "permissionResponse";
 
 // Callback Names
 const String callbackOnPushClick = "onPushClick";
@@ -35,6 +39,7 @@ const String callbackOnInAppDismissed = "onInAppDismiss";
 const String callbackOnInAppCustomAction = "onInAppCustomAction";
 const String callbackOnInAppSelfHandled = "onInAppSelfHandle";
 const String callbackPushTokenGenerated = "onPushTokenGenerated";
+const String callbackPermissionResult = "onPermissionResult";
 
 // Gender Value Constants
 const String genderMale = "male";
@@ -122,3 +127,7 @@ const String keyData = "data";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
 const String keyAdId = "isAdIdTrackingEnabled";
+
+// permission
+const String keyIsPermissionGranted = "isGranted";
+const String keyPermissionType = "type";
