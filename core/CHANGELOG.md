@@ -1,5 +1,15 @@
 # MoEngage Flutter Plugin
 
+### Next Release *()*
+- iOS
+  - Deprecated API
+
+| Then                                                                                                                                 | Now                                                                                                                                                 |
+|:------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------:|
+| initializeDefaultInstance(_ config: MOSDKConfig, sdkState: Bool = true, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) | initializeDefaultInstance(config: MOSDKConfig, sdkState: MoEngageSDKState = .enabled, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)  |
+
+
+  
 ## 27.09.2022
 
 ### 5.0.0
