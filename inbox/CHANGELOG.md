@@ -8,6 +8,9 @@
     - Gradle version updated to `7.4`
     - Compile SDK Version - 31
     - Target SDK version - 31
+    - Support for Android SDK version `12.4.00`
+    - Inbox Core `2.2.0`
+    - Plugin Base Inbox `3.1.0`
 
 ## 27.09.2022
 
