@@ -1,6 +1,8 @@
 # MoEngage Flutter Plugin
 
-## ### 5.1.0
+### Next Release
+
+### 5.1.0
 - Android
   - Support for Android 13 notification permission.
   - Android Gradle Plugin version updated to `7.3.1`
@@ -8,6 +10,8 @@
   - Build Configuration Updates
     - Compile SDK Version - 31
     - Target SDK version - 31
+  - Support for Android SDK version `12.4.00`
+  - InApp `6.4.0`
 - iOS
   - Deprecated API
 

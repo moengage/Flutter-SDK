@@ -19,9 +19,6 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
 }
 
@@ -52,9 +49,9 @@ android {
     }
 }
 dependencies{
-    compileOnly("com.moengage:moe-android-sdk:12.4.00-SNAPSHOT")
-    compileOnly("com.moengage:inapp:6.4.0-SNAPSHOT")
-    api("com.moengage:plugin-base:3.1.0-SNAPSHOT")
+    compileOnly("com.moengage:moe-android-sdk:12.4.00")
+    compileOnly("com.moengage:inapp:6.4.0")
+    api("com.moengage:plugin-base:3.1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
