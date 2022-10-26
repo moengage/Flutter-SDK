@@ -12,7 +12,6 @@
     - Target SDK version - 31
   - Support for Android SDK version `12.4.00`
   - InApp `6.4.0`
-  - Plugin base `3.1.0`
 - iOS
   - Deprecated API
 
