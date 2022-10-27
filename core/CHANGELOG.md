@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-### Next Release
+# 27-10-2022
 
-### 5.1.0
+## 5.1.0
 - Android
   - Support for Android 13 notification permission.
   - Android Gradle Plugin version updated to `7.3.1`

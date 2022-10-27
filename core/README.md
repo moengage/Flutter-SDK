@@ -26,9 +26,9 @@ replace `$latestSdkVersion` with the latest SDK version.
   ```groovy
   dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation("androidx.core:core:1.3.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.lifecycle:lifecycle-process:2.2.0")
+    implementation("androidx.core:core:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.5.1")
     implementation "com.moengage:moe-android-sdk:$sdkVersion"
 }
   ```

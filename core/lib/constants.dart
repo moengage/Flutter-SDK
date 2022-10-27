@@ -26,7 +26,8 @@ const String methodOnOrientationChanged = "onOrientationChanged";
 const String methodDeviceIdentifierTracking = "deviceIdentifierTracking";
 const String methodUpdateDeviceIdentifierTrackingStatus =
     "updateDeviceIdentifierTrackingStatus";
-const String methodSetupNotificationChannelAndroid = "setupNotificationChannels";
+const String methodSetupNotificationChannelAndroid =
+    "setupNotificationChannels";
 const String methodNavigateToSettingsAndroid = "navigateToSettings";
 const String methodRequestPushPermissionAndroid = "requestPushPermission";
 const String methodPermissionResponse = "permissionResponse";

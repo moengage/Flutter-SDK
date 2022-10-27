@@ -250,5 +250,4 @@ class MoEAndroidCore {
   void requestPushPermissionAndroid() {
     _channel.invokeMethod(methodRequestPushPermissionAndroid);
   }
-
 }
