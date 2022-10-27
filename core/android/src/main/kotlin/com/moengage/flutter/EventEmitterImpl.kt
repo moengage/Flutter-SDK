@@ -10,8 +10,10 @@ import com.moengage.plugin.base.internal.model.events.EventType
 import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
+import com.moengage.plugin.base.internal.model.events.push.PermissionEvent
 import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
 import com.moengage.plugin.base.internal.model.events.push.TokenEvent
+import com.moengage.plugin.base.internal.permissionResultToJson
 import com.moengage.plugin.base.internal.pushPayloadToJson
 import com.moengage.plugin.base.internal.selfHandledDataToJson
 import com.moengage.plugin.base.internal.tokenEventToJson
@@ -46,6 +48,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 }
                 is TokenEvent -> {
                     emitPushTokenEvent(event)
+                }
+                is PermissionEvent -> {
+                    emitPermissionEvent(event)
                 }
             }
         } catch (t: Throwable) {
@@ -121,6 +126,17 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         }
     }
 
+    private fun emitPermissionEvent(event: PermissionEvent) {
+        try {
+            Logger.print { "$tag emitPermissionEvent() permission event: $event:" }
+            val eventType = eventMap[event.eventType] ?: return
+            val payload = permissionResultToJson(event.result)
+            emit(eventType, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitPermissionEvent() : " }
+        }
+    }
+
     companion object {
 
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
@@ -133,6 +149,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.INAPP_CUSTOM_ACTION] = "onInAppCustomAction"
             eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
             eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
-        }
+            eventMap[EventType.PERMISSION] = "onPermissionResult"
+         }
     }
 }
