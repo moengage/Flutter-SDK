@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Next Release
+
+## 5.1.1
+- Bugfix
+  - Typo fix in API name `enableAdIdTracking()`
+
 # 27-10-2022
 
 ## 5.1.0

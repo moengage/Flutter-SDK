@@ -417,7 +417,7 @@ class MoEngageFlutter {
 
   ///API to enable Advertising Id tracking for the given instance.
   /// Note: This API is only for Android Platform.
-  void enableAdIdIdTracking() {
+  void enableAdIdTracking() {
     if (Platform.isAndroid) {
       controller.moEAndroid
           .updateDeviceIdentifierTrackingStatus(appId, keyAdId, true);
