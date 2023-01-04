@@ -1,5 +1,5 @@
 // Plugin Channel
-const String TAG = "MoEFlutter_";
+const String TAG = "MoECore_";
 
 // Plugin Channel
 const String channelName = "com.moengage/core";

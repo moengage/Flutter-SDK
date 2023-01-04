@@ -1,4 +1,5 @@
-import '../../constants.dart';
+import 'package:moengage_flutter/logger.dart';
+import 'package:moengage_flutter/constants.dart';
 
 enum MoEPushService { apns, fcm, push_kit, mi_push }
 
@@ -19,7 +20,7 @@ extension MoEPushServiceExtention on MoEPushService {
   }
 
   static MoEPushService fromString(String pushService) {
-    print("$_tag fromString() : pushService: $pushService");
+    Logger.d("fromString() : pushService: $pushService",_tag);
     switch (pushService.toUpperCase()) {
       case _pushServiceAPNS:
         return MoEPushService.apns;

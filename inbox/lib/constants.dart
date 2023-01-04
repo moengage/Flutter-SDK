@@ -1,3 +1,4 @@
+const String TAG = "MoeInbox_";
 const String CHANNEL_NAME = "com.moengage/inbox";
 
 const String METHOD_NAME_UN_CLICKED_COUNT = "unClickedCount";

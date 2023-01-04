@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/account_meta.dart';

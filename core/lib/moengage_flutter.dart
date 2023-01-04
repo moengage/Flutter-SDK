@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:moengage_flutter/logger.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
@@ -182,7 +183,7 @@ class MoEngageFlutter {
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     if (userAttributeName.isEmpty) {
-      print("User Attribute Name cannot be empty");
+      Logger.w("User Attribute Name cannot be empty");
       return;
     }
     if (userAttributeValue is String ||
@@ -197,8 +198,7 @@ class MoEngageFlutter {
             .setUserAttribute(userAttributeName, userAttributeValue, appId);
       }
     } else {
-      print(
-          "Only String, Numbers and Bool values supported as User Attributes");
+      Logger.w("Only String, Numbers and Bool values supported as User Attributes");
     }
   }
 

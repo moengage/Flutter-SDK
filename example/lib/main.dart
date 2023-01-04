@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moengage_flutter/logger.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
@@ -13,11 +14,12 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
-import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
+
+final tag = "MoeExample_";
 
 class MyApp extends StatefulWidget {
   @override
@@ -33,33 +35,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
 
   void _onPushClick(PushCampaignData message) {
-    print(
-        "Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
-            message.toString());
+    Logger.d("Main : _onPushClick(): This is a push click callback from native to flutter. Payload " + message.toString(),tag);
   }
 
   void _onInAppClick(ClickData message) {
-    print(
-        "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
-            message.toString());
+    Logger.d("Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " + message.toString(),tag);
   }
 
   void _onInAppShown(InAppData message) {
-    print(
-        "Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
-            message.toString());
+    Logger.d("Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " + message.toString(),tag);
   }
 
   void _onInAppDismiss(InAppData message) {
-    print(
-        "Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " +
-            message.toString());
+    Logger.d("Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " + message.toString(),tag);
   }
 
   void _onInAppSelfHandle(SelfHandledCampaignData message) async {
-    print(
-        "Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
-            message.toString());
+    Logger.d("Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " + message.toString(),tag);
     final SelfHandledActions action =
         await asyncSelfHandledDialog(buildContext);
     switch (action) {
@@ -76,20 +68,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _onPushTokenGenerated(PushTokenData pushToken) {
-    print(
-        "Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
-            pushToken.toString());
+    Logger.d("Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " + pushToken.toString(),tag);
+    _moengagePlugin.passFCMPushToken(pushToken.toString());
   }
 
   void _permissionCallbackHandler(PermissionResultData data) {
-    print("Permission Result: " + data.toString());
+    Logger.d("Permission Result: " + data.toString(),tag);
   }
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
-    print("initState() : start ");
+    Logger.d("initState() : start ",tag);
     _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
     _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
@@ -98,7 +89,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.initialise();
-    print("initState() : end ");
+    Logger.d("initState() : end ",tag);
   }
 
   Future<void> initPlatformState() async {
@@ -110,7 +101,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    print("Main : build() ");
+    Logger.d("Main : build() ",tag);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -159,7 +150,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                             "dateTime2", "2019-12-06T08:26:21.170Z");
                     final String value =
                         await asyncInputDialog(context, "Event name");
-                    print("Main: Event name : $value");
+                    Logger.d("Main: Event name : $value",tag);
                     _moengagePlugin.trackEvent(value, details);
                   }),
               new ListTile(
@@ -193,7 +184,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                             "dateTime2", "2019-12-06T08:26:21.170Z");
                     final String value =
                         await asyncInputDialog(context, "Event name");
-                    print("Main: Event name : $value");
+                    Logger.d("Main: Event name : $value",tag);
                     _moengagePlugin.trackEvent(value, details);
                   }),
               new ListTile(
@@ -201,7 +192,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () async {
                     final String value =
                         await asyncInputDialog(context, "Event name");
-                    print("Main: Event name : $value");
+                    Logger.d("Main: Event name : $value",tag);
                     _moengagePlugin.trackEvent(value);
                     _moengagePlugin.trackEvent(value, MoEProperties());
                   }),
@@ -211,7 +202,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 //                    _moengagePlugin.setUniqueId(null);
                     final String value =
                         await asyncInputDialog(context, "Unique Id");
-                    print("Main: UniqueId: $value");
+                    Logger.d("Main: UniqueId: $value",tag);
                     _moengagePlugin.setUniqueId(value);
                   }),
               new ListTile(
@@ -220,7 +211,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     _moengagePlugin.setUserName("tesst");
                     final String value =
                         await asyncInputDialog(context, "User Name");
-                    print("Main: UserName: $value");
+                    Logger.d("Main: UserName: $value",tag);
                     _moengagePlugin.setUserName(value);
                   }),
               new ListTile(
@@ -228,7 +219,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () async {
                     final String value =
                         await asyncInputDialog(context, "First Name");
-                    print("Main: FisrtName: $value");
+                    Logger.d("Main: FisrtName: $value",tag);
                     _moengagePlugin.setFirstName(value);
                   }),
               new ListTile(
@@ -236,7 +227,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () async {
                     final String value =
                         await asyncInputDialog(context, "Last Name");
-                    print("Main: Last Name: $value");
+                    Logger.d("Main: Last Name: $value",tag);
                     _moengagePlugin.setLastName(value);
                   }),
               new ListTile(
@@ -244,7 +235,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () async {
                     final String value =
                         await asyncInputDialog(context, "EmailId");
-                    print("Main: EmailId: $value");
+                    Logger.d("Main: EmailId: $value",tag);
                     _moengagePlugin.setEmail(value);
                   }),
               new ListTile(
@@ -252,7 +243,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () async {
                     final String value =
                         await asyncInputDialog(context, "Phone Number");
-                    print("Main: Phone Number: $value");
+                    Logger.d("Main: Phone Number: $value",tag);
                     _moengagePlugin.setPhoneNumber(value);
                   }),
               new ListTile(
@@ -274,7 +265,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Set Alias"),
                 onTap: () async {
                   final String value = await asyncInputDialog(context, "Alias");
-                  print("Main: Alias : $value");
+                  Logger.d("Main: Alias : $value",tag);
                   _moengagePlugin.setAlias(value);
                 },
               ),
@@ -397,7 +388,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Inbox: Un-Clicked Count"),
                 onTap: () async {
                   int count = await _moEngageInbox.getUnClickedCount();
-                  print("Main : Un-clicked Count " + count.toString());
+                  Logger.d("Main : Un-clicked Count " + count.toString(),tag);
                 },
               ),
               new ListTile(
@@ -405,11 +396,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
                   if (data != null) {
-                    print("Main : Inbox Messages count: " +
-                        data.messages.length.toString());
+                    Logger.d("Main : Inbox Messages count: " +
+                        data.messages.length.toString(),tag);
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        print("Main : Inbox Messages " + message.toString());
+                        Logger.d("Main : Inbox Messages " + message.toString(),tag);
                       }
                     }
                   }
@@ -420,12 +411,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
                   if (data != null) {
-                    print("Main : Inbox Messages count: " +
-                        data.messages.length.toString());
+                    Logger.d("Main : Inbox Messages count: " +
+                        data.messages.length.toString(),tag);
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        print("Main : Tracking inbox message: " +
-                            message.toString());
+                        Logger.d("Main : Tracking inbox message: " + message.toString(),tag);
                         _moEngageInbox.trackMessageClicked(message);
                       }
                     }
@@ -437,12 +427,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
                   if (data != null) {
-                    print("Main : Inbox Messages count: " +
-                        data.messages.length.toString());
+                    Logger.d("Main : Inbox Messages count: " + data.messages.length.toString(),tag);
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        print("Main : Deleting inbox message: " +
-                            message.toString());
+                        Logger.d("Main : Deleting inbox message: " + message.toString(),tag);
                         _moEngageInbox.deleteMessage(message);
                       }
                     }
@@ -476,7 +464,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Android- Enable Ad Id"),
                 onTap: () async {
-                  _moengagePlugin.enableAdIdIdTracking();
+                  _moengagePlugin.enableAdIdTracking();
                 },
               ),
               new ListTile(
