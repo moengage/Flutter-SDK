@@ -1,5 +1,8 @@
 # MoEngage Flutter Plugin
 
+## 11-01-2023
+- Flutter data Security improvement. Disable logs in release mode
+
 # 04-11-2022
 
 ## 5.1.1

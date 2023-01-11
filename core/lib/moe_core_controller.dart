@@ -34,7 +34,7 @@ class CoreController {
   factory CoreController() => _instance;
 
   Future<dynamic> _handler(MethodCall call) async {
-    Logger.d("_handler() : Received callback. Payload ${call.method}",_tag);
+    Logger.d("$_tag _handler() : Received callback. Payload ${call.method}");
     try {
       if (call.method == callbackPushTokenGenerated) {
         PushTokenData? data =
@@ -97,12 +97,12 @@ class CoreController {
       if (call.method == callbackOnInAppSelfHandled) {
         SelfHandledCampaignData? data =
             InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
-        Logger.i("_handler() : data: $data",_tag);
+        Logger.i("_handler() : data: $data");
         if (data != null) {
           SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .selfHandledInAppCallbackHandler;
-          Logger.d("_handler() : handler: $handler",_tag);
+          Logger.d("_handler() : handler: $handler");
           if (handler != null) {
             handler.call(data);
           }
@@ -117,7 +117,7 @@ class CoreController {
         }
       }
     } catch (e,stackTrace) {
-      Logger.e("Error: ${call.toString()} has an Exception:",tag: _tag,error: e,stackTrace: stackTrace);
+      Logger.e("$_tag Error: ${call.toString()} has an Exception:",error: e,stackTrace: stackTrace);
     }
   }
 }

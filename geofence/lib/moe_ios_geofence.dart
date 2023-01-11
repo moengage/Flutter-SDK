@@ -14,7 +14,7 @@ class MoEiOSGeofence {
       _channel.invokeMethod(
           methodStartGeofenceMontioring, getAccountMeta(appId));
     } catch (e,stacktrace) {
-      Logger.e("Error: startGeofenceMonitoring() : ",error: e,stackTrace: stacktrace,tag: _tag);
+      Logger.e("$_tag Error: startGeofenceMonitoring() : ",error: e,stackTrace: stacktrace);
     }
   }
 }

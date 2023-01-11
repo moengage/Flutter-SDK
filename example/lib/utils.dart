@@ -40,7 +40,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
-  Logger.d("asyncSelfHandledDialog",tag);
+  Logger.d("$tag asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,

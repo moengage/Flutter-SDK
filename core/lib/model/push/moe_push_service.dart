@@ -20,7 +20,7 @@ extension MoEPushServiceExtention on MoEPushService {
   }
 
   static MoEPushService fromString(String pushService) {
-    Logger.d("fromString() : pushService: $pushService",_tag);
+    Logger.d("$_tag fromString() : pushService: $pushService");
     switch (pushService.toUpperCase()) {
       case _pushServiceAPNS:
         return MoEPushService.apns;

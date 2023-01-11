@@ -20,14 +20,14 @@ class PushPayloadMapper {
           tokenData[keyPushToken],
           MoEPushServiceExtention.fromString(tokenData[keyPushService]));
     } catch (exception,stackTrace) {
-      Logger.e("Error: pushTokenFromJson() : ",tag: _tag,stackTrace: stackTrace,error: exception);
+      Logger.e("$_tag Error: pushTokenFromJson() : ",stackTrace: stackTrace,error: exception);
     }
     return null;
   }
 
   PushCampaignData? pushCampaignFromJson(dynamic methodCallArgs) {
     try {
-      Logger.d("pushCampaignFromJson() : $methodCallArgs",_tag);
+      Logger.d("$_tag pushCampaignFromJson() : $methodCallArgs");
       Map<String, dynamic> pushCampaignPayload = json.decode(methodCallArgs);
       Map<String, dynamic> campaignData = pushCampaignPayload[keyData];
       return PushCampaignData(
@@ -44,7 +44,7 @@ class PushPayloadMapper {
                   ? campaignData[keyPayload]
                   : new Map()));
     } catch (e,stackTrace) {
-      Logger.e("Error: pushTokenFromJson() : ",tag: _tag,stackTrace: stackTrace,error: e);
+      Logger.e("$_tag Error: pushTokenFromJson() : ",stackTrace: stackTrace,error: e);
     }
     return null;
   }
