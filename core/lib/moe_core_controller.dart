@@ -14,7 +14,7 @@ import 'package:moengage_flutter/moe_cache.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/push_payload_mapper.dart';
 import 'package:moengage_flutter/utils.dart';
-import 'package:moengage_flutter/logger.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 
 
 class CoreController {

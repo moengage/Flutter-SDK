@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moengage_flutter/logger.dart';
 
 import 'main.dart';
 
@@ -40,7 +39,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
-  Logger.d("$tag asyncSelfHandledDialog");
+  debugPrint("$tag asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,

@@ -7,7 +7,7 @@ import 'package:moengage_flutter/model/push/push_campaign.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/utils.dart';
-import 'package:moengage_flutter/logger.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 
 class PushPayloadMapper {
   final _tag = "${TAG}PushPayloadMapper";

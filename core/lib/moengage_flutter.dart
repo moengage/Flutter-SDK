@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:moengage_flutter/logger.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
@@ -472,5 +472,12 @@ class MoEngageFlutter {
   /// Setup a callback handler for getting the response permission
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
+  }
+
+  /// Configure MoEngage SDK Logs
+  /// @param [logLevel] LogLevel for SDK logs
+  /// @param [isEnabledForReleaseBuild] To enable/disable logs in Release build.
+  void configureLogs(LogLevel logLevel,{bool isEnabledForReleaseBuild = false}){
+    Logger.configureLogs(logLevel,isEnabledForReleaseBuild);
   }
 }

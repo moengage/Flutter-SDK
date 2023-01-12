@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/logger.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_flutter/constants.dart';
 
 enum MoEPushService { apns, fcm, push_kit, mi_push }
