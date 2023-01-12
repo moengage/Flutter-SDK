@@ -476,7 +476,7 @@ class MoEngageFlutter {
 
   /// Configure MoEngage SDK Logs
   /// @param [logLevel] LogLevel for SDK logs
-  /// @param [isEnabledForReleaseBuild] To enable/disable logs in Release build.
+  /// @param [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
   void configureLogs(LogLevel logLevel,{bool isEnabledForReleaseBuild = false}){
     Logger.configureLogs(logLevel,isEnabledForReleaseBuild);
   }
