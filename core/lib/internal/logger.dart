@@ -13,8 +13,8 @@ class Logger {
   LogLevel _logLevel = LogLevel.VERBOSE;
 
   /// Configure MoEngage SDK Logs
-  /// @param [logLevel] LogLevel for SDK logs
-  /// @param [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
+  /// [logLevel] LogLevel for SDK logs
+  /// [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
   static configureLogs(LogLevel logLevel,
       [bool isEnabledForReleaseBuild = false]) {
     _logger._logLevel = logLevel;
@@ -26,24 +26,28 @@ class Logger {
   Logger._();
 
   ///Logs INFO level messages
+  ///[message] message to be logged
   static i(String message) {
     _log("[I]: $BASE_TAG $message", logLevel: LogLevel.INFO);
   }
 
   ///Logs DEBUG level messages
+  ///[message] message to be logged
   static d(String message) {
     _log("[D]: $BASE_TAG $message", logLevel: LogLevel.DEBUG);
   }
 
-  ///Logs WARN level messages. Text color - Yellow(ANSI code - \x1B[33m)
+  ///Logs WARN level messages.
+  ///[message] message to be logged
   static w(String message) {
     _log("[W]: $BASE_TAG $message",
         logLevel: LogLevel.WARN, textColor: "\x1B[33m");
   }
 
-  ///Logs ERROR level messages. Text color - Red(ANSI code - \x1B[31m)
-  ///Accepts Optional named argument [error] . Error / Exception can be passed
-  ///Optional [stackTrace] argument of type [StackTrace] which can be passed from catch Block
+  ///Logs ERROR level messages.
+  ///[message] message to be logged
+  ///[error] optional named argument of type [Error]/[Exception].
+  ///[stackTrace] optional named argument [StackTrace]
   static e(String message, {dynamic error, StackTrace? stackTrace}) {
     _log("[E]: $BASE_TAG $message",
         error: error,
@@ -53,6 +57,7 @@ class Logger {
   }
 
   ///Logs VERBOSE level messages
+  ///[message] message to be logged
   static v(String message) {
     _log("[V]: $BASE_TAG $message", logLevel: LogLevel.VERBOSE);
   }
