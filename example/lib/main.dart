@@ -34,23 +34,33 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
 
   void _onPushClick(PushCampaignData message) {
-    debugPrint("$tag Main : _onPushClick(): This is a push click callback from native to flutter. Payload " + message.toString());
+    debugPrint(
+        "$tag Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppClick(ClickData message) {
-    debugPrint("$tag Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " + message.toString());
+    debugPrint(
+        "$tag Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppShown(InAppData message) {
-    debugPrint("$tag Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " + message.toString());
+    debugPrint(
+        "$tag Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppDismiss(InAppData message) {
-    debugPrint("$tag Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " + message.toString());
+    debugPrint(
+        "$tag Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload " +
+            message.toString());
   }
 
   void _onInAppSelfHandle(SelfHandledCampaignData message) async {
-    debugPrint("$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " + message.toString());
+    debugPrint(
+        "$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload " +
+            message.toString());
     final SelfHandledActions action =
         await asyncSelfHandledDialog(buildContext);
     switch (action) {
@@ -67,7 +77,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _onPushTokenGenerated(PushTokenData pushToken) {
-    debugPrint("$tag Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " + pushToken.toString());
+    debugPrint(
+        "$tag Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
+            pushToken.toString());
     _moengagePlugin.passFCMPushToken(pushToken.toString());
   }
 
@@ -387,7 +399,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Inbox: Un-Clicked Count"),
                 onTap: () async {
                   int count = await _moEngageInbox.getUnClickedCount();
-                  debugPrint("$tag Main : Un-clicked Count " + count.toString());
+                  debugPrint(
+                      "$tag Main : Un-clicked Count " + count.toString());
                 },
               ),
               new ListTile(
@@ -399,7 +412,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         data.messages.length.toString());
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        debugPrint("$tag Main : Inbox Messages " + message.toString());
+                        debugPrint(
+                            "$tag Main : Inbox Messages " + message.toString());
                       }
                     }
                   }
@@ -414,7 +428,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         data.messages.length.toString());
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        debugPrint("$tag Main : Tracking inbox message: " + message.toString());
+                        debugPrint("$tag Main : Tracking inbox message: " +
+                            message.toString());
                         _moEngageInbox.trackMessageClicked(message);
                       }
                     }
@@ -426,10 +441,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   InboxData? data = await _moEngageInbox.fetchAllMessages();
                   if (data != null) {
-                    debugPrint("$tag Main : Inbox Messages count: " + data.messages.length.toString());
+                    debugPrint("$tag Main : Inbox Messages count: " +
+                        data.messages.length.toString());
                     if (data.messages.length > 0) {
                       for (final message in data.messages) {
-                        debugPrint("$tag Main : Deleting inbox message: " + message.toString());
+                        debugPrint("$tag Main : Deleting inbox message: " +
+                            message.toString());
                         _moEngageInbox.deleteMessage(message);
                       }
                     }

@@ -28,8 +28,9 @@ class InAppPayloadMapper {
           accountMetaFromMap(selfHandledPayload[keyAccountMeta]),
           selfHandledCampaignFromMap(data[keySelfHandled]),
           PlatformsExtension.fromString(data[keyPlatform]));
-    } catch (e,stackTrace) {
-      Logger.e("$_tag Error: selfHandledCampaignFromJson() :",error: e,stackTrace: stackTrace);
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: selfHandledCampaignFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }
@@ -42,8 +43,9 @@ class InAppPayloadMapper {
           PlatformsExtension.fromString(data[keyPlatform]),
           accountMetaFromMap(inAppDataPayload[keyAccountMeta]),
           campaignDataFromMap(data));
-    } catch (e,stackTrace) {
-      Logger.e("$_tag Error: inAppDataFromJson() :",error: e,stackTrace: stackTrace);
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: inAppDataFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }
@@ -59,8 +61,9 @@ class InAppPayloadMapper {
           accountMetaFromMap(actionPayload[keyAccountMeta]),
           campaignDataFromMap(actionData),
           actionFromMap(actionData));
-    } catch (e,stackTrace) {
-      Logger.e("$_tag Error: actionFromJson() :",error: e,stackTrace: stackTrace);
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: actionFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }

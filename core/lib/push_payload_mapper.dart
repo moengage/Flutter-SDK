@@ -19,8 +19,9 @@ class PushPayloadMapper {
           PlatformsExtension.fromString(tokenData[keyPlatform]),
           tokenData[keyPushToken],
           MoEPushServiceExtention.fromString(tokenData[keyPushService]));
-    } catch (exception,stackTrace) {
-      Logger.e("$_tag Error: pushTokenFromJson() : ",stackTrace: stackTrace,error: exception);
+    } catch (exception, stackTrace) {
+      Logger.e("$_tag Error: pushTokenFromJson() : ",
+          stackTrace: stackTrace, error: exception);
     }
     return null;
   }
@@ -43,8 +44,9 @@ class PushPayloadMapper {
               campaignData.containsKey(keyPayload)
                   ? campaignData[keyPayload]
                   : new Map()));
-    } catch (e,stackTrace) {
-      Logger.e("$_tag Error: pushTokenFromJson() : ",stackTrace: stackTrace,error: e);
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: pushTokenFromJson() : ",
+          stackTrace: stackTrace, error: e);
     }
     return null;
   }

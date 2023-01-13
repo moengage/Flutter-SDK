@@ -16,7 +16,6 @@ import 'package:moengage_flutter/push_payload_mapper.dart';
 import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/internal/logger.dart';
 
-
 class CoreController {
   String _tag = "${TAG}CoreController";
   static late CoreController _instance = CoreController._internal();
@@ -116,8 +115,9 @@ class CoreController {
           handler.call(data);
         }
       }
-    } catch (e,stackTrace) {
-      Logger.e("$_tag Error: ${call.toString()} has an Exception:",error: e,stackTrace: stackTrace);
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: ${call.toString()} has an Exception:",
+          error: e, stackTrace: stackTrace);
     }
   }
 }

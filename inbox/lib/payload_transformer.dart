@@ -52,8 +52,8 @@ InboxData? deSerializeInboxMessages(dynamic messagesPayload) {
     Map<String, dynamic> dataPayload = message[keyData];
     return InboxData(
         dataPayload[keyPlatform], messagesJsonToList(dataPayload[keyMessages]));
-  } catch (e,stackTrace) {
-    Logger.e("$_tag Error: ",error: e,stackTrace: stackTrace);
+  } catch (e, stackTrace) {
+    Logger.e("$_tag Error: ", error: e, stackTrace: stackTrace);
   }
   return null;
 }
@@ -84,8 +84,9 @@ InboxMessage? messageFromJson(Map<String, dynamic> message) {
         message[keyReceivedTime],
         message[keyExpiryTime],
         message[keyPayload]);
-  } catch (e,stacktrace) {
-    Logger.e("$_tag Error: messageFromJson InboxMessage ",stackTrace: stacktrace);
+  } catch (e, stacktrace) {
+    Logger.e("$_tag Error: messageFromJson InboxMessage ",
+        stackTrace: stacktrace);
   }
   return null;
 }
