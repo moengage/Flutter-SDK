@@ -10,10 +10,10 @@ class Logger {
   bool _isEnabledForReleaseBuild = false;
 
   ///LogLevel for SDK logs.
-  LogLevel _logLevel = LogLevel.VERBOSE;
+  LogLevel _logLevel = LogLevel.INFO;
 
   /// Configure MoEngage SDK Logs
-  /// [logLevel] LogLevel for SDK logs
+  /// [logLevel] - [LogLevel] Control for SDK logs
   /// [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
   static configureLogs(LogLevel logLevel,
       [bool isEnabledForReleaseBuild = false]) {
@@ -65,7 +65,7 @@ class Logger {
   static void _log(String message,
       {dynamic error,
       StackTrace? stackTrace,
-      LogLevel logLevel = LogLevel.VERBOSE,
+      required LogLevel logLevel,
       String? textColor}) {
     if (_logger._logLevel.index < logLevel.index) {
       return;

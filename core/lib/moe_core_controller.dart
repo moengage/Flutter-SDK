@@ -96,12 +96,12 @@ class CoreController {
       if (call.method == callbackOnInAppSelfHandled) {
         SelfHandledCampaignData? data =
             InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
-        Logger.i("_handler() : data: $data");
+        Logger.i("$_tag _handler() : data: $data");
         if (data != null) {
           SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .selfHandledInAppCallbackHandler;
-          Logger.d("_handler() : handler: $handler");
+          Logger.d("$_tag _handler() : handler: $handler");
           if (handler != null) {
             handler.call(data);
           }

@@ -1,6 +1,6 @@
 # MoEngage Geofence Plugin
 
-## 11-01-2023
+## Next Release
 - Flutter data Security improvement. Disable logs in release mode 
 
 # 27-10-2022
