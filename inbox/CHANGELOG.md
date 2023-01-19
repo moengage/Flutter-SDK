@@ -1,7 +1,7 @@
 # MoEngage Flutter Inbox Plugin
 
 ## Next Release
-- Flutter data Security improvement. Disable logs in release mode
+-  Security improvement: controlled logging for release, debug and profile mode
 
 # 27-10-2022
 
