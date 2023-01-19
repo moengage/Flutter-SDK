@@ -476,7 +476,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Android- Enable Ad Id"),
                 onTap: () async {
-                  _moengagePlugin.enableAdIdIdTracking();
+                  _moengagePlugin.enableAdIdTracking();
                 },
               ),
               new ListTile(

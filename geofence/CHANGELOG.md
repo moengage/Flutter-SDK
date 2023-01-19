@@ -1,5 +1,10 @@
 # MoEngage Geofence Plugin
 
+# Next Release Date
+
+## 1.2.0
+- MoEngageGeofence SDK version updated to `~>5.2.0`.
+
 # 27-10-2022
 
 ## 1.1.0
