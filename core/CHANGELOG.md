@@ -2,7 +2,7 @@
 
 ## Next Release
 
-- Support for 2Step Push Otpin InApps
+- Support for 2Step Push Optin InApps
 
 # 04-11-2022
 
