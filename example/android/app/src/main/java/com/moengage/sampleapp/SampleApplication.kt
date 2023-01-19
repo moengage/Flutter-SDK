@@ -1,6 +1,5 @@
 package com.moengage.sampleapp
 
-import android.content.Context
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
@@ -21,7 +20,7 @@ import io.flutter.app.FlutterApplication
 class SampleApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "CM4D1LZN2IMJNBY9ULXAU73D")
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,

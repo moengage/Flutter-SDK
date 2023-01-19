@@ -59,8 +59,7 @@ class CoreController {
         }
       }
       if (call.method == callbackOnInAppClicked ||
-          call.method == callbackOnInAppCustomAction ||
-          call.method == callbackInAppRequestPushPermission) {
+          call.method == callbackOnInAppCustomAction) {
         ClickData? data = InAppPayloadMapper().actionFromJson(call.arguments);
         if (data != null) {
           InAppClickCallbackHandler? handler = CoreInstanceProvider()
@@ -110,14 +109,6 @@ class CoreController {
         }
       }
       if (call.method == callbackPermissionResult) {
-        PermissionResultCallbackHandler? handler =
-            Cache().permissionResultCallbackHandler;
-        if (handler != null) {
-          PermissionResultData data = permissionResultFromMap(call.arguments);
-          handler.call(data);
-        }
-      }
-      if (call.method == call) {
         PermissionResultCallbackHandler? handler =
             Cache().permissionResultCallbackHandler;
         if (handler != null) {

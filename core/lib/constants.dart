@@ -43,8 +43,6 @@ const String callbackOnInAppCustomAction = "onInAppCustomAction";
 const String callbackOnInAppSelfHandled = "onInAppSelfHandle";
 const String callbackPushTokenGenerated = "onPushTokenGenerated";
 const String callbackPermissionResult = "onPermissionResult";
-const String callbackInAppRequestPushPermission =
-    "requestNotificationPermission";
 
 // Gender Value Constants
 const String genderMale = "male";

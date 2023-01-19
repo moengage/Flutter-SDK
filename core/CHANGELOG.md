@@ -7,7 +7,6 @@
 # 04-11-2022
 
 ## 5.1.1
-
 - Bugfix
   - Typo fix in API name `enableAdIdTracking()`
 

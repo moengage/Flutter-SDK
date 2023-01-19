@@ -152,7 +152,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
             eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
             eventMap[EventType.PERMISSION] = "onPermissionResult"
-            eventMap[EventType.REQUEST_NOTIFICATION_PERMISSION] = "requestNotificationPermission"
         }
     }
 }

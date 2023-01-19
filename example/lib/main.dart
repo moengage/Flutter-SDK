@@ -4,7 +4,6 @@ import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/model/inapp/push_notification_action.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
@@ -14,7 +13,6 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
-import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'utils.dart';
 
@@ -43,14 +41,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     print(
         "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
             message.toString());
-    if (message.action is PushNotificationAction) {
-      var pushAction = (message.action as PushNotificationAction);
-      if (pushAction.requestCount < 2) {
-        _moengagePlugin.requestPushPermissionAndroid();
-      } else {
-        _moengagePlugin.navigateToSettingsAndroid();
-      }
-    }
   }
 
   void _onInAppShown(InAppData message) {
@@ -87,7 +77,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void _onPushTokenGenerated(PushTokenData pushToken) {
     print(
         "Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
-            pushToken.toString());
+            pushToken.token.toString());
   }
 
   void _permissionCallbackHandler(PermissionResultData data) {
@@ -485,7 +475,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Android- Enable Ad Id"),
                 onTap: () async {
-                  _moengagePlugin.enableAdIdIdTracking();
+                  _moengagePlugin.enableAdIdTracking();
                 },
               ),
               new ListTile(
