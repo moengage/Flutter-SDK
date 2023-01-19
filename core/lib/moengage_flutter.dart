@@ -473,4 +473,14 @@ class MoEngageFlutter {
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
   }
+
+  /// Updates the number of the times Notification permission is requested
+  /// @param [requestCount] This count will be incremented to existing value
+  /// Note: This API is only applicable for Android Platform. This should not called in App/Widget lifecycle methods.
+  void updatePushPermissionRequestCountAndroid(int requestCount) {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updatePushPermissionRequestCountAndroid(requestCount, appId);
+    }
+  }
 }

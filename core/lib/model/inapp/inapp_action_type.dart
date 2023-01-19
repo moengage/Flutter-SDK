@@ -1,1 +1,1 @@
-enum ActionType { navigation, custom }
+enum ActionType { navigation, custom, requestNotificationPermission }

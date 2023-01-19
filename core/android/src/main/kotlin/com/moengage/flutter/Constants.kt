@@ -36,3 +36,5 @@ const val METHOD_NAME_REQUEST_PUSH_PERMISSION = "requestPushPermission"
 const val METHOD_NAME_PERMISSION_RESPONSE = "permissionResponse"
 
 const val KEY_TYPE = "type"
+
+const val METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT = "updatePushPermissionRequestCount"

@@ -10,6 +10,7 @@ import 'package:moengage_flutter/model/inapp/inapp_custom_action.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/model/inapp/navigation_action.dart';
 import 'package:moengage_flutter/model/inapp/navigation_type.dart';
+import 'package:moengage_flutter/model/inapp/push_notification_action.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_campaign.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/platforms.dart';
@@ -69,6 +70,9 @@ class InAppPayloadMapper {
         return navigationActionFromMap(actionData[keyNavigation]);
       case _actionCustomAction:
         return customActionFromMap(actionData[keyCustomAction]);
+      case _actionRequestNotificationPermission:
+        return PushNotificationAction(ActionType.requestNotificationPermission,
+            actionData[_argumentRequestCount] ?? 0);
       default:
         throw Exception("${actionData[keyActionType]} is not a valid action");
     }
@@ -132,3 +136,6 @@ class InAppPayloadMapper {
 
 const String _actionNavigation = "navigation";
 const String _actionCustomAction = "customAction";
+const String _argumentRequestCount = "pushOptinInAttemptCount";
+const String _actionRequestNotificationPermission =
+    "requestNotificationPermission";

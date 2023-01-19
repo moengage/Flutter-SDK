@@ -1,8 +1,13 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+
+- Support for 2Step Push Otpin InApps
+
 # 04-11-2022
 
 ## 5.1.1
+
 - Bugfix
   - Typo fix in API name `enableAdIdTracking()`
 

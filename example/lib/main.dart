@@ -4,6 +4,7 @@ import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
+import 'package:moengage_flutter/model/inapp/push_notification_action.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
@@ -42,6 +43,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     print(
         "Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload " +
             message.toString());
+    if (message.action is PushNotificationAction) {
+      var pushAction = (message.action as PushNotificationAction);
+      if (pushAction.requestCount < 2) {
+        _moengagePlugin.requestPushPermissionAndroid();
+      } else {
+        _moengagePlugin.navigateToSettingsAndroid();
+      }
+    }
   }
 
   void _onInAppShown(InAppData message) {
@@ -507,6 +516,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Android- Mock push permission denied"),
                 onTap: () async {
                   _moengagePlugin.pushPermissionResponseAndroid(false);
+                },
+              ),
+              ListTile(
+                title: Text("Update Push Permission Request Count"),
+                onTap: () async {
+                  final String value =
+                      await asyncInputDialog(context, "Push Permission Count");
+                  final pushPermissionCount = int.tryParse(value) ?? 0;
+                  _moengagePlugin.updatePushPermissionRequestCountAndroid(
+                      pushPermissionCount);
                 },
               )
             ]).toList(),

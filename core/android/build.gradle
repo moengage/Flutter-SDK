@@ -48,9 +48,9 @@ android {
         jvmTarget = '1.8'
     }
 }
-dependencies{
-    compileOnly("com.moengage:moe-android-sdk:12.4.00")
-    compileOnly("com.moengage:inapp:6.4.0")
+dependencies {
+    compileOnly("com.moengage:moe-android-sdk:12.5.04")
+    compileOnly("com.moengage:inapp:6.4.1")
     api("com.moengage:plugin-base:3.1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
