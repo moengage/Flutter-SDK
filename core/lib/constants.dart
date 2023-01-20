@@ -30,7 +30,7 @@ const String methodSetupNotificationChannelAndroid =
     "setupNotificationChannels";
 const String methodNavigateToSettingsAndroid = "navigateToSettings";
 const String methodRequestPushPermissionAndroid = "requestPushPermission";
-const String updatePushPermissionRequestCount =
+const String methodUpdatePushPermissionRequestCount =
     "updatePushPermissionRequestCount";
 const String methodPermissionResponse = "permissionResponse";
 
@@ -135,4 +135,4 @@ const String keyAdId = "isAdIdTrackingEnabled";
 const String keyIsPermissionGranted = "isGranted";
 const String keyPermissionType = "type";
 
-const String updatePushPermissionCountKey = "pushOptinInAttemptCount";
+const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";

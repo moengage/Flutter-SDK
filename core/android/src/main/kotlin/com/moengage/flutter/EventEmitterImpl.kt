@@ -60,9 +60,8 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     private fun emitInAppActionEvent(inAppActionEvent: InAppActionEvent) {
         try {
-            Logger.print {
-                "$tag emitInAppActionEvent() : inAppActionEvent: ${inAppActionEvent.eventType} , ${inAppActionEvent.clickData}"
-            }
+            Logger.print { "$tag emitInAppActionEvent() : inAppActionEvent: ${inAppActionEvent
+                .eventType} , ${inAppActionEvent.clickData}" }
             val eventType = eventMap[inAppActionEvent.eventType] ?: return
             val campaign: JSONObject = clickDataToJson(inAppActionEvent.clickData)
             emit(eventType, campaign)
@@ -152,6 +151,6 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
             eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
             eventMap[EventType.PERMISSION] = "onPermissionResult"
-        }
+         }
     }
 }
