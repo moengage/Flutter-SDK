@@ -128,6 +128,7 @@ const String keyData = "data";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
 const String keyAdId = "isAdIdTrackingEnabled";
+const String keyDeviceId = "isDeviceIdTrackingEnabled";
 
 // permission
 const String keyIsPermissionGranted = "isGranted";

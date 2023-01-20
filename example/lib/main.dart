@@ -476,7 +476,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Android- Enable Ad Id"),
                 onTap: () async {
-                  _moengagePlugin.enableAdIdIdTracking();
+                  _moengagePlugin.enableAdIdTracking();
                 },
               ),
               new ListTile(
@@ -508,7 +508,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   _moengagePlugin.pushPermissionResponseAndroid(false);
                 },
-              )
+              ),
+              ListTile(
+                title: Text("Enable Device Id Tracking"),
+                onTap: () async {
+                  _moengagePlugin.enableDeviceIdTracking();
+                },
+              ),
+              ListTile(
+                title: Text("Disable Device Id Tracking"),
+                onTap: () async {
+                  _moengagePlugin.disableDeviceIdTracking();
+                },
+              ),
             ]).toList(),
           ),
         ),

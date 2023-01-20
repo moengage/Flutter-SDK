@@ -1,5 +1,8 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+- MOEN-20823: DRM ID Support
+
 # 04-11-2022
 
 ## 5.1.1
