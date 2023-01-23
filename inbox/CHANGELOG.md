@@ -1,6 +1,6 @@
 # MoEngage Flutter Inbox Plugin
 
-# Next Release Date
+# 23-01-2023
 ## 4.2.0
 - iOS
     - MoEngageInbox SDK version updated to `~>2.2.0`.
