@@ -1,7 +1,8 @@
 # MoEngage Flutter Plugin
 
 ## Next Release
-- MOEN-20823: DRM ID Support
+- Android:
+  - Support for DRM ID Tracking
 
 # 04-11-2022
 

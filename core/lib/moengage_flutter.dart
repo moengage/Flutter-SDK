@@ -474,8 +474,7 @@ class MoEngageFlutter {
     Cache().permissionResultCallbackHandler = handler;
   }
 
-  /// API to enable Device Id Tracking for the given instance. By default, Device Id tracking is enabled.
-  /// Should be called only when if you have called [disableDeviceIdTracking], at some point
+  /// Enable Device-id tracking. It is enabled by default, and should be called only if tracking is disabled at some point.
   /// Note: This API is only for Android Platform
   void enableDeviceIdTracking() {
     if (Platform.isAndroid) {
@@ -484,7 +483,7 @@ class MoEngageFlutter {
     }
   }
 
-  /// Optional API to opt out Device Id tracking for the given instance
+  /// Disables Device-id tracking
   /// Note: This API is only for Android Platform
   void disableDeviceIdTracking() {
     if (Platform.isAndroid) {
