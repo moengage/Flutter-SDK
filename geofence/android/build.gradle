@@ -1,5 +1,5 @@
-group 'com.moengage.flutter'
-version '1.0'
+group 'com.moengage.moengage_geofence'
+version '1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.6.0'
@@ -7,10 +7,13 @@ buildscript {
         google()
         mavenCentral()
         jcenter()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:7.3.1"
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -34,10 +37,8 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-
     defaultConfig {
         minSdkVersion 21
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -46,15 +47,16 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
-dependencies{
-    compileOnly("com.moengage:moe-android-sdk:12.5.05")
-    compileOnly("com.moengage:inapp:6.4.2")
-    api("com.moengage:plugin-base:3.1.0")
+
+dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly("com.moengage:moe-android-sdk:12.5.05")
+    compileOnly("com.moengage:geofence:3.0.0")
+    implementation("com.moengage:plugin-base-geofence:1.0.0-SNAPSHOT")
 }
+
 apply from: file("./user-agent.gradle")

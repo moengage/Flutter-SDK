@@ -1,12 +1,13 @@
 import 'package:flutter/services.dart';
+
 import 'moe_geofence_constants.dart';
 import 'moe_geofence_utils.dart';
 
-class MoEiOSGeofence {
+class MoEAndroidGeofence {
   String _tag = "${TAG}InAppPayloadMapper";
   MethodChannel _channel;
 
-  MoEiOSGeofence(this._channel);
+  MoEAndroidGeofence(this._channel);
 
   void startGeofenceMonitoring(String appId) {
     try {

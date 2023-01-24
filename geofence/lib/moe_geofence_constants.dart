@@ -8,4 +8,5 @@ const String keyAppId = "appId";
 const String keyAccountMeta = "accountMeta";
 
 // Method names
-const String methodStartGeofenceMontioring = "startGeofenceMonitoring";
+const String methodStartGeofenceMonitoring = "startGeofenceMonitoring";
+const String methodStopGeofenceMonitoring = "stopGeofenceMonitoring";
