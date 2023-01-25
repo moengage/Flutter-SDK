@@ -1,7 +1,8 @@
 # MoEngage Geofence Plugin
 
 ## Next Release
-- Support for GeoFence Start/Stop API
+- Android
+  - Support for GeoFence Start/Stop API 
 
 # 23-01-2023
 

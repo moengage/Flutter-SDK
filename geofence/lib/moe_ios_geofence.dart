@@ -3,7 +3,7 @@ import 'moe_geofence_constants.dart';
 import 'moe_geofence_utils.dart';
 
 class MoEiOSGeofence {
-  String _tag = "${TAG}InAppPayloadMapper";
+  String _tag = "${TAG}MoEiOSGeofence";
   MethodChannel _channel;
 
   MoEiOSGeofence(this._channel);
