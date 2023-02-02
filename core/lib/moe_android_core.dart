@@ -250,4 +250,15 @@ class MoEAndroidCore {
   void requestPushPermissionAndroid() {
     _channel.invokeMethod(methodRequestPushPermissionAndroid);
   }
+
+  void updatePushPermissionRequestCountAndroid(int requestCount, String appId) {
+    _channel.invokeMethod(methodUpdatePushPermissionRequestCount,
+        _getUpdatePushCountJsonPayload(requestCount, appId));
+  }
+
+  String _getUpdatePushCountJsonPayload(int requestCount, String appId) {
+    Map<String, dynamic> payload = getAccountMeta(appId);
+    payload[keyData] = {keyUpdatePushPermissionCount: requestCount};
+    return jsonEncode(payload);
+  }
 }

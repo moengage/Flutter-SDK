@@ -101,6 +101,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_NAVIGATE_TO_SETTINGS -> navigateToSettings()
                 METHOD_NAME_REQUEST_PUSH_PERMISSION -> requestPushPermission()
                 METHOD_NAME_PERMISSION_RESPONSE -> permissionResponse(call)
+                METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT ->
+                    updatePushPermissionRequestCount(call)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -342,6 +344,18 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             pluginHelper.permissionResponse(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag permissionResponse() :" }
+        }
+    }
+
+    private fun updatePushPermissionRequestCount(methodCall: MethodCall) {
+        try {
+            Logger.print { "$tag updatePushPermissionRequestCount() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) return
+            val payload: String = methodCall.arguments.toString()
+            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            pluginHelper.updatePushPermissionRequestCount(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag updatePushPermissionRequestCount() :" }
         }
     }
 }

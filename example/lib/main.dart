@@ -80,7 +80,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     debugPrint(
         "$tag Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: " +
             pushToken.toString());
-    _moengagePlugin.passFCMPushToken(pushToken.toString());
   }
 
   void _permissionCallbackHandler(PermissionResultData data) {
@@ -511,6 +510,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("Android- Mock push permission denied"),
                 onTap: () async {
                   _moengagePlugin.pushPermissionResponseAndroid(false);
+                },
+              ),
+              ListTile(
+                title: Text("Update Push Permission Request Count"),
+                onTap: () async {
+                  final String value =
+                      await asyncInputDialog(context, "Push Permission Count");
+                  final pushPermissionCount = int.tryParse(value) ?? 0;
+                  _moengagePlugin.updatePushPermissionRequestCountAndroid(
+                      pushPermissionCount);
                 },
               )
             ]).toList(),

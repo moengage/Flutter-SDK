@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'main.dart';
 
-Future asyncInputDialog(BuildContext context, String prompt) async {
+Future asyncInputDialog(BuildContext context, String prompt,
+    {TextInputType textInputType = TextInputType.text}) async {
   String teamName = '';
   return showDialog(
     context: context,
@@ -14,6 +14,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
           children: [
             new Expanded(
                 child: new TextField(
+                  keyboardType: textInputType,
               autofocus: true,
               decoration: new InputDecoration(labelText: prompt),
               onChanged: (value) {

@@ -30,6 +30,8 @@ const String methodSetupNotificationChannelAndroid =
     "setupNotificationChannels";
 const String methodNavigateToSettingsAndroid = "navigateToSettings";
 const String methodRequestPushPermissionAndroid = "requestPushPermission";
+const String methodUpdatePushPermissionRequestCount =
+    "updatePushPermissionRequestCount";
 const String methodPermissionResponse = "permissionResponse";
 
 // Callback Names
@@ -132,3 +134,5 @@ const String keyAdId = "isAdIdTrackingEnabled";
 // permission
 const String keyIsPermissionGranted = "isGranted";
 const String keyPermissionType = "type";
+
+const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";
