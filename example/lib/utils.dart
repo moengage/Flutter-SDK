@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 Future asyncInputDialog(BuildContext context, String prompt) async {
   String teamName = '';
   return showDialog(
@@ -36,7 +38,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
-  print("asyncSelfHandledDialog");
+  debugPrint("$tag asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,

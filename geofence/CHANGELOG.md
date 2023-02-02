@@ -1,5 +1,8 @@
 # MoEngage Geofence Plugin
 
+## Next Release
+-  Security improvement: controlled logging for release, debug and profile mode
+
 # 23-01-2023
 
 ## 1.2.0
