@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.platform = :ios, '10.0'
   s.swift_version = '5.0'
-  s.dependency 'MoEngagePluginGeofence', '~> 1.1.0'
+  s.dependency 'MoEngagePluginGeofence', '~> 2.0.0'
 end

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 
 import 'package:moengage_inbox/action.dart';
 import 'package:moengage_inbox/action_type.dart';
@@ -12,6 +10,9 @@ import 'package:moengage_inbox/navigation_action.dart';
 import 'package:moengage_inbox/navigation_type.dart';
 import 'package:moengage_inbox/text_content.dart';
 import 'package:moengage_inbox/constants.dart';
+import 'package:moengage_flutter/internal/logger.dart';
+
+final _tag = "${TAG}PayloadTransformer";
 
 // Unclicked Count
 int fetchUnclickedCount(dynamic unClickedPayload) {
@@ -51,8 +52,8 @@ InboxData? deSerializeInboxMessages(dynamic messagesPayload) {
     Map<String, dynamic> dataPayload = message[keyData];
     return InboxData(
         dataPayload[keyPlatform], messagesJsonToList(dataPayload[keyMessages]));
-  } catch (e) {
-    print(e);
+  } catch (e, stackTrace) {
+    Logger.e("$_tag Error: ", error: e, stackTrace: stackTrace);
   }
   return null;
 }
@@ -83,8 +84,9 @@ InboxMessage? messageFromJson(Map<String, dynamic> message) {
         message[keyReceivedTime],
         message[keyExpiryTime],
         message[keyPayload]);
-  } catch (e) {
-    print(e);
+  } catch (e, stacktrace) {
+    Logger.e("$_tag Error: messageFromJson InboxMessage ",
+        stackTrace: stacktrace);
   }
   return null;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 Future asyncInputDialog(BuildContext context, String prompt,
     {TextInputType textInputType = TextInputType.text}) async {
@@ -38,7 +39,7 @@ Future asyncInputDialog(BuildContext context, String prompt,
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
-  print("asyncSelfHandledDialog");
+  debugPrint("$tag asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,

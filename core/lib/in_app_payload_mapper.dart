@@ -14,9 +14,10 @@ import 'package:moengage_flutter/model/inapp/self_handled_campaign.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/platforms.dart';
 import 'package:moengage_flutter/utils.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 
 class InAppPayloadMapper {
-  String _tag = "${TAG}InAppPayloadMapper";
+  final _tag = "${TAG}InAppPayloadMapper";
 
   SelfHandledCampaignData? selfHandledCampaignFromJson(dynamic methodCallArgs) {
     try {
@@ -27,8 +28,9 @@ class InAppPayloadMapper {
           accountMetaFromMap(selfHandledPayload[keyAccountMeta]),
           selfHandledCampaignFromMap(data[keySelfHandled]),
           PlatformsExtension.fromString(data[keyPlatform]));
-    } catch (e) {
-      print("$_tag Error: selfHandledCampaignFromJson() : $e");
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: selfHandledCampaignFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }
@@ -41,15 +43,17 @@ class InAppPayloadMapper {
           PlatformsExtension.fromString(data[keyPlatform]),
           accountMetaFromMap(inAppDataPayload[keyAccountMeta]),
           campaignDataFromMap(data));
-    } catch (e) {
-      print("$_tag Error: inAppDataFromJson() : $e");
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: inAppDataFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }
 
   ClickData? actionFromJson(dynamic payload) {
     try {
-      print("actionFromJson() : ${payload.toString()}");
+      Logger.i("$_tag actionFromJson() : ${payload.toString()}");
+
       Map<String, dynamic> actionPayload = json.decode(payload);
       Map<String, dynamic> actionData = actionPayload[keyData];
       return ClickData(
@@ -57,8 +61,9 @@ class InAppPayloadMapper {
           accountMetaFromMap(actionPayload[keyAccountMeta]),
           campaignDataFromMap(actionData),
           actionFromMap(actionData));
-    } catch (e) {
-      print("$_tag Error: actionFromJson() : $e");
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: actionFromJson() :",
+          error: e, stackTrace: stackTrace);
     }
     return null;
   }
