@@ -1,4 +1,5 @@
-import 'package:moengage_flutter/moengage_flutter_platform_interface.dart';
+import 'package:moengage_flutter/moengage_flutter_method_channel.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'src/custom_type.dart';
 import 'src/model/app_status.dart';
@@ -7,86 +8,62 @@ import 'src/model/geo_location.dart';
 import 'src/model/inapp/self_handled_data.dart';
 import 'src/properties.dart';
 
-export 'src/callback_cache.dart';
-export 'src/constants.dart';
-export 'src/core_instance_provider.dart';
-export 'src/data_payload_mapper.dart';
-export 'src/in_app_payload_mapper.dart';
-export 'src/moe_cache.dart';
-export 'src/properties.dart';
-export 'src/push_payload_mapper.dart';
-export 'src/utils.dart';
+abstract class MoengageFlutterPlatform extends PlatformInterface {
+  /// Constructs a MoengagePlatform.
+  MoengageFlutterPlatform() : super(token: _token);
 
-export 'src/model/account_meta.dart';
-export 'src/model/app_status.dart';
-export 'src/model/gender.dart';
-export 'src/model/geo_location.dart';
-export 'src/model/permission_result.dart';
-export 'src/model/permission_type.dart';
-export 'src/model/platforms.dart';
+  static final Object _token = Object();
 
-export 'src/model/inapp/action.dart';
-export 'src/model/inapp/campaign_context.dart';
-export 'src/model/inapp/campaign_data.dart';
-export 'src/model/inapp/click_data.dart';
-export 'src/model/inapp/inapp_action_type.dart';
-export 'src/model/inapp/inapp_custom_action.dart';
-export 'src/model/inapp/inapp_data.dart';
-export 'src/model/inapp/navigation_action.dart';
-export 'src/model/inapp/navigation_type.dart';
-export 'src/model/inapp/self_handled_campaign.dart';
-export 'src/model/inapp/self_handled_data.dart';
+  static MoengageFlutterPlatform _instance = MethodChannelMoengageFlutter();
 
-export 'src/model/push/moe_push_service.dart';
-export 'src/model/push/push_campaign.dart';
-export 'src/model/push/push_campaign_data.dart';
-export 'src/model/push/push_token_data.dart';
+  /// The default instance of [MoengagePlatform] to use.
+  ///
+  /// Defaults to [MethodChannelMoengage].
+  static MoengageFlutterPlatform get instance => _instance;
 
-class MoEngageFlutter {
-  String appId;
-
-  MoEngageFlutter(this.appId);
+  /// Platform-specific implementations should set this with their own
+  /// platform-specific class that extends [MoengagePlatform] when
+  /// they register themselves.
+  static set instance(MoengageFlutterPlatform instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
 
   void initialise(String appId) =>
-      MoengageFlutterPlatform.instance.initialise(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setPushClickCallbackHandler({
     required String appId,
     PushClickCallbackHandler? handler,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setPushClickCallbackHandler(appId: appId, handler: handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) =>
-      MoengageFlutterPlatform.instance.setPushTokenCallbackHandler(handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setInAppClickHandler({
     required String appId,
     InAppClickCallbackHandler? handler,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setInAppClickHandler(appId: appId, handler: handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setInAppShownCallbackHandler({
     required String appId,
     InAppShownCallbackHandler? handler,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setInAppShownCallbackHandler(appId: appId, handler: handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setInAppDismissedCallbackHandler({
     required String appId,
     InAppDismissedCallbackHandler? handler,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setInAppDismissedCallbackHandler(appId: appId, handler: handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void setSelfHandledInAppHandler({
     required String appId,
     SelfHandledInAppCallbackHandler? handler,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setSelfHandledInAppHandler(appId: appId, handler: handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks an event with the given attributes.
   void trackEvent({
@@ -94,78 +71,70 @@ class MoEngageFlutter {
     required String eventName,
     MoEProperties? eventAttributes,
   }) =>
-      MoengageFlutterPlatform.instance.trackEvent(
-          appId: appId, eventName: eventName, eventAttributes: eventAttributes);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Set a unique identifier for a user.<br/>
   void setUniqueId({
     required String appId,
     required String uniqueId,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setUniqueId(appId: appId, uniqueId: uniqueId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Update user's unique id which was previously set by setUniqueId().
   void setAlias({
     required String appId,
     required String newUniqueId,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setAlias(appId: appId, newUniqueId: newUniqueId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks user-name as a user attribute.
   void setUserName({
     required String appId,
     required String userName,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setUserName(appId: appId, userName: userName);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks first name as a user attribute.
   void setFirstName({
     required String appId,
     required String firstName,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setFirstName(appId: appId, firstName: firstName);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks last name as a user attribute.
   void setLastName({
     required String appId,
     required String lastName,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setLastName(appId: appId, lastName: lastName);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks user's email-id as a user attribute.
   void setEmail({
     required String appId,
     required String emailId,
   }) =>
-      MoengageFlutterPlatform.instance.setEmail(appId: appId, emailId: emailId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks phone number as a user attribute.
   void setPhoneNumber({
     required String appId,
     required String phoneNumber,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setPhoneNumber(appId: appId, phoneNumber: phoneNumber);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks gender as a user attribute.
   void setGender({
     required String appId,
     required MoEGender gender,
   }) =>
-      MoengageFlutterPlatform.instance.setGender(appId: appId, gender: gender);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Set's user's location
   void setLocation({
     required String appId,
     required MoEGeoLocation location,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setLocation(appId: appId, location: location);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
@@ -173,8 +142,7 @@ class MoEngageFlutter {
     required String appId,
     required String birthDate,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setBirthDate(appId: appId, birthDate: birthDate);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks a user attribute.
   void setUserAttribute({
@@ -182,11 +150,7 @@ class MoEngageFlutter {
     required String userAttributeName,
     dynamic userAttributeValue,
   }) =>
-      MoengageFlutterPlatform.instance.setUserAttribute(
-        appId: appId,
-        userAttributeName: userAttributeName,
-        userAttributeValue: userAttributeValue,
-      );
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks th given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
@@ -195,11 +159,7 @@ class MoEngageFlutter {
     required String userAttributeName,
     required String isoDateString,
   }) =>
-      MoengageFlutterPlatform.instance.setUserAttributeIsoDate(
-        appId: appId,
-        userAttributeName: userAttributeName,
-        isoDateString: isoDateString,
-      );
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Tracks the given location as user attribute.
   void setUserAttributeLocation({
@@ -207,74 +167,67 @@ class MoEngageFlutter {
     required String userAttributeName,
     required MoEGeoLocation location,
   }) =>
-      MoengageFlutterPlatform.instance.setUserAttributeLocation(
-        appId: appId,
-        userAttributeName: userAttributeName,
-        location: location,
-      );
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
   void setAppStatus({
     required String appId,
     required MoEAppStatus appStatus,
   }) =>
-      MoengageFlutterPlatform.instance.setAppStatus(
-        appId: appId,
-        appStatus: appStatus,
-      );
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Try to show an InApp Message.
   void showInApp(String appId) =>
-      MoengageFlutterPlatform.instance.showInApp(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Invalidates the existing user and session. A new user
   /// and session is created.
-  void logout(String appId) => MoengageFlutterPlatform.instance.logout(appId);
+  void logout(String appId) =>
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Try to return a self handled in-app to the callback listener.
   /// Ensure self handled in-app listener is set before you call this.
   void getSelfHandledInApp(String appId) =>
-      MoengageFlutterPlatform.instance.getSelfHandledInApp(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Mark self-handled campaign as shown.
   /// API to be called only when in-app is self handled
   void selfHandledShown(SelfHandledCampaignData data) =>
-      MoengageFlutterPlatform.instance.selfHandledShown(data);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Mark self-handled campaign as clicked.
   /// API to be called only when in-app is self handled
   void selfHandledClicked(SelfHandledCampaignData data) =>
-      MoengageFlutterPlatform.instance.selfHandledClicked(data);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Mark self-handled campaign as dismissed.
   /// API to be called only when in-app is self handled
   void selfHandledDismissed(SelfHandledCampaignData data) =>
-      MoengageFlutterPlatform.instance.selfHandledDismissed(data);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///Set the current context for the given user.
   void setCurrentContext({
     required String appId,
     required List<String> contexts,
   }) =>
-      MoengageFlutterPlatform.instance
-          .setCurrentContext(appId: appId, contexts: contexts);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void resetCurrentContext(String appId) =>
-      MoengageFlutterPlatform.instance.resetCurrentContext(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///Optionally opt-in data tracking.
   void enableDataTracking(String appId) =>
-      MoengageFlutterPlatform.instance.enableDataTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///Optionally opt-out of data tracking. When data tracking is opted-out no
   ///event or user attribute is tracked on MoEngage Platform.
   void disableDataTracking(String appId) =>
-      MoengageFlutterPlatform.instance.disableDataTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Push Notification Registration
   /// Note: This API is only for iOS Platform.
   void registerForPushNotification() =>
-      MoengageFlutterPlatform.instance.registerForPushNotification();
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
@@ -282,8 +235,7 @@ class MoEngageFlutter {
     required String appId,
     required String pushToken,
   }) =>
-      MoengageFlutterPlatform.instance
-          .passFCMPushToken(appId: appId, pushToken: pushToken);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
@@ -291,8 +243,7 @@ class MoEngageFlutter {
     required String appId,
     required Map<String, dynamic> payload,
   }) =>
-      MoengageFlutterPlatform.instance
-          .passFCMPushPayload(appId: appId, payload: payload);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
@@ -300,69 +251,68 @@ class MoEngageFlutter {
     required String appId,
     required String pushToken,
   }) =>
-      MoengageFlutterPlatform.instance
-          .passPushKitPushToken(appId: appId, pushToken: pushToken);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// API to enable SDK usage.
   /// Note: By default the SDK is enabled, should only be called to enabled the
   /// SDK if you have called [disableSdk()] at some point.
   void enableSdk(String appId) =>
-      MoengageFlutterPlatform.instance.enableSdk(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// API to disable all features of the SDK.
   void disableSdk(String appId) =>
-      MoengageFlutterPlatform.instance.disableSdk(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   void onOrientationChanged() =>
-      MoengageFlutterPlatform.instance.onOrientationChanged();
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///API to enable Android-id tracking for the given instance.
   /// Note: This API is only for Android Platform.
   void enableAndroidIdTracking(String appId) =>
-      MoengageFlutterPlatform.instance.enableAndroidIdTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///API to enable Android-id tracking for the given instance.
   ///By default Android-id tracking is disabled, call this method only if you
   ///have enabled Android-id tracking at some point.
   /// Note: This API is only for Android Platform.
   void disableAndroidIdTracking(String appId) =>
-      MoengageFlutterPlatform.instance.disableAndroidIdTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///API to enable Advertising Id tracking for the given instance.
   /// Note: This API is only for Android Platform.
   void enableAdIdTracking(String appId) =>
-      MoengageFlutterPlatform.instance.enableAdIdTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///API to disable Advertising Id tracking for the account configured as default.
   ///By default Advertising Id tracking is disabled, call this method only if
   ///you have enabled Advertising Id tracking at some point
   /// Note: This API is only for Android Platform.
   void disableAdIdTracking(String appId) =>
-      MoengageFlutterPlatform.instance.disableAdIdTracking(appId);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   ///API to create notification channels on Android.
   /// Note: This API is only for Android Platform.
   void setupNotificationChannelsAndroid() =>
-      MoengageFlutterPlatform.instance.setupNotificationChannelsAndroid();
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Notify the SDK on notification permission granted to the application.
   /// Note: This API is only for Android Platform.
   void pushPermissionResponseAndroid(bool isGranted) =>
-      MoengageFlutterPlatform.instance.pushPermissionResponseAndroid(isGranted);
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Navigates the user to the Notification settings on Android 8 or above,
   /// on older versions the user is navigated the application settings or
   /// application info screen.
   /// Note: This API is only for Android Platform.
   void navigateToSettingsAndroid() =>
-      MoengageFlutterPlatform.instance.navigateToSettingsAndroid();
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Requests the push permission on Android 13 and above.
   /// Note: This API is only for Android Platform.
   void requestPushPermissionAndroid() =>
-      MoengageFlutterPlatform.instance.requestPushPermissionAndroid();
+      throw UnimplementedError('initialise() has not been implemented.');
 
   /// Setup a callback handler for getting the response permission
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) =>
-      MoengageFlutterPlatform.instance.setPermissionCallbackHandler(handler);
+      throw UnimplementedError('initialise() has not been implemented.');
 }

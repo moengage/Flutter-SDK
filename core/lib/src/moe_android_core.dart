@@ -15,7 +15,7 @@ import 'utils.dart';
 class MoEAndroidCore {
   MethodChannel _channel;
 
-  MoEAndroidCore(this._channel);
+  MoEAndroidCore(MethodChannel channel) : _channel = channel;
 
   void trackEvent(
       String eventName, MoEProperties eventAttributes, String appId) {

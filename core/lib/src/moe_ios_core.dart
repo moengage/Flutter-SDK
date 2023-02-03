@@ -10,7 +10,7 @@ import 'utils.dart';
 
 class MoEiOSCore {
   MethodChannel _channel;
-  MoEiOSCore(this._channel);
+  MoEiOSCore(MethodChannel channel) : _channel = channel;
 
   void trackEvent(
       String eventName, MoEProperties eventAttributes, String appId) {
