@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
@@ -182,7 +183,7 @@ class MoEngageFlutter {
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     if (userAttributeName.isEmpty) {
-      print("User Attribute Name cannot be empty");
+      Logger.w("User Attribute Name cannot be empty");
       return;
     }
     if (userAttributeValue is String ||
@@ -197,7 +198,7 @@ class MoEngageFlutter {
             .setUserAttribute(userAttributeName, userAttributeValue, appId);
       }
     } else {
-      print(
+      Logger.w(
           "Only String, Numbers and Bool values supported as User Attributes");
     }
   }
@@ -472,6 +473,24 @@ class MoEngageFlutter {
   /// Setup a callback handler for getting the response permission
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
+  }
+
+  /// Configure MoEngage SDK Logs
+  /// @param [logLevel] - [LogLevel] for SDK logs
+  /// @param [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
+  void configureLogs(LogLevel logLevel,
+      {bool isEnabledForReleaseBuild = false}) {
+    Logger.configureLogs(logLevel, isEnabledForReleaseBuild);
+  }
+
+  /// Updates the number of the times Notification permission is requested
+  /// @param [requestCount] This count will be incremented to existing value
+  /// Note: This API is only applicable for Android Platform. This should not called in App/Widget lifecycle methods.
+  void updatePushPermissionRequestCountAndroid(int requestCount) {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updatePushPermissionRequestCountAndroid(requestCount, appId);
+    }
   }
 
   /// Enable Device-id tracking. It is enabled by default, and should be called only if tracking is disabled at some point.

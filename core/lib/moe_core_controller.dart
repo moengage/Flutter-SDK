@@ -14,8 +14,7 @@ import 'package:moengage_flutter/moe_cache.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/push_payload_mapper.dart';
 import 'package:moengage_flutter/utils.dart';
-
-import 'constants.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 
 class CoreController {
   String _tag = "${TAG}CoreController";
@@ -34,7 +33,7 @@ class CoreController {
   factory CoreController() => _instance;
 
   Future<dynamic> _handler(MethodCall call) async {
-    print("$_tag _handler() : Received callback. Payload " + call.method);
+    Logger.d("$_tag _handler() : Received callback. Payload ${call.method}");
     try {
       if (call.method == callbackPushTokenGenerated) {
         PushTokenData? data =
@@ -97,12 +96,12 @@ class CoreController {
       if (call.method == callbackOnInAppSelfHandled) {
         SelfHandledCampaignData? data =
             InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
-        print("$_tag _handler() : data: $data");
+        Logger.i("$_tag _handler() : data: $data");
         if (data != null) {
           SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .selfHandledInAppCallbackHandler;
-          print("$_tag _handler() : handler: $handler");
+          Logger.d("$_tag _handler() : handler: $handler");
           if (handler != null) {
             handler.call(data);
           }
@@ -116,8 +115,9 @@ class CoreController {
           handler.call(data);
         }
       }
-    } catch (e) {
-      print("$_tag Error: ${call.toString()} has an Exception: $e");
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: ${call.toString()} has an Exception:",
+          error: e, stackTrace: stackTrace);
     }
   }
 }

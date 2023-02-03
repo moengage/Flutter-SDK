@@ -1,9 +1,22 @@
 # MoEngage Flutter Plugin
 
 ## Next Release
-- Android:
+- Security improvement: controlled logging for release, debug and profile mode
+- Android
+  - Support for 2 Step Push Optin InApps
   - Support for DRM ID Tracking
 
+# 23-01-2023
+## 5.2.0
+- iOS
+    - MoEngage-iOS-SDK version updated to `~>9.2.0`.
+    - Updated API
+
+      | Then                                                                                                                                     | Now                                                                                                                                                        |
+      |:----------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------:|
+      | public func initializeDefaultInstance(config: MOSDKConfig, sdkState: MoEngageSDKState = .enabled, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)   |public func initializeDefaultInstance(config: MoEngageSDKConfig, sdkState: MoEngageSDKState = .enabled, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)                                       |
+      | public func initializeDefaultInstance(_ config: MOSDKConfig, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) | public func initializeDefaultInstance(_ config: MoEngageSDKConfig, launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) |
+      
 # 04-11-2022
 
 ## 5.1.1
