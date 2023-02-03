@@ -1,6 +1,6 @@
-import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/utils.dart';
+import 'constants.dart';
+import 'properties.dart';
+import 'utils.dart';
 
 Map<String, dynamic> getEventPayload(
     String eventName, MoEProperties eventAttributes, appId) {

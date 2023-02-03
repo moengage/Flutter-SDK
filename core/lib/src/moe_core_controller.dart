@@ -1,21 +1,20 @@
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/in_app_payload_mapper.dart';
-import 'package:moengage_flutter/model/permission_result.dart';
-import 'package:moengage_flutter/moe_android_core.dart';
-import 'package:moengage_flutter/moe_ios_core.dart';
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/core_instance_provider.dart';
-import 'package:moengage_flutter/model/inapp/click_data.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
-import 'package:moengage_flutter/model/push/push_campaign_data.dart';
-import 'package:moengage_flutter/model/push/push_token_data.dart';
-import 'package:moengage_flutter/moe_cache.dart';
-import 'package:moengage_flutter/moengage_flutter.dart';
-import 'package:moengage_flutter/push_payload_mapper.dart';
-import 'package:moengage_flutter/utils.dart';
 
+import '../moengage_flutter.dart';
 import 'constants.dart';
+import 'core_instance_provider.dart';
+import 'in_app_payload_mapper.dart';
+import 'model/inapp/click_data.dart';
+import 'model/inapp/inapp_data.dart';
+import 'model/inapp/self_handled_data.dart';
+import 'model/permission_result.dart';
+import 'model/push/push_campaign_data.dart';
+import 'model/push/push_token_data.dart';
+import 'moe_android_core.dart';
+import 'moe_cache.dart';
+import 'moe_ios_core.dart';
+import 'push_payload_mapper.dart';
+import 'utils.dart';
 
 class CoreController {
   String _tag = "${TAG}CoreController";

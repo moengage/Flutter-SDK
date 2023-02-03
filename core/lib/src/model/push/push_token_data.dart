@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/model/platforms.dart';
+import '../platforms.dart';
 import 'moe_push_service.dart';
 
 class PushTokenData {

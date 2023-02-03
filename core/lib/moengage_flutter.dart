@@ -1,24 +1,22 @@
 import 'dart:io';
-
-import 'package:moengage_flutter/model/app_status.dart';
-import 'package:moengage_flutter/core_instance_provider.dart';
-import 'package:moengage_flutter/model/inapp/click_data.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
-import 'package:moengage_flutter/model/permission_result.dart';
-import 'package:moengage_flutter/model/permission_type.dart';
-import 'package:moengage_flutter/model/push/push_campaign_data.dart';
-import 'package:moengage_flutter/model/push/push_token_data.dart';
-import 'package:moengage_flutter/moe_cache.dart';
-import 'package:moengage_flutter/moe_core_controller.dart';
-import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/model/geo_location.dart';
-import 'package:moengage_flutter/model/gender.dart';
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/push/moe_push_service.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/utils.dart';
-
-import 'in_app_payload_mapper.dart';
+import 'src/constants.dart';
+import 'src/core_instance_provider.dart';
+import 'src/in_app_payload_mapper.dart';
+import 'src/model/app_status.dart';
+import 'src/model/gender.dart';
+import 'src/model/geo_location.dart';
+import 'src/model/inapp/click_data.dart';
+import 'src/model/inapp/inapp_data.dart';
+import 'src/model/inapp/self_handled_data.dart';
+import 'src/model/permission_result.dart';
+import 'src/model/permission_type.dart';
+import 'src/model/push/moe_push_service.dart';
+import 'src/model/push/push_campaign_data.dart';
+import 'src/model/push/push_token_data.dart';
+import 'src/moe_cache.dart';
+import 'src/moe_core_controller.dart';
+import 'src/properties.dart';
+import 'src/utils.dart';
 
 typedef void PushClickCallbackHandler(PushCampaignData data);
 typedef void PushTokenCallbackHandler(PushTokenData data);

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/platforms.dart';
-import 'package:moengage_flutter/model/push/moe_push_service.dart';
-import 'package:moengage_flutter/model/push/push_campaign.dart';
-import 'package:moengage_flutter/model/push/push_campaign_data.dart';
-import 'package:moengage_flutter/model/push/push_token_data.dart';
-import 'package:moengage_flutter/utils.dart';
+import 'constants.dart';
+import 'model/platforms.dart';
+import 'model/push/moe_push_service.dart';
+import 'model/push/push_campaign.dart';
+import 'model/push/push_campaign_data.dart';
+import 'model/push/push_token_data.dart';
+import 'utils.dart';
 
 class PushPayloadMapper {
   String _tag = "${TAG}PushPayloadMapper";

@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/model/inapp/campaign_context.dart';
+import 'campaign_context.dart';
 
 class CampaignData {
   String campaignId;

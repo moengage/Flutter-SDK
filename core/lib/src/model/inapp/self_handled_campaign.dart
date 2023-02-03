@@ -1,5 +1,3 @@
-import 'package:moengage_flutter/constants.dart';
-
 class SelfHandledCampaign {
   /// Self handled campaign payload.
   String payload;

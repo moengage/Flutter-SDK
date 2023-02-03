@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/constants.dart';
+import '../../constants.dart';
 
 class PushCampaign {
   bool isDefaultAction;

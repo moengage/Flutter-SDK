@@ -1,6 +1,6 @@
-import 'package:moengage_flutter/model/inapp/action.dart';
-import 'package:moengage_flutter/model/inapp/inapp_action_type.dart';
-import 'package:moengage_flutter/model/inapp/navigation_type.dart';
+import 'action.dart';
+import 'inapp_action_type.dart';
+import 'navigation_type.dart';
 
 class NavigationAction extends Action {
   /// Type of Navigation action.
