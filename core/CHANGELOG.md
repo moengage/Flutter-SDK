@@ -4,7 +4,6 @@
 - Security improvement: controlled logging for release, debug and profile mode
 - Android
   - Support for 2 Step Push Optin InApps
-  - Support for DRM ID Tracking
 
 # 23-01-2023
 ## 5.2.0

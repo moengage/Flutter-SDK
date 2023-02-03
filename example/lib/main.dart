@@ -521,7 +521,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _moengagePlugin.updatePushPermissionRequestCountAndroid(
                       pushPermissionCount);
                 },
-              )
               ),
               ListTile(
                 title: Text("Enable Device Id Tracking"),
