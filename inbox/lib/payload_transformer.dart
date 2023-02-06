@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 
 import 'package:moengage_inbox/action.dart';
 import 'package:moengage_inbox/action_type.dart';
@@ -127,7 +125,6 @@ Action? actionFromMap(Map<String, dynamic> actionMap) {
     case ActionType.navigation:
       return navigationActionFromMap(actionType, actionMap);
   }
-  return null;
 }
 
 NavigationAction navigationActionFromMap(
@@ -168,7 +165,6 @@ Map<String, dynamic>? actionToMap(Action action) {
     case ActionType.navigation:
       return navigationActionToMap(action as NavigationAction);
   }
-  return null;
 }
 
 Map<String, dynamic> navigationActionToMap(NavigationAction navigationAction) {

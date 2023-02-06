@@ -1,23 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:moengage_flutter/model/app_status.dart';
-import 'package:moengage_flutter/model/gender.dart';
-import 'package:moengage_flutter/model/geo_location.dart';
-import 'package:moengage_flutter/model/inapp/click_data.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
-import 'package:moengage_flutter/model/permission_result.dart';
-import 'package:moengage_flutter/model/push/push_campaign_data.dart';
-import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
-import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
-import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
+import 'notification_util.dart';
 import 'utils.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(fcmBackgroundHandler);
+  runApp(MaterialApp(home: MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -26,11 +23,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+      MoEngageFlutter("YOUR_MOENGAGE_APP_ID");
   final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
-  final MoEngageInbox _moEngageInbox =
-      MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
+      MoEngageGeofence("YOUR_MOENGAGE_APP_ID");
+  final MoEngageInbox _moEngageInbox = MoEngageInbox("YOUR_MOENGAGE_APP_ID");
 
   void _onPushClick(PushCampaignData message) {
     print(
@@ -107,6 +103,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   late BuildContext buildContext;
+  final fcm = FirebaseMessaging.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +157,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value, details);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: details,
+                    );
                   }),
               new ListTile(
                   title: new Text("Track Interactive Event with Attributes"),
@@ -194,7 +194,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value, details);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: details,
+                    );
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
@@ -202,8 +205,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     print("Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value);
-                    _moengagePlugin.trackEvent(value, MoEProperties());
+                    _moengagePlugin.trackEvent(eventName: value);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: MoEProperties(),
+                    );
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),
@@ -281,25 +287,40 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Set Custom User Attributes"),
                 onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-bool", true);
-                  _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
-                  _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
                   _moengagePlugin.setUserAttribute(
-                      "userAttr-String", "This is a string");
+                    userAttributeName: "userAttr-bool",
+                    userAttributeValue: true,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-int",
+                    userAttributeValue: 1443322,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-Double",
+                    userAttributeValue: 45.4567,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-String",
+                    userAttributeValue: "This is a string",
+                  );
                 },
               ),
               new ListTile(
                 title: Text("Set UserAttribute Timestamp"),
                 onTap: () {
                   _moengagePlugin.setUserAttributeIsoDate(
-                      "timeStamp", "2019-12-02T08:26:21.170Z");
+                    userAttributeName: "timeStamp",
+                    isoDateString: "2019-12-02T08:26:21.170Z",
+                  );
                 },
               ),
               new ListTile(
                 title: Text("Set UserAttribute Location"),
                 onTap: () {
                   _moengagePlugin.setUserAttributeLocation(
-                      "locationAttr", new MoEGeoLocation(72.8, 53.2));
+                    userAttributeName: "locationAttr",
+                    location: MoEGeoLocation(72.8, 53.2),
+                  );
                 },
               ),
               new ListTile(
@@ -348,15 +369,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () {
 //                     Token passed here is just for illustration purposes. Please pass the actual token instead.
 //                    _moengagePlugin.passFCMPushToken(null);
-                    _moengagePlugin.passFCMPushToken(
-                        "fjt-NFxzQey7Y8mSNBig0M:APA91bGRrvQxbgebauzU4xp6yz-uQkNsPk52t1RLn5ZSZK4LTd_jpC0wGKSrI1mUHyRKgmlQbQ8r3Xt1C9aJiBCCx2F9hThJVoONSAf8fkJ31ikPkrGOYkvxcQb1s9zYtoKyCYANdZJq");
+                    NotificationUtil.setupFcm(fcm, _moengagePlugin);
                   }),
               new ListTile(
                   title: Text("Android -- PushKit Push Token"),
-                  onTap: () {
+                  onTap: () async {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken(
-                        "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
+                    final fcmToken = await fcm.getToken();
+                    if (fcmToken != null)
+                      _moengagePlugin.passPushKitPushToken(fcmToken);
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),

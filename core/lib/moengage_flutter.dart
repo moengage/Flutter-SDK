@@ -47,50 +47,34 @@ class MoEngageFlutter {
 
   MoEngageFlutter(this.appId);
 
-  void initialise(String appId) =>
-      MoengageFlutterPlatform.instance.initialise(appId);
+  void initialise() => MoengageFlutterPlatform.instance.initialise(appId);
 
-  void setPushClickCallbackHandler({
-    required String appId,
-    PushClickCallbackHandler? handler,
-  }) =>
+  void setPushClickCallbackHandler(PushClickCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance
           .setPushClickCallbackHandler(appId: appId, handler: handler);
 
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance.setPushTokenCallbackHandler(handler);
 
-  void setInAppClickHandler({
-    required String appId,
-    InAppClickCallbackHandler? handler,
-  }) =>
+  void setInAppClickHandler(InAppClickCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance
           .setInAppClickHandler(appId: appId, handler: handler);
 
-  void setInAppShownCallbackHandler({
-    required String appId,
-    InAppShownCallbackHandler? handler,
-  }) =>
+  void setInAppShownCallbackHandler(InAppShownCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance
           .setInAppShownCallbackHandler(appId: appId, handler: handler);
 
-  void setInAppDismissedCallbackHandler({
-    required String appId,
-    InAppDismissedCallbackHandler? handler,
-  }) =>
+  void setInAppDismissedCallbackHandler(
+          InAppDismissedCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance
           .setInAppDismissedCallbackHandler(appId: appId, handler: handler);
 
-  void setSelfHandledInAppHandler({
-    required String appId,
-    SelfHandledInAppCallbackHandler? handler,
-  }) =>
+  void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler? handler) =>
       MoengageFlutterPlatform.instance
           .setSelfHandledInAppHandler(appId: appId, handler: handler);
 
   /// Tracks an event with the given attributes.
   void trackEvent({
-    required String appId,
     required String eventName,
     MoEProperties? eventAttributes,
   }) =>
@@ -98,87 +82,48 @@ class MoEngageFlutter {
           appId: appId, eventName: eventName, eventAttributes: eventAttributes);
 
   /// Set a unique identifier for a user.<br/>
-  void setUniqueId({
-    required String appId,
-    required String uniqueId,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setUniqueId(appId: appId, uniqueId: uniqueId);
+  void setUniqueId(String uniqueId) => MoengageFlutterPlatform.instance
+      .setUniqueId(appId: appId, uniqueId: uniqueId);
 
   /// Update user's unique id which was previously set by setUniqueId().
-  void setAlias({
-    required String appId,
-    required String newUniqueId,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setAlias(appId: appId, newUniqueId: newUniqueId);
+  void setAlias(String newUniqueId) => MoengageFlutterPlatform.instance
+      .setAlias(appId: appId, newUniqueId: newUniqueId);
 
   /// Tracks user-name as a user attribute.
-  void setUserName({
-    required String appId,
-    required String userName,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setUserName(appId: appId, userName: userName);
+  void setUserName(String userName) => MoengageFlutterPlatform.instance
+      .setUserName(appId: appId, userName: userName);
 
   /// Tracks first name as a user attribute.
-  void setFirstName({
-    required String appId,
-    required String firstName,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setFirstName(appId: appId, firstName: firstName);
+  void setFirstName(String firstName) => MoengageFlutterPlatform.instance
+      .setFirstName(appId: appId, firstName: firstName);
 
   /// Tracks last name as a user attribute.
-  void setLastName({
-    required String appId,
-    required String lastName,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setLastName(appId: appId, lastName: lastName);
+  void setLastName(String lastName) => MoengageFlutterPlatform.instance
+      .setLastName(appId: appId, lastName: lastName);
 
   /// Tracks user's email-id as a user attribute.
-  void setEmail({
-    required String appId,
-    required String emailId,
-  }) =>
+  void setEmail(String emailId) =>
       MoengageFlutterPlatform.instance.setEmail(appId: appId, emailId: emailId);
 
   /// Tracks phone number as a user attribute.
-  void setPhoneNumber({
-    required String appId,
-    required String phoneNumber,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setPhoneNumber(appId: appId, phoneNumber: phoneNumber);
+  void setPhoneNumber(String phoneNumber) => MoengageFlutterPlatform.instance
+      .setPhoneNumber(appId: appId, phoneNumber: phoneNumber);
 
   /// Tracks gender as a user attribute.
-  void setGender({
-    required String appId,
-    required MoEGender gender,
-  }) =>
+  void setGender(MoEGender gender) =>
       MoengageFlutterPlatform.instance.setGender(appId: appId, gender: gender);
 
   /// Set's user's location
-  void setLocation({
-    required String appId,
-    required MoEGeoLocation location,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setLocation(appId: appId, location: location);
+  void setLocation(MoEGeoLocation location) => MoengageFlutterPlatform.instance
+      .setLocation(appId: appId, location: location);
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
-  void setBirthDate({
-    required String appId,
-    required String birthDate,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .setBirthDate(appId: appId, birthDate: birthDate);
+  void setBirthDate(String birthDate) => MoengageFlutterPlatform.instance
+      .setBirthDate(appId: appId, birthDate: birthDate);
 
   /// Tracks a user attribute.
   void setUserAttribute({
-    required String appId,
     required String userAttributeName,
     dynamic userAttributeValue,
   }) =>
@@ -191,7 +136,6 @@ class MoEngageFlutter {
   /// Tracks th given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setUserAttributeIsoDate({
-    required String appId,
     required String userAttributeName,
     required String isoDateString,
   }) =>
@@ -203,7 +147,6 @@ class MoEngageFlutter {
 
   /// Tracks the given location as user attribute.
   void setUserAttributeLocation({
-    required String appId,
     required String userAttributeName,
     required MoEGeoLocation location,
   }) =>
@@ -214,26 +157,22 @@ class MoEngageFlutter {
       );
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
-  void setAppStatus({
-    required String appId,
-    required MoEAppStatus appStatus,
-  }) =>
+  void setAppStatus(MoEAppStatus appStatus) =>
       MoengageFlutterPlatform.instance.setAppStatus(
         appId: appId,
         appStatus: appStatus,
       );
 
   /// Try to show an InApp Message.
-  void showInApp(String appId) =>
-      MoengageFlutterPlatform.instance.showInApp(appId);
+  void showInApp() => MoengageFlutterPlatform.instance.showInApp(appId);
 
   /// Invalidates the existing user and session. A new user
   /// and session is created.
-  void logout(String appId) => MoengageFlutterPlatform.instance.logout(appId);
+  void logout() => MoengageFlutterPlatform.instance.logout(appId);
 
   /// Try to return a self handled in-app to the callback listener.
   /// Ensure self handled in-app listener is set before you call this.
-  void getSelfHandledInApp(String appId) =>
+  void getSelfHandledInApp() =>
       MoengageFlutterPlatform.instance.getSelfHandledInApp(appId);
 
   /// Mark self-handled campaign as shown.
@@ -252,23 +191,20 @@ class MoEngageFlutter {
       MoengageFlutterPlatform.instance.selfHandledDismissed(data);
 
   ///Set the current context for the given user.
-  void setCurrentContext({
-    required String appId,
-    required List<String> contexts,
-  }) =>
+  void setCurrentContext(List<String> contexts) =>
       MoengageFlutterPlatform.instance
           .setCurrentContext(appId: appId, contexts: contexts);
 
-  void resetCurrentContext(String appId) =>
+  void resetCurrentContext() =>
       MoengageFlutterPlatform.instance.resetCurrentContext(appId);
 
   ///Optionally opt-in data tracking.
-  void enableDataTracking(String appId) =>
+  void enableDataTracking() =>
       MoengageFlutterPlatform.instance.enableDataTracking(appId);
 
   ///Optionally opt-out of data tracking. When data tracking is opted-out no
   ///event or user attribute is tracked on MoEngage Platform.
-  void disableDataTracking(String appId) =>
+  void disableDataTracking() =>
       MoengageFlutterPlatform.instance.disableDataTracking(appId);
 
   /// Push Notification Registration
@@ -278,66 +214,54 @@ class MoEngageFlutter {
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
-  void passFCMPushToken({
-    required String appId,
-    required String pushToken,
-  }) =>
-      MoengageFlutterPlatform.instance
-          .passFCMPushToken(appId: appId, pushToken: pushToken);
+  void passFCMPushToken(String pushToken) => MoengageFlutterPlatform.instance
+      .passFCMPushToken(appId: appId, pushToken: pushToken);
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
-  void passFCMPushPayload({
-    required String appId,
-    required Map<String, dynamic> payload,
-  }) =>
+  void passFCMPushPayload(Map<String, dynamic> payload) =>
       MoengageFlutterPlatform.instance
           .passFCMPushPayload(appId: appId, payload: payload);
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
-  void passPushKitPushToken({
-    required String appId,
-    required String pushToken,
-  }) =>
+  void passPushKitPushToken(String pushToken) =>
       MoengageFlutterPlatform.instance
           .passPushKitPushToken(appId: appId, pushToken: pushToken);
 
   /// API to enable SDK usage.
   /// Note: By default the SDK is enabled, should only be called to enabled the
   /// SDK if you have called [disableSdk()] at some point.
-  void enableSdk(String appId) =>
-      MoengageFlutterPlatform.instance.enableSdk(appId);
+  void enableSdk() => MoengageFlutterPlatform.instance.enableSdk(appId);
 
   /// API to disable all features of the SDK.
-  void disableSdk(String appId) =>
-      MoengageFlutterPlatform.instance.disableSdk(appId);
+  void disableSdk() => MoengageFlutterPlatform.instance.disableSdk(appId);
 
   void onOrientationChanged() =>
       MoengageFlutterPlatform.instance.onOrientationChanged();
 
   ///API to enable Android-id tracking for the given instance.
   /// Note: This API is only for Android Platform.
-  void enableAndroidIdTracking(String appId) =>
+  void enableAndroidIdTracking() =>
       MoengageFlutterPlatform.instance.enableAndroidIdTracking(appId);
 
   ///API to enable Android-id tracking for the given instance.
   ///By default Android-id tracking is disabled, call this method only if you
   ///have enabled Android-id tracking at some point.
   /// Note: This API is only for Android Platform.
-  void disableAndroidIdTracking(String appId) =>
+  void disableAndroidIdTracking() =>
       MoengageFlutterPlatform.instance.disableAndroidIdTracking(appId);
 
   ///API to enable Advertising Id tracking for the given instance.
   /// Note: This API is only for Android Platform.
-  void enableAdIdTracking(String appId) =>
+  void enableAdIdTracking() =>
       MoengageFlutterPlatform.instance.enableAdIdTracking(appId);
 
   ///API to disable Advertising Id tracking for the account configured as default.
   ///By default Advertising Id tracking is disabled, call this method only if
   ///you have enabled Advertising Id tracking at some point
   /// Note: This API is only for Android Platform.
-  void disableAdIdTracking(String appId) =>
+  void disableAdIdTracking() =>
       MoengageFlutterPlatform.instance.disableAdIdTracking(appId);
 
   ///API to create notification channels on Android.
