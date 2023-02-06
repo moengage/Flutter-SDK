@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/constants.dart';
+import '../constants.dart';
 
 enum MoEGender { male, female, other }
 

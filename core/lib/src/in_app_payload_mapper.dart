@@ -1,20 +1,20 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/inapp/action.dart';
-import 'package:moengage_flutter/model/inapp/campaign_context.dart';
-import 'package:moengage_flutter/model/inapp/campaign_data.dart';
-import 'package:moengage_flutter/model/inapp/click_data.dart';
-import 'package:moengage_flutter/model/inapp/inapp_action_type.dart';
-import 'package:moengage_flutter/model/inapp/inapp_custom_action.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/model/inapp/navigation_action.dart';
-import 'package:moengage_flutter/model/inapp/navigation_type.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_campaign.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
-import 'package:moengage_flutter/model/platforms.dart';
-import 'package:moengage_flutter/utils.dart';
-import 'package:moengage_flutter/internal/logger.dart';
+import 'constants.dart';
+import 'internal/logger.dart';
+import 'model/inapp/action.dart';
+import 'model/inapp/campaign_context.dart';
+import 'model/inapp/campaign_data.dart';
+import 'model/inapp/click_data.dart';
+import 'model/inapp/inapp_action_type.dart';
+import 'model/inapp/inapp_custom_action.dart';
+import 'model/inapp/inapp_data.dart';
+import 'model/inapp/navigation_action.dart';
+import 'model/inapp/navigation_type.dart';
+import 'model/inapp/self_handled_campaign.dart';
+import 'model/inapp/self_handled_data.dart';
+import 'model/platforms.dart';
+import 'utils.dart';
 
 class InAppPayloadMapper {
   final _tag = "${TAG}InAppPayloadMapper";

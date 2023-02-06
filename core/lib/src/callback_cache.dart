@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/moengage_flutter.dart';
+import 'custom_type.dart';
 
 class CallbackCache {
   PushClickCallbackHandler? pushClickCallbackHandler;

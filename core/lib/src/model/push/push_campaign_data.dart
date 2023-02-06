@@ -1,6 +1,6 @@
-import 'package:moengage_flutter/model/account_meta.dart';
-import 'package:moengage_flutter/model/platforms.dart';
-import 'package:moengage_flutter/model/push/push_campaign.dart';
+import '../account_meta.dart';
+import '../platforms.dart';
+import 'push_campaign.dart';
 
 class PushCampaignData {
   Platforms platform;

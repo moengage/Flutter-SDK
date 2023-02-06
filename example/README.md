@@ -59,4 +59,9 @@ To initialize the iOS Application with the MoEngage App ID from Settings in Dash
   MOFlutterInitializer.sharedInstance.initializeWithAppID("Your App ID", withLaunchOptions: launchOptions)
 ```
 
+### Firebase Integration on Android
+1. Please change value of YOUR_MOENGAGE_APP_ID with your ID in `android/app/src/main/java/com/moengage/sampleapp/SampleApplication.kt`
+2. Please replace google-services.json with your firebase json file under `android/app/google-services.json`
+3. Because firebase closely related with `applicationId`, if needed please change with your id in `android/app/build.gradle`
+
 Refer to the [Documentation](https://developers.moengage.com/hc/en-us/categories/4404300700308-Flutter-SDK) for complete integration guide. 

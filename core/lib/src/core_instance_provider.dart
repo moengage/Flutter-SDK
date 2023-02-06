@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/callback_cache.dart';
+import 'callback_cache.dart';
 
 class CoreInstanceProvider {
   static CoreInstanceProvider _instance = CoreInstanceProvider._internal();

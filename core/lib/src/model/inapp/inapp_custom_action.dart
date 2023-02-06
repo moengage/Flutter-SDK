@@ -1,5 +1,5 @@
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/inapp/action.dart';
+import '../../constants.dart';
+import 'action.dart';
 
 class CustomAction extends Action {
   ///Key-Value Pair entered on the MoEngage Platform during campaign creation.

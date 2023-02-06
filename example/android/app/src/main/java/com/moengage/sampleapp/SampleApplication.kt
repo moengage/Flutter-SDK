@@ -20,7 +20,7 @@ import io.flutter.app.FlutterApplication
 class SampleApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "YOUR_MOENGAGE_APP_ID")
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,

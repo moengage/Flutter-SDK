@@ -1,4 +1,4 @@
-import 'package:moengage_flutter/model/geo_location.dart';
+import 'model/geo_location.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {

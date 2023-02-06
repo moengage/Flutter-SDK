@@ -71,8 +71,7 @@ class Logger {
       return;
     }
     if (kDebugMode || kProfileMode || _logger._isEnabledForReleaseBuild) {
-      debugPrint(
-          _buildMessage(message, logLevel, stackTrace, error, textColor));
+      Logger.d(_buildMessage(message, logLevel, stackTrace, error, textColor));
     }
   }
 

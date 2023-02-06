@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/model/app_status.dart';
-import 'package:moengage_flutter/model/account_meta.dart';
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/permission_result.dart';
-import 'package:moengage_flutter/model/permission_type.dart';
-import 'package:moengage_flutter/model/platforms.dart';
+import 'constants.dart';
+import 'model/account_meta.dart';
+import 'model/app_status.dart';
+import 'model/permission_result.dart';
+import 'model/permission_type.dart';
+import 'model/platforms.dart';
 
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking, String appId) {

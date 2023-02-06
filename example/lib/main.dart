@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moengage_flutter/model/app_status.dart';
-import 'package:moengage_flutter/model/gender.dart';
-import 'package:moengage_flutter/model/geo_location.dart';
-import 'package:moengage_flutter/model/inapp/click_data.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
-import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
-import 'package:moengage_flutter/model/permission_result.dart';
-import 'package:moengage_flutter/model/push/push_campaign_data.dart';
-import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
-import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
@@ -27,11 +17,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+      MoEngageFlutter("YOUR_MOENGAGE_APP_ID");
   final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
-  final MoEngageInbox _moEngageInbox =
-      MoEngageInbox("DAO6UGZ73D9RTK8B5W96TPYN");
+      MoEngageGeofence("YOUR_MOENGAGE_APP_ID");
+  final MoEngageInbox _moEngageInbox = MoEngageInbox("YOUR_MOENGAGE_APP_ID");
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -161,7 +150,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     debugPrint("$tag Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value, details);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: details,
+                    );
                   }),
               new ListTile(
                   title: new Text("Track Interactive Event with Attributes"),
@@ -195,7 +187,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     debugPrint("$tag Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value, details);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: details,
+                    );
                   }),
               new ListTile(
                   title: Text("Track Only Event"),
@@ -203,8 +198,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     final String value =
                         await asyncInputDialog(context, "Event name");
                     debugPrint("$tag Main: Event name : $value");
-                    _moengagePlugin.trackEvent(value);
-                    _moengagePlugin.trackEvent(value, MoEProperties());
+                    _moengagePlugin.trackEvent(eventName: value);
+                    _moengagePlugin.trackEvent(
+                      eventName: value,
+                      eventAttributes: MoEProperties(),
+                    );
                   }),
               new ListTile(
                   title: new Text("Set Unique Id"),
@@ -282,25 +280,40 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                 title: Text("Set Custom User Attributes"),
                 onTap: () {
-                  _moengagePlugin.setUserAttribute("userAttr-bool", true);
-                  _moengagePlugin.setUserAttribute("userAttr-int", 1443322);
-                  _moengagePlugin.setUserAttribute("userAttr-Double", 45.4567);
                   _moengagePlugin.setUserAttribute(
-                      "userAttr-String", "This is a string");
+                    userAttributeName: "userAttr-bool",
+                    userAttributeValue: true,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-int",
+                    userAttributeValue: 1443322,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-Double",
+                    userAttributeValue: 45.4567,
+                  );
+                  _moengagePlugin.setUserAttribute(
+                    userAttributeName: "userAttr-String",
+                    userAttributeValue: "This is a string",
+                  );
                 },
               ),
               new ListTile(
                 title: Text("Set UserAttribute Timestamp"),
                 onTap: () {
                   _moengagePlugin.setUserAttributeIsoDate(
-                      "timeStamp", "2019-12-02T08:26:21.170Z");
+                    userAttributeName: "timeStamp",
+                    isoDateString: "2019-12-02T08:26:21.170Z",
+                  );
                 },
               ),
               new ListTile(
                 title: Text("Set UserAttribute Location"),
                 onTap: () {
                   _moengagePlugin.setUserAttributeLocation(
-                      "locationAttr", new MoEGeoLocation(72.8, 53.2));
+                    userAttributeName: "locationAttr",
+                    location: new MoEGeoLocation(72.8, 53.2),
+                  );
                 },
               ),
               new ListTile(
