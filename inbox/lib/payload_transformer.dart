@@ -10,7 +10,7 @@ import 'package:moengage_inbox/navigation_action.dart';
 import 'package:moengage_inbox/navigation_type.dart';
 import 'package:moengage_inbox/text_content.dart';
 import 'package:moengage_inbox/constants.dart';
-import 'package:moengage_flutter/internal/logger.dart';
+import 'package:moengage_flutter/src/internal/logger.dart';
 
 final _tag = "${TAG}PayloadTransformer";
 
