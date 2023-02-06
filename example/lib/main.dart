@@ -1,12 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
+import 'notification_util.dart';
 import 'utils.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(fcmBackgroundHandler);
+  runApp(MaterialApp(home: MyApp()));
+}
 
 final tag = "MoeExample_";
 
@@ -97,6 +105,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   late BuildContext buildContext;
+  final fcm = FirebaseMessaging.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -362,15 +371,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () {
 //                     Token passed here is just for illustration purposes. Please pass the actual token instead.
 //                    _moengagePlugin.passFCMPushToken(null);
-                    _moengagePlugin.passFCMPushToken(
-                        "dTFauhaKRgiRpBk_evwffB:APA91bEGxaY53AlYMpjqxgNd7GK_dWlwrqvKLF7MvaAeVFYyDYyXlJ7JuoItnVir0zLl53TXZcStdeUvGpeorhEfOtPk6ML4anpwoOEak16bhS0455X-yFY5VqZdrZ58dfaA16wyXbhH");
+                    NotificationUtil.setupFcm(fcm, _moengagePlugin);
                   }),
               new ListTile(
                   title: Text("Android -- PushKit Push Token"),
-                  onTap: () {
+                  onTap: () async {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
-                    _moengagePlugin.passPushKitPushToken(
-                        "IQAAAACy0T43AABSrIoiO4BN6XNORkptaWgyxTTEcIS9EgA1PUeNdYcAeBP6Ea-X6oIsWv5j7HKA8Hdna_JBMpNiVp_B8xR8HYEHC2Yw5yhE69AyaQ");
+                    final fcmToken = await fcm.getToken();
+                    if (fcmToken != null)
+                      _moengagePlugin.passPushKitPushToken(fcmToken);
                   }),
               new ListTile(
                   title: Text("Android -- FCM Push Payload"),

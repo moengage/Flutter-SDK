@@ -19,6 +19,8 @@ dependencies:
     path: ../geofence/
   moengage_inbox:
     path: ../inbox/
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
