@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/gender.dart';
@@ -8,12 +10,12 @@ import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
-import 'dart:async';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
+
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
@@ -98,6 +100,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setSelfHandledInAppHandler(_onInAppSelfHandle);
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
+    _moengagePlugin.configureLogs(LogLevel.VERBOSE);
     _moengagePlugin.initialise();
     debugPrint("initState() : end ");
   }
