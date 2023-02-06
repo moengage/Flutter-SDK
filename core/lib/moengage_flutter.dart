@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
-import 'package:moengage_flutter/internal/log_level.dart';
 import 'package:moengage_flutter/internal/logger.dart';
+import 'package:moengage_flutter/log_level.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
@@ -22,8 +22,8 @@ import 'package:moengage_flutter/utils.dart';
 
 import 'in_app_payload_mapper.dart';
 
-export 'internal/log_level.dart';
 export 'internal/logger.dart';
+export 'log_level.dart';
 
 typedef void PushClickCallbackHandler(PushCampaignData data);
 typedef void PushTokenCallbackHandler(PushTokenData data);

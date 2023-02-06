@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'log_level.dart';
+import '../log_level.dart';
 
 const BASE_TAG = "MoEFlutter";
 
