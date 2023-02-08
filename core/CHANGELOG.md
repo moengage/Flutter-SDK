@@ -1,7 +1,7 @@
 # MoEngage Flutter Plugin
 
-# Next Release
-## 5.2.1
+# 08-02-2023
+## 5.3.0
 - Security improvement: controlled logging for release, debug and profile mode
 - Android
     - Support for 2 Step Push Optin InApps
