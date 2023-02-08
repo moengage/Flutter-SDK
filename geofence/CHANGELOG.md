@@ -1,7 +1,10 @@
 # MoEngage Geofence Plugin
 
-## Next Release
+# Next Release
+
+## 1.2.1
 -  Security improvement: controlled logging for release, debug and profile mode
+- MoEngageGeofence SDK version updated to `~>5.4.0`.
 
 # 23-01-2023
 

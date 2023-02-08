@@ -1,10 +1,11 @@
 import 'package:flutter/services.dart';
-import 'moe_geofence_constants.dart';
-import 'moe_geofence_utils.dart';
 import 'package:moengage_flutter/internal/logger.dart';
 
+import 'moe_geofence_constants.dart';
+import 'moe_geofence_utils.dart';
+
 class MoEiOSGeofence {
-  String _tag = "${TAG}" + "MoEiOSGeofence";
+  String _tag = "${TAG}MoEiOSGeofence";
   MethodChannel _channel;
 
   MoEiOSGeofence(this._channel);
