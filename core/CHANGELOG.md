@@ -5,6 +5,7 @@
 - Security improvement: controlled logging for release, debug and profile mode
 - Android
     - Support for 2 Step Push Optin InApps
+    - Device Id enable / disable support
 - iOS
     - MoEngage-iOS-SDK version updated to `~>9.4.0`.
 

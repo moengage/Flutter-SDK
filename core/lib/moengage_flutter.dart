@@ -496,4 +496,22 @@ class MoEngageFlutter {
           .updatePushPermissionRequestCountAndroid(requestCount, appId);
     }
   }
+
+  /// Enable Device-id tracking. It is enabled by default, and should be called only if tracking is disabled at some point.
+  /// Note: This API is only for Android Platform
+  void enableDeviceIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyDeviceId, true);
+    }
+  }
+
+  /// Disables Device-id tracking
+  /// Note: This API is only for Android Platform
+  void disableDeviceIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyDeviceId, false);
+    }
+  }
 }
