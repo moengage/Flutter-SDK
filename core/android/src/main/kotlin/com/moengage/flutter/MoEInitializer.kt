@@ -16,10 +16,6 @@ import com.moengage.plugin.base.internal.PluginInitializer
 class MoEInitializer {
     companion object {
         private const val tag: String = "${MODULE_TAG}MoEInitializer"
-        @Deprecated(
-            message = "This method is deprecated.",
-            ReplaceWith(expression = "MoEInitializer.initialiseDefaultInstance()")
-        )
 
         /**
          * Initialise the default instance of SDK with configuration provided in [MoEngage.Builder]
