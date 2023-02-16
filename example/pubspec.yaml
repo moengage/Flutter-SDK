@@ -15,11 +15,8 @@ dependencies:
   permission_handler:
 
   moengage_flutter:
-    path: ../core/
   moengage_geofence:
-    path: ../geofence/
   moengage_inbox:
-    path: ../inbox/
 dev_dependencies:
   flutter_test:
     sdk: flutter
