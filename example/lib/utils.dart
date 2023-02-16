@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Future asyncInputDialog(BuildContext context, String prompt) async {
+import 'main.dart';
+
+Future asyncInputDialog(BuildContext context, String prompt,
+    {TextInputType textInputType = TextInputType.text}) async {
   String teamName = '';
   return showDialog(
     context: context,
@@ -12,6 +15,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
           children: [
             new Expanded(
                 child: new TextField(
+                  keyboardType: textInputType,
               autofocus: true,
               decoration: new InputDecoration(labelText: prompt),
               onChanged: (value) {
@@ -36,7 +40,7 @@ Future asyncInputDialog(BuildContext context, String prompt) async {
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
 Future asyncSelfHandledDialog(BuildContext context) async {
-  print("asyncSelfHandledDialog");
+  debugPrint("$tag asyncSelfHandledDialog");
   return await showDialog(
       context: context,
       barrierDismissible: true,

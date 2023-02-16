@@ -97,10 +97,8 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-  implementation("com.moengage:moe-android-sdk:12.5.05")
-  implementation("com.moengage:geofence:3.0.0")
-  implementation("com.moengage:inapp:6.4.0")
-  implementation("com.moengage:pushbase:6.6.0-SNAPSHOT")
+  implementation("com.moengage:moe-android-sdk:12.6.00")
+  implementation("com.moengage:inapp:6.5.0")
   implementation("com.google.firebase:firebase-messaging:23.1.0")
   implementation("androidx.lifecycle:lifecycle-process:2.5.1")
   implementation("com.moengage:hms-pushkit:4.2.0")

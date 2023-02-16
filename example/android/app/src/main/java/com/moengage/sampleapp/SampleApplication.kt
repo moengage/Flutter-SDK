@@ -1,13 +1,13 @@
 package com.moengage.sampleapp
 
-import android.content.Context
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
 import com.moengage.core.config.LogConfig
 import com.moengage.core.config.NotificationConfig
 import com.moengage.core.config.PushKitConfig
-import com.moengage.flutter.MoEInitializer.Companion.initialiseDefaultInstance
+import com.moengage.core.model.SdkState
+import com.moengage.flutter.MoEInitializer
 import com.moengage.push.amp.plus.MiPushHelper.initialiseMiPush
 import com.moengage.pushbase.MoEPushHelper
 import com.xiaomi.channel.commonutils.android.Region
@@ -40,7 +40,7 @@ class SampleApplication : FlutterApplication() {
             appId = "2882303761518042309",
             region = Region.India
         )
-        initialiseDefaultInstance(applicationContext, moEngage)
+        MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED)
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener())
     }

@@ -1,24 +1,29 @@
 import 'dart:io';
 
-import 'package:moengage_flutter/model/app_status.dart';
+import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/core_instance_provider.dart';
+import 'package:moengage_flutter/internal/logger.dart';
+import 'package:moengage_flutter/log_level.dart';
+import 'package:moengage_flutter/model/app_status.dart';
+import 'package:moengage_flutter/model/gender.dart';
+import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
+import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/permission_type.dart';
+import 'package:moengage_flutter/model/push/moe_push_service.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moe_cache.dart';
 import 'package:moengage_flutter/moe_core_controller.dart';
 import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/model/geo_location.dart';
-import 'package:moengage_flutter/model/gender.dart';
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/push/moe_push_service.dart';
-import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/utils.dart';
 
 import 'in_app_payload_mapper.dart';
+
+export 'internal/logger.dart';
+export 'log_level.dart';
 
 typedef void PushClickCallbackHandler(PushCampaignData data);
 typedef void PushTokenCallbackHandler(PushTokenData data);
@@ -182,7 +187,7 @@ class MoEngageFlutter {
   /// Tracks a user attribute.
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     if (userAttributeName.isEmpty) {
-      print("User Attribute Name cannot be empty");
+      Logger.w("User Attribute Name cannot be empty");
       return;
     }
     if (userAttributeValue is String ||
@@ -197,7 +202,7 @@ class MoEngageFlutter {
             .setUserAttribute(userAttributeName, userAttributeValue, appId);
       }
     } else {
-      print(
+      Logger.w(
           "Only String, Numbers and Bool values supported as User Attributes");
     }
   }
@@ -472,5 +477,41 @@ class MoEngageFlutter {
   /// Setup a callback handler for getting the response permission
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
+  }
+
+  /// Configure MoEngage SDK Logs
+  /// @param [logLevel] - [LogLevel] for SDK logs
+  /// @param [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
+  void configureLogs(LogLevel logLevel,
+      {bool isEnabledForReleaseBuild = false}) {
+    Logger.configureLogs(logLevel, isEnabledForReleaseBuild);
+  }
+
+  /// Updates the number of the times Notification permission is requested
+  /// @param [requestCount] This count will be incremented to existing value
+  /// Note: This API is only applicable for Android Platform. This should not called in App/Widget lifecycle methods.
+  void updatePushPermissionRequestCountAndroid(int requestCount) {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updatePushPermissionRequestCountAndroid(requestCount, appId);
+    }
+  }
+
+  /// Enable Device-id tracking. It is enabled by default, and should be called only if tracking is disabled at some point.
+  /// Note: This API is only for Android Platform
+  void enableDeviceIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyDeviceId, true);
+    }
+  }
+
+  /// Disables Device-id tracking
+  /// Note: This API is only for Android Platform
+  void disableDeviceIdTracking() {
+    if (Platform.isAndroid) {
+      controller.moEAndroid
+          .updateDeviceIdentifierTrackingStatus(appId, keyDeviceId, false);
+    }
   }
 }

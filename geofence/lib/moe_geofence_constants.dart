@@ -1,4 +1,4 @@
-const String TAG = "MoEGeofence_";
+const String TAG = "Geofence_";
 
 // Plugin Channel
 const String channelName = "com.moengage/geofence";

@@ -1,4 +1,6 @@
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/internal/logger.dart';
+
 import 'moe_geofence_constants.dart';
 import 'moe_geofence_utils.dart';
 
@@ -11,9 +13,10 @@ class MoEiOSGeofence {
   void startGeofenceMonitoring(String appId) {
     try {
       _channel.invokeMethod(
-          methodStartGeofenceMonitoring, getAccountMeta(appId));
-    } catch (e) {
-      print("$_tag Error: startGeofenceMonitoring() : $e");
+          methodStartGeofenceMontioring, getAccountMeta(appId));
+    } catch (e, stacktrace) {
+      Logger.e("$_tag Error: startGeofenceMonitoring() : ",
+          error: e, stackTrace: stacktrace);
     }
   }
 

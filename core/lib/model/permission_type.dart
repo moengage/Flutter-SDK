@@ -1,7 +1,6 @@
 enum PermissionType { PUSH }
 
 extension PermissionTypeExtension on PermissionType {
-
   static PermissionType fromString(String permissionType) {
     switch (permissionType) {
       case _permissionTypePush:
@@ -18,7 +17,6 @@ extension PermissionTypeExtension on PermissionType {
         return _permissionTypePush;
     }
   }
-
 }
 
 const String _permissionTypePush = "push";

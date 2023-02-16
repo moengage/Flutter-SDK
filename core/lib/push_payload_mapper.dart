@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/constants.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_flutter/model/platforms.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
 import 'package:moengage_flutter/model/push/push_campaign.dart';
@@ -9,7 +10,7 @@ import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/utils.dart';
 
 class PushPayloadMapper {
-  String _tag = "${TAG}PushPayloadMapper";
+  final _tag = "${TAG}PushPayloadMapper";
 
   PushTokenData? pushTokenFromJson(dynamic methodCallArgs) {
     try {
@@ -18,15 +19,16 @@ class PushPayloadMapper {
           PlatformsExtension.fromString(tokenData[keyPlatform]),
           tokenData[keyPushToken],
           MoEPushServiceExtention.fromString(tokenData[keyPushService]));
-    } catch (exception) {
-      print("$_tag Error: pushTokenFromJson() : ${exception.toString()}");
+    } catch (exception, stackTrace) {
+      Logger.e("$_tag Error: pushTokenFromJson() : ",
+          stackTrace: stackTrace, error: exception);
     }
     return null;
   }
 
   PushCampaignData? pushCampaignFromJson(dynamic methodCallArgs) {
     try {
-      print("$_tag pushCampaignFromJson() : $methodCallArgs");
+      Logger.v("$_tag pushCampaignFromJson() : $methodCallArgs");
       Map<String, dynamic> pushCampaignPayload = json.decode(methodCallArgs);
       Map<String, dynamic> campaignData = pushCampaignPayload[keyData];
       return PushCampaignData(
@@ -42,8 +44,9 @@ class PushPayloadMapper {
               campaignData.containsKey(keyPayload)
                   ? campaignData[keyPayload]
                   : new Map()));
-    } catch (e) {
-      print("$_tag Error: pushCampaignFromJson() : $e");
+    } catch (e, stackTrace) {
+      Logger.e("$_tag Error: pushTokenFromJson() : ",
+          stackTrace: stackTrace, error: e);
     }
     return null;
   }

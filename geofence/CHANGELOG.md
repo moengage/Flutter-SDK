@@ -2,7 +2,13 @@
 
 ## Next Release
 - Android
-  - Support for GeoFence Start/Stop API 
+    - Support for GeoFence Start/Stop API
+
+# 08-02-2023
+
+## 1.3.0
+-  Security improvement: controlled logging for release, debug and profile mode
+- MoEngageGeofence SDK version updated to `~>5.4.0`.
 
 # 23-01-2023
 

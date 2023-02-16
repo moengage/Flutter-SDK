@@ -1,5 +1,5 @@
 // Plugin Channel
-const String TAG = "MoEFlutter_";
+const String TAG = "Core_";
 
 // Plugin Channel
 const String channelName = "com.moengage/core";
@@ -30,6 +30,8 @@ const String methodSetupNotificationChannelAndroid =
     "setupNotificationChannels";
 const String methodNavigateToSettingsAndroid = "navigateToSettings";
 const String methodRequestPushPermissionAndroid = "requestPushPermission";
+const String methodUpdatePushPermissionRequestCount =
+    "updatePushPermissionRequestCount";
 const String methodPermissionResponse = "permissionResponse";
 
 // Callback Names
@@ -128,7 +130,10 @@ const String keyData = "data";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
 const String keyAdId = "isAdIdTrackingEnabled";
+const String keyDeviceId = "isDeviceIdTrackingEnabled";
 
 // permission
 const String keyIsPermissionGranted = "isGranted";
 const String keyPermissionType = "type";
+
+const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";

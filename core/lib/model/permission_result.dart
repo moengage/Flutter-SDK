@@ -2,7 +2,6 @@ import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/model/platforms.dart';
 
 class PermissionResultData {
-
   Platforms platform;
   bool isGranted;
   PermissionType type;
