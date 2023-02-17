@@ -7,9 +7,6 @@ buildscript {
         google()
         mavenCentral()
         jcenter()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
 
     dependencies {
@@ -54,9 +51,9 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly("com.moengage:moe-android-sdk:12.5.05")
+    compileOnly("com.moengage:moe-android-sdk:12.6.00")
     compileOnly("com.moengage:geofence:3.0.0")
-    implementation("com.moengage:plugin-base-geofence:1.0.0-SNAPSHOT")
+    implementation("com.moengage:plugin-base-geofence:1.0.0")
 }
 
 apply from: file("./user-agent.gradle")
