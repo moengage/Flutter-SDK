@@ -23,7 +23,7 @@ class MoEngageGeofence {
 
   /// Starts Geofence Monitoring
   void startGeofenceMonitoring() {
-    Logger.v("$_tag Starting Geo Fence Monitoring");
+    Logger.v("$_tag Starting GeoFence Monitoring");
     if (Platform.isIOS) {
       moEiOSGeofence.startGeofenceMonitoring(appId);
     } else if (Platform.isAndroid) {
@@ -33,7 +33,7 @@ class MoEngageGeofence {
 
   /// Stops Geofence Monitoring
   void stopGeofenceMonitoring() {
-    Logger.v("$_tag Stopping Geo Fence Monitoring");
+    Logger.v("$_tag Stopping GeoFence Monitoring");
     if (Platform.isIOS) {
       moEiOSGeofence.stopGeofenceMonitoring(appId);
     } else if (Platform.isAndroid) {
