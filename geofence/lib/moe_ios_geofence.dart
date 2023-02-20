@@ -25,7 +25,7 @@ class MoEiOSGeofence {
       _channel.invokeMethod(
           methodStopGeofenceMonitoring, getAccountMeta(appId));
     } catch (e) {
-      print("$_tag Error: stopGeofenceMonitoring() : $e");
+      Logger.e("$_tag Error: stopGeofenceMonitoring() : $e");
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/moengage_flutter.dart';
 
 import 'moe_geofence_constants.dart';
 import 'moe_geofence_utils.dart';
@@ -14,7 +15,7 @@ class MoEAndroidGeofence {
       _channel.invokeMethod(
           methodStartGeofenceMonitoring, getAccountMeta(appId));
     } catch (e) {
-      print("$_tag Error: startGeofenceMonitoring() : $e");
+      Logger.e("$_tag Error: startGeofenceMonitoring() : $e");
     }
   }
 
@@ -23,7 +24,7 @@ class MoEAndroidGeofence {
       _channel.invokeMethod(
           methodStopGeofenceMonitoring, getAccountMeta(appId));
     } catch (e) {
-      print("$_tag Error: stopGeofenceMonitoring() : $e");
+      Logger.e("$_tag Error: stopGeofenceMonitoring() : $e");
     }
   }
 }

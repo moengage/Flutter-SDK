@@ -325,13 +325,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               new ListTile(
                   title: Text("Start Geofence Monitoring"),
                   onTap: () {
-                    debugPrint("Start GeoFence Monitoring - Flutter");
                     _moEngageGeofence.startGeofenceMonitoring();
                   }),
               ListTile(
                   title: Text("Stop Geofence Monitoring"),
                   onTap: () {
-                    debugPrint("Stop GeoFence Monitoring - Flutter");
                     _moEngageGeofence.stopGeofenceMonitoring();
                   }),
               ListTile(
