@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/constants.dart';
-import 'package:moengage_flutter/model/account_meta.dart';
 import 'package:moengage_flutter/model/app_status.dart';
+import 'package:moengage_flutter/model/account_meta.dart';
+import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/model/platforms.dart';

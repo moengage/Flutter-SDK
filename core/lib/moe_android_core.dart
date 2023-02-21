@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/model/permission_type.dart';
+import 'package:moengage_flutter/properties.dart';
+import 'package:moengage_flutter/utils.dart';
 import 'package:moengage_flutter/constants.dart';
 import 'package:moengage_flutter/model/app_status.dart';
 import 'package:moengage_flutter/model/gender.dart';
 import 'package:moengage_flutter/model/geo_location.dart';
-import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
-import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/utils.dart';
 
 import 'data_payload_mapper.dart';
 

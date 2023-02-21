@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_inbox/action.dart';
 import 'package:moengage_inbox/action_type.dart';
-import 'package:moengage_inbox/constants.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/media.dart';
@@ -11,6 +9,8 @@ import 'package:moengage_inbox/media_type.dart';
 import 'package:moengage_inbox/navigation_action.dart';
 import 'package:moengage_inbox/navigation_type.dart';
 import 'package:moengage_inbox/text_content.dart';
+import 'package:moengage_inbox/constants.dart';
+import 'package:moengage_flutter/internal/logger.dart';
 
 final _tag = "${TAG}PayloadTransformer";
 
