@@ -21,3 +21,6 @@ flutter:
     platforms:
       ios:
         pluginClass: MoEngageGeofencePlugin
+      android:
+        package: com.moengage.flutter.geofence
+        pluginClass: MoEngageGeofencePlugin

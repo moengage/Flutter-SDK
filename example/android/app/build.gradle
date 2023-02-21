@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.huawei.agconnect'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
   compileSdkVersion 33
@@ -104,9 +105,11 @@ dependencies {
   implementation("com.moengage:rich-notification:4.1.0")
   implementation("com.huawei.hms:push:6.5.0.300")
   implementation("com.moengage:inbox-core:2.2.0")
+  implementation("com.moengage:geofence:3.0.0")
   implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
   implementation("com.moengage:push-amp-plus:6.1.0")
   implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
+  implementation("com.google.android.gms:play-services-location:20.0.0")
 }
 
 apply plugin: 'com.google.gms.google-services'

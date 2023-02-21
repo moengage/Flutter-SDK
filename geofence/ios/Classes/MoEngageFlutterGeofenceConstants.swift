@@ -10,4 +10,5 @@ import Foundation
 struct MoEngageFlutterGeofenceConstants {
     static let channel = "com.moengage/geofence"
     static let startGeofenceMonitoring = "startGeofenceMonitoring"
+    static let stopGeofenceMonitoring = "stopGeofenceMonitoring"
 }

@@ -12,8 +12,13 @@ public class MoEngageFlutterGeofence: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else { return }
         
-        if call.method == MoEngageFlutterGeofenceConstants.startGeofenceMonitoring {
+        switch call.method {
+        case MoEngageFlutterGeofenceConstants.startGeofenceMonitoring :
             MoEngagePluginGeofenceBridge.sharedInstance.startGeofenceMonitoring(payload)
+        case MoEngageFlutterGeofenceConstants.stopGeofenceMonitoring :
+            MoEngagePluginGeofenceBridge.sharedInstance.stopGeofenceMonitoring(payload)
+        default:
+            break
         }
     }
 }

@@ -15,6 +15,7 @@ import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'utils.dart';
 
@@ -322,10 +323,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     _moengagePlugin.registerForPushNotification();
                   }),
               new ListTile(
-                  title: Text("iOS -- Start Geofence"),
+                  title: Text("Start Geofence Monitoring"),
                   onTap: () {
+                    debugPrint("Start GeoFence Monitoring - Flutter");
                     _moEngageGeofence.startGeofenceMonitoring();
                   }),
+              ListTile(
+                  title: Text("Stop Geofence Monitoring"),
+                  onTap: () {
+                    debugPrint("Stop GeoFence Monitoring - Flutter");
+                    _moEngageGeofence.stopGeofenceMonitoring();
+                  }),
+              ListTile(
+                title: Text("Request Location Permission"),
+                onTap: () async {
+                  Map<Permission, PermissionStatus> statuses =
+                      await [Permission.locationAlways].request();
+                  debugPrint(statuses.toString());
+                },
+              ),
               new ListTile(
                   title: Text("Show InApp"),
                   onTap: () {

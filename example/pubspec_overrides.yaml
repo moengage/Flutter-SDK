@@ -1,0 +1,7 @@
+dependency_overrides:
+  moengage_flutter:
+    path: ../core/
+  moengage_geofence:
+    path: ../geofence/
+  moengage_inbox:
+    path: ../inbox/

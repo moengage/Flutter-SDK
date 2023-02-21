@@ -10,4 +10,5 @@ build/
 android/.settings
 exampleObjC
 example/android/app/local.properties
-*pubspec.lock
+**pubspec.lock
+/geofence/example/android/gradle/wrapper/gradle-wrapper.jar
