@@ -127,6 +127,8 @@ const String keyIsSdkEnabled = "isSdkEnabled";
 const String keyAppId = "appId";
 const String keyAccountMeta = "accountMeta";
 const String keyData = "data";
+const String keyConfig = "config";
+const String keyPushConfig = "pushConfig";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
 const String keyAdId = "isAdIdTrackingEnabled";
@@ -137,3 +139,7 @@ const String keyIsPermissionGranted = "isGranted";
 const String keyPermissionType = "type";
 
 const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";
+
+//Push Config Keys
+const String keyShouldDeliverCallbackOnForegroundClick = "shouldDeliverCallbackOnForegroundClick";
+const String keySelfHandledPushRedirection = "selfHandledPushRedirection";
