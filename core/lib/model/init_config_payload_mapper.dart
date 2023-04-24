@@ -8,7 +8,7 @@ class InitConfigPayloadMapper {
   Map<String, dynamic> getInitPayload(
       String appId, MoEInitConfig moEInitConfig) {
     Map<String, dynamic> payload = getAccountMeta(appId);
-    payload[keyConfig] = _initConfigToMap(moEInitConfig);
+    payload[keyInitConfig] = _initConfigToMap(moEInitConfig);
     return payload;
   }
 

@@ -127,7 +127,7 @@ const String keyIsSdkEnabled = "isSdkEnabled";
 const String keyAppId = "appId";
 const String keyAccountMeta = "accountMeta";
 const String keyData = "data";
-const String keyConfig = "config";
+const String keyInitConfig = "initConfig";
 const String keyPushConfig = "pushConfig";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
