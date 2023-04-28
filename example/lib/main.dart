@@ -11,10 +11,7 @@ import 'package:moengage_flutter/app_status.dart';
 import 'package:moengage_flutter/push_campaign.dart';
 import 'package:moengage_flutter/inapp_campaign.dart';
 import 'package:moengage_inbox/inbox_data.dart';
-import 'package:moengage_inbox/inbox_message.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:huawei_push/push.dart';
 
 void main() => runApp(MyApp());
 
@@ -293,7 +290,7 @@ class _MyAppState extends State<MyApp> {
                   onTap: () {
                     // Token passed here is just for illustration purposes. Please pass the actual token instead.
 //                    _moengagePlugin.passFCMPushToken("cqMGhuQQGBY:APA91bH60NbbAsXXD3FUnrXpyE2b8eO7s7JRR9GIZDqpGC9xw3ZEUBTjxxKcTZc964QALHE7CFN-FVmjn35vd89GXbAxAR66XbVtm9ZkH72ah1IkZDcqxQZZP7jiK88tFKv1ijawDaqJfLqTG4R3xKE:APA91bFAK6wdFfXsJv-qxfElcE4X4prFNVK0-YfL6bN-5hVaaQwE35p-GZoUfhOOqxrN_J1lwiYF16q0DXzjcGcIuSPaJHwpO7zAaqQa9Oihm4_2SPLpBRj6Y8TQg9e53SjH78KYfsMX");
-                    
+
                     /*firebaseMessaging.getToken().then((token){
                       print('FCM Token: $token');
                       _moengagePlugin.passFCMPushToken(token);
