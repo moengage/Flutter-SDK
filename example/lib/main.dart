@@ -116,6 +116,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     debugPrint("$tag Main : build() ");
+    buildContext = context;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
