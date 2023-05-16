@@ -1,4 +1,8 @@
 # MoEngage Flutter Plugin
+# Next Release
+## Version
+- Bugfix
+    - Fix Self Handled InApp Callback in Android
 
 # 08-02-2023
 ## 5.3.0
