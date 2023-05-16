@@ -1,7 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release
-## Version
+# 16-05-2023
+
+## 5.3.1
 - Android
     - SelfHandled InApp Callback for Test InApps and Event Triggered InApps
 
