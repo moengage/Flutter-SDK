@@ -1,7 +1,7 @@
 # MoEngage Flutter Plugin
 
 # Next Release
-
+## Version
 - Android
     - SelfHandled InApp Callback for Test InApps and Event Triggered InApps
 
