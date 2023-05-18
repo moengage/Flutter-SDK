@@ -17,6 +17,7 @@ import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'cards/cards_screen.dart';
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
@@ -133,6 +134,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         body: new Center(
           child: new ListView(
             children: ListTile.divideTiles(context: context, tiles: [
+              ListTile(
+                title: Text("GoTo Cards"),
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CardsScreen()));
+                },
+              ),
               new ListTile(
                   title: new Text("Track Event with Attributes"),
                   onTap: () async {

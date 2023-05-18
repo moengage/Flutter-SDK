@@ -17,6 +17,11 @@ dependencies:
   moengage_flutter:
   moengage_geofence:
   moengage_inbox:
+  moengage_cards:
+    path: ../cards
+  flutter_html:
+  intl: ^0.18.1
+  url_launcher: ^6.1.11
 dev_dependencies:
   flutter_test:
     sdk: flutter

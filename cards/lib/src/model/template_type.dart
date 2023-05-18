@@ -1,0 +1,1 @@
+enum TemplateType { basic, illustration }
