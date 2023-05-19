@@ -22,9 +22,16 @@ class MoEInitializer {
          *
          * @param context Context
          * @param builder Instance of [MoEngage.Builder]
+         * @param lifecycleAwareCallbackEnabled - If true, on App background the events will be queued
+         * and on App Open the events will be flushed.
          */
         @JvmStatic
-        fun initialiseDefaultInstance(context: Context, builder: MoEngage.Builder) {
+        @JvmOverloads
+        fun initialiseDefaultInstance(
+            context: Context,
+            builder: MoEngage.Builder,
+            lifecycleAwareCallbackEnabled: Boolean = false
+        ) {
             try {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
@@ -35,6 +42,7 @@ class MoEInitializer {
                     ),
                     SdkState.ENABLED
                 )
+                GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
             }
@@ -53,9 +61,17 @@ class MoEInitializer {
          * @param context Context
          * @param builder Instance of [MoEngage.Builder]
          * @param sdkState [SdkState]
+         * @param lifecycleAwareCallbackEnabled - If true, on App background the events will be queued
+         * and on App Open the events will be flushed.
          */
         @JvmStatic
-        fun initialiseDefaultInstance(context: Context, builder: MoEngage.Builder, sdkState: SdkState) {
+        @JvmOverloads
+        fun initialiseDefaultInstance(
+            context: Context,
+            builder: MoEngage.Builder,
+            sdkState: SdkState,
+            lifecycleAwareCallbackEnabled: Boolean = false
+        ) {
             try {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
@@ -63,6 +79,7 @@ class MoEInitializer {
                     IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
                     sdkState
                 )
+                GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
             }

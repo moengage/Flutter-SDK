@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.moengage.core.LogLevel
+import com.moengage.core.MoECoreHelper
 import com.moengage.core.internal.logger.Logger
+import com.moengage.core.listeners.AppBackgroundListener
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.setEventEmitter
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -20,6 +22,12 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
+
+    private val appBackgroundListener = AppBackgroundListener { _, _ -> run {
+            Logger.print { "$tag onAppBackground() : Detaching the Framework" }
+            pluginHelper.onFrameworkDetached()
+        }
+    }
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.print { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
@@ -42,6 +50,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
             channel.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
+            if (GlobalCache.lifecycleAwareCallbackEnabled){
+                Logger.print { "$tag initPlugin()  Adding App Background Listener: " }
+                MoECoreHelper.addAppBackgroundListener(appBackgroundListener)
+            }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
         }

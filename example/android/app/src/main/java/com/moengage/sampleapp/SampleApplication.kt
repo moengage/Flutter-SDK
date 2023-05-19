@@ -40,7 +40,7 @@ class SampleApplication : FlutterApplication() {
             appId = "2882303761518042309",
             region = Region.India
         )
-        MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED)
+        MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener())
     }

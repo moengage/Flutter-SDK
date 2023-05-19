@@ -103,6 +103,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     initPlatformState();
+    WidgetsBinding.instance.addObserver(this);
     debugPrint("$tag initState() : start ");
     _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
@@ -122,6 +123,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   late BuildContext buildContext;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _moengagePlugin.initialise();
+    }
+    debugPrint("Application Lifecycle Changed - $state");
+  }
 
   @override
   Widget build(BuildContext context) {
