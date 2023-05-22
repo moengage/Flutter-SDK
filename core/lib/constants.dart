@@ -141,5 +141,12 @@ const String keyPermissionType = "type";
 const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";
 
 //Push Config Keys
-const String keyShouldDeliverCallbackOnForegroundClick = "shouldDeliverCallbackOnForegroundClick";
+
+/// Key for Registering for sdk to send only callback on Push Click on App Foreground.
+/// MoEngage SDK will not handle the redirection in this case
+const String keyShouldDeliverCallbackOnForegroundClick =
+    "shouldDeliverCallbackOnForegroundClick";
+
+/// Key for Self handled push redirection. If self handled push direction is true,
+/// Client is responsible for push redirection on Push Click
 const String keySelfHandledPushRedirection = "selfHandledPushRedirection";
