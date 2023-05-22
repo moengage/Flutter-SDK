@@ -5,27 +5,15 @@ import android.os.Handler
 import android.os.Looper
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.flutter.cards.internal.METHOD_CARDS_FOR_CATEGORY
-import com.moengage.flutter.cards.internal.METHOD_CARDS_INFO
-import com.moengage.flutter.cards.internal.METHOD_CARD_CLICKED
-import com.moengage.flutter.cards.internal.METHOD_CARD_DELIVERED
-import com.moengage.flutter.cards.internal.METHOD_CARD_SHOWN
-import com.moengage.flutter.cards.internal.METHOD_DELETE_CARDS
-import com.moengage.flutter.cards.internal.METHOD_GET_CARDS_CATEGORIES
-import com.moengage.flutter.cards.internal.METHOD_INITIALIZE
-import com.moengage.flutter.cards.internal.METHOD_IS_ALL_CATEGORY_ENABLED
-import com.moengage.flutter.cards.internal.METHOD_NEW_CARDS_COUNT
-import com.moengage.flutter.cards.internal.METHOD_ON_CARD_SECTION_LOADED
-import com.moengage.flutter.cards.internal.METHOD_ON_CARD_SECTION_UNLOADED
-import com.moengage.flutter.cards.internal.METHOD_REFRESH_CARDS
-import com.moengage.flutter.cards.internal.METHOD_UN_CLICKED_CARDS_COUNT
-import com.moengage.flutter.cards.internal.MODULE_TAG
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import java.util.concurrent.Executors
 
-class PlatformMethodCallHandler(private val context: Context,private val cardsPluginHelper: CardsPluginHelper) : MethodChannel.MethodCallHandler {
+class PlatformMethodCallHandler(
+    private val context: Context,
+    private val cardsPluginHelper: CardsPluginHelper
+) : MethodChannel.MethodCallHandler {
 
     private val tag = "${MODULE_TAG}PlatformMethodCallHandler"
 

@@ -8,6 +8,7 @@ import 'package:moengage_cards/src/model/cards_info.dart';
 import 'package:moengage_cards/src/model/cards_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+/// Platform Interface for Cards Plugin
 abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   MoEngageCardsPlatformInterface() : super(token: _token);
 
@@ -26,9 +27,12 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
 
   void initialize(String appId) => throw UnimplementedError();
 
-  void refreshCards(String appId) => throw UnimplementedError();
+  void refreshCards(String appId, CardsSyncListener cardsSyncListener) =>
+      throw UnimplementedError();
 
-  void onCardsSectionLoaded(String appId) async => throw UnimplementedError();
+  void onCardsSectionLoaded(
+          String appId, CardsSyncListener cardsSyncListener) async =>
+      throw UnimplementedError();
 
   void onCardsSectionUnLoaded(String appId) => throw UnimplementedError();
 
@@ -61,14 +65,6 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
       throw UnimplementedError();
 
   void setAppOpenCardsSyncListener(
-          CardsSyncListener cardsSyncListener, String appId) async =>
-      throw UnimplementedError();
-
-  void setPullToRefreshSyncListener(
-          CardsSyncListener cardsSyncListener, String appId) async =>
-      throw UnimplementedError();
-
-  void setInboxOpenSyncListener(
           CardsSyncListener cardsSyncListener, String appId) async =>
       throw UnimplementedError();
 }

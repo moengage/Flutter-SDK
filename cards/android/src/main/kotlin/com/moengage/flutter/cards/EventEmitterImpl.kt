@@ -2,10 +2,6 @@ package com.moengage.flutter.cards
 
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.flutter.cards.internal.METHOD_APP_OPEN_CARDS_SYNC
-import com.moengage.flutter.cards.internal.METHOD_INBOX_OPEN_CARDS_SYNC
-import com.moengage.flutter.cards.internal.METHOD_PULL_TO_REFRESH_CARDS_SYNC
-import com.moengage.flutter.cards.internal.MODULE_TAG
 import com.moengage.plugin.base.cards.cardsSyncToJson
 import com.moengage.plugin.base.cards.internal.CardsEventEmitter
 import com.moengage.plugin.base.cards.internal.model.events.CardsEvent

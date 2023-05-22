@@ -5,8 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.flutter.cards.internal.CHANNEL_NAME
-import com.moengage.flutter.cards.internal.MODULE_TAG
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import com.moengage.plugin.base.cards.internal.setCardsEventEmitter
 import io.flutter.embedding.engine.plugins.FlutterPlugin

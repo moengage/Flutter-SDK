@@ -5,11 +5,21 @@ import 'package:moengage_cards/src/model/template_type.dart';
 import 'package:moengage_cards/src/model/widget.dart';
 import 'package:moengage_cards/src/internal/payload_mapper.dart';
 
+/// Container to hold UI widget. Equivalent to a Container Widget in Flutter
 class Container {
+  /// Unique identifier for a template
   final int id;
+
+  /// Type of container
   final TemplateType templateType;
+
+  /// Style associated to the Container
   final ContainerStyle style;
+
+  /// [List] of [Widget]
   final List<Widget> widgets;
+
+  /// [List] of [Action] for the container
   final List<Action> actionList;
 
   Container(
@@ -23,12 +33,13 @@ class Container {
     return Container(
         id: json[keyContainerId],
         templateType: TemplateType.values.byName(json[keyContainerType]),
-        widgets: (json[keyWidgets] as List).map((e) => Widget.fromJson(e)).toList(),
-        actionList:
-        (json[keyActions] as List)
-                .map((e) => actionStyleFromJson(e))
-                .toList(),
-        style: ContainerStyle.fromJson(json[keyContainerStyle]));
+        widgets: ((json[keyWidgets] ?? []) as List)
+            .map((e) => Widget.fromJson(e))
+            .toList(),
+        actionList: ((json[keyActions] ?? []) as List)
+            .map((e) => actionStyleFromJson(e))
+            .toList(),
+        style: ContainerStyle.fromJson(json[keyContainerStyle] ?? {}));
   }
 
   Map<String, dynamic> toJson() => {

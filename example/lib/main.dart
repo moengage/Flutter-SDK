@@ -136,8 +136,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             children: ListTile.divideTiles(context: context, tiles: [
               ListTile(
                 title: Text("GoTo Cards"),
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CardsScreen()));
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CardsScreen()));
                 },
               ),
               new ListTile(

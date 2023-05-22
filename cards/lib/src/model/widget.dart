@@ -5,11 +5,21 @@ import 'package:moengage_cards/src/model/widget_type.dart';
 import '../internal/payload_mapper.dart';
 import 'action.dart';
 
+/// UI element in a card.
 class Widget {
+  /// Identifier for the widget.
   int id;
+
+  /// Type of widget
   WidgetType widgetType;
+
+  /// Content to be loaded in the widget.
   String content;
+
+  /// Style associated with the widget
   WidgetStyle style;
+
+  /// Actions to be performed on widget click
   List<Action> actionList;
 
   Widget(
@@ -29,14 +39,15 @@ class Widget {
         style: widgetStyleFromJson(json[keyWidgetStyle], widgetType),
         actionList: (json[keyActions] as Iterable)
             .map(
-                (action) => actionStyleFromJson(action as Map<String, dynamic>)).toList());
+                (action) => actionStyleFromJson(action as Map<String, dynamic>))
+            .toList());
   }
 
-  Map<String,dynamic> toJson() => {
-    keyWidgetId : id,
-    keyWidgetContent: content,
-    keyWidgetType: widgetType.name,
-    keyWidgetStyle: style.toJson(),
-    keyActions : actionList.map((e)=>e.toJson()).toList()
-  };
+  Map<String, dynamic> toJson() => {
+        keyWidgetId: id,
+        keyWidgetContent: content,
+        keyWidgetType: widgetType.name,
+        keyWidgetStyle: style.toJson(),
+        keyActions: actionList.map((e) => e.toJson()).toList()
+      };
 }

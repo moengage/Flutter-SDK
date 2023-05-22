@@ -3,14 +3,29 @@ import 'package:moengage_cards/src/model/template.dart';
 
 import 'meta_data.dart' as moe;
 
+/// Card Campaign data
 class Card {
+  /// Internal Identifier for Card.
   int id;
+
+  /// Unique identifier for the Card campaign
   String cardId;
+
+  /// Category to which the campaign belongs.
   String category;
+
+  /// Template payload for the campaign
   Template template;
+
+  /// Meta data related to the campaign like status, delivery control etc.
   moe.MetaData metaData;
 
-  Card({required this.id, required this.cardId, required this.category, required this.template, required this.metaData});
+  Card(
+      {required this.id,
+      required this.cardId,
+      required this.category,
+      required this.template,
+      required this.metaData});
 
   factory Card.fromJson(Map<String, dynamic> json) {
     return Card(
@@ -21,8 +36,7 @@ class Card {
         metaData: moe.MetaData.fromJson(json[keyMetaData]));
   }
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         keyId: id,
         keyCardId: cardId,
         keyCategory: category,

@@ -3,6 +3,7 @@ import 'package:moengage_flutter/internal/logger.dart';
 
 import 'callback_cache.dart';
 
+/// iOS specific implementation of Cards platform interface
 class MoEiOSCardsController extends MoEngageCardsPlatform {
   MoEiOSCardsController() : super();
 

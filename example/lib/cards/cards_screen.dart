@@ -23,7 +23,10 @@ class _CardsScreenState extends State<CardsScreen>
   void initState() {
     super.initState();
     cards.initialize();
-    cards.onCardsSectionLoaded();
+    cards.onCardsSectionLoaded((data) {
+      cards.cardDelivered();
+      if (data.hasUpdates) fetchCards();
+    });
     cards.getCardsCategories().then((data) {
       debugPrint("getCardsCategories: " + data.toString());
     });
@@ -42,16 +45,6 @@ class _CardsScreenState extends State<CardsScreen>
       length: categories.length,
       vsync: this,
     );
-    cards.setPullToRefreshSyncListener((moe.SyncCompleteData data) {
-      cards.cardDelivered();
-      if (data.hasUpdates) {
-        fetchCards();
-      }
-    });
-    cards.setInboxOpenSyncListener((moe.SyncCompleteData data) {
-      cards.cardDelivered();
-      if (data.hasUpdates) fetchCards();
-    });
   }
 
   fetchCards() {
@@ -75,11 +68,11 @@ class _CardsScreenState extends State<CardsScreen>
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        cards.onCardsSectionUnLoaded();
-        return true;
-      },
-      child: Scaffold(
+        onWillPop: () async {
+          cards.onCardsSectionUnLoaded();
+          return true;
+        },
+        child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
             iconTheme: IconThemeData(color: Colors.black54),
@@ -91,16 +84,22 @@ class _CardsScreenState extends State<CardsScreen>
             ),
           ),
           body: RefreshIndicator(
-            onRefresh: () async {
-              refreshCards();
-            },
-            child: (categories.isEmpty)
-                ? Center(
-                    child: Text("No Data"),
-                  )
-                : getListWidget(),
-          )),
-    );
+              onRefresh: () async {
+                refreshCards();
+              },
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Container(
+                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height,
+                  child: (categories.isEmpty)
+                      ? Center(
+                          child: Text("No Data"),
+                        )
+                      : getListWidget(),
+                ),
+              )),
+        ));
   }
 
   Widget getListWidget() {
@@ -151,6 +150,7 @@ class _CardsScreenState extends State<CardsScreen>
                               return ListView.builder(
                                   itemCount: data.length,
                                   shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, pos) {
                                     return (data[pos].template.templateType ==
                                             moe.TemplateType.basic)
@@ -171,7 +171,12 @@ class _CardsScreenState extends State<CardsScreen>
   }
 
   void refreshCards() {
-    cards.refreshCards();
+    cards.refreshCards((data) {
+      cards.cardDelivered();
+      if (data.hasUpdates) {
+        fetchCards();
+      }
+    });
   }
 
   void cardClicked(moe.Card card) {

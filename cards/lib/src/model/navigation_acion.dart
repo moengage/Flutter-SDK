@@ -7,7 +7,7 @@ import 'action_type.dart';
 class NavigationAction extends Action {
   /// Type of Navigation action.
   ///
-  /// Possible value deep_linking or screen_name or rich_landing
+  /// Possible value deepLinking or screenName or richLanding
   NavigationType navigationType;
 
   String value;
@@ -31,8 +31,6 @@ class NavigationAction extends Action {
         keyValuePairs: json[keyKVPairs]);
   }
 
-
-
   @override
   String toString() {
     return 'NavigationAction{navigationType: $navigationType, value: $value, keyValuePairs: $keyValuePairs}';
@@ -40,9 +38,9 @@ class NavigationAction extends Action {
 
   @override
   Map<String, dynamic> toJson() => {
-    keyActionType: actionType.name,
-    keyNavigationType: navigationType.name,
-    keyActionValue: value,
-    keyKVPairs: keyValuePairs
-  };
+        keyActionType: actionType.name,
+        keyNavigationType: navigationType.name,
+        keyActionValue: value,
+        keyKVPairs: keyValuePairs
+      };
 }

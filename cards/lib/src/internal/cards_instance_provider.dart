@@ -1,8 +1,8 @@
-
 import 'callback_cache.dart';
 
 class CardsInstanceProvider {
-  static final CardsInstanceProvider _instance = CardsInstanceProvider._internal();
+  static final CardsInstanceProvider _instance =
+      CardsInstanceProvider._internal();
 
   final Map<String, CallbackCache> _caches = <String, CallbackCache>{};
 

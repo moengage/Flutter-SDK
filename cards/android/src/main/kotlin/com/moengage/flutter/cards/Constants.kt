@@ -1,4 +1,4 @@
-package com.moengage.flutter.cards.internal
+package com.moengage.flutter.cards
 
 internal const val CHANNEL_NAME = "com.moengage/cards"
 internal const val MODULE_TAG = "MoEFlutterCards_"

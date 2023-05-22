@@ -1,8 +1,8 @@
-
-import 'package:moengage_cards/src/model/widget_style.dart';
+import 'package:moengage_cards/moengage_cards.dart';
 
 import '../internal/contants.dart';
 
+///Style for Button Widget - [WidgetType.button]
 class ButtonStyle extends WidgetStyle {
   int fontSize;
 

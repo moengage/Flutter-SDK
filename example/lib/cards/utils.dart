@@ -33,8 +33,8 @@ handleAction(moe.Action action) async {
   }
 }
 
-handleWidgetActions(List<moe.Action>? actions){
-  actions?.forEach((action){
+handleWidgetActions(List<moe.Action>? actions) {
+  actions?.forEach((action) {
     handleAction(action);
   });
 }

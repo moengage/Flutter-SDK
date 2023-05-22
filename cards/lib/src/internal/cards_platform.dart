@@ -12,6 +12,7 @@ import '../model/card.dart' as moe;
 import '../model/cards_info.dart';
 import 'cards_instance_provider.dart';
 
+/// Common Implementation of Cards Platform Interface
 abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   static const String _tag = "${moduleTag}CardsPlatformBase";
 
@@ -72,13 +73,19 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   }
 
   @override
-  void refreshCards(String appId) {
+  void refreshCards(String appId, CardsSyncListener cardsSyncListener) {
+    CardsInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .pullToRefreshOpenSyncListener = cardsSyncListener;
     methodChannel.invokeMethod(
         methodRefreshCards, json.encode(getAccountMeta(appId)));
   }
 
   @override
-  void onCardsSectionLoaded(String appId) {
+  void onCardsSectionLoaded(String appId, CardsSyncListener cardsSyncListener) {
+    CardsInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .inboxOpenSyncListener = cardsSyncListener;
     methodChannel.invokeMethod(
         methodOnCardSectionLoaded, jsonEncode(getAccountMeta(appId)));
   }
@@ -100,7 +107,6 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   Future<CardsInfo> getCardsInfo(String appId) async {
     String result = await methodChannel.invokeMethod(
         methodCardsInfo, jsonEncode(getAccountMeta(appId)));
-    print("getCardsInfo: $result");
     return deSerializeCardsInfo(result);
   }
 
@@ -145,7 +151,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   @override
   Future<int> getNewCardsCount(String appId) async {
     String result = await methodChannel.invokeMethod(
-        methodUnClickedCardsCount, jsonEncode(getAccountMeta(appId)));
+        methodNewCardsCount, jsonEncode(getAccountMeta(appId)));
     return deSerializeNewCardsCount(result);
   }
 
@@ -154,22 +160,6 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
     String result = await methodChannel.invokeMethod(
         methodUnClickedCardsCount, jsonEncode(getAccountMeta(appId)));
     return deSerializeUnClickedCardsCount(result);
-  }
-
-  @override
-  void setPullToRefreshSyncListener(
-      CardsSyncListener cardsSyncListener, String appId) {
-    CardsInstanceProvider()
-        .getCallbackCacheForInstance(appId)
-        .pullToRefreshOpenSyncListener = cardsSyncListener;
-  }
-
-  @override
-  void setInboxOpenSyncListener(
-      CardsSyncListener cardsSyncListener, String appId) {
-    CardsInstanceProvider()
-        .getCallbackCacheForInstance(appId)
-        .inboxOpenSyncListener = cardsSyncListener;
   }
 
   @override

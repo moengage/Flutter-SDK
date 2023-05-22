@@ -20,18 +20,19 @@ class IllustrationCard extends StatefulWidget {
 }
 
 class _IllustrationCardState extends State<IllustrationCard> {
-
   @override
   void initState() {
     super.initState();
-    widget.callback.call(CardActionEvent.SHOWN,widget.card);
+    widget.callback.call(CardActionEvent.SHOWN, widget.card);
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
             child: Card(
-          color: colorFromHex(widget.card.getContainer()?.style.backgroundColor),
+          color:
+              colorFromHex(widget.card.getContainer()?.style.backgroundColor),
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)
@@ -62,7 +63,8 @@ class _IllustrationCardState extends State<IllustrationCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        getDateFromMillis(widget.card.metaData.updatedTime * 1000),
+                        getDateFromMillis(
+                            widget.card.metaData.updatedTime * 1000),
                         style: TextStyle(color: Colors.grey),
                       ),
                       Spacer(),
@@ -165,11 +167,12 @@ class _IllustrationCardState extends State<IllustrationCard> {
   }
 
   getCtaText(BuildContext context) {
-    moe.Widget? cta = widget.card.getCtaWidget();
+    moe.Widget? cta = widget.card.getButtonWidget();
     if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
     return TextButton(
         onPressed: () {
-          widget.callback.call(CardActionEvent.CLICK, widget.card, widgetId: cta.id);
+          widget.callback
+              .call(CardActionEvent.CLICK, widget.card, widgetId: cta.id);
           handleWidgetActions(cta.actionList);
         },
         child: Html(
@@ -201,18 +204,19 @@ class BasicCard extends StatefulWidget {
 }
 
 class _BasicCardState extends State<BasicCard> {
-
   @override
   void initState() {
     super.initState();
-    widget.callback.call(CardActionEvent.SHOWN,widget.card);
+    widget.callback.call(CardActionEvent.SHOWN, widget.card);
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
             child: Card(
-          color: colorFromHex(widget.card.getContainer()?.style.backgroundColor),
+          color:
+              colorFromHex(widget.card.getContainer()?.style.backgroundColor),
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)
@@ -256,7 +260,8 @@ class _BasicCardState extends State<BasicCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        getDateFromMillis(widget.card.metaData.updatedTime * 1000),
+                        getDateFromMillis(
+                            widget.card.metaData.updatedTime * 1000),
                         style: TextStyle(color: Colors.grey),
                       ),
                       Spacer(),
@@ -358,7 +363,7 @@ class _BasicCardState extends State<BasicCard> {
   }
 
   getCtaText(BuildContext context) {
-    moe.Widget? cta = widget.card.getCtaWidget();
+    moe.Widget? cta = widget.card.getButtonWidget();
     if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
     return TextButton(
         onPressed: () {

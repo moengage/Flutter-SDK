@@ -15,7 +15,7 @@ Future asyncInputDialog(BuildContext context, String prompt,
           children: [
             new Expanded(
                 child: new TextField(
-                  keyboardType: textInputType,
+              keyboardType: textInputType,
               autofocus: true,
               decoration: new InputDecoration(labelText: prompt),
               onChanged: (value) {
