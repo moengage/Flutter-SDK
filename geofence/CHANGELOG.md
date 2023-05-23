@@ -1,5 +1,11 @@
 # MoEngage Geofence Plugin
 
+# Next Release
+
+## 1.5.0
+- iOS
+    - MoEngageGeofence SDK version updated to `~>5.8.0`.
+    
 # 21-02-2023
 
 ## 1.4.0

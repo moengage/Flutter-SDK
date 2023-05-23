@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '10.0'
+  s.platform = :ios, '11.0'
   s.swift_version = '5.0'
-  s.dependency 'MoEngagePluginGeofence', '~> 2.1.1'
+  s.dependency 'MoEngagePluginGeofence', '~> 2.2.0'
 end
