@@ -80,7 +80,6 @@ const String methodInitialize = "initialize";
 const String methodRefreshCards = "refreshCards";
 const String methodOnCardSectionLoaded = "onCardSectionLoaded";
 const String methodOnCardSectionUnLoaded = "onCardSectionUnLoaded";
-const String methodAppOpenSyncListener = "appOpenSyncListener";
 const String methodCardsCategories = "getCardsCategories";
 const String methodCardsInfo = "getCardsInfo";
 const String methodCardClicked = "cardClicked";

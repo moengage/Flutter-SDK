@@ -2,14 +2,15 @@ package com.moengage.flutter.cards
 
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.plugin.base.cards.cardsSyncToJson
 import com.moengage.plugin.base.cards.internal.CardsEventEmitter
+import com.moengage.plugin.base.cards.internal.cardsSyncToJson
+import com.moengage.plugin.base.cards.internal.model.events.CardEventType
 import com.moengage.plugin.base.cards.internal.model.events.CardsEvent
 import com.moengage.plugin.base.cards.internal.model.events.CardsSyncEvent
-import com.moengage.plugin.base.cards.internal.model.events.EventType
 import org.json.JSONObject
 
-class EventEmitterImpl(private val callBack: (methodName: String, payload: String) -> Unit) : CardsEventEmitter {
+class EventEmitterImpl(private val callBack: (methodName: String, payload: String) -> Unit) :
+    CardsEventEmitter {
     private val tag = "${MODULE_TAG}EventEmitterImpl"
 
 
@@ -26,10 +27,10 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
             return
         }
         val syncCompleteJson = cardsSyncToJson(syncCompleteData)
-        val method = when (event.eventType) {
-            EventType.APP_OPEN_SYNC -> METHOD_APP_OPEN_CARDS_SYNC
-            EventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
-            EventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
+        val method = when (event.cardEventType) {
+            CardEventType.APP_OPEN_SYNC -> METHOD_APP_OPEN_CARDS_SYNC
+            CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
+            CardEventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
         }
         emit(method, syncCompleteJson)
     }

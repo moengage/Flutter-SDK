@@ -85,7 +85,7 @@ class MoEngageCards {
     return _cardsPlatform.getCardsForCategory(category, _appId);
   }
 
-  /// Delete the one card
+  /// Deletes the given card
   /// [card] - Instance of [Card]
   void deleteCard(Card card) {
     deleteCards([card]);
@@ -107,7 +107,7 @@ class MoEngageCards {
     return _cardsPlatform.getNewCardsCount(_appId);
   }
 
-  /// Return count of un clicked cards
+  /// Return count of Un clicked cards
   Future<int> getUnClickedCardsCount() async {
     return _cardsPlatform.getUnClickedCardsCount(_appId);
   }

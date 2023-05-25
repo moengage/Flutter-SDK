@@ -37,7 +37,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
             .getCallbackCacheForInstance(accountMeta.appId)
             .pullToRefreshOpenSyncListener
             ?.call(data);
-      } else if (call.method == methodAppOpenSyncListener) {
+      } else if (call.method == methodOnAppOpenCardsSync) {
         final arguments = call.arguments;
         if (arguments == null) {
           return;
@@ -48,7 +48,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
             .getCallbackCacheForInstance(accountMeta.appId)
             .appOpenSyncListener
             ?.call(data);
-      } else if (call.method == methodPullToRefreshCardsSync) {
+      } else if (call.method == methodOnInboxOpenCardsSync) {
         final arguments = call.arguments;
         if (arguments == null) {
           return;

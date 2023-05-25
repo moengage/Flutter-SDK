@@ -19,25 +19,22 @@ class _CardsScreenState extends State<CardsScreen>
 
   late TabController tabController;
 
+  bool showHasUpdates = false;
+
   @override
   void initState() {
     super.initState();
     cards.initialize();
+    cards.setAppOpenCardsSyncListener((data) {
+      debugPrint("Cards App Open Sync Listener: $data");
+    });
     cards.onCardsSectionLoaded((data) {
       cards.cardDelivered();
-      if (data.hasUpdates) fetchCards();
-    });
-    cards.getCardsCategories().then((data) {
-      debugPrint("getCardsCategories: " + data.toString());
-    });
-    cards.isAllCategoryEnabled().then((data) {
-      debugPrint("isAllCategoryEnabled: " + data.toString());
-    });
-    cards.getNewCardsCount().then((data) {
-      debugPrint("getNewCardsCount: " + data.toString());
-    });
-    cards.getUnClickedCardsCount().then((data) {
-      debugPrint("getUnClickedCardsCount: " + data.toString());
+      if (data.hasUpdates) {
+        setState(() {
+          showHasUpdates = true;
+        });
+      }
     });
     fetchCards();
     tabController = TabController(
@@ -82,6 +79,26 @@ class _CardsScreenState extends State<CardsScreen>
               "Inbox",
               style: TextStyle(color: Colors.black54),
             ),
+            actions: <Widget>[
+              PopupMenuButton<String>(
+                onSelected: (text) {
+                  onActionSelected(text, context);
+                },
+                itemBuilder: (BuildContext context) {
+                  return {
+                    'UnClicked Cards Count',
+                    'New Cards Count',
+                    'Get Card Categories',
+                    'Is All Category Enabled'
+                  }.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              ),
+            ],
           ),
           body: RefreshIndicator(
               onRefresh: () async {
@@ -91,7 +108,8 @@ class _CardsScreenState extends State<CardsScreen>
                 scrollDirection: Axis.vertical,
                 physics: AlwaysScrollableScrollPhysics(),
                 child: Container(
-                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height,
+                  height: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height,
                   child: (categories.isEmpty)
                       ? Center(
                           child: Text("No Data"),
@@ -106,64 +124,110 @@ class _CardsScreenState extends State<CardsScreen>
     return Container(
         child: Stack(
       children: [
-        Column(
+        Stack(
           children: [
-            TabBar(
-              isScrollable: true,
-              padding: EdgeInsets.all(8.0),
-              indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(width: 3.0, color: Colors.black54),
-                insets: EdgeInsets.symmetric(horizontal: 16.0),
-              ),
-              indicatorSize: TabBarIndicatorSize.label,
-              tabs: categories
-                  .map((category) => Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ))
-                  .toList(),
-              controller: tabController,
-            ),
-            Expanded(
-              child: TabBarView(
+            Column(
+              children: [
+                TabBar(
+                  isScrollable: true,
+                  padding: EdgeInsets.all(8.0),
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 3.0, color: Colors.black54),
+                    insets: EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  tabs: categories
+                      .map((category) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                              category,
+                              style: TextStyle(
+                                color: Colors.black38,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ))
+                      .toList(),
                   controller: tabController,
-                  children: categories
-                      .map((category) => getCardsByCategory(category))
-                      .map((list) {
-                    return Container(
-                      child: FutureBuilder<List<moe.Card>>(
-                          future: list,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData &&
-                                snapshot.connectionState ==
-                                    ConnectionState.done) {
-                              final data = snapshot.data ?? [];
-                              if (data.isEmpty) {
-                                return Center(child: Text("No Data"));
-                              }
-                              return ListView.builder(
-                                  itemCount: data.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, pos) {
-                                    return (data[pos].template.templateType ==
-                                            moe.TemplateType.basic)
-                                        ? BasicCard(data[pos], actionCallback)
-                                        : IllustrationCard(
-                                            data[pos], actionCallback);
-                                  });
-                            }
-                            return Center(child: CircularProgressIndicator());
-                          }),
-                    );
-                  }).toList()),
-            )
+                ),
+                Expanded(
+                  child: TabBarView(
+                      controller: tabController,
+                      children: categories
+                          .map((category) => getCardsByCategory(category))
+                          .map((list) {
+                        return Container(
+                          child: FutureBuilder<List<moe.Card>>(
+                              future: list,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData &&
+                                    snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                  final data = snapshot.data ?? [];
+                                  if (data.isEmpty) {
+                                    return Center(child: Text("No Data"));
+                                  }
+                                  return ListView.builder(
+                                      itemCount: data.length,
+                                      shrinkWrap: true,
+                                      physics: AlwaysScrollableScrollPhysics(),
+                                      itemBuilder: (context, pos) {
+                                        return (data[pos]
+                                                    .template
+                                                    .templateType ==
+                                                moe.TemplateType.basic)
+                                            ? BasicCard(
+                                                data[pos], actionCallback)
+                                            : IllustrationCard(
+                                                data[pos], actionCallback);
+                                      });
+                                }
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }),
+                        );
+                      }).toList()),
+                )
+              ],
+            ),
+            if (showHasUpdates)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
+                    child: OutlinedButton(
+                      child: Text(
+                        "New Updates",
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                      onPressed: () {
+                        fetchCards();
+                        setState(() {
+                          this.showHasUpdates = false;
+                        });
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.black54))),
+                        side: MaterialStateProperty.all(
+                          BorderSide(
+                              color: Colors.black,
+                              width: 1.0,
+                              style: BorderStyle.solid),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            else
+              SizedBox.shrink()
           ],
         )
       ],
@@ -208,5 +272,29 @@ class _CardsScreenState extends State<CardsScreen>
     if (category == "All") return cardList;
     final cardData = await cards.getCardsForCategory(category);
     return cardData.cards;
+  }
+
+  void onActionSelected(String action, BuildContext context) async {
+    print(action);
+    String? text = null;
+    if (action == "UnClicked Cards Count") {
+      final count = await cards.getUnClickedCardsCount();
+      text = "UnClicked Cards Count : $count";
+    } else if (action == "New Cards Count") {
+      final count = await cards.getNewCardsCount();
+      text = "New Cards Count : $count";
+    } else if (action == "Get Card Categories") {
+      final categories = await cards.getCardsCategories();
+      text = "Get Card Categories : $categories";
+    } else if (action == "Is All Category Enabled") {
+      final isAllCategoryEnabled = await cards.isAllCategoryEnabled();
+      text = "Is All Category Enabled : $isAllCategoryEnabled";
+    }
+    if (text != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(text),
+        duration: Duration(seconds: 2),
+      ));
+    }
   }
 }
