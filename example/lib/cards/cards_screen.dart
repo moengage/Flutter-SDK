@@ -30,7 +30,7 @@ class _CardsScreenState extends State<CardsScreen>
     });
     cards.onCardsSectionLoaded((data) {
       cards.cardDelivered();
-      if (data.hasUpdates) {
+      if (data?.hasUpdates == true) {
         setState(() {
           showHasUpdates = true;
         });
@@ -237,7 +237,7 @@ class _CardsScreenState extends State<CardsScreen>
   void refreshCards() {
     cards.refreshCards((data) {
       cards.cardDelivered();
-      if (data.hasUpdates) {
+      if (data?.hasUpdates == true) {
         fetchCards();
       }
     });

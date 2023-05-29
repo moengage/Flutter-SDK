@@ -1,5 +1,5 @@
 import 'package:moengage_cards/moengage_cards.dart';
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 
 /// Style for [Container] widget
 class ContainerStyle {

@@ -1,4 +1,4 @@
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/action.dart';
 import 'package:moengage_cards/src/model/container_style.dart';
 import 'package:moengage_cards/src/model/template_type.dart';

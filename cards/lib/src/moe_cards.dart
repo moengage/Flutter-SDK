@@ -1,11 +1,12 @@
-import 'package:moengage_cards/src/internal/callback_cache.dart';
 import 'package:moengage_cards/src/internal/cards_platform_interface.dart';
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/card.dart';
 import 'package:moengage_cards/src/model/cards_data.dart';
 import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_cards/src/model/cards_info.dart';
-import 'internal/contants.dart';
+import 'model/sync_data.dart';
+
+typedef CardsSyncListener = void Function(SyncCompleteData? data);
 
 /// Helper Class to interact with MoEngage Cards Feature
 class MoEngageCards {
@@ -16,7 +17,7 @@ class MoEngageCards {
   final MoEngageCardsPlatformInterface _cardsPlatform =
       MoEngageCardsPlatformInterface.instance;
 
-  static const String _tag = "${moduleTag}MoEngageCards";
+  static const String _tag = "${MODULE_TAG}MoEngageCards";
 
   MoEngageCards(this._appId);
 
@@ -113,7 +114,6 @@ class MoEngageCards {
   }
 
   /// Listener for Cards App Open Sync Listener
-  /// Note: This API is only for Android Platform.
   void setAppOpenCardsSyncListener(CardsSyncListener cardsSyncListener) {
     _cardsPlatform.setAppOpenCardsSyncListener(cardsSyncListener, _appId);
   }

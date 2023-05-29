@@ -19,9 +19,6 @@ class MoEngageCardsPlugin : FlutterPlugin {
 
     lateinit var context: Context
 
-    private val cardsPluginHelper by lazy { CardsPluginHelper() }
-
-
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
         context = flutterPluginBinding.applicationContext
@@ -31,7 +28,7 @@ class MoEngageCardsPlugin : FlutterPlugin {
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
             channel = MethodChannel(binaryMessenger, CHANNEL_NAME)
-            channel.setMethodCallHandler(PlatformMethodCallHandler(context,cardsPluginHelper))
+            channel.setMethodCallHandler(PlatformMethodCallHandler(context))
             setCardsEventEmitter(EventEmitterImpl(::emitEvent))
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }

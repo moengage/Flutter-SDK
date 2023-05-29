@@ -1,4 +1,4 @@
-import '../internal/contants.dart';
+import '../internal/constants.dart';
 
 /// State of the card Campaign
 class CampaignState {

@@ -1,4 +1,4 @@
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/sync_type.dart';
 import 'package:moengage_cards/src/internal/payload_mapper.dart';
 

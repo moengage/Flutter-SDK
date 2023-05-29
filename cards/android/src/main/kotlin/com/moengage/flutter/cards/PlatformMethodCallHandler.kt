@@ -1,27 +1,20 @@
 package com.moengage.flutter.cards
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import com.moengage.core.LogLevel
+import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import java.util.concurrent.Executors
 
 class PlatformMethodCallHandler(
     private val context: Context,
-    private val cardsPluginHelper: CardsPluginHelper
 ) : MethodChannel.MethodCallHandler {
 
+    private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
+
     private val tag = "${MODULE_TAG}PlatformMethodCallHandler"
-
-
-    private val executorService = Executors.newCachedThreadPool()
-
-    private val mainThread = Handler(Looper.getMainLooper())
-
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         if (call.arguments == null) {
@@ -102,9 +95,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsInfo() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val cardsInfo = cardsPluginHelper.getCardsInfo(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag getCardsInfo(): Result : $cardsInfo" }
                         result.success(cardsInfo)
@@ -122,9 +115,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsCategories() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val categories = cardsPluginHelper.getCardsCategories(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag getCardsCategories():  Result : $categories" }
                         result.success(categories)
@@ -143,9 +136,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsForCategory() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val cards = cardsPluginHelper.getCardsForCategory(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag getCardsForCategory(): Result : $cards" }
                         result.success(cards)
@@ -164,9 +157,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag isAllCategoryEnabled() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val isAllCategoryEnabled = cardsPluginHelper.isAllCategoryEnabled(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag isAllCategoryEnabled(): Result : $isAllCategoryEnabled" }
                         result.success(isAllCategoryEnabled)
@@ -184,9 +177,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getNewCardsCount() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val newCardsCountResult = cardsPluginHelper.getNewCardsCount(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag getNewCardsCount(): Result : $newCardsCountResult" }
                         result.success(newCardsCountResult)
@@ -204,9 +197,9 @@ class PlatformMethodCallHandler(
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getUnClickedCardsCount() : $payload" }
-            executorService.submit {
+            GlobalResources.executor.submit {
                 val unClickedCardsCount = cardsPluginHelper.getUnClickedCardsCount(context, payload)
-                mainThread.post {
+                GlobalResources.mainThread.post {
                     try {
                         Logger.print { "$tag getUnClickedCardsCount(): Result : $unClickedCardsCount" }
                         result.success(unClickedCardsCount)

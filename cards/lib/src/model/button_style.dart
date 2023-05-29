@@ -1,6 +1,6 @@
 import 'package:moengage_cards/moengage_cards.dart';
 
-import '../internal/contants.dart';
+import '../internal/constants.dart';
 
 ///Style for Button Widget - [WidgetType.button]
 class ButtonStyle extends WidgetStyle {

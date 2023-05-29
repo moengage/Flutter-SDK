@@ -1,5 +1,6 @@
 library moengage_cards;
 
+/// Export MoEngage Cards Module Public Classes
 export 'src/model/action.dart';
 export 'src/model/action_type.dart';
 export 'src/model/button_style.dart';
@@ -22,4 +23,4 @@ export 'src/model/text_style.dart';
 export 'src/model/widget.dart';
 export 'src/model/widget_style.dart';
 export 'src/model/widget_type.dart';
-export 'src/moengage_cards.dart';
+export 'src/moe_cards.dart';

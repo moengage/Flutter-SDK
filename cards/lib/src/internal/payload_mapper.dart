@@ -14,7 +14,7 @@ import 'package:moengage_cards/src/model/widget_style.dart';
 import 'package:moengage_cards/src/model/widget_type.dart';
 import 'package:moengage_flutter/model/account_meta.dart';
 
-import 'contants.dart';
+import 'constants.dart';
 
 Map<String, dynamic> getAccountMeta(String appId) {
   return {

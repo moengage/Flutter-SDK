@@ -1,4 +1,4 @@
-import '../internal/contants.dart';
+import '../internal/constants.dart';
 import 'card.dart';
 
 /// All data for cards.

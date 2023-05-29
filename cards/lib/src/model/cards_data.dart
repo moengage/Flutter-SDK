@@ -1,4 +1,4 @@
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/card.dart';
 
 /// Data for Cards for particular Category

@@ -1,11 +1,8 @@
 import 'dart:io';
 
-import 'package:moengage_cards/src/internal/callback_cache.dart';
+import 'package:moengage_cards/moengage_cards.dart';
 import 'package:moengage_cards/src/internal/cards_controller_android.dart';
 import 'package:moengage_cards/src/internal/cards_controller_ios.dart';
-import 'package:moengage_cards/src/model/card.dart';
-import 'package:moengage_cards/src/model/cards_info.dart';
-import 'package:moengage_cards/src/model/cards_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// Platform Interface for Cards Plugin

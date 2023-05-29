@@ -17,16 +17,16 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
     override fun emit(event: CardsEvent) {
         when (event) {
             is CardsSyncEvent -> emitCardSyncEvent(event)
+            else -> Logger.print { "$tag emit() : $event" }
         }
     }
 
     private fun emitCardSyncEvent(event: CardsSyncEvent) {
         val syncCompleteData = event.syncCompleteData
         if (syncCompleteData == null) {
-            Logger.print(LogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is Null" }
-            return
+            Logger.print(LogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is null" }
         }
-        val syncCompleteJson = cardsSyncToJson(syncCompleteData)
+        val syncCompleteJson = cardsSyncToJson(syncCompleteData, event.accountMeta)
         val method = when (event.cardEventType) {
             CardEventType.APP_OPEN_SYNC -> METHOD_APP_OPEN_CARDS_SYNC
             CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC

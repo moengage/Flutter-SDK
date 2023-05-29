@@ -1,4 +1,4 @@
-import 'package:moengage_cards/src/model/sync_data.dart';
+import 'package:moengage_cards/moengage_cards.dart';
 
 /// Callback Cache for Cards Module
 class CallbackCache {
@@ -6,5 +6,3 @@ class CallbackCache {
   CardsSyncListener? inboxOpenSyncListener;
   CardsSyncListener? pullToRefreshOpenSyncListener;
 }
-
-typedef CardsSyncListener = void Function(SyncCompleteData data);

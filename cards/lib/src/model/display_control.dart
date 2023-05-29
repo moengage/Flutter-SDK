@@ -1,6 +1,6 @@
 import 'package:moengage_cards/src/model/show_time.dart';
 
-import '../internal/contants.dart';
+import '../internal/constants.dart';
 
 /// Delivery Controls defined during campaign creation.
 class DisplayControl {

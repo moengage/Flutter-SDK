@@ -1,4 +1,4 @@
-import '../internal/contants.dart';
+import '../internal/constants.dart';
 import 'campaign_state.dart';
 import 'display_control.dart';
 

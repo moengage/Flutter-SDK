@@ -1,4 +1,4 @@
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 
 /// Time span during card can be shown
 class ShowTime {

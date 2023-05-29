@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_cards/src/internal/cards_platform_interface.dart';
-import 'package:moengage_cards/src/internal/contants.dart';
+import 'package:moengage_cards/src/internal/constants.dart';
 
 import 'cards_mock_platform.dart';
 import 'data_provider/data_model_provider.dart';
