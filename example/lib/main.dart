@@ -12,6 +12,7 @@ import 'package:moengage_flutter/model/push/push_campaign_data.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
+import 'package:moengage_flutter_example/cards/cards_home.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
@@ -138,7 +139,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: Text("GoTo Cards"),
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => CardsScreen()));
+                      MaterialPageRoute(builder: (context) => CardsHome()));
                 },
               ),
               new ListTile(

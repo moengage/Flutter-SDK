@@ -29,7 +29,6 @@ class _CardsScreenState extends State<CardsScreen>
       debugPrint("Cards App Open Sync Listener: $data");
     });
     cards.onCardsSectionLoaded((data) {
-      cards.cardDelivered();
       if (data?.hasUpdates == true) {
         setState(() {
           showHasUpdates = true;
@@ -79,26 +78,6 @@ class _CardsScreenState extends State<CardsScreen>
               "Inbox",
               style: TextStyle(color: Colors.black54),
             ),
-            actions: <Widget>[
-              PopupMenuButton<String>(
-                onSelected: (text) {
-                  onActionSelected(text, context);
-                },
-                itemBuilder: (BuildContext context) {
-                  return {
-                    'UnClicked Cards Count',
-                    'New Cards Count',
-                    'Get Card Categories',
-                    'Is All Category Enabled'
-                  }.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-                },
-              ),
-            ],
           ),
           body: RefreshIndicator(
               onRefresh: () async {
@@ -236,7 +215,6 @@ class _CardsScreenState extends State<CardsScreen>
 
   void refreshCards() {
     cards.refreshCards((data) {
-      cards.cardDelivered();
       if (data?.hasUpdates == true) {
         fetchCards();
       }
@@ -272,29 +250,5 @@ class _CardsScreenState extends State<CardsScreen>
     if (category == "All") return cardList;
     final cardData = await cards.getCardsForCategory(category);
     return cardData.cards;
-  }
-
-  void onActionSelected(String action, BuildContext context) async {
-    print(action);
-    String? text = null;
-    if (action == "UnClicked Cards Count") {
-      final count = await cards.getUnClickedCardsCount();
-      text = "UnClicked Cards Count : $count";
-    } else if (action == "New Cards Count") {
-      final count = await cards.getNewCardsCount();
-      text = "New Cards Count : $count";
-    } else if (action == "Get Card Categories") {
-      final categories = await cards.getCardsCategories();
-      text = "Get Card Categories : $categories";
-    } else if (action == "Is All Category Enabled") {
-      final isAllCategoryEnabled = await cards.isAllCategoryEnabled();
-      text = "Is All Category Enabled : $isAllCategoryEnabled";
-    }
-    if (text != null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(text),
-        duration: Duration(seconds: 2),
-      ));
-    }
   }
 }
