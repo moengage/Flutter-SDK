@@ -3,6 +3,9 @@
 # Next Release
 
 ## 1.5.0
+- Android
+  - Target & Compile SDK Version Update to 33
+  - Native SDK updated to support version `12.8.00` and above.
 - iOS
     - MoEngageGeofence SDK version updated to `~>5.8.0`.
     
