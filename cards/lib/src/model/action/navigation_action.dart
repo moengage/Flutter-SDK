@@ -26,7 +26,7 @@ class NavigationAction extends Action {
 
   factory NavigationAction.fromJson(Map<String, dynamic> json) {
     return NavigationAction(
-        actionType: ActionType.values.byName(json[keyActionType]),
+        actionType: ActionType.navigate,
         navigationType: NavigationType.values.byName(json[keyNavigationType]),
         value: json[keyActionValue],
         keyValuePairs: json[keyKVPairs]);

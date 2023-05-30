@@ -1,3 +1,9 @@
 /// Type of Action to be performed
 /// Note: Currently, only Navigation Action is Supported
-enum ActionType { navigate }
+enum ActionType {
+  /// Navigation Action
+  navigate,
+
+  /// Custom Action
+  custom
+}

@@ -10,14 +10,14 @@ typedef CardsSyncListener = void Function(SyncCompleteData? data);
 
 /// Helper Class to interact with MoEngage Cards Feature
 class MoEngageCards {
+  static const String _tag = "${MODULE_TAG}MoEngageCards";
+
   /// Account identifier, APP ID on the MoEngage Dashboard.
   final String _appId;
 
   /// Cards Plugin Platform Interface
   final MoEngageCardsPlatformInterface _cardsPlatform =
       MoEngageCardsPlatformInterface.instance;
-
-  static const String _tag = "${MODULE_TAG}MoEngageCards";
 
   MoEngageCards(this._appId);
 
@@ -110,7 +110,7 @@ class MoEngageCards {
     return _cardsPlatform.getNewCardsCount(_appId);
   }
 
-  /// Return count of Un clicked cards
+  /// Return count of UnClicked cards
   Future<int> getUnClickedCardsCount() async {
     return _cardsPlatform.getUnClickedCardsCount(_appId);
   }

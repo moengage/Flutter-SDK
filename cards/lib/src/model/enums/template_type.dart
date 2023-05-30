@@ -1,2 +1,8 @@
 /// Card Template Types available in Dashboard
-enum TemplateType { basic, illustration }
+enum TemplateType {
+  /// Basic Card Template
+  basic,
+
+  /// Illustration Card Template
+  illustration
+}
