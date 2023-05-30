@@ -29,6 +29,9 @@ class MetaData {
   /// Complete Campaign payload
   final Map<String, dynamic> campaignPayload;
 
+  /// Check Card is Pinned
+  final bool isPinned;
+
   MetaData(
       {required this.isNewCard,
       required this.campaignState,
@@ -37,7 +40,8 @@ class MetaData {
       required this.metaData,
       required this.updatedTime,
       required this.createdAt,
-      required this.campaignPayload});
+      required this.campaignPayload,
+      required this.isPinned});
 
   factory MetaData.fromJson(Map<String, dynamic> json) {
     return MetaData(
@@ -48,7 +52,8 @@ class MetaData {
         campaignPayload: json[keyCampaignPayload] ?? {},
         metaData: json[keyAdditionalMetaData] ?? {},
         updatedTime: json[keyUpdatedAt] ?? -1,
-        createdAt: json[keyCreatedAt] ?? -1);
+        createdAt: json[keyCreatedAt] ?? -1,
+        isPinned: json[keyDisplayControl]?[keyIsPinned] ?? false);
   }
 
   Map<String, dynamic> toJson() => {

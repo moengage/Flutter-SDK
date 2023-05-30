@@ -1,5 +1,5 @@
 import 'package:moengage_cards/moengage_cards.dart';
-import 'package:moengage_cards/src/model/container_style.dart';
+import 'package:moengage_cards/src/model/style/container_style.dart';
 
 final cardModel = Card(
     id: 210,

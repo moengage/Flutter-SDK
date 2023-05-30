@@ -1,6 +1,6 @@
 import 'package:moengage_cards/src/internal/constants.dart';
-import 'package:moengage_cards/src/model/widget_style.dart';
-import 'package:moengage_cards/src/model/widget_type.dart';
+import 'package:moengage_cards/src/model/style/widget_style.dart';
+import 'package:moengage_cards/src/model/enums/widget_type.dart';
 
 ///Style for Button Widget - [WidgetType.image]
 class ImageStyle extends WidgetStyle {

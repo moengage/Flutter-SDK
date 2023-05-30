@@ -32,7 +32,7 @@ class _IllustrationCardState extends State<IllustrationCard> {
         child: Container(
             child: Card(
           color:
-              colorFromHex(widget.card.getContainer()?.style.backgroundColor),
+              colorFromHex(widget.card.getContainer()?.style?.backgroundColor),
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)
@@ -216,7 +216,7 @@ class _BasicCardState extends State<BasicCard> {
         child: Container(
             child: Card(
           color:
-              colorFromHex(widget.card.getContainer()?.style.backgroundColor),
+              colorFromHex(widget.card.getContainer()?.style?.backgroundColor),
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)

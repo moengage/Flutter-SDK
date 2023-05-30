@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-import 'package:moengage_cards/src/model/action.dart';
-import 'package:moengage_cards/src/model/action_type.dart';
-import 'package:moengage_cards/src/model/button_style.dart';
+import 'package:moengage_cards/src/model/action/action.dart';
+import 'package:moengage_cards/src/model/enums/action_type.dart';
+import 'package:moengage_cards/src/model/style/button_style.dart';
 import 'package:moengage_cards/src/model/card.dart';
 import 'package:moengage_cards/src/model/cards_info.dart';
 import 'package:moengage_cards/src/model/cards_data.dart';
-import 'package:moengage_cards/src/model/image_style.dart';
-import 'package:moengage_cards/src/model/navigation_acion.dart';
+import 'package:moengage_cards/src/model/style/image_style.dart';
+import 'package:moengage_cards/src/model/action/navigation_action.dart';
 import 'package:moengage_cards/src/model/sync_type.dart';
-import 'package:moengage_cards/src/model/text_style.dart';
-import 'package:moengage_cards/src/model/widget_style.dart';
-import 'package:moengage_cards/src/model/widget_type.dart';
+import 'package:moengage_cards/src/model/style/text_style.dart';
+import 'package:moengage_cards/src/model/style/widget_style.dart';
+import 'package:moengage_cards/src/model/enums/widget_type.dart';
 import 'package:moengage_flutter/model/account_meta.dart';
 
 import 'constants.dart';
 
 Map<String, dynamic> getAccountMeta(String appId) {
   return {
-    keyAccountMeta: {keyAppId: appId}
+    keyAccountMeta: getAppIdPayload(appId)
   };
 }
 
@@ -48,10 +48,9 @@ Action actionStyleFromJson(Map<String, dynamic> json) {
 
 List<String> deSerializeCardsCategories(String payload) {
   List<String> categories = [];
-  Map<String, dynamic> data = json.decode(payload);
-  Map<String, dynamic> dataPayload = data[keyData];
+  Map<String, dynamic> data = json.decode(payload)[keyData];
   Iterable<dynamic> cardCategories =
-      dataPayload[keyCategories] as Iterable<dynamic>;
+      (data[keyCategories] ?? []) as Iterable<dynamic>;
   for (var data in cardCategories) {
     categories.add(data.toString());
   }
@@ -59,26 +58,22 @@ List<String> deSerializeCardsCategories(String payload) {
 }
 
 CardsInfo deSerializeCardsInfo(String payload) {
-  Map<String, dynamic> json = jsonDecode(payload);
-  Map<String, dynamic> dataPayload = json[keyData];
+  Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
   return CardsInfo.fromJson(dataPayload);
 }
 
 CardsData deSerializeCardsData(String payload) {
-  Map<String, dynamic> json = jsonDecode(payload);
-  Map<String, dynamic> dataPayload = json[keyData];
+  Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
   return CardsData.fromJson(dataPayload);
 }
 
 bool deSerializeIsAllCategoryEnabled(String payload) {
-  Map<String, dynamic> json = jsonDecode(payload);
-  Map<String, dynamic> dataPayload = json[keyData];
+  Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
   return dataPayload[keyIsAllCategoryEnabled] ?? false;
 }
 
 int deSerializeNewCardsCount(String payload) {
-  Map<String, dynamic> json = jsonDecode(payload);
-  Map<String, dynamic> dataPayload = json[keyData];
+  Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
   return dataPayload[keyNewCardsCount] ?? 0;
 }
 
@@ -98,21 +93,21 @@ Map<String, dynamic> getCardClickPayload(
 
 Map<String, dynamic> getCardShownPayload(Card card, String appId) {
   return {
-    keyAccountMeta: {keyAppId: appId},
+    keyAccountMeta: getAppIdPayload(appId),
     keyData: {keyCard: card.toJson()}
   };
 }
 
 Map<String, dynamic> getCardsForCategoryPayload(String category, String appId) {
   return {
-    keyAccountMeta: {keyAppId: appId},
+    keyAccountMeta: getAppIdPayload(appId),
     keyData: {keyCategory: category}
   };
 }
 
 Map<String, dynamic> getDeleteCardsPayload(List<Card> cards, String appId) {
   return {
-    keyAccountMeta: {keyAppId: appId},
+    keyAccountMeta: getAppIdPayload(appId),
     keyData: {keyCards: cards.map((e) => e.toJson()).toList()}
   };
 }
@@ -129,3 +124,5 @@ SyncType syncTypeFromString(String? syncType) {
       throw UnimplementedError("Sync Type Not Supported");
   }
 }
+
+Map<String, dynamic> getAppIdPayload(String appId) => {keyAppId: appId};

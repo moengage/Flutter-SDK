@@ -1,7 +1,8 @@
-import 'package:moengage_cards/src/model/action_type.dart';
+import 'package:moengage_cards/src/model/enums/action_type.dart';
 
-//Base class all Action.
+///Base class all Action.
 abstract class Action {
+  /// Action Type - Currently Only Navigation Action is Supported
   ActionType actionType;
 
   Action(this.actionType);

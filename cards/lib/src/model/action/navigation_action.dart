@@ -1,8 +1,8 @@
 import 'package:moengage_cards/src/internal/constants.dart';
-import 'package:moengage_cards/src/model/action.dart';
+import 'package:moengage_cards/src/model/action/action.dart';
 import 'package:moengage_cards/src/model/navigation_type.dart';
 
-import 'action_type.dart';
+import '../enums/action_type.dart';
 
 class NavigationAction extends Action {
   /// Type of Navigation action.
@@ -10,6 +10,7 @@ class NavigationAction extends Action {
   /// Possible value deepLinking or screenName or richLanding
   NavigationType navigationType;
 
+  /// Value can be Deeplink Url, RichLanding Url or Screen Name
   String value;
 
   /// [Map] of Key-Value pairs entered on the MoEngage Platform for

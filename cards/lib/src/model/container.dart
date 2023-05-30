@@ -1,7 +1,7 @@
 import 'package:moengage_cards/src/internal/constants.dart';
-import 'package:moengage_cards/src/model/action.dart';
-import 'package:moengage_cards/src/model/container_style.dart';
-import 'package:moengage_cards/src/model/template_type.dart';
+import 'package:moengage_cards/src/model/action/action.dart';
+import 'package:moengage_cards/src/model/style/container_style.dart';
+import 'package:moengage_cards/src/model/enums/template_type.dart';
 import 'package:moengage_cards/src/model/widget.dart';
 import 'package:moengage_cards/src/internal/payload_mapper.dart';
 
@@ -14,7 +14,7 @@ class Container {
   final TemplateType templateType;
 
   /// Style associated to the Container
-  final ContainerStyle style;
+  final ContainerStyle? style;
 
   /// [List] of [Widget]
   final List<Widget> widgets;
@@ -39,13 +39,15 @@ class Container {
         actionList: ((json[keyActions] ?? []) as List)
             .map((e) => actionStyleFromJson(e))
             .toList(),
-        style: ContainerStyle.fromJson(json[keyContainerStyle] ?? {}));
+        style: (json[keyContainerStyle] != null)
+            ? ContainerStyle.fromJson(json[keyContainerStyle])
+            : null);
   }
 
   Map<String, dynamic> toJson() => {
         keyContainerId: id,
         keyTemplateType: templateType.name,
-        keyContainerStyle: style.toJson(),
+        keyContainerStyle: style?.toJson(),
         keyWidgets: widgets.map((e) => e.toJson()).toList(),
         keyActions: actionList.map((e) => e.toJson()).toList()
       };

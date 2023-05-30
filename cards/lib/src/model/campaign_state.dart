@@ -26,11 +26,11 @@ class CampaignState {
 
   factory CampaignState.fromJson(Map<String, dynamic> json) {
     return CampaignState(
-        localShowCount: json[keyLocalShowCount],
-        isClicked: json[keyIsClicked],
-        firstReceived: json[keyFirstReceived],
-        firstSeen: json[keyFirstSeen],
-        totalShowCount: json[keyTotalShowCount]);
+        localShowCount: json[keyLocalShowCount] ?? 0,
+        isClicked: json[keyIsClicked] ?? false,
+        firstReceived: json[keyFirstReceived] ?? -1,
+        firstSeen: json[keyFirstSeen] ?? -1,
+        totalShowCount: json[keyTotalShowCount] ?? 0);
   }
 
   Map<String, dynamic> toJson() => {

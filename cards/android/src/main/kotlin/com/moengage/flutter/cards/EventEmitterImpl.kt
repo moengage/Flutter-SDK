@@ -15,24 +15,32 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
 
 
     override fun emit(event: CardsEvent) {
-        when (event) {
-            is CardsSyncEvent -> emitCardSyncEvent(event)
-            else -> Logger.print { "$tag emit() : $event" }
+        try {
+            when (event) {
+                is CardsSyncEvent -> emitCardSyncEvent(event)
+                else -> Logger.print(LogLevel.ERROR) { "$tag emit() Unknown Event: $event" }
+            }
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "emit(): $event" }
         }
     }
 
     private fun emitCardSyncEvent(event: CardsSyncEvent) {
-        val syncCompleteData = event.syncCompleteData
-        if (syncCompleteData == null) {
-            Logger.print(LogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is null" }
+        try {
+            val syncCompleteData = event.syncCompleteData
+            if (syncCompleteData == null) {
+                Logger.print(LogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is null" }
+            }
+            val syncCompleteJson = cardsSyncToJson(syncCompleteData, event.accountMeta)
+            val method = when (event.cardEventType) {
+                CardEventType.APP_OPEN_SYNC -> METHOD_APP_OPEN_CARDS_SYNC
+                CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
+                CardEventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
+            }
+            emit(method, syncCompleteJson)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitCardSyncEvent(): $event" }
         }
-        val syncCompleteJson = cardsSyncToJson(syncCompleteData, event.accountMeta)
-        val method = when (event.cardEventType) {
-            CardEventType.APP_OPEN_SYNC -> METHOD_APP_OPEN_CARDS_SYNC
-            CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
-            CardEventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
-        }
-        emit(method, syncCompleteJson)
     }
 
     private fun emit(methodName: String, payload: JSONObject) {

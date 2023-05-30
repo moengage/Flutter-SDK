@@ -52,7 +52,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
             ?.call(data);
       }
     } catch (err, stackTrace) {
-      Logger.e("$_tag Error: ${call.toString()} has an Exception:",
+      Logger.e("$_tag _handler(): Error: ${call.toString()} has an Exception:",
           error: err, stackTrace: stackTrace);
     }
   }

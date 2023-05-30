@@ -1,9 +1,10 @@
 import 'package:moengage_cards/moengage_cards.dart';
 
-import '../internal/constants.dart';
+import '../../internal/constants.dart';
 
 ///Style for Button Widget - [WidgetType.button]
 class ButtonStyle extends WidgetStyle {
+  /// Font Size for Button Text
   int fontSize;
 
   ButtonStyle({required String backgroundColor, required this.fontSize})

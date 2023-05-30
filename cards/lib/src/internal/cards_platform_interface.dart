@@ -9,14 +9,15 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   MoEngageCardsPlatformInterface() : super(token: _token);
 
-  static MoEngageCardsPlatformInterface _instance = (Platform.isAndroid)
-      ? MoEAndroidCardsController()
-      : MoEiOSCardsController();
+  /// Platform Specific Implementation
+  static MoEngageCardsPlatformInterface _instance = getCardsPlatform();
 
+  /// Token to validate Actual Implementation and Mock Implementation for test
   static final Object _token = Object();
 
   static MoEngageCardsPlatformInterface get instance => _instance;
 
+  /// Self Registration of Platform Interface used for tests and Platform specific packages
   static set instance(MoEngageCardsPlatformInterface instance) {
     PlatformInterface.verify(instance, _token);
     _instance = instance;
@@ -64,4 +65,14 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   void setAppOpenCardsSyncListener(
           CardsSyncListener cardsSyncListener, String appId) async =>
       throw UnimplementedError();
+
+  static MoEngageCardsPlatformInterface getCardsPlatform() {
+    if (Platform.isAndroid) {
+      return MoEAndroidCardsController();
+    } else if (Platform.isIOS) {
+      return MoEiOSCardsController();
+    } else {
+      throw UnsupportedError("Platform Not Supported");
+    }
+  }
 }

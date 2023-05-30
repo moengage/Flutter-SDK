@@ -1,6 +1,6 @@
 import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/container.dart';
-import 'package:moengage_cards/src/model/template_type.dart';
+import 'package:moengage_cards/src/model/enums/template_type.dart';
 
 /// Card Template data.
 class Template {

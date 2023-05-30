@@ -9,7 +9,8 @@ class ContainerStyle {
   ContainerStyle({required this.backgroundColor});
 
   factory ContainerStyle.fromJson(Map<String, dynamic> json) {
-    return ContainerStyle(backgroundColor: json[keyBackgroundColor]);
+    return ContainerStyle(
+        backgroundColor: json[keyBackgroundColor] ?? defaultContainerBgColor);
   }
 
   Map<String, dynamic> toJson() => {keyBackgroundColor: backgroundColor};
