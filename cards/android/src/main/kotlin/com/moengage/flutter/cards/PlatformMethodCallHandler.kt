@@ -17,78 +17,114 @@ class PlatformMethodCallHandler(
     private val tag = "${MODULE_TAG}PlatformMethodCallHandler"
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        if (call.arguments == null) {
-            Logger.print(LogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
-            return
-        }
-        when (call.method) {
-            METHOD_INITIALIZE -> initialize(call)
-            METHOD_REFRESH_CARDS -> refreshCards(call)
-            METHOD_ON_CARD_SECTION_LOADED -> onCardsSectionLoaded(call)
-            METHOD_ON_CARD_SECTION_UNLOADED -> onCardsSectionUnLoaded(call)
-            METHOD_CARDS_INFO -> getCardsInfo(call, result)
-            METHOD_GET_CARDS_CATEGORIES -> getCardsCategories(call, result)
-            METHOD_CARD_CLICKED -> cardClicked(call)
-            METHOD_CARD_DELIVERED -> cardDelivered(call)
-            METHOD_CARD_SHOWN -> cardShown(call)
-            METHOD_CARDS_FOR_CATEGORY -> getCardsForCategory(call, result)
-            METHOD_DELETE_CARDS -> deleteCards(call)
-            METHOD_IS_ALL_CATEGORY_ENABLED -> isAllCategoryEnabled(call, result)
-            METHOD_NEW_CARDS_COUNT -> getNewCardsCount(call, result)
-            METHOD_UN_CLICKED_CARDS_COUNT -> getUnClickedCardsCount(call, result)
-            else -> {
-                Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+        try {
+            if (call.arguments == null) {
+                Logger.print(LogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
+                return
             }
+            when (call.method) {
+                METHOD_INITIALIZE -> initialize(call)
+                METHOD_REFRESH_CARDS -> refreshCards(call)
+                METHOD_ON_CARD_SECTION_LOADED -> onCardsSectionLoaded(call)
+                METHOD_ON_CARD_SECTION_UNLOADED -> onCardsSectionUnLoaded(call)
+                METHOD_CARDS_INFO -> getCardsInfo(call, result)
+                METHOD_GET_CARDS_CATEGORIES -> getCardsCategories(call, result)
+                METHOD_CARD_CLICKED -> cardClicked(call)
+                METHOD_CARD_DELIVERED -> cardDelivered(call)
+                METHOD_CARD_SHOWN -> cardShown(call)
+                METHOD_CARDS_FOR_CATEGORY -> getCardsForCategory(call, result)
+                METHOD_DELETE_CARDS -> deleteCards(call)
+                METHOD_IS_ALL_CATEGORY_ENABLED -> isAllCategoryEnabled(call, result)
+                METHOD_NEW_CARDS_COUNT -> getNewCardsCount(call, result)
+                METHOD_UN_CLICKED_CARDS_COUNT -> getUnClickedCardsCount(call, result)
+                else -> {
+                    Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+                }
+            }
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
 
 
     private fun initialize(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag initialize() : MoEngage Cards plugin initialised. $payload" }
-        cardsPluginHelper.initialise(payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag initialize() : MoEngage Cards plugin initialised. $payload" }
+            cardsPluginHelper.initialise(payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag initialize() : " }
+        }
     }
 
     private fun refreshCards(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag refreshCards() : $payload" }
-        cardsPluginHelper.refreshCards(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag refreshCards() : $payload" }
+            cardsPluginHelper.refreshCards(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag refreshCards() : " }
+        }
     }
 
     private fun onCardsSectionLoaded(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag onCardsSectionLoaded() : $payload" }
-        cardsPluginHelper.onCardSectionLoaded(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag onCardsSectionLoaded() : $payload" }
+            cardsPluginHelper.onCardSectionLoaded(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag onCardsSectionLoaded() : " }
+        }
     }
 
     private fun onCardsSectionUnLoaded(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag onCardsSectionUnLoaded() : $payload" }
-        cardsPluginHelper.onCardSectionUnLoaded(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag onCardsSectionUnLoaded() : $payload" }
+            cardsPluginHelper.onCardSectionUnLoaded(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag onCardsSectionUnLoaded() : " }
+        }
     }
 
     private fun cardClicked(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag cardClicked() : $payload" }
-        cardsPluginHelper.cardClicked(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag cardClicked() : $payload" }
+            cardsPluginHelper.cardClicked(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag cardClicked() : " }
+        }
     }
 
     private fun cardDelivered(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag cardDelivered() : $payload" }
-        cardsPluginHelper.cardDelivered(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag cardDelivered() : $payload" }
+            cardsPluginHelper.cardDelivered(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag cardDelivered() : " }
+        }
     }
 
     private fun cardShown(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag cardShown() : $payload" }
-        cardsPluginHelper.cardShown(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag cardShown() : $payload" }
+            cardsPluginHelper.cardShown(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag cardShown() : " }
+        }
     }
 
     private fun deleteCards(call: MethodCall) {
-        val payload = call.arguments.toString()
-        Logger.print { "$tag deleteCards() : $payload" }
-        cardsPluginHelper.deleteCards(context, payload)
+        try {
+            val payload = call.arguments.toString()
+            Logger.print { "$tag deleteCards() : $payload" }
+            cardsPluginHelper.deleteCards(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR) { "$tag deleteCards() : " }
+        }
     }
 
     private fun getCardsInfo(call: MethodCall, result: MethodChannel.Result) {

@@ -20,9 +20,13 @@ class MoEngageCardsPlugin : FlutterPlugin {
     lateinit var context: Context
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
-        context = flutterPluginBinding.applicationContext
-        initPlugin(flutterPluginBinding.binaryMessenger)
+        try {
+            channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
+            context = flutterPluginBinding.applicationContext
+            initPlugin(flutterPluginBinding.binaryMessenger)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag onAttachedToEngine()  : " }
+        }
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
