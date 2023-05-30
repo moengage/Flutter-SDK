@@ -9,7 +9,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   MoEngageCardsPlatformInterface() : super(token: _token);
 
-  /// Platform Specific Implementation
+  /// Platform Specific Implementation of MoEngage Cards Plugin
   static MoEngageCardsPlatformInterface _instance = getCardsPlatform();
 
   /// Token to validate Actual Implementation and Mock Implementation for test
@@ -66,6 +66,8 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
           CardsSyncListener cardsSyncListener, String appId) async =>
       throw UnimplementedError();
 
+  /// Cards Controller Based on Platform
+  /// Currently MoEngage Cards Module Supports only Android & IOS platforms
   static MoEngageCardsPlatformInterface getCardsPlatform() {
     if (Platform.isAndroid) {
       return MoEAndroidCardsController();
