@@ -48,7 +48,7 @@ class _CardsScreenState extends State<CardsScreen>
       setState(() {
         cardList = data.cards;
         categories.clear();
-        if (data.isAllCategoryEnabled && data.categories.length > 0) {
+        if (data.shouldShowAllTab && data.categories.length > 0) {
           categories.add("All");
         }
         categories.addAll(data.categories);

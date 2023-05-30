@@ -19,7 +19,7 @@ void main() {
   test('CardsInfo Test', () async {
     final cardsInfo = await mock.getCardsInfo("");
     expect(cardsInfo.categories, ["promotions"]);
-    expect(cardsInfo.isAllCategoryEnabled, true);
+    expect(cardsInfo.shouldShowAllTab, true);
     expect(cardsInfo.toJson(), cardsInfoModel.toJson());
   });
 

@@ -64,6 +64,7 @@ final cardModel = Card(
             totalShowCount: 10),
         deletionTime: 12333566,
         createdAt: 123456789,
+        isPinned: false,
         displayControl: DisplayControl(
             expireAt: 100000,
             expireAfterSeen: 1233456,
@@ -77,7 +78,7 @@ final cardModel = Card(
         campaignPayload: {}));
 
 final cardsInfoModel = CardsInfo(
-    cards: [cardModel], categories: ["promotions"], isAllCategoryEnabled: true);
+    cards: [cardModel], categories: ["promotions"], shouldShowAllTab: true);
 
 final cardsDataModel = CardsData(category: "promotions", cards: [cardModel]);
 
