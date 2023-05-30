@@ -10,9 +10,8 @@ import io.flutter.plugin.common.MethodChannel
 
 class PlatformMethodCallHandler(
     private val context: Context,
+    private val cardsPluginHelper: CardsPluginHelper
 ) : MethodChannel.MethodCallHandler {
-
-    private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
 
     private val tag = "${MODULE_TAG}PlatformMethodCallHandler"
 
@@ -22,6 +21,7 @@ class PlatformMethodCallHandler(
                 Logger.print(LogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
                 return
             }
+            Logger.print { "$tag onMethodCall() : Method: ${call.method}" }
             when (call.method) {
                 METHOD_INITIALIZE -> initialize(call)
                 METHOD_REFRESH_CARDS -> refreshCards(call)

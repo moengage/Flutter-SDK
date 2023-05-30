@@ -1,9 +1,8 @@
 package com.moengage.flutter.cards
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import com.moengage.core.LogLevel
+import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import com.moengage.plugin.base.cards.internal.setCardsEventEmitter
@@ -17,8 +16,9 @@ class MoEngageCardsPlugin : FlutterPlugin {
 
     private val tag = "${MODULE_TAG}MoEngageCardsPlugin"
 
-    lateinit var context: Context
+    private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
 
+    lateinit var context: Context
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         try {
             channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
@@ -32,7 +32,7 @@ class MoEngageCardsPlugin : FlutterPlugin {
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
             channel = MethodChannel(binaryMessenger, CHANNEL_NAME)
-            channel.setMethodCallHandler(PlatformMethodCallHandler(context))
+            channel.setMethodCallHandler(PlatformMethodCallHandler(context, cardsPluginHelper))
             setCardsEventEmitter(EventEmitterImpl(::emitEvent))
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
@@ -40,16 +40,26 @@ class MoEngageCardsPlugin : FlutterPlugin {
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
+        try {
+            Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
+            channel.setMethodCallHandler(null)
+            cardsPluginHelper.onFrameworkDetached()
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() : " }
+        }
     }
 
     private fun emitEvent(methodName: String, payload: String) {
-        Handler(Looper.getMainLooper()).post {
-            try {
-                channel.invokeMethod(methodName, payload)
-            } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
+        try {
+            GlobalResources.mainThread.post {
+                try {
+                    channel.invokeMethod(methodName, payload)
+                } catch (t: Throwable) {
+                    Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
+                }
             }
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
         }
     }
 }
