@@ -1,6 +1,6 @@
 # MoEngage Flutter Plugin
 
-# Next Release Date
+# 31-05-2023
 
 ## 5.4.0
 - Android

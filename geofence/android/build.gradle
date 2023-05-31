@@ -50,7 +50,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compileOnly("com.moengage:moe-android-sdk:12.8.00")
     compileOnly("com.moengage:geofence:3.2.0")
-    implementation("com.moengage:plugin-base-geofence:1.0.0")
+    implementation("com.moengage:plugin-base-geofence:1.1.0")
 }
 
 apply from: file("./user-agent.gradle")

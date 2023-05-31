@@ -9,7 +9,8 @@ class PushCampaign {
   /// and DeepLinking Push Notifications. Client should handle redirection.
   bool selfHandledPushRedirection = false;
 
-  PushCampaign(this.isDefaultAction, this.clickedAction, this.payload,this.selfHandledPushRedirection);
+  PushCampaign(this.isDefaultAction, this.clickedAction, this.payload,
+      this.selfHandledPushRedirection);
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,7 +29,7 @@ class PushCampaign {
         "\n" +
         "payload: ${payload.toString()}" +
         "\n" +
-        "selfHandledPushRedirection: ${selfHandledPushRedirection} \n"
-        "}";
+        "selfHandledPushRedirection: $selfHandledPushRedirection \n"
+            "}";
   }
 }

@@ -46,7 +46,8 @@ class MoEngageFlutter {
   }
 
   void initialise() {
-    controller.channel.invokeMethod(methodInitialise, InitConfigPayloadMapper().getInitPayload(appId, _moEInitConfig));
+    controller.channel.invokeMethod(methodInitialise,
+        InitConfigPayloadMapper().getInitPayload(appId, _moEInitConfig));
   }
 
   void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {
