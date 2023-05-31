@@ -3,6 +3,8 @@
 # Next Release Date
 
 ## 5.4.0
+- Android
+    - Support for Foreground Push Click Callback
 - iOS
     - MoEngage-iOS-SDK version updated to `~>9.8.0`
     

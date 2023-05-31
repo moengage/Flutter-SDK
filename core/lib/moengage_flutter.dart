@@ -10,6 +10,7 @@ import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/moe_init_config.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/permission_type.dart';
 import 'package:moengage_flutter/model/push/moe_push_service.dart';
@@ -18,9 +19,9 @@ import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moe_cache.dart';
 import 'package:moengage_flutter/moe_core_controller.dart';
 import 'package:moengage_flutter/properties.dart';
-import 'package:moengage_flutter/utils.dart';
 
 import 'in_app_payload_mapper.dart';
+import 'model/init_config_payload_mapper.dart';
 
 export 'internal/logger.dart';
 export 'log_level.dart';
@@ -37,13 +38,15 @@ typedef void PermissionResultCallbackHandler(PermissionResultData data);
 class MoEngageFlutter {
   String appId;
   late CoreController controller;
+  final MoEInitConfig _moEInitConfig;
 
-  MoEngageFlutter(this.appId) {
+  MoEngageFlutter(this.appId, {MoEInitConfig? moEInitConfig})
+      : _moEInitConfig = moEInitConfig ?? MoEInitConfig.defaultConfig() {
     controller = CoreController();
   }
 
   void initialise() {
-    controller.channel.invokeMethod(methodInitialise, getAccountMeta(appId));
+    controller.channel.invokeMethod(methodInitialise, InitConfigPayloadMapper().getInitPayload(appId, _moEInitConfig));
   }
 
   void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {

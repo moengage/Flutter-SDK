@@ -5,13 +5,18 @@ class PushCampaign {
   Map<String, dynamic> clickedAction;
   Map<String, dynamic> payload;
 
-  PushCampaign(this.isDefaultAction, this.clickedAction, this.payload);
+  /// If true, MoEngage SDK will not handle Push redirection for Screen name
+  /// and DeepLinking Push Notifications. Client should handle redirection.
+  bool selfHandledPushRedirection = false;
+
+  PushCampaign(this.isDefaultAction, this.clickedAction, this.payload,this.selfHandledPushRedirection);
 
   Map<String, dynamic> toMap() {
     return {
       keyIsDefaultAction: isDefaultAction,
       keyClickedAction: clickedAction,
-      keyPayload: payload
+      keyPayload: payload,
+      keySelfHandledPushRedirection: selfHandledPushRedirection
     };
   }
 
@@ -23,6 +28,7 @@ class PushCampaign {
         "\n" +
         "payload: ${payload.toString()}" +
         "\n" +
+        "selfHandledPushRedirection: ${selfHandledPushRedirection} \n"
         "}";
   }
 }
