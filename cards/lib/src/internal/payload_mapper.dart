@@ -25,8 +25,9 @@ AccountMeta accountMetaFromMap(Map<String, dynamic> metaPayload) {
   return AccountMeta(metaPayload[keyAppId]);
 }
 
-WidgetStyle widgetStyleFromJson(
-    Map<String, dynamic> json, WidgetType widgetType) {
+WidgetStyle? widgetStyleFromJson(
+    Map<String, dynamic>? json, WidgetType widgetType) {
+  if (json == null) return null;
   switch (widgetType) {
     case WidgetType.text:
       return TextStyle.fromJson(json);
@@ -125,6 +126,19 @@ SyncType syncTypeFromString(String? syncType) {
       return SyncType.appOpen;
     default:
       throw UnimplementedError("Sync Type Not Supported");
+  }
+}
+
+String syncTypeToString(SyncType syncType) {
+  switch (syncType) {
+    case SyncType.pullToRefresh:
+      return argumentPullToRefreshSync;
+    case SyncType.inboxOpen:
+      return argumentInboxOpenSync;
+    case SyncType.appOpen:
+      return argumentAppOpenSync;
+    default:
+      return "";
   }
 }
 

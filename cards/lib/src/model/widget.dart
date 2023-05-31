@@ -17,7 +17,7 @@ class Widget {
   String content;
 
   /// Style associated with the widget
-  WidgetStyle style;
+  WidgetStyle? style;
 
   /// Actions to be performed on widget click
   List<Action> actionList;
@@ -47,7 +47,7 @@ class Widget {
         keyWidgetId: id,
         keyWidgetContent: content,
         keyWidgetType: widgetType.name,
-        keyWidgetStyle: style.toJson(),
+        keyWidgetStyle: style?.toJson(),
         keyActions: actionList.map((e) => e.toJson()).toList()
       };
 }

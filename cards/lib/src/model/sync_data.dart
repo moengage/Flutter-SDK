@@ -20,7 +20,7 @@ class SyncCompleteData {
   }
 
   Map<String, dynamic> toJson() =>
-      {keySyncType: syncType.name, keyHasUpdates: hasUpdates};
+      {keySyncType: syncTypeToString(syncType), keyHasUpdates: hasUpdates};
 
   @override
   String toString() {

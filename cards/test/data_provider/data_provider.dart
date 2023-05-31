@@ -611,6 +611,6 @@ const cardsInfoData = """
 const String syncCompleteData = """
 {
 "hasUpdates": true,
-"syncType": "pullToRefresh"
+"syncType": "PULL_TO_REFRESH"
 }
 """;

@@ -51,7 +51,7 @@ final cardModel = Card(
                     id: 3,
                     widgetType: WidgetType.button,
                     content: "CLICK ME!",
-                    style: TextStyle(backgroundColor: "#FFFFF", fontSize: 2),
+                    style: ButtonStyle(backgroundColor: "#FFFFF", fontSize: 2),
                     actionList: []),
               ])
         ]),
