@@ -14,7 +14,6 @@ import 'package:moengage_cards/src/model/style/widget_style.dart';
 import 'package:moengage_cards/src/model/enums/widget_type.dart';
 import 'package:moengage_flutter/model/account_meta.dart';
 
-import '../model/action/custom_action.dart';
 import 'constants.dart';
 
 Map<String, dynamic> getAccountMeta(String appId) {
@@ -43,8 +42,6 @@ Action actionStyleFromJson(Map<String, dynamic> json) {
   switch (actionType) {
     case ActionType.navigate:
       return NavigationAction.fromJson(json);
-    case ActionType.custom:
-      return CustomAction.fromJson(json);
     default:
       throw UnsupportedError("ActionType Not Supported");
   }
