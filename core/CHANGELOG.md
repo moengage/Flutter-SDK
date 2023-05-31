@@ -6,6 +6,7 @@
 - Android
   - Compile SDK Version Updated to 33
   - Native SDK updated to support version `12.8.00` and above.
+  - Support for Foreground Push Click Callback
 - iOS
     - MoEngage-iOS-SDK version updated to `~>9.8.0`
     

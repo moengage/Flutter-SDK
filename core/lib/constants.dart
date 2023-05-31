@@ -127,6 +127,8 @@ const String keyIsSdkEnabled = "isSdkEnabled";
 const String keyAppId = "appId";
 const String keyAccountMeta = "accountMeta";
 const String keyData = "data";
+const String keyInitConfig = "initConfig";
+const String keyPushConfig = "pushConfig";
 
 const String keyAndroidId = "isAndroidIdTrackingEnabled";
 const String keyAdId = "isAdIdTrackingEnabled";
@@ -137,3 +139,14 @@ const String keyIsPermissionGranted = "isGranted";
 const String keyPermissionType = "type";
 
 const String keyUpdatePushPermissionCount = "pushOptinInAttemptCount";
+
+//Push Config Keys
+
+/// Key for Registering for sdk to send only callback on Push Click on App Foreground.
+/// MoEngage SDK will not handle the redirection in this case
+const String keyShouldDeliverCallbackOnForegroundClick =
+    "shouldDeliverCallbackOnForegroundClick";
+
+/// Key for Self handled push redirection. If self handled push direction is true,
+/// Client is responsible for push redirection on Push Click
+const String keySelfHandledPushRedirection = "selfHandledPushRedirection";
