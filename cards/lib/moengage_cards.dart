@@ -23,4 +23,4 @@ export 'src/model/style/text_style.dart';
 export 'src/model/widget.dart';
 export 'src/model/style/widget_style.dart';
 export 'src/model/enums/widget_type.dart';
-export 'src/moe_cards.dart';
+export 'src/moengage_cards.dart';
