@@ -3,6 +3,9 @@
 
 # Next Release
 ## 4.3.0
+- Android
+  - Compile SDK Version Updated to 33
+  - Native SDK updated to support version `12.8.00` and above.
 - iOS
     - MoEngageInbox SDK version updated to `~>2.8.0`.
     
