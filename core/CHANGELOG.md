@@ -4,7 +4,7 @@
 
 ## 5.4.0
 - Android
-  - Target & Compile SDK Version Update to 33
+  - Compile SDK Version Updated to 33
   - Native SDK updated to support version `12.8.00` and above.
 - iOS
     - MoEngage-iOS-SDK version updated to `~>9.8.0`
