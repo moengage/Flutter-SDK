@@ -80,6 +80,7 @@ const String keyUnClickedCardsCount = "unClickedCardsCount";
 const String methodInitialize = "initialize";
 const String methodRefreshCards = "refreshCards";
 const String methodOnCardSectionLoaded = "onCardSectionLoaded";
+const String methodSetAppOpenCardsSyncListener = "setAppOpenCardsSyncListener";
 const String methodOnCardSectionUnLoaded = "onCardSectionUnLoaded";
 const String methodCardsCategories = "getCardsCategories";
 const String methodCardsInfo = "getCardsInfo";

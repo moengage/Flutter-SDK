@@ -1,14 +1,96 @@
 import Flutter
 import UIKit
+import MoEngageCore
+import MoEngagePluginCards
 
 public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "cards", binaryMessenger: registrar.messenger())
-    let instance = CardsPlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+    private let pluginHelper = MoEngagePluginCardsBridge.sharedInstance
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
-  }
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let channel = FlutterMethodChannel(
+            name: MoEngageFlutterCardsConstants.pluginChannelName,
+            binaryMessenger: registrar.messenger()
+        )
+
+        let pluginInstance = MoEngageCardsPlugin()
+        registrar.addMethodCallDelegate(pluginInstance, channel: channel)
+        pluginInstance.pluginHelper.setSyncEventListnerDelegate(
+            MoEngageCardSyncListner(producingOnChannel: channel)
+        )
+    }
+
+    public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
+        pluginHelper.onFrameworkDetached()
+    }
+
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let payload = call.arguments as? [String: Any] else {
+            MoEngageLogger.error(
+                "Failed to capture flutter method channel arguments for method "
+                + "\(call.method) and data \(String(describing: call.arguments))"
+            )
+            return
+        }
+
+        switch call.method {
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.initialize:
+            pluginHelper.initialize(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.refreshCards:
+            pluginHelper.refreshCards(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.onCardSectionLoaded:
+            pluginHelper.onCardsSectionLoaded(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.setAppOpenCardsSyncListener:
+            pluginHelper.setAppOpenSyncListener(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.onCardSectionUnloaded:
+            pluginHelper.onCardsSectionUnLoaded(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.getCardsCategories:
+            pluginHelper.getCardsCategories(payload) { data in
+                resume(result: result, withData: data)
+            }
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsInfo:
+            pluginHelper.getCardsInfo(payload) { data in
+                resume(result: result, withData: data)
+            }
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardClicked:
+            pluginHelper.cardClicked(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardDelivered:
+            pluginHelper.cardDelivered(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardShown:
+            pluginHelper.cardShown(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsForCategory:
+            pluginHelper.getCardsForCategory(payload) { data in
+                resume(result: result, withData: data)
+            }
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.deleteCards:
+            pluginHelper.deleteCards(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.isAllCategoryEnabled:
+            pluginHelper.isAllCategoryEnabled(payload) { data in
+                resume(result: result, withData: data)
+            }
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.newCardsCount:
+            pluginHelper.getNewCardsCount(payload) { data in
+                resume(result: result, withData: data)
+            }
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.unClickedCardsCount:
+            pluginHelper.getUnClickedCardsCount(payload) { data in
+                resume(result: result, withData: data)
+            }
+        default:
+            MoEngageLogger.error(
+                "Flutter method channel not handled for method "
+                + "\(call.method) and data \(payload)"
+            )
+        }
+    }
+}
+
+fileprivate func resume(result: @escaping FlutterResult, withData data: [String: Any]) {
+    let resultData: String
+    if let jsonData = try? JSONSerialization.data(withJSONObject: data),
+       let jsonStr = String(data: jsonData, encoding: .utf8) {
+        resultData = jsonStr
+    } else {
+        resultData = ""
+    }
+    DispatchQueue.main.async { result(resultData) }
 }
