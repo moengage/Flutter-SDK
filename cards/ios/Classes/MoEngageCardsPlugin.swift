@@ -45,11 +45,11 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             pluginHelper.onCardsSectionUnLoaded(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.getCardsCategories:
             pluginHelper.getCardsCategories(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsInfo:
             pluginHelper.getCardsInfo(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardClicked:
             pluginHelper.cardClicked(payload)
@@ -59,21 +59,21 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             pluginHelper.cardShown(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsForCategory:
             pluginHelper.getCardsForCategory(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.deleteCards:
             pluginHelper.deleteCards(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.isAllCategoryEnabled:
             pluginHelper.isAllCategoryEnabled(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.newCardsCount:
             pluginHelper.getNewCardsCount(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.unClickedCardsCount:
             pluginHelper.getUnClickedCardsCount(payload) { data in
-                resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(result: result, withData: data)
             }
         default:
             MoEngageLogger.error(
@@ -82,15 +82,4 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             )
         }
     }
-}
-
-fileprivate func resume(result: @escaping FlutterResult, withData data: [String: Any]) {
-    let resultData: String
-    if let jsonData = try? JSONSerialization.data(withJSONObject: data),
-       let jsonStr = String(data: jsonData, encoding: .utf8) {
-        resultData = jsonStr
-    } else {
-        resultData = ""
-    }
-    DispatchQueue.main.async { result(resultData) }
 }

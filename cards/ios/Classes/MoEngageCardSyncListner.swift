@@ -19,10 +19,7 @@ class MoEngageCardSyncListner: MoEngageCardSyncDelegate {
         forEventType eventType: MoEngageCardsSyncEventType,
         withData data: [String : Any]
     ) {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: data),
-              let jsonStr = String(data: jsonData, encoding: .utf8) else {
-            return
-        }
+        let jsonStr = MoEngageCardsUtil.serialize(data: data)
         DispatchQueue.main.async {
             self.channel.invokeMethod(eventType.mappedMethodName, arguments: jsonStr)
         }
