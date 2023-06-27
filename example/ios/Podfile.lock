@@ -85,7 +85,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MoEngagePluginCards:
-    :commit: 4bff8315d21feff06189f413add6c721742f0765
+    :commit: d3aaa45812bdf0bdc906c795ee49f74ccc7ab766
     :git: https://github.com/moengage/iOS-PluginBase.git
 
 SPEC CHECKSUMS:
