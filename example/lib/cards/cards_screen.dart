@@ -24,7 +24,6 @@ class _CardsScreenState extends State<CardsScreen>
   @override
   void initState() {
     super.initState();
-    cards.initialize();
     cards.setAppOpenCardsSyncListener((data) {
       debugPrint("Cards App Open Sync Listener: $data");
     });
@@ -41,6 +40,7 @@ class _CardsScreenState extends State<CardsScreen>
       length: categories.length,
       vsync: this,
     );
+    cards.initialize();
   }
 
   fetchCards() {

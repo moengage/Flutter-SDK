@@ -39,8 +39,8 @@ const String keyNavigationType = "type";
 
 //Default Values
 const int defaultFontSize = -1;
-const String defaultTextBgColor = "#00FFFFFF";
-const String defaultContainerBgColor = "#FFFFFF";
+const String defaultTextBgColor = "";
+const String defaultContainerBgColor = "";
 
 //CampaignState
 const String keyLocalShowCount = "localShowCount";
