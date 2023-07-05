@@ -367,7 +367,8 @@ class _BasicCardState extends State<BasicCard> {
     if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
     return TextButton(
         onPressed: () {
-          widget.callback.call(CardActionEvent.CLICK, widget.card);
+          widget.callback
+              .call(CardActionEvent.CLICK, widget.card, widgetId: cta.id);
           handleWidgetActions(cta.actionList);
         },
         child: Html(
