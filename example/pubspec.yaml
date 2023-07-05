@@ -19,9 +19,9 @@ dependencies:
   moengage_inbox:
   moengage_cards:
     path: ../cards
-  flutter_html:
+  flutter_html: 2.0.0
   intl: ^0.18.1
-  url_launcher: ^6.1.11
+  url_launcher: 6.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

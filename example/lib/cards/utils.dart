@@ -27,8 +27,12 @@ handleAction(moe.Action action) async {
     }
     var uri =
         Uri.parse(action.value).replace(queryParameters: action.keyValuePairs);
-    if (!await launchUrl(uri)) {
-      throw Exception('Could not launch url: ${action.value}');
+    if (action.navigationType == moe.NavigationType.richLanding) {
+      //Open RichLanding Url in WebView Inside App
+      launch(uri.toString(), forceWebView: true, forceSafariVC: true);
+    } else if (action.navigationType == moe.NavigationType.deepLink) {
+      //Open DeepLink In External App
+      launch(uri.toString());
     }
   }
 }
