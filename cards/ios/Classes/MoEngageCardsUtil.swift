@@ -8,8 +8,16 @@
 import Flutter
 
 enum MoEngageCardsUtil {
-    static func resume(result: @escaping FlutterResult, withData data: [String: Any]) {
+    static func resume(
+        channel method: String,
+        havingResult result: @escaping FlutterResult,
+        withData data: [String: Any]
+    ) {
         let resultData = Self.serialize(data: data)
+        MoEngageCardsPluginLogger.debug(
+            "Providing data \(data) to client for channel method \(method)",
+            forData: data
+        )
         DispatchQueue.main.async { result(resultData) }
     }
 

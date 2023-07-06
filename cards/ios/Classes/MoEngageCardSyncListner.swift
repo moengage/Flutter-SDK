@@ -20,6 +20,10 @@ class MoEngageCardSyncListner: MoEngageCardSyncDelegate {
         withData data: [String : Any]
     ) {
         let jsonStr = MoEngageCardsUtil.serialize(data: data)
+        MoEngageCardsPluginLogger.debug(
+            "Got sync update data \(data) for sync type \(eventType)",
+            forData: data
+        )
         DispatchQueue.main.async {
             self.channel.invokeMethod(eventType.mappedMethodName, arguments: jsonStr)
         }

@@ -25,12 +25,17 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else {
-            MoEngageLogger.error(
+            MoEngageCardsPluginLogger.error(
                 "Failed to capture flutter method channel arguments for method "
                 + "\(call.method) and data \(String(describing: call.arguments))"
             )
             return
         }
+
+        MoEngageCardsPluginLogger.debug(
+            "Got data \(payload) from client for channel method \(call.method)",
+            forData: payload
+        )
 
         switch call.method {
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.initialize:
@@ -45,11 +50,19 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             pluginHelper.onCardsSectionUnLoaded(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.getCardsCategories:
             pluginHelper.getCardsCategories(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsInfo:
             pluginHelper.getCardsInfo(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardClicked:
             pluginHelper.cardClicked(payload)
@@ -59,26 +72,43 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             pluginHelper.cardShown(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardsForCategory:
             pluginHelper.getCardsForCategory(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.deleteCards:
             pluginHelper.deleteCards(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.isAllCategoryEnabled:
             pluginHelper.isAllCategoryEnabled(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.newCardsCount:
             pluginHelper.getNewCardsCount(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.unClickedCardsCount:
             pluginHelper.getUnClickedCardsCount(payload) { data in
-                MoEngageCardsUtil.resume(result: result, withData: data)
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
             }
         default:
-            MoEngageLogger.error(
+            MoEngageCardsPluginLogger.error(
                 "Flutter method channel not handled for method "
-                + "\(call.method) and data \(payload)"
+                + "\(call.method) and data \(payload)",
+                forData: payload
             )
         }
     }
