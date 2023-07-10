@@ -215,6 +215,7 @@ class _CardsScreenState extends State<CardsScreen>
 
   void refreshCards() {
     cards.refreshCards((data) {
+      cards.cardDelivered();
       if (data?.hasUpdates == true) {
         fetchCards();
       }
