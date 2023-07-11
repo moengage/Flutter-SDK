@@ -17,17 +17,9 @@ String getDateFromMillis(int timeInMillis) {
 handleAction(moe.Action action) async {
   if (action.actionType == moe.ActionType.navigate) {
     action = action as moe.NavigationAction;
-    LaunchMode uriLaunchMode;
-    switch (action.navigationType) {
-      case moe.NavigationType.deepLink:
-        uriLaunchMode = LaunchMode.externalApplication;
-        break;
-      case moe.NavigationType.richLanding:
-        uriLaunchMode = LaunchMode.platformDefault;
-        break;
-      case moe.NavigationType.screenName:
-        debugPrint("Screen Name Navigation Not supported");
-        return;
+    if (action.navigationType == moe.NavigationType.screenName) {
+      debugPrint("Screen Name Navigation Not supported");
+      return;
     }
     if (action.value.isEmpty) {
       debugPrint("Url Empty");
