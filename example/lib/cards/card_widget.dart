@@ -77,8 +77,7 @@ class _IllustrationCardState extends State<IllustrationCard> {
           ),
         )),
         onTap: () {
-          widget.callback.call(CardActionEvent.CLICK, widget.card,
-              widgetId: widget.card.getContainer()?.id ?? 0);
+          widget.callback.call(CardActionEvent.CLICK, widget.card);
           handleWidgetActions(widget.card.getContainer()?.actionList);
         },
         onLongPress: () {
@@ -274,8 +273,7 @@ class _BasicCardState extends State<BasicCard> {
           ),
         )),
         onTap: () {
-          widget.callback.call(CardActionEvent.CLICK, widget.card,
-              widgetId: widget.card.getContainer()?.id ?? 0);
+          widget.callback.call(CardActionEvent.CLICK, widget.card);
           handleWidgetActions(widget.card.getContainer()?.actionList);
         },
         onLongPress: () {
@@ -367,7 +365,8 @@ class _BasicCardState extends State<BasicCard> {
     if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
     return TextButton(
         onPressed: () {
-          widget.callback.call(CardActionEvent.CLICK, widget.card);
+          widget.callback
+              .call(CardActionEvent.CLICK, widget.card, widgetId: cta.id);
           handleWidgetActions(cta.actionList);
         },
         child: Html(
