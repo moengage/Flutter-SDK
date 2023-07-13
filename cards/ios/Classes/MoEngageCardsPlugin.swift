@@ -25,14 +25,14 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else {
-            MoEngageCardsPluginLogger.error(
+            MoEngagePluginCardsLogger.error(
                 "Failed to capture flutter method channel arguments for method "
                 + "\(call.method) and data \(String(describing: call.arguments))"
             )
             return
         }
 
-        MoEngageCardsPluginLogger.debug(
+        MoEngagePluginCardsLogger.debug(
             "Got data \(payload) from client for channel method \(call.method)",
             forData: payload
         )
@@ -105,7 +105,7 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
                 )
             }
         default:
-            MoEngageCardsPluginLogger.error(
+            MoEngagePluginCardsLogger.error(
                 "Flutter method channel not handled for method "
                 + "\(call.method) and data \(payload)",
                 forData: payload

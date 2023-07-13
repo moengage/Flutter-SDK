@@ -20,7 +20,7 @@ class MoEngageCardSyncListner: MoEngageCardSyncDelegate {
         withData data: [String : Any]
     ) {
         let jsonStr = MoEngageCardsUtil.serialize(data: data)
-        MoEngageCardsPluginLogger.debug(
+        MoEngagePluginCardsLogger.debug(
             "Got sync update data \(data) for sync type \(eventType)",
             forData: data
         )

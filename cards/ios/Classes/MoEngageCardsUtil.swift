@@ -6,6 +6,7 @@
 //
 
 import Flutter
+import MoEngagePluginCards
 
 enum MoEngageCardsUtil {
     static func resume(
@@ -14,7 +15,7 @@ enum MoEngageCardsUtil {
         withData data: [String: Any]
     ) {
         let resultData = Self.serialize(data: data)
-        MoEngageCardsPluginLogger.debug(
+        MoEngagePluginCardsLogger.debug(
             "Providing data \(data) to client for channel method \(method)",
             forData: data
         )
