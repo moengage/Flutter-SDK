@@ -43,7 +43,10 @@ class PushPayloadMapper {
                   : new Map(),
               campaignData.containsKey(keyPayload)
                   ? campaignData[keyPayload]
-                  : new Map()));
+                  : new Map(),
+              campaignData.containsKey(keySelfHandledPushRedirection)
+                  ? campaignData[keySelfHandledPushRedirection]
+                  : false));
     } catch (e, stackTrace) {
       Logger.e("$_tag Error: pushTokenFromJson() : ",
           stackTrace: stackTrace, error: e);

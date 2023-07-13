@@ -7,12 +7,15 @@ import 'package:moengage_flutter/model/geo_location.dart';
 import 'package:moengage_flutter/model/inapp/click_data.dart';
 import 'package:moengage_flutter/model/inapp/inapp_data.dart';
 import 'package:moengage_flutter/model/inapp/self_handled_data.dart';
+import 'package:moengage_flutter/model/moe_init_config.dart';
 import 'package:moengage_flutter/model/permission_result.dart';
 import 'package:moengage_flutter/model/push/push_campaign_data.dart';
+import 'package:moengage_flutter/model/push/push_config.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
 import 'package:moengage_flutter_example/cards/cards_home.dart';
+import 'package:moengage_flutter_example/second_page.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
@@ -31,8 +34,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter("DAO6UGZ73D9RTK8B5W96TPYN");
+  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(
+      "DAO6UGZ73D9RTK8B5W96TPYN",
+      moEInitConfig: MoEInitConfig(
+          pushConfig:
+              PushConfig(shouldDeliverCallbackOnForegroundClick: true)));
   final MoEngageGeofence _moEngageGeofence =
       MoEngageGeofence("DAO6UGZ73D9RTK8B5W96TPYN");
   final MoEngageInbox _moEngageInbox =
@@ -42,6 +48,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     debugPrint(
         "$tag Main : _onPushClick(): This is a push click callback from native to flutter. Payload " +
             message.toString());
+    if (message.data.selfHandledPushRedirection) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SecondPage()));
+    }
   }
 
   void _onInAppClick(ClickData message) {
@@ -95,6 +105,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     initPlatformState();
+    WidgetsBinding.instance.addObserver(this);
     debugPrint("$tag initState() : start ");
     _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
@@ -114,6 +125,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   late BuildContext buildContext;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _moengagePlugin.initialise();
+    }
+    debugPrint("Application Lifecycle Changed - $state");
+  }
 
   @override
   Widget build(BuildContext context) {

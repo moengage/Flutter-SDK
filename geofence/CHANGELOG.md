@@ -1,5 +1,14 @@
 # MoEngage Geofence Plugin
 
+# 31-05-2023
+
+## 1.5.0
+- Android
+  - Compile SDK Version Updated to 33
+  - Native SDK updated to support version `12.8.00` and above.
+- iOS
+    - MoEngageGeofence SDK version updated to `~>5.8.0`.
+    
 # 21-02-2023
 
 ## 1.4.0
