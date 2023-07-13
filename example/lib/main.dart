@@ -14,12 +14,14 @@ import 'package:moengage_flutter/model/push/push_config.dart';
 import 'package:moengage_flutter/model/push/push_token_data.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter/properties.dart';
+import 'package:moengage_flutter_example/cards/cards_home.dart';
 import 'package:moengage_flutter_example/second_page.dart';
 import 'package:moengage_geofence/moe_geofence.dart';
 import 'package:moengage_inbox/inbox_data.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'cards/cards_screen.dart';
 import 'utils.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
@@ -153,6 +155,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         body: new Center(
           child: new ListView(
             children: ListTile.divideTiles(context: context, tiles: [
+              ListTile(
+                title: Text("GoTo Cards"),
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CardsHome()));
+                },
+              ),
               new ListTile(
                   title: new Text("Track Event with Attributes"),
                   onTap: () async {

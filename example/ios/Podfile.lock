@@ -1,47 +1,70 @@
 PODS:
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (9.4.1)
-  - moengage_flutter (5.3.0):
+  - MoEngage-iOS-SDK (9.8.2)
+  - moengage_cards (0.0.1):
     - Flutter
-    - MoEngagePluginBase (~> 4.1.0)
-  - moengage_geofence (1.3.0):
+    - MoEngagePluginCards
+  - moengage_flutter (5.3.1):
     - Flutter
-    - MoEngagePluginGeofence (~> 2.1.1)
+    - MoEngagePluginBase (~> 4.2.0)
+  - moengage_geofence (1.4.0):
+    - Flutter
+    - MoEngagePluginGeofence (~> 2.2.0)
   - moengage_inbox (4.3.0):
     - Flutter
-    - MoEngagePluginInbox (~> 2.1.0)
-  - MoEngageGeofence (5.4.0):
-    - MoEngage-iOS-SDK (< 9.5.0, >= 9.4.0)
-  - MoEngageInApp (4.4.0):
-    - MoEngage-iOS-SDK (< 9.5.0, >= 9.4.0)
-  - MoEngageInbox (2.4.0):
-    - MoEngage-iOS-SDK (< 9.5.0, >= 9.4.0)
-    - MoEngageRichNotification (< 7.5.0, >= 7.4.0)
-  - MoEngagePluginBase (4.1.0):
-    - MoEngage-iOS-SDK (< 9.5.0, >= 9.4.0)
-    - MoEngageInApp (< 4.5.0, >= 4.4.0)
-  - MoEngagePluginGeofence (2.1.1):
-    - MoEngageGeofence (< 5.5.0, >= 5.4.0)
-    - MoEngagePluginBase (< 4.2.0, >= 4.1.0)
-  - MoEngagePluginInbox (2.1.0):
-    - MoEngageInbox (< 2.5.0, >= 2.4.0)
-    - MoEngagePluginBase (< 4.2.0, >= 4.1.0)
-  - MoEngageRichNotification (7.4.0):
-    - MoEngage-iOS-SDK (< 9.5.0, >= 9.4.0)
-  - permission_handler_apple (9.0.4):
+    - MoEngagePluginInbox (~> 2.2.0)
+  - MoEngageCards (4.8.1):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+  - MoEngageGeofence (5.8.0):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+  - MoEngageInApp (4.8.3):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+  - MoEngageInbox (2.8.1):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+    - MoEngageRichNotification (< 7.9.0, >= 7.8.0)
+  - MoEngagePluginBase (4.2.1):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+    - MoEngageInApp (< 4.9.0, >= 4.8.0)
+  - MoEngagePluginCards (1.0.0):
+    - MoEngageCards (< 4.9.0, >= 4.8.0)
+    - MoEngagePluginBase (< 4.3.0, >= 4.2.0)
+  - MoEngagePluginGeofence (2.2.0):
+    - MoEngageGeofence (< 5.9.0, >= 5.8.0)
+    - MoEngagePluginBase (< 4.3.0, >= 4.2.0)
+  - MoEngagePluginInbox (2.2.0):
+    - MoEngageInbox (< 2.9.0, >= 2.8.0)
+    - MoEngagePluginBase (< 4.3.0, >= 4.2.0)
+  - MoEngageRichNotification (7.8.0):
+    - MoEngage-iOS-SDK (< 9.9.0, >= 9.8.0)
+  - permission_handler_apple (9.1.0):
+    - Flutter
+  - url_launcher (0.0.1):
+    - Flutter
+  - video_player_avfoundation (0.0.1):
+    - Flutter
+  - wakelock (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - moengage_cards (from `.symlinks/plugins/moengage_cards/ios`)
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
   - moengage_geofence (from `.symlinks/plugins/moengage_geofence/ios`)
   - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
+  - MoEngagePluginCards (from `https://github.com/moengage/iOS-PluginBase.git`, branch `MOEN-24218_self-handled-cards`)
   - MoEngageRichNotification
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
     - MoEngage-iOS-SDK
+    - MoEngageCards
     - MoEngageGeofence
     - MoEngageInApp
     - MoEngageInbox
@@ -53,30 +76,55 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  moengage_cards:
+    :path: ".symlinks/plugins/moengage_cards/ios"
   moengage_flutter:
     :path: ".symlinks/plugins/moengage_flutter/ios"
   moengage_geofence:
     :path: ".symlinks/plugins/moengage_geofence/ios"
   moengage_inbox:
     :path: ".symlinks/plugins/moengage_inbox/ios"
+  MoEngagePluginCards:
+    :branch: MOEN-24218_self-handled-cards
+    :git: https://github.com/moengage/iOS-PluginBase.git
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/ios"
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+
+CHECKOUT OPTIONS:
+  MoEngagePluginCards:
+    :commit: 2f0ff5153bf90330cfac6844a0f1943b5c758311
+    :git: https://github.com/moengage/iOS-PluginBase.git
 
 SPEC CHECKSUMS:
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  MoEngage-iOS-SDK: b7af14646f44852527ba7420e52ff8bb56b7077d
-  moengage_flutter: 2c8bb6b080fb2901deba86b19cd0ffbcd793cbb7
-  moengage_geofence: cfe278e8fba2379bd02934c2b03852e50e3a08e3
-  moengage_inbox: 02f50c8b38973f72e3e5cbe08446298a537690a6
-  MoEngageGeofence: 754c86d63620642af5ead28f9a132dbe00ecf31d
-  MoEngageInApp: 94f24b0b1a83ec247dc998f31b08124b09fcab96
-  MoEngageInbox: 6553588101f128d941ad15f3a8c7921400e6f92c
-  MoEngagePluginBase: e865f388c39d0cf2c7847610876e63b0e5e31c22
-  MoEngagePluginGeofence: c450fc74b4075d32782391d274af0b4266567195
-  MoEngagePluginInbox: b41f226620f0aaae95308d758005b7acb4842930
-  MoEngageRichNotification: 007cb006358994209e017c6ce52808809cf0b3fc
-  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  MoEngage-iOS-SDK: f322825e601bc82fba5fdc7968afe987d04c87fc
+  moengage_cards: 7513eb53c08662201256ad27b7fd5a9ffd10fd49
+  moengage_flutter: 6a9725a252e417726db81e96000adf67c572ff7a
+  moengage_geofence: 2500f1b5454ad3c00ebbbecc678192198d01556a
+  moengage_inbox: bb95c8f68f3dd8eb8a7cef9987ff49da34c5d6b7
+  MoEngageCards: 6abbee73f5d27510ff5578a4d11f0673a751c66b
+  MoEngageGeofence: 5e5c11c6b2890f837a8b22dc42d603317647fe4a
+  MoEngageInApp: adde27d04ca31eb594fc064cd8cb9b7e292bba6f
+  MoEngageInbox: d7e111ed480281abe539a9f3ec5084e9f7f80656
+  MoEngagePluginBase: f01eee31616ee87907bb5dfec826b99ed90aca3b
+  MoEngagePluginCards: a2c0acd092b8d1298a3155e17c6474da27b8aff9
+  MoEngagePluginGeofence: ead1514d617044e4116c1909608b8509122de16b
+  MoEngagePluginInbox: 180686c96767400ffa42b4427184eec0cee4fee0
+  MoEngageRichNotification: ef9f1ec806dcc8932a481faa68f89037df6dfc1b
+  permission_handler_apple: 8f116445eff3c0e7c65ad60f5fef5490aa94b4e4
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
+  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+  webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
-PODFILE CHECKSUM: 4d9e79603cceee14207a73603a7cdd6a1977f777
+PODFILE CHECKSUM: 7e2e8882e434d588678eadca4e80d2dd0d151a22
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
