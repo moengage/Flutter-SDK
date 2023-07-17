@@ -13,6 +13,7 @@ enum MoEngageFlutterCardsConstants {
     enum FlutterToNativeMethods {
         static let initialize = "initialize"
         static let refreshCards = "refreshCards"
+        static let fetchCards = "fetchCards"
         static let onCardSectionLoaded = "onCardSectionLoaded"
         static let setAppOpenCardsSyncListener = "setAppOpenCardsSyncListener"
         static let onCardSectionUnloaded = "onCardSectionUnLoaded"

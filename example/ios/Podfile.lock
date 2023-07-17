@@ -1,16 +1,16 @@
 PODS:
   - Flutter (1.0.0)
   - MoEngage-iOS-SDK (9.8.2)
-  - moengage_cards (0.0.1):
+  - moengage_cards (1.0.0):
     - Flutter
     - MoEngagePluginCards
-  - moengage_flutter (5.3.1):
+  - moengage_flutter (5.4.0):
     - Flutter
     - MoEngagePluginBase (~> 4.2.0)
-  - moengage_geofence (1.4.0):
+  - moengage_geofence (1.5.0):
     - Flutter
     - MoEngagePluginGeofence (~> 2.2.0)
-  - moengage_inbox (4.3.0):
+  - moengage_inbox (4.4.0):
     - Flutter
     - MoEngagePluginInbox (~> 2.2.0)
   - MoEngageCards (4.8.1):
@@ -53,7 +53,7 @@ DEPENDENCIES:
   - moengage_flutter (from `.symlinks/plugins/moengage_flutter/ios`)
   - moengage_geofence (from `.symlinks/plugins/moengage_geofence/ios`)
   - moengage_inbox (from `.symlinks/plugins/moengage_inbox/ios`)
-  - MoEngagePluginCards (from `https://github.com/moengage/iOS-PluginBase.git`, branch `MOEN-24218_self-handled-cards`)
+  - MoEngagePluginCards (from `https://github.com/moengage/iOS-PluginBase.git`, branch `MOEN-25537_fetchCards`)
   - MoEngageRichNotification
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
@@ -85,7 +85,7 @@ EXTERNAL SOURCES:
   moengage_inbox:
     :path: ".symlinks/plugins/moengage_inbox/ios"
   MoEngagePluginCards:
-    :branch: MOEN-24218_self-handled-cards
+    :branch: MOEN-25537_fetchCards
     :git: https://github.com/moengage/iOS-PluginBase.git
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
@@ -100,16 +100,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MoEngagePluginCards:
-    :commit: 2f0ff5153bf90330cfac6844a0f1943b5c758311
+    :commit: d1b75b74e0b28a3480a954bddfcbfafc97ce1a5f
     :git: https://github.com/moengage/iOS-PluginBase.git
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   MoEngage-iOS-SDK: f322825e601bc82fba5fdc7968afe987d04c87fc
-  moengage_cards: 7513eb53c08662201256ad27b7fd5a9ffd10fd49
-  moengage_flutter: 6a9725a252e417726db81e96000adf67c572ff7a
-  moengage_geofence: 2500f1b5454ad3c00ebbbecc678192198d01556a
-  moengage_inbox: bb95c8f68f3dd8eb8a7cef9987ff49da34c5d6b7
+  moengage_cards: 762f9c688b3d5a655b0225f531c4f5160128f76d
+  moengage_flutter: 0fd4e6986042cbc4223d0586d1c9de70773c06a0
+  moengage_geofence: b0291e96423b3dfd1a7c7efc25dffe1a9e9bf736
+  moengage_inbox: c8dc346a65967fde96b16b8466ddaf8ad115b94e
   MoEngageCards: 6abbee73f5d27510ff5578a4d11f0673a751c66b
   MoEngageGeofence: 5e5c11c6b2890f837a8b22dc42d603317647fe4a
   MoEngageInApp: adde27d04ca31eb594fc064cd8cb9b7e292bba6f
@@ -125,6 +125,6 @@ SPEC CHECKSUMS:
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
-PODFILE CHECKSUM: 7e2e8882e434d588678eadca4e80d2dd0d151a22
+PODFILE CHECKSUM: d273b34c978791f08d384b91638ef8e183534d64
 
 COCOAPODS: 1.12.1

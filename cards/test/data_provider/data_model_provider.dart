@@ -80,6 +80,8 @@ final cardModel = Card(
 final cardsInfoModel = CardsInfo(
     cards: [cardModel], categories: ["promotions"], shouldShowAllTab: true);
 
+final cardDataModel = CardData(cards: [cardModel]);
+
 final cardsDataModel = CardsData(category: "promotions", cards: [cardModel]);
 
 final syncCompleteDataModel =

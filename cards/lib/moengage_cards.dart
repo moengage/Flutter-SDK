@@ -7,6 +7,7 @@ export 'src/model/style/button_style.dart';
 export 'src/model/campaign_state.dart';
 export 'src/model/card.dart';
 export 'src/model/cards_info.dart';
+export 'src/model/card_data.dart';
 export 'src/model/cards_data.dart';
 export 'src/model/container.dart';
 export 'src/model/display_control.dart';
