@@ -1,3 +1,6 @@
-## 0.0.1
+# MoEngage Cards Plugin
 
-* TODO: Describe initial release.
+# TODO: Update Release Date
+
+## 1.0.0
+- Initial Release

@@ -27,7 +27,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -50,6 +50,6 @@ android {
 dependencies {
 
     api("com.moengage:plugin-base-cards:1.0.0")
-    compileOnly("com.moengage:moe-android-sdk:12.7.02")
+    compileOnly("com.moengage:moe-android-sdk:12.8.00")
     compileOnly("com.moengage:cards-core:1.3.1")
 }
