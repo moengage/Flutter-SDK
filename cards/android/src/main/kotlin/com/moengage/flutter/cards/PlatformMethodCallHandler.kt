@@ -272,7 +272,7 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getCardPayload(cardsData: CardData?, payload: String): JSONObject {
-        return cardDataToJson(cardsData, instanceMetaFromJson(JSONObject(payload)))
+    private fun getCardPayload(cardData: CardData?, payload: String): JSONObject {
+        return cardDataToJson(cardData, instanceMetaFromJson(JSONObject(payload)))
     }
 }
