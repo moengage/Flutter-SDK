@@ -77,7 +77,9 @@ class _CardsHomeState extends State<CardsHome> {
                     onTap: () async {
                       var data = await cards.fetchCards();
                       var count = data.cards.length;
-                      showSnackBar("Fetched $count card(s) , Category-${data.category}", context);
+                      showSnackBar(
+                          "Fetched $count card(s) , Category-${data.category}",
+                          context);
                     },
                   ),
                   ListTile(
