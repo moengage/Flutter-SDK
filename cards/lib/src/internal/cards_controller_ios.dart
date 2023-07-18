@@ -20,10 +20,10 @@ class MoEiOSCardsController extends MoEngageCardsPlatform {
   }
 
   @override
-  Future<CardData> fetchCards(String appId) async {
+  Future<CardsData> fetchCards(String appId) async {
     String result = await methodChannel.invokeMethod(
         methodFetchCards, getAccountMeta(appId));
-    return deSerializeCardData(result);
+    return deSerializeCardsData(result);
   }
 
   @override

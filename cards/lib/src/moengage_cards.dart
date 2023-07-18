@@ -1,7 +1,6 @@
 import 'package:moengage_cards/src/internal/cards_platform_interface.dart';
 import 'package:moengage_cards/src/internal/constants.dart';
 import 'package:moengage_cards/src/model/card.dart';
-import 'package:moengage_cards/src/model/card_data.dart';
 import 'package:moengage_cards/src/model/cards_data.dart';
 import 'package:moengage_flutter/internal/logger.dart';
 import 'package:moengage_cards/src/model/cards_info.dart';
@@ -38,7 +37,7 @@ class MoEngageCards {
 
   /// Fetch all Cards
   /// Note: This API refreshes cards data if inbox sync time interval expired
-  Future<CardData> fetchCards() {
+  Future<CardsData> fetchCards() {
     Logger.v("$_tag fetchCards(): Fetch Cards");
     return _cardsPlatform.fetchCards(_appId);
   }

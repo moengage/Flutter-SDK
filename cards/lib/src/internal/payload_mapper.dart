@@ -5,7 +5,6 @@ import 'package:moengage_cards/src/model/enums/action_type.dart';
 import 'package:moengage_cards/src/model/style/button_style.dart';
 import 'package:moengage_cards/src/model/card.dart';
 import 'package:moengage_cards/src/model/cards_info.dart';
-import 'package:moengage_cards/src/model/card_data.dart';
 import 'package:moengage_cards/src/model/cards_data.dart';
 import 'package:moengage_cards/src/model/style/image_style.dart';
 import 'package:moengage_cards/src/model/action/navigation_action.dart';
@@ -62,11 +61,6 @@ List<String> deSerializeCardsCategories(String payload) {
 CardsInfo deSerializeCardsInfo(String payload) {
   Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
   return CardsInfo.fromJson(dataPayload);
-}
-
-CardData deSerializeCardData(String payload) {
-  Map<String, dynamic> dataPayload = jsonDecode(payload)[keyData];
-  return CardData.fromJson(dataPayload);
 }
 
 CardsData deSerializeCardsData(String payload) {

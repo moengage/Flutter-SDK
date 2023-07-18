@@ -12,7 +12,7 @@ class CardsData {
   CardsData({required this.category, required this.cards});
 
   factory CardsData.fromJson(Map<String, dynamic> json) => CardsData(
-      category: json[keyCategory],
+      category: json[keyCategory] ?? argumentAllCards,
       cards: List.from((json[keyCards] ?? []) as Iterable)
           .map((e) => Card.fromJson(e))
           .toList());

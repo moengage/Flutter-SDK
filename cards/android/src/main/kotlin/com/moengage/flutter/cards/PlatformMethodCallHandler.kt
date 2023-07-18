@@ -160,7 +160,7 @@ class PlatformMethodCallHandler(
                 cardsPluginHelper.fetchCards(context, payload, cardAvailableListener = {
                     GlobalResources.mainThread.post {
                         Logger.print { "$tag fetchCards(): Result Success: $it" }
-                        result.success(getCardPayload(it, payload))
+                        result.success(getCardPayload(it, payload).toString())
                     }
                 })
             }

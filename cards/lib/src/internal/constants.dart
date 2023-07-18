@@ -101,3 +101,4 @@ const String methodOnAppOpenCardsSync = "onAppOpenCardsSync";
 const String argumentPullToRefreshSync = "PULL_TO_REFRESH";
 const String argumentInboxOpenSync = "INBOX_OPEN";
 const String argumentAppOpenSync = "APP_OPEN";
+const String argumentAllCards = "All";
