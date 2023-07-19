@@ -47,6 +47,11 @@ void main() {
     final cardsForCategory = await mock.getCardsForCategory("promotions", "");
     expect(cardsForCategory.toJson(), cardsDataModel.toJson());
   });
+
+  test('Fetch All Cards', () async {
+    final cardData = await mock.fetchCards("");
+    expect(cardData.toJson(), cardDataModel.toJson());
+  });
 }
 
 Future<dynamic> methodCallHandler(MethodCall methodCall) async {
@@ -69,6 +74,9 @@ Future<dynamic> methodCallHandler(MethodCall methodCall) async {
       break;
     case methodCardsForCategory:
       methodResult = cardsForCategoryJson;
+      break;
+    case methodFetchCards:
+      methodResult = fetchCardsData;
       break;
   }
   return methodResult;

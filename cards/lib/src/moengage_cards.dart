@@ -35,6 +35,13 @@ class MoEngageCards {
     _cardsPlatform.refreshCards(_appId, cardsSyncListener);
   }
 
+  /// Fetch all Cards
+  /// Note: This API refreshes cards data if inbox sync time interval expired
+  Future<CardsData> fetchCards() {
+    Logger.v("$_tag fetchCards(): Fetch Cards");
+    return _cardsPlatform.fetchCards(_appId);
+  }
+
   /// Notify the MoEngage SDK that card section has loaded
   /// Note: This API should be used when the cards/inbox screen is visible to user
   /// [cardsSyncListener] - Callback for Card Sync Completion of type [CardsSyncListener]

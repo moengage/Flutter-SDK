@@ -149,5 +149,13 @@ final cards = [];
 cards.deleteCards(cards);
 ```
 
+Fetch Cards Data
+
+```
+cards.fetchCards().then((cardsData) {
+  //Update UI
+});
+```
+
 Note: This plugin is dependent on `moengage_flutter` plugin. Make sure you have installed
 the `moengage_flutter` plugin as well.

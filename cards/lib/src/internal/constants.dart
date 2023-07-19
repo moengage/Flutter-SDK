@@ -79,6 +79,7 @@ const String keyUnClickedCardsCount = "unClickedCardsCount";
 // Platform Channel Methods
 const String methodInitialize = "initialize";
 const String methodRefreshCards = "refreshCards";
+const String methodFetchCards = "fetchCards";
 const String methodOnCardSectionLoaded = "onCardSectionLoaded";
 const String methodSetAppOpenCardsSyncListener = "setAppOpenCardsSyncListener";
 const String methodOnCardSectionUnLoaded = "onCardSectionUnLoaded";
@@ -100,3 +101,4 @@ const String methodOnAppOpenCardsSync = "onAppOpenCardsSync";
 const String argumentPullToRefreshSync = "PULL_TO_REFRESH";
 const String argumentInboxOpenSync = "INBOX_OPEN";
 const String argumentAppOpenSync = "APP_OPEN";
+const String argumentAllCards = "All";

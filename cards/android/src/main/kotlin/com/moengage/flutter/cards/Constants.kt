@@ -17,6 +17,7 @@ internal const val METHOD_DELETE_CARDS = "deleteCards"
 internal const val METHOD_IS_ALL_CATEGORY_ENABLED = "isAllCategoryEnabled"
 internal const val METHOD_NEW_CARDS_COUNT = "getNewCardsCount"
 internal const val METHOD_UN_CLICKED_CARDS_COUNT = "unClickedCardsCount"
+internal const val METHOD_FETCH_CARDS = "fetchCards"
 
 internal const val METHOD_INBOX_OPEN_CARDS_SYNC = "onInboxOpenCardsSync"
 internal const val METHOD_PULL_TO_REFRESH_CARDS_SYNC = "onPullToRefreshCardsSync"

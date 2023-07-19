@@ -28,6 +28,9 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   void refreshCards(String appId, CardsSyncListener cardsSyncListener) =>
       throw UnimplementedError();
 
+  Future<CardsData> fetchCards(String appId) async =>
+      throw UnimplementedError();
+
   void onCardsSectionLoaded(
           String appId, CardsSyncListener cardsSyncListener) async =>
       throw UnimplementedError();

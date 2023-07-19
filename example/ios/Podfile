@@ -30,8 +30,6 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
-  # TODO: remove private source after pluginbase release
-  pod 'MoEngagePluginCards', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-24218_self-handled-cards'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end

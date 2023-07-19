@@ -1,12 +1,16 @@
 package com.moengage.flutter.cards
 
 import android.content.Context
+import com.moengage.cards.core.model.CardData
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.cards.CardsPluginHelper
+import com.moengage.plugin.base.cards.internal.cardDataToJson
+import com.moengage.plugin.base.internal.instanceMetaFromJson
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.json.JSONObject
 
 class PlatformMethodCallHandler(
     private val context: Context,
@@ -37,6 +41,7 @@ class PlatformMethodCallHandler(
                 METHOD_IS_ALL_CATEGORY_ENABLED -> isAllCategoryEnabled(call, result)
                 METHOD_NEW_CARDS_COUNT -> getNewCardsCount(call, result)
                 METHOD_UN_CLICKED_CARDS_COUNT -> getUnClickedCardsCount(call, result)
+                METHOD_FETCH_CARDS -> fetchCards(call, result)
                 else -> {
                     Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
                 }
@@ -147,6 +152,24 @@ class PlatformMethodCallHandler(
         }
     }
 
+    private fun fetchCards(call: MethodCall, result: MethodChannel.Result) {
+        val payload = call.arguments.toString()
+        try {
+            Logger.print { "$tag fetchCards() : $payload" }
+            GlobalResources.executor.submit {
+                cardsPluginHelper.fetchCards(context, payload, cardAvailableListener = {
+                    GlobalResources.mainThread.post {
+                        Logger.print { "$tag fetchCards(): Result Success: $it" }
+                        result.success(getCardPayload(it, payload).toString())
+                    }
+                })
+            }
+        } catch (t: Throwable) {
+            result.success(getCardPayload(null, payload).toString())
+            Logger.print(LogLevel.ERROR, t) { "$tag fetchCards() : " }
+        }
+    }
+
     private fun getCardsCategories(call: MethodCall, result: MethodChannel.Result) {
         try {
             val payload = call.arguments.toString()
@@ -247,5 +270,9 @@ class PlatformMethodCallHandler(
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
         }
+    }
+
+    private fun getCardPayload(cardData: CardData?, payload: String): JSONObject {
+        return cardDataToJson(cardData, instanceMetaFromJson(JSONObject(payload)))
     }
 }

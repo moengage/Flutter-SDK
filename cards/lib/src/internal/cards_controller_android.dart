@@ -23,6 +23,13 @@ class MoEAndroidCardsController extends MoEngageCardsPlatform {
   }
 
   @override
+  Future<CardsData> fetchCards(String appId) async {
+    String result = await methodChannel.invokeMethod(
+        methodFetchCards, getAccountMeta(appId));
+    return deSerializeCardsData(result);
+  }
+
+  @override
   void onCardsSectionLoaded(String appId, CardsSyncListener cardsSyncListener) {
     super.onCardsSectionLoaded(appId, cardsSyncListener);
     methodChannel.invokeMethod(

@@ -42,6 +42,14 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             pluginHelper.initialize(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.refreshCards:
             pluginHelper.refreshCards(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.fetchCards:
+            pluginHelper.fetchCards(payload) { data in
+                MoEngageCardsUtil.resume(
+                    channel: call.method,
+                    havingResult: result,
+                    withData: data
+                )
+            }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.onCardSectionLoaded:
             pluginHelper.onCardsSectionLoaded(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.setAppOpenCardsSyncListener:
