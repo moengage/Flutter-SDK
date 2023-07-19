@@ -10,7 +10,7 @@ typedef CardsSyncListener = void Function(SyncCompleteData? data);
 
 /// Helper Class to interact with MoEngage Cards Feature
 class MoEngageCards {
-  static const String _tag = "${MODULE_TAG}MoEngageCards";
+  static const String _tag = "${moduleTag}MoEngageCards";
 
   /// Account identifier, APP ID on the MoEngage Dashboard.
   final String _appId;

@@ -10,7 +10,7 @@ import 'cards_instance_provider.dart';
 
 /// Common Implementation of Cards Platform Interface
 abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
-  static const String _tag = "${MODULE_TAG}CardsPlatformBase";
+  static const String _tag = "${moduleTag}CardsPlatformBase";
 
   MethodChannel methodChannel = const MethodChannel(cardsMethodChannel);
 

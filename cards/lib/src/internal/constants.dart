@@ -1,4 +1,4 @@
-const MODULE_TAG = "Cards_";
+const moduleTag = "Cards_";
 
 //Cards Method Channel
 const String cardsMethodChannel = "com.moengage/cards";
