@@ -4,6 +4,9 @@ version '1.0'
 buildscript {
     ext.kotlin_version = '1.6.0'
     repositories {
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
         google()
         mavenCentral()
         jcenter()
@@ -17,6 +20,9 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
         google()
         mavenCentral()
     }
@@ -51,7 +57,7 @@ android {
 dependencies {
     compileOnly("com.moengage:moe-android-sdk:12.8.00")
     compileOnly("com.moengage:inapp:6.7.0")
-    api("com.moengage:plugin-base:3.3.2")
+    api("com.moengage:plugin-base:3.3.3-SNAPSHOT")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")
