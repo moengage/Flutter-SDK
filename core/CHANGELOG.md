@@ -4,7 +4,7 @@
 
 ## Version
 - Android
-  - BugFix
+  - BugFix:
     - Self Handled InApp delivery controls not working.
 
 # 19-07-2023
