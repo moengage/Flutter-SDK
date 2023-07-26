@@ -1,7 +1,8 @@
 # MoEngage Flutter Inbox Plugin
-# Next Release
 
-## Next Version
+# 26-07-2023
+
+## 4.5.1
 - iOS
   - BugFix: Fixed parsing issue in `fetchAllMessages` API.
   

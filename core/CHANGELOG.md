@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release
+# 26-07-2023
 
-## Version
+## 5.5.1
 - Android
   - BugFix:
     - Self Handled InApp delivery controls not working.
