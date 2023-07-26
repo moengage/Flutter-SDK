@@ -4,7 +4,8 @@
 
 ## Version
 - Android
-  - BugFix: Self Handled InApp Callback Payload Transformer Fix 
+  - BugFix
+    - Self Handled InApp delivery controls not working.
 
 # 19-07-2023
 
