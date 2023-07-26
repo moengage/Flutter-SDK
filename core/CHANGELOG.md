@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Next Release
+
+## Version
+- Android
+  - BugFix: Self Handled InApp Callback Payload Transformer Fix 
+
 # 19-07-2023
 
 ## 5.5.0
