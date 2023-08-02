@@ -1,0 +1,19 @@
+name: moengage_geofence_platform_interface
+description: A common platform interface for the moengage_geofence plugin.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.0
+  moengage_flutter:
+  moengage_flutter_platform_interface:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  

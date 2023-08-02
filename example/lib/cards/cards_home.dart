@@ -4,14 +4,14 @@ import 'package:moengage_cards/moengage_cards.dart' as moe;
 import 'cards_screen.dart';
 
 class CardsHome extends StatefulWidget {
-  const CardsHome({Key? key}) : super(key: key);
+  const CardsHome({super.key});
 
   @override
   State<CardsHome> createState() => _CardsHomeState();
 }
 
 class _CardsHomeState extends State<CardsHome> {
-  moe.MoEngageCards cards = moe.MoEngageCards("DAO6UGZ73D9RTK8B5W96TPYN");
+  moe.MoEngageCards cards = moe.MoEngageCards('DAO6UGZ73D9RTK8B5W96TPYN');
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _CardsHomeState extends State<CardsHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Cards Home"),
+          title: const Text('Cards Home'),
         ),
         body: Column(
           children: [
@@ -33,61 +33,62 @@ class _CardsHomeState extends State<CardsHome> {
                 context: context,
                 tiles: [
                   ListTile(
-                    title: Text("New Cards Count"),
+                    title: const Text('New Cards Count'),
                     onTap: () {
-                      cards.getNewCardsCount().then((value) {
-                        showSnackBar("New Cards Count: $value", context);
+                      cards.getNewCardsCount().then((int value) {
+                        showSnackBar('New Cards Count: $value', context);
                       });
                     },
                   ),
                   ListTile(
-                    title: Text("UnClicked Cards Count"),
+                    title: const Text('UnClicked Cards Count'),
                     onTap: () {
-                      cards.getUnClickedCardsCount().then((value) {
-                        showSnackBar("UnClicked Cards Count: $value", context);
+                      cards.getUnClickedCardsCount().then((int value) {
+                        showSnackBar('UnClicked Cards Count: $value', context);
                       });
                     },
                   ),
                   ListTile(
-                    title: Text("Get Cards Categories"),
+                    title: const Text('Get Cards Categories'),
                     onTap: () {
-                      cards.getCardsCategories().then((value) {
-                        showSnackBar("Get Cards Categories: $value", context);
+                      cards.getCardsCategories().then((List<String> value) {
+                        showSnackBar('Get Cards Categories: $value', context);
                       });
                     },
                   ),
                   ListTile(
-                    title: Text("Is All Category Enabled"),
+                    title: const Text('Is All Category Enabled'),
                     onTap: () {
-                      cards.isAllCategoryEnabled().then((value) {
+                      cards.isAllCategoryEnabled().then((bool value) {
                         showSnackBar(
-                            "Is All Category Enabled: $value", context);
+                            'Is All Category Enabled: $value', context);
                       });
                     },
                   ),
                   ListTile(
-                    title: Text("Mark Card as Delivered"),
+                    title: const Text('Mark Card as Delivered'),
                     onTap: () async {
                       cards.cardDelivered();
-                      showSnackBar("Marking Card as Delivered", context);
+                      showSnackBar('Marking Card as Delivered', context);
                     },
                   ),
                   ListTile(
-                    title: Text("Fetch Cards"),
+                    title: const Text('Fetch Cards'),
                     onTap: () async {
-                      var data = await cards.fetchCards();
-                      var count = data.cards.length;
+                      moe.CardsData data = await cards.fetchCards();
+                      int count = data.cards.length;
                       showSnackBar(
-                          "Fetched $count card(s) , Category-${data.category}",
+                          'Fetched $count card(s) , Category-${data.category}',
                           context);
                     },
                   ),
                   ListTile(
-                    title: Text("Go To Cards UI"),
+                    title: const Text('Go To Cards UI'),
                     tileColor: Colors.blueGrey.shade50.withAlpha(100),
                     onTap: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CardsScreen()));
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const CardsScreen()));
                     },
                   ),
                 ],
@@ -100,7 +101,7 @@ class _CardsHomeState extends State<CardsHome> {
   showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     ));
   }
 }

@@ -1,0 +1,1 @@
+extension MapExtension on Map {}

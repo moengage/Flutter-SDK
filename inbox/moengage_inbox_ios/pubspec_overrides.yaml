@@ -1,0 +1,5 @@
+dependency_overrides:
+  moengage_inbox_platform_interface:
+    path: ../moengage_inbox_platform_interface/
+  moengage_flutter_platform_interface:
+    path: ../../core/moengage_flutter_platform_interface/

@@ -1,0 +1,27 @@
+name: moengage_inbox_ios
+description: iOS implementation of the moengage_inbox plugin
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+flutter:
+  plugin:
+    implements: moengage_inbox
+    platforms:
+      ios:
+        pluginClass: MoEngageInboxPlugin
+        dartPluginClass: MoEngageInboxIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  moengage_inbox_platform_interface:
+    path: ../moengage_inbox_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.0
+  

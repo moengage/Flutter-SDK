@@ -1,0 +1,26 @@
+name: moengage_flutter_ios
+description: iOS implementation of the moengage_flutter plugin
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+flutter:
+  plugin:
+    implements: moengage_flutter
+    platforms:
+      ios:
+        pluginClass: MoEngageFlutterPlugin
+        dartPluginClass: MoEngageFlutterIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  moengage_flutter_platform_interface:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.0
+  
