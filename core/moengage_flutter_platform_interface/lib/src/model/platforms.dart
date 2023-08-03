@@ -1,8 +1,17 @@
 import 'dart:io';
 
-enum Platforms { android, iOS }
+/// Type of Platform
+enum Platforms {
+  /// Android Platform
+  android,
 
+  /// Platform IOS
+  iOS
+}
+
+/// Extension for  [Platforms]
 extension PlatformsExtension on Platforms {
+  /// Convert [Platforms] to String
   String get asString {
     switch (this) {
       case Platforms.android:
@@ -12,6 +21,7 @@ extension PlatformsExtension on Platforms {
     }
   }
 
+  /// Get [Platforms] instance From String
   static Platforms fromString(String platform) {
     switch (platform) {
       case _platformIOS:
@@ -25,6 +35,7 @@ extension PlatformsExtension on Platforms {
   }
 }
 
+/// Get Current Platform
 String? getPlatform() {
   if (Platform.isAndroid) {
     return _platformAndroid;

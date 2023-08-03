@@ -53,7 +53,7 @@ class PushPayloadMapper {
                   ? campaignData[keySelfHandledPushRedirection]
                   : false) as bool));
     } catch (e, stackTrace) {
-      Logger.e('$_tag Error: pushTokenFromJson() : ',
+      Logger.e('$_tag Error: pushCampaignFromJson() : ',
           stackTrace: stackTrace, error: e);
     }
     return null;

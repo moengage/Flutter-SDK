@@ -2,16 +2,23 @@ import 'geo_location.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
-  //todo add JSON object and JSONArray
-
+  /// [MoEProperties] Constrcutor
   MoEProperties()
       : generalAttributes = {},
         locationAttributes = {},
         dateTimeAttributes = {},
         isNonInteractive = false;
+
+  /// General Attribute
   Map<String, dynamic> generalAttributes;
+
+  /// Location Attribute
   Map<String, Map<String, double>> locationAttributes;
+
+  /// Date Time Attributes
   Map<String, String> dateTimeAttributes;
+
+  /// Non Interactive Event Flag
   bool isNonInteractive;
 
   /// Adds an event attribute of type string, number or boolean.
@@ -76,8 +83,8 @@ class MoEProperties {
     } else if (value is MoEGeoLocation) {
       locationAttributes.putIfAbsent(key, () => value.toMap());
     } else if (value is List) {
-      List<dynamic> typeCheckedArray = [];
-      for (final val in value) {
+      final List<dynamic> typeCheckedArray = [];
+      for (final dynamic val in value) {
         if (!_isAcceptedArrayType(val)) continue;
         typeCheckedArray.add(val);
       }

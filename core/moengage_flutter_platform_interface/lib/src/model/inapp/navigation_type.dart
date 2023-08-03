@@ -1,5 +1,13 @@
-enum NavigationType { screenName, deeplink }
+/// Navigation Types for Navigation Action
+enum NavigationType {
+  /// Screen Name Navigation
+  screenName,
 
+  /// DeepLink Navigation
+  deeplink
+}
+
+/// Extension for Converting Navigation Type Enum to String
 extension NavigationTypeExtension on NavigationType {
   String get asString {
     switch (this) {

@@ -1,7 +1,18 @@
 import '../constants.dart';
 
-enum MoEGender { male, female, other }
+/// User attribute Gender options
+enum MoEGender {
+  /// User Gender Male
+  male,
 
+  /// User Gender Female
+  female,
+
+  /// User Gender Other
+  other
+}
+
+/// Convert Gender to String
 String genderToString(MoEGender gender) {
   switch (gender) {
     case MoEGender.male:

@@ -18,7 +18,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
 
   /// The default instance of [MoengageFlutterPlatform] to use.
   ///
-  /// Defaults to [MethodChannelMoengageFlutter].
+  /// Defaults to [MethodChannelMoEngageFlutter].
   static MoEngageFlutterPlatform get instance => _instance;
 
   static set instance(MoEngageFlutterPlatform instance) {

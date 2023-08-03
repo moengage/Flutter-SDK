@@ -300,10 +300,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag selfHandledCallback() : Arguments: $payload" }
+            Logger.print { "$tag updateSdkState() : Arguments: $payload" }
             pluginHelper.storeFeatureStatus(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag selfHandledCallback() : " }
+            Logger.print(LogLevel.ERROR, t) { "$tag updateSdkState() : " }
         }
     }
 
@@ -352,7 +352,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             Logger.print { "$tag permissionResponse() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag selfHandledCallback() : Payload: $payload" }
+            Logger.print { "$tag permissionResponse() : Payload: $payload" }
             pluginHelper.permissionResponse(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag permissionResponse() :" }

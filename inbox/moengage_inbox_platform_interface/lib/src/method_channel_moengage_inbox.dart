@@ -12,7 +12,7 @@ class MethodChannelMoEngageInbox extends MoEngageInboxPlatform {
   Future<int> getUnClickedCount(String appId) async {
     final Map<String, dynamic> payload = getAccountMeta(appId);
     final unClickedCountPayload =
-    await _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT, payload);
+        await _channel.invokeMethod(METHOD_NAME_UN_CLICKED_COUNT, payload);
     return fetchUnclickedCount(unClickedCountPayload);
   }
 
@@ -32,7 +32,7 @@ class MethodChannelMoEngageInbox extends MoEngageInboxPlatform {
   Future<InboxData?> fetchAllMessages(String appId) async {
     final Map<String, dynamic> payload = getAccountMeta(appId);
     final serialisedMessages =
-    await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
+        await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
     return deSerializeInboxMessages(serialisedMessages);
   }
 }

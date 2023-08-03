@@ -1,10 +1,24 @@
 import '../../constants.dart';
 import '../../internal/logger.dart';
 
-enum MoEPushService { apns, fcm, push_kit, mi_push }
+/// Type of Push Notification Services
+enum MoEPushService {
+  /// Apple Push Notification Service
+  apns,
+
+  /// Firebase Cloud Messaging
+  fcm,
+
+  /// Huawei Push Kit
+  push_kit,
+
+  /// Xiaomi Push Service
+  mi_push
+}
 
 String _tag = '${TAG}MoEPushService';
 
+/// For Converting [MoEPushService] Enum to String
 extension MoEPushServiceExtention on MoEPushService {
   String get asString {
     switch (this) {
@@ -19,6 +33,7 @@ extension MoEPushServiceExtention on MoEPushService {
     }
   }
 
+  /// [MoEPushService] From string
   static MoEPushService fromString(String pushService) {
     Logger.v('$_tag fromString() : pushService: $pushService');
     switch (pushService.toUpperCase()) {

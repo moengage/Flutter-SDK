@@ -1,7 +1,9 @@
 import '../inapp/action.dart';
 import '../inapp/navigation_type.dart';
 
+/// Navigation Action Data
 class NavigationAction extends Action {
+  /// [NavigationAction] Constructor
   NavigationAction(super.actionType, this.navigationType, this.navigationUrl,
       this.keyValuePairs);
 
@@ -19,6 +21,6 @@ class NavigationAction extends Action {
 
   @override
   String toString() {
-    return '{\nactionType: ${actionType.toString()}\nnavigationType: ${navigationType.toString()}\nnavigationUrl: $navigationUrl\nkeyValuePairs: ${keyValuePairs.toString()}\n}';
+    return '{\nactionType: $actionType\nnavigationType: $navigationType\nnavigationUrl: $navigationUrl\nkeyValuePairs: $keyValuePairs\n}';
   }
 }

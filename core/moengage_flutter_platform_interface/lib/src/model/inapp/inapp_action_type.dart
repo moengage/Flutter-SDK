@@ -1,1 +1,8 @@
-enum ActionType { navigation, custom }
+/// InApp Action Type
+enum ActionType {
+  /// Navigation Action
+  navigation,
+
+  /// Custom Action
+  custom
+}

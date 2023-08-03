@@ -2,7 +2,6 @@ export 'src/constants.dart';
 export 'src/core_instance_provider.dart';
 export 'src/internal/callback/callback_cache.dart';
 export 'src/internal/callback/callbacks.dart';
-export 'src/internal/callback/callbacks.dart';
 export 'src/internal/logger.dart';
 export 'src/log_level.dart';
 export 'src/model/account_meta.dart';

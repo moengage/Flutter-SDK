@@ -1,7 +1,9 @@
 /// Push Notification Config
 class PushConfig {
+  /// [PushConfig] Constructor
   PushConfig({required this.shouldDeliverCallbackOnForegroundClick});
 
+  /// [PushConfig] Default Named Constructor
   PushConfig.defaultConfig()
       : this(shouldDeliverCallbackOnForegroundClick: false);
 

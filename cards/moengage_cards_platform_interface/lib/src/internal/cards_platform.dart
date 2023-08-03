@@ -70,7 +70,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   }
 
   @override
-  void onCardsSectionLoaded(String appId, CardsSyncListener cardsSyncListener){
+  void onCardsSectionLoaded(String appId, CardsSyncListener cardsSyncListener) {
     CardsInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .inboxOpenSyncListener = cardsSyncListener;

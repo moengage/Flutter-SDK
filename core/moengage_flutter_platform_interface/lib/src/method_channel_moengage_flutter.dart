@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:flutter/services.dart';
 
 import '../moengage_flutter_platform_interface.dart';
@@ -9,7 +8,6 @@ import 'utils/utils.dart';
 
 /// An implementation of [MoEngageFlutterPlatform] that uses method channels.
 class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
-
   /// The method channel used to interact with the native platform.
   final MethodChannel _methodChannel = const MethodChannel(channelName);
 

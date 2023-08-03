@@ -15,34 +15,38 @@ import 'utils/in_app_payload_mapper.dart';
 import 'utils/push_payload_mapper.dart';
 import 'utils/utils.dart';
 
+/// Native to Flutter Method Channel Controller
 class CoreController {
+  /// Factory Constructor
   factory CoreController() => _instance;
 
   CoreController._internal() {
-    channel.setMethodCallHandler(_handler);
+    _channel.setMethodCallHandler(_handler);
   }
+
   final String _tag = '${TAG}CoreController';
   static final CoreController _instance = CoreController._internal();
-  late MethodChannel channel = const MethodChannel(channelName);
+  final MethodChannel _channel = const MethodChannel(channelName);
 
   Future<dynamic> _handler(MethodCall call) async {
     Logger.v('$_tag _handler() : Received callback. Payload ${call.method}');
     try {
       if (call.method == callbackPushTokenGenerated) {
-        PushTokenData? data =
+        final PushTokenData? data =
             PushPayloadMapper().pushTokenFromJson(call.arguments);
         if (data != null) {
-          PushTokenCallbackHandler? handler = Cache().pushTokenCallbackHandler;
+          final PushTokenCallbackHandler? handler =
+              Cache().pushTokenCallbackHandler;
           if (handler != null) {
             handler.call(data);
           }
         }
       }
       if (call.method == callbackOnPushClick) {
-        PushCampaignData? data =
+        final PushCampaignData? data =
             PushPayloadMapper().pushCampaignFromJson(call.arguments);
         if (data != null) {
-          PushClickCallbackHandler? handler = CoreInstanceProvider()
+          final PushClickCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .pushClickCallbackHandler;
           if (handler != null) {
@@ -52,9 +56,10 @@ class CoreController {
       }
       if (call.method == callbackOnInAppClicked ||
           call.method == callbackOnInAppCustomAction) {
-        ClickData? data = InAppPayloadMapper().actionFromJson(call.arguments);
+        final ClickData? data =
+            InAppPayloadMapper().actionFromJson(call.arguments);
         if (data != null) {
-          InAppClickCallbackHandler? handler = CoreInstanceProvider()
+          final InAppClickCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .inAppClickCallbackHandler;
           if (handler != null) {
@@ -63,10 +68,10 @@ class CoreController {
         }
       }
       if (call.method == callbackOnInAppShown) {
-        InAppData? data =
+        final InAppData? data =
             InAppPayloadMapper().inAppDataFromJson(call.arguments);
         if (data != null) {
-          InAppShownCallbackHandler? handler = CoreInstanceProvider()
+          final InAppShownCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .inAppShownCallbackHandler;
           if (handler != null) {
@@ -75,10 +80,10 @@ class CoreController {
         }
       }
       if (call.method == callbackOnInAppDismissed) {
-        InAppData? data =
+        final InAppData? data =
             InAppPayloadMapper().inAppDataFromJson(call.arguments);
         if (data != null) {
-          InAppDismissedCallbackHandler? handler = CoreInstanceProvider()
+          final InAppDismissedCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .inAppDismissedCallbackHandler;
           if (handler != null) {
@@ -87,13 +92,14 @@ class CoreController {
         }
       }
       if (call.method == callbackOnInAppSelfHandled) {
-        SelfHandledCampaignData? data =
+        final SelfHandledCampaignData? data =
             InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
         Logger.i('$_tag _handler() : data: $data');
         if (data != null) {
-          SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
-              .getCallbackCacheForInstance(data.accountMeta.appId)
-              .selfHandledInAppCallbackHandler;
+          final SelfHandledInAppCallbackHandler? handler =
+              CoreInstanceProvider()
+                  .getCallbackCacheForInstance(data.accountMeta.appId)
+                  .selfHandledInAppCallbackHandler;
           Logger.v('$_tag _handler() : handler: $handler');
           if (handler != null) {
             handler.call(data);
@@ -101,15 +107,16 @@ class CoreController {
         }
       }
       if (call.method == callbackPermissionResult) {
-        PermissionResultCallbackHandler? handler =
+        final PermissionResultCallbackHandler? handler =
             Cache().permissionResultCallbackHandler;
         if (handler != null) {
-          PermissionResultData data = permissionResultFromMap(call.arguments);
+          final PermissionResultData data =
+              permissionResultFromMap(call.arguments);
           handler.call(data);
         }
       }
     } catch (e, stackTrace) {
-      Logger.e('$_tag Error: ${call.toString()} has an Exception:',
+      Logger.e('$_tag Error: $call has an Exception:',
           error: e, stackTrace: stackTrace);
     }
   }

@@ -1,6 +1,12 @@
-enum PermissionType { PUSH }
+/// Permission Type
+enum PermissionType {
+  /// Push Permission Type
+  PUSH
+}
 
+/// Permission Type Extension
 extension PermissionTypeExtension on PermissionType {
+  /// [PermissionType] From String
   static PermissionType fromString(String permissionType) {
     switch (permissionType) {
       case _permissionTypePush:
@@ -11,6 +17,7 @@ extension PermissionTypeExtension on PermissionType {
     }
   }
 
+  /// Convert [PermissionType] to String
   String get asString {
     switch (this) {
       case PermissionType.PUSH:

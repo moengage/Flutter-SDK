@@ -1,6 +1,12 @@
+/// User Attribute Location Attribute
 class MoEGeoLocation {
+  /// [MoEGeoLocation] Constructor
   MoEGeoLocation(this.latitude, this.longitude);
+
+  ///Latitude of location
   double latitude;
+
+  /// Longitude of location
   double longitude;
 
   Map<String, double> toMap() {
@@ -9,6 +15,6 @@ class MoEGeoLocation {
 
   @override
   String toString() {
-    return '{\nlatitude: ${latitude.toString()}\nlatitude: ${longitude.toString()}\n}';
+    return '{\nlatitude: $latitude\nlatitude: $longitude\n}';
   }
 }

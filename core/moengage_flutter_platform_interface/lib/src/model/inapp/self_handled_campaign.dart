@@ -1,4 +1,6 @@
+/// Self Handled Inpp Campaign Data
 class SelfHandledCampaign {
+  /// [SelfHandledCampaign] Constructor
   SelfHandledCampaign(this.payload, this.dismissInterval);
 
   /// Self handled campaign payload.
@@ -9,6 +11,6 @@ class SelfHandledCampaign {
 
   @override
   String toString() {
-    return '{\npayload: $payload\ndismissInterval: ${dismissInterval.toString()}\n}';
+    return '{\npayload: $payload\ndismissInterval: $dismissInterval\n}';
   }
 }

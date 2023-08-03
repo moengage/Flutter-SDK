@@ -37,7 +37,7 @@ class MoEngageCards {
   /// Notify the MoEngage SDK that card section has loaded
   /// Note: This API should be used when the cards/inbox screen is visible to user
   /// [cardsSyncListener] - Callback for Card Sync Completion of type [CardsSyncListener]
-  void onCardsSectionLoaded(CardsSyncListener cardsSyncListener) async {
+  Future<void> onCardsSectionLoaded(CardsSyncListener cardsSyncListener) async {
     Logger.v('$_tag onCardsSectionLoaded(): ');
     _cardsPlatform.onCardsSectionLoaded(_appId, cardsSyncListener);
   }
