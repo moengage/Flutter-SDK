@@ -31,5 +31,7 @@ export 'src/model/push/push_token_data.dart';
 export 'src/moe_cache.dart';
 export 'src/moe_core_controller.dart';
 export 'src/moengage_flutter_platform_interface.dart';
+export 'src/utils/data_payload_mapper.dart';
 export 'src/utils/in_app_payload_mapper.dart';
 export 'src/utils/init_config_payload_mapper.dart';
+export 'src/utils/utils.dart';

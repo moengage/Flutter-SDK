@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:moengage_cards_platform_interface/moengage_cards_platform_interface.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 
 /// Android Implementation for Cards Platform Interface
 class MoEngageCardsAndroid extends MoEngageCardsPlatform {
   /// Registers this class as the default instance of [MoEngageCardsPlatformInterface]
   static void registerWith() {
+    Logger.v('Registering MoEngageCardsAndroid with Platform Interface');
     MoEngageCardsPlatformInterface.instance = MoEngageCardsAndroid();
   }
 
@@ -96,7 +98,7 @@ class MoEngageCardsAndroid extends MoEngageCardsPlatform {
 
   @override
   Future<CardsData> getCardsForCategory(String category, String appId) async {
-    final result = await methodChannel.invokeMethod(
+    final dynamic result = await methodChannel.invokeMethod(
       methodCardsForCategory,
       jsonEncode(getCardsForCategoryPayload(category, appId)),
     );
@@ -113,7 +115,7 @@ class MoEngageCardsAndroid extends MoEngageCardsPlatform {
 
   @override
   Future<bool> isAllCategoryEnabled(String appId) async {
-    final result = await methodChannel.invokeMethod(
+    final dynamic result = await methodChannel.invokeMethod(
       methodIsAllCategoryEnabled,
       jsonEncode(getAccountMeta(appId)),
     );
@@ -122,7 +124,7 @@ class MoEngageCardsAndroid extends MoEngageCardsPlatform {
 
   @override
   Future<int> getNewCardsCount(String appId) async {
-    final result = await methodChannel.invokeMethod(
+    final dynamic result = await methodChannel.invokeMethod(
       methodNewCardsCount,
       jsonEncode(getAccountMeta(appId)),
     );
@@ -131,7 +133,7 @@ class MoEngageCardsAndroid extends MoEngageCardsPlatform {
 
   @override
   Future<int> getUnClickedCardsCount(String appId) async {
-    final result = await methodChannel.invokeMethod(
+    final dynamic result = await methodChannel.invokeMethod(
       methodUnClickedCardsCount,
       jsonEncode(getAccountMeta(appId)),
     );

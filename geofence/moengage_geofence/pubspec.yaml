@@ -19,7 +19,6 @@ dev_dependencies:
   moengage_geofence_ios:
   moengage_geofence_platform_interface:
   moengage_flutter:
-  moengage_flutter_platform_interface:
 
 flutter:
   plugin:

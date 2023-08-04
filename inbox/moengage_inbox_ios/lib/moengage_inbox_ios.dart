@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' hide getAccountMeta;
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
 
 class MoEngageInboxIOS extends MoEngageInboxPlatform {
@@ -9,6 +10,7 @@ class MoEngageInboxIOS extends MoEngageInboxPlatform {
 
   /// Registers this class as the default instance of [MoEngageInboxPlatform]
   static void registerWith() {
+    Logger.v('Registering MoEngageInboxIOS with Platform Interface');
     MoEngageInboxPlatform.instance = MoEngageInboxIOS();
   }
 

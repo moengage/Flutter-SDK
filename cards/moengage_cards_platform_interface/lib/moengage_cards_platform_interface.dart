@@ -5,7 +5,7 @@ import 'src/method_channel_moengage_cards.dart';
 
 export 'src/internal/cards_platform.dart';
 export 'src/internal/constants.dart';
-export 'src/internal/constants.dart';
+export 'src/internal/cards_controller.dart';
 export 'src/internal/payload_mapper.dart';
 export 'src/model/model.dart';
 

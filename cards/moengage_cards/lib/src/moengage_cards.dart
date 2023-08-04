@@ -1,9 +1,14 @@
 import 'package:moengage_cards_platform_interface/moengage_cards_platform_interface.dart';
-import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
+import 'package:moengage_flutter/moengage_flutter.dart';
 
 /// Helper Class to interact with MoEngage Cards Feature
 class MoEngageCards {
-  MoEngageCards(this._appId);
+  /// [MoEngageCards] Constructor
+  MoEngageCards(this._appId) {
+    /// Requires for Setting up Native to Flutter Method Channel Callbacks
+    CardsController.init();
+  }
+
   static const String _tag = '${moduleTag}MoEngageCards';
 
   /// Account identifier, APP ID on the MoEngage Dashboard.

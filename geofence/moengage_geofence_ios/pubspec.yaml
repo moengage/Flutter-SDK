@@ -19,7 +19,6 @@ dependencies:
     sdk: flutter
   moengage_geofence_platform_interface:
   moengage_flutter:
-  moengage_flutter_platform_interface:
 
 dev_dependencies:
   flutter_test:

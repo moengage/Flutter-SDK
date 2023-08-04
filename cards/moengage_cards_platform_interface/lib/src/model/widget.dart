@@ -22,7 +22,7 @@ class Widget {
       widgetType: widgetType,
       content: (json[keyWidgetContent] ?? '') as String,
       style: widgetStyleFromJson(
-        (json[keyWidgetStyle] ?? {}) as Map<String, dynamic>,
+        (json[keyWidgetStyle] ?? <String, dynamic>{}) as Map<String, dynamic>,
         widgetType,
       ),
       actionList: (json[keyActions] as Iterable)

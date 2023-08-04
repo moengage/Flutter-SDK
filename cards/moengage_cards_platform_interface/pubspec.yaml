@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.1.0
   moengage_flutter:
-  moengage_flutter_platform_interface:
 
 dev_dependencies:
   flutter_test:

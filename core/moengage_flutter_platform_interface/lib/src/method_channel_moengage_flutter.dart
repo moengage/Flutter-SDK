@@ -233,7 +233,7 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   }
 
   @override
-  void requestPushPermissionAndroid() {
+  void requestPushPermission() {
     _methodChannel.invokeMethod(methodRequestPushPermissionAndroid);
   }
 

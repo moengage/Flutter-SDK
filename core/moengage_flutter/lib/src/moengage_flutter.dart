@@ -1,39 +1,52 @@
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
+/// Helper Class to interact with MoEngage SDK
 class MoEngageFlutter {
+  /// [MoEngageFlutter] Constructor
   MoEngageFlutter(this.appId, {MoEInitConfig? moEInitConfig})
-      : _moEInitConfig = moEInitConfig ?? MoEInitConfig.defaultConfig();
+      : _moEInitConfig = moEInitConfig ?? MoEInitConfig.defaultConfig() {
+    //Requires For Setting Up Native to Hybrid Method Channel Callback
+    CoreController.init();
+  }
+
+  /// MoEngage App ID
   String appId;
   final MoEInitConfig _moEInitConfig;
 
   MoEngageFlutterPlatform get _platform => MoEngageFlutterPlatform.instance;
 
+  /// Initialize MoEngage SDK
   void initialise() {
     _platform.initialise(_moEInitConfig, appId);
   }
 
+  /// Sets Push Click Callback Handler
   void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .pushClickCallbackHandler = handler;
   }
 
+  /// Sets Push Token Available Callback Handler
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) {
     Cache().pushTokenCallbackHandler = handler;
   }
 
+  /// Sets InApp Click Callback Listener
   void setInAppClickHandler(InAppClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .inAppClickCallbackHandler = handler;
   }
 
+  /// Sets InApp Shown Callback Handler
   void setInAppShownCallbackHandler(InAppShownCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .inAppShownCallbackHandler = handler;
   }
 
+  /// Sets InApp Dismiss Callback Handler
   void setInAppDismissedCallbackHandler(
       InAppDismissedCallbackHandler? handler) {
     CoreInstanceProvider()
@@ -41,6 +54,7 @@ class MoEngageFlutter {
         .inAppDismissedCallbackHandler = handler;
   }
 
+  /// Sets Self Handled Callback Available Handler
   void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -121,7 +135,7 @@ class MoEngageFlutter {
     }
   }
 
-  /// Tracks th given time as user-attribute.<br/>
+  /// Tracks the given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
     _platform.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
@@ -158,7 +172,7 @@ class MoEngageFlutter {
   /// Mark self-handled campaign as shown.
   /// API to be called only when in-app is self handled
   void selfHandledShown(SelfHandledCampaignData data) {
-    Map<String, dynamic> payload = InAppPayloadMapper()
+    final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionShown);
     _platform.selfHandledCallback(payload);
   }
@@ -166,7 +180,7 @@ class MoEngageFlutter {
   /// Mark self-handled campaign as clicked.
   /// API to be called only when in-app is self handled
   void selfHandledClicked(SelfHandledCampaignData data) {
-    Map<String, dynamic> payload = InAppPayloadMapper()
+    final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionClick);
     _platform.selfHandledCallback(payload);
   }
@@ -174,7 +188,7 @@ class MoEngageFlutter {
   /// Mark self-handled campaign as dismissed.
   /// API to be called only when in-app is self handled
   void selfHandledDismissed(SelfHandledCampaignData data) {
-    Map<String, dynamic> payload = InAppPayloadMapper()
+    final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionDismissed);
     _platform.selfHandledCallback(payload);
   }
@@ -184,6 +198,7 @@ class MoEngageFlutter {
     _platform.setCurrentContext(contexts, appId);
   }
 
+  /// Reset Current Context for InApps
   void resetCurrentContext() {
     _platform.resetCurrentContext(appId);
   }
@@ -290,7 +305,7 @@ class MoEngageFlutter {
   /// Requests the push permission on Android 13 and above.
   /// Note: This API is only for Android Platform.
   void requestPushPermissionAndroid() {
-    _platform.requestPushPermissionAndroid();
+    _platform.requestPushPermission();
   }
 
   /// Setup a callback handler for getting the response permission

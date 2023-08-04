@@ -11,7 +11,7 @@ flutter:
     implements: moengage_geofence
     platforms:
       android:
-        package: 
+        package: com.moengage.flutter.geofence
         pluginClass: MoEngageGeofencePlugin
         dartPluginClass: MoEngageGeofenceAndroid
 

@@ -9,7 +9,10 @@ import 'cards/cards_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
-void main() => runApp(const MaterialApp(home: MyApp()));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MaterialApp(home: MyApp()));
+}
 
 const String tag = 'MoeExample_';
 

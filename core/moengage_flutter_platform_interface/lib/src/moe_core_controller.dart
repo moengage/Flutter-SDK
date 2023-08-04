@@ -18,7 +18,7 @@ import 'utils/utils.dart';
 /// Native to Flutter Method Channel Controller
 class CoreController {
   /// Factory Constructor
-  factory CoreController() => _instance;
+  factory CoreController.init() => _instance;
 
   CoreController._internal() {
     _channel.setMethodCallHandler(_handler);

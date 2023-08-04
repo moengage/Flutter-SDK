@@ -169,8 +169,8 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   }
 
   @override
-  void requestPushPermissionAndroid() {
-    Logger.v('requestPushPermissionAndroid(): Not supported in Web Platform');
+  void requestPushPermission() {
+    Logger.v('requestPushPermission(): Not supported in Web Platform');
   }
 
   @override

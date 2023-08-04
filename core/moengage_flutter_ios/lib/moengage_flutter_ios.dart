@@ -10,6 +10,7 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
 
   /// Registers this class as the default instance of [MoEngageFlutterPlatform]
   static void registerWith() {
+    Logger.v('Registering MoEngageFlutterIOS with Platform Interface');
     MoEngageFlutterPlatform.instance = MoEngageFlutterIOS();
   }
 
@@ -213,8 +214,8 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   }
 
   @override
-  void requestPushPermissionAndroid() {
-    Logger.v('requestPushPermissionAndroid(): Not supported in iOS Platform');
+  void requestPushPermission() {
+    Logger.v('requestPushPermission(): Not supported in iOS Platform');
   }
 
   @override
