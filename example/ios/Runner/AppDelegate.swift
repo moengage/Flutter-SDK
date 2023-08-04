@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import moengage_flutter
+import moengage_flutter_ios
 import MoEngageSDK
 
 @UIApplicationMain

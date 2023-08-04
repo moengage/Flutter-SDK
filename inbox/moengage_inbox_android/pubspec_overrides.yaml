@@ -6,8 +6,8 @@ dependency_overrides:
   moengage_flutter:
     path: ../../core/moengage_flutter/
   moengage_flutter_ios:
-    path: ../../core/moengage_flutter/
+    path: ../../core/moengage_flutter_ios/
   moengage_flutter_android:
-    path: ../../core/moengage_flutter/
+    path: ../../core/moengage_flutter_android/
   moengage_flutter_web:
-    path: ../../core/moengage_flutter/
+    path: ../../core/moengage_flutter_web/

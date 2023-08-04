@@ -4,7 +4,7 @@ pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
 libraryVersion = pubspec['version'].gsub('+', '-')
 
 Pod::Spec.new do |s|
-  s.name             = 'moengage_flutter'
+  s.name             = 'moengage_flutter_ios'
   s.version          = libraryVersion
   s.platform         = :ios
   s.ios.deployment_target = '11.0'

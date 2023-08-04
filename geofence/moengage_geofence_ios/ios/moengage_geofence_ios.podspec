@@ -3,23 +3,19 @@ pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
 libraryVersion = pubspec['version'].gsub('+', '-')
 
 Pod::Spec.new do |s|
-  s.name             = 'moengage_cards'
+  s.name             = 'moengage_geofence_ios'
   s.version          = libraryVersion
-  s.summary          = 'A flutter plugin for using Cards from MoEngage iOS SDKs.'
+  s.summary          = 'A flutter plugin to manage geofence for MoEngage iOS SDK.'
   s.description      = <<-DESC
-  A flutter plugin for using Cards from MoEngage iOS SDKs.
+  A flutter plugin for MoEngage iOS SDK
                        DESC
   s.homepage         = 'https://www.moengage.com/'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'MoEngage Inc.' => 'mobiledevs@moengage.com' }
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
-  s.platform         = :ios, '11.0'
-
+  s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginCards', '~> 1.0.0'
-
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.platform = :ios, '11.0'
   s.swift_version = '5.0'
+  s.dependency 'MoEngagePluginGeofence', '~> 2.3.0'
 end

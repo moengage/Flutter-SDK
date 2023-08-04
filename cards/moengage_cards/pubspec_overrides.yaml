@@ -13,3 +13,5 @@ dependency_overrides:
     path: ../moengage_cards_android/
   moengage_cards_ios:
     path: ../moengage_cards_ios/
+  moengage_flutter_web:
+    path: ../../core/moengage_flutter_web/
