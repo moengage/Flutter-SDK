@@ -11,14 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^5.5.0
+  moengage_geofence_android:
+  moengage_geofence_ios:
+  moengage_geofence_platform_interface:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  moengage_geofence_android:
-  moengage_geofence_ios:
-  moengage_geofence_platform_interface:
-  moengage_flutter:
 
 flutter:
   plugin:
