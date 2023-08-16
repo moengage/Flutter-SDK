@@ -9,14 +9,17 @@ import '../model/platforms.dart';
 
 Map<String, dynamic> getOptOutTrackingPayload(
     String type, bool shouldOptOutDataTracking, String appId) {
-  Map<String, dynamic> payload = getAccountMeta(appId);
-  payload[keyData] = {keyType: type, keyState: shouldOptOutDataTracking};
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  payload[keyData] = <String, dynamic>{
+    keyType: type,
+    keyState: shouldOptOutDataTracking
+  };
   return payload;
 }
 
 Map<String, dynamic> getUpdateSdkStatePayload(
     bool shouldEnableSdk, String appId) {
-  Map<String, dynamic> payload = getAccountMeta(appId);
+  final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = getMap(keyIsSdkEnabled, shouldEnableSdk);
   return payload;
 }

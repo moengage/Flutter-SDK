@@ -1,4 +1,8 @@
+import '../../moengage_inbox_platform_interface.dart';
+
+/// Text Content for [InboxMessage]
 class TextContent {
+  /// [InboxMessage] Constructor
   TextContent(this.title, this.message, this.summary, this.subtitle);
 
   /// Title string for the inbox message.

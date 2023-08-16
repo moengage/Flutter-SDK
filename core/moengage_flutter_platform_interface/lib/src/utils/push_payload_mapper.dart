@@ -45,10 +45,10 @@ class PushPayloadMapper {
                   : false) as bool,
               (campaignData.containsKey(keyClickedAction)
                   ? campaignData[keyClickedAction]
-                  : {}) as Map<String, dynamic>,
+                  : <String, dynamic>{}) as Map<String, dynamic>,
               (campaignData.containsKey(keyPayload)
                   ? campaignData[keyPayload]
-                  : {}) as Map<String, dynamic>,
+                  : <String, dynamic>{}) as Map<String, dynamic>,
               (campaignData.containsKey(keySelfHandledPushRedirection)
                   ? campaignData[keySelfHandledPushRedirection]
                   : false) as bool));

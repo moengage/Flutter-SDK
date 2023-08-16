@@ -32,7 +32,9 @@ abstract class MoEngageGeofencePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Starts Geofence Monitoring
   void startGeofenceMonitoring(String appId);
 
+  /// Stops Geofence Monitoring
   void stopGeofenceMonitoring(String appId);
 }

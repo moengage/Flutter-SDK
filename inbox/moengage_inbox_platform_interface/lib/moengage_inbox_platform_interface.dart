@@ -10,7 +10,7 @@ export 'src/internal/moe_inbox_utils.dart';
 /// The interface that implementations of moengage_inbox must implement.
 ///
 /// Platform implementations should extend this class
-/// rather than implement it as `MoengageInbox`.
+/// rather than implement it as `MoEngageInbox`.
 /// Extending this class (using `extends`) ensures that the subclass will get
 /// the default implementation, while platform implementations that `implements`
 ///  this interface will be broken by newly added [MoEngageInboxPlatform] methods.
@@ -18,6 +18,7 @@ export 'src/internal/moe_inbox_utils.dart';
 export 'src/model/models.dart';
 export 'src/payload_transformer.dart';
 
+/// Platform Interface for MoEngage Inbox Feature
 abstract class MoEngageInboxPlatform extends PlatformInterface {
   /// Constructs a MoengageInboxPlatform.
   MoEngageInboxPlatform() : super(token: _token);
@@ -38,11 +39,15 @@ abstract class MoEngageInboxPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Returns the count of un-clicked messages in the inbox
   Future<int> getUnClickedCount(String appId);
 
+  ///Marks the given message as clicked and tracks a click event for the same.
   void trackMessageClicked(InboxMessage message, String appId);
 
+  /// Deletes the given message from inbox.
   void deleteMessage(InboxMessage message, String appId);
 
+  /// Gets all the messages saved in the inbox
   Future<InboxData?> fetchAllMessages(String appId);
 }

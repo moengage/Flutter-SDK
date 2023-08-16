@@ -1,4 +1,16 @@
-enum MediaType { image, audio, video }
+import '../../moengage_inbox_platform_interface.dart';
+
+/// Possible media types for [InboxMessage]
+enum MediaType {
+  /// Image Type
+  image,
+
+  /// Audio Type
+  audio,
+
+  /// Video Type
+  video
+}
 
 extension MediaTypeExt on MediaType {
   String get asString {

@@ -2,7 +2,9 @@ import 'action.dart';
 import 'media.dart';
 import 'text_content.dart';
 
+/// Data object for Inbox Messages
 class InboxMessage {
+  /// [InboxMessage] Constructor
   InboxMessage(
       this.id,
       this.campaignId,

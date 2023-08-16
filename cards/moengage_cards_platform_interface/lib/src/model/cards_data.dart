@@ -3,6 +3,7 @@ import 'card.dart';
 
 /// Data for Cards for particular Category
 class CardsData {
+  /// [CardsData] Constructor
   CardsData({required this.category, required this.cards});
 
   factory CardsData.fromJson(Map<String, dynamic> json) => CardsData(

@@ -1,6 +1,18 @@
-enum NavigationType { deepLink, richLanding, screenName }
+/// Navigation Type for Inbox Action
+enum NavigationType {
+  /// DeepLinking Action
+  deepLink,
 
+  /// RichLanding Action
+  richLanding,
+
+  /// Screen Name Action
+  screenName
+}
+
+/// Extension for [NavigationType]
 extension NavigationTypeExt on NavigationType {
+  /// Convert [NavigationType] to String
   String get asString {
     switch (this) {
       case NavigationType.deepLink:
@@ -12,6 +24,7 @@ extension NavigationTypeExt on NavigationType {
     }
   }
 
+  /// Get [NavigationType] From String
   static NavigationType fromString(String string) {
     switch (string) {
       case _valueRichLanding:

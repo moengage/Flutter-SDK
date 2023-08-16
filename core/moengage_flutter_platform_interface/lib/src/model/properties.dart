@@ -2,7 +2,7 @@ import 'geo_location.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
-  /// [MoEProperties] Constrcutor
+  /// [MoEProperties] Constructor
   MoEProperties()
       : generalAttributes = {},
         locationAttributes = {},

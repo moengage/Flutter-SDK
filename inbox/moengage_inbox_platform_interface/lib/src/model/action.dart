@@ -1,6 +1,8 @@
-import 'action_type.dart';
+import '../../moengage_inbox_platform_interface.dart';
 
+/// Action Data for [InboxMessage]
 class Action {
+  /// [Action] Constructor
   Action(this.actionType);
   ActionType actionType;
 

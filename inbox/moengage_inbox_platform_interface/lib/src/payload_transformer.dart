@@ -6,7 +6,7 @@ import 'model/models.dart';
 
 const String _tag = '${TAG}PayloadTransformer';
 
-// Unclicked Count
+/// UnClicked Messages Count
 int fetchUnclickedCount(dynamic unClickedPayload) {
   final payload = json.decode(unClickedPayload.toString());
   final dataPayload = payload[keyData];
@@ -21,6 +21,7 @@ int fetchUnclickedCount(dynamic unClickedPayload) {
   return 0;
 }
 
+/// Convert Message To Map
 Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
   final Map<String, dynamic> message = <String, dynamic>{
     keyId: inboxMessage.id,
@@ -39,6 +40,7 @@ Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
   return message;
 }
 
+/// Parse [InboxData] from JSON Strig
 InboxData? deSerializeInboxMessages(dynamic messagesPayload) {
   try {
     final message = json.decode(messagesPayload.toString());
@@ -51,9 +53,10 @@ InboxData? deSerializeInboxMessages(dynamic messagesPayload) {
   return null;
 }
 
+/// Get [List] of [InboxMessage] from JSON Array
 List<InboxMessage> messagesJsonToList(List<dynamic> messageArray) {
   final List<InboxMessage> messages = <InboxMessage>[];
-  for (final message in messageArray) {
+  for (final dynamic message in messageArray) {
     final InboxMessage? inboxMessage =
         messageFromJson(message as Map<String, dynamic>);
     if (inboxMessage != null) {
@@ -63,6 +66,7 @@ List<InboxMessage> messagesJsonToList(List<dynamic> messageArray) {
   return messages;
 }
 
+/// Get [InboxMessage] from JSON
 InboxMessage? messageFromJson(Map<String, dynamic> message) {
   try {
     return InboxMessage(
@@ -85,6 +89,7 @@ InboxMessage? messageFromJson(Map<String, dynamic> message) {
   return null;
 }
 
+/// Get [TextContent] from [Map]
 TextContent textContentFromMap(Map<String, dynamic> textMap) {
   return TextContent(
       (textMap.containsKey(keyTextContentTitle)
@@ -102,6 +107,7 @@ TextContent textContentFromMap(Map<String, dynamic> textMap) {
           .toString());
 }
 
+/// Get [Media] from [Map]
 Media? mediaFromMap(Map<String, dynamic> mediaMap) {
   if (mediaMap.isEmpty) {
     return null;
@@ -110,6 +116,7 @@ Media? mediaFromMap(Map<String, dynamic> mediaMap) {
       mediaMap[keyUrl].toString());
 }
 
+/// Get [List] of [Action] from Json Array
 List<Action> actionsFromMap(List<dynamic> actions) {
   final List<Action> actionList = <Action>[];
   for (final action in actions) {
@@ -121,6 +128,7 @@ List<Action> actionsFromMap(List<dynamic> actions) {
   return actionList;
 }
 
+/// Get [Action] from [Map]
 Action? actionFromMap(Map<String, dynamic> actionMap) {
   final ActionType actionType =
       ActionTypeExt.fromString(actionMap[keyActionType].toString());
@@ -132,6 +140,7 @@ Action? actionFromMap(Map<String, dynamic> actionMap) {
   }
 }
 
+/// Get [NavigationAction] from [Map]
 NavigationAction navigationActionFromMap(
     ActionType actionType, Map<String, dynamic> navigationMap) {
   return NavigationAction(
@@ -141,6 +150,7 @@ NavigationAction navigationActionFromMap(
       navigationMap[keyKvPair] as Map<String, dynamic>);
 }
 
+/// Get [Map] from [TextContent]
 Map<String, String> mapFromTextContent(TextContent content) {
   return <String, String>{
     keyTextContentTitle: content.title,
@@ -150,10 +160,12 @@ Map<String, String> mapFromTextContent(TextContent content) {
   };
 }
 
+/// Get [Map] from [Media]
 Map<String, String> mapFromMedia(Media media) {
   return <String, String>{keyType: media.mediaType.asString, keyUrl: media.url};
 }
 
+/// Get [List] of [Map] from [List] of [Action]
 List<Map<String, dynamic>> actionsListFromModel(List<Action> actions) {
   final List<Map<String, dynamic>> actionsList = <Map<String, dynamic>>[];
   for (final Action action in actions) {
@@ -165,6 +177,7 @@ List<Map<String, dynamic>> actionsListFromModel(List<Action> actions) {
   return actionsList;
 }
 
+/// Convert [Action] to [Map]
 Map<String, dynamic>? actionToMap(Action action) {
   switch (action.actionType) {
     case ActionType.navigation:
@@ -174,6 +187,7 @@ Map<String, dynamic>? actionToMap(Action action) {
   }
 }
 
+/// Convert [NavigationAction] to [Map]
 Map<String, dynamic> navigationActionToMap(NavigationAction navigationAction) {
   final Map<String, dynamic> navigationMap = <String, dynamic>{
     keyActionType: navigationAction.actionType.asString,

@@ -1,6 +1,14 @@
-enum ActionType { navigation }
+import '../../moengage_inbox_platform_interface.dart';
 
+/// Action Type for [InboxMessage]
+enum ActionType {
+  /// Navigation Action
+  navigation
+}
+
+/// Extension functions for [ActionType]
 extension ActionTypeExt on ActionType {
+  /// Convert [ActionType] to [String]
   String get asString {
     switch (this) {
       case ActionType.navigation:
@@ -8,6 +16,7 @@ extension ActionTypeExt on ActionType {
     }
   }
 
+  /// Get [ActionType] from [String]
   static ActionType fromString(String string) {
     switch (string) {
       case _valueNavigation:
