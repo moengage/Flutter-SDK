@@ -9,9 +9,11 @@ import '../model/push/push_campaign_data.dart';
 import '../model/push/push_token_data.dart';
 import 'utils.dart';
 
+/// InApp Json Payload Mapper
 class PushPayloadMapper {
   final String _tag = '${TAG}PushPayloadMapper';
 
+  /// Get [PushTokenData] from Json String
   PushTokenData? pushTokenFromJson(dynamic methodCallArgs) {
     try {
       final Map<String, dynamic> tokenData =
@@ -28,6 +30,7 @@ class PushPayloadMapper {
     return null;
   }
 
+  /// Get [PushCampaignData] from Json String
   PushCampaignData? pushCampaignFromJson(dynamic methodCallArgs) {
     try {
       Logger.v('$_tag pushCampaignFromJson() : $methodCallArgs');

@@ -29,7 +29,7 @@ class CoreController {
   final MethodChannel _channel = const MethodChannel(channelName);
 
   Future<dynamic> _handler(MethodCall call) async {
-    Logger.v('$_tag _handler() : Received callback. Payload ${call.method}');
+    Logger.v('$_tag _handler() : Received callback. Payload ${call.method} - ${call.arguments}');
     try {
       if (call.method == callbackPushTokenGenerated) {
         final PushTokenData? data =

@@ -16,9 +16,11 @@ import '../model/inapp/self_handled_data.dart';
 import '../model/platforms.dart';
 import 'utils.dart';
 
+/// InApp Json Payload Mapper
 class InAppPayloadMapper {
   final String _tag = '${TAG}InAppPayloadMapper';
 
+  /// Get [SelfHandledCampaignData] from JSON String
   SelfHandledCampaignData? selfHandledCampaignFromJson(dynamic methodCallArgs) {
     try {
       final Map<String, dynamic> selfHandledPayload =
@@ -39,6 +41,7 @@ class InAppPayloadMapper {
     return null;
   }
 
+  /// Get [InAppData] from JSON String
   InAppData? inAppDataFromJson(dynamic methodCallArgs) {
     try {
       final Map<String, dynamic> inAppDataPayload =
@@ -57,6 +60,7 @@ class InAppPayloadMapper {
     return null;
   }
 
+  /// Get [ClickData] from JSON String
   ClickData? actionFromJson(dynamic payload) {
     try {
       Logger.i('$_tag actionFromJson() : ${payload.toString()}');
@@ -78,6 +82,7 @@ class InAppPayloadMapper {
     return null;
   }
 
+  /// Get [Action] from [Map]
   Action actionFromMap(Map<String, dynamic> actionData) {
     switch (actionData[keyActionType]) {
       case _actionNavigation:
@@ -91,6 +96,7 @@ class InAppPayloadMapper {
     }
   }
 
+  /// Get [NavigationAction] from [Map]
   NavigationAction navigationActionFromMap(Map<String, dynamic> actionData) {
     return NavigationAction(
         ActionType.navigation,
@@ -100,11 +106,13 @@ class InAppPayloadMapper {
         actionData[keyKvPair] as Map<String, dynamic>);
   }
 
+  /// Get [CustomAction] from [Map]
   CustomAction customActionFromMap(Map<String, dynamic> actionData) {
     return CustomAction(
         ActionType.custom, actionData[keyKvPair] as Map<String, dynamic>);
   }
 
+  /// Get [CampaignData] from [Map]
   CampaignData campaignDataFromMap(Map<String, dynamic> dataPayload) {
     return CampaignData(
         dataPayload[keyCampaignId].toString(),
@@ -113,11 +121,13 @@ class InAppPayloadMapper {
             dataPayload[keyCampaignContext] as Map<String, dynamic>));
   }
 
+  /// Get [CampaignContext] from [Map]
   CampaignContext campaignContextFromMap(Map<String, dynamic> dataPayload) {
     return CampaignContext(
         dataPayload[keyFormattedCampaignId].toString(), dataPayload);
   }
 
+  /// Get [SelfHandledCampaign] from [Map]
   SelfHandledCampaign selfHandledCampaignFromMap(
       Map<String, dynamic> dataPayload) {
     return SelfHandledCampaign(
@@ -127,6 +137,7 @@ class InAppPayloadMapper {
             : -1) as int);
   }
 
+  /// Convert [SelfHandledCampaign] to [Map] for given ActionType
   Map<String, dynamic> selfHandleCampaignDataToMap(
       SelfHandledCampaignData campaignData, String actionType) {
     final Map<String, dynamic> payload =
@@ -143,6 +154,7 @@ class InAppPayloadMapper {
     return payload;
   }
 
+  /// Convert [SelfHandledCampaign] to [Map]
   Map<String, dynamic> selfHandleCampaignToMap(
       SelfHandledCampaign selfHandledCampaign) {
     return {
