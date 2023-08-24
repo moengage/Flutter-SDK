@@ -18,7 +18,9 @@ WidgetStyle? widgetStyleFromJson(
   Map<String, dynamic>? json,
   WidgetType widgetType,
 ) {
-  if (json == null) return null;
+  if (json == null) {
+    return null;
+  }
   switch (widgetType) {
     case WidgetType.text:
       return TextStyle.fromJson(json);
@@ -35,8 +37,6 @@ Action actionStyleFromJson(Map<String, dynamic> json) {
   switch (actionType) {
     case ActionType.navigate:
       return NavigationAction.fromJson(json);
-    default:
-      throw UnsupportedError('ActionType Not Supported');
   }
 }
 
@@ -44,7 +44,7 @@ List<String> deSerializeCardsCategories(String payload) {
   final List<String> categories = <String>[];
   final Map<String, dynamic> data =
       json.decode(payload)[keyData] as Map<String, dynamic>;
-  final Iterable cardCategories =
+  final Iterable<dynamic> cardCategories =
       (data[keyCategories] ?? []) as Iterable<dynamic>;
   for (final data in cardCategories) {
     categories.add(data.toString());

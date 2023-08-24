@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
-
 import '../../moengage_cards_platform_interface.dart';
 import 'cards_instance_provider.dart';
 
 /// Common Implementation of Cards Platform Interface
 abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
-  static const String _tag = '${moduleTag}CardsPlatformBase';
-
   /// Cards Method Channel
   MethodChannel methodChannel = const MethodChannel(cardsMethodChannel);
 

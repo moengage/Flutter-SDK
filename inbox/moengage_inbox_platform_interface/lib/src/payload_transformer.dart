@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter_platform_interface/src/internal/logger.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 import 'internal/constants.dart';
 import 'model/models.dart';
 
@@ -135,8 +135,6 @@ Action? actionFromMap(Map<String, dynamic> actionMap) {
   switch (actionType) {
     case ActionType.navigation:
       return navigationActionFromMap(actionType, actionMap);
-    default:
-      return null;
   }
 }
 

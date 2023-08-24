@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' hide getAccountMeta;
+import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
 
 /// The Android implementation of [MoEngageInboxPlatform].

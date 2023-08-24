@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs
 const String TAG = 'Inbox_';
 const String CHANNEL_NAME = 'com.moengage/inbox';
 

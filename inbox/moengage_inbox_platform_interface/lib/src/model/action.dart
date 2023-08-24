@@ -4,6 +4,8 @@ import '../../moengage_inbox_platform_interface.dart';
 class Action {
   /// [Action] Constructor
   Action(this.actionType);
+
+  /// Type of Action
   ActionType actionType;
 
   @override

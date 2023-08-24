@@ -1,10 +1,12 @@
 import 'dart:core';
 
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' hide getAccountMeta;
+import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
 
+/// IOS implementation of [MoEngageInboxPlatform].
 class MoEngageInboxIOS extends MoEngageInboxPlatform {
+  /// [MoEngageInboxIOS] Constructor
   MoEngageInboxIOS();
   final MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
 

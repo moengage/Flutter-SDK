@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart';
 import '../moengage_inbox_platform_interface.dart';
 
 /// An implementation of [MoEngageInboxPlatform] that uses method channels.
 class MethodChannelMoEngageInbox extends MoEngageInboxPlatform {
   /// The method channel used to interact with the native platform.
-  @visibleForTesting
   final MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
 
   @override

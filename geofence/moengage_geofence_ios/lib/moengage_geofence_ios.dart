@@ -2,7 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 import 'package:moengage_geofence_platform_interface/moengage_geofence_platform_interface.dart';
 
+/// IOS implementation of [MoEngageGeofencePlatform].
 class MoEngageGeofenceIOS extends MoEngageGeofencePlatform {
+  /// [MoEngageGeofenceIOS] Constructor
   MoEngageGeofenceIOS();
 
   final String _tag = '${moduleTagGeofence}MoEngageGeofenceIOS';
