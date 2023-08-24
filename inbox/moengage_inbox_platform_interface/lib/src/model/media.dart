@@ -1,4 +1,4 @@
-import '../../moengage_inbox_platform_interface.dart';
+import 'media_type.dart';
 
 /// Media associated with the [InboxMessage]
 class Media {

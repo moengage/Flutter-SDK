@@ -22,7 +22,7 @@ class MoEngageFlutter {
   }
 
   /// Sets Push Click Callback Handler
-  /// @param [handler] - Callback of type [PushClickCallbackHandler]
+  /// [handler] - Callback of type [PushClickCallbackHandler]
   void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -30,13 +30,13 @@ class MoEngageFlutter {
   }
 
   /// Sets Push Token Available Callback Handler
-  /// @param [handler] - Callback of type [PushTokenCallbackHandler]
+  /// [handler] - Callback of type [PushTokenCallbackHandler]
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) {
     Cache().pushTokenCallbackHandler = handler;
   }
 
   /// Sets InApp Click Callback Listener
-  /// @param [handler] - Callback of type [InAppClickCallbackHandler]
+  /// [handler] - Callback of type [InAppClickCallbackHandler]
   void setInAppClickHandler(InAppClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -44,7 +44,7 @@ class MoEngageFlutter {
   }
 
   /// Sets InApp Shown Callback Handler
-  /// @param [handler] - Callback of type [InAppShownCallbackHandler]
+  /// [handler] - Callback of type [InAppShownCallbackHandler]
   void setInAppShownCallbackHandler(InAppShownCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -52,7 +52,7 @@ class MoEngageFlutter {
   }
 
   /// Sets InApp Dismiss Callback Handler
-  /// @param [handler] - Callback of type [InAppDismissedCallbackHandler]
+  /// [handler] - Callback of type [InAppDismissedCallbackHandler]
   void setInAppDismissedCallbackHandler(
       InAppDismissedCallbackHandler? handler) {
     CoreInstanceProvider()
@@ -61,7 +61,7 @@ class MoEngageFlutter {
   }
 
   /// Sets Self Handled Callback Available Handler
-  /// @param [handler] - Callback of type [SelfHandledInAppCallbackHandler]
+  /// [handler] - Callback of type [SelfHandledInAppCallbackHandler]
   void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -69,67 +69,77 @@ class MoEngageFlutter {
   }
 
   /// Tracks an event with the given attributes.
+  /// [eventName] - Name of the Event to be tracked
+  /// [eventAttributes] - Instance of [MoEProperties]
   void trackEvent(String eventName, [MoEProperties? eventAttributes]) {
     eventAttributes ??= MoEProperties();
     _platform.trackEvent(eventName, eventAttributes, appId);
   }
 
   /// Set a unique identifier for a user.<br/>
-  /// @param [uniqueId] - Unique Identifier of type [String]
+  /// [uniqueId] - Unique Identifier of type [String]
   void setUniqueId(String uniqueId) {
     _platform.setUniqueId(uniqueId, appId);
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
-  /// @param [newUniqueId] - Unique Identifier of type [String]
+  /// [newUniqueId] - Unique Identifier of type [String]
   void setAlias(String newUniqueId) {
     _platform.setAlias(newUniqueId, appId);
   }
 
   /// Tracks user-name as a user attribute.
-  /// @param [userName] First Name value passed by user
+  /// [userName] Full Name value passed by user
   void setUserName(String userName) {
     _platform.setUserName(userName, appId);
   }
 
   /// Tracks first name as a user attribute.
-  /// @param [firstName] Full Name of user passed by user
+  /// [firstName] First Name of user passed by user
   void setFirstName(String firstName) {
     _platform.setFirstName(firstName, appId);
   }
 
   /// Tracks last name as a user attribute.
+  /// [lastName] - Last Name of the User
   void setLastName(String lastName) {
     _platform.setLastName(lastName, appId);
   }
 
   /// Tracks user's email-id as a user attribute.
+  /// [emailId] - Email Id of the User
   void setEmail(String emailId) {
     _platform.setEmail(emailId, appId);
   }
 
   /// Tracks phone number as a user attribute.
+  /// [phoneNumber] - Phone Number of the User
   void setPhoneNumber(String phoneNumber) {
     _platform.setPhoneNumber(phoneNumber, appId);
   }
 
   /// Tracks gender as a user attribute.
+  /// [gender] - Instance of [MoEGender]
   void setGender(MoEGender gender) {
     _platform.setGender(gender, appId);
   }
 
   /// Set's user's location
+  /// [location] - Instance of [MoEGeoLocation]
   void setLocation(MoEGeoLocation location) {
     _platform.setLocation(location, appId);
   }
 
   /// Set user's birth-date.
   /// Birthdate should be sent in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
+  /// [birthDate] - ISO Formatted Date String
   void setBirthDate(String birthDate) {
     _platform.setBirthDate(birthDate, appId);
   }
 
   /// Tracks a user attribute.
+  /// [userAttributeValue] - Data of type [dynamic]
+  /// [userAttributeName] - Name of User Attribute
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
     if (userAttributeName.isEmpty) {
       Logger.w('User Attribute Name cannot be empty');
@@ -148,17 +158,22 @@ class MoEngageFlutter {
 
   /// Tracks the given time as user-attribute.<br/>
   /// Date should be passed in the following format - yyyy-MM-dd'T'HH:mm:ss.fff'Z'
+  /// [userAttributeName] - Name of User Attribute
+  /// [isoDateString] - ISO Formatted Date String
   void setUserAttributeIsoDate(String userAttributeName, String isoDateString) {
     _platform.setUserAttributeIsoDate(userAttributeName, isoDateString, appId);
   }
 
   /// Tracks the given location as user attribute.
+  /// [userAttributeName] - Name of User Attribute
+  /// [location] - Instance of [MoEGeoLocation]
   void setUserAttributeLocation(
       String userAttributeName, MoEGeoLocation location) {
     _platform.setUserAttributeLocation(userAttributeName, location, appId);
   }
 
   /// This API tells the SDK whether it is a fresh install or an existing application was updated.
+  /// [appStatus] - Instance of [MoEAppStatus]
   void setAppStatus(MoEAppStatus appStatus) {
     _platform.setAppStatus(appStatus, appId);
   }
@@ -183,6 +198,7 @@ class MoEngageFlutter {
 
   /// Mark self-handled campaign as shown.
   /// API to be called only when in-app is self handled
+  /// [data] - Instance of [SelfHandledCampaignData]
   void selfHandledShown(SelfHandledCampaignData data) {
     final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionShown);
@@ -191,6 +207,7 @@ class MoEngageFlutter {
 
   /// Mark self-handled campaign as clicked.
   /// API to be called only when in-app is self handled
+  /// [data] - Instance of [SelfHandledCampaignData]
   void selfHandledClicked(SelfHandledCampaignData data) {
     final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionClick);
@@ -199,6 +216,7 @@ class MoEngageFlutter {
 
   /// Mark self-handled campaign as dismissed.
   /// API to be called only when in-app is self handled
+  /// [data] - Instance of [SelfHandledCampaignData]
   void selfHandledDismissed(SelfHandledCampaignData data) {
     final Map<String, dynamic> payload = InAppPayloadMapper()
         .selfHandleCampaignDataToMap(data, selfHandledActionDismissed);
@@ -206,6 +224,7 @@ class MoEngageFlutter {
   }
 
   ///Set the current context for the given user for InApps
+  /// [contexts] - [List] of Context
   void setCurrentContext(List<String> contexts) {
     _platform.setCurrentContext(contexts, appId);
   }
@@ -236,18 +255,21 @@ class MoEngageFlutter {
 
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
+  /// [pushToken] - FCM Push Token
   void passFCMPushToken(String pushToken) {
     _platform.passPushToken(pushToken, MoEPushService.fcm, appId);
   }
 
   /// Pass FCM Push Payload to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
+  /// [payload] - FCM Push Payload Data
   void passFCMPushPayload(Map<String, dynamic> payload) {
     _platform.passPushPayload(payload, MoEPushService.fcm, appId);
   }
 
   /// Pass Push Kit Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
+  /// [pushToken] - Push Kit Token
   void passPushKitPushToken(String pushToken) {
     _platform.passPushToken(pushToken, MoEPushService.push_kit, appId);
   }
@@ -307,7 +329,7 @@ class MoEngageFlutter {
   /// Notify the SDK on notification permission granted state to the application
   /// true if  granted, else false
   /// Note: This API is only for Android Platform.
-  /// @param [isGranted] - Push Permission Granted Flag
+  /// [isGranted] - Push Permission Granted Flag
   void pushPermissionResponseAndroid(bool isGranted) {
     _platform.permissionResponse(isGranted, PermissionType.PUSH);
   }
@@ -327,22 +349,22 @@ class MoEngageFlutter {
   }
 
   /// Setup a callback handler for getting the response permission
-  /// @param [handler] - Instance of [PermissionResultCallbackHandler]
+  /// [handler] - Instance of [PermissionResultCallbackHandler]
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
   }
 
   /// Configure MoEngage SDK Logs
-  /// @param [logLevel] - [LogLevel] for SDK logs
-  /// @param [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
+  /// [logLevel] - [LogLevel] for SDK logs
+  /// [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.
   void configureLogs(LogLevel logLevel,
       {bool isEnabledForReleaseBuild = false}) {
     Logger.configureLogs(logLevel, isEnabledForReleaseBuild);
   }
 
   /// Updates the number of the times Notification permission is requested
-  /// @param [requestCount] This count will be incremented to existing value
   /// Note: This API is only applicable for Android Platform. This should not called in App/Widget lifecycle methods.
+  /// [requestCount] This count will be incremented to existing value
   void updatePushPermissionRequestCountAndroid(int requestCount) {
     _platform.updatePushPermissionRequestCountAndroid(requestCount, appId);
   }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs
 // Method Names
 const String methodInitialise = 'initialise';
 const String methodTrackEvent = 'trackEvent';

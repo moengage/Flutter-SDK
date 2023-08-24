@@ -8,6 +8,6 @@ abstract class Action {
   /// Action Type - Currently Only Navigation Action is Supported
   ActionType actionType;
 
-  //Abstract Function, should be overridden by Implementation Class
+  /// Abstract Function, should be overridden by Implementation Class
   Map<String, dynamic> toJson();
 }

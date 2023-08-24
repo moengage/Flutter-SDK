@@ -32,7 +32,7 @@ class MoEngageCards {
     _cardsPlatform.refreshCards(_appId, cardsSyncListener);
   }
 
-  /// Fetch all Cards
+  /// Returns all Cards data of type [CardsData]
   /// Note: This API refreshes cards data if inbox sync time interval expired
   Future<CardsData> fetchCards() {
     Logger.v('$_tag fetchCards(): Fetch Cards');
@@ -55,12 +55,14 @@ class MoEngageCards {
   }
 
   /// Returns a list of categories to be shown
+  /// Returns [List] of [String] data as [Future]
   Future<List<String>> getCardsCategories() async {
     Logger.v('$_tag getCardsCategories(): Fetching list of Cards Categories');
     return _cardsPlatform.getCardsCategories(_appId);
   }
 
   /// Fetches all cards related data
+  /// Returns [CardsInfo] Data as [Future]
   Future<CardsInfo> getCardsInfo() async {
     Logger.v('$_tag getCardsInfo(): Get Cards Related Info');
     return _cardsPlatform.getCardsInfo(_appId);
@@ -88,6 +90,7 @@ class MoEngageCards {
   }
 
   /// Fetch Cards for given [category]
+  /// Returns [CardsData] as [Future]
   Future<CardsData> getCardsForCategory(String category) {
     return _cardsPlatform.getCardsForCategory(category, _appId);
   }
@@ -110,6 +113,7 @@ class MoEngageCards {
   }
 
   /// Return count of new cards available
+  /// Returns [int] cards count as [Future]
   Future<int> getNewCardsCount() {
     return _cardsPlatform.getNewCardsCount(_appId);
   }

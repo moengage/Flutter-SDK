@@ -11,16 +11,19 @@ class MoEngageInbox {
   late String appId;
 
   ///Marks the given message as clicked and tracks a click event for the same.
+  /// [message] - [InboxMessage] data
   void trackMessageClicked(InboxMessage message) {
     MoEngageInboxPlatform.instance.trackMessageClicked(message, appId);
   }
 
   /// Deletes the given message from inbox.
+  /// [message] - [InboxMessage] data
   void deleteMessage(InboxMessage message) {
     MoEngageInboxPlatform.instance.trackMessageClicked(message, appId);
   }
 
   /// Gets all the messages saved in the inbox
+  /// Returns [List] of [InboxData]
   Future<InboxData?> fetchAllMessages() async {
     return MoEngageInboxPlatform.instance.fetchAllMessages(appId);
   }

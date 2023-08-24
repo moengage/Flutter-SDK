@@ -1,8 +1,11 @@
-import 'package:moengage_flutter_platform_interface/src/model/properties.dart';
+// ignore_for_file: public_member_api_docs
+
+import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
+    show MoEProperties;
 
 extension MoEEvent on MoEProperties {
   Map<String, dynamic> getNormalizedEventAttributeJson() {
-    final Map dateTimeAttributesParsed = {};
+    final Map<String, dynamic> dateTimeAttributesParsed = {};
     dateTimeAttributes.forEach(
       (String k, String v) => dateTimeAttributesParsed[k] = {
         keyTimeStampWeb: DateTime.parse(v).millisecondsSinceEpoch.toString()
@@ -23,7 +26,4 @@ String keyTimeStampWeb = 'dartTimeStamp';
 String keyPayload = 'payload';
 String keyKvPair = 'kvPair';
 String _keyEventAttributes = 'eventAttributes';
-String _keyGeneralAttributes = 'generalAttributes';
-String _keyLocationAttributes = 'locationAttributes';
-String _keyDateTimeAttributes = 'dateTimeAttributes';
 String _keyIsNonInteractive = 'isNonInteractive';

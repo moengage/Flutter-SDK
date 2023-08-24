@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../moengage_cards_platform_interface.dart';
+import '../../moengage_cards_platform_interface.dart';
 
 /// An implementation of [MoEngageCardsPlatform] that uses method channels.
 class MethodChannelMoEngageCards extends MoEngageCardsPlatform {

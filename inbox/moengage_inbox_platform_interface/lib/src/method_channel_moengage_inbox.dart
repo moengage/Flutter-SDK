@@ -1,5 +1,10 @@
 import 'package:flutter/services.dart';
-import '../moengage_inbox_platform_interface.dart';
+
+import './internal/constants.dart';
+import './internal/moe_inbox_utils.dart';
+import 'model/models.dart';
+import 'moengage_inbox_platform_interface.dart';
+import 'payload_transformer.dart';
 
 /// An implementation of [MoEngageInboxPlatform] that uses method channels.
 class MethodChannelMoEngageInbox extends MoEngageInboxPlatform {

@@ -8,7 +8,7 @@ import 'data_provider/data_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  MoEngageCardsPlatformInterface mock = MockCardsPlatform();
+  final MoEngageCardsPlatformInterface mock = MockCardsPlatform();
   MoEngageCardsPlatformInterface.instance = mock;
   const MethodChannel channel = MethodChannel(cardsMethodChannel);
 

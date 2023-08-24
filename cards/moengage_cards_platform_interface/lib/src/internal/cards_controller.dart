@@ -57,10 +57,10 @@ class CardsController {
             .inboxOpenSyncListener
             ?.call(data);
       }
-    } catch (err, stackTrace) {
+    } catch (e, stackTrace) {
       Logger.e(
         '$_tag _handler(): Error: $call has an Exception:',
-        error: err,
+        error: e,
         stackTrace: stackTrace,
       );
     }

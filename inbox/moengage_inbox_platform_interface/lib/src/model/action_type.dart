@@ -1,4 +1,4 @@
-import '../../moengage_inbox_platform_interface.dart';
+import '../moengage_inbox_platform_interface.dart';
 
 /// Action Type for [InboxMessage]
 enum ActionType {

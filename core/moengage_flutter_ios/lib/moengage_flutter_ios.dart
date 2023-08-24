@@ -166,11 +166,11 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   }
 
   @override
-  void optOutDataTracking(bool shouldOptOutDataTracking, String appId) {
+  void optOutDataTracking(bool optOutDataTracking, String appId) {
     _channel.invokeMethod(
         methodOptOutTracking,
         getOptOutTrackingPayload(
-            gdprOptOutTypeData, shouldOptOutDataTracking, appId));
+            gdprOptOutTypeData, optOutDataTracking, appId));
   }
 
   @override

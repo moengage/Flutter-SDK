@@ -1,5 +1,5 @@
-import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'package:collection/collection.dart';
+import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
 class Comparator {
   bool isPushTokenDataEqual(PushTokenData? data1, PushTokenData? data2) {

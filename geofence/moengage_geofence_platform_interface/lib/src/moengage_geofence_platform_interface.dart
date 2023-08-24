@@ -1,9 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'src/method_channel_moengage_geofence.dart';
-
-export 'src/moe_geofence_constants.dart';
-export 'src/moe_geofence_utils.dart';
+import 'internal/method_channel_moengage_geofence.dart';
 
 /// The interface that implementations of moengage_geofence must implement.
 ///
@@ -13,7 +10,7 @@ export 'src/moe_geofence_utils.dart';
 /// the default implementation, while platform implementations that `implements`
 ///  this interface will be broken by newly added [MoEngageGeofencePlatform] methods.
 abstract class MoEngageGeofencePlatform extends PlatformInterface {
-  /// Constructs a MoengageGeofencePlatform.
+  /// Constructs a MoEngageGeofencePlatform.
   MoEngageGeofencePlatform() : super(token: _token);
 
   static final Object _token = Object();
@@ -33,8 +30,10 @@ abstract class MoEngageGeofencePlatform extends PlatformInterface {
   }
 
   /// Starts Geofence Monitoring
+  /// [appId] - MoEngage App ID
   void startGeofenceMonitoring(String appId);
 
   /// Stops Geofence Monitoring
+  /// [appId] - MoEngage App ID
   void stopGeofenceMonitoring(String appId);
 }

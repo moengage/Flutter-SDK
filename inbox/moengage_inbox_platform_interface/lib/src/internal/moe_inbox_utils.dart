@@ -1,4 +1,6 @@
-import '../../moengage_inbox_platform_interface.dart';
+import '../model/inbox_message.dart';
+import '../payload_transformer.dart';
+import 'constants.dart';
 
 /// Get Account Meta [Map]
 Map<String, dynamic> getAccountMeta(String appId) {

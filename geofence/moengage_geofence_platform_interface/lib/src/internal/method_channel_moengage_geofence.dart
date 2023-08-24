@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
-import '../moengage_geofence_platform_interface.dart';
+import '../../moengage_geofence_platform_interface.dart';
 
 /// An implementation of [MoEngageGeofencePlatform] that uses method channels.
 class MethodChannelMoEngageGeofence extends MoEngageGeofencePlatform {
