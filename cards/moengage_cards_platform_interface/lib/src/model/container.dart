@@ -7,6 +7,7 @@ import 'widget.dart';
 
 /// Container to hold UI widget. Equivalent to a Container Widget in Flutter
 class Container {
+  /// [Container] Constructor
   Container({
     required this.id,
     required this.templateType,
@@ -15,6 +16,7 @@ class Container {
     required this.actionList,
   });
 
+  /// Get [Container] from Json [Map]
   factory Container.fromJson(Map<String, dynamic> json) {
     return Container(
       id: (json[keyContainerId]) as int,
@@ -49,6 +51,7 @@ class Container {
   /// [List] of [Action] for the container
   final List<Action> actionList;
 
+  /// Convert [Container] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyContainerId: id,
         keyTemplateType: templateType.name,

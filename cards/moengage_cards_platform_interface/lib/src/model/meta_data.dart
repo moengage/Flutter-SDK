@@ -4,6 +4,7 @@ import 'display_control.dart';
 
 /// Meta data related to a campaign.
 class MetaData {
+  /// [MetaData] Constructor
   MetaData({
     required this.isNewCard,
     required this.campaignState,
@@ -16,6 +17,7 @@ class MetaData {
     required this.isPinned,
   });
 
+  /// Get [MetaData] from Json [Map]
   factory MetaData.fromJson(Map<String, dynamic> json) {
     return MetaData(
       isNewCard: (json[keyIsNewCard] ?? false) as bool,
@@ -62,6 +64,7 @@ class MetaData {
   /// Check Card is Pinned
   final bool isPinned;
 
+  /// Convert [MetaData] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyIsNewCard: isNewCard,
         keyCampaignState: campaignState.toJson(),

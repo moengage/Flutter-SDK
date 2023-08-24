@@ -46,6 +46,7 @@ class MoEProperties {
     return this;
   }
 
+  /// Get Event Attributes [Map]
   Map<String, dynamic> getEventAttributeJson() {
     return {
       _keyEventAttributes: {

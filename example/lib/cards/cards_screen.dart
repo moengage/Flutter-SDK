@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
 import 'card_widget.dart';

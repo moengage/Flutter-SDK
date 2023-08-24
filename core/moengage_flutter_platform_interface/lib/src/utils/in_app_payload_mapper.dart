@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../constants.dart';
+import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/inapp/action.dart';
 import '../model/inapp/campaign_context.dart';
@@ -63,7 +63,7 @@ class InAppPayloadMapper {
   /// Get [ClickData] from JSON String
   ClickData? actionFromJson(dynamic payload) {
     try {
-      Logger.i('$_tag actionFromJson() : ${payload.toString()}');
+      Logger.i('$_tag actionFromJson() : $payload');
 
       final Map<String, dynamic> actionPayload =
           json.decode(payload.toString()) as Map<String, dynamic>;

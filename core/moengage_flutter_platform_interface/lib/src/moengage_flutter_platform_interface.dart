@@ -7,7 +7,7 @@ import '../src/model/moe_init_config.dart';
 import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
-import 'method_channel_moengage_flutter.dart';
+import 'internal/method_channel_moengage_flutter.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
 abstract class MoEngageFlutterPlatform extends PlatformInterface {
@@ -98,7 +98,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// Self Handled InApp Action Callback
   void selfHandledCallback(Map<String, dynamic> payload);
 
-  ///Set the current context for the given user.
+  ///Set the current context for the given user for InApps
   void setCurrentContext(List<String> contexts, String appId);
 
   /// Reset Current Context for InApps

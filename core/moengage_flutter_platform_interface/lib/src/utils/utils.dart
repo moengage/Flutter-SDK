@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../constants.dart';
+import '../internal/constants.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
 import '../model/permission_result.dart';
@@ -33,7 +33,7 @@ Map<String, dynamic> getMap(String key, dynamic value) {
 
 /// Get Account Meta for given [appId]
 Map<String, dynamic> getAccountMeta(String appId) {
-  return <String,dynamic>{
+  return <String, dynamic>{
     keyAccountMeta: {keyAppId: appId}
   };
 }

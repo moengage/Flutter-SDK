@@ -1,4 +1,4 @@
-import '../../constants.dart';
+import '../../internal/constants.dart';
 import '../../internal/logger.dart';
 
 /// Type of Push Notification Services

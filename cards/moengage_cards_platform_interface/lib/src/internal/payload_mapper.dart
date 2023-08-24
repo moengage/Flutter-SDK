@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:convert';
 
-import 'package:moengage_flutter_platform_interface/src/model/account_meta.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show AccountMeta;
 
 import '../../moengage_cards_platform_interface.dart';
 
@@ -132,8 +134,6 @@ String syncTypeToString(SyncType syncType) {
       return argumentInboxOpenSync;
     case SyncType.appOpen:
       return argumentAppOpenSync;
-    default:
-      return '';
   }
 }
 

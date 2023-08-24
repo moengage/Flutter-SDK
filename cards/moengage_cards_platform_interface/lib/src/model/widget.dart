@@ -6,6 +6,7 @@ import 'style/widget_style.dart';
 
 /// UI element in a card.
 class Widget {
+  /// [Widget] Constructor
   Widget({
     required this.id,
     required this.widgetType,
@@ -14,6 +15,7 @@ class Widget {
     required this.actionList,
   });
 
+  /// Get [Widget] from Json [Map]
   factory Widget.fromJson(Map<String, dynamic> json) {
     final WidgetType widgetType =
         WidgetType.values.byName(json[keyWidgetType].toString().toLowerCase());
@@ -48,6 +50,7 @@ class Widget {
   /// Actions to be performed on widget click
   List<Action> actionList;
 
+  /// Convert [Widget] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyWidgetId: id,
         keyWidgetContent: content,

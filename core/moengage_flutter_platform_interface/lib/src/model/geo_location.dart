@@ -9,6 +9,7 @@ class MoEGeoLocation {
   /// Longitude of location
   double longitude;
 
+  /// Convert [MoEGeoLocation] to Json [Map]
   Map<String, double> toMap() {
     return {'latitude': latitude, 'longitude': longitude};
   }

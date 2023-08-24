@@ -1,3 +1,4 @@
+// ignore_for_file: use_setters_to_change_properties
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
 /// Helper Class to interact with MoEngage SDK
@@ -21,6 +22,7 @@ class MoEngageFlutter {
   }
 
   /// Sets Push Click Callback Handler
+  /// @param [handler] - Callback of type [PushClickCallbackHandler]
   void setPushClickCallbackHandler(PushClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -28,11 +30,13 @@ class MoEngageFlutter {
   }
 
   /// Sets Push Token Available Callback Handler
+  /// @param [handler] - Callback of type [PushTokenCallbackHandler]
   void setPushTokenCallbackHandler(PushTokenCallbackHandler? handler) {
     Cache().pushTokenCallbackHandler = handler;
   }
 
   /// Sets InApp Click Callback Listener
+  /// @param [handler] - Callback of type [InAppClickCallbackHandler]
   void setInAppClickHandler(InAppClickCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -40,6 +44,7 @@ class MoEngageFlutter {
   }
 
   /// Sets InApp Shown Callback Handler
+  /// @param [handler] - Callback of type [InAppShownCallbackHandler]
   void setInAppShownCallbackHandler(InAppShownCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -47,6 +52,7 @@ class MoEngageFlutter {
   }
 
   /// Sets InApp Dismiss Callback Handler
+  /// @param [handler] - Callback of type [InAppDismissedCallbackHandler]
   void setInAppDismissedCallbackHandler(
       InAppDismissedCallbackHandler? handler) {
     CoreInstanceProvider()
@@ -55,6 +61,7 @@ class MoEngageFlutter {
   }
 
   /// Sets Self Handled Callback Available Handler
+  /// @param [handler] - Callback of type [SelfHandledInAppCallbackHandler]
   void setSelfHandledInAppHandler(SelfHandledInAppCallbackHandler? handler) {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
@@ -68,21 +75,25 @@ class MoEngageFlutter {
   }
 
   /// Set a unique identifier for a user.<br/>
+  /// @param [uniqueId] - Unique Identifier of type [String]
   void setUniqueId(String uniqueId) {
     _platform.setUniqueId(uniqueId, appId);
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
+  /// @param [newUniqueId] - Unique Identifier of type [String]
   void setAlias(String newUniqueId) {
     _platform.setAlias(newUniqueId, appId);
   }
 
   /// Tracks user-name as a user attribute.
+  /// @param [userName] First Name value passed by user
   void setUserName(String userName) {
     _platform.setUserName(userName, appId);
   }
 
   /// Tracks first name as a user attribute.
+  /// @param [firstName] Full Name of user passed by user
   void setFirstName(String firstName) {
     _platform.setFirstName(firstName, appId);
   }
@@ -164,7 +175,8 @@ class MoEngageFlutter {
   }
 
   /// Try to return a self handled in-app to the callback listener.
-  /// Ensure self handled in-app listener is set before you call this.
+  /// Ensure self handled in-app listener is set using [setSelfHandledInAppHandler]
+  /// before you call this API
   void getSelfHandledInApp() {
     _platform.getSelfHandledInApp(appId);
   }
@@ -193,7 +205,7 @@ class MoEngageFlutter {
     _platform.selfHandledCallback(payload);
   }
 
-  ///Set the current context for the given user.
+  ///Set the current context for the given user for InApps
   void setCurrentContext(List<String> contexts) {
     _platform.setCurrentContext(contexts, appId);
   }
@@ -204,6 +216,8 @@ class MoEngageFlutter {
   }
 
   ///Optionally opt-in data tracking.
+  ///Note: By default data tracking is enabled, this API should  be called only
+  ///if  you have called [disableDataTracking] at some point.
   void enableDataTracking() {
     _platform.optOutDataTracking(false, appId);
   }
@@ -232,15 +246,15 @@ class MoEngageFlutter {
     _platform.passPushPayload(payload, MoEPushService.fcm, appId);
   }
 
-  /// Pass FCM Push Token to the MoEngage SDK.
+  /// Pass Push Kit Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
   void passPushKitPushToken(String pushToken) {
     _platform.passPushToken(pushToken, MoEPushService.push_kit, appId);
   }
 
   /// API to enable SDK usage.
-  /// Note: By default the SDK is enabled, should only be called to enabled the
-  /// SDK if you have called [disableSdk()] at some point.
+  /// Note: By default the SDK is enabled, should only be called
+  /// if you have called [disableSdk] at some point.
   void enableSdk() {
     _platform.updateSdkState(true, appId);
   }
@@ -250,17 +264,18 @@ class MoEngageFlutter {
     _platform.updateSdkState(false, appId);
   }
 
+  /// To be called when Orientation of the App Is Changed
   void onOrientationChanged() {
     _platform.onOrientationChanged();
   }
 
-  ///API to enable Android-id tracking for the given instance.
+  ///API to enable Android-id tracking
   /// Note: This API is only for Android Platform.
   void enableAndroidIdTracking() {
     _platform.updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, true);
   }
 
-  ///API to enable Android-id tracking for the given instance.
+  ///API to enable Android-id tracking.
   ///By default Android-id tracking is disabled, call this method only if you
   ///have enabled Android-id tracking at some point.
   /// Note: This API is only for Android Platform.
@@ -274,7 +289,7 @@ class MoEngageFlutter {
     _platform.updateDeviceIdentifierTrackingStatus(appId, keyAdId, true);
   }
 
-  ///API to disable Advertising Id tracking for the account configured as default.
+  ///API to disable Advertising Id tracking.
   ///By default Advertising Id tracking is disabled, call this method only if
   ///you have enabled Advertising Id tracking at some point
   /// Note: This API is only for Android Platform.
@@ -288,8 +303,10 @@ class MoEngageFlutter {
     _platform.setupNotificationChannel();
   }
 
-  /// Notify the SDK on notification permission granted to the application.
+  /// Notify the SDK on notification permission granted state to the application
+  /// true if  granted, else false
   /// Note: This API is only for Android Platform.
+  /// @param [isGranted] - Push Permission Granted Flag
   void pushPermissionResponseAndroid(bool isGranted) {
     _platform.permissionResponse(isGranted, PermissionType.PUSH);
   }
@@ -309,6 +326,7 @@ class MoEngageFlutter {
   }
 
   /// Setup a callback handler for getting the response permission
+  /// @param [handler] - Instance of [PermissionResultCallbackHandler]
   void setPermissionCallbackHandler(PermissionResultCallbackHandler? handler) {
     Cache().permissionResultCallbackHandler = handler;
   }

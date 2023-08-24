@@ -9,6 +9,7 @@ import 'cards_instance_provider.dart';
 abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
   static const String _tag = '${moduleTag}CardsPlatformBase';
 
+  /// Cards Method Channel
   MethodChannel methodChannel = const MethodChannel(cardsMethodChannel);
 
   @override

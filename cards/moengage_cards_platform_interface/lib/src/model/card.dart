@@ -4,6 +4,7 @@ import 'template.dart';
 
 /// Card Campaign data
 class Card {
+  /// [Card] Constructor
   Card({
     required this.id,
     required this.cardId,
@@ -12,6 +13,7 @@ class Card {
     required this.metaData,
   });
 
+  /// Get [Card] from Json [Map]
   factory Card.fromJson(Map<String, dynamic> json) {
     return Card(
       id: (json[keyId] ?? -1) as int,
@@ -39,6 +41,7 @@ class Card {
   /// Meta data related to the campaign like status, delivery control etc.
   moe.MetaData metaData;
 
+  /// Convert [Card] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyId: id,
         keyCardId: cardId,

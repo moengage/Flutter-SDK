@@ -3,8 +3,10 @@ import 'widget_style.dart';
 
 ///Style for Button Widget - [WidgetType.image]
 class ImageStyle extends WidgetStyle {
+  /// [ImageStyle] Constructor
   ImageStyle({required String backgroundColor}) : super(backgroundColor);
 
+  /// Get [ImageStyle] from Json [Map]
   factory ImageStyle.fromJson(Map<String, dynamic> json) {
     return ImageStyle(
       backgroundColor:

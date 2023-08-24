@@ -2,6 +2,7 @@ import '../internal/constants.dart';
 
 /// State of the card Campaign
 class CampaignState {
+  /// [CampaignState] Constructor
   CampaignState({
     required this.localShowCount,
     required this.isClicked,
@@ -10,6 +11,7 @@ class CampaignState {
     required this.totalShowCount,
   });
 
+  /// Get [CampaignState] from Json [Map]
   factory CampaignState.fromJson(Map<String, dynamic> json) {
     return CampaignState(
       localShowCount: (json[keyLocalShowCount] ?? 0) as int,
@@ -35,6 +37,7 @@ class CampaignState {
   /// Total number of times campaign has been seen by the user across devices.
   final int totalShowCount;
 
+  /// Convert [CampaignState] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyLocalShowCount: localShowCount,
         keyIsClicked: isClicked,

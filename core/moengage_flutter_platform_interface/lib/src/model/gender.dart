@@ -1,4 +1,4 @@
-import '../constants.dart';
+import '../internal/constants.dart';
 
 /// User attribute Gender options
 enum MoEGender {

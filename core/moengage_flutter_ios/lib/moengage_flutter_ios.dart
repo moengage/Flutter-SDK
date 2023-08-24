@@ -1,7 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
-import 'package:moengage_flutter_platform_interface/src/utils/data_payload_mapper.dart';
-import 'package:moengage_flutter_platform_interface/src/utils/utils.dart';
 
 /// The iOS implementation of [MoEngageFlutterPlatform].
 class MoEngageFlutterIOS extends MoEngageFlutterPlatform {

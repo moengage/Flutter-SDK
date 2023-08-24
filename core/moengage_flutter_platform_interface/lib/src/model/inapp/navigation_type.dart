@@ -9,15 +9,7 @@ enum NavigationType {
 
 /// Extension for Converting Navigation Type Enum to String
 extension NavigationTypeExtension on NavigationType {
-  String get asString {
-    switch (this) {
-      case NavigationType.screenName:
-        return _screenName;
-      case NavigationType.deeplink:
-        return _deeplink;
-    }
-  }
-
+  /// Get [NavigationType] from [String]
   static NavigationType fromString(String navigationType) {
     switch (navigationType) {
       case _screenName:

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import '../moengage_flutter_platform_interface.dart';
+import '../../moengage_flutter_platform_interface.dart';
 
 /// An implementation of [MoEngageFlutterPlatform] that uses method channels.
 class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {

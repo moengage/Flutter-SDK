@@ -1,19 +1,19 @@
 import 'package:flutter/services.dart';
 
-import '../src/internal/callback/callbacks.dart';
-import '../src/internal/logger.dart';
-import '../src/model/inapp/click_data.dart';
-import '../src/model/inapp/inapp_data.dart';
-import '../src/model/inapp/self_handled_data.dart';
-import '../src/model/permission_result.dart';
-import '../src/model/push/push_campaign_data.dart';
-import '../src/model/push/push_token_data.dart';
-import '../src/moe_cache.dart';
-import 'constants.dart';
 import 'core_instance_provider.dart';
-import 'utils/in_app_payload_mapper.dart';
-import 'utils/push_payload_mapper.dart';
-import 'utils/utils.dart';
+import '../model/inapp/click_data.dart';
+import '../model/inapp/inapp_data.dart';
+import '../model/inapp/self_handled_data.dart';
+import '../model/permission_result.dart';
+import '../model/push/push_campaign_data.dart';
+import '../model/push/push_token_data.dart';
+import 'moe_cache.dart';
+import '../utils/in_app_payload_mapper.dart';
+import '../utils/push_payload_mapper.dart';
+import '../utils/utils.dart';
+import 'callback/callbacks.dart';
+import 'constants.dart';
+import 'logger.dart';
 
 /// Native to Flutter Method Channel Controller
 class CoreController {
@@ -29,7 +29,8 @@ class CoreController {
   final MethodChannel _channel = const MethodChannel(channelName);
 
   Future<dynamic> _handler(MethodCall call) async {
-    Logger.v('$_tag _handler() : Received callback. Payload ${call.method} - ${call.arguments}');
+    Logger.v(
+        '$_tag _handler() : Received callback. Payload ${call.method} - ${call.arguments}');
     try {
       if (call.method == callbackPushTokenGenerated) {
         final PushTokenData? data =

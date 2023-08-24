@@ -4,12 +4,14 @@ import 'enums/template_type.dart';
 
 /// Card Template data.
 class Template {
+  /// [Template] Constructor
   Template({
     required this.templateType,
     required this.containers,
     required this.kvPairs,
   });
 
+  /// Get [Template] from Json [Map]
   factory Template.fromJson(Map<String, dynamic> json) {
     return Template(
       templateType: TemplateType.values.byName(json[keyTemplateType] as String),
@@ -31,6 +33,7 @@ class Template {
   /// Additional data associated to the template
   Map<String, dynamic> kvPairs;
 
+  /// Convert [Template] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyTemplateType: templateType.name,
         keyContainers: containers.map((Container e) => e.toJson()).toList(),

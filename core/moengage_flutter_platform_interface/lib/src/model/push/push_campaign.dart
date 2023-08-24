@@ -1,4 +1,4 @@
-import '../../constants.dart';
+import '../../internal/constants.dart';
 
 /// Push Campaign Related Data
 class PushCampaign {

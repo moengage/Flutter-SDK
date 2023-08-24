@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:collection/collection.dart';
 import 'package:moengage_cards/moengage_cards.dart';
 

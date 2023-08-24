@@ -3,6 +3,7 @@ import 'show_time.dart';
 
 /// Delivery Controls defined during campaign creation.
 class DisplayControl {
+  /// [DisplayControl] Constructor
   DisplayControl({
     required this.expireAt,
     required this.expireAfterSeen,
@@ -12,6 +13,7 @@ class DisplayControl {
     required this.showTime,
   });
 
+  /// Get [DisplayControl] from Json [Map]
   factory DisplayControl.fromJson(Map<String, dynamic> json) {
     return DisplayControl(
       expireAt: (json[keyExpireAt] ?? -1) as int,
@@ -44,6 +46,7 @@ class DisplayControl {
   /// Time during the day when the campaign should be shown.
   final ShowTime showTime;
 
+  /// Convert [DisplayControl] to Json [Map]
   Map<String, dynamic> toJson() => {
         keyExpireAt: expireAt,
         keyExpireAfterSeen: expireAfterSeen,

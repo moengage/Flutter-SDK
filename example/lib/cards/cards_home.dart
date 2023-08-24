@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
 
@@ -75,8 +77,9 @@ class _CardsHomeState extends State<CardsHome> {
                   ListTile(
                     title: const Text('Fetch Cards'),
                     onTap: () async {
-                      moe.CardsData data = await cards.fetchCards();
-                      int count = data.cards.length;
+                      final moe.CardsData data = await cards.fetchCards();
+                      final int count = data.cards.length;
+                      // ignore: use_build_context_synchronously
                       showSnackBar(
                           'Fetched $count card(s) , Category-${data.category}',
                           context);

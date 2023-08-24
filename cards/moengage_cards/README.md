@@ -18,7 +18,7 @@ replace `$latestSdkVersion` with the latest SDK version.
 
 ### Android Installation
 
-![MavenBadge](http://maven-badges.herokuapp.com/maven-central/com.moengage/cards-core/badge.svg)
+![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/cards-core/badge.svg)
 
 Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android
 project of your application.

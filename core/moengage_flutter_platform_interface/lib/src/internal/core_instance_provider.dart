@@ -1,4 +1,4 @@
-import 'internal/callback/callback_cache.dart';
+import 'callback/callback_cache.dart';
 
 /// Instance Specific Cache for Callbacks
 class CoreInstanceProvider {

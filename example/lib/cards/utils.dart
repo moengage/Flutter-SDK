@@ -1,16 +1,20 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
 import 'package:url_launcher/url_launcher.dart';
 
 Color? colorFromHex(String? hexColor) {
-  if (hexColor == null) return null;
+  if (hexColor == null) {
+    return null;
+  }
   final String hexCode = hexColor.replaceAll('#', '');
   return Color(int.parse('FF$hexCode', radix: 16));
 }
 
 String getDateFromMillis(int timeInMillis) {
-  DateFormat format = DateFormat('dd MMM,yy hh:mm a');
+  final DateFormat format = DateFormat('dd MMM,yy hh:mm a');
   return format.format(DateTime.fromMillisecondsSinceEpoch(timeInMillis));
 }
 
@@ -25,7 +29,7 @@ Future<void> handleAction(moe.Action action) async {
       debugPrint('Url Empty');
       return;
     }
-    Uri uri =
+    final Uri uri =
         Uri.parse(action.value).replace(queryParameters: action.keyValuePairs);
     if (action.navigationType == moe.NavigationType.richLanding) {
       //Open RichLanding Url in WebView Inside App

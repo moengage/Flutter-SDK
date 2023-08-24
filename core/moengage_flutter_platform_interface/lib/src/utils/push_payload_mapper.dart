@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../constants.dart';
+import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/platforms.dart';
 import '../model/push/moe_push_service.dart';

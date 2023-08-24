@@ -1,4 +1,4 @@
-import '../constants.dart';
+import '../internal/constants.dart';
 import '../model/properties.dart';
 import 'utils.dart';
 

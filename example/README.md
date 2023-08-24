@@ -14,7 +14,7 @@ dependencies:
  
  ### Android Installation
  
- ![MavenBadge](http://maven-badges.herokuapp.com/maven-central/com.moengage/moe-android-sdk/badge.svg)
+ ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/moe-android-sdk/badge.svg)
 
  
   Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android project of your application.

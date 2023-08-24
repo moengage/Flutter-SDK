@@ -1,4 +1,4 @@
-import '../src/internal/callback/callbacks.dart';
+import 'callback/callbacks.dart';
 
 /// Core Cache
 class Cache {

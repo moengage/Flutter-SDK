@@ -59,7 +59,7 @@ class CardsController {
       }
     } catch (err, stackTrace) {
       Logger.e(
-        '$_tag _handler(): Error: ${call} has an Exception:',
+        '$_tag _handler(): Error: $call has an Exception:',
         error: err,
         stackTrace: stackTrace,
       );
