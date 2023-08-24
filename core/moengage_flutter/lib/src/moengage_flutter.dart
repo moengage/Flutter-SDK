@@ -265,6 +265,7 @@ class MoEngageFlutter {
   }
 
   /// To be called when Orientation of the App Is Changed
+  /// Note: This API is only for Android Platform.
   void onOrientationChanged() {
     _platform.onOrientationChanged();
   }
@@ -277,13 +278,13 @@ class MoEngageFlutter {
 
   ///API to enable Android-id tracking.
   ///By default Android-id tracking is disabled, call this method only if you
-  ///have enabled Android-id tracking at some point.
+  ///have called [enableAndroidIdTracking] at some point.
   /// Note: This API is only for Android Platform.
   void disableAndroidIdTracking() {
     _platform.updateDeviceIdentifierTrackingStatus(appId, keyAndroidId, false);
   }
 
-  ///API to enable Advertising Id tracking for the given instance.
+  ///API to enable Advertising Id tracking
   /// Note: This API is only for Android Platform.
   void enableAdIdTracking() {
     _platform.updateDeviceIdentifierTrackingStatus(appId, keyAdId, true);
