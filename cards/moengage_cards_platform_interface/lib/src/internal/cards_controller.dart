@@ -15,7 +15,8 @@ class CardsController {
     _channel.setMethodCallHandler(_handler);
   }
 
-  final String _tag = '${TAG}CoreController';
+  final String _tag = '${moduleTag}CardsController';
+
   static final CardsController _instance = CardsController._internal();
 
   final MethodChannel _channel = const MethodChannel(cardsMethodChannel);
