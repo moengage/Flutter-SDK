@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger,getAccountMeta;
 import 'package:moengage_geofence_platform_interface/moengage_geofence_platform_interface.dart';
 
 /// IOS implementation of [MoEngageGeofencePlatform].

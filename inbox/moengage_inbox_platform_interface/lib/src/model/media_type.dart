@@ -1,5 +1,3 @@
-import '../moengage_inbox_platform_interface.dart';
-
 /// Possible media types for [InboxMessage]
 enum MediaType {
   /// Image Type
@@ -12,7 +10,10 @@ enum MediaType {
   video
 }
 
+/// Extension Util For [MediaType]
 extension MediaTypeExt on MediaType {
+
+  /// Convert [MediaType] to [String]
   String get asString {
     switch (this) {
       case MediaType.image:
@@ -24,6 +25,7 @@ extension MediaTypeExt on MediaType {
     }
   }
 
+  /// Get [MediaType] Instance from [String]
   static MediaType fromString(String string) {
     switch (string) {
       case _valueImage:

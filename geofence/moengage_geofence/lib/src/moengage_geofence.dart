@@ -1,4 +1,4 @@
-import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 import 'package:moengage_geofence_platform_interface/moengage_geofence_platform_interface.dart';
 
 /// Helper Class to interact with MoEngage GeoFence Feature

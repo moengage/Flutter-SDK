@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger, getAccountMeta;
 import '../../moengage_geofence_platform_interface.dart';
 
 /// An implementation of [MoEngageGeofencePlatform] that uses method channels.
