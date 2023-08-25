@@ -1,13 +1,7 @@
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show keyAccountMeta, keyAppId, keyData;
 import '../model/inbox_message.dart';
 import '../payload_transformer.dart';
-import 'constants.dart';
-
-/// Get Account Meta [Map]
-Map<String, dynamic> getAccountMeta(String appId) {
-  return {
-    keyAccountMeta: {keyAppId: appId}
-  };
-}
 
 /// Get Impression Payload [Map]
 Map<String, dynamic> getImpressionPayload(

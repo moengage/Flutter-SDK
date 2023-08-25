@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:moengage_flutter/moengage_flutter.dart' show getAccountMeta;
+
 import '../../moengage_cards_platform_interface.dart';
 
 /// An implementation of [MoEngageCardsPlatform] that uses method channels.

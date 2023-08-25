@@ -12,7 +12,6 @@ enum MediaType {
 
 /// Extension Util For [MediaType]
 extension MediaTypeExt on MediaType {
-
   /// Convert [MediaType] to [String]
   String get asString {
     switch (this) {

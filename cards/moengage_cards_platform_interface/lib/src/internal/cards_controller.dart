@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart'
     hide keyData, keyAccountMeta, accountMetaFromMap;
+import 'package:moengage_flutter/moengage_flutter.dart';
 import '../../moengage_cards_platform_interface.dart';
 import 'cards_instance_provider.dart';
 

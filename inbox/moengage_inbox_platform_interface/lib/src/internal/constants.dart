@@ -8,10 +8,7 @@ const String METHOD_NAME_DELETE_MESSAGE = 'deleteMessage';
 const String METHOD_NAME_TRACK_CLICKED = 'trackMessageClicked';
 
 // Payload keys
-const String keyAppId = 'appId';
 const String keyUnClickedCount = 'unClickedCount';
-const String keyData = 'data';
-const String keyAccountMeta = 'accountMeta';
 
 const String keyPlatform = 'platform';
 const String keyMessages = 'messages';

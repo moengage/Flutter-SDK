@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:moengage_cards_platform_interface/moengage_cards_platform_interface.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show Logger, getAccountMeta;
 
 /// Android Implementation for Cards Platform Interface
 class MoEngageCardsAndroid extends MoEngageCardsPlatform {

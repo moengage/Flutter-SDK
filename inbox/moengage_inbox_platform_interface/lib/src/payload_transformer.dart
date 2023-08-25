@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger, keyData;
 import 'internal/constants.dart';
 import 'model/models.dart';
 

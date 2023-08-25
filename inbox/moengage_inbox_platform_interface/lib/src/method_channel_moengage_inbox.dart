@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show getAccountMeta;
 
 import './internal/constants.dart';
 import './internal/moe_inbox_utils.dart';

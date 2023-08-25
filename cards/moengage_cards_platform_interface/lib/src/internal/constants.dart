@@ -5,10 +5,7 @@ const String moduleTag = 'Cards_';
 const String cardsMethodChannel = 'com.moengage/cards';
 
 //Card Key Name Constants
-const String keyAppId = 'appId';
 const String keyUnClickedCount = 'unClickedCount';
-const String keyAccountMeta = 'accountMeta';
-const String keyData = 'data';
 const String keySyncCompleteData = 'syncCompleteData';
 const String keyHasUpdates = 'hasUpdates';
 const String keySyncType = 'syncType';

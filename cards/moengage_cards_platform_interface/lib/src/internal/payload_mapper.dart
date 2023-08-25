@@ -2,17 +2,10 @@
 
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show AccountMeta;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show AccountMeta, keyAppId, keyAccountMeta, keyData;
 
 import '../../moengage_cards_platform_interface.dart';
-
-Map<String, dynamic> getAccountMeta(String appId) {
-  return {keyAccountMeta: getAppIdPayload(appId)};
-}
-
-AccountMeta accountMetaFromMap(Map<String, dynamic> metaPayload) {
-  return AccountMeta(metaPayload[keyAppId] as String);
-}
 
 WidgetStyle? widgetStyleFromJson(
   Map<String, dynamic>? json,
