@@ -97,7 +97,7 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-  implementation("com.moengage:moe-android-sdk:12.8.00")
+  implementation("com.moengage:moe-android-sdk:12.9.01")
   implementation("com.moengage:inapp:6.7.0")
   implementation("com.moengage:cards-core:1.5.0")
   implementation("com.google.firebase:firebase-messaging:23.1.2")

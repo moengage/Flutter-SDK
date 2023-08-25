@@ -1,5 +1,11 @@
 # MoEngage Flutter Inbox Plugin
 
+# Next Release
+
+## Version
+- Federated Plugin Implementation
+- Native SDK updated to support version `12.8.00` and above.
+
 # 26-07-2023
 
 ## 4.5.1

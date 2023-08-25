@@ -1,5 +1,10 @@
 # MoEngage Geofence Plugin
 
+# Next Release
+
+## Version
+- Federated Plugin Implementation
+
 # 19-07-2023
 
 ## 1.6.0

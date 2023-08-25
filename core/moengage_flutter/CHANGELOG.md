@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+# Next Release
+
+## Version
+- Federated Plugin Implementation
+- Android
+  - Native SDK Updated to support version `12.9.00` and above
+
 # 26-07-2023
 
 ## 5.5.1
