@@ -1,7 +1,7 @@
 name: moengage_cards_android
 description: Android implementation of the moengage_cards plugin
 version: 1.0.0
-publish_to: none
+homepage: https://www.moengage.com
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
