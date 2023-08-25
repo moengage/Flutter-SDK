@@ -1,4 +1,4 @@
-# MoEngage Flutter Platform Interface
+# MoEngage Geofence Platform Interface
 
 # Next Release
 

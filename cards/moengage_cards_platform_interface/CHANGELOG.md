@@ -1,4 +1,4 @@
-# MoEngage Flutter Platform Interface
+# MoEngage Cards Platform Interface
 
 # Next Release
 
