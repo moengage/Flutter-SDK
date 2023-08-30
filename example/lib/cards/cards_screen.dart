@@ -22,12 +22,15 @@ class _CardsScreenState extends State<CardsScreen>
 
   bool showHasUpdates = false;
 
+  bool showLoader = false;
+
   @override
   void initState() {
     super.initState();
     cards.setAppOpenCardsSyncListener((moe.SyncCompleteData? data) {
       debugPrint('Cards App Open Sync Listener: $data');
     });
+    setUpTabs();
     cards.onCardsSectionLoaded((moe.SyncCompleteData? data) {
       if (data?.hasUpdates == true) {
         setState(() {
@@ -36,14 +39,10 @@ class _CardsScreenState extends State<CardsScreen>
       }
     });
     fetchCards();
-    tabController = TabController(
-      length: categories.length,
-      vsync: this,
-    );
     cards.initialize();
   }
 
-  fetchCards() {
+  void fetchCards() {
     cards.getCardsInfo().then((moe.CardsInfo data) {
       setState(() {
         cardList = data.cards;
@@ -52,12 +51,16 @@ class _CardsScreenState extends State<CardsScreen>
           categories.add('All');
         }
         categories.addAll(data.categories);
-        tabController = TabController(
-          length: categories.length,
-          vsync: this,
-        );
+        setUpTabs();
       });
     });
+  }
+
+  void setUpTabs() {
+    tabController = TabController(
+      length: categories.length,
+      vsync: this,
+    );
   }
 
   @override
@@ -128,48 +131,13 @@ class _CardsScreenState extends State<CardsScreen>
                   controller: tabController,
                 ),
                 Expanded(
-                  child: TabBarView(
-                      controller: tabController,
-                      children: categories
-                          .map(
-                              (String category) => getCardsByCategory(category))
-                          .map((Future<List<moe.Card>> list) {
-                        return Container(
-                          child: FutureBuilder<List<moe.Card>>(
-                              future: list,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<moe.Card>> snapshot) {
-                                if (snapshot.hasData &&
-                                    snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                  final List<moe.Card> data =
-                                      snapshot.data ?? [];
-                                  if (data.isEmpty) {
-                                    return const Center(child: Text('No Data'));
-                                  }
-                                  return ListView.builder(
-                                      itemCount: data.length,
-                                      shrinkWrap: true,
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
-                                      itemBuilder:
-                                          (BuildContext context, int pos) {
-                                        return (data[pos]
-                                                    .template
-                                                    .templateType ==
-                                                moe.TemplateType.basic)
-                                            ? BasicCard(
-                                                data[pos], actionCallback)
-                                            : IllustrationCard(
-                                                data[pos], actionCallback);
-                                      });
-                                }
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }),
-                        );
-                      }).toList()),
-                )
+                    child: TabBarView(
+                  controller: tabController,
+                  children: categories
+                      .map((category) =>
+                          CardsListWidget(category, cards, actionCallback))
+                      .toList(),
+                ))
               ],
             ),
             if (showHasUpdates)
@@ -245,10 +213,47 @@ class _CardsScreenState extends State<CardsScreen>
     tabController.dispose();
     super.dispose();
   }
+}
 
-  Future<List<moe.Card>> getCardsByCategory(String category) async {
-    if (category == 'All') return cardList;
-    final moe.CardsData cardData = await cards.getCardsForCategory(category);
-    return cardData.cards;
+class CardsListWidget extends StatefulWidget {
+  const CardsListWidget(this.category, this.cards, this.actionCallback,
+      {super.key});
+
+  final String category;
+  final moe.MoEngageCards cards;
+  final CardActionCallback actionCallback;
+
+  @override
+  State<CardsListWidget> createState() => _CardsListWidgetState();
+}
+
+class _CardsListWidgetState extends State<CardsListWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder<moe.CardsData>(
+          future: widget.cards.getCardsForCategory(widget.category),
+          builder:
+              (BuildContext context, AsyncSnapshot<moe.CardsData> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              final List<moe.Card> data = snapshot.data?.cards ?? [];
+              if (data.isEmpty) {
+                return const Center(child: Text('No Data'));
+              }
+              return ListView.builder(
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int pos) {
+                    return (data[pos].template.templateType ==
+                            moe.TemplateType.basic)
+                        ? BasicCard(data[pos], widget.actionCallback)
+                        : IllustrationCard(data[pos], widget.actionCallback);
+                  });
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 }
