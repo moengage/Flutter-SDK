@@ -14,7 +14,8 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
 
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
-    Logger.v('initialise(): ');
+    _channel.invokeMethod(methodInitialise,
+        InitConfigPayloadMapper().getInitPayload(appId, moEInitConfig));
   }
 
   @override

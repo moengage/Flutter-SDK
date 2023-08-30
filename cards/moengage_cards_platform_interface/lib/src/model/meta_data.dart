@@ -22,14 +22,17 @@ class MetaData {
     return MetaData(
       isNewCard: (json[keyIsNewCard] ?? false) as bool,
       campaignState: CampaignState.fromJson(
-        (json[keyCampaignState] ?? {}) as Map<String, dynamic>,
+        (json[keyCampaignState] ?? <String, dynamic>{}) as Map<String, dynamic>,
       ),
       deletionTime: (json[keyDeletionTime] ?? -1) as int,
       displayControl: DisplayControl.fromJson(
-        (json[keyDisplayControl] ?? {}) as Map<String, dynamic>,
+        (json[keyDisplayControl] ?? <String, dynamic>{})
+            as Map<String, dynamic>,
       ),
-      campaignPayload: (json[keyCampaignPayload] ?? {}) as Map<String, dynamic>,
-      metaData: (json[keyAdditionalMetaData] ?? {}) as Map<String, dynamic>,
+      campaignPayload: (json[keyCampaignPayload] ?? <String, dynamic>{})
+          as Map<String, dynamic>,
+      metaData: (json[keyAdditionalMetaData] ?? <String, dynamic>{})
+          as Map<String, dynamic>,
       updatedTime: (json[keyUpdatedAt] ?? -1) as int,
       createdAt: (json[keyCreatedAt] ?? -1) as int,
       isPinned: (json[keyDisplayControl]?[keyIsPinned] ?? false) as bool,

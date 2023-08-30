@@ -22,7 +22,7 @@ class DisplayControl {
       maxCount: (json[keyMaxCount] ?? 0) as int,
       isPinned: (json[keyIsPinned] ?? false) as bool,
       showTime: ShowTime.fromJson(
-        (json[keyShowTime] ?? {}) as Map<String, dynamic>,
+        (json[keyShowTime] ?? <String, dynamic>{}) as Map<String, dynamic>,
       ),
     );
   }

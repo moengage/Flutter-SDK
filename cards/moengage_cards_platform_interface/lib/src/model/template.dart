@@ -20,7 +20,8 @@ class Template {
           (dataJson) => Container.fromJson(dataJson as Map<String, dynamic>),
         ),
       ),
-      kvPairs: (json[keyKVPairs] ?? {}) as Map<String, dynamic>,
+      kvPairs:
+          (json[keyKVPairs] ?? <String, dynamic>{}) as Map<String, dynamic>,
     );
   }
 
