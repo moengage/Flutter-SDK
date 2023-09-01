@@ -87,3 +87,6 @@ Map<String, dynamic> getPermissionResponsePayload(
     bool isGranted, PermissionType type) {
   return {keyPermissionType: type.asString, keyIsPermissionGranted: isGranted};
 }
+
+/// Null Safe Type Casting With FallBack
+T castOrFallback<T>(dynamic x, T fallback) => x is T ? x : fallback;

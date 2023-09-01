@@ -108,8 +108,8 @@ class InAppPayloadMapper {
 
   /// Get [CustomAction] from [Map]
   CustomAction customActionFromMap(Map<String, dynamic> actionData) {
-    return CustomAction(
-        ActionType.custom, actionData[keyKvPair] as Map<String, dynamic>);
+    return CustomAction(ActionType.custom,
+        castOrFallback(actionData[keyKvPair], <String, dynamic>{}));
   }
 
   /// Get [CampaignData] from [Map]
@@ -117,8 +117,8 @@ class InAppPayloadMapper {
     return CampaignData(
         dataPayload[keyCampaignId].toString(),
         dataPayload[keyCampaignName].toString(),
-        campaignContextFromMap(
-            dataPayload[keyCampaignContext] as Map<String, dynamic>));
+        campaignContextFromMap(castOrFallback(
+            dataPayload[keyCampaignContext], <String, dynamic>{})));
   }
 
   /// Get [CampaignContext] from [Map]
