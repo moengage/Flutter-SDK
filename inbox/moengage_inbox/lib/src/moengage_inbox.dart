@@ -19,7 +19,7 @@ class MoEngageInbox {
   /// Deletes the given message from inbox.
   /// [message] - [InboxMessage] data
   void deleteMessage(InboxMessage message) {
-    MoEngageInboxPlatform.instance.trackMessageClicked(message, appId);
+    MoEngageInboxPlatform.instance.deleteMessage(message, appId);
   }
 
   /// Gets all the messages saved in the inbox
