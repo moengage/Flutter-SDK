@@ -1,6 +1,6 @@
 
 require 'yaml'
-pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
+pubspec = YAML.load_file(File.join('../..', 'moengage_flutter/pubspec.yaml'))
 libraryVersion = pubspec['version'].gsub('+', '-')
 
 Pod::Spec.new do |s|
