@@ -2,7 +2,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 String libraryVersionName = "UNKNOWN"
-File pubspec = new File(project.projectDir.parentFile.parentFile,  '/moengage_flutter/pubspec.yaml')
+File pubspec = new File(project.projectDir.parentFile,  'pubspec.yaml')
 
 if (pubspec.exists()) {
     String yaml = pubspec.text
