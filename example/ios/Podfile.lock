@@ -36,7 +36,7 @@ PODS:
     - MoEngagePluginBase (< 4.5.0, >= 4.4.0)
   - MoEngageRichNotification (7.11.0):
     - MoEngage-iOS-SDK (< 9.12.0, >= 9.11.0)
-  - permission_handler_apple (9.1.0):
+  - permission_handler_apple (9.1.1):
     - Flutter
   - url_launcher (0.0.1):
     - Flutter
@@ -96,7 +96,7 @@ SPEC CHECKSUMS:
   MoEngagePluginGeofence: 14d7f028cd93a27b14a27e7ad91da2460210ca03
   MoEngagePluginInbox: e89e7cb106814e6ed234ce3688b5df9a698945cb
   MoEngageRichNotification: a20e4cb3645a93fcae0a7f603e89fba380e52f1f
-  permission_handler_apple: 8f116445eff3c0e7c65ad60f5fef5490aa94b4e4
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: 9a759cd70a24bd7515805f773e51e363bc6453dd
