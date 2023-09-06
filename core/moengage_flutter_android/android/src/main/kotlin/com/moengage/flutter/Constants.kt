@@ -1,5 +1,7 @@
 package com.moengage.flutter
 
+import android.os.Build.VERSION
+
 /**
  * @author Umang Chamaria
  * Date: 2019-12-12
@@ -38,3 +40,7 @@ const val METHOD_NAME_PERMISSION_RESPONSE = "permissionResponse"
 const val KEY_TYPE = "type"
 
 const val METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT = "updatePushPermissionRequestCount"
+
+// Asset Location for config.json under moengage_flutter package.
+const val ASSET_CONFIG_FILE_PATH = "flutter_assets/packages/moengage_flutter/config.json"
+const val VERSION_KEY = "version"

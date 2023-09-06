@@ -6,7 +6,6 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.flutter.inbox.BuildConfig.MOENGAGE_INBOX_FLUTTER_LIBRARY_VERSION
 import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
 import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -14,6 +13,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import org.json.JSONObject
 import java.util.concurrent.Executors
 
 /** MoengageInboxPlugin */
@@ -31,7 +31,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     private val inboxHelper = InboxPluginHelper()
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        inboxHelper.logPluginMeta(INTEGRATION_TYPE, MOENGAGE_INBOX_FLUTTER_LIBRARY_VERSION)
+        inboxHelper.logPluginMeta(INTEGRATION_TYPE, getMoEngageInboxVersion(flutterPluginBinding.applicationContext))
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
@@ -130,6 +130,20 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
             inboxHelper.trackMessageClicked(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag trackMessageClicked() : " }
+        }
+    }
+
+    /**
+     * Get moengage_inbox version from Config File
+     */
+    private fun getMoEngageInboxVersion(context: Context): String {
+        return try {
+            val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
+                .bufferedReader().use { it.readText() }
+            JSONObject(json).getString(VERSION_KEY)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
+            ""
         }
     }
 }

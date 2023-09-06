@@ -22,6 +22,8 @@ dev_dependencies:
   plugin_platform_interface: ^2.0.0
 
 flutter:
+  assets:
+    - config.json
   plugin:
     platforms:
       android:

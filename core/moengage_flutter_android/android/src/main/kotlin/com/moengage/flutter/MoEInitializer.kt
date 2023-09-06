@@ -6,8 +6,8 @@ import com.moengage.core.MoEngage
 import com.moengage.core.internal.logger.Logger
 import com.moengage.core.internal.model.IntegrationMeta
 import com.moengage.core.model.SdkState
-import com.moengage.flutter.BuildConfig.MOENGAGE_FLUTTER_LIBRARY_VERSION
 import com.moengage.plugin.base.internal.PluginInitializer
+import org.json.JSONObject
 
 /**
  * @author Umang Chamaria
@@ -38,7 +38,7 @@ class MoEInitializer {
                     builder,
                     IntegrationMeta(
                         INTEGRATION_TYPE,
-                        MOENGAGE_FLUTTER_LIBRARY_VERSION
+                        getMoEngageFlutterVersion(context)
                     ),
                     SdkState.ENABLED
                 )
@@ -76,12 +76,26 @@ class MoEInitializer {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
-                    IntegrationMeta(INTEGRATION_TYPE, MOENGAGE_FLUTTER_LIBRARY_VERSION),
+                    IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
                     sdkState
                 )
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
+            }
+        }
+
+        /**
+         * Get moengage_flutter version from Config File
+         */
+        private fun getMoEngageFlutterVersion(context: Context): String {
+            return try {
+                val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
+                    .bufferedReader().use { it.readText() }
+                JSONObject(json).getString(VERSION_KEY)
+            } catch (t: Throwable) {
+                Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
+                ""
             }
         }
     }
