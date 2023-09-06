@@ -52,7 +52,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setAlias(String newUniqueId, String appId) {
-    _moengage.callMethod(methodSetUserAttributeSDK, [keyAlias, newUniqueId]);
+    _moengage.callMethod(methodSetAliasSDK, [newUniqueId]);
   }
 
   @override

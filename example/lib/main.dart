@@ -222,7 +222,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         await asyncInputDialog(context, 'Event name');
                     debugPrint('$tag Main: Event name : $value');
                     _moengagePlugin.trackEvent(value);
-                    _moengagePlugin.trackEvent(value, MoEProperties());
                   }),
               ListTile(
                   title: const Text('Set Unique Id'),
@@ -236,7 +235,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ListTile(
                   title: const Text('Set UserName'),
                   onTap: () async {
-                    _moengagePlugin.setUserName('tesst');
                     final String value =
                         await asyncInputDialog(context, 'User Name');
                     debugPrint('$tag Main: UserName: $value');
