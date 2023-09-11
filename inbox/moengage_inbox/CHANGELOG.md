@@ -4,7 +4,9 @@
 
 ## Version
 - Federated Plugin Implementation
-- Native SDK updated to support version `12.8.00` and above.
+- Breaking Change: Use import 'package:moengage_inbox/moengage_inbox.dart'; to import any files in the `moengage_inbox` package. Remove the existing import related to `moengage_inbox`
+- Android
+  - Native SDK updated to support version `12.9.00` and above.
 
 # 26-07-2023
 
@@ -23,7 +25,7 @@
 ## 4.4.0
 - Android
   - Compile SDK Version Updated to 33
-  - Native SDK updated to support version `12.8.00` and above.
+  - Native SDK updated to support version `12.9.00` and above.
 - iOS
     - MoEngageInbox SDK version updated to `~>2.8.0`.
     

@@ -4,6 +4,7 @@
 
 ## Version
 - Federated Plugin Implementation
+- Breaking Change: Use import 'package:moengage_flutter/moengage_flutter.dart'; to import any files in the `moengage_flutter` package. Remove the existing import related to `moengage_flutter`
 - Android
   - Native SDK Updated to support version `12.9.00` and above
 
@@ -27,7 +28,7 @@
 ## 5.4.0
 - Android
   - Compile SDK Version Updated to 33
-  - Native SDK updated to support version `12.8.00` and above.
+  - Native SDK updated to support version `12.9.00` and above.
   - Support for Foreground Push Click Callback
 - iOS
     - MoEngage-iOS-SDK version updated to `~>9.8.0`
