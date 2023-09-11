@@ -78,7 +78,9 @@ class MoEProperties {
   }
 
   void _addAttribute(String key, dynamic value) {
-    if (_isAttributeNameEmpty(key)) return;
+    if (_isAttributeNameEmpty(key)) {
+      return;
+    }
     if (value is String || value is int || value is double || value is bool) {
       generalAttributes.putIfAbsent(key, () => value);
     } else if (value is MoEGeoLocation) {
@@ -86,7 +88,9 @@ class MoEProperties {
     } else if (value is List) {
       final List<dynamic> typeCheckedArray = [];
       for (final dynamic val in value) {
-        if (!_isAcceptedArrayType(val)) continue;
+        if (!_isAcceptedArrayType(val)) {
+          continue;
+        }
         typeCheckedArray.add(val);
       }
       generalAttributes.putIfAbsent(key, () => typeCheckedArray);

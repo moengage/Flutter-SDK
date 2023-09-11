@@ -20,6 +20,7 @@ String _tag = '${TAG}MoEPushService';
 
 /// For Converting [MoEPushService] Enum to String
 extension MoEPushServiceExtention on MoEPushService {
+  /// Convert [MoEPushService] to [String]
   String get asString {
     switch (this) {
       case MoEPushService.apns:

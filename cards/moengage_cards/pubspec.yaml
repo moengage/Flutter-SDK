@@ -18,11 +18,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_cards_android:
-  moengage_cards_ios:
-  moengage_cards_platform_interface:
-  moengage_flutter:
-  moengage_flutter_platform_interface:
+  moengage_cards_android: 1.0.0
+  moengage_cards_ios: 1.0.0
+  moengage_cards_platform_interface: 1.0.0
+  moengage_flutter: 6.0.0
 
 dev_dependencies:
   flutter_test:

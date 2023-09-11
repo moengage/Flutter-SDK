@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^5.5.0
-  moengage_geofence_android:
-  moengage_geofence_ios:
-  moengage_geofence_platform_interface:
+  moengage_geofence_android: 1.0.0
+  moengage_geofence_ios: 1.0.0
+  moengage_geofence_platform_interface: 1.0.0
 
 dev_dependencies:
   flutter_test:

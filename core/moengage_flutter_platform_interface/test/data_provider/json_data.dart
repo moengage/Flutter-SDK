@@ -277,7 +277,7 @@ const String pushCampaignPayload = '''
       "moe_channel_id": "moe_sound_channel",
       "moe_webUrl": "monengage://moe_app/add_to_cart?key=value",
       "gcm_subtext": "Summary",
-      "moe_cid_attr": "{\'moe_campaign_channel\': \'Push\',\'moe_delivery_type\': \'One Time\',\'moe_campaign_id\': \'000000000000000015056066\'}",
+      "moe_cid_attr": "{'moe_campaign_channel': 'Push','moe_delivery_type': 'One Time','moe_campaign_id': '000000000000000015056066'}",
       "mi_image_url": "https://picsum.photos/200/222",
       "MOE_NOTIFICATION_ID": 17987,
       "MOE_MSG_RECEIVED_TIME": 1692068674349,

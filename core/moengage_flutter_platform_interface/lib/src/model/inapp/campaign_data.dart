@@ -16,6 +16,6 @@ class CampaignData {
 
   @override
   String toString() {
-    return '{\ncampaignId: $campaignId\ncampaignName: $campaignName\ncontext: ${context.toString()}\n}';
+    return '{\ncampaignId: $campaignId\ncampaignName: $campaignName\ncontext: $context\n}';
   }
 }
