@@ -1,19 +1,19 @@
 import 'package:flutter/services.dart';
 
-import 'core_instance_provider.dart';
 import '../model/inapp/click_data.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';
 import '../model/permission_result.dart';
 import '../model/push/push_campaign_data.dart';
 import '../model/push/push_token_data.dart';
-import 'moe_cache.dart';
 import '../utils/in_app_payload_mapper.dart';
 import '../utils/push_payload_mapper.dart';
 import '../utils/utils.dart';
 import 'callback/callbacks.dart';
 import 'constants.dart';
+import 'core_instance_provider.dart';
 import 'logger.dart';
+import 'moe_cache.dart';
 
 /// Native to Flutter Method Channel Controller
 class CoreController {

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
-    show AccountMeta;
+import 'package:moengage_flutter/moengage_flutter.dart' show AccountMeta;
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
 
 class InboxComparator {

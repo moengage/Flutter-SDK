@@ -12,7 +12,7 @@ void main() {
   MoEngageCardsPlatformInterface.instance = mock;
   const MethodChannel channel = MethodChannel(cardsMethodChannel);
 
-  TestDefaultBinaryMessengerBinding.instance?.defaultBinaryMessenger
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, methodCallHandler);
 
   test('CardsInfo Test', () async {

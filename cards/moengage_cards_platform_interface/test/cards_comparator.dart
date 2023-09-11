@@ -21,7 +21,9 @@ class CardsComparator {
     List<Container> containers1,
     List<Container> containers2,
   ) {
-    if (containers1.length != containers2.length) return false;
+    if (containers1.length != containers2.length) {
+      return false;
+    }
     for (int i = 0; i < containers1.length; i++) {
       if (!isContainerEqual(containers1[i], containers2[i])) {
         return false;
@@ -39,13 +41,19 @@ class CardsComparator {
   }
 
   bool isContainerStyleEqual(ContainerStyle? style1, ContainerStyle? style2) {
-    if (style1 == style2) return true;
-    if (style1 == null || style2 == null) return false;
+    if (style1 == style2) {
+      return true;
+    }
+    if (style1 == null || style2 == null) {
+      return false;
+    }
     return style1.backgroundColor == style2.backgroundColor;
   }
 
   bool isActionsEqual(List<Action> actionList1, List<Action> actionList2) {
-    if (actionList1.length != actionList1.length) return false;
+    if (actionList1.length != actionList1.length) {
+      return false;
+    }
     for (int i = 0; i < actionList1.length; i++) {
       if (!isActionEqual(actionList1[i], actionList2[i])) {
         return false;
@@ -55,8 +63,12 @@ class CardsComparator {
   }
 
   bool isActionEqual(Action? action1, Action? action2) {
-    if (action1 == action2) return true;
-    if (action1 == null || action2 == null) return false;
+    if (action1 == action2) {
+      return true;
+    }
+    if (action1 == null || action2 == null) {
+      return false;
+    }
     if (action1 is NavigationAction && action2 is NavigationAction) {
       return isNavigationActionEqual(action1, action2);
     }
@@ -67,8 +79,12 @@ class CardsComparator {
     NavigationAction? action1,
     NavigationAction? action2,
   ) {
-    if (action1 == action2) return true;
-    if (action1 == null || action2 == null) return false;
+    if (action1 == action2) {
+      return true;
+    }
+    if (action1 == null || action2 == null) {
+      return false;
+    }
     return action1.value == action2.value &&
         mapEquals(action1.keyValuePairs, action2.keyValuePairs) &&
         action1.navigationType == action2.navigationType &&
@@ -76,7 +92,9 @@ class CardsComparator {
   }
 
   bool isWidgetsEqual(List<Widget> widgets1, List<Widget> widgets2) {
-    if (widgets1.length != widgets1.length) return false;
+    if (widgets1.length != widgets1.length) {
+      return false;
+    }
     for (int i = 0; i < widgets1.length; i++) {
       if (!isWidgetEqual(widgets1[i], widgets2[i])) {
         return false;
@@ -89,12 +107,18 @@ class CardsComparator {
     WidgetStyle? widgetStyle1,
     WidgetStyle? widgetStyle2,
   ) {
-    if (widgetStyle1 == null && widgetStyle2 == null) return true;
-    if (widgetStyle1 == null || widgetStyle2 == null) return false;
+    if (widgetStyle1 == null && widgetStyle2 == null) {
+      return true;
+    }
+    if (widgetStyle1 == null || widgetStyle2 == null) {
+      return false;
+    }
     if (widgetStyle1.backgroundColor != widgetStyle2.backgroundColor) {
       return false;
     }
-    if (widgetStyle1.runtimeType != widgetStyle2.runtimeType) return false;
+    if (widgetStyle1.runtimeType != widgetStyle2.runtimeType) {
+      return false;
+    }
     if (widgetStyle1 is ButtonStyle && widgetStyle2 is ButtonStyle) {
       return widgetStyle1.fontSize == widgetStyle2.fontSize;
     }
@@ -176,7 +200,9 @@ class CardsComparator {
   }
 
   bool isCardsEqual(List<Card> cards1, List<Card> cards2) {
-    if (cards1.length != cards2.length) return false;
+    if (cards1.length != cards2.length) {
+      return false;
+    }
     for (int i = 0; i < cards1.length; i++) {
       if (!isCardEqual(cards1[i], cards2[i])) {
         return false;
