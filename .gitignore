@@ -12,3 +12,5 @@ exampleObjC
 example/android/app/local.properties
 **pubspec.lock
 /geofence/example/android/gradle/wrapper/gradle-wrapper.jar
+**.flutter-plugins-dependencies
+**.flutter-plugins

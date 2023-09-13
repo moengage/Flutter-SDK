@@ -1,24 +1,26 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 
 import 'main.dart';
 
-Future asyncInputDialog(BuildContext context, String prompt,
+Future<String> asyncInputDialog(BuildContext context, String prompt,
     {TextInputType textInputType = TextInputType.text}) async {
   String teamName = '';
-  return showDialog(
+  await showDialog(
     context: context,
     barrierDismissible:
         false, // dialog is dismissible with a tap on the barrier
     builder: (BuildContext context) {
       return AlertDialog(
-        content: new Row(
+        content: Row(
           children: [
-            new Expanded(
-                child: new TextField(
+            Expanded(
+                child: TextField(
               keyboardType: textInputType,
               autofocus: true,
-              decoration: new InputDecoration(labelText: prompt),
-              onChanged: (value) {
+              decoration: InputDecoration(labelText: prompt),
+              onChanged: (String value) {
                 teamName = value;
               },
             ))
@@ -26,7 +28,7 @@ Future asyncInputDialog(BuildContext context, String prompt,
         ),
         actions: [
           TextButton(
-            child: Text('Ok'),
+            child: const Text('Ok'),
             onPressed: () {
               Navigator.of(context).pop(teamName);
             },
@@ -35,12 +37,13 @@ Future asyncInputDialog(BuildContext context, String prompt,
       );
     },
   );
+  return teamName;
 }
 
 enum SelfHandledActions { Shown, Clicked, Dismissed }
 
-Future asyncSelfHandledDialog(BuildContext context) async {
-  debugPrint("$tag asyncSelfHandledDialog");
+Future<SelfHandledActions?> asyncSelfHandledDialog(BuildContext context) async {
+  debugPrint('$tag asyncSelfHandledDialog');
   return await showDialog(
       context: context,
       barrierDismissible: true,

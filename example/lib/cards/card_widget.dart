@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
-import 'package:moengage_flutter_example/cards/cards_helper.dart';
-import 'package:moengage_flutter_example/cards/utils.dart';
+import 'cards_helper.dart';
+import 'utils.dart';
 
 enum CardActionEvent { CLICK, DELETE, SHOWN }
 
@@ -10,10 +12,9 @@ typedef CardActionCallback = void
     Function(CardActionEvent cardActionEvent, moe.Card card, {int widgetId});
 
 class IllustrationCard extends StatefulWidget {
+  const IllustrationCard(this.card, this.callback, {super.key});
   final CardActionCallback callback;
   final moe.Card card;
-
-  IllustrationCard(this.card, this.callback);
 
   @override
   State<IllustrationCard> createState() => _IllustrationCardState();
@@ -36,8 +37,8 @@ class _IllustrationCardState extends State<IllustrationCard> {
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)
-                    ? BadgeDecoration()
-                    : BoxDecoration(),
+                    ? const BadgeDecoration()
+                    : const BoxDecoration(),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12),
@@ -46,7 +47,7 @@ class _IllustrationCardState extends State<IllustrationCard> {
                   Visibility(
                     visible: widget.card.metaData.displayControl.isPinned,
                     child: Row(
-                      children: [
+                      children: const [
                         Spacer(),
                         Icon(
                           Icons.bookmark_added_rounded,
@@ -58,16 +59,16 @@ class _IllustrationCardState extends State<IllustrationCard> {
                   getImageWidget(context),
                   getHeaderText(context),
                   getMessageText(context),
-                  Divider(),
+                  const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         getDateFromMillis(
                             widget.card.metaData.updatedTime * 1000),
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       getCtaText(context)
                     ],
                   )
@@ -83,10 +84,10 @@ class _IllustrationCardState extends State<IllustrationCard> {
         onLongPress: () {
           showDialog(
             context: context,
-            builder: (context) {
+            builder: (BuildContext context) {
               return AlertDialog(
                 title: GestureDetector(
-                  child: Text(
+                  child: const Text(
                     'Delete',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
@@ -104,9 +105,9 @@ class _IllustrationCardState extends State<IllustrationCard> {
         });
   }
 
-  getImageWidget(BuildContext context) {
+  Widget getImageWidget(BuildContext context) {
     moe.Widget? image = widget.card.getImageWidget();
-    if (image == null || image.content.isEmpty) return SizedBox.shrink();
+    if (image == null || image.content.isEmpty) return const SizedBox.shrink();
     return Image.network(
       image.content,
       fit: BoxFit.fill,
@@ -127,9 +128,11 @@ class _IllustrationCardState extends State<IllustrationCard> {
     );
   }
 
-  getHeaderText(BuildContext context) {
+  Widget getHeaderText(BuildContext context) {
     moe.Widget? header = widget.card.getHeaderWidget();
-    if (header == null || header.content.isEmpty) return SizedBox.shrink();
+    if (header == null || header.content.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Html(
       data: header.content,
       style: {
@@ -138,17 +141,18 @@ class _IllustrationCardState extends State<IllustrationCard> {
           maxLines: 1,
           textOverflow: TextOverflow.ellipsis,
         ),
-        "body": Style(
-          margin: EdgeInsets.zero,
-          padding: EdgeInsets.symmetric(vertical: 4),
+        'body': Style(
+          margin: Margins.zero,
         )
       },
     );
   }
 
-  getMessageText(BuildContext context) {
+  Widget getMessageText(BuildContext context) {
     moe.Widget? message = widget.card.getMessageWidget();
-    if (message == null || message.content.isEmpty) return SizedBox.shrink();
+    if (message == null || message.content.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Html(
       data: message.content,
       style: {
@@ -157,17 +161,16 @@ class _IllustrationCardState extends State<IllustrationCard> {
           maxLines: 4,
           textOverflow: TextOverflow.ellipsis,
         ),
-        "body": Style(
-          margin: EdgeInsets.zero,
-          padding: EdgeInsets.symmetric(vertical: 4),
+        'body': Style(
+          margin: Margins.zero,
         )
       },
     );
   }
 
-  getCtaText(BuildContext context) {
+  Widget getCtaText(BuildContext context) {
     moe.Widget? cta = widget.card.getButtonWidget();
-    if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
+    if (cta == null || cta.content.isEmpty) return const SizedBox.shrink();
     return TextButton(
         onPressed: () {
           widget.callback
@@ -183,9 +186,8 @@ class _IllustrationCardState extends State<IllustrationCard> {
               maxLines: 1,
               textOverflow: TextOverflow.ellipsis,
             ),
-            "body": Style(
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.symmetric(vertical: 4),
+            'body': Style(
+              margin: Margins.zero,
             )
           },
         ));
@@ -193,10 +195,9 @@ class _IllustrationCardState extends State<IllustrationCard> {
 }
 
 class BasicCard extends StatefulWidget {
+  const BasicCard(this.card, this.callback, {super.key});
   final CardActionCallback callback;
   final moe.Card card;
-
-  BasicCard(this.card, this.callback);
 
   @override
   State<BasicCard> createState() => _BasicCardState();
@@ -219,8 +220,8 @@ class _BasicCardState extends State<BasicCard> {
           child: Container(
             foregroundDecoration:
                 (widget.card.metaData.campaignState.isClicked == false)
-                    ? BadgeDecoration()
-                    : BoxDecoration(),
+                    ? const BadgeDecoration()
+                    : const BoxDecoration(),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
@@ -229,7 +230,7 @@ class _BasicCardState extends State<BasicCard> {
                   Visibility(
                     visible: widget.card.metaData.displayControl.isPinned,
                     child: Row(
-                      children: [
+                      children: const [
                         Spacer(),
                         Icon(
                           Icons.bookmark_added_rounded,
@@ -254,16 +255,16 @@ class _BasicCardState extends State<BasicCard> {
                       ),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         getDateFromMillis(
                             widget.card.metaData.updatedTime * 1000),
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       getCtaText(context)
                     ],
                   )
@@ -279,10 +280,10 @@ class _BasicCardState extends State<BasicCard> {
         onLongPress: () {
           showDialog(
             context: context,
-            builder: (context) {
+            builder: (BuildContext context) {
               return AlertDialog(
                 title: GestureDetector(
-                  child: Text(
+                  child: const Text(
                     'Delete',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
@@ -300,9 +301,9 @@ class _BasicCardState extends State<BasicCard> {
         });
   }
 
-  getImageWidget(BuildContext context) {
+  Widget getImageWidget(BuildContext context) {
     moe.Widget? image = widget.card.getImageWidget();
-    if (image == null || image.content.isEmpty) return SizedBox.shrink();
+    if (image == null || image.content.isEmpty) return const SizedBox.shrink();
     return Image.network(
       image.content,
       fit: BoxFit.fill,
@@ -322,9 +323,11 @@ class _BasicCardState extends State<BasicCard> {
     );
   }
 
-  getHeaderText(BuildContext context) {
+  Widget getHeaderText(BuildContext context) {
     moe.Widget? header = widget.card.getHeaderWidget();
-    if (header == null || header.content.isEmpty) return SizedBox.shrink();
+    if (header == null || header.content.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Html(
       data: header.content,
       style: {
@@ -333,17 +336,18 @@ class _BasicCardState extends State<BasicCard> {
           maxLines: 1,
           textOverflow: TextOverflow.ellipsis,
         ),
-        "body": Style(
-          margin: EdgeInsets.zero,
-          padding: EdgeInsets.symmetric(vertical: 4),
+        'body': Style(
+          margin: Margins.zero,
         )
       },
     );
   }
 
-  getMessageText(BuildContext context) {
+  Widget getMessageText(BuildContext context) {
     moe.Widget? message = widget.card.getMessageWidget();
-    if (message == null || message.content.isEmpty) return SizedBox.shrink();
+    if (message == null || message.content.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Html(
       data: message.content,
       style: {
@@ -352,17 +356,16 @@ class _BasicCardState extends State<BasicCard> {
           maxLines: 4,
           textOverflow: TextOverflow.ellipsis,
         ),
-        "body": Style(
-          margin: EdgeInsets.zero,
-          padding: EdgeInsets.symmetric(vertical: 4),
+        'body': Style(
+          margin: Margins.zero,
         )
       },
     );
   }
 
-  getCtaText(BuildContext context) {
+  Widget getCtaText(BuildContext context) {
     moe.Widget? cta = widget.card.getButtonWidget();
-    if (cta == null || cta.content.isEmpty) return SizedBox.shrink();
+    if (cta == null || cta.content.isEmpty) return const SizedBox.shrink();
     return TextButton(
         onPressed: () {
           widget.callback
@@ -378,9 +381,8 @@ class _BasicCardState extends State<BasicCard> {
               maxLines: 1,
               textOverflow: TextOverflow.ellipsis,
             ),
-            "body": Style(
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.symmetric(vertical: 4),
+            'body': Style(
+              margin: Margins.zero,
             )
           },
         ));
@@ -388,10 +390,10 @@ class _BasicCardState extends State<BasicCard> {
 }
 
 class BadgeDecoration extends Decoration {
+  const BadgeDecoration(
+      {this.badgeColor = Colors.lightBlue, this.badgeSize = 15});
   final Color badgeColor;
   final double badgeSize;
-
-  BadgeDecoration({this.badgeColor = Colors.lightBlue, this.badgeSize = 15});
 
   @override
   BoxPainter createBoxPainter([VoidCallback? callback]) =>
@@ -399,11 +401,10 @@ class BadgeDecoration extends Decoration {
 }
 
 class _BadgePainter extends BoxPainter {
+  _BadgePainter(this.badgeColor, this.badgeSize);
   static const double CORNER_RADIUS = 4;
   final Color badgeColor;
   final double badgeSize;
-
-  _BadgePainter(this.badgeColor, this.badgeSize);
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
@@ -422,7 +423,7 @@ class _BadgePainter extends BoxPainter {
       PathOperation.difference,
       Path()
         ..addRRect(RRect.fromLTRBAndCorners(0, 0, badgeSize, badgeSize,
-            topRight: Radius.circular(CORNER_RADIUS))),
+            topRight: const Radius.circular(CORNER_RADIUS))),
       Path()
         ..lineTo(0, badgeSize)
         ..lineTo(badgeSize, badgeSize)

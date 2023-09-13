@@ -1,0 +1,28 @@
+name: moengage_geofence
+description:  Flutter Plugin for using Geofence feature of MoEngage Platform.
+version: 1.6.0
+homepage: https://www.moengage.com
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  moengage_flutter: ^5.5.0
+  moengage_geofence_android: 1.0.0
+  moengage_geofence_ios: 1.0.0
+  moengage_geofence_platform_interface: 1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: moengage_geofence_android
+      ios:
+        default_package: moengage_geofence_ios

@@ -1,9 +1,10 @@
+// ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
-import 'package:moengage_flutter_example/cards/card_widget.dart';
+import 'card_widget.dart';
 
 class CardsScreen extends StatefulWidget {
-  const CardsScreen({Key? key}) : super(key: key);
+  const CardsScreen({super.key});
 
   @override
   State<CardsScreen> createState() => _CardsScreenState();
@@ -13,7 +14,7 @@ class _CardsScreenState extends State<CardsScreen>
     with TickerProviderStateMixin {
   List<moe.Card> cardList = [];
 
-  moe.MoEngageCards cards = moe.MoEngageCards("DAO6UGZ73D9RTK8B5W96TPYN");
+  moe.MoEngageCards cards = moe.MoEngageCards('DAO6UGZ73D9RTK8B5W96TPYN');
 
   List<String> categories = [];
 
@@ -21,13 +22,16 @@ class _CardsScreenState extends State<CardsScreen>
 
   bool showHasUpdates = false;
 
+  bool showLoader = false;
+
   @override
   void initState() {
     super.initState();
-    cards.setAppOpenCardsSyncListener((data) {
-      debugPrint("Cards App Open Sync Listener: $data");
+    cards.setAppOpenCardsSyncListener((moe.SyncCompleteData? data) {
+      debugPrint('Cards App Open Sync Listener: $data');
     });
-    cards.onCardsSectionLoaded((data) {
+    setUpTabs();
+    cards.onCardsSectionLoaded((moe.SyncCompleteData? data) {
       if (data?.hasUpdates == true) {
         setState(() {
           showHasUpdates = true;
@@ -35,30 +39,28 @@ class _CardsScreenState extends State<CardsScreen>
       }
     });
     fetchCards();
-    tabController = TabController(
-      initialIndex: 0,
-      length: categories.length,
-      vsync: this,
-    );
     cards.initialize();
   }
 
-  fetchCards() {
-    cards.getCardsInfo().then((data) {
+  void fetchCards() {
+    cards.getCardsInfo().then((moe.CardsInfo data) {
       setState(() {
         cardList = data.cards;
         categories.clear();
-        if (data.shouldShowAllTab && data.categories.length > 0) {
-          categories.add("All");
+        if (data.shouldShowAllTab && data.categories.isNotEmpty) {
+          categories.add('All');
         }
         categories.addAll(data.categories);
-        tabController = TabController(
-          initialIndex: 0,
-          length: categories.length,
-          vsync: this,
-        );
+        setUpTabs();
       });
     });
+  }
+
+  void setUpTabs() {
+    tabController = TabController(
+      length: categories.length,
+      vsync: this,
+    );
   }
 
   @override
@@ -71,11 +73,11 @@ class _CardsScreenState extends State<CardsScreen>
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            iconTheme: IconThemeData(color: Colors.black54),
+            iconTheme: const IconThemeData(color: Colors.black54),
             backgroundColor: Colors.white,
             shadowColor: Colors.grey.shade100,
-            title: Text(
-              "Inbox",
+            title: const Text(
+              'Inbox',
               style: TextStyle(color: Colors.black54),
             ),
           ),
@@ -84,14 +86,13 @@ class _CardsScreenState extends State<CardsScreen>
                 refreshCards();
               },
               child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: AlwaysScrollableScrollPhysics(),
-                child: Container(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
                   height: MediaQuery.of(context).size.height -
                       AppBar().preferredSize.height,
                   child: (categories.isEmpty)
-                      ? Center(
-                          child: Text("No Data"),
+                      ? const Center(
+                          child: Text('No Data'),
                         )
                       : getListWidget(),
                 ),
@@ -109,18 +110,18 @@ class _CardsScreenState extends State<CardsScreen>
               children: [
                 TabBar(
                   isScrollable: true,
-                  padding: EdgeInsets.all(8.0),
-                  indicator: UnderlineTabIndicator(
+                  padding: const EdgeInsets.all(8.0),
+                  indicator: const UnderlineTabIndicator(
                     borderSide: BorderSide(width: 3.0, color: Colors.black54),
                     insets: EdgeInsets.symmetric(horizontal: 16.0),
                   ),
                   indicatorSize: TabBarIndicatorSize.label,
                   tabs: categories
-                      .map((category) => Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8),
+                      .map((String category) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Text(
                               category,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black38,
                                 fontSize: 18,
                               ),
@@ -130,43 +131,13 @@ class _CardsScreenState extends State<CardsScreen>
                   controller: tabController,
                 ),
                 Expanded(
-                  child: TabBarView(
-                      controller: tabController,
-                      children: categories
-                          .map((category) => getCardsByCategory(category))
-                          .map((list) {
-                        return Container(
-                          child: FutureBuilder<List<moe.Card>>(
-                              future: list,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData &&
-                                    snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                  final data = snapshot.data ?? [];
-                                  if (data.isEmpty) {
-                                    return Center(child: Text("No Data"));
-                                  }
-                                  return ListView.builder(
-                                      itemCount: data.length,
-                                      shrinkWrap: true,
-                                      physics: AlwaysScrollableScrollPhysics(),
-                                      itemBuilder: (context, pos) {
-                                        return (data[pos]
-                                                    .template
-                                                    .templateType ==
-                                                moe.TemplateType.basic)
-                                            ? BasicCard(
-                                                data[pos], actionCallback)
-                                            : IllustrationCard(
-                                                data[pos], actionCallback);
-                                      });
-                                }
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }),
-                        );
-                      }).toList()),
-                )
+                    child: TabBarView(
+                  controller: tabController,
+                  children: categories
+                      .map((category) =>
+                          CardsListWidget(category, cards, actionCallback))
+                      .toList(),
+                ))
               ],
             ),
             if (showHasUpdates)
@@ -176,37 +147,33 @@ class _CardsScreenState extends State<CardsScreen>
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
                     child: OutlinedButton(
-                      child: Text(
-                        "New Updates",
-                        style: TextStyle(color: Colors.black54),
-                      ),
                       onPressed: () {
                         fetchCards();
                         setState(() {
-                          this.showHasUpdates = false;
+                          showHasUpdates = false;
                         });
                       },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.black54))),
+                        shape: MaterialStateProperty
+                            .all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: const BorderSide(color: Colors.black54))),
                         side: MaterialStateProperty.all(
-                          BorderSide(
-                              color: Colors.black,
-                              width: 1.0,
-                              style: BorderStyle.solid),
+                          const BorderSide(),
                         ),
+                      ),
+                      child: const Text(
+                        'New Updates',
+                        style: TextStyle(color: Colors.black54),
                       ),
                     ),
                   ),
                 ],
               )
             else
-              SizedBox.shrink()
+              const SizedBox.shrink()
           ],
         )
       ],
@@ -214,7 +181,7 @@ class _CardsScreenState extends State<CardsScreen>
   }
 
   void refreshCards() {
-    cards.refreshCards((data) {
+    cards.refreshCards((moe.SyncCompleteData? data) {
       cards.cardDelivered();
       if (data?.hasUpdates == true) {
         fetchCards();
@@ -246,10 +213,47 @@ class _CardsScreenState extends State<CardsScreen>
     tabController.dispose();
     super.dispose();
   }
+}
 
-  Future<List<moe.Card>> getCardsByCategory(String category) async {
-    if (category == "All") return cardList;
-    final cardData = await cards.getCardsForCategory(category);
-    return cardData.cards;
+class CardsListWidget extends StatefulWidget {
+  const CardsListWidget(this.category, this.cards, this.actionCallback,
+      {super.key});
+
+  final String category;
+  final moe.MoEngageCards cards;
+  final CardActionCallback actionCallback;
+
+  @override
+  State<CardsListWidget> createState() => _CardsListWidgetState();
+}
+
+class _CardsListWidgetState extends State<CardsListWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder<moe.CardsData>(
+          future: widget.cards.getCardsForCategory(widget.category),
+          builder:
+              (BuildContext context, AsyncSnapshot<moe.CardsData> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              final List<moe.Card> data = snapshot.data?.cards ?? [];
+              if (data.isEmpty) {
+                return const Center(child: Text('No Data'));
+              }
+              return ListView.builder(
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int pos) {
+                    return (data[pos].template.templateType ==
+                            moe.TemplateType.basic)
+                        ? BasicCard(data[pos], widget.actionCallback)
+                        : IllustrationCard(data[pos], widget.actionCallback);
+                  });
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 }

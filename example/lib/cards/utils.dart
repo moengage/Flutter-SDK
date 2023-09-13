@@ -1,44 +1,48 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
 import 'package:url_launcher/url_launcher.dart';
 
 Color? colorFromHex(String? hexColor) {
-  if (hexColor == null) return null;
-  final hexCode = hexColor.replaceAll('#', '');
+  if (hexColor == null) {
+    return null;
+  }
+  final String hexCode = hexColor.replaceAll('#', '');
   return Color(int.parse('FF$hexCode', radix: 16));
 }
 
 String getDateFromMillis(int timeInMillis) {
-  var format = DateFormat("dd MMM,yy hh:mm a");
+  final DateFormat format = DateFormat('dd MMM,yy hh:mm a');
   return format.format(DateTime.fromMillisecondsSinceEpoch(timeInMillis));
 }
 
-handleAction(moe.Action action) async {
+Future<void> handleAction(moe.Action action) async {
   if (action.actionType == moe.ActionType.navigate) {
     action = action as moe.NavigationAction;
     if (action.navigationType == moe.NavigationType.screenName) {
-      debugPrint("Screen Name Navigation Not supported");
+      debugPrint('Screen Name Navigation Not supported');
       return;
     }
     if (action.value.isEmpty) {
-      debugPrint("Url Empty");
+      debugPrint('Url Empty');
       return;
     }
-    var uri =
+    final Uri uri =
         Uri.parse(action.value).replace(queryParameters: action.keyValuePairs);
     if (action.navigationType == moe.NavigationType.richLanding) {
       //Open RichLanding Url in WebView Inside App
-      launch(uri.toString(), forceWebView: true, forceSafariVC: true);
+      await launch(uri.toString(), forceWebView: true, forceSafariVC: true);
     } else if (action.navigationType == moe.NavigationType.deepLink) {
       //Open DeepLink In External App
-      launch(uri.toString());
+      await launch(uri.toString());
     }
   }
 }
 
 handleWidgetActions(List<moe.Action>? actions) {
-  actions?.forEach((action) {
+  actions?.forEach((moe.Action action) {
     handleAction(action);
   });
 }
