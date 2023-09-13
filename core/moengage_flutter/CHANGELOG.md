@@ -1,6 +1,11 @@
 # MoEngage Flutter Plugin
 
 # 13-09-2023
+`
+## 6.0.1
+- Fix Integration Meta Version 
+
+# 13-09-2023
 
 ## 6.0.0
 - Federated Plugin Implementation
