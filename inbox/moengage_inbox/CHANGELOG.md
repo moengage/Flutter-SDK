@@ -1,8 +1,8 @@
 # MoEngage Flutter Inbox Plugin
 
-# Next Release
+# 13-09-2023
 
-## Version
+## 5.0.0
 - Federated Plugin Implementation
 - Breaking Change: Use import 'package:moengage_inbox/moengage_inbox.dart'; to import any files in the `moengage_inbox` package. Remove the existing import related to `moengage_inbox`
 - Android

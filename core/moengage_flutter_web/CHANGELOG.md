@@ -1,6 +1,6 @@
 # MoEngage Flutter Web Plugin
 
-# Next Release
+# 13-09-2023
 
 ## 2.0.0
 - Initial Release with Federated Plugin

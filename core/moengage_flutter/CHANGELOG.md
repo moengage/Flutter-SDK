@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release
+# 13-09-2023
 
-## Version
+## 6.0.0
 - Federated Plugin Implementation
 - Breaking Change: Use import 'package:moengage_flutter/moengage_flutter.dart'; to import any files in the `moengage_flutter` package. Remove the existing import related to `moengage_flutter`
 - Android

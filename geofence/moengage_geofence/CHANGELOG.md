@@ -1,8 +1,8 @@
 # MoEngage Geofence Plugin
 
-# Next Release
+# 13-09-2023
 
-## Version
+## 2.0.0
 - Federated Plugin Implementation 
 - Breaking Change: Use import 'package:moengage_geofence/moengage_goefence.dart'; to import any files in the `moengage_geofence` package. Remove the existing import related to `moengage_geofence`
 
