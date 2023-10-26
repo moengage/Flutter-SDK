@@ -44,3 +44,6 @@ const val METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT = "updatePushPermissionRe
 // Asset Location for config.json under moengage_flutter package.
 const val ASSET_CONFIG_FILE_PATH = "flutter_assets/packages/moengage_flutter/config.json"
 const val VERSION_KEY = "version"
+
+// Delete Use
+const val METHOD_NAME_DELETE_USER = "deleteUser"

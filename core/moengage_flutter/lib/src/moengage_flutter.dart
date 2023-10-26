@@ -380,4 +380,11 @@ class MoEngageFlutter {
   void disableDeviceIdTracking() {
     _platform.updateDeviceIdentifierTrackingStatus(appId, keyDeviceId, false);
   }
+
+  /// Delete Current User Data From MoEngage Server
+  /// Note: This API is only applicable for Android Platform
+  /// @returns - Instance of [UserDeletionData]
+  Future<UserDeletionData> deleteUser(){
+    return _platform.deleteUser(appId);
+  }
 }

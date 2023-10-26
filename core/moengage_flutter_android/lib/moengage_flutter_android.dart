@@ -8,6 +8,9 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   /// The method channel used to interact with the native platform.
   final MethodChannel _methodChannel = const MethodChannel(channelName);
 
+  /// Log Tag
+  final String tag = '${TAG}MoEngageFlutterAndroid';
+
   /// Registers this class as the default instance of [MoEngageFlutterPlatform]
   static void registerWith() {
     Logger.v('Registering MoEngageFlutterAndroid with Platform Interface');
@@ -246,6 +249,19 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
         _getUpdatePushCountJsonPayload(requestCount, appId));
   }
 
+  @override
+  Future<UserDeletionData> deleteUser(String appId) async {
+    try {
+      final result = await _methodChannel.invokeMethod(
+        methodNameDeleteUser,
+        getAccountMeta(appId),
+      );
+      return Future.value(_deSerializeDeleteUserData(result.toString(), appId));
+    } catch (ex) {
+      return Future.error(ex);
+    }
+  }
+
   String _getUserAttributePayloadJson(String attributeName,
       String attributeType, dynamic attributeValue, String appId) {
     return json.encode(getUserAttributePayload(
@@ -283,5 +299,19 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
     final Map<String, dynamic> payload = getAccountMeta(appId);
     payload[keyData] = {keyUpdatePushPermissionCount: requestCount};
     return jsonEncode(payload);
+  }
+
+  UserDeletionData _deSerializeDeleteUserData(String data, String appId) {
+    try {
+      final payload = jsonDecode(data) as Map<String, dynamic>;
+      return UserDeletionData(
+          accountMeta: accountMetaFromMap(
+              payload[keyAccountMeta] as Map<String, dynamic>),
+          isSuccess: (payload[keyData][keyUserDeletionStatus] ?? false) as bool);
+    } catch (ex) {
+      Logger.e(' $tag deSerializeDeleteUserData(): Parsing Error', error: ex);
+      return UserDeletionData(
+          accountMeta: AccountMeta(appId), isSuccess: false);
+    }
   }
 }

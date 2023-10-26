@@ -1,3 +1,4 @@
+import 'package:moengage_flutter_platform_interface/src/model/user_deletion_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import '../src/model/app_status.dart';
@@ -201,4 +202,9 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// [requestCount] This count will be incremented to existing value
   /// [appId] - MoEngage App ID
   void updatePushPermissionRequestCountAndroid(int requestCount, String appId);
+
+  /// Delete User Data
+  /// [appId] - MoEngage App ID
+  Future<UserDeletionData> deleteUser(String appId) =>
+      throw UnimplementedError('deleteUser() not implemented for Platform');
 }

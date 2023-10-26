@@ -9,6 +9,7 @@ import com.moengage.core.internal.logger.Logger
 import com.moengage.core.listeners.AppBackgroundListener
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.setEventEmitter
+import com.moengage.plugin.base.internal.userDeletionDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -115,6 +116,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_PERMISSION_RESPONSE -> permissionResponse(call)
                 METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT ->
                     updatePushPermissionRequestCount(call)
+                METHOD_NAME_DELETE_USER -> deleteUser(call,result)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -368,6 +370,21 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             pluginHelper.updatePushPermissionRequestCount(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag updatePushPermissionRequestCount() :" }
+        }
+    }
+
+    private fun deleteUser(methodCall: MethodCall, result: MethodChannel.Result) {
+        try {
+            Logger.print { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) return
+            val payload: String = methodCall.arguments.toString()
+            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            pluginHelper.deleteUser(context,payload){
+                result.success(userDeletionDataToJson(it).toString())
+            }
+        }catch (t:Throwable){
+            result.error("DELETE_USER_ERROR",t.message.toString(),null)
+            Logger.print(LogLevel.ERROR,t) { "deleteUser(): " }
         }
     }
 }

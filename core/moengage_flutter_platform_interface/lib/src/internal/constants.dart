@@ -150,3 +150,7 @@ const String keyShouldDeliverCallbackOnForegroundClick =
 /// Key for Self handled push redirection. If self handled push direction is true,
 /// Client is responsible for push redirection on Push Click
 const String keySelfHandledPushRedirection = 'selfHandledPushRedirection';
+
+/// User Deletion
+const String methodNameDeleteUser = 'deleteUser';
+const String keyUserDeletionStatus = 'isUserDeletionSuccess';
