@@ -383,7 +383,7 @@ class MoEngageFlutter {
 
   /// Delete Current User Data From MoEngage Server
   /// Note: This API is only applicable for Android Platform
-  /// @returns - Instance of [UserDeletionData]
+  /// @returns - Instance of [Future] of type [UserDeletionData]
   Future<UserDeletionData> deleteUser(){
     return _platform.deleteUser(appId);
   }

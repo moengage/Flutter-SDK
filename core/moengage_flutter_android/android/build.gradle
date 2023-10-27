@@ -4,7 +4,6 @@ version '1.0'
 buildscript {
     ext.kotlin_version = '1.6.0'
     repositories {
-        mavenLocal()
         google()
         mavenCentral()
         jcenter()
@@ -18,7 +17,6 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        mavenLocal()
         google()
         mavenCentral()
     }
