@@ -12,7 +12,7 @@ class UserDeletionData{
   /// @since TODO: Update Version
   AccountMeta accountMeta;
 
-  /// True is user is deleted successfully
+  /// True if the user is deleted successfully, else false.
   /// @since TODO: Update Version
   bool isSuccess;
 }
