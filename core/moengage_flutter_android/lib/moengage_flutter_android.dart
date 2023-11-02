@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
+import 'src/internal/utils/payload_mapper.dart';
 
 /// The Android implementation of [MoEngageFlutterPlatform].
 class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
@@ -249,6 +250,10 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
         _getUpdatePushCountJsonPayload(requestCount, appId));
   }
 
+  /// Delete User Data from MoEngage Server
+  /// [appId] - MoEngage App ID
+  /// @returns - Instance of [Future] of type [UserDeletionData]
+  /// @since TODO: Update Version
   @override
   Future<UserDeletionData> deleteUser(String appId) async {
     try {
@@ -256,7 +261,7 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
         methodNameDeleteUser,
         getAccountMeta(appId),
       );
-      return Future.value(_deSerializeDeleteUserData(result.toString(), appId));
+      return Future.value(deSerializeDeleteUserData(result.toString(), appId));
     } catch (ex) {
       return Future.error(ex);
     }
@@ -299,19 +304,5 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
     final Map<String, dynamic> payload = getAccountMeta(appId);
     payload[keyData] = {keyUpdatePushPermissionCount: requestCount};
     return jsonEncode(payload);
-  }
-
-  UserDeletionData _deSerializeDeleteUserData(String data, String appId) {
-    try {
-      final payload = jsonDecode(data) as Map<String, dynamic>;
-      return UserDeletionData(
-          accountMeta: accountMetaFromMap(
-              payload[keyAccountMeta] as Map<String, dynamic>),
-          isSuccess: (payload[keyData][keyUserDeletionStatus] ?? false) as bool);
-    } catch (ex) {
-      Logger.e(' $tag deSerializeDeleteUserData(): Parsing Error', error: ex);
-      return UserDeletionData(
-          accountMeta: AccountMeta(appId), isSuccess: false);
-    }
   }
 }

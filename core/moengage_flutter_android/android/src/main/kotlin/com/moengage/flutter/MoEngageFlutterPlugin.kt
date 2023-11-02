@@ -24,7 +24,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
-    private val appBackgroundListener = AppBackgroundListener { _, _ -> run {
+    private val appBackgroundListener = AppBackgroundListener { _, _ ->
+        run {
             Logger.print { "$tag onAppBackground() : Detaching the Framework" }
             pluginHelper.onFrameworkDetached()
         }
@@ -51,7 +52,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
             channel.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
-            if (GlobalCache.lifecycleAwareCallbackEnabled){
+            if (GlobalCache.lifecycleAwareCallbackEnabled) {
                 Logger.print { "$tag initPlugin()  Adding App Background Listener: " }
                 MoECoreHelper.addAppBackgroundListener(appBackgroundListener)
             }
@@ -116,7 +117,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_PERMISSION_RESPONSE -> permissionResponse(call)
                 METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT ->
                     updatePushPermissionRequestCount(call)
-                METHOD_NAME_DELETE_USER -> deleteUser(call,result)
+                METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -373,18 +374,27 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    /**
+     * API to delete the user from MoEngage Server
+     * @param methodCall - Instance of [MethodCall] to get message from Flutter Method Channel
+     * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
+     * @since Todo: Update Version
+     */
     private fun deleteUser(methodCall: MethodCall, result: MethodChannel.Result) {
         try {
             Logger.print { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
-            if (methodCall.arguments == null) return
-            val payload: String = methodCall.arguments.toString()
-            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
-            pluginHelper.deleteUser(context,payload){
-                result.success(userDeletionDataToJson(it).toString())
+            if (methodCall.arguments == null) {
+                result.error(ERROR_CODE_DELETE_USER, "Invalid Arguments", null)
+                return
             }
-        }catch (t:Throwable){
-            result.error("DELETE_USER_ERROR",t.message.toString(),null)
-            Logger.print(LogLevel.ERROR,t) { "deleteUser(): " }
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            pluginHelper.deleteUser(context, payload) { data ->
+                result.success(userDeletionDataToJson(data).toString())
+            }
+        } catch (t: Throwable) {
+            result.error(ERROR_CODE_DELETE_USER, t.message.toString(), null)
+            Logger.print(LogLevel.ERROR, t) { "deleteUser(): " }
         }
     }
 }

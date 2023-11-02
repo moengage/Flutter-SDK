@@ -1,4 +1,3 @@
-import 'package:moengage_flutter_platform_interface/src/model/user_deletion_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import '../src/model/app_status.dart';
@@ -9,6 +8,7 @@ import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
+import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
 abstract class MoEngageFlutterPlatform extends PlatformInterface {
@@ -203,9 +203,10 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// [appId] - MoEngage App ID
   void updatePushPermissionRequestCountAndroid(int requestCount, String appId);
 
-  /// Delete User Data
+  /// Delete User Data from MoEngage Server
   /// [appId] - MoEngage App ID
   /// @returns - Instance of [Future] of type [UserDeletionData]
+  /// @since TODO: Update Version
   Future<UserDeletionData> deleteUser(String appId) =>
       throw UnimplementedError('deleteUser() not implemented for Platform');
 }
