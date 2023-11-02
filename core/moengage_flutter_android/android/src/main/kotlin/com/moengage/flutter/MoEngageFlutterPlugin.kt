@@ -393,7 +393,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 result.success(userDeletionDataToJson(data).toString())
             }
         } catch (t: Throwable) {
-            result.error(ERROR_CODE_DELETE_USER, "Error Deleting User", null)
+            result.error(ERROR_CODE_DELETE_USER, "Error occured while Deleting the User", null)
             Logger.print(LogLevel.ERROR, t) { "deleteUser(): " }
         }
     }
