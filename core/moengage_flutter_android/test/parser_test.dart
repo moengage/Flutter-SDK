@@ -6,10 +6,10 @@ import 'dataprovider/data_provider.dart';
 import 'dataprovider/json_data.dart';
 
 void main() {
-  test('Test Init Payload', () {
+  test('Test User Deletion Payload', () {
     expect(
         Comparator().isUserDeletionDataEqual(
-            deSerializeDeleteUserData(userDeletionJson, appId),
+            PayloadMapper().deSerializeDeleteUserData(userDeletionJson, appId),
             userDeletionData),
         true);
   });
