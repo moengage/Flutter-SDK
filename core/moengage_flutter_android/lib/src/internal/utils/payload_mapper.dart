@@ -5,12 +5,15 @@ import 'dart:convert';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
 /// Payload Mapper Util Class to convert JSON Payloads to Model Class
+/// @since TODO: Update Version
 class PayloadMapper{
 
   /// Log tag for Payload Mapper
   final tag = '${TAG}PayloadMapper';
 
   /// Get [UserDeletionData] from Json String Payload
+  /// [data] - JSON String Payload
+  /// [appId] - MoEngage APP-Id
   /// @since TODO: Update Version
   UserDeletionData deSerializeDeleteUserData(String data, String appId) {
     try {
