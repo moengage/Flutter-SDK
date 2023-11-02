@@ -1,9 +1,9 @@
-const String appId = 'DAO6UGZ73D9RTK8B5W96TPYN';
+const String appId = '1234';
 
 const String userDeletionJson = '''
 {
   "accountMeta": {
-    "appId": "DAO6UGZ73D9RTK8B5W96TPYN"
+    "appId": "1234"
   },
   "data": {
    "isUserDeletionSuccess":true
