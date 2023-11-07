@@ -261,8 +261,10 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
         methodNameDeleteUser,
         getAccountMeta(appId),
       );
-      return Future.value(PayloadMapper().deSerializeDeleteUserData(result.toString(), appId));
+      return Future.value(
+          PayloadMapper().deSerializeDeleteUserData(result.toString(), appId));
     } catch (ex) {
+      Logger.e(' $tag deleteUser(): Error', error: ex);
       return Future.error(ex);
     }
   }
