@@ -253,7 +253,7 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   /// Delete User Data from MoEngage Server
   /// [appId] - MoEngage App ID
   /// @returns - Instance of [Future] of type [UserDeletionData]
-  /// @since TODO: Update Version
+  /// @since 1.1.0
   @override
   Future<UserDeletionData> deleteUser(String appId) async {
     try {

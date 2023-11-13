@@ -206,7 +206,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// Delete User Data from MoEngage Server
   /// [appId] - MoEngage App ID
   /// @returns - Instance of [Future] of type [UserDeletionData]
-  /// @since TODO: Update Version
+  /// @since 1.1.0
   Future<UserDeletionData> deleteUser(String appId) =>
       throw UnimplementedError('deleteUser() not implemented for Platform');
 }

@@ -378,7 +378,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
      * API to delete the user from MoEngage Server
      * @param methodCall - Instance of [MethodCall] to get message from Flutter Method Channel
      * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
-     * @since Todo: Update Version
+     * @since 1.1.0
      */
     private fun deleteUser(methodCall: MethodCall, result: MethodChannel.Result) {
         try {
