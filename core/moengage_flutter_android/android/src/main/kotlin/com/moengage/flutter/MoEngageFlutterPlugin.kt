@@ -380,7 +380,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        Logger.print { "$tag onAttachedToActivity() : Resetting methodChannel to `null`" }
+        Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
     }
 
 
