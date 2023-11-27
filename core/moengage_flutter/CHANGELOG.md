@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Next Release Date
+
+## Next Version
+- Android 
+  - Google Policy - Delete User details API
+
 # 13-09-2023
 
 ## 6.0.0
