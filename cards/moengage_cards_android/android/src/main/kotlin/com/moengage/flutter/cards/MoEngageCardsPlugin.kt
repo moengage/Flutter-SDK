@@ -14,8 +14,6 @@ import io.flutter.plugin.common.MethodChannel
 
 class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
 
-    private lateinit var channel: MethodChannel
-
     private val tag = "${MODULE_TAG}MoEngageCardsPlugin"
 
     private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
@@ -23,9 +21,10 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
     lateinit var context: Context
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         try {
-            channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
             context = flutterPluginBinding.applicationContext
-            initPlugin(flutterPluginBinding.binaryMessenger)
+            if (methodChannel == null) {
+                initPlugin(flutterPluginBinding.binaryMessenger)
+            }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onAttachedToEngine()  : " }
         }
@@ -34,8 +33,13 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
             Logger.print { "$tag initPlugin(): Initializing MoEngage Cards Plugin" }
-            channel = MethodChannel(binaryMessenger, CHANNEL_NAME)
-            channel.setMethodCallHandler(PlatformMethodCallHandler(context, cardsPluginHelper))
+            methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
+            methodChannel?.setMethodCallHandler(
+                PlatformMethodCallHandler(
+                    context,
+                    cardsPluginHelper
+                )
+            )
             setCardsEventEmitter(EventEmitterImpl(::emitEvent))
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
@@ -45,7 +49,6 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         try {
             Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
-            channel.setMethodCallHandler(null)
             cardsPluginHelper.onFrameworkDetached()
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() : " }
@@ -56,7 +59,7 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
         try {
             GlobalResources.mainThread.post {
                 try {
-                    channel.invokeMethod(methodName, payload)
+                    methodChannel?.invokeMethod(methodName, payload)
                 } catch (t: Throwable) {
                     Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
                 }
@@ -71,7 +74,7 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        Logger.print { "$tag onAttachedToActivity() : Resetting methodChannel to `null`" }
+        Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
     }
 
     /**
