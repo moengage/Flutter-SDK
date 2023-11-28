@@ -30,6 +30,7 @@ export 'src/model/push/push_campaign.dart';
 export 'src/model/push/push_campaign_data.dart';
 export 'src/model/push/push_config.dart';
 export 'src/model/push/push_token_data.dart';
+export 'src/model/user_deletion_data.dart';
 export 'src/moengage_flutter_platform_interface.dart';
 export 'src/utils/data_payload_mapper.dart';
 export 'src/utils/in_app_payload_mapper.dart';

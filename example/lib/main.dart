@@ -574,6 +574,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _moengagePlugin.disableDeviceIdTracking();
                 },
               ),
+              ListTile(
+                title: const Text('Delete User - (Android Only)'),
+                onTap: () {
+                  _moengagePlugin.deleteUser().then((value) {
+                    debugPrint('User Deletion Result:  ${value.isSuccess}');
+                  }).catchError((onError) {
+                    debugPrint('Error Occurred while Deleting User Data');
+                  });
+                },
+              ),
             ]).toList(),
           ),
         ),

@@ -9,10 +9,9 @@ import com.moengage.core.internal.logger.Logger
 import com.moengage.core.listeners.AppBackgroundListener
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.setEventEmitter
+import com.moengage.plugin.base.internal.userDeletionDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
-import io.flutter.embedding.engine.plugins.activity.ActivityAware
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -24,7 +23,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
-    private val appBackgroundListener = AppBackgroundListener { _, _ -> run {
+    private val appBackgroundListener = AppBackgroundListener { _, _ ->
+        run {
             Logger.print { "$tag onAppBackground() : Detaching the Framework" }
             pluginHelper.onFrameworkDetached()
         }
@@ -53,7 +53,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             methodChannel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
             methodChannel?.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
-            if (GlobalCache.lifecycleAwareCallbackEnabled){
+            if (GlobalCache.lifecycleAwareCallbackEnabled) {
                 Logger.print { "$tag initPlugin()  Adding App Background Listener: " }
                 MoECoreHelper.addAppBackgroundListener(appBackgroundListener)
             }
@@ -118,6 +118,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_PERMISSION_RESPONSE -> permissionResponse(call)
                 METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT ->
                     updatePushPermissionRequestCount(call)
+                METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -371,6 +372,30 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             pluginHelper.updatePushPermissionRequestCount(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag updatePushPermissionRequestCount() :" }
+        }
+    }
+
+    /**
+     * API to delete the user from MoEngage Server
+     * @param methodCall - Instance of [MethodCall] to get message from Flutter Method Channel
+     * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
+     * @since 1.1.0
+     */
+    private fun deleteUser(methodCall: MethodCall, result: MethodChannel.Result) {
+        try {
+            Logger.print { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) {
+                result.error(ERROR_CODE_DELETE_USER, "Invalid Arguments", null)
+                return
+            }
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            pluginHelper.deleteUser(context, payload) { data ->
+                result.success(userDeletionDataToJson(data).toString())
+            }
+        } catch (t: Throwable) {
+            result.error(ERROR_CODE_DELETE_USER, "Error occured while Deleting the User", null)
+            Logger.print(LogLevel.ERROR, t) { "deleteUser(): " }
         }
     }
 

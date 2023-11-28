@@ -2,11 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
+import 'src/internal/utils/payload_mapper.dart';
 
 /// The Android implementation of [MoEngageFlutterPlatform].
 class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   /// The method channel used to interact with the native platform.
   final MethodChannel _methodChannel = const MethodChannel(channelName);
+
+  /// Log Tag
+  final String tag = '${TAG}MoEngageFlutterAndroid';
 
   /// Registers this class as the default instance of [MoEngageFlutterPlatform]
   static void registerWith() {
@@ -244,6 +248,25 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   void updatePushPermissionRequestCountAndroid(int requestCount, String appId) {
     _methodChannel.invokeMethod(methodUpdatePushPermissionRequestCount,
         _getUpdatePushCountJsonPayload(requestCount, appId));
+  }
+
+  /// Delete User Data from MoEngage Server
+  /// [appId] - MoEngage App ID
+  /// @returns - Instance of [Future] of type [UserDeletionData]
+  /// @since 1.1.0
+  @override
+  Future<UserDeletionData> deleteUser(String appId) async {
+    try {
+      final result = await _methodChannel.invokeMethod(
+        methodNameDeleteUser,
+        getAccountMeta(appId),
+      );
+      return Future.value(
+          PayloadMapper().deSerializeDeleteUserData(result.toString(), appId));
+    } catch (ex) {
+      Logger.e(' $tag deleteUser(): Error', error: ex);
+      return Future.error(ex);
+    }
   }
 
   String _getUserAttributePayloadJson(String attributeName,
