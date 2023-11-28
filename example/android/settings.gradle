@@ -13,3 +13,20 @@ plugins.each { name, path ->
     include ":$name"
     project(":$name").projectDir = pluginDirectory
 }
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    versionCatalogs {
+        libs {
+            create("moengage") {
+                from("com.moengage:android-dependency-catalog:3.2.1")
+            }
+            create("appLibs") {
+                from(files("../android/gradle/appLibs.versions.toml"))
+            }
+        }
+    }
+}
