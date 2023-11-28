@@ -13,6 +13,7 @@ import 'cards/cards_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
+@pragma('vm:entry-point')
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
