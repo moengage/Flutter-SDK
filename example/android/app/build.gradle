@@ -28,7 +28,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-  compileSdkVersion 33
+  compileSdk 33
+  namespace "com.moengage.sampleapp"
 
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
@@ -40,8 +41,8 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdkVersion 21
-    targetSdkVersion 33
+    minSdk 21
+    targetSdk 33
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -94,23 +95,23 @@ flutter {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
-  testImplementation 'junit:junit:4.13.2'
-  androidTestImplementation("androidx.test.ext:junit:1.1.3")
-  androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-  implementation("com.moengage:moe-android-sdk:12.10.00")
-  implementation("com.moengage:inapp:7.0.0")
-  implementation("com.moengage:cards-core:1.6.0")
-  implementation("com.google.firebase:firebase-messaging:23.1.2")
-  implementation("androidx.lifecycle:lifecycle-process:2.5.1")
-  implementation("com.moengage:hms-pushkit:4.7.0")
-  implementation("com.moengage:rich-notification:4.6.0")
-  implementation("com.huawei.hms:push:6.10.0.300")
-  implementation("com.moengage:inbox-core:2.6.0")
-  implementation("com.moengage:geofence:3.4.0")
-  implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
-  implementation("com.moengage:push-amp-plus:6.6.0")
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
-  implementation("com.google.android.gms:play-services-location:21.0.1")
+  implementation(appLibs.fcm)
+  implementation(appLibs.lifecycleOwner)
+  implementation(appLibs.adIdentifier)
+  implementation(appLibs.hmsPush)
+  implementation(appLibs.kotlin)
+  implementation(appLibs.playLocation)
+  implementation(moengage.core)
+  implementation(moengage.inapp)
+  implementation(moengage.cardsCore)
+  implementation(moengage.pushKit)
+  implementation(moengage.richNotification)
+  implementation(moengage.inboxCore)
+  implementation(moengage.geofence)
+  implementation(moengage.pushAmpPlus)
+  testImplementation(appLibs.junit)
+  androidTestImplementation(appLibs.androidJUnit)
+  androidTestImplementation(appLibs.expresso)
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -2,14 +2,14 @@ group 'com.meongage.flutter_cards'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -26,7 +26,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
+    namespace "com.moengage.flutter.cards"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,8 +49,8 @@ android {
 
 dependencies {
 
-    api("com.moengage:plugin-base-cards:1.0.1")
-    compileOnly("com.moengage:moe-android-sdk:12.9.01")
-    compileOnly("com.moengage:plugin-base:3.3.3")
-    compileOnly("com.moengage:cards-core:1.5.0")
+    api("com.moengage:plugin-base-cards:1.1.0")
+    compileOnly("com.moengage:moe-android-sdk:12.10.01")
+    compileOnly("com.moengage:plugin-base:3.4.0")
+    compileOnly("com.moengage:cards-core:1.6.0")
 }

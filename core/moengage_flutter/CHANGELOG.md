@@ -5,6 +5,7 @@
 ## Next Version
 - Android 
   - Google Policy - Delete User details API
+  - Native SDK Updated to support version `12.10.01` and above
 
 # 13-09-2023
 
