@@ -148,11 +148,16 @@ class MoEngageFlutter {
     if (userAttributeValue is String ||
         userAttributeValue is int ||
         userAttributeValue is double ||
-        userAttributeValue is bool) {
+        userAttributeValue is num ||
+        userAttributeValue is bool ||
+        userAttributeValue is List<String> ||
+        userAttributeValue is List<int> ||
+        userAttributeValue is List<double> ||
+        userAttributeValue is List<num>) {
       _platform.setUserAttribute(userAttributeName, userAttributeValue, appId);
     } else {
       Logger.w(
-          'Only String, Numbers and Bool values supported as User Attributes');
+          'Only String, Numbers, Bool and List of Strings/Numbers(non-optional) values supported as User Attributes');
     }
   }
 

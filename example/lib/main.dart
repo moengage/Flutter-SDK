@@ -309,11 +309,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ListTile(
                 title: const Text('Set Custom User Attributes'),
                 onTap: () {
+                  const num number = 15.4567;
                   _moengagePlugin.setUserAttribute('userAttr-bool', true);
                   _moengagePlugin.setUserAttribute('userAttr-int', 1443322);
                   _moengagePlugin.setUserAttribute('userAttr-Double', 45.4567);
+                  _moengagePlugin.setUserAttribute('userAttr-Number', number);
                   _moengagePlugin.setUserAttribute(
                       'userAttr-String', 'This is a string');
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-array-int', [1, 2, 3, 4, 5]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-Double', [1.0, 1.5, 0.01, 5.45]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-Number', [1.0, 1, 0.01, 5.45]);
+                  _moengagePlugin.setUserAttribute('userAttr-array-String',
+                      ['This', 'is', 'an', 'array', 'of', 'strings']);
                 },
               ),
               ListTile(
