@@ -26,6 +26,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.huawei.agconnect'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdk 33
@@ -101,6 +102,8 @@ dependencies {
   implementation(appLibs.hmsPush)
   implementation(appLibs.kotlin)
   implementation(appLibs.playLocation)
+  implementation(appLibs.glideCore)
+  kapt(appLibs.glideCore)
   implementation(moengage.core)
   implementation(moengage.inapp)
   implementation(moengage.cardsCore)
