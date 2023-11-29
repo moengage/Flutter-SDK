@@ -3,10 +3,10 @@
 # Next Release Date
 
 ## Next Version
+- Added support for array in user attributes
 - Android 
   - Google Policy - Delete User details API
   - Native SDK Updated to support version `12.10.01` and above
-- Added support for array in user attributes
 
 # 13-09-2023
 
