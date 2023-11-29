@@ -1,0 +1,7 @@
+dependency_overrides:
+  moengage_flutter_platform_interface:
+    path: ../moengage_flutter_platform_interface/
+  moengage_flutter_ios:
+    path: ../moengage_flutter_ios/
+  moengage_flutter_android:
+    path: ../moengage_flutter_android/

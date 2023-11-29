@@ -28,7 +28,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-  compileSdkVersion 33
+  compileSdk 33
+  namespace "com.moengage.sampleapp"
 
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
@@ -40,8 +41,8 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdkVersion 21
-    targetSdkVersion 33
+    minSdk 21
+    targetSdk 33
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
