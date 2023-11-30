@@ -7,6 +7,7 @@ import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import com.moengage.plugin.base.cards.internal.setCardsEventEmitter
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -19,11 +20,13 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
     private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
 
     lateinit var context: Context
-    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         try {
-            context = flutterPluginBinding.applicationContext
+            Logger.print { "$tag onAttachedToEngine() : Registering MoEngageCardsPlugin" }
+            context = binding.applicationContext
+            flutterPluginBinding = binding
             if (methodChannel == null) {
-                initPlugin(flutterPluginBinding.binaryMessenger)
+                initPlugin(binding.binaryMessenger)
             }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onAttachedToEngine()  : " }
@@ -46,7 +49,7 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
         }
     }
 
-    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
             Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
             cardsPluginHelper.onFrameworkDetached()
@@ -75,6 +78,9 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
+        flutterPluginBinding?.binaryMessenger?.let {
+            initPlugin(it)
+        }
     }
 
     /**
@@ -110,5 +116,10 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
          * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
          */
         internal var methodChannel: MethodChannel? = null
+
+        /**
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         */
+        internal var flutterPluginBinding: FlutterPluginBinding? = null
     }
 }

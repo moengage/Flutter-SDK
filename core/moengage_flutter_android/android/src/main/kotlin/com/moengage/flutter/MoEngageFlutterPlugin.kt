@@ -35,6 +35,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.print { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
         context = binding.applicationContext
+        flutterPluginBinding = binding
         if (methodChannel == null) {
             initPlugin(binding.binaryMessenger)
         }
@@ -408,6 +409,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
+        flutterPluginBinding?.binaryMessenger?.let {
+            initPlugin(it)
+        }
     }
 
 
@@ -444,5 +448,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
          * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
          */
         internal var methodChannel: MethodChannel? = null
+
+        /**
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         */
+        internal var flutterPluginBinding: FlutterPluginBinding? = null
     }
 }

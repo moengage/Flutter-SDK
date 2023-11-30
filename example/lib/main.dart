@@ -13,7 +13,6 @@ import 'cards/cards_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
-@pragma('vm:entry-point')
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,7 +24,7 @@ Future<void> main() async {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('Handling a background message ${message.messageId}');
+  print('Handling a background message ${message.toMap()}');
 }
 
 const String tag = 'MoeExample_';
