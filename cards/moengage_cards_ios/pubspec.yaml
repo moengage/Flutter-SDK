@@ -19,7 +19,7 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_cards_platform_interface: ^1.0.0
-  moengage_flutter: 6.0.0
+  moengage_flutter: ^6.0.0
 
 dev_dependencies:
   flutter_test:
