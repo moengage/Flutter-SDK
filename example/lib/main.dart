@@ -324,6 +324,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       'userAttr-array-Number', [1.0, 1, 0.01, 5.45]);
                   _moengagePlugin.setUserAttribute('userAttr-array-String',
                       ['This', 'is', 'an', 'array', 'of', 'strings']);
+                  // not tacked cases
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-mixed', ['not', 1, 'tracked']);
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-array-Bool', [true, false]);
                 },
               ),
               ListTile(

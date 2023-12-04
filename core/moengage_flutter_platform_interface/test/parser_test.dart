@@ -54,6 +54,13 @@ void main() {
         getUserAttributePayload(
             'timeStamp', 'timestamp', '2019-12-02T08:26:21.170Z', ''),
         jsonDecode(timeStampPayload));
+    expect(
+        getUserAttributePayload(
+            'string-array', 'general', ['array', 'of', 'strings'], ''),
+        jsonDecode(userAttrStringArrayPayload));
+    expect(
+        getUserAttributePayload('number-array', 'general', [1.5, 1, 2.56], ''),
+        jsonDecode(userAttrNumberArrayPayload));
   });
 
   test('Test Alias Payload', () {

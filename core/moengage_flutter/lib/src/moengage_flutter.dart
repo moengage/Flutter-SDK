@@ -138,6 +138,9 @@ class MoEngageFlutter {
   }
 
   /// Tracks a user attribute.
+  /// Supported attribute types:
+  /// - `String` `int`, `double`, `num`, `bool`
+  /// - `List<String>`, `List<int>`, `List<double>`, `List<num>`
   /// [userAttributeValue] - Data of type [dynamic]
   /// [userAttributeName] - Name of User Attribute
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
@@ -157,7 +160,7 @@ class MoEngageFlutter {
       _platform.setUserAttribute(userAttributeName, userAttributeValue, appId);
     } else {
       Logger.w(
-          'Only String, Numbers, Bool and List of Strings/Numbers(non-optional) values supported as User Attributes');
+          'Only String, Numbers, Bool and List of Strings/Numbers(non-optional) values supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
     }
   }
 
