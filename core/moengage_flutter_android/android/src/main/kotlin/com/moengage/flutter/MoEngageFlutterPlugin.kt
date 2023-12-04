@@ -12,15 +12,16 @@ import com.moengage.plugin.base.internal.setEventEmitter
 import com.moengage.plugin.base.internal.userDeletionDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
-class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
+class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
-    private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
@@ -34,14 +35,16 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.print { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
         context = binding.applicationContext
-        initPlugin(binding.binaryMessenger)
+        flutterPluginBinding = binding
+        if (methodChannel == null) {
+            initPlugin(binding.binaryMessenger)
+        }
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
             Logger.print { "$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin" }
             pluginHelper.onFrameworkDetached()
-            channel.setMethodCallHandler(null)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() " }
         }
@@ -49,8 +52,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
-            channel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
-            channel.setMethodCallHandler(this)
+            Logger.print { "$tag initPlugin(): Initializing MoEngage Flutter Plugin" }
+            methodChannel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
+            methodChannel?.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
             if (GlobalCache.lifecycleAwareCallbackEnabled) {
                 Logger.print { "$tag initPlugin()  Adding App Background Listener: " }
@@ -65,7 +69,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
         try {
             Handler(Looper.getMainLooper()).post {
                 try {
-                    channel.invokeMethod(methodName, message)
+                    methodChannel?.invokeMethod(methodName, message)
                 } catch (t: Throwable) {
                     Logger.print(LogLevel.ERROR, t) { "$tag sendCallback() " }
                 }
@@ -396,5 +400,58 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler {
             result.error(ERROR_CODE_DELETE_USER, "Error occured while Deleting the User", null)
             Logger.print(LogLevel.ERROR, t) { "deleteUser(): " }
         }
+    }
+
+
+    /**
+     * Called when the plugin is attached to Flutter Activity.
+     * @param binding instance of [ActivityPluginBinding]
+     */
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
+        flutterPluginBinding?.binaryMessenger?.let {
+            initPlugin(it)
+        }
+    }
+
+
+    /**
+     * Called when the plugin is Detached From Flutter Activity.
+     */
+    override fun onDetachedFromActivity() {
+        Logger.print { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
+        methodChannel = null
+    }
+
+    /**
+     * Called when the plugin is Detached From Flutter Activity for Config Changes
+     */
+    override fun onDetachedFromActivityForConfigChanges() {
+        Logger.print {
+            "$tag onDetachedFromActivityForConfigChanges() : Detached From Activity for Config changes"
+        }
+    }
+
+    /**
+     * Called when the plugin is Reattached to Flutter Activity For Config Changes.
+     * @param binding instance of [ActivityPluginBinding]
+     */
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        Logger.print {
+            "$tag onReattachedToActivityForConfigChanges() : ReAttached To Activity for Config changes"
+        }
+    }
+
+
+    companion object {
+        /**
+         * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
+         */
+        internal var methodChannel: MethodChannel? = null
+
+        /**
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         */
+        internal var flutterPluginBinding: FlutterPluginBinding? = null
     }
 }

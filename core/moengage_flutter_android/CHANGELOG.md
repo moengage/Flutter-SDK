@@ -3,6 +3,7 @@
 # Next Release Date
 
 ## Next Version
+- Fix: Android to Dart Method Channel Communication Breaking when `FirebaseMessaging.onBackgroundMessage` is used
 - Google Policy - Delete User details API
 - Add support for AGP `8.0.2` and above
 - Upgrade Kotlin Version to `1.7.10`
