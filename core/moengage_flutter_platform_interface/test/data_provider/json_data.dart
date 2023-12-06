@@ -173,6 +173,32 @@ const String userAttrPayload = '''
 } 
 ''';
 
+const String userAttrStringArrayPayload = '''
+{
+  "accountMeta": {
+    "appId": ""
+  },
+  "data": {
+   "attributeName":"string-array",
+   "type":"general",
+   "attributeValue":["array","of","strings"]
+  }
+} 
+''';
+
+const String userAttrNumberArrayPayload = '''
+{
+  "accountMeta": {
+    "appId": ""
+  },
+  "data": {
+   "attributeName":"number-array",
+   "type":"general",
+   "attributeValue":[1.5,1,2.56]
+  }
+} 
+''';
+
 const String timeStampPayload = '''
 {
   "accountMeta": {

@@ -46,7 +46,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   ) {
     _moengage.callMethod(
       methodSetUserAttributeSDK,
-      [userAttributeName, userAttributeValue],
+      [userAttributeName, getUserAttributeValuePayload(userAttributeValue)],
     );
   }
 

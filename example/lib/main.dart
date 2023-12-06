@@ -12,13 +12,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'cards/cards_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
+import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseApp not configured for web app. Added the check to avoid run time errors.
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+    // Set the background messaging handler early on, as a named top-level function
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
   runApp(const MaterialApp(home: MyApp()));
 }
 
@@ -309,11 +312,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ListTile(
                 title: const Text('Set Custom User Attributes'),
                 onTap: () {
+                  const num number = 15.4567;
                   _moengagePlugin.setUserAttribute('userAttr-bool', true);
                   _moengagePlugin.setUserAttribute('userAttr-int', 1443322);
                   _moengagePlugin.setUserAttribute('userAttr-Double', 45.4567);
+                  _moengagePlugin.setUserAttribute('userAttr-Number', number);
                   _moengagePlugin.setUserAttribute(
                       'userAttr-String', 'This is a string');
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-array-int', [1, 2, 3, 4, 5]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-Double', [1.0, 1.5, 0.01, 5.45]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-Number', [1.0, 1, 0.01, 5.45]);
+                  _moengagePlugin.setUserAttribute('userAttr-array-String',
+                      ['This', 'is', 'an', 'array', 'of', 'strings']);
                 },
               ),
               ListTile(
