@@ -16,6 +16,7 @@ import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FirebaseApp not configured for web app. Added the check to avoid run time errors.
   if (!kIsWeb) {
     await Firebase.initializeApp();
     // Set the background messaging handler early on, as a named top-level function
