@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'extensions.dart';
+import 'dart:js' as js;
 
 Map<String, dynamic> getEventPayloadWeb(
   String eventName,
@@ -30,4 +31,11 @@ Map<String, dynamic> getUserAttributePayload(
       keyAttributeValue: attributeValue
     };
   }
+}
+
+dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
+  if (userAttributeValue is List<dynamic>) {
+    return js.JsArray.from(userAttributeValue);
+  }
+  return userAttributeValue;
 }

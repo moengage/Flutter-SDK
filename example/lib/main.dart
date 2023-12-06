@@ -12,13 +12,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'cards/cards_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
+import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseApp not configured for web app. Added the check to avoid run time errors.
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+    // Set the background messaging handler early on, as a named top-level function
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
   runApp(const MaterialApp(home: MyApp()));
 }
 
