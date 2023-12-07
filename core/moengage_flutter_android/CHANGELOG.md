@@ -1,8 +1,8 @@
 # MoEngage Flutter Android Plugin
 
-# Next Release Date
+# 07-12-2023
 
-## Next Version
+## 1.1.0
 - Fix: Android to Dart Method Channel Communication Breaking when `FirebaseMessaging.onBackgroundMessage` is used
 - Google Policy - Delete User details API
 - Add support for AGP `8.0.2` and above

@@ -1,8 +1,8 @@
 # MoEngage Cards Android Plugin
 
-# Next Release Date
+# 07-12-2023
 
-# Next Version
+# 1.1.0
 - Add support for AGP `8.0.2` and above
 - Upgrade Kotlin Version to `1.7.10`
 - Support for `cards-core` version `1.6.0` and above

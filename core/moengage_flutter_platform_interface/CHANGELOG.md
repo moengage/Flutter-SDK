@@ -1,8 +1,9 @@
 # MoEngage Flutter Platform Interface
 
-# Next Release Date
+# 07-12-2023
 
-## Next Version
+## 1.1.0
+- Google Policy - Delete User details API
 - Added support for array in user attributes
 
 # 13-09-2023

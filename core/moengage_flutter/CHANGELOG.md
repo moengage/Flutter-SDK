@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release Date
+# 07-12-2023
 
-## Next Version
+## 6.1.0
 - Added support for array in user attributes
 - Android 
   - Google Policy - Delete User details API
