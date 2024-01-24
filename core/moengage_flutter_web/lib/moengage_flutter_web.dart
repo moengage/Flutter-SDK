@@ -11,11 +11,10 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     MoEngageFlutterPlatform.instance = MoEngageFlutterWeb();
   }
 
-  late JsObject _moengage;
-
+  JsObject?  _moengage;
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
-    Logger.d('initialise() : Not required for web');
+    Logger.d('initialise() : Initialising MoEngage web SDK');
     _moengage = JsObject.fromBrowserObject(context['Moengage'] as Object);
   }
 
@@ -27,7 +26,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   ) {
     final Map<String, dynamic> payload =
         getEventPayloadWeb(eventName, eventAttributes);
-    _moengage.callMethod(methodTrackEventSDK, [
+    _moengage?.callMethod(methodTrackEventSDK, [
       payload[keyEventName],
       JsObject.jsify(payload[keyEventAttributes] as Object)
     ]);
@@ -35,7 +34,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void logout(String appId) {
-    _moengage.callMethod(methodLogoutSDK);
+    _moengage?.callMethod(methodLogoutSDK);
   }
 
   @override
@@ -44,7 +43,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     dynamic userAttributeValue,
     String appId,
   ) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttributeName, getUserAttributeValuePayload(userAttributeValue)],
     );
@@ -52,12 +51,12 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setAlias(String newUniqueId, String appId) {
-    _moengage.callMethod(methodSetAliasSDK, [newUniqueId]);
+    _moengage?.callMethod(methodSetAliasSDK, [newUniqueId]);
   }
 
   @override
   void setBirthDate(String birthDate, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameBirtdate, birthDate],
     );
@@ -65,13 +64,12 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setEmail(String emailId, String appId) {
-    _moengage
-        .callMethod(methodSetUserAttributeSDK, [userAttrNameEmailId, emailId]);
+    _moengage?.callMethod(methodSetUserAttributeSDK, [userAttrNameEmailId, emailId]);
   }
 
   @override
   void setFirstName(String firstName, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameFirstName, firstName],
     );
@@ -79,7 +77,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setGender(MoEGender gender, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameGender, genderToString(gender)],
     );
@@ -87,7 +85,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setLastName(String lastName, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameLastName, lastName],
     );
@@ -95,7 +93,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setPhoneNumber(String phoneNumber, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNamePhoneNum, phoneNumber],
     );
@@ -103,7 +101,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setUniqueId(String uniqueId, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameUniqueId, uniqueId],
     );
@@ -111,7 +109,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setUserName(String userName, String appId) {
-    _moengage.callMethod(
+    _moengage?.callMethod(
       methodSetUserAttributeSDK,
       [userAttrNameUserName, userName],
     );
