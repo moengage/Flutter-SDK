@@ -1,6 +1,6 @@
 name: moengage_flutter_web
 description: Web implementation of the moengage_flutter plugin
-version: 2.1.0
+version: 2.1.1
 homepage: https://www.moengage.com
 
 environment:
