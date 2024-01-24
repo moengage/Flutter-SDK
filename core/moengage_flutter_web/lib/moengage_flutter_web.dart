@@ -11,12 +11,12 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     MoEngageFlutterPlatform.instance = MoEngageFlutterWeb();
   }
 
-  final JsObject _moengage =
-      JsObject.fromBrowserObject(context['Moengage'] as Object);
+  late JsObject _moengage;
 
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
     Logger.d('initialise() : Not required for web');
+    _moengage = JsObject.fromBrowserObject(context['Moengage'] as Object);
   }
 
   @override
