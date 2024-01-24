@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+# 24-12-2023
+
+## 6.1.1
+- Moengage undefine error handling if webSDK not integrated
+
 # 07-12-2023
 
 ## 6.1.0
