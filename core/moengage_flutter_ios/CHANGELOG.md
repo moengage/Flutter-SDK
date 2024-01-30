@@ -1,5 +1,11 @@
 # MoEngage Flutter iOS Plugin
 
+# 30-01-2024
+
+## 1.2.0
+- Updated MoEngage-iOS-SDK to 9.15.0
+- Updated MoEngageInApp to 4.14.0
+
 # 01-12-2023
 
 ## 1.1.0

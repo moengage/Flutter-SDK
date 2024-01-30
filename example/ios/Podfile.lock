@@ -1,47 +1,108 @@
 PODS:
+  - Firebase/CoreOnly (10.18.0):
+    - FirebaseCore (= 10.18.0)
+  - Firebase/Messaging (10.18.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 10.18.0)
+  - firebase_core (2.24.2):
+    - Firebase/CoreOnly (= 10.18.0)
+    - Flutter
+  - firebase_messaging (14.7.10):
+    - Firebase/Messaging (= 10.18.0)
+    - firebase_core
+    - Flutter
+  - FirebaseCore (10.18.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreInternal (10.20.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseInstallations (10.20.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.18.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
-  - MoEngage-iOS-SDK (9.14.0)
-  - moengage_cards_ios (1.1.0):
+  - GoogleDataTransport (9.3.0):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.12.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.12.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.12.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.12.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.12.0)"
+  - GoogleUtilities/Reachability (7.12.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.12.0):
+    - GoogleUtilities/Logger
+  - MoEngage-iOS-SDK (9.15.0)
+  - moengage_cards_ios (1.2.0):
     - Flutter
-    - MoEngagePluginCards (~> 1.2.1)
-  - moengage_flutter_ios (1.1.0):
+    - MoEngagePluginCards (~> 1.3.0)
+  - moengage_flutter_ios (1.2.0):
     - Flutter
-    - MoEngagePluginBase (~> 4.5.1)
-  - moengage_geofence_ios (1.1.0):
+    - MoEngagePluginBase (~> 4.6.0)
+  - moengage_geofence_ios (1.2.0):
     - Flutter
-    - MoEngagePluginGeofence (~> 2.5.1)
-  - moengage_inbox_ios (1.1.0):
+    - MoEngagePluginGeofence (~> 2.6.0)
+  - moengage_inbox_ios (1.2.0):
     - Flutter
-    - MoEngagePluginInbox (~> 2.5.1)
-  - MoEngageCards (4.13.0):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
-  - MoEngageGeofence (5.13.0):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
-  - MoEngageInApp (4.13.0):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
-  - MoEngageInbox (2.13.0):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
-    - MoEngageRichNotification (< 7.14.0, >= 7.13.0)
-  - MoEngagePluginBase (4.5.1):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
-    - MoEngageInApp (< 4.14.0, >= 4.13.0)
-  - MoEngagePluginCards (1.2.1):
-    - MoEngageCards (< 4.14.0, >= 4.13.0)
-    - MoEngagePluginBase (< 4.6.0, >= 4.5.1)
-  - MoEngagePluginGeofence (2.5.1):
-    - MoEngageGeofence (< 5.14.0, >= 5.13.0)
-    - MoEngagePluginBase (< 4.6.0, >= 4.5.1)
-  - MoEngagePluginInbox (2.5.1):
-    - MoEngageInbox (< 2.14.0, >= 2.13.0)
-    - MoEngagePluginBase (< 4.6.0, >= 4.5.1)
-  - MoEngageRichNotification (7.13.0):
-    - MoEngage-iOS-SDK (< 9.15.0, >= 9.14.0)
+    - MoEngagePluginInbox (~> 2.6.0)
+  - MoEngageCards (4.14.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+  - MoEngageGeofence (5.14.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+  - MoEngageInApp (4.14.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+  - MoEngageInbox (2.14.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+    - MoEngageRichNotification (< 7.15.0, >= 7.14.0)
+  - MoEngagePluginBase (4.6.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+    - MoEngageInApp (< 4.15.0, >= 4.14.0)
+  - MoEngagePluginCards (1.3.0):
+    - MoEngageCards (< 4.15.0, >= 4.14.0)
+    - MoEngagePluginBase (< 4.7.0, >= 4.6.0)
+  - MoEngagePluginGeofence (2.6.0):
+    - MoEngageGeofence (< 5.15.0, >= 5.14.0)
+    - MoEngagePluginBase (< 4.7.0, >= 4.6.0)
+  - MoEngagePluginInbox (2.6.0):
+    - MoEngageInbox (< 2.15.0, >= 2.14.0)
+    - MoEngagePluginBase (< 4.7.0, >= 4.6.0)
+  - MoEngageRichNotification (7.14.0):
+    - MoEngage-iOS-SDK (< 9.16.0, >= 9.15.0)
+  - nanopb (2.30909.1):
+    - nanopb/decode (= 2.30909.1)
+    - nanopb/encode (= 2.30909.1)
+  - nanopb/decode (2.30909.1)
+  - nanopb/encode (2.30909.1)
   - permission_handler_apple (9.1.1):
     - Flutter
+  - PromisesObjC (2.3.1)
   - url_launcher (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - moengage_cards_ios (from `.symlinks/plugins/moengage_cards_ios/ios`)
   - moengage_flutter_ios (from `.symlinks/plugins/moengage_flutter_ios/ios`)
@@ -53,6 +114,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleDataTransport
+    - GoogleUtilities
     - MoEngage-iOS-SDK
     - MoEngageCards
     - MoEngageGeofence
@@ -63,8 +131,14 @@ SPEC REPOS:
     - MoEngagePluginGeofence
     - MoEngagePluginInbox
     - MoEngageRichNotification
+    - nanopb
+    - PromisesObjC
 
 EXTERNAL SOURCES:
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
     :path: Flutter
   moengage_cards_ios:
@@ -81,24 +155,35 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
+  Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
+  firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
+  firebase_messaging: 90e8a6db84b6e1e876cebce4f30f01dc495e7014
+  FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
+  FirebaseCoreInternal: efeeb171ac02d623bdaefe121539939821e10811
+  FirebaseInstallations: 558b1da7d65afeb996fd5c814332f013234ece4e
+  FirebaseMessaging: 9bc34a98d2e0237e1b121915120d4d48ddcf301e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  MoEngage-iOS-SDK: fd9507de4c0960ae08874b16e2dfbb27e61e7703
-  moengage_cards_ios: c8779cff7f8471bbdba0d9e0be547f5b33ac6c41
-  moengage_flutter_ios: a06fc2847800e196d04f904a906d4517d311c012
-  moengage_geofence_ios: 0ca6c34c0f6a8dd9ab18130213ff59a473eca0a7
-  moengage_inbox_ios: 9702e5d1ad38683a3a476a15c2d91ba6ad35eb44
-  MoEngageCards: cee2c1036c0717df737f17b196d2ab42a8ec0cf4
-  MoEngageGeofence: 3edba5ea3a366798e3c97777cbf70a7121272c8f
-  MoEngageInApp: 351f9f107d675bb62a7bf90cc22456b2b41ba606
-  MoEngageInbox: 718466210685b88db07594f1d3c5b63106a3e915
-  MoEngagePluginBase: 6e2b9153015ce8bd1e45403225fc4c82a04ce6b0
-  MoEngagePluginCards: 15f137ff190da9708255476ec0f612a2a91e7f1d
-  MoEngagePluginGeofence: 128fef574357a422b659a35b0a1dfd3477a551a7
-  MoEngagePluginInbox: bc8fbd05ec46b1f76747880eb03bc0adebf4fe2e
-  MoEngageRichNotification: 2da207f26a952012f3c9d8e86324bfa320b1e96d
+  GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
+  GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
+  MoEngage-iOS-SDK: 44784a3f802c58618690602eff520151dcb4fa3f
+  moengage_cards_ios: abe038c29c1b24615fe058fde560ec05d972e806
+  moengage_flutter_ios: 77e4717314efb8aaa14d16a0c2e3ac593bc4c48f
+  moengage_geofence_ios: cac5b12665e5ddae54b9f02b08d2578d4775e766
+  moengage_inbox_ios: 387497a9d2713157226c869cb233f6401de74f72
+  MoEngageCards: f0b7f05477024e6a680515f12be82b97f9bf4e59
+  MoEngageGeofence: 6dcc30a284803703c3526742bc563a4d4b913da5
+  MoEngageInApp: f55fc7e79e6d1780a91414871f7aadfc30aeb720
+  MoEngageInbox: b38ac33af335c1a9e2a6cac2b61490a7f06d223f
+  MoEngagePluginBase: 9cc2431be3978c2a673e5d280d9136b9758640a3
+  MoEngagePluginCards: b28fa5ab495b8f9cd7321256d35369716c2b40b8
+  MoEngagePluginGeofence: c9610885883cf18bfd80d5c2a0d0127ff3af478e
+  MoEngagePluginInbox: 50369853bbe44587422f82a973e9fecb4a1b8709
+  MoEngageRichNotification: 11a3c8c9a5d4342b0f99b90cc0becd01fa41e402
+  nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: 9a759cd70a24bd7515805f773e51e363bc6453dd
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3
