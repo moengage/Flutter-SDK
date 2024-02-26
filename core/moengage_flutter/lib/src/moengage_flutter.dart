@@ -396,4 +396,14 @@ class MoEngageFlutter {
   Future<UserDeletionData> deleteUser() {
     return _platform.deleteUser(appId);
   }
+
+  /// Show Non-Intrusive Nudge InApp
+  /// [position] - [MoEngageNudgePosition] Position in which Nudge InApp should
+  /// be displayed. If position is not passed, it will take default position
+  /// [MoEngageNudgePosition.any]
+  /// Note: This API is available for Android/iOS platforms. Not supported in Web Platform
+  /// @since TODO: Add version
+  void showNudge({MoEngageNudgePosition position = MoEngageNudgePosition.any}) {
+    _platform.showNudge(position, appId);
+  }
 }

@@ -1,5 +1,10 @@
 # MoEngage Cards Android Plugin
 
+# Next Release
+
+## Next Version
+- Support for `moe-android-sdk` version `12.10.04` and above
+
 # 07-12-2023
 
 # 1.1.0

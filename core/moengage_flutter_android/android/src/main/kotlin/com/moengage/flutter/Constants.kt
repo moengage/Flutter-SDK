@@ -48,3 +48,6 @@ const val VERSION_KEY = "version"
 // Delete User
 const val METHOD_NAME_DELETE_USER = "deleteUser"
 const val ERROR_CODE_DELETE_USER = "DELETE_USER_ERROR"
+
+// Non Intrusive Nudge
+const val METHOD_NAME_SHOW_NUDGE = "showNudge"

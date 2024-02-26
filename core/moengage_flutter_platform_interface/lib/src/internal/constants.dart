@@ -154,3 +154,7 @@ const String keySelfHandledPushRedirection = 'selfHandledPushRedirection';
 /// User Deletion
 const String methodNameDeleteUser = 'deleteUser';
 const String keyUserDeletionStatus = 'isUserDeletionSuccess';
+
+/// Non Intrusive Nudges
+const String methodNameShowNudge = 'showNudge';
+const String keyNudgePosition = 'position';

@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+# Next Release
+
+## Next Version
+- Non-intrusive Nudges support
+
 # 24-12-2023
 
 ## 6.1.1

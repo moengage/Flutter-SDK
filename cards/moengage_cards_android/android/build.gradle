@@ -50,7 +50,7 @@ android {
 dependencies {
 
     api("com.moengage:plugin-base-cards:1.1.0")
-    compileOnly("com.moengage:moe-android-sdk:12.10.01")
+    compileOnly("com.moengage:moe-android-sdk:12.10.04")
     compileOnly("com.moengage:plugin-base:3.4.0")
     compileOnly("com.moengage:cards-core:1.6.0")
 }

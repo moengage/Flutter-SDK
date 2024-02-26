@@ -1,5 +1,10 @@
 # MoEngage Flutter Platform Interface
 
+# Next Release
+
+## Next Version
+- Non-intrusive Nudges support
+
 # 07-12-2023
 
 ## 1.1.0
