@@ -24,6 +24,7 @@ struct MoEngageFlutterConstants{
         static let kUpdateSelfHandledInAppState = "selfHandledCallback"
         static let kSetAppContext               = "setAppContext"
         static let kInvalidateAppContext        = "resetCurrentContext"
+        static let kShowNudge                   = "showNudge"
         static let kOptOutTracking              = "optOutTracking"
         static let kUpdateSDKState              = "updateSdkState"
         static let kStartGeofence               = "startGeofenceMonitoring"

@@ -162,6 +162,12 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   }
 
   @override
+  void showNudge(MoEngageNudgePosition position, String appId) {
+    _channel.invokeMethod(
+        methodNameShowNudge, getShowNudgeJsonPayload(position, appId));
+  }
+
+  @override
   void registerForPushNotification() {
     _channel.invokeMethod(methodiOSRegisterPush);
   }
