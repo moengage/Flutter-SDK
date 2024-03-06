@@ -111,7 +111,6 @@ dependencies {
   implementation(moengage.richNotification)
   implementation(moengage.inboxCore)
   implementation(moengage.geofence)
-  implementation(moengage.pushAmpPlus)
   testImplementation(appLibs.junit)
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)
