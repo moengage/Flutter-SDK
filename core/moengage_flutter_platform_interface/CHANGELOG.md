@@ -1,3 +1,9 @@
+# Next Release Data
+
+## Next Version
+
+- Removed support for Mi Push
+
 # MoEngage Flutter Platform Interface
 
 # Next Release

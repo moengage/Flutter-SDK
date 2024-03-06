@@ -15,7 +15,7 @@ import MoEngageSDK
       let yourAppID = "DAO6UGZ73D9RTK8B5W96TPYN" //App ID: You can be obtain it from App Settings in MoEngage Dashboard.
       let sdkConfig = MoEngageSDKConfig(withAppID: yourAppID)
       sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
-      sdkConfig.enableLogs = true
+      sdkConfig.consoleLogConfig = MoEngageConsoleLogConfig(isLoggingEnabled: true, loglevel: .verbose)
       
       MoEngageInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
         

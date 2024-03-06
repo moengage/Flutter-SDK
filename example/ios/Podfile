@@ -31,6 +31,11 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # Uncomment and populate plugin base branch for using unreleased pluginbase
+  # pod 'MoEngagePluginBase', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
+  # pod 'MoEngagePluginCards', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
+  # pod 'MoEngagePluginInbox', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
+  # pod 'MoEngagePluginGeofence', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
