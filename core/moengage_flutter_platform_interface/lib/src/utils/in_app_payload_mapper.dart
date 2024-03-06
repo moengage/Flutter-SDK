@@ -27,10 +27,6 @@ class InAppPayloadMapper {
           json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
       final Map<String, dynamic> data =
           selfHandledPayload[keyData] as Map<String, dynamic>;
-      if(data.isEmpty) {
-        Logger.d('$_tag selfHandledCampaignFromJson(): Campaign Data is not available');
-        return null;
-      }
       return SelfHandledCampaignData(
           campaignDataFromMap(data),
           accountMetaFromMap(
