@@ -10,10 +10,7 @@ enum MoEPushService {
   fcm,
 
   /// Huawei Push Kit
-  push_kit,
-
-  /// Xiaomi Push Service
-  mi_push
+  push_kit
 }
 
 String _tag = '${TAG}MoEPushService';
@@ -29,8 +26,6 @@ extension MoEPushServiceExtention on MoEPushService {
         return _pushServiceFCM;
       case MoEPushService.push_kit:
         return _pushServicePushKit;
-      case MoEPushService.mi_push:
-        return _pushServiceMiPush;
     }
   }
 
@@ -44,8 +39,6 @@ extension MoEPushServiceExtention on MoEPushService {
         return MoEPushService.fcm;
       case _pushServicePushKit:
         return MoEPushService.push_kit;
-      case _pushServiceMiPush:
-        return MoEPushService.mi_push;
       default:
         throw Exception(
             'error: MoEPushService.fromString() : $pushService is not a valid pushService type.');
@@ -56,4 +49,3 @@ extension MoEPushServiceExtention on MoEPushService {
 const String _pushServiceAPNS = 'APNS';
 const String _pushServiceFCM = 'FCM';
 const String _pushServicePushKit = 'PUSH_KIT';
-const String _pushServiceMiPush = 'MI_PUSH';
