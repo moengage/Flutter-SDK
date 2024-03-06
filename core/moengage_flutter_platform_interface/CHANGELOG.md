@@ -1,17 +1,10 @@
-# Next Release Data
-
-## Next Version
-
-- Removed support for Mi Push
-
 # MoEngage Flutter Platform Interface
 
 # Next Release
 
 ## Next Version
+- Removed support for Mi Push
 - Non-intrusive Nudges support
-- Bugfix:
-  - Exception thrown while Parsing `SelfHandledCampaignData` when data is empty
 
 # 07-12-2023
 
