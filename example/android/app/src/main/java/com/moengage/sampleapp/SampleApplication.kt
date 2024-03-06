@@ -6,12 +6,12 @@ import com.moengage.core.config.FcmConfig
 import com.moengage.core.config.LogConfig
 import com.moengage.core.config.NotificationConfig
 import com.moengage.core.config.PushKitConfig
+import com.moengage.core.model.AccountMeta
 import com.moengage.core.model.SdkState
 import com.moengage.flutter.MoEInitializer
-import com.moengage.push.amp.plus.MiPushHelper.initialiseMiPush
 import com.moengage.pushbase.MoEPushHelper
-import com.xiaomi.channel.commonutils.android.Region
 import io.flutter.app.FlutterApplication
+import com.moengage.inapp.MoEInAppHelper
 
 /**
  * @author Umang Chamaria
@@ -34,14 +34,9 @@ class SampleApplication : FlutterApplication() {
             .configureLogs(LogConfig(LogLevel.VERBOSE, true))
             .configureFcm(FcmConfig(true))
             .configurePushKit(PushKitConfig(true))
-        initialiseMiPush(
-            context = this,
-            appKey = "5601804211309",
-            appId = "2882303761518042309",
-            region = Region.India
-        )
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
-        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener())
+        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta("DAO6UGZ73D9RTK8B5W96TPYN")))
+        MoEInAppHelper.getInstance().enableActivityRegistrationOnResume()
     }
 }

@@ -29,7 +29,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdk 33
+  compileSdk 34
   namespace "com.moengage.sampleapp"
 
   sourceSets {
@@ -43,7 +43,7 @@ android {
   defaultConfig {
     applicationId "com.moengage.sampleapp"
     minSdk 21
-    targetSdk 33
+    targetSdk 34
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -88,6 +88,10 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+
+  buildFeatures {
+    buildConfig true
+  }
 }
 
 flutter {
@@ -111,7 +115,6 @@ dependencies {
   implementation(moengage.richNotification)
   implementation(moengage.inboxCore)
   implementation(moengage.geofence)
-  implementation(moengage.pushAmpPlus)
   testImplementation(appLibs.junit)
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)

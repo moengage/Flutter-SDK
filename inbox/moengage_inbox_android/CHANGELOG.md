@@ -3,7 +3,8 @@
 # Next Release
 
 ## Next Version
-- Support for `moe-android-sdk` version `12.10.04` and above
+- Support for `moe-android-sdk` version `13.00.00` and above
+- Add support for AGP `8.2.2` and above
 
 # 07-12-2023
 

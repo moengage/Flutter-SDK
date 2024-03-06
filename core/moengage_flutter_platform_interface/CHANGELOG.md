@@ -4,6 +4,8 @@
 
 ## Next Version
 - Non-intrusive Nudges support
+- Bugfix:
+  - Exception thrown while Parsing `SelfHandledCampaignData` when data is empty
 
 # 07-12-2023
 
