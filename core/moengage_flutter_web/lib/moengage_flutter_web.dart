@@ -11,7 +11,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     MoEngageFlutterPlatform.instance = MoEngageFlutterWeb();
   }
 
-  JsObject? _moengage;
+  JsObject?  _moengage;
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
     Logger.d('initialise() : Initialising MoEngage web SDK');
@@ -64,8 +64,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setEmail(String emailId, String appId) {
-    _moengage
-        ?.callMethod(methodSetUserAttributeSDK, [userAttrNameEmailId, emailId]);
+    _moengage?.callMethod(methodSetUserAttributeSDK, [userAttrNameEmailId, emailId]);
   }
 
   @override
