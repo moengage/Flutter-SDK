@@ -29,7 +29,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdk 33
+  compileSdk 34
   namespace "com.moengage.sampleapp"
 
   sourceSets {
@@ -43,7 +43,7 @@ android {
   defaultConfig {
     applicationId "com.moengage.sampleapp"
     minSdk 21
-    targetSdk 33
+    targetSdk 34
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -87,6 +87,10 @@ android {
 
   kotlinOptions {
     jvmTarget = '1.8'
+  }
+
+  buildFeatures {
+    buildConfig true
   }
 }
 

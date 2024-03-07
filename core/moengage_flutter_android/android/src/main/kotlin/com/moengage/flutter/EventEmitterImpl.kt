@@ -88,7 +88,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             val eventType = eventMap[inAppSelfHandledEvent.eventType]
                 ?: return
             val campaign: JSONObject =
-                selfHandledDataToJson(inAppSelfHandledEvent.data)
+                selfHandledDataToJson(inAppSelfHandledEvent.accountMeta,inAppSelfHandledEvent.data)
             emit(eventType, campaign)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitInAppSelfHandledEvent() : " }
