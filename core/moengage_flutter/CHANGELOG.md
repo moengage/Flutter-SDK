@@ -4,6 +4,7 @@
 
 ## Next Version
 - Non-intrusive Nudges support
+- Send SelfHandled InApp Callback when data is null
 
 # 24-12-2023
 

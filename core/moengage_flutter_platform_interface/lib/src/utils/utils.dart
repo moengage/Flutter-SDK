@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import '../internal/constants.dart';
+import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
 import '../model/platforms.dart';
+
+/// Log Tag for Utils.dart
+const String tag = '{$TAG}Utils';
 
 /// Get Data Tracking OptOut Payload
 Map<String, dynamic> getOptOutTrackingPayload(
@@ -90,3 +94,18 @@ Map<String, dynamic> getPermissionResponsePayload(
 
 /// Null Safe Type Casting With FallBack
 T castOrFallback<T>(dynamic x, T fallback) => x is T ? x : fallback;
+
+/// Returns Instance of [AccountMeta] from Json Payload if exists otherwise null
+AccountMeta? getAccountMetaFromPayload(dynamic methodCallArgs) {
+  AccountMeta? accountMeta;
+  try {
+    final Map<String, dynamic> payload =
+        json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+    accountMeta =
+        accountMetaFromMap(payload[keyAccountMeta] as Map<String, dynamic>);
+  } catch (e, str) {
+    Logger.e('$tag Error: getAccountMetaFromPayload() :',
+        error: e, stackTrace: str);
+  }
+  return accountMeta;
+}

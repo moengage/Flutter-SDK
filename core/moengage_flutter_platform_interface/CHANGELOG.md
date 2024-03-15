@@ -5,6 +5,7 @@
 ## Next Version
 - Removed support for Mi Push
 - Non-intrusive Nudges support
+- Send SelfHandled InApp Callback when data is null
 
 # 07-12-2023
 

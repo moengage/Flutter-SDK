@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+import '../../moengage_flutter_platform_interface.dart';
 import '../model/inapp/click_data.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';
@@ -95,17 +96,18 @@ class CoreController {
       if (call.method == callbackOnInAppSelfHandled) {
         final SelfHandledCampaignData? data =
             InAppPayloadMapper().selfHandledCampaignFromJson(call.arguments);
-        Logger.i('$_tag _handler() : data: $data');
-        if (data != null) {
-          final SelfHandledInAppCallbackHandler? handler =
-              CoreInstanceProvider()
-                  .getCallbackCacheForInstance(data.accountMeta.appId)
-                  .selfHandledInAppCallbackHandler;
-          Logger.v('$_tag _handler() : handler: $handler');
-          if (handler != null) {
-            handler.call(data);
-          }
+        final AccountMeta? accountMeta =
+            getAccountMetaFromPayload(call.arguments);
+        Logger.i('$_tag _handler() : data: $data, accountMeta: $accountMeta');
+        if (accountMeta == null) {
+          Logger.i('$_tag _handler() : Cannot Proceed , account meta is null');
+          return;
         }
+        final SelfHandledInAppCallbackHandler? handler = CoreInstanceProvider()
+            .getCallbackCacheForInstance(accountMeta.appId)
+            .selfHandledInAppCallbackHandler;
+        Logger.v('$_tag _handler() : handler: $handler');
+        handler?.call(data);
       }
       if (call.method == callbackPermissionResult) {
         final PermissionResultCallbackHandler? handler =
