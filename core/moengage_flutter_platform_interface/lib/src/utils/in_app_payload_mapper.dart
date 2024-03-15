@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../../moengage_flutter_platform_interface.dart';
 import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/inapp/action.dart';
@@ -27,6 +28,11 @@ class InAppPayloadMapper {
           json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
       final Map<String, dynamic> data =
           selfHandledPayload[keyData] as Map<String, dynamic>;
+      if (data.isEmpty) {
+        Logger.d(
+            '$_tag selfHandledCampaignFromJson() : SelfHandled InApp Data is Null');
+        return null;
+      }
       return SelfHandledCampaignData(
           campaignDataFromMap(data),
           accountMetaFromMap(

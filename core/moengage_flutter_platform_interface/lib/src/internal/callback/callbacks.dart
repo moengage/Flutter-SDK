@@ -13,7 +13,7 @@ typedef PushTokenCallbackHandler = void Function(PushTokenData data);
 
 /// Self Handled InApp Available Callback
 typedef SelfHandledInAppCallbackHandler = void Function(
-    SelfHandledCampaignData data);
+    SelfHandledCampaignData? data);
 
 /// InApp Click Action Callback
 typedef InAppClickCallbackHandler = void Function(ClickData data);
