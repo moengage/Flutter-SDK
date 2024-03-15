@@ -19,6 +19,7 @@ export 'src/model/inapp/inapp_custom_action.dart';
 export 'src/model/inapp/inapp_data.dart';
 export 'src/model/inapp/navigation_action.dart';
 export 'src/model/inapp/navigation_type.dart';
+export 'src/model/inapp/nudge_position.dart';
 export 'src/model/inapp/self_handled_campaign.dart';
 export 'src/model/inapp/self_handled_data.dart';
 export 'src/model/moe_init_config.dart';

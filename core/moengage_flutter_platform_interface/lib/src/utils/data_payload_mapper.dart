@@ -1,4 +1,5 @@
 import '../internal/constants.dart';
+import '../model/inapp/nudge_position.dart';
 import '../model/properties.dart';
 import 'utils.dart';
 
@@ -31,5 +32,13 @@ Map<String, dynamic> getUserAttributePayload(String attributeName,
     };
   }
   payload[keyData] = data;
+  return payload;
+}
+
+/// Get Show Nudge Json Payload provided  the [position] and [appId]
+Map<String, dynamic> getShowNudgeJsonPayload(
+    MoEngageNudgePosition position, String appId) {
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  payload[keyData] = {keyNudgePosition: position.name};
   return payload;
 }

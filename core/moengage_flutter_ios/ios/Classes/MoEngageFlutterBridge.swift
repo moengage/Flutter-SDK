@@ -39,6 +39,8 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             MoEngagePluginBridge.sharedInstance.setInAppContext(payload)
         case MoEngageFlutterConstants.MethodNames.kInvalidateAppContext:
             MoEngagePluginBridge.sharedInstance.resetInAppContext(payload)
+        case MoEngageFlutterConstants.MethodNames.kShowNudge:
+            MoEngagePluginBridge.sharedInstance.showNudge(payload)
 
 
         case MoEngageFlutterConstants.MethodNames.kSetAppStatus:

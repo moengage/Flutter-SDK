@@ -1,5 +1,12 @@
 # MoEngage Flutter Android Plugin
 
+# Next Release
+
+## Next Version
+- Non-intrusive Nudges support
+- Support for `moe-android-sdk` version `13.00.00` and above
+- Add support for AGP `8.2.2` and above
+
 # 07-12-2023
 
 ## 1.1.0

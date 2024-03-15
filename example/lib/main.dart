@@ -10,6 +10,7 @@ import 'package:moengage_geofence/moengage_geofence.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'cards/cards_home.dart';
+import 'inapp.dart';
 import 'second_page.dart';
 import 'utils.dart';
 import 'package:flutter/foundation.dart';
@@ -61,41 +62,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
-  void _onInAppClick(ClickData message) {
-    debugPrint(
-        '$tag Main : _onInAppClick() : This is a inapp click callback from native to flutter. Payload $message');
-  }
-
-  void _onInAppShown(InAppData message) {
-    debugPrint(
-        '$tag Main : _onInAppShown() : This is a callback on inapp shown from native to flutter. Payload $message');
-  }
-
-  void _onInAppDismiss(InAppData message) {
-    debugPrint(
-        '$tag Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload $message');
-  }
-
-  Future<void> _onInAppSelfHandle(SelfHandledCampaignData message) async {
-    debugPrint(
-        '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
-    final SelfHandledActions? action =
-        await asyncSelfHandledDialog(buildContext);
-    switch (action) {
-      case SelfHandledActions.Shown:
-        _moengagePlugin.selfHandledShown(message);
-        break;
-      case SelfHandledActions.Clicked:
-        _moengagePlugin.selfHandledClicked(message);
-        break;
-      case SelfHandledActions.Dismissed:
-        _moengagePlugin.selfHandledDismissed(message);
-        break;
-      default:
-        break;
-    }
-  }
-
   void _onPushTokenGenerated(PushTokenData pushToken) {
     debugPrint(
         '$tag Main : _onPushTokenGenerated() : This is callback on push token generated from native to flutter: PushToken: $pushToken');
@@ -112,10 +78,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     debugPrint('$tag initState() : start ');
     _moengagePlugin.setPushClickCallbackHandler(_onPushClick);
-    _moengagePlugin.setInAppClickHandler(_onInAppClick);
-    _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
-    _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
-    _moengagePlugin.setSelfHandledInAppHandler(_onInAppSelfHandle);
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
@@ -164,6 +126,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => const CardsHome()));
+                },
+              ),
+              ListTile(
+                title: const Text('Go To InApp'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const InAppHomeScreen()));
                 },
               ),
               ListTile(
@@ -378,17 +348,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   debugPrint(statuses.toString());
                 },
               ),
-              ListTile(
-                  title: const Text('Show InApp'),
-                  onTap: () {
-                    _moengagePlugin.showInApp();
-                  }),
-              ListTile(
-                  title: const Text('Show Self Handled InApp'),
-                  onTap: () {
-                    buildContext = context;
-                    _moengagePlugin.getSelfHandledInApp();
-                  }),
               ListTile(
                   title: const Text('Set InApp Contexts'),
                   onTap: () {

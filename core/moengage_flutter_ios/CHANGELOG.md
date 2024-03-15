@@ -1,5 +1,12 @@
 # MoEngage Flutter iOS Plugin
 
+# Next Release
+
+## Next Version
+- Non-intrusive Nudges support
+- Updated MoEngage-iOS-SDK to 9.16.0
+- Updated MoEngageInApp to 4.15.0
+
 # 30-01-2024
 
 ## 1.2.0

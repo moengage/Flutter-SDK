@@ -279,4 +279,10 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
     payload[keyData] = {keyUpdatePushPermissionCount: requestCount};
     return jsonEncode(payload);
   }
+
+  @override
+  void showNudge(MoEngageNudgePosition position, String appId) {
+    _methodChannel.invokeMethod(methodNameShowNudge,
+        jsonEncode(getShowNudgeJsonPayload(position, appId)));
+  }
 }

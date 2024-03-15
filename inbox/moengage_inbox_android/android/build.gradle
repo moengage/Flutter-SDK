@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath 'com.android.tools.build:gradle:8.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -45,13 +45,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly("com.moengage:moe-android-sdk:12.10.01")
-    compileOnly("com.moengage:inbox-core:2.6.0")
-    implementation("com.moengage:plugin-base-inbox:3.3.0")
+    compileOnly("com.moengage:moe-android-sdk:13.00.00")
+    compileOnly("com.moengage:inbox-core:3.0.0")
+    implementation("com.moengage:plugin-base-inbox:4.0.0")
 }
 
 apply from: file("./user-agent.gradle")

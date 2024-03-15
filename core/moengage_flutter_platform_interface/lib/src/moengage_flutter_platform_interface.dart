@@ -8,6 +8,7 @@ import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
+import 'model/inapp/nudge_position.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
@@ -209,4 +210,11 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// @since 1.1.0
   Future<UserDeletionData> deleteUser(String appId) =>
       throw UnimplementedError('deleteUser() not implemented for Platform');
+
+  /// Try to show a non-intrusive In-App nudge.
+  /// [position] - Nudge InApp Position of type [MoEngageNudgePosition]
+  /// [appId] - MoEngage App ID
+  /// @since TODO: Update Version
+  void showNudge(MoEngageNudgePosition position, String appId) =>
+      throw UnimplementedError('showNudge() not implemented for Platform');
 }

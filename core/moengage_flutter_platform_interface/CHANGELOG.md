@@ -1,10 +1,10 @@
-# Next Release Data
+# MoEngage Flutter Platform Interface
+
+# Next Release
 
 ## Next Version
-
 - Removed support for Mi Push
-
-# MoEngage Flutter Platform Interface
+- Non-intrusive Nudges support
 
 # 07-12-2023
 

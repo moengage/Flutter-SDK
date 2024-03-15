@@ -122,6 +122,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_PUSH_PERMISSION_PERMISSION_COUNT ->
                     updatePushPermissionRequestCount(call)
                 METHOD_NAME_DELETE_USER -> deleteUser(call, result)
+                METHOD_NAME_SHOW_NUDGE -> showNudge(call)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -442,6 +443,20 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
+    /**
+     * Show Non Intrusive Nudge InApp provided the payload in [methodCall] object.
+     */
+    private fun showNudge(methodCall: MethodCall) {
+        try {
+            Logger.print { "$tag showNudge() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag showNudge() : Payload: $payload" }
+            pluginHelper.showNudge(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag showNudge(): " }
+        }
+    }
 
     companion object {
         /**

@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.3.1'
+    classpath 'com.android.tools.build:gradle:8.2.2'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath 'com.google.gms:google-services:4.3.14'
     classpath 'com.huawei.agconnect:agcp:1.9.1.300'
