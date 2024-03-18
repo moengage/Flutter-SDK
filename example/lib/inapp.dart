@@ -40,7 +40,11 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
         '$tag Main : _onInAppDismiss() : This is a callback on inapp dismiss from native to flutter. Payload $message');
   }
 
-  Future<void> _onInAppSelfHandle(SelfHandledCampaignData message) async {
+  Future<void> _onInAppSelfHandle(SelfHandledCampaignData? message) async {
+    if(message == null) {
+       debugPrint('$tag _onInAppSelfHandle(): SelfHandled InApp Data is Null');
+       return;
+    }
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
     final SelfHandledActions? action = await asyncSelfHandledDialog(context);
