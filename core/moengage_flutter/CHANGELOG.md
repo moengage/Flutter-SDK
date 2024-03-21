@@ -1,10 +1,14 @@
 # MoEngage Flutter Plugin
 
-# Next Release
+# 21-03-2024
 
-## Next Version
+## 7.0.0
 - Non-intrusive Nudges support
 - Send SelfHandled InApp Callback when data is null
+- Android
+  - Support for `moe-android-sdk` version `13.00.00` and above
+- iOS
+  - Updated MoEngage-iOS-SDK to `9.16.0`
 
 # 24-12-2023
 

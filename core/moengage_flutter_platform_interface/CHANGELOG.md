@@ -1,8 +1,8 @@
 # MoEngage Flutter Platform Interface
 
-# Next Release
+# 21-03-2024
 
-## Next Version
+## 2.0.0
 - Removed support for Mi Push
 - Non-intrusive Nudges support
 - Send SelfHandled InApp Callback when data is null

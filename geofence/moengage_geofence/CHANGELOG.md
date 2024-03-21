@@ -1,5 +1,16 @@
 # MoEngage Geofence Plugin
 
+# 21-03-2024
+
+## 3.0.0
+- Updated Minimum Supported `moengage_flutter` version to `7.0.0`
+- Android
+  - Support for `moe-android-sdk` version `13.00.00` and above
+  - Add support for AGP `8.2.2` and above
+  - Support for `geofence` version `4.0.0` and above
+- iOS
+  - Updated MoEngageGeofence to `5.15.0`
+
 # 07-12-2023
 
 ## 2.1.0

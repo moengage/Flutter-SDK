@@ -41,9 +41,9 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
   }
 
   Future<void> _onInAppSelfHandle(SelfHandledCampaignData? message) async {
-    if(message == null) {
-       debugPrint('$tag _onInAppSelfHandle(): SelfHandled InApp Data is Null');
-       return;
+    if (message == null) {
+      debugPrint('$tag _onInAppSelfHandle(): SelfHandled InApp Data is Null');
+      return;
     }
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');

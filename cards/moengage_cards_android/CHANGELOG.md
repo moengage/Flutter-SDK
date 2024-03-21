@@ -1,8 +1,8 @@
 # MoEngage Cards Android Plugin
 
-# Next Release
+# 21-03-2024
 
-## Next Version
+## 2.0.0
 - Support for `moe-android-sdk` version `13.00.00` and above
 - Add support for AGP `8.2.2` and above
 - Support for `cards-core` version `2.0.0` and above

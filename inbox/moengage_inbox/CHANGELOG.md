@@ -1,5 +1,16 @@
 # MoEngage Flutter Inbox Plugin
 
+# 21-03-2024
+
+## 6.0.0
+- Updated Minimum Supported `moengage_flutter` version to `7.0.0`
+- Android
+  - Native SDK updated to support version `13.00.00` and above.
+  - Add support for AGP `8.2.2` and above
+  - Support for `inbox-core` version `3.0.0` and above
+- iOS
+  - Updated MoEngageInbox to `2.15.0`
+
 # 07-12-2023
 
 ## 5.1.0

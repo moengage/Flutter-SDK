@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import '../../moengage_flutter_platform_interface.dart';
 import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/inapp/action.dart';

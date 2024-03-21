@@ -214,7 +214,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// Try to show a non-intrusive In-App nudge.
   /// [position] - Nudge InApp Position of type [MoEngageNudgePosition]
   /// [appId] - MoEngage App ID
-  /// @since TODO: Update Version
+  /// @since 2.0.0
   void showNudge(MoEngageNudgePosition position, String appId) =>
       throw UnimplementedError('showNudge() not implemented for Platform');
 }
