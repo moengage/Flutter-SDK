@@ -12,7 +12,7 @@ void main() {
   tearDown(() => {mock.clear()});
 
   test('User Attributes set', () async {
-    final platform = MoEngageFlutter('DAO6UGZ73D9RTK8B5W96TPYN');
+    final platform = MoEngageFlutter('12345');
     for (final entry in setUserAttributesData.entries) {
       platform.setUserAttribute(entry.key, entry.value);
       expect(mock.setUserAttributeLastUserAttributeName, entry.key);
@@ -21,7 +21,7 @@ void main() {
   });
 
   test('User Attributes not set', () async {
-    final platform = MoEngageFlutter('DAO6UGZ73D9RTK8B5W96TPYN');
+    final platform = MoEngageFlutter('12345');
     for (final entry in unsetUserAttributesData.entries) {
       platform.setUserAttribute(entry.key, entry.value);
       expect(mock.setUserAttributeLastUserAttributeName, null);
