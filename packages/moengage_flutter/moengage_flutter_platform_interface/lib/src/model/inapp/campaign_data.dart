@@ -1,4 +1,4 @@
-import '../inapp/campaign_context.dart';
+import 'campaign_context.dart';
 
 /// InApp Campaign Data
 class CampaignData {

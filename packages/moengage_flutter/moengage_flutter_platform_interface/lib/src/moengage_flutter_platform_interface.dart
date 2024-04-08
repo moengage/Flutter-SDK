@@ -1,9 +1,9 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import '../src/model/app_status.dart';
-import '../src/model/gender.dart';
-import '../src/model/geo_location.dart';
-import '../src/model/moe_init_config.dart';
+import 'model/app_status.dart';
+import 'model/gender.dart';
+import 'model/geo_location.dart';
+import 'model/moe_init_config.dart';
 import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';

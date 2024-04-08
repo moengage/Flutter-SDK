@@ -1,7 +1,7 @@
 import '../../model/account_meta.dart';
-import '../../model/platforms.dart';
+import '../platforms.dart';
 import '../inapp/action.dart';
-import '../inapp/campaign_data.dart';
+import 'campaign_data.dart';
 
 /// InApp Click Data
 class ClickData {

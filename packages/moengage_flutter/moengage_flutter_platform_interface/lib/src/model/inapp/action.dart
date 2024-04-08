@@ -1,4 +1,4 @@
-import '../inapp/inapp_action_type.dart';
+import 'inapp_action_type.dart';
 
 /// InApp Base Action
 abstract class Action {
