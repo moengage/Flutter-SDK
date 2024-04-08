@@ -1,6 +1,6 @@
 import '../../model/account_meta.dart';
-import '../platforms.dart';
 import '../inapp/campaign_data.dart';
+import '../platforms.dart';
 import 'self_handled_campaign.dart';
 
 /// Self Handled InApp Campaign Data

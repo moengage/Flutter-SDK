@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-import '../../moengage_flutter_platform_interface.dart';
+import '../model/account_meta.dart';
 import '../model/inapp/click_data.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs
+// ignore_for_file: type=lint
 
 import 'package:collection/collection.dart';
 import 'package:moengage_cards/moengage_cards.dart';

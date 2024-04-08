@@ -61,7 +61,7 @@ void main() {
     expect(
         getUserAttributePayload('number-array', 'general', [1.5, 1, 2.56], ''),
         jsonDecode(userAttrNumberArrayPayload));
-    expect(getShowNudgeJsonPayload(MoEngageNudgePosition.bottom, "1234"),
+    expect(getShowNudgeJsonPayload(MoEngageNudgePosition.bottom, '1234'),
         jsonDecode(nudgePayload));
   });
 
