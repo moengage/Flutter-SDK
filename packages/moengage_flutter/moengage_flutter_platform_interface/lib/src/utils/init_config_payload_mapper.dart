@@ -17,8 +17,6 @@ class InitConfigPayloadMapper {
   Map<String, dynamic> _initConfigToMap(MoEInitConfig moEInitConfig) {
     final Map<String, dynamic> initPayload = {};
     initPayload[keyPushConfig] = _pushConfigToMap(moEInitConfig.pushConfig);
-    initPayload[keyAnalyticsConfig] =
-        _analyticsConfigToMap(moEInitConfig.analyticsConfig);
     return initPayload;
   }
 

@@ -16,4 +16,4 @@ example/ios/Runner/GoogleService-Info.plist
 /geofence/example/android/gradle/wrapper/gradle-wrapper.jar
 **.flutter-plugins-dependencies
 **.flutter-plugins
-**pubspec_overides.yaml
+**pubspec_overrides.yaml

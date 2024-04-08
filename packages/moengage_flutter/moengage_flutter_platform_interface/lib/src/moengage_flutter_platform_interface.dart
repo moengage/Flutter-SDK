@@ -1,14 +1,14 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'model/app_status.dart';
-import 'model/gender.dart';
-import 'model/geo_location.dart';
-import 'model/moe_init_config.dart';
 import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
+import 'model/app_status.dart';
+import 'model/gender.dart';
+import 'model/geo_location.dart';
 import 'model/inapp/nudge_position.dart';
+import 'model/moe_init_config.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin

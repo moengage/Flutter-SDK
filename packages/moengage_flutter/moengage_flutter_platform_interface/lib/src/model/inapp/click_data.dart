@@ -1,6 +1,6 @@
 import '../../model/account_meta.dart';
-import '../platforms.dart';
 import '../inapp/action.dart';
+import '../platforms.dart';
 import 'campaign_data.dart';
 
 /// InApp Click Data

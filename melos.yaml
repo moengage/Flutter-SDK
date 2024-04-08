@@ -1,4 +1,6 @@
 name: moengage_flutter
+repository: https://github.com/moengage/Flutter-SDK/
+
 command:
   bootstrap:
     usePubspecOverrides: true
@@ -6,6 +8,7 @@ packages:
   - packages/*
   - packages/*/*
   - packages/*/*/*
+  - example
 scripts:
   analyze: melos exec -- flutter analyze
   format: melos exec -- dart format .
