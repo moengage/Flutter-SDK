@@ -1,0 +1,26 @@
+name: Verify Pull Request
+on:
+  workflow_dispatch: # manual trigger
+  pull_request:
+    types: [ opened, reopened, ready_for_review, synchronize ]
+    branches: [ "development", "master" ]
+jobs:
+  release:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.3'
+      - name: Setup Melos
+        run: melos bootstrap
+      - name: Install dependencies
+        run: melos get
+      - name: Analyze
+        run: melos analyze
+      - name: Run tests
+        run:  melos unittest
+      - name: Check Publish Warnings
+        run: melos exec -c 1 --no-private --ignore="*example*" -- flutter pub publish --dry-run
