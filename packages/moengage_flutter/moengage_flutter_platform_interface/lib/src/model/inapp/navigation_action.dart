@@ -1,5 +1,5 @@
 import '../inapp/action.dart';
-import '../inapp/navigation_type.dart';
+import 'navigation_type.dart';
 
 /// Navigation Action Data
 class NavigationAction extends Action {

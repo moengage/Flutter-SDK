@@ -1,6 +1,6 @@
 import '../../model/account_meta.dart';
-import '../../model/inapp/campaign_data.dart';
-import '../../model/platforms.dart';
+import 'campaign_data.dart';
+import '../platforms.dart';
 
 /// InApp Data
 class InAppData {
