@@ -1,4 +1,6 @@
 // ignore_for_file: use_setters_to_change_properties
+import 'dart:convert';
+
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
 /// Helper Class to interact with MoEngage SDK
@@ -159,8 +161,14 @@ class MoEngageFlutter {
         userAttributeValue is List<num>) {
       _platform.setUserAttribute(userAttributeName, userAttributeValue, appId);
     } else {
-      Logger.w(
-          'Only String, Numbers, Bool and List of Strings/Numbers(non-optional) values supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
+      try {
+        jsonEncode(userAttributeValue);
+        _platform.setUserAttribute(
+            userAttributeName, userAttributeValue, appId);
+      } catch (e) {
+        Logger.w(
+            'Only String, Numbers, Bool, List and Object values are supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
+      }
     }
   }
 

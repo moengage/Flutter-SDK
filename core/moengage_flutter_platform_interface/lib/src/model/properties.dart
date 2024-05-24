@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import '../../moengage_flutter_platform_interface.dart';
 import 'geo_location.dart';
 
 /// Helper class to track event attributes.
@@ -63,18 +66,39 @@ class MoEProperties {
   }
 
   bool _isAcceptedDataType(dynamic attributeType) {
-    return attributeType is String ||
+    final isPrimitiveType = attributeType is String ||
         attributeType is int ||
         attributeType is double ||
+        attributeType is num ||
         attributeType is bool ||
         attributeType is MoEGeoLocation ||
         attributeType is List;
+    if (isPrimitiveType) {
+      return isPrimitiveType;
+    }
+    try {
+      jsonEncode(attributeType);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   bool _isAcceptedArrayType(dynamic attributeType) {
-    return attributeType is String ||
+    final isPrimitiveType = attributeType is String ||
         attributeType is int ||
-        attributeType is double;
+        attributeType is double ||
+        attributeType is num ||
+        attributeType is bool;
+    if (isPrimitiveType) {
+      return isPrimitiveType;
+    }
+    try {
+      jsonEncode(attributeType);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   void _addAttribute(String key, dynamic value) {
@@ -94,6 +118,8 @@ class MoEProperties {
         typeCheckedArray.add(val);
       }
       generalAttributes.putIfAbsent(key, () => typeCheckedArray);
+    } else if (_isAcceptedDataType(value)) {
+      generalAttributes.putIfAbsent(key, () => value);
     }
   }
 
