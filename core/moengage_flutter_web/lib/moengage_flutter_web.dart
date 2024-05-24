@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:js';
+import 'dart:js_interop';
+import 'package:flutter/foundation.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
     hide keyAlias, keyEventAttributes, keyEventName;
 import 'constants.dart';
@@ -15,6 +19,11 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
     Logger.d('initialise() : Initialising MoEngage web SDK');
+    Timer(const Duration(seconds: 5), anyFunction);
+  }
+
+  // ignore: public_member_api_docs
+  void anyFunction() {
     _moengage = JsObject.fromBrowserObject(context['Moengage'] as Object);
   }
 
