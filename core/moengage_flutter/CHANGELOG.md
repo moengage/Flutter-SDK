@@ -1,5 +1,8 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+- Added support for object values in user attributes
+
 # 21-03-2024
 
 ## 7.0.0
