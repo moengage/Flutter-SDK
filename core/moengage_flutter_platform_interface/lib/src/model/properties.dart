@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import '../../moengage_flutter_platform_interface.dart';
 import 'geo_location.dart';
 
 /// Helper class to track event attributes.
