@@ -1,5 +1,13 @@
 # MoEngage Flutter Plugin
 
+## Next Release Date
+
+## Next Version
+
+- Android
+  - BugFix:
+    - ANR in `MoEInitializer` while accessing Plugin version from assets in Main Thread
+
 # 21-03-2024
 
 ## 7.0.0

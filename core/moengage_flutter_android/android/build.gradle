@@ -4,6 +4,7 @@ version '1.0'
 buildscript {
     ext.kotlin_version = '1.7.10'
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         jcenter()
@@ -56,7 +57,7 @@ android {
 dependencies {
     compileOnly("com.moengage:moe-android-sdk:13.00.00")
     compileOnly("com.moengage:inapp:8.0.0")
-    api("com.moengage:plugin-base:4.0.0")
+    api("com.moengage:plugin-base:4.0.1-SNAPSHOT")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 apply from: file("./user-agent.gradle")

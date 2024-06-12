@@ -1,11 +1,14 @@
 package com.moengage.flutter
 
 import android.content.Context
+import androidx.annotation.WorkerThread
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
+import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
 import com.moengage.core.internal.model.IntegrationMeta
 import com.moengage.core.model.SdkState
+import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.PluginInitializer
 import org.json.JSONObject
 
@@ -36,12 +39,10 @@ class MoEInitializer {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
-                    IntegrationMeta(
-                        INTEGRATION_TYPE,
-                        getMoEngageFlutterVersion(context)
-                    ),
+                    null,
                     SdkState.ENABLED
                 )
+                addIntegrationMeta(context,builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
@@ -76,9 +77,10 @@ class MoEInitializer {
                 Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
-                    IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
+                    null,
                     sdkState
                 )
+                addIntegrationMeta(context,builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
@@ -87,7 +89,9 @@ class MoEInitializer {
 
         /**
          * Get moengage_flutter version from Config File
+         * @param context instance of [Context]
          */
+        @WorkerThread
         private fun getMoEngageFlutterVersion(context: Context): String {
             return try {
                 val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
@@ -96,6 +100,19 @@ class MoEInitializer {
             } catch (t: Throwable) {
                 Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
                 ""
+            }
+        }
+
+        /**
+         * Track Integration Meta in BG Thread provided the [context] and MoEngage [appId]
+         */
+        private fun addIntegrationMeta(context: Context, appId: String) {
+            GlobalResources.executor.execute {
+                Logger.print { "$tag addIntegrationMeta(): Add Integration Meta for AppId : $appId" }
+                PluginHelper.addIntegrationMeta(
+                    IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
+                    appId
+                )
             }
         }
     }

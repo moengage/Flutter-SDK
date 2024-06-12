@@ -1,5 +1,13 @@
 # MoEngage Flutter Inbox Plugin
 
+# Next Release Date
+
+## Next Release Version
+
+- Android
+  - BugFix:
+    - ANR while accessing Plugin version from assets in Main Thread
+
 # 21-03-2024
 
 ## 6.0.0
