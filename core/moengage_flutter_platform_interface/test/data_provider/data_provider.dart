@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'package:moengage_flutter_platform_interface/src/model/platforms.dart';
 
@@ -8,7 +10,8 @@ final MoEProperties properties = MoEProperties()
     .addAttribute('bool', false)
     .addAttribute('location', MoEGeoLocation(12.1, 77.18))
     .addISODateTime('dateTime', '2019-12-02T08:26:21.170Z')
-    .setNonInteractiveEvent();
+    .addAttribute('json_obj', jsonObjectAttribute)
+    .addAttribute('json_array', [1, 2, 3]).setNonInteractiveEvent();
 
 final MoEInitConfig moEInitConfig = MoEInitConfig(
     pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true));
@@ -92,3 +95,25 @@ final ClickData clickData = ClickData(
     ),
     NavigationAction(ActionType.navigation, NavigationType.deeplink,
         'https://google.com', {}));
+
+final jsonObjectAttribute = {
+  'position': 1,
+  'score': 96.4,
+  'nested_obj': {'key': 'value'},
+  'array': [9, 20.0, 'something']
+};
+
+final MoEProperties dataWithInvalidProperties = MoEProperties()
+    .addAttribute('null_attribute', null)
+    .addAttribute('', 'Mark') // Empty Key
+    .addAttribute('custom_object', const HtmlEscapeMode()) // Custom Object
+    .addAttribute('list', [
+      'a',
+      const HtmlEscapeMode(),
+      {'key': 'value'}
+    ]) //List with Custom Object
+    .addAttribute(
+        'map', {'key': const HtmlEscapeMode()}) //Custom Object Inside List
+    .addAttribute('my_location', MoEGeoLocation(1.2, 2.3)) //Location Attribute
+    .addISODateTime('date', '2011-11-02T02:50:12.208Z') // Date Attribute
+    .setNonInteractiveEvent();

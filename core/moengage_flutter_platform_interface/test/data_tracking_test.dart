@@ -3,14 +3,21 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
-void main() {
-  final MoEProperties properties = MoEProperties()
-      .addAttribute('string', 'Mark')
-      .addAttribute('int', 300)
-      .addAttribute('double', 60.5)
-      .addAttribute('bool', false)
-      .addAttribute('my_location', MoEGeoLocation(1.2, 2.3))
-      .addAttribute('second_location', MoEGeoLocation(201.2, 892.3))
-      .addISODateTime('date', '2011-11-02T02:50:12.208Z');
+import 'data_provider/data_provider.dart';
 
+void main() {
+  test('Test Invalid MoEProperties', () {
+    expect(dataWithInvalidProperties.generalAttributes, {
+      'list': [
+        'a',
+        {'key': 'value'}
+      ]
+    });
+    expect(dataWithInvalidProperties.locationAttributes, {
+      'my_location': {'latitude': 1.2, 'longitude': 2.3}
+    });
+    expect(dataWithInvalidProperties.dateTimeAttributes,
+        {'date': '2011-11-02T02:50:12.208Z'});
+    expect(dataWithInvalidProperties.isNonInteractive, true);
+  });
 }

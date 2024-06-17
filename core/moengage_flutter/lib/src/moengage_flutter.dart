@@ -1,5 +1,6 @@
 // ignore_for_file: use_setters_to_change_properties
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
@@ -142,7 +143,8 @@ class MoEngageFlutter {
   /// Tracks a user attribute.
   /// Supported attribute types:
   /// - `String` `int`, `double`, `num`, `bool`
-  /// - `List<String>`, `List<int>`, `List<double>`, `List<num>`
+  /// - `List<String>`, `List<int>`, `List<double>`, `List<num>` , List<bool>
+  /// - Json Object
   /// [userAttributeValue] - Data of type [dynamic]
   /// [userAttributeName] - Name of User Attribute
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
@@ -158,16 +160,18 @@ class MoEngageFlutter {
         userAttributeValue is List<String> ||
         userAttributeValue is List<int> ||
         userAttributeValue is List<double> ||
-        userAttributeValue is List<num>) {
+        userAttributeValue is List<num> ||
+        userAttributeValue is List<bool>) {
       _platform.setUserAttribute(userAttributeName, userAttributeValue, appId);
     } else {
+      // Required to Check if `dynamic` object is valid JSON or not.
       try {
         jsonEncode(userAttributeValue);
         _platform.setUserAttribute(
             userAttributeName, userAttributeValue, appId);
       } catch (e) {
         Logger.w(
-            'Only String, Numbers, Bool, List and Object values are supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
+            'Only String, Numbers, Bool, List and Json Object values are supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
       }
     }
   }

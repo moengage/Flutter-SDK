@@ -17,27 +17,40 @@ const String eventTrackingPayload = '''
     "appId": ""
   },
   "data": {
-    "eventName":"add_to_cart",
-     "isNonInteractive": true,
+    "eventName": "add_to_cart",
+    "isNonInteractive": true,
     "eventAttributes": {
       "generalAttributes": {
-      "string":"Mark",
-      "num":300,
-      "double":60.5,
-      "bool":false
+        "string": "Mark",
+        "num": 300,
+        "double": 60.5,
+        "bool": false,
+        "json_obj": {
+          "position": 1,
+          "score": 96.4,
+          "nested_obj": {
+            "key": "value"
+          },
+          "array": [
+            9,
+            20,
+            "something"
+          ]
+        },
+        "json_array": [1,2,3]
       },
-      "locationAttributes":{
-         "location":{
-         "latitude":12.1,
-         "longitude":77.18
-         }
+      "locationAttributes": {
+        "location": {
+          "latitude": 12.1,
+          "longitude": 77.18
+        }
       },
-      "dateTimeAttributes":{
-      "dateTime":"2019-12-02T08:26:21.170Z"
+      "dateTimeAttributes": {
+        "dateTime": "2019-12-02T08:26:21.170Z"
       }
     }
   }
-} 
+}
 ''';
 
 const String userNamePayload = '''
@@ -397,3 +410,31 @@ const String nudgePayload = r'''
     "position": "bottom"
   }
 }''';
+
+const String userAttrJsonObjectPayload = '''
+{
+  "accountMeta": {
+    "appId": ""
+  },
+  "data": {
+   "attributeName":"json-object",
+   "type":"general",
+   "attributeValue":{
+   "key":"value"
+   }
+  }
+} 
+''';
+
+const String userAttrArrayOfJsonObjectPayload = '''
+{
+  "accountMeta": {
+    "appId": ""
+  },
+  "data": {
+   "attributeName":"array-of-json-objects",
+   "type":"general",
+   "attributeValue":[{"key": "1"},{"key": "2"}]
+  }
+} 
+''';

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'geo_location.dart';
+import '../../moengage_flutter_platform_interface.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
@@ -70,33 +70,20 @@ class MoEProperties {
         attributeType is num ||
         attributeType is bool ||
         attributeType is MoEGeoLocation ||
-        attributeType is List;
-    if (isPrimitiveType) {
-      return isPrimitiveType;
-    }
-    try {
-      jsonEncode(attributeType);
-      return true;
-    } catch (e) {
-      return false;
-    }
+        attributeType is List<dynamic> ||
+        attributeType is Map<String, dynamic>;
+    return isPrimitiveType;
   }
 
+  /// Check whether array type is Supported. It can be either primitive array type
+  /// or it can be JSON or Array.
   bool _isAcceptedArrayType(dynamic attributeType) {
     final isPrimitiveType = attributeType is String ||
         attributeType is int ||
         attributeType is double ||
         attributeType is num ||
         attributeType is bool;
-    if (isPrimitiveType) {
-      return isPrimitiveType;
-    }
-    try {
-      jsonEncode(attributeType);
-      return true;
-    } catch (e) {
-      return false;
-    }
+    return isPrimitiveType || _isValidJson(attributeType);
   }
 
   void _addAttribute(String key, dynamic value) {
@@ -107,7 +94,7 @@ class MoEProperties {
       generalAttributes.putIfAbsent(key, () => value);
     } else if (value is MoEGeoLocation) {
       locationAttributes.putIfAbsent(key, () => value.toMap());
-    } else if (value is List) {
+    } else if (value is Iterable) {
       final List<dynamic> typeCheckedArray = [];
       for (final dynamic val in value) {
         if (!_isAcceptedArrayType(val)) {
@@ -116,8 +103,20 @@ class MoEProperties {
         typeCheckedArray.add(val);
       }
       generalAttributes.putIfAbsent(key, () => typeCheckedArray);
-    } else if (_isAcceptedDataType(value)) {
+    } else if (_isValidJson(value)) {
+      // If is a valid json, we would track. Applicable Map<> types
       generalAttributes.putIfAbsent(key, () => value);
+    }
+  }
+
+  /// Returns true if `dynamic` object is valid json otherwise false.
+  bool _isValidJson(dynamic attribute) {
+    try {
+      jsonEncode(attribute);
+      return true;
+    } catch (e) {
+      Logger.e('Attribute with value $attribute is not supported');
+      return false;
     }
   }
 
