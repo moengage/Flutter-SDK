@@ -38,7 +38,7 @@ dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
     return js.JsArray.from(userAttributeValue);
   }
   if (userAttributeValue is Map<String, dynamic>) {
-    return js.JsObject.jsify(userAttributeValue as Object);
+    return js.JsObject.jsify(userAttributeValue);
   }
   return userAttributeValue;
 }
