@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
+import androidx.annotation.WorkerThread
 import com.moengage.core.LogLevel
+import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
 import com.moengage.plugin.base.inbox.internal.inboxDataToJson
@@ -31,10 +33,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     private val inboxHelper = InboxPluginHelper()
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        inboxHelper.logPluginMeta(INTEGRATION_TYPE, getMoEngageInboxVersion(flutterPluginBinding.applicationContext))
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
+        logInboxPluginMeta(flutterPluginBinding.applicationContext)
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -136,6 +138,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     /**
      * Get moengage_inbox version from Config File
      */
+    @WorkerThread
     private fun getMoEngageInboxVersion(context: Context): String {
         return try {
             val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
@@ -144,6 +147,15 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
             ""
+        }
+    }
+
+    /**
+     * Log Inbox Plugin Meta Data to Console
+     */
+    private fun logInboxPluginMeta(context: Context) {
+        GlobalResources.executor.execute {
+            inboxHelper.logPluginMeta(INTEGRATION_TYPE, getMoEngageInboxVersion(context))
         }
     }
 }

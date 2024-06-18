@@ -1,5 +1,12 @@
 # MoEngage Inbox Android Plugin
 
+# Next Release Date
+
+## Next Release Version
+
+- BugFix:
+  - ANR while accessing Plugin version from assets in Main Thread
+
 # 21-03-2024
 
 ## 2.0.0
