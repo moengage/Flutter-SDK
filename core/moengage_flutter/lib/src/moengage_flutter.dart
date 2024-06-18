@@ -1,6 +1,5 @@
 // ignore_for_file: use_setters_to_change_properties
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
