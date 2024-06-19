@@ -112,8 +112,74 @@ final MoEProperties dataWithInvalidProperties = MoEProperties()
       const HtmlEscapeMode(),
       {'key': 'value'}
     ]) //List with Custom Object
-    .addAttribute(
-        'map', {'key': const HtmlEscapeMode()}) //Custom Object Inside List
+    .addAttribute('map', {
+      'custom_obj': const HtmlEscapeMode(),
+      'valid_data': 'string'
+    }) //Custom Object Inside List
     .addAttribute('my_location', MoEGeoLocation(1.2, 2.3)) //Location Attribute
     .addISODateTime('date', '2011-11-02T02:50:12.208Z') // Date Attribute
     .setNonInteractiveEvent();
+
+final arrayWithValidData = [
+  1,
+  2.5,
+  'string',
+  true,
+  {'key', 'value'},
+  ['nested', 'array']
+];
+
+// Null value should be filtered out
+final arrayWithNullValues = [
+  1,
+  2.5,
+  null,
+  'string',
+  true,
+  null,
+  {'key', 'value'},
+  ['nested', 'array']
+];
+
+final arrayWithInvalidAndValidData = [
+  1,
+  2.5,
+  'string',
+  const HtmlEscapeMode(), //Custom Object - Invalid
+  {1: 'value'}, // Map<Int,String> - Invalid
+  true,
+  {'key', 'value'},
+  ['nested', 'array'],
+];
+
+final arrayWithOnlyInvalidData = [
+  const HtmlEscapeMode(), //Custom Object - Invalid
+  {1: 'value'}, // Map<Int,String> - Invalid
+];
+
+final mapWithValidData = {
+  'name': 'AAA',
+  'age': 20,
+  'gpa': 9.5,
+  'bool': true,
+  'array': [1, 2, 3],
+  'nested_map': {'key': 'value'}
+};
+
+final mapWithInvalidData = {
+  'custom_object': const HtmlEscapeMode(), //Invalid
+  'key': null, // Null value
+  'invalid_map': {1: 'value'}, // Invalid
+};
+
+final mapWithInvalidAndValidData = {
+  'name': 'AAA',
+  'age': 20,
+  'gpa': 9.5,
+  'bool': true,
+  'custom_object': const HtmlEscapeMode(), //Invalid
+  'invalid_map': {1: 'value'}, // Invalid
+  'array': [1, 2, 3],
+  'nested_map': {'key': 'value'},
+  'key': null // Null value
+};
