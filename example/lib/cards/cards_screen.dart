@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
+import '../constants.dart';
 import 'card_widget.dart';
 
 class CardsScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _CardsScreenState extends State<CardsScreen>
     with TickerProviderStateMixin {
   List<moe.Card> cardList = [];
 
-  moe.MoEngageCards cards = moe.MoEngageCards('DAO6UGZ73D9RTK8B5W96TPYN');
+  moe.MoEngageCards cards = moe.MoEngageCards(APP_ID);
 
   List<String> categories = [];
 

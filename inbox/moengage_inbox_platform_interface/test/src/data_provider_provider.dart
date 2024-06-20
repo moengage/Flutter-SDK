@@ -15,7 +15,7 @@ final InboxData inboxData = InboxData('android', [
           'gcm_notificationType': 'gcm_webNotification',
           'push_from': 'moengage',
           'gcm_webUrl': 'monengage://moe_app/add_to_cart',
-          'moe_app_id': 'DAO6UGZ73D9RTK8B5W96TPYN_DEBUG',
+          'moe_app_id': '12345',
           'gcm_campaign_id': '000000000000000088470679_L_0',
           'moe_channel_id': 'moe_sound_channel',
           'moe_webUrl': 'monengage://moe_app/add_to_cart?key=value',
@@ -33,7 +33,7 @@ final InboxData inboxData = InboxData('android', [
       '2023-08-15T06:17:30.167Z',
       '2023-11-13T06:17:30.000Z',
       {
-        'moe_app_id': 'DAO6UGZ73D9RTK8B5W96TPYN_DEBUG',
+        'moe_app_id': '',
         'moe_notification_posted_time': 1692080250175,
         'gcm_subtext': 'Summary',
         'moe_webUrl': 'monengage://moe_app/add_to_cart?key=value',
