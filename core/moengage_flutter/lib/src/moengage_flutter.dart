@@ -142,7 +142,8 @@ class MoEngageFlutter {
   /// Tracks a user attribute.
   /// Supported attribute types:
   /// - `String` `int`, `double`, `num`, `bool`
-  /// - `List<String>`, `List<int>`, `List<double>`, `List<num>`
+  /// - `List<String>`, `List<int>`, `List<double>`, `List<num>` , List<bool>
+  /// - Valid JSON Object with [Map] and Valid JSON Array with [List]
   /// [userAttributeValue] - Data of type [dynamic]
   /// [userAttributeName] - Name of User Attribute
   void setUserAttribute(String userAttributeName, dynamic userAttributeValue) {
@@ -150,25 +151,12 @@ class MoEngageFlutter {
       Logger.w('User Attribute Name cannot be empty');
       return;
     }
-    if (userAttributeValue is String ||
-        userAttributeValue is int ||
-        userAttributeValue is double ||
-        userAttributeValue is num ||
-        userAttributeValue is bool ||
-        userAttributeValue is List<String> ||
-        userAttributeValue is List<int> ||
-        userAttributeValue is List<double> ||
-        userAttributeValue is List<num>) {
-      _platform.setUserAttribute(userAttributeName, userAttributeValue, appId);
+    final filteredData = filterSupportedTypes(userAttributeValue);
+    if (filteredData != null) {
+      _platform.setUserAttribute(userAttributeName, filteredData, appId);
     } else {
-      try {
-        jsonEncode(userAttributeValue);
-        _platform.setUserAttribute(
-            userAttributeName, userAttributeValue, appId);
-      } catch (e) {
-        Logger.w(
-            'Only String, Numbers, Bool, List and Object values are supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
-      }
+      Logger.w(
+          'Only String, Numbers, Bool, List and JSON Object values are supported as User Attributes, provided name: $userAttributeName, value: $userAttributeValue');
     }
   }
 

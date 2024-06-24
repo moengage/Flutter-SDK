@@ -198,6 +198,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     _moengagePlugin.trackEvent(value, details);
                   }),
               ListTile(
+                title: const Text('Track Event With Invalid Attributes'),
+                onTap: () async {
+                  final MoEProperties details = MoEProperties();
+                  details
+                      .addAttribute( 'array-with-invalid-data', [1,2,Object()])
+                      .addAttribute( 'invalid-primitive-type', Object())
+                      .addAttribute( 'map-with-invalid-data',{
+                      'key':'valid key',
+                      'invalid': Object()
+                });
+                  final String eventName =
+                      await asyncInputDialog(context, 'Event name');
+                  debugPrint('$tag Main: Event name : $eventName');
+                  debugPrint('$tag Event Properties : $details');
+                  _moengagePlugin.trackEvent(eventName, details);
+                },
+              ),
+              ListTile(
                   title: const Text('Track Interactive Event with Attributes'),
                   onTap: () async {
                     MoEProperties details = MoEProperties();
@@ -344,6 +362,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       {'k7a': 68789564856.3778374, 'k7b': true}
                     ]
                   });
+                  _moengagePlugin.setUserAttribute('userAttr-array-object-attribute', [
+                    {'k7a': 222424.4565, 'k7b': false},
+                    {'k7a': 215667774.46645455, 'k7b': true},
+                    {'k7a': 68789564856.3778374, 'k7b': true}
+                  ]);
+                },
+              ),
+              ListTile(
+                title: const Text('Set UserAttribute With Invalid Data'),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute('array-with-invalid-data', [1,2,Object()]);
+                  _moengagePlugin.setUserAttribute('map-with-invalid-data', {
+                    'key':'valid key',
+                    'invalid': Object()
+                  });
+                  _moengagePlugin.setUserAttribute('invalid-primitive-type', Object());
                 },
               ),
               ListTile(
