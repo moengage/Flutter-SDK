@@ -45,4 +45,10 @@ import MoEngageSDK
         plugin.initializeDefaultInstance(sdkConfig: config, launchOptions: launchOptions)
         plugin.trackPluginInfo(MoEngageFlutterConstants.kPluginName, version: getCoreVersion())
     }
+
+    @objc public func initializeInstance(_ config: MoEngageSDKInitializationConfig) {
+        let plugin = MoEngagePlugin()
+        plugin.initializeInstance(withConfig: config)
+        plugin.trackPluginInfo(MoEngageFlutterConstants.kPluginName, version: getCoreVersion())
+    }
 }

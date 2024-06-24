@@ -17,8 +17,9 @@ import MoEngageSDK
       sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
       sdkConfig.consoleLogConfig = MoEngageConsoleLogConfig(isLoggingEnabled: true, loglevel: .verbose)
       
-      MoEngageInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
-        
+      let initConfig = MoEngageSDKInitializationConfig(sdkConfig: sdkConfig)
+      initConfig.launchOptions = launchOptions
+      MoEngageInitializer.sharedInstance.initializeInstance(initConfig)
       
       flutterViewController = FlutterViewController()
       let nav = UINavigationController.init(rootViewController: flutterViewController!)
