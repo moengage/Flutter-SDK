@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+## Next Release
+
+## Next Version
+
+- iOS
+  - Added SDK Initialization API independent of build configuration
+
 ## 18-06-2024
 
 ## 7.0.1
