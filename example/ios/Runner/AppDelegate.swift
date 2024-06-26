@@ -23,4 +23,14 @@ import MoEngageInApps
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
+    
+    override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("Opening deeplink", url)
+        return true
+    }
+    
+    override func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
+        print("Opening Universal link", userActivityType)
+        return false
+    }
 }
