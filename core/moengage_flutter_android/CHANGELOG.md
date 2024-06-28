@@ -1,5 +1,11 @@
 # MoEngage Flutter Android Plugin
 
+# Next Release Date
+
+## Next Version
+
+- Added Support for Enforcing SDK into Specific Environment
+
 # 18-06-2024
 
 ## 2.0.1

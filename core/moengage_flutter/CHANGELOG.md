@@ -6,6 +6,8 @@
 
 - iOS
   - Added SDK Initialization API independent of build configuration
+- Android
+  - Added Support for Enforcing SDK into Specific Environment
 
 ## 18-06-2024
 
