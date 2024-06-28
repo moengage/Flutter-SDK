@@ -4,10 +4,12 @@ import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
 import com.moengage.core.config.LogConfig
+import com.moengage.core.config.MoEngageEnvironmentConfig
 import com.moengage.core.config.NotificationConfig
 import com.moengage.core.config.PushKitConfig
 import com.moengage.core.model.AccountMeta
 import com.moengage.core.model.SdkState
+import com.moengage.core.model.environment.MoEngageEnvironment
 import com.moengage.flutter.MoEInitializer
 import com.moengage.pushbase.MoEPushHelper
 import io.flutter.app.FlutterApplication
@@ -34,6 +36,7 @@ class SampleApplication : FlutterApplication() {
             .configureLogs(LogConfig(LogLevel.VERBOSE, true))
             .configureFcm(FcmConfig(true))
             .configurePushKit(PushKitConfig(true))
+            .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta("DAO6UGZ73D9RTK8B5W96TPYN")))

@@ -22,7 +22,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         libs {
             create("moengage") {
-                from("com.moengage:android-dependency-catalog:4.1.2")
+                from("com.moengage:android-dependency-catalog:4.2.1")
             }
             create("appLibs") {
                 from(files("../android/gradle/appLibs.versions.toml"))
