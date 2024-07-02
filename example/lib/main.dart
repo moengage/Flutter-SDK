@@ -202,12 +202,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 onTap: () async {
                   final MoEProperties details = MoEProperties();
                   details
-                      .addAttribute( 'array-with-invalid-data', [1,2,Object()])
-                      .addAttribute( 'invalid-primitive-type', Object())
-                      .addAttribute( 'map-with-invalid-data',{
-                      'key':'valid key',
-                      'invalid': Object()
-                });
+                      .addAttribute('array-with-invalid-data', [1, 2, Object()])
+                      .addAttribute('invalid-primitive-type', Object())
+                      .addAttribute('map-with-invalid-data',
+                          {'key': 'valid key', 'invalid': Object()});
                   final String eventName =
                       await asyncInputDialog(context, 'Event name');
                   debugPrint('$tag Main: Event name : $eventName');
@@ -359,25 +357,54 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     'k7': [
                       {'k7a': 222424.4565, 'k7b': false},
                       {'k7a': 215667774.46645455, 'k7b': true},
-                      {'k7a': 68789564856.3778374, 'k7b': true}
+                      {'k7a': 68789564856.3778374, 'k7b': true},
+                      [
+                        {'k7c': 'val7c'}
+                      ]
                     ]
                   });
-                  _moengagePlugin.setUserAttribute('userAttr-array-object-attribute', [
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-array-object-attribute', [
                     {'k7a': 222424.4565, 'k7b': false},
                     {'k7a': 215667774.46645455, 'k7b': true},
                     {'k7a': 68789564856.3778374, 'k7b': true}
+                  ]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-object-attribute-with-mixed-values', [
+                    [
+                      {'k7a': 222424.4565, 'k7b': false}
+                    ],
+                    ['someValue'],
+                    [
+                      'anotherValue',
+                      [
+                        {'k7b1': 'val7b1', 'k7c1': 'val7c1'},
+                        {'k7b2': 'val7b2', 'k7c2': 'val7c2'},
+                        [
+                          {'k7b3': 'val7b3', 'k7c3': 'val7c3'}
+                        ],
+                        {'k7b4': 'val7b4', 'k7c4': 'val7c4'}
+                      ]
+                    ],
+                    [
+                      {'k7a': 215667774.46645455, 'k7b': true}
+                    ],
+                    {'k7a': 68789564856.3778374, 'k7b': true},
+                    1,
+                    2,
+                    3
                   ]);
                 },
               ),
               ListTile(
                 title: const Text('Set UserAttribute With Invalid Data'),
                 onTap: () {
-                  _moengagePlugin.setUserAttribute('array-with-invalid-data', [1,2,Object()]);
-                  _moengagePlugin.setUserAttribute('map-with-invalid-data', {
-                    'key':'valid key',
-                    'invalid': Object()
-                  });
-                  _moengagePlugin.setUserAttribute('invalid-primitive-type', Object());
+                  _moengagePlugin.setUserAttribute(
+                      'array-with-invalid-data', [1, 2, Object()]);
+                  _moengagePlugin.setUserAttribute('map-with-invalid-data',
+                      {'key': 'valid key', 'invalid': Object()});
+                  _moengagePlugin.setUserAttribute(
+                      'invalid-primitive-type', Object());
                 },
               ),
               ListTile(
