@@ -9,7 +9,7 @@ import '../model/permission_type.dart';
 import '../model/platforms.dart';
 
 /// Log Tag for Utils.dart
-const String tag = '{$TAG}Utils';
+const String tag = '${TAG}Utils';
 
 /// Get Data Tracking OptOut Payload
 Map<String, dynamic> getOptOutTrackingPayload(
@@ -108,4 +108,66 @@ AccountMeta? getAccountMetaFromPayload(dynamic methodCallArgs) {
         error: e, stackTrace: str);
   }
   return accountMeta;
+}
+
+/// Filters out UnSupported Types and returns valid data
+/// Returns null if
+dynamic filterSupportedTypes(dynamic attributeValue) {
+  if (isSupportedPrimitiveType(attributeValue)) {
+    return attributeValue;
+  } else if (attributeValue is Iterable<dynamic>) {
+    return filterIterableWithSupportedTypes(attributeValue);
+  } else if (attributeValue is Map<String, dynamic>) {
+    return filterMapWithSupportedTypes(attributeValue);
+  }
+  Logger.w(
+      '$tag filterSupportedTypes() : UnSupported Value : $attributeValue ');
+  return null;
+}
+
+/// Returns true if [attributeValue] is supported primitive type, otherwise false
+bool isSupportedPrimitiveType(dynamic attributeValue) {
+  return attributeValue is String ||
+      attributeValue is int ||
+      attributeValue is double ||
+      attributeValue is num ||
+      attributeValue is bool;
+}
+
+/// Filter List with Only Supported Data Types. Unsupported and null values will be filtered out
+Iterable<dynamic> filterIterableWithSupportedTypes(Iterable<dynamic> iterable) {
+  final List<dynamic> filteredList = [];
+  for (final value in iterable) {
+    if (isSupportedPrimitiveType(value)) {
+      filteredList.add(value);
+    } else if (value is Map<String, dynamic>) {
+      filteredList.add(filterMapWithSupportedTypes(value));
+    } else if (value is Iterable) {
+      filteredList.add(filterIterableWithSupportedTypes(value));
+    } else {
+      Logger.w(
+          '$tag filterIterableWithSupportedTypes() : Unsupported Value: $value');
+    }
+  }
+  return filteredList;
+}
+
+/// Filter Map with Only Supported Data Types. Unsupported and  null values will be filtered out
+/// [data] - Instance of [Map] containing Key-Value Pairs
+/// Returns [Map] with valid data
+Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
+  final Map<String, dynamic> filteredMap = {};
+  data.forEach((key, value) {
+    if (isSupportedPrimitiveType(value)) {
+      filteredMap[key] = value;
+    } else if (value is Map<String, dynamic>) {
+      filteredMap[key] = filterMapWithSupportedTypes(value);
+    } else if (value is Iterable) {
+      filteredMap[key] = filterIterableWithSupportedTypes(value);
+    } else {
+      Logger.w(
+          '$tag filterMapWithSupportedTypes() : UnSupported Value: $value for the key: $key');
+    }
+  });
+  return filteredMap;
 }

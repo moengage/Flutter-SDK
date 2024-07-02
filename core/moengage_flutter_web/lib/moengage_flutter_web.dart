@@ -15,6 +15,11 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
     Logger.d('initialise() : Initialising MoEngage web SDK');
+    moengageInitialiser();
+  }
+
+  // ignore: public_member_api_docs
+  void moengageInitialiser() {
     _moengage = JsObject.fromBrowserObject(context['Moengage'] as Object);
   }
 

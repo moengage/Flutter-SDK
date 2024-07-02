@@ -1,5 +1,9 @@
 # MoEngage Flutter Platform Interface
 
+## Next Release
+- Added object type in accepted data and array types
+- Letting object type data pass through _addAttribute method
+
 # 21-03-2024
 
 ## 2.0.0
