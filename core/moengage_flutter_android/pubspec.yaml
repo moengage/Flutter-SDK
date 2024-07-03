@@ -1,6 +1,6 @@
 name: moengage_flutter_android
 description: Android implementation of the moengage_flutter plugin
-version: 2.0.1
+version: 2.1.0
 homepage: https://www.moengage.com
 
 environment:
@@ -19,7 +19,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter_platform_interface: ^2.0.0
+  moengage_flutter_platform_interface: ^2.1.0
 
 dev_dependencies:
   flutter_test:

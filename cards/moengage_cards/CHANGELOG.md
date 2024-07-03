@@ -1,8 +1,8 @@
 # MoEngage Cards Plugin
 
-# Next Release
+# 03-07-2024
 
-## Next Version
+## 3.1.0
 - Internal Improvements
 
 # 21-03-2024
