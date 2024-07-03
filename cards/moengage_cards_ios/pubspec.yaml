@@ -1,6 +1,6 @@
 name: moengage_cards_ios
 description: iOS implementation of the moengage_cards plugin
-version: 2.1.0
+version: 2.2.0
 homepage: https://www.moengage.com
 
 environment:

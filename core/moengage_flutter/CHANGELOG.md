@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release Date
+# 03-07-2024
 
-## Next Version
+## 7.1.0
 
 - Added support for JSONObject values in user attributes
 - Android

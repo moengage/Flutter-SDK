@@ -1,8 +1,8 @@
 # MoEngage Geofence Android Plugin
 
-# Next Release
+# 03-07-2024
 
-## Next Version
+## 2.1.0
 - Internal Improvements
 
 # 21-03-2024
