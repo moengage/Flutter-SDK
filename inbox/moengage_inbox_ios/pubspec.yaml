@@ -18,7 +18,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter: ^7.0.0
+  moengage_flutter: ^7.1.0
   moengage_inbox_platform_interface: ^2.0.0
 
 dev_dependencies:

@@ -18,7 +18,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter_platform_interface: ^2.0.0
+  moengage_flutter_platform_interface: ^2.1.0
 
 dev_dependencies:
   flutter_test:
