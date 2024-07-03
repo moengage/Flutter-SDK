@@ -4,6 +4,7 @@
 
 ## Next Version
 - Added support for JSONObject values in user attributes
+- Added Support for Enforcing SDK into Specific Environment
 
 # 18-06-2024
 

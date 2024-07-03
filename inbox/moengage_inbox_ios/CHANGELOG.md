@@ -1,5 +1,10 @@
 # MoEngage Inbox iOS Plugin
 
+# Next Release Date
+
+## Next Release
+- Internal Improvements
+
 # 02-05-2024
 
 ## 2.1.0

@@ -5,6 +5,10 @@
 ## Next Version
 
 - Added support for JSONObject values in user attributes
+- Android
+    - Added Support for Enforcing SDK into Specific Environment
+- iOS
+    - Added SDK Initialization API independent of build configuration
 
 # 18-06-2024
 
