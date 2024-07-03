@@ -1,5 +1,10 @@
 # MoEngage Geofence Plugin
 
+# Next Release
+
+## Next Version
+- Internal Improvements
+
 # 21-03-2024
 
 ## 3.0.0
