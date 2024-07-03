@@ -4,16 +4,17 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_geofence/moengage_geofence.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import 'cards/cards_home.dart';
 import 'inapp.dart';
 import 'second_page.dart';
 import 'utils.dart';
-import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -137,7 +138,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               ListTile(
-                  title: const Text('Track Event with Attributes'),
+                  title: const Text(
+                      'Track Interactive Event with Object-type Attributes'),
                   onTap: () async {
                     MoEProperties details = MoEProperties();
                     details
@@ -154,9 +156,36 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                           'str2',
                           123,
                           true,
-                          {'hello': 'testing'}
+                          {'hello': 'testing'},
+                          {
+                            'stringkey': 'someVal',
+                            'numkey': 10,
+                            'datekey': '2019-12-02T08:26:21.170Z',
+                            'boolkey': false,
+                            'decimalnumkey': 323328.23989
+                          }
                         ])
-                        .setNonInteractiveEvent()
+                        .addAttribute('objectAttr', {
+                          'stringkey': 'str1',
+                          'decimalnumkey': 12.8,
+                          'anotherStrKey': 'str2',
+                          'numKey': 123,
+                          'boolKey': true,
+                          'someThingElse': {
+                            'stringkey': 'someVal',
+                            'numkey': 10,
+                            'datekey': '2019-12-02T08:26:21.170Z',
+                            'boolkey': false,
+                            'decimalnumkey': 323328.23989,
+                            'arrayOfNumbers': [1, 2, 7, 8.9, 74, 323],
+                            'objectKey': {
+                              'someKey': 'someVal',
+                              'anotherKey': 89.878,
+                              'yetAnotherKey': true
+                            }
+                          },
+                          'nestedObjKey1': {'hello': 'testing'}
+                        })
                         .addAttribute('location1', MoEGeoLocation(12.1, 77.18))
                         .addAttribute('location2', MoEGeoLocation(12.2, 77.28))
                         .addAttribute('location3', MoEGeoLocation(12.3, 77.38))
@@ -168,6 +197,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     debugPrint('$tag Main: Event name : $value');
                     _moengagePlugin.trackEvent(value, details);
                   }),
+              ListTile(
+                title: const Text('Track Event With Invalid Attributes'),
+                onTap: () async {
+                  final MoEProperties details = MoEProperties();
+                  details
+                      .addAttribute('array-with-invalid-data', [1, 2, Object()])
+                      .addAttribute('invalid-primitive-type', Object())
+                      .addAttribute('map-with-invalid-data',
+                          {'key': 'valid key', 'invalid': Object()});
+                  final String eventName =
+                      await asyncInputDialog(context, 'Event name');
+                  debugPrint('$tag Main: Event name : $eventName');
+                  debugPrint('$tag Event Properties : $details');
+                  _moengagePlugin.trackEvent(eventName, details);
+                },
+              ),
               ListTile(
                   title: const Text('Track Interactive Event with Attributes'),
                   onTap: () async {
@@ -297,6 +342,69 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       'userAttr-array-Number', [1.0, 1, 0.01, 5.45]);
                   _moengagePlugin.setUserAttribute('userAttr-array-String',
                       ['This', 'is', 'an', 'array', 'of', 'strings']);
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-object-attribute', {
+                    'k1': 'val1',
+                    'k2': 23.456,
+                    'k3': 5,
+                    'k4': true,
+                    'k5': [1, 2, 3, 4],
+                    'k6': {
+                      'k61': 'val61',
+                      'k62': '2019-12-02T08:26:21.170Z',
+                      'k63': [5, 6, 7, 8]
+                    },
+                    'k7': [
+                      {'k7a': 222424.4565, 'k7b': false},
+                      {'k7a': 215667774.46645455, 'k7b': true},
+                      {'k7a': 68789564856.3778374, 'k7b': true},
+                      [
+                        {'k7c': 'val7c'}
+                      ]
+                    ]
+                  });
+                  _moengagePlugin
+                      .setUserAttribute('userAttr-array-object-attribute', [
+                    {'k7a': 222424.4565, 'k7b': false},
+                    {'k7a': 215667774.46645455, 'k7b': true},
+                    {'k7a': 68789564856.3778374, 'k7b': true}
+                  ]);
+                  _moengagePlugin.setUserAttribute(
+                      'userAttr-array-object-attribute-with-mixed-values', [
+                    [
+                      {'k7a': 222424.4565, 'k7b': false}
+                    ],
+                    ['someValue'],
+                    [
+                      'anotherValue',
+                      [
+                        {'k7b1': 'val7b1', 'k7c1': 'val7c1'},
+                        {'k7b2': 'val7b2', 'k7c2': 'val7c2'},
+                        [
+                          {'k7b3': 'val7b3', 'k7c3': 'val7c3'}
+                        ],
+                        {'k7b4': 'val7b4', 'k7c4': 'val7c4'}
+                      ]
+                    ],
+                    [
+                      {'k7a': 215667774.46645455, 'k7b': true}
+                    ],
+                    {'k7a': 68789564856.3778374, 'k7b': true},
+                    1,
+                    2,
+                    3
+                  ]);
+                },
+              ),
+              ListTile(
+                title: const Text('Set UserAttribute With Invalid Data'),
+                onTap: () {
+                  _moengagePlugin.setUserAttribute(
+                      'array-with-invalid-data', [1, 2, Object()]);
+                  _moengagePlugin.setUserAttribute('map-with-invalid-data',
+                      {'key': 'valid key', 'invalid': Object()});
+                  _moengagePlugin.setUserAttribute(
+                      'invalid-primitive-type', Object());
                 },
               ),
               ListTile(

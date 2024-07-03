@@ -1,15 +1,16 @@
 # MoEngage Flutter Plugin
 
-## Next Release
+# Next Release Date
 
 ## Next Version
 
-- iOS
-  - Added SDK Initialization API independent of build configuration
+- Added support for JSONObject values in user attributes
 - Android
-  - Added Support for Enforcing SDK into Specific Environment
+    - Added Support for Enforcing SDK into Specific Environment
+- iOS
+    - Added SDK Initialization API independent of build configuration
 
-## 18-06-2024
+# 18-06-2024
 
 ## 7.0.1
 

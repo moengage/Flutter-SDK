@@ -1,5 +1,9 @@
 # MoEngage Flutter Web Plugin
 
+## Next Release
+- Created a relay function which can be invoked from a timer to ensure proper initialisation of web sdk
+- Added object support in user attribute-tracking method
+
 # 21-03-2024
 
 ## 3.0.0
