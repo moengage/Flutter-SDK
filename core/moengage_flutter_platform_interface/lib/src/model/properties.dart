@@ -1,4 +1,4 @@
-import 'geo_location.dart';
+import '../../moengage_flutter_platform_interface.dart';
 
 /// Helper class to track event attributes.
 class MoEProperties {
@@ -63,37 +63,27 @@ class MoEProperties {
   }
 
   bool _isAcceptedDataType(dynamic attributeType) {
-    return attributeType is String ||
-        attributeType is int ||
-        attributeType is double ||
-        attributeType is bool ||
+    final isPrimitiveType = isSupportedPrimitiveType(attributeType) ||
         attributeType is MoEGeoLocation ||
-        attributeType is List;
-  }
-
-  bool _isAcceptedArrayType(dynamic attributeType) {
-    return attributeType is String ||
-        attributeType is int ||
-        attributeType is double;
+        attributeType is List<dynamic> ||
+        attributeType is Map<String, dynamic>;
+    return isPrimitiveType;
   }
 
   void _addAttribute(String key, dynamic value) {
     if (_isAttributeNameEmpty(key)) {
       return;
     }
-    if (value is String || value is int || value is double || value is bool) {
-      generalAttributes.putIfAbsent(key, () => value);
+    if (isSupportedPrimitiveType(value)) {
+      generalAttributes[key] = value;
+    } else if (value is Iterable) {
+      generalAttributes[key] = filterIterableWithSupportedTypes(value);
+    } else if (value is Map<String, dynamic>) {
+      generalAttributes[key] = filterMapWithSupportedTypes(value);
     } else if (value is MoEGeoLocation) {
-      locationAttributes.putIfAbsent(key, () => value.toMap());
-    } else if (value is List) {
-      final List<dynamic> typeCheckedArray = [];
-      for (final dynamic val in value) {
-        if (!_isAcceptedArrayType(val)) {
-          continue;
-        }
-        typeCheckedArray.add(val);
-      }
-      generalAttributes.putIfAbsent(key, () => typeCheckedArray);
+      locationAttributes[key] = value.toMap();
+    } else {
+      Logger.w('Unsupported Type/Value for the Key: $key with value : $value');
     }
   }
 

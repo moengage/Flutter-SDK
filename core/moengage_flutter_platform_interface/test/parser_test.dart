@@ -61,8 +61,19 @@ void main() {
     expect(
         getUserAttributePayload('number-array', 'general', [1.5, 1, 2.56], ''),
         jsonDecode(userAttrNumberArrayPayload));
-    expect(getShowNudgeJsonPayload(MoEngageNudgePosition.bottom, "1234"),
-        jsonDecode(nudgePayload));
+    expect(
+        getUserAttributePayload('json-object', 'general', {'key': 'value'}, ''),
+        jsonDecode(userAttrJsonObjectPayload));
+    expect(
+        getUserAttributePayload(
+            'array-of-json-objects',
+            'general',
+            [
+              {'key': '1'},
+              {'key': '2'}
+            ],
+            ''),
+        jsonDecode(userAttrArrayOfJsonObjectPayload));
   });
 
   test('Test Alias Payload', () {
@@ -140,5 +151,10 @@ void main() {
             InAppPayloadMapper().actionFromJson(inAppClickDataPayload),
             clickData),
         true);
+  });
+
+  test('Nudge JSON Payload', () {
+    expect(getShowNudgeJsonPayload(MoEngageNudgePosition.bottom, '1234'),
+        jsonDecode(nudgePayload));
   });
 }

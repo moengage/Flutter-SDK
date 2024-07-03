@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
+import 'dart:js' as js;
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'extensions.dart';
-import 'dart:js' as js;
 
 Map<String, dynamic> getEventPayloadWeb(
   String eventName,
@@ -33,9 +33,26 @@ Map<String, dynamic> getUserAttributePayload(
   }
 }
 
+dynamic recursivelyJsifyObjects(List<dynamic> list) {
+  final usrAttr = list.map((e) {
+    if (e is Map<String, dynamic>) {
+      // element was an object, Jsify it
+      return js.JsObject.jsify(e);
+    } else if (e is List<dynamic>) {
+      // nested list
+      return recursivelyJsifyObjects(e);
+    }
+    return e;
+  });
+  return js.JsArray.from(usrAttr);
+}
+
 dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
   if (userAttributeValue is List<dynamic>) {
-    return js.JsArray.from(userAttributeValue);
+    return recursivelyJsifyObjects(userAttributeValue);
+  }
+  if (userAttributeValue is Map<String, dynamic>) {
+    return js.JsObject.jsify(userAttributeValue);
   }
   return userAttributeValue;
 }
