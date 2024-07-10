@@ -1,5 +1,10 @@
 # MoEngage Cards iOS Plugin
 
+# Next Release date
+
+## Next version
+- Support for Cards fetch on Login
+
 # 03-07-2024
 
 ## 2.2.0

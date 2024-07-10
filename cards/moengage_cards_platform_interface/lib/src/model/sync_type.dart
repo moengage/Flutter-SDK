@@ -7,5 +7,9 @@ enum SyncType {
   inboxOpen,
 
   /// Sync when user performs pull to refresh action
-  pullToRefresh
+  pullToRefresh,
+
+  /// Sync type when SDK sync the cards immediately.
+  /// Currently applicable for SDK fetching cards immediately when login is performed.
+  immediate
 }

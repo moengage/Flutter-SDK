@@ -119,7 +119,7 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   /// Listener for Cards App Open Sync Listener
   /// [cardsSyncListener] - Callback for Card Sync Completion of type [CardsSyncListener]
   /// [appId] - MoEngage App ID
-  void setAppOpenCardsSyncListener(
+  void setSyncCompleteListener(
     CardsSyncListener cardsSyncListener,
     String appId,
   ) =>

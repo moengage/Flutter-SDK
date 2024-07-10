@@ -1,5 +1,10 @@
 # MoEngage Cards Platform Interface
 
+# Next Release date
+
+## Next version
+- Support for Cards fetch on Login
+
 # 21-03-2024
 
 ## 2.0.0

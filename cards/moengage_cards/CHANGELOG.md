@@ -1,5 +1,10 @@
 # MoEngage Cards Plugin
 
+# Next Release date
+
+## Next version
+- Support for Cards fetch on Login
+
 # 03-07-2024
 
 ## 3.1.0
