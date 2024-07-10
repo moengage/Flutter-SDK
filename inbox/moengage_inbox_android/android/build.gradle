@@ -2,7 +2,7 @@ group 'com.moengage.moengage_inbox'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.23'
     repositories {
         google()
         mavenCentral()
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath 'com.android.tools.build:gradle:8.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -26,7 +26,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace "com.moengage.flutter.inbox"
 
     sourceSets {
@@ -52,10 +52,10 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly("com.moengage:moe-android-sdk:13.02.00")
-    compileOnly("com.moengage:inbox-core:3.0.2")
-    implementation("com.moengage:plugin-base-inbox:4.0.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    compileOnly("com.moengage:moe-android-sdk:13.03.00")
+    compileOnly("com.moengage:inbox-core:3.1.0")
+    implementation("com.moengage:plugin-base-inbox:4.1.0")
 }
 
 apply from: file("./user-agent.gradle")
