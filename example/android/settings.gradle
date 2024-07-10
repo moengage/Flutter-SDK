@@ -16,7 +16,6 @@ plugins.each { name, path ->
 
 dependencyResolutionManagement {
     repositories {
-        mavenLocal()
         google()
         mavenCentral()
     }

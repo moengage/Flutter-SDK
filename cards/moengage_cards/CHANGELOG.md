@@ -4,6 +4,11 @@
 
 ## Next version
 - Support for Cards fetch on Login
+- Breaking Change: 
+
+|                     Then                      |            Now                     |
+|:---------------------------------------------:|:----------------------------------:|
+| MoEngageCards#setAppOpenCardsSyncListener()   | MoEngageCards#setSyncCompleteListener() |
 
 # 03-07-2024
 

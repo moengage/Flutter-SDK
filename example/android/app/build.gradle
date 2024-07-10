@@ -82,12 +82,12 @@ android {
     }
   }
   compileOptions {
-    sourceCompatibility 17
-    targetCompatibility 17
+    sourceCompatibility 1.8
+    targetCompatibility 1.8
   }
 
   kotlinOptions {
-    jvmTarget = '17'
+    jvmTarget = '1.8'
   }
 
   buildFeatures {
@@ -109,13 +109,9 @@ dependencies {
   implementation(appLibs.playLocation)
   implementation(appLibs.glideCore)
   kapt(appLibs.glideCore)
-  implementation(moengage.core){
-    exclude group: "com.moengage", module: "core"
-  }
-  implementation("com.moengage:core:7.4.0-SNAPSHOT")
+  implementation(moengage.core)
   implementation(moengage.inapp)
-  //implementation(moengage.cardsCore)
-  implementation("com.moengage:cards-core:2.2.0-SNAPSHOT")
+  implementation(moengage.cardsCore)
   implementation(moengage.pushKit)
   implementation(moengage.richNotification)
   implementation(moengage.inboxCore)

@@ -44,11 +44,11 @@ moe.MoEngageCards cards = moe.MoEngageCards("<MOE_APP_ID>");
 cards.initialize();
 ```
 
-Set App Open Cards Sync Listener
+Set Cards Sync Listener for the cases where SDK sync the cards
 
 ```
-cards.setAppOpenCardsSyncListener((data) {
-      debugPrint("Cards App Open Sync Listener: $data");
+cards.setSyncCompleteListener((data) {
+      debugPrint("Cards Sync Listener: $data");
 });
 ```
 
