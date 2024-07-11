@@ -1,5 +1,11 @@
 # MoEngage Geofence Android Plugin
 
+# Release Dates
+
+## Next Version
+- `moe-android-sdk` version updated to `13.3.00`
+- `geofence` version updated to `4.0.2`
+
 # 03-07-2024
 
 ## 2.1.0

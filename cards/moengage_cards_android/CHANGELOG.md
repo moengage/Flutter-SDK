@@ -1,5 +1,11 @@
 # MoEngage Cards Android Plugin
 
+# Release Dates
+
+## Next Version
+- `moe-android-sdk` version updated to `13.3.00`
+- `cards-core` version updated to `2.1.0`
+
 # 03-07-2024
 
 ## 2.1.0
