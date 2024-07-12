@@ -121,7 +121,7 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   /// [appId] - MoEngage App ID
   void setSyncCompleteListener(
     CardsSyncListener cardsSyncListener,
-    String appId,
+    String appId
   ) =>
       throw UnimplementedError();
 }
