@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+# 15-07-2024
+
+## 7.1.1
+- `moe-android-sdk` version updated to `13.3.00`
+
 # 03-07-2024
 
 ## 7.1.0
