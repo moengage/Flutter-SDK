@@ -3,8 +3,8 @@
 # 15-07-2024
 
 ## 3.1.1
-- `moe-android-sdk` version updated to `13.3.00`
-- `geofence` version updated to `4.0.2`
+- `moe-android-sdk` version updated to `13.03.00`
+- `geofence` version updated to `4.1.0`
 
 # 03-07-2024
 

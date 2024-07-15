@@ -3,7 +3,7 @@
 # 15-07-2024
 
 ## 7.1.1
-- `moe-android-sdk` version updated to `13.3.00`
+- `moe-android-sdk` version updated to `13.03.00`
 
 # 03-07-2024
 
