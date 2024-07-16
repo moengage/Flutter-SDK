@@ -10,6 +10,6 @@ enum SyncType {
   pullToRefresh,
 
   /// Sync type when SDK sync the cards immediately.
-  /// Currently applicable for SDK fetching cards immediately when login is performed.
+  /// Currently applicable for SDK fetching cards immediately when uniqueId is set
   immediate
 }

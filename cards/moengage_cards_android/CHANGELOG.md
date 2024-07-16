@@ -3,7 +3,7 @@
 # Next Release date
 
 ## Next version
-- Support for Cards fetch on Login
+- Refresh cards on uniqueID set
 
 # 15-07-2024
 
