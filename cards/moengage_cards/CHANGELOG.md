@@ -10,6 +10,12 @@
 |:---------------------------------------------:|:----------------------------------:|
 | MoEngageCards#setAppOpenCardsSyncListener()   | MoEngageCards#setSyncCompleteListener() |
 
+# 15-07-2024
+
+## 3.1.1
+- `moe-android-sdk` version updated to `13.03.00`
+- `cards-core` version updated to `2.1.0`
+
 # 03-07-2024
 
 ## 3.1.0

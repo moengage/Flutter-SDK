@@ -1,6 +1,6 @@
 name: moengage_inbox_android
 description: Android implementation of the moengage_inbox plugin
-version: 2.1.0
+version: 2.1.1
 homepage: https://moengage.com
 
 environment:

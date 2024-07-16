@@ -1,7 +1,6 @@
 package com.moengage.flutter
 
 import android.content.Context
-import androidx.annotation.WorkerThread
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.internal.global.GlobalResources
@@ -91,7 +90,6 @@ class MoEInitializer {
          * Get moengage_flutter version from Config File
          * @param context instance of [Context]
          */
-        @WorkerThread
         private fun getMoEngageFlutterVersion(context: Context): String {
             return try {
                 val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
