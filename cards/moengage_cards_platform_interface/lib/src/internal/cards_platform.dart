@@ -23,9 +23,7 @@ abstract class MoEngageCardsPlatform extends MoEngageCardsPlatformInterface {
 
   @override
   void setSyncCompleteListener(
-    CardsSyncListener cardsSyncListener,
-    String appId,
-  ) {
+      CardsSyncListener cardsSyncListener, String appId) {
     CardsInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .cardsSyncListener = cardsSyncListener;

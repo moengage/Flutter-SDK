@@ -41,9 +41,7 @@ class MoEngageCardsIOS extends MoEngageCardsPlatform {
 
   @override
   void setSyncCompleteListener(
-    CardsSyncListener cardsSyncListener,
-    String appId,
-  ) {
+      CardsSyncListener cardsSyncListener, String appId) {
     super.setSyncCompleteListener(cardsSyncListener, appId);
     methodChannel.invokeMethod(
       methodSetAppOpenCardsSyncListener,

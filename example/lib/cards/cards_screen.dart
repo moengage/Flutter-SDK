@@ -28,7 +28,7 @@ class _CardsScreenState extends State<CardsScreen>
   void initState() {
     super.initState();
     cards.setSyncCompleteListener((moe.SyncCompleteData? data) {
-      debugPrint('Cards App Open Sync Listener Callback: $data');
+      debugPrint('Cards Sync Listener Callback: $data');
     });
     setUpTabs();
     cards.onCardsSectionLoaded((moe.SyncCompleteData? data) {
