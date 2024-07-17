@@ -40,11 +40,10 @@ class MoEngageCardsIOS extends MoEngageCardsPlatform {
   }
 
   @override
-  void setSyncCompleteListener(
-      CardsSyncListener cardsSyncListener, String appId) {
+  void setSyncCompleteListener(CardsSyncListener cardsSyncListener, String appId) {
     super.setSyncCompleteListener(cardsSyncListener, appId);
     methodChannel.invokeMethod(
-      methodSetAppOpenCardsSyncListener,
+      methodSetCardsSyncListener,
       getAccountMeta(appId),
     );
   }
