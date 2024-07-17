@@ -44,7 +44,7 @@ moe.MoEngageCards cards = moe.MoEngageCards("<MOE_APP_ID>");
 cards.initialize();
 ```
 
-Set Cards Sync Listener for the cases where SDK sync the cards
+Set Cards Sync complete callback listener
 
 ```
 cards.setSyncCompleteListener((data) {

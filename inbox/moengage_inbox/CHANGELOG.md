@@ -1,5 +1,11 @@
 # MoEngage Flutter Inbox Plugin
 
+# 15-07-2024
+
+## 6.1.1
+- `moe-android-sdk` version updated to `13.03.00`
+- `inbox-core` version updated to `3.0.2`
+
 # 03-07-2024
 
 ## 6.1.0

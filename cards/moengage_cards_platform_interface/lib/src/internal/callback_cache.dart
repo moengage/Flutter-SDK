@@ -2,8 +2,8 @@ import '../../moengage_cards_platform_interface.dart';
 
 /// Callback Cache for Cards Module
 class CallbackCache {
-  /// Sync Listener Cache for Card syncs performed by SDK.
-  /// Currently applicable for AppOpen Sync, Card fetch on login ..
+  /// Set cards sync complete callback listener
+  /// Currently applicable for AppOpen Sync, fetching cards when unique id is set.
   CardsSyncListener? cardsSyncListener;
 
   /// Inbox Open Cards Sync Listener

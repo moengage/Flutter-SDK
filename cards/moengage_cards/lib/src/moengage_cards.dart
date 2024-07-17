@@ -123,7 +123,7 @@ class MoEngageCards {
     return _cardsPlatform.getUnClickedCardsCount(_appId);
   }
 
-  /// Listener for Cards Sync performed by SDK.
+  /// Set cards sync complete callback listener
   /// [cardsSyncListener] - Callback for Card Sync Completion of type [CardsSyncListener]
   void setSyncCompleteListener(CardsSyncListener cardsSyncListener) {
     _cardsPlatform.setSyncCompleteListener(cardsSyncListener, _appId);
