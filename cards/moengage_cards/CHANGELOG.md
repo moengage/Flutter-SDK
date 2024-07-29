@@ -1,5 +1,10 @@
 # MoEngage Cards Plugin
 
+# Next Release
+
+## Next Version
+- Exact version pinning for Cards Module dependencies
+
 # 15-07-2024
 
 ## 3.1.1

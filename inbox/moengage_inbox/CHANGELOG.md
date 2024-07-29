@@ -1,5 +1,10 @@
 # MoEngage Flutter Inbox Plugin
 
+# Next Release
+
+## Next Version
+- Exact version pinning for Inbox Module dependencies
+
 # 15-07-2024
 
 ## 6.1.1

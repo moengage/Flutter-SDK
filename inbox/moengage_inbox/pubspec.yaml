@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^7.1.1
-  moengage_inbox_android: ^2.1.1
-  moengage_inbox_ios: ^2.2.0
-  moengage_inbox_platform_interface: ^2.0.0
+  moengage_inbox_android: 2.1.1
+  moengage_inbox_ios: 2.2.0
+  moengage_inbox_platform_interface: 2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
