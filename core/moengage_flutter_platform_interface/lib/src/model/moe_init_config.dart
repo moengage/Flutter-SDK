@@ -5,11 +5,12 @@ import '../model/push/push_config.dart';
 /// default values will be used.
 class MoEInitConfig {
   /// [MoEInitConfig] Constructor
-  MoEInitConfig({required this.pushConfig, AnalyticsConfig? analyticsConfig})
-      : analyticsConfig = analyticsConfig ?? AnalyticsConfig.defaultConfig();
+  MoEInitConfig({PushConfig? pushConfig, AnalyticsConfig? analyticsConfig})
+      : pushConfig = pushConfig ?? PushConfig.defaultConfig(),
+        analyticsConfig = analyticsConfig ?? AnalyticsConfig.defaultConfig();
 
   /// Named Constructor with Default Config
-  MoEInitConfig.defaultConfig() : this(pushConfig: PushConfig.defaultConfig());
+  MoEInitConfig.defaultConfig() : this();
 
   /// Instance of [PushConfig] - Configuration for Handling Push Notification
   PushConfig pushConfig;
