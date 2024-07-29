@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+# Next Release
+
+## Next Version
+- Exact version pinning for Core Module dependencies
+
 # 15-07-2024
 
 ## 7.1.1
