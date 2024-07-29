@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Geofence Module dependencies
+- iOS
+  - Internal Improvements
 
 # 15-07-2024
 

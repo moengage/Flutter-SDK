@@ -1,5 +1,5 @@
 // Generated file, do not edit
 import Foundation
 struct MoEngageFlutterPluginInfo{
- static let kVersion = "1.2.0" 
+ static let kVersion = "2.2.0" 
 }

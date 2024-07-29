@@ -129,6 +129,7 @@ const String keyAccountMeta = 'accountMeta';
 const String keyData = 'data';
 const String keyInitConfig = 'initConfig';
 const String keyPushConfig = 'pushConfig';
+const String keyAnalyticsConfig = 'analyticsConfig';
 
 const String keyAndroidId = 'isAndroidIdTrackingEnabled';
 const String keyAdId = 'isAdIdTrackingEnabled';
@@ -146,6 +147,12 @@ const String keyUpdatePushPermissionCount = 'pushOptinInAttemptCount';
 /// MoEngage SDK will not handle the redirection in this case
 const String keyShouldDeliverCallbackOnForegroundClick =
     'shouldDeliverCallbackOnForegroundClick';
+
+// Analytics Config Keys
+
+/// Key for whether to track boolean user-attributes as 0/1 in iOS.
+const String keyShouldTrackUserAttributeBooleanAsNumber =
+    'shouldTrackUserAttributeBooleanAsNumber';
 
 /// Key for Self handled push redirection. If self handled push direction is true,
 /// Client is responsible for push redirection on Push Click
