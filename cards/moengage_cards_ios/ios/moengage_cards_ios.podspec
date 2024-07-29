@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'Flutter'
   # @todo Finalize version
-  s.dependency 'MoEngagePluginCards', '~> 2.0.0'
+  s.dependency 'MoEngagePluginCards', '2.0.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
