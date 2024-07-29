@@ -18,9 +18,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_cards_android: ^2.1.1
-  moengage_cards_ios: ^2.2.0
-  moengage_cards_platform_interface: ^2.0.0
+  moengage_cards_android: 2.1.1
+  moengage_cards_ios: 2.2.0
+  moengage_cards_platform_interface: 2.0.0
   moengage_flutter: ^7.1.1
 
 dev_dependencies:
