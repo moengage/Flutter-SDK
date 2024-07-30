@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Geofence Module dependencies
+- Android
+  - Bundling `geofence` dependency with the plugin
 
 # 15-07-2024
 

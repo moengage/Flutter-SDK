@@ -1,5 +1,11 @@
 # MoEngage Inbox Android Plugin
 
+# Next Release Date
+
+## Next Version
+
+- Bundling `inbox-core` dependency with the plugin
+
 # 15-07-2024
 
 ## 2.1.1
