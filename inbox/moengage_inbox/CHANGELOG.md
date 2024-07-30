@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Inbox Module dependencies
+- Android
+  - Bundling `inbox-core` dependency with the plugin
 
 # 15-07-2024
 

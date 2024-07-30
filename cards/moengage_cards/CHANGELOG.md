@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Cards Module dependencies
+- Android 
+  - Bundling `cards-core` dependency with the plugin
 
 # 15-07-2024
 

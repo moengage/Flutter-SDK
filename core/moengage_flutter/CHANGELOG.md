@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Core Module dependencies
+- Android
+  - Bundling `moe-android-sdk` & `inapp` dependencies with the plugin
 
 # 15-07-2024
 
