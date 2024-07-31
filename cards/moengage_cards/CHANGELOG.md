@@ -1,9 +1,11 @@
 # MoEngage Cards Plugin
 
-# Next Release
+# 31-07-2024
 
-## Next Version
+## 3.2.0
 - Exact version pinning for Cards Module dependencies
+- iOS
+  - Updated MoEngageCards to `4.17.0`
 
 # 15-07-2024
 
