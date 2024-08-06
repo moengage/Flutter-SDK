@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs
-import 'dart:js' as js;
+import dart:js_interop as js;
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'extensions.dart';
 
