@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release
+# 07-08-2024
 
-## Next Version
+## 8.0.0
 - Exact version pinning for Core Module dependencies
 - iOS
   - Added boolean user attribute tracking customization in initialization API
