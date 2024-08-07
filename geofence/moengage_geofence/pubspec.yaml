@@ -10,10 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter: ^7.1.1
-  moengage_geofence_android: 2.1.1
+  moengage_flutter: ^8.0.0
+  moengage_geofence_android: 3.0.0
   moengage_geofence_ios: 3.0.0
-  moengage_geofence_platform_interface: 2.0.0
+  moengage_geofence_platform_interface: 3.0.0
 
 dev_dependencies:
   flutter_test:
