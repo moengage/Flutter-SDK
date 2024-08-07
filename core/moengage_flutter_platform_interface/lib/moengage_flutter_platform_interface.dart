@@ -7,6 +7,7 @@ export 'src/internal/moe_cache.dart';
 export 'src/internal/moe_core_controller.dart';
 export 'src/log_level.dart';
 export 'src/model/account_meta.dart';
+export 'src/model/analytics/analytics_config.dart';
 export 'src/model/app_status.dart';
 export 'src/model/gender.dart';
 export 'src/model/geo_location.dart';

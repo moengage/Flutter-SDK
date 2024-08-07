@@ -1,3 +1,4 @@
+import '../../src/model/analytics/analytics_config.dart';
 import '../../src/model/moe_init_config.dart';
 import '../../src/model/push/push_config.dart';
 import '../../src/utils/utils.dart';
@@ -16,6 +17,8 @@ class InitConfigPayloadMapper {
   Map<String, dynamic> _initConfigToMap(MoEInitConfig moEInitConfig) {
     final Map<String, dynamic> initPayload = {};
     initPayload[keyPushConfig] = _pushConfigToMap(moEInitConfig.pushConfig);
+    initPayload[keyAnalyticsConfig] =
+        _analyticsConfigToMap(moEInitConfig.analyticsConfig);
     return initPayload;
   }
 
@@ -25,5 +28,13 @@ class InitConfigPayloadMapper {
           pushConfig.shouldDeliverCallbackOnForegroundClick
     };
     return pushConfigPayload;
+  }
+
+  Map<String, dynamic> _analyticsConfigToMap(AnalyticsConfig analyticsConfig) {
+    final Map<String, dynamic> analyticsConfigPayload = {
+      keyShouldTrackUserAttributeBooleanAsNumber:
+          analyticsConfig.shouldTrackUserAttributeBooleanAsNumber
+    };
+    return analyticsConfigPayload;
   }
 }

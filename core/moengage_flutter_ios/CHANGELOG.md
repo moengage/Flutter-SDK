@@ -1,5 +1,10 @@
 # MoEngage Flutter iOS Plugin
 
+# 07-08-2024
+
+## 3.0.0
+- Added boolean user attribute tracking customization in initialization API
+
 # 31-07-2024
 
 ## 2.3.0

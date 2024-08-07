@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files     = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginBase', '~> 4.10.0'
+  s.dependency 'MoEngagePluginBase', '5.0.0'
   s.swift_version = '5.0'
   s.prepare_command = <<-CMD
       echo // Generated file, do not edit > Classes/MoEngageFlutterPluginInfo.swift
