@@ -4,6 +4,8 @@
 
 ## Next Version
 - Exact version pinning for Core Module dependencies
+- iOS
+  - Added boolean user attribute tracking customization in initialization API
 
 # 15-07-2024
 
