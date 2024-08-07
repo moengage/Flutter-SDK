@@ -22,10 +22,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter_android: 2.1.1
+  moengage_flutter_android: 3.0.0
   moengage_flutter_ios: 3.0.0
   moengage_flutter_platform_interface: 3.0.0
-  moengage_flutter_web: 3.1.0
+  moengage_flutter_web: 4.0.0
 
 dev_dependencies:
   flutter_test:

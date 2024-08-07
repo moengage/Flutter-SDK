@@ -1,5 +1,10 @@
 # MoEngage Inbox Android Plugin
 
+# 07-08-2024
+
+## 3.0.0
+- Internal Improvements
+
 # 15-07-2024
 
 ## 2.1.1

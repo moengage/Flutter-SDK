@@ -6,6 +6,13 @@
 - Exact version pinning for Inbox Module dependencies
 - iOS
   - Internal Improvements
+  
+# 31-07-2024
+
+## 6.2.0
+- Exact version pinning for Inbox Module dependencies
+- iOS
+  - Updated MoEngageInbox to 2.17.0
 
 # 15-07-2024
 
