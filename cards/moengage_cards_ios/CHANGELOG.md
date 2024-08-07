@@ -2,6 +2,11 @@
 
 # 07-08-2024
 
+## 3.0.1
+- Internal Improvements
+
+# 07-08-2024
+
 ## 3.0.0
 - Internal Improvements
 

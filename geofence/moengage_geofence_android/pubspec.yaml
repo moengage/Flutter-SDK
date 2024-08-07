@@ -1,6 +1,6 @@
 name: moengage_geofence_android
 description: Android implementation of the moengage_geofence plugin
-version: 2.1.1
+version: 3.0.0
 homepage: https://www.moengage.com
 
 environment:
@@ -19,8 +19,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter: ^7.1.1
-  moengage_geofence_platform_interface: ^2.0.0
+  moengage_flutter: ^8.0.0
+  moengage_geofence_platform_interface: ^3.0.0
 
 dev_dependencies:
   flutter_test:
