@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '11.0'
 
   s.dependency 'Flutter'
-  # @todo Finalize version
   s.dependency 'MoEngagePluginCards', '2.0.0'
 
   # Flutter.framework does not contain a i386 slice.
