@@ -1,5 +1,15 @@
 # MoEngage Inbox iOS Plugin
 
+# 07-08-2024
+
+## 3.0.0
+- Internal Improvements
+
+# 31-07-2024
+
+## 2.3.0
+- Updated MoEngageInbox to 2.17.0
+
 # 03-07-2024
 
 ## 2.2.0

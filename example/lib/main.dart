@@ -45,8 +45,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter(
       'DAO6UGZ73D9RTK8B5W96TPYN',
       moEInitConfig: MoEInitConfig(
-          pushConfig:
-              PushConfig(shouldDeliverCallbackOnForegroundClick: true)));
+          pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
+          analyticsConfig:
+              AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
   final MoEngageGeofence _moEngageGeofence =
       MoEngageGeofence('DAO6UGZ73D9RTK8B5W96TPYN');
   final MoEngageInbox _moEngageInbox =

@@ -6,6 +6,9 @@ const String initPayload = '''
   "initConfig": {
     "pushConfig": {
       "shouldDeliverCallbackOnForegroundClick": true
+    },
+    "analyticsConfig": {
+      "shouldTrackUserAttributeBooleanAsNumber": false
     }
   }
 } 

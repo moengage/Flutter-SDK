@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# 07-08-2024
+
+## 3.0.0
+- iOS
+  - Added boolean user attribute tracking customization in initialization API
+
 # 03-07-2024
 
 ## 2.1.0

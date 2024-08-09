@@ -1,9 +1,14 @@
 # MoEngage Cards Android Plugin
 
+
 # Next Release date
 
 ## Next version
 - Refresh cards on uniqueID set
+# 07-08-2024
+
+## 3.0.0
+- Internal Improvements
 
 # 15-07-2024
 

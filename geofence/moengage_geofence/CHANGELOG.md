@@ -1,5 +1,19 @@
 # MoEngage Geofence Plugin
 
+# 07-08-2024
+
+## 4.0.0
+- Exact version pinning for Geofence Module dependencies
+- iOS
+  - Internal Improvements
+  
+# 31-07-2024
+
+## 3.2.0
+- Exact version pinning for Geofence Module dependencies
+- iOS
+  - Updated MoEngageGeofence to 5.17.0
+
 # 15-07-2024
 
 ## 3.1.1
