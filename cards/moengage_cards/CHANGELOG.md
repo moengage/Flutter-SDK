@@ -13,6 +13,16 @@
 - iOS
   - Updated MoEngageCards to `4.17.0`
 
+# Next Release date
+
+## Next version
+- Refresh cards on uniqueID set
+- Breaking Change: 
+
+|                     Then                      |            Now                     |
+|:---------------------------------------------:|:----------------------------------:|
+| MoEngageCards#setAppOpenCardsSyncListener()   | MoEngageCards#setSyncCompleteListener() |
+
 # 15-07-2024
 
 ## 3.1.1

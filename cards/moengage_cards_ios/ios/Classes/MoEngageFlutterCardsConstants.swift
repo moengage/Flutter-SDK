@@ -15,7 +15,7 @@ enum MoEngageFlutterCardsConstants {
         static let refreshCards = "refreshCards"
         static let fetchCards = "fetchCards"
         static let onCardSectionLoaded = "onCardSectionLoaded"
-        static let setAppOpenCardsSyncListener = "setAppOpenCardsSyncListener"
+        static let cardGenericSync = "setSyncCompleteListener"
         static let onCardSectionUnloaded = "onCardSectionUnLoaded"
         static let getCardsCategories = "getCardsCategories"
         static let cardsInfo = "getCardsInfo"
@@ -32,6 +32,6 @@ enum MoEngageFlutterCardsConstants {
     enum NativeToFlutterMethods {
         static let inboxOpenCardsSync = "onInboxOpenCardsSync"
         static let pullToRefreshCardsSync = "onPullToRefreshCardsSync"
-        static let appOpenCardsSync = "onAppOpenCardsSync"
+        static let cardGenericSync = "onCardsSync"
     }
 }
