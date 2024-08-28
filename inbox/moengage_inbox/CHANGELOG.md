@@ -1,5 +1,11 @@
 # MoEngage Flutter Inbox Plugin
 
+# Next Release
+
+## Next Version
+- Android
+    - Bundling `inbox-core` dependency with the plugin
+
 # 07-08-2024
 
 ## 7.0.0
