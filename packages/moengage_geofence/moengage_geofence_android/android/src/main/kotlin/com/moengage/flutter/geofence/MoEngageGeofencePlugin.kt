@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.NonNull
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
-import com.moengage.geofence.MoEGeofenceHelper
 import com.moengage.plugin.base.geofence.internal.GeofencePluginHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -27,7 +26,10 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @Suppress("SENSELESS_COMPARISON")
-    override fun onMethodCall(call: MethodCall, result: Result) {
+    override fun onMethodCall(
+        call: MethodCall,
+        result: Result,
+    ) {
         try {
             if (call == null) {
                 Logger.print(LogLevel.ERROR) {
@@ -51,7 +53,9 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(
+        @NonNull binding: FlutterPlugin.FlutterPluginBinding,
+    ) {
         channel.setMethodCallHandler(null)
     }
 

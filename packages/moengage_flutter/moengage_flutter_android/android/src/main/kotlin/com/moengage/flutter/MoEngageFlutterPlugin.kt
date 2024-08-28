@@ -20,17 +20,17 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
-
     private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
-    private val appBackgroundListener = AppBackgroundListener { _, _ ->
-        run {
-            Logger.print { "$tag onAppBackground() : Detaching the Framework" }
-            pluginHelper.onFrameworkDetached()
+    private val appBackgroundListener =
+        AppBackgroundListener { _, _ ->
+            run {
+                Logger.print { "$tag onAppBackground() : Detaching the Framework" }
+                pluginHelper.onFrameworkDetached()
+            }
         }
-    }
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.print { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
@@ -65,7 +65,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    private fun sendCallback(methodName: String, message: String) {
+    private fun sendCallback(
+        methodName: String,
+        message: String,
+    ) {
         try {
             Handler(Looper.getMainLooper()).post {
                 try {
@@ -80,7 +83,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     @Suppress("SENSELESS_COMPARISON")
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+    override fun onMethodCall(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             if (call == null) {
                 Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : MethodCall instance is null cannot proceed further." }
@@ -89,7 +95,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             if (context == null) {
                 Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : Context is null cannot " +
-                            "proceed further."
+                        "proceed further."
                 }
                 return
             }
@@ -123,10 +129,11 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     updatePushPermissionRequestCount(call)
                 METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 METHOD_NAME_SHOW_NUDGE -> showNudge(call)
-                else -> Logger.print(LogLevel.ERROR) {
-                    "$tag onMethodCall() : No mapping for this" +
+                else ->
+                    Logger.print(LogLevel.ERROR) {
+                        "$tag onMethodCall() : No mapping for this" +
                             " method."
-                }
+                    }
             }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
@@ -181,7 +188,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             if (methodCall.arguments == null) {
                 Logger.print(LogLevel.ERROR) {
                     "$tag trackEvent() : Arguments are null, cannot" +
-                            " trackEvent"
+                        " trackEvent"
                 }
                 return
             }
@@ -385,7 +392,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
      * @since 1.1.0
      */
-    private fun deleteUser(methodCall: MethodCall, result: MethodChannel.Result) {
+    private fun deleteUser(
+        methodCall: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             Logger.print { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) {
@@ -403,7 +413,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-
     /**
      * Called when the plugin is attached to Flutter Activity.
      * @param binding instance of [ActivityPluginBinding]
@@ -414,7 +423,6 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             initPlugin(it)
         }
     }
-
 
     /**
      * Called when the plugin is Detached From Flutter Activity.

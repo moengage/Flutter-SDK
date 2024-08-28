@@ -14,12 +14,12 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 
 class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
-
     private val tag = "${MODULE_TAG}MoEngageCardsPlugin"
 
     private val cardsPluginHelper: CardsPluginHelper by lazy { CardsPluginHelper() }
 
     lateinit var context: Context
+
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         try {
             Logger.print { "$tag onAttachedToEngine() : Registering MoEngageCardsPlugin" }
@@ -40,8 +40,8 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
             methodChannel?.setMethodCallHandler(
                 PlatformMethodCallHandler(
                     context,
-                    cardsPluginHelper
-                )
+                    cardsPluginHelper,
+                ),
             )
             setCardsEventEmitter(EventEmitterImpl(::emitEvent))
         } catch (t: Throwable) {
@@ -58,7 +58,10 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
         }
     }
 
-    private fun emitEvent(methodName: String, payload: String) {
+    private fun emitEvent(
+        methodName: String,
+        payload: String,
+    ) {
         try {
             GlobalResources.mainThread.post {
                 try {
@@ -109,7 +112,6 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
             "$tag onReattachedToActivityForConfigChanges() : ReAttached To Activity for Config changes"
         }
     }
-
 
     companion object {
         /**

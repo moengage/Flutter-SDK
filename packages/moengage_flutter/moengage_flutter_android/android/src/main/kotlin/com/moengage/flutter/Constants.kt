@@ -1,7 +1,5 @@
 package com.moengage.flutter
 
-import android.os.Build.VERSION
-
 /**
  * @author Umang Chamaria
  * Date: 2019-12-12
@@ -11,7 +9,7 @@ const val MODULE_TAG = "MoEFlutter_"
 const val INTEGRATION_TYPE = "flutter"
 const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core"
 
-//Method name constants
+// Method name constants
 const val METHOD_NAME_INITIALISE = "initialise"
 const val METHOD_NAME_TRACK_EVENT = "trackEvent"
 const val METHOD_NAME_SET_USER_ATTRIBUTE = "setUserAttribute"

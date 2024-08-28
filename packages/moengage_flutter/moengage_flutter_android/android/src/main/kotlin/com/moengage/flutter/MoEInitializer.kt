@@ -17,7 +17,7 @@ import org.json.JSONObject
  */
 class MoEInitializer {
     companion object {
-        private const val tag: String = "${MODULE_TAG}MoEInitializer"
+        private const val TAG: String = "${MODULE_TAG}MoEInitializer"
 
         /**
          * Initialise the default instance of SDK with configuration provided in [MoEngage.Builder]
@@ -32,19 +32,15 @@ class MoEInitializer {
         fun initialiseDefaultInstance(
             context: Context,
             builder: MoEngage.Builder,
-            lifecycleAwareCallbackEnabled: Boolean = false
+            lifecycleAwareCallbackEnabled: Boolean = false,
         ) {
             try {
-                Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
-                PluginInitializer.initialize(
-                    builder,
-                    null,
-                    SdkState.ENABLED
-                )
-                addIntegrationMeta(context,builder.appId)
+                Logger.print { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
+                PluginInitializer.initialize(builder, null, SdkState.ENABLED)
+                addIntegrationMeta(context, builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
+                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
             }
         }
 
@@ -70,19 +66,19 @@ class MoEInitializer {
             context: Context,
             builder: MoEngage.Builder,
             sdkState: SdkState,
-            lifecycleAwareCallbackEnabled: Boolean = false
+            lifecycleAwareCallbackEnabled: Boolean = false,
         ) {
             try {
-                Logger.print { "$tag initialiseDefaultInstance() : Will try to initialize the sdk." }
+                Logger.print { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
                     null,
-                    sdkState
+                    sdkState,
                 )
-                addIntegrationMeta(context,builder.appId)
+                addIntegrationMeta(context, builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag initialiseDefaultInstance() : " }
+                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
             }
         }
 
@@ -92,11 +88,12 @@ class MoEInitializer {
          */
         private fun getMoEngageFlutterVersion(context: Context): String {
             return try {
-                val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
-                    .bufferedReader().use { it.readText() }
+                val json =
+                    context.assets.open(ASSET_CONFIG_FILE_PATH)
+                        .bufferedReader().use { it.readText() }
                 JSONObject(json).getString(VERSION_KEY)
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
+                Logger.print(LogLevel.ERROR, t) { "$TAG getMoEngageFlutterVersion() : " }
                 ""
             }
         }
@@ -104,12 +101,15 @@ class MoEInitializer {
         /**
          * Track Integration Meta in BG Thread provided the [context] and MoEngage [appId]
          */
-        private fun addIntegrationMeta(context: Context, appId: String) {
+        private fun addIntegrationMeta(
+            context: Context,
+            appId: String,
+        ) {
             GlobalResources.executor.execute {
-                Logger.print { "$tag addIntegrationMeta(): Add Integration Meta for AppId : $appId" }
+                Logger.print { "$TAG addIntegrationMeta(): Add Integration Meta for AppId : $appId" }
                 PluginHelper.addIntegrationMeta(
                     IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
-                    appId
+                    appId,
                 )
             }
         }

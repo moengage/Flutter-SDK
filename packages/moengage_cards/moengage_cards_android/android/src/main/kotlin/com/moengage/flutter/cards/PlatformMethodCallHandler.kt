@@ -14,12 +14,14 @@ import org.json.JSONObject
 
 class PlatformMethodCallHandler(
     private val context: Context,
-    private val cardsPluginHelper: CardsPluginHelper
+    private val cardsPluginHelper: CardsPluginHelper,
 ) : MethodChannel.MethodCallHandler {
-
     private val tag = "${MODULE_TAG}PlatformMethodCallHandler"
 
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+    override fun onMethodCall(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             if (call.arguments == null) {
                 Logger.print(LogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
@@ -50,7 +52,6 @@ class PlatformMethodCallHandler(
             Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
-
 
     private fun initialize(call: MethodCall) {
         try {
@@ -132,7 +133,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getCardsInfo(call: MethodCall, result: MethodChannel.Result) {
+    private fun getCardsInfo(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsInfo() : $payload" }
@@ -152,7 +156,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun fetchCards(call: MethodCall, result: MethodChannel.Result) {
+    private fun fetchCards(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         val payload = call.arguments.toString()
         try {
             Logger.print { "$tag fetchCards() : $payload" }
@@ -170,7 +177,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getCardsCategories(call: MethodCall, result: MethodChannel.Result) {
+    private fun getCardsCategories(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsCategories() : $payload" }
@@ -188,10 +198,12 @@ class PlatformMethodCallHandler(
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getCardsCategories() : " }
         }
-
     }
 
-    private fun getCardsForCategory(call: MethodCall, result: MethodChannel.Result) {
+    private fun getCardsForCategory(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getCardsForCategory() : $payload" }
@@ -211,8 +223,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-
-    private fun isAllCategoryEnabled(call: MethodCall, result: MethodChannel.Result) {
+    private fun isAllCategoryEnabled(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag isAllCategoryEnabled() : $payload" }
@@ -232,7 +246,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getNewCardsCount(call: MethodCall, result: MethodChannel.Result) {
+    private fun getNewCardsCount(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getNewCardsCount() : $payload" }
@@ -252,7 +269,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getUnClickedCardsCount(call: MethodCall, result: MethodChannel.Result) {
+    private fun getUnClickedCardsCount(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag getUnClickedCardsCount() : $payload" }
@@ -272,7 +292,10 @@ class PlatformMethodCallHandler(
         }
     }
 
-    private fun getCardPayload(cardData: CardData?, payload: String): JSONObject {
+    private fun getCardPayload(
+        cardData: CardData?,
+        payload: String,
+    ): JSONObject {
         return cardDataToJson(cardData, instanceMetaFromJson(JSONObject(payload)))
     }
 }

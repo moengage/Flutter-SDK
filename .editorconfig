@@ -1,0 +1,8 @@
+[*.{kt,kts}]
+insert_final_newline = false
+indent_size = 4
+
+[*.java]
+indent_style = tab
+tab_width = 2
+indent_size = 2

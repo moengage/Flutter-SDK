@@ -3,7 +3,7 @@ buildscript {
   repositories {
     mavenLocal()
     google()
-    jcenter()
+    gradlePluginPortal()
     maven { url 'https://developer.huawei.com/repo/' }
   }
 
@@ -12,8 +12,10 @@ buildscript {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath 'com.google.gms:google-services:4.4.2'
     classpath 'com.huawei.agconnect:agcp:1.9.1.300'
+    classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
   }
 }
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 allprojects {
   repositories {
