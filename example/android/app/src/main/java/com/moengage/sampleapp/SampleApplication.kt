@@ -22,7 +22,7 @@ import com.moengage.inapp.MoEInAppHelper
 class SampleApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "DAO6UGZ73D9RTK8B5W96TPYN")
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "CM4D1LZN2IMJNBY9ULXAU73D")
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,
@@ -36,7 +36,7 @@ class SampleApplication : FlutterApplication() {
             .configureLogs(LogConfig(LogLevel.VERBOSE, true))
             .configureFcm(FcmConfig(true))
             .configurePushKit(PushKitConfig(true))
-            .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
+            .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.LIVE))
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta("DAO6UGZ73D9RTK8B5W96TPYN")))

@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 import 'utils.dart';
@@ -12,13 +14,14 @@ class InAppHomeScreen extends StatefulWidget {
 
 class _InAppHomeScreenState extends State<InAppHomeScreen> {
   final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageFlutter('CM4D1LZN2IMJNBY9ULXAU73D');
 
   static const String tag = 'InAppHomeScreen';
 
   @override
   void initState() {
     super.initState();
+    _moengagePlugin.setCurrentContext(['ak5','ak1','ak2']);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
     _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
     _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
@@ -47,6 +50,10 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
     }
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
+    await handleAction(context,message);
+  }
+
+  Future<void> handleAction(BuildContext context, SelfHandledCampaignData message) async {
     final SelfHandledActions? action = await asyncSelfHandledDialog(context);
     switch (action) {
       case SelfHandledActions.Shown:
@@ -60,8 +67,7 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
         break;
       default:
         break;
-    }
-  }
+    }}
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +145,75 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
               _moengagePlugin.getSelfHandledInApp();
             },
           ),
+          ListTile(
+            title: const Text('Get Self handled InApps'),
+            onTap: () {
+              _moengagePlugin.getSelfHandledInApps().then((campaignsData) {
+                _showBottomSheet(campaignsData, context);
+              });
+            },
+          ),
         ]).toList()));
+  }
+
+  void _showBottomSheet(SelfHandledCampaignsData campaignsData, BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return ListView.builder(
+          itemCount: campaignsData.campaigns.length,
+          itemBuilder: (BuildContext context, int index) {
+            final campaign = campaignsData.campaigns[index];
+            return ListTile(
+              title: ExpandableText(text:campaign.campaign.payload), // Customize as needed
+              trailing: ElevatedButton(
+                onPressed: () async{
+                  await handleAction(context,campaign);
+                },
+                child: const Text('Action'),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class ExpandableText extends StatefulWidget {
+  final String text;
+  final int maxLines;
+
+  const ExpandableText({super.key, required this.text, this.maxLines = 4});
+
+  @override
+  _ExpandableTextState createState() => _ExpandableTextState();
+}
+
+class _ExpandableTextState extends State<ExpandableText> {
+  bool _isExpanded = false;
+
+  void _toggleExpand() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.text,
+          maxLines: _isExpanded ? null : widget.maxLines,
+          overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+        ),
+        TextButton(
+          onPressed: _toggleExpand,
+          child: Text(_isExpanded ? 'Collapse' : 'Expand'),
+        ),
+      ],
+    );
   }
 }

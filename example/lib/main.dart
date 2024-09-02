@@ -43,15 +43,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter(
-      'DAO6UGZ73D9RTK8B5W96TPYN',
+      'CM4D1LZN2IMJNBY9ULXAU73D',
       moEInitConfig: MoEInitConfig(
           pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
           analyticsConfig:
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
   final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageGeofence('CM4D1LZN2IMJNBY9ULXAU73D');
   final MoEngageInbox _moEngageInbox =
-      MoEngageInbox('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageInbox('CM4D1LZN2IMJNBY9ULXAU73D');
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -85,6 +85,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
+    Future.delayed(const Duration(seconds: 2),(){
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+          const InAppHomeScreen()));
+    });
+
   }
 
   Future<void> initPlatformState() async {
@@ -460,7 +466,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ListTile(
                   title: const Text('Set InApp Contexts'),
                   onTap: () {
-                    _moengagePlugin.setCurrentContext(['HOME', 'SETTINGS']);
+                    _moengagePlugin.setCurrentContext(['ak5','ak1','ak2']);
                   }),
               ListTile(
                   title: const Text('Reset Contexts'),
