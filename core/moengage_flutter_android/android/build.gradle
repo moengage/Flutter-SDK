@@ -6,7 +6,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+        mavenLocal()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 
     dependencies {
@@ -19,6 +22,10 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 }
 
@@ -34,7 +41,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 26
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     lintOptions {
@@ -54,9 +61,9 @@ android {
     }
 }
 dependencies {
-    api("com.moengage:moe-android-sdk:13.03.00")
-    api("com.moengage:inapp:8.4.0")
-    api("com.moengage:plugin-base:4.1.0")
+    api("com.moengage:moe-android-sdk:13.08.00-SNAPSHOT")
+    api("com.moengage:inapp:8.6.3-SNAPSHOT")
+    api("com.moengage:plugin-base:4.2.0-SNAPSHOT")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
 apply from: file("./user-agent.gradle")

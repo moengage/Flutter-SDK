@@ -1,11 +1,10 @@
-
-import '../../moengage_flutter_platform_interface.dart';
+import '../../../moengage_flutter_platform_interface.dart';
 
 /// Data for multiple Self Handled InApp Campaigns
 class SelfHandledCampaignsData {
-
   /// Creates an instance of [SelfHandledCampaignsData] with the provided [accountMeta] and [campaigns]
-  SelfHandledCampaignsData(this.accountMeta,this.campaigns);
+  SelfHandledCampaignsData(
+      {required this.accountMeta, required this.campaigns});
 
   /// Instance of [AccountMeta]
   AccountMeta accountMeta;

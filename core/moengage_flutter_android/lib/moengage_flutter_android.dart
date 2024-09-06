@@ -313,4 +313,16 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
     _methodChannel.invokeMethod(methodNameShowNudge,
         jsonEncode(getShowNudgeJsonPayload(position, appId)));
   }
+
+  @override
+  Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) async {
+    try {
+      final data = await _methodChannel.invokeMethod(
+          methodSelfHandledInApps, getAccountMeta(appId));
+      return InAppPayloadMapper().selfHandledCampaignsFromJson(data, appId);
+    } catch (exception) {
+      Logger.e('$tag getSelfHandledInApps(): Error', error: exception);
+      return Future.error(exception);
+    }
+  }
 }

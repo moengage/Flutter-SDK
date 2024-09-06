@@ -1,5 +1,6 @@
 package com.moengage.sampleapp
 
+import com.moengage.core.DataCenter
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
@@ -22,7 +23,7 @@ import com.moengage.inapp.MoEInAppHelper
 class SampleApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "CM4D1LZN2IMJNBY9ULXAU73D")
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, "HXZH45ZFO7OAC98BVQ14773N",DataCenter.DATA_CENTER_3)
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,
@@ -39,7 +40,7 @@ class SampleApplication : FlutterApplication() {
             .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.LIVE))
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
-        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta("DAO6UGZ73D9RTK8B5W96TPYN")))
+        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta("HXZH45ZFO7OAC98BVQ14773N")))
         MoEInAppHelper.getInstance().enableActivityRegistrationOnResume()
     }
 }

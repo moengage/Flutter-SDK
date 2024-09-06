@@ -14,14 +14,14 @@ class InAppHomeScreen extends StatefulWidget {
 
 class _InAppHomeScreenState extends State<InAppHomeScreen> {
   final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter('CM4D1LZN2IMJNBY9ULXAU73D');
+      MoEngageFlutter('HXZH45ZFO7OAC98BVQ14773N');
 
   static const String tag = 'InAppHomeScreen';
 
   @override
   void initState() {
     super.initState();
-    _moengagePlugin.setCurrentContext(['ak5','ak1','ak2']);
+    _moengagePlugin.setCurrentContext(['ak5', 'ak1', 'ak2']);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
     _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
     _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);
@@ -50,10 +50,11 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
     }
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
-    await handleAction(context,message);
+    await handleAction(context, message);
   }
 
-  Future<void> handleAction(BuildContext context, SelfHandledCampaignData message) async {
+  Future<void> handleAction(
+      BuildContext context, SelfHandledCampaignData message) async {
     final SelfHandledActions? action = await asyncSelfHandledDialog(context);
     switch (action) {
       case SelfHandledActions.Shown:
@@ -67,7 +68,8 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
         break;
       default:
         break;
-    }}
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,30 +152,69 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
             onTap: () {
               _moengagePlugin.getSelfHandledInApps().then((campaignsData) {
                 _showBottomSheet(campaignsData, context);
+              }).catchError((e) {
+                debugPrint('Error in getting self handled inapps $e');
               });
             },
           ),
         ]).toList()));
   }
 
-  void _showBottomSheet(SelfHandledCampaignsData campaignsData, BuildContext context) {
+  void _showBottomSheet(
+      SelfHandledCampaignsData campaignsData, BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return ListView.builder(
-          itemCount: campaignsData.campaigns.length,
-          itemBuilder: (BuildContext context, int index) {
-            final campaign = campaignsData.campaigns[index];
-            return ListTile(
-              title: ExpandableText(text:campaign.campaign.payload), // Customize as needed
-              trailing: ElevatedButton(
-                onPressed: () async{
-                  await handleAction(context,campaign);
+        return Column(
+          children: [
+            Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Self Handled InApps',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            if (campaignsData.campaigns.isEmpty)
+              const Center(child: Text('No Self Handled Campaigns'))
+            else
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: campaignsData.campaigns.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final campaign = campaignsData.campaigns[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          ExpandableText(text: campaign.campaign.toString()),
+                          const Spacer(),
+                          // Customize as needed
+                          ElevatedButton(
+                            onPressed: () async {
+                              await handleAction(context, campaign);
+                            },
+                            child: const Text('Action'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                child: const Text('Action'),
-              ),
-            );
-          },
+              )
+          ],
         );
       },
     );
@@ -181,10 +222,10 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
 }
 
 class ExpandableText extends StatefulWidget {
+  const ExpandableText({super.key, required this.text, this.maxLines = 6});
+
   final String text;
   final int maxLines;
-
-  const ExpandableText({super.key, required this.text, this.maxLines = 4});
 
   @override
   _ExpandableTextState createState() => _ExpandableTextState();
@@ -201,17 +242,26 @@ class _ExpandableTextState extends State<ExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          widget.text,
-          maxLines: _isExpanded ? null : widget.maxLines,
-          overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.6,
+          child: Text(
+            widget.text,
+            maxLines: _isExpanded ? null : widget.maxLines,
+            overflow:
+                _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+          ),
         ),
-        TextButton(
+        IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
           onPressed: _toggleExpand,
-          child: Text(_isExpanded ? 'Collapse' : 'Expand'),
+          icon: Icon(_isExpanded
+              ? Icons.keyboard_arrow_down_rounded
+              : Icons.keyboard_arrow_up_rounded),
         ),
       ],
     );

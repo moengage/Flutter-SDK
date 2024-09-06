@@ -1,5 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import '../moengage_flutter_platform_interface.dart';
 import '../src/model/app_status.dart';
 import '../src/model/gender.dart';
 import '../src/model/geo_location.dart';
@@ -9,6 +10,7 @@ import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
 import 'model/inapp/nudge_position.dart';
+import 'model/inapp/self_handled_data.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
@@ -217,4 +219,11 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// @since 2.0.0
   void showNudge(MoEngageNudgePosition position, String appId) =>
       throw UnimplementedError('showNudge() not implemented for Platform');
+
+  /// Get Multiple Self Handled InApps
+  /// @returns - Instance of [Future] of type [SelfHandledCampaignsData]
+  /// @since TODO : Add Version.
+  Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) =>
+      throw UnimplementedError(
+          'getSelfHandledInApps() not implemented for Platform');
 }

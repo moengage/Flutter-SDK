@@ -60,7 +60,7 @@ final SelfHandledCampaignData selfHandledCampaign = SelfHandledCampaignData(
         })),
     AccountMeta(''),
     SelfHandledCampaign(
-        '{"key1":"value1","key2":"value2","key3":"value3"}', 60),
+        '{"key1":"value1","key2":"value2","key3":"value3"}', 60, Rules()),
     Platforms.android);
 
 final InAppData inAppData = InAppData(

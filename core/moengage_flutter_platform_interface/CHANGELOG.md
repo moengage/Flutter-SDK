@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# Next Release
+
+## Next Version
+
+- Added support for multiple self-handled in-apps
+
 # 07-08-2024
 
 ## 3.0.0
