@@ -85,10 +85,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) => const InAppHomeScreen()));
-    });
   }
 
   Future<void> initPlatformState() async {
