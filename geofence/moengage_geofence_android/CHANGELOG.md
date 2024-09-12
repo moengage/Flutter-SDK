@@ -1,5 +1,10 @@
 # MoEngage Geofence Android Plugin
 
+# Next Release Date
+
+## Next Version
+- Bundling `geofence` dependency with the plugin
+
 # 07-08-2024
 
 ## 3.0.0

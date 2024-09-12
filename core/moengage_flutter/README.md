@@ -29,10 +29,12 @@ replace `$latestSdkVersion` with the latest SDK version.
     implementation("androidx.core:core:1.9.0")
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("androidx.lifecycle:lifecycle-process:2.5.1")
-    implementation "com.moengage:moe-android-sdk:$sdkVersion"
 }
   ```
 where `$sdkVersion` should be replaced by the latest version of the MoEngage SDK.
+
+Note: From `moengage_flutter` plugin version `8.1.0` onwards, the plugin will bundle the `moe-android-sdk` and `inapp` versions.
+Application developers need not add the `moe-android-sdk` and `inapp` dependencies in the `build.gradle` file. If you using `hms-pushkit` or `rich-push` , you need to manually add the dependencies in the `build.gradle` file.
 
 ## SDK Initialization
 
@@ -41,7 +43,7 @@ Get APP ID from the Settings Page on the MoEngage dashboard and initialize the M
 
 ```kotlin
 // this is the instance of the application class and "XXXXXXXXXXX" is the APP ID from the dashboard.
-val moEngage = MoEngage.Builder(this, "XXXXXXXXXXX")
+val moEngage = MoEngage.Builder(this, "XXXXXXXXXXX",YOUR-DATA-CENTER)
 MoEInitializer.initialize(appicationContext, builder)
 ```
 Refer to the [API reference doc](https://moengage.github.io/android-api-reference/) for a detailed list of possible configurations.
@@ -71,6 +73,15 @@ To initialize the iOS Application with the MoEngage App ID from Settings in Dash
  sdkConfig.moeDataCenter = <DATA CENTER Value> // use MODataCenter enum to set the datacenter for your account
  
  MOFlutterInitializer.sharedInstance.initializeWithSDKConfig(sdkConfig, andLaunchOptions: launchOptions)
+```
+
+## Usage
+
+MoEngage Flutter Plugin Initialization
+
+```
+MoEngageFlutter _moengagePlugin = MoEngageFlutter("<MOE_APP_ID>");
+_moengagePlugin.initialise();
 ```
 
 Refer to the [Documentation](https://developers.moengage.com/hc/en-us/categories/4404300700308-Flutter-SDK) for complete integration guide. 

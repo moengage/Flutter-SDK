@@ -1,5 +1,10 @@
 # MoEngage Flutter Android Plugin
 
+# Next Release Date
+
+## Next Version
+- Bundling `moe-android-sdk` & `inapp` dependencies with the plugin 
+
 # 07-08-2024
 
 ## 3.0.0

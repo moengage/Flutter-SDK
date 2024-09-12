@@ -1,10 +1,11 @@
 # MoEngage Cards Android Plugin
 
+# Next Release Date
 
-# Next Release date
-
-## Next version
+## Next Version
+- Bundling `cards-core` dependency with the plugin
 - Refresh cards on uniqueID set
+
 # 07-08-2024
 
 ## 3.0.0
