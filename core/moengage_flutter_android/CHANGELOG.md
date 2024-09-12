@@ -1,11 +1,11 @@
 # MoEngage Flutter Android Plugin
 
-# Next Release
+# Next Release Date
 
 ## Next Version
 
+- Bundling `moe-android-sdk` & `inapp` dependencies with the plugin
 - Added support for multiple self-handled in-apps
-- Bundling `moe-android-sdk` & `inapp` dependencies with the plugin 
 
 # 07-08-2024
 
