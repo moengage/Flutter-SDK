@@ -460,7 +460,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ListTile(
                   title: const Text('Set InApp Contexts'),
                   onTap: () {
-                    _moengagePlugin.setCurrentContext(['ak5', 'ak1', 'ak2']);
+                    _moengagePlugin.setCurrentContext(['HOME', 'SETTINGS']);
                   }),
               ListTile(
                   title: const Text('Reset Contexts'),

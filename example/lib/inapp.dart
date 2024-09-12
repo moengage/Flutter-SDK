@@ -21,7 +21,6 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _moengagePlugin.setCurrentContext(['ak5', 'ak1', 'ak2']);
     _moengagePlugin.setInAppClickHandler(_onInAppClick);
     _moengagePlugin.setInAppShownCallbackHandler(_onInAppShown);
     _moengagePlugin.setInAppDismissedCallbackHandler(_onInAppDismiss);

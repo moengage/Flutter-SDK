@@ -180,7 +180,7 @@ class InAppPayloadMapper {
   }
 
   /// Get [SelfHandledCampaignsData] from JSON String
-  SelfHandledCampaignsData selfHandledCampaignsFromJson(
+  SelfHandledCampaignsData selfHandledCampaignsDataFromJson(
       dynamic data, String appId) {
     try {
       final Map<String, dynamic> selfHandledInAppsPayload =
