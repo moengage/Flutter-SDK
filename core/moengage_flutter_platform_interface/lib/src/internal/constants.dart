@@ -168,6 +168,6 @@ const String keyNudgePosition = 'position';
 
 /// SelfHandled InApp
 const String methodSelfHandledInApps = 'selfHandledInApps';
-const String keyDisplayRules = 'rules';
-const String keyScreenName = 'screen_name';
+const String keyDisplayRules = 'displayRules';
+const String keyScreenName = 'screenName';
 const String keyCampaigns = 'campaigns';

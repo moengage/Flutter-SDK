@@ -17,13 +17,13 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         switch call.method {
         case MoEngageFlutterConstants.MethodNames.kRegisterForPush:
             MoEngagePluginBridge.sharedInstance.registerForPush()
-        
+            
         default:
-            handleWithPayload(call: call)
+            handleWithPayload(call: call, result: result)
         }
     }
     
-    private func handleWithPayload(call: FlutterMethodCall) {
+    private func handleWithPayload(call: FlutterMethodCall,  result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else { return }
         switch call.method {
         case MoEngageFlutterConstants.MethodNames.kInitializeFlutter:
@@ -57,7 +57,10 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             MoEngagePluginBridge.sharedInstance.setAlias(payload)
         case MoEngageFlutterConstants.MethodNames.kResetUser:
             MoEngagePluginBridge.sharedInstance.resetUser(payload)
-            
+        case MoEngageFlutterConstants.MethodNames.kGetSelfHandleInApps:
+            MoEngagePluginBridge.sharedInstance.getSelfHandledInApps(payload) { campaignPayload in
+                MoEngageFlutterUtil.resume(channel: call.method, havingResult: result, withData: campaignPayload)
+            }
         default:
             print("Invalid invocation: \(call.method)")
         }
