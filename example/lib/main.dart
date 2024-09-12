@@ -43,15 +43,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final MoEngageFlutter _moengagePlugin = MoEngageFlutter(
-      'HXZH45ZFO7OAC98BVQ14773N',
+      'DAO6UGZ73D9RTK8B5W96TPYN',
       moEInitConfig: MoEInitConfig(
           pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
           analyticsConfig:
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
   final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence('HXZH45ZFO7OAC98BVQ14773N');
+      MoEngageGeofence('DAO6UGZ73D9RTK8B5W96TPYN');
   final MoEngageInbox _moEngageInbox =
-      MoEngageInbox('HXZH45ZFO7OAC98BVQ14773N');
+      MoEngageInbox('DAO6UGZ73D9RTK8B5W96TPYN');
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
