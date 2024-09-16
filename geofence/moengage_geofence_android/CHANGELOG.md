@@ -4,6 +4,7 @@
 
 ## Next Version
 - Bundling `geofence` dependency with the plugin
+- `geofence` version updated to `4.2.0`
 
 # 07-08-2024
 

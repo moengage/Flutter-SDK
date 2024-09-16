@@ -5,6 +5,7 @@
 ## Next Version
 - Android
     - Bundling `inbox-core` dependency with the plugin
+    - `inbox-core` version updated to `3.2.0`
 
 # 07-08-2024
 

@@ -5,6 +5,8 @@
 ## Next Version
 - Android
     - Bundling `cards-core` dependency with the plugin
+    - Refresh cards on uniqueID set
+    - `cards-core` version updated to `2.3.0`
 
 # 07-08-2024
 
