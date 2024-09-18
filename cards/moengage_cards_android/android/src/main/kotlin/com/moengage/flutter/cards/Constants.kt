@@ -21,4 +21,4 @@ internal const val METHOD_FETCH_CARDS = "fetchCards"
 
 internal const val METHOD_INBOX_OPEN_CARDS_SYNC = "onInboxOpenCardsSync"
 internal const val METHOD_PULL_TO_REFRESH_CARDS_SYNC = "onPullToRefreshCardsSync"
-internal const val METHOD_APP_OPEN_CARDS_SYNC = "onAppOpenCardsSync"
+internal const val METHOD_GENERIC_CARDS_SYNC = "onCardsSync"
