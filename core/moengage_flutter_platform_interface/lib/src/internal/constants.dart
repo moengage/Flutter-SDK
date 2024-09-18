@@ -165,3 +165,9 @@ const String keyUserDeletionStatus = 'isUserDeletionSuccess';
 /// Non Intrusive Nudges
 const String methodNameShowNudge = 'showNudge';
 const String keyNudgePosition = 'position';
+
+/// SelfHandled InApp
+const String methodSelfHandledInApps = 'selfHandledInApps';
+const String keyDisplayRules = 'displayRules';
+const String keyScreenName = 'screenName';
+const String keyCampaigns = 'campaigns';

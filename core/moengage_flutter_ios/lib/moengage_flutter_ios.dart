@@ -240,4 +240,16 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
     Logger.v(
         'updatePushPermissionRequestCountAndroid(): Not supported in iOS Platform');
   }
+
+  @override
+  Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) async {
+    try {
+      final data = await _channel.invokeMethod(
+          methodSelfHandledInApps, getAccountMeta(appId));
+      return InAppPayloadMapper().selfHandledCampaignsDataFromJson(data, appId);
+    } catch (exception) {
+      Logger.e('$tag getSelfHandledInApps(): Error', error: exception);
+      return Future.error(exception);
+    }
+  }
 }

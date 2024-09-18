@@ -402,4 +402,11 @@ class MoEngageFlutter {
   void showNudge({MoEngageNudgePosition position = MoEngageNudgePosition.any}) {
     _platform.showNudge(position, appId);
   }
+
+  /// Get Multiple Self Handled InApps
+  /// @returns - Instance of [Future] of type [SelfHandledCampaignsData]
+  /// @since TODO : Add Version.
+  Future<SelfHandledCampaignsData> getSelfHandledInApps() {
+    return _platform.getSelfHandledInApps(appId);
+  }
 }

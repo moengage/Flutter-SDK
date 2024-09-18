@@ -30,6 +30,7 @@ struct MoEngageFlutterConstants{
         static let kStartGeofence               = "startGeofenceMonitoring"
         static let kEnableLogs                  = "enableSDKLogs"
         static let kResetUser                   = "logout"
+        static let kGetSelfHandleInApps         = "selfHandledInApps"
     }
     
     struct CallbackNames {

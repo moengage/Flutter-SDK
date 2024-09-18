@@ -8,6 +8,7 @@ import com.moengage.core.MoECoreHelper
 import com.moengage.core.internal.logger.Logger
 import com.moengage.core.listeners.AppBackgroundListener
 import com.moengage.plugin.base.internal.PluginHelper
+import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
 import com.moengage.plugin.base.internal.userDeletionDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -123,6 +124,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     updatePushPermissionRequestCount(call)
                 METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 METHOD_NAME_SHOW_NUDGE -> showNudge(call)
+                METHOD_NAME_SELF_HANDLED_IN_APPS -> getSelfHandledInApps(call, result)
                 else -> Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : No mapping for this" +
                             " method."
@@ -455,6 +457,31 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             pluginHelper.showNudge(context, payload)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag showNudge(): " }
+        }
+    }
+
+    /**
+     * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to Flutter.
+     */
+    private fun getSelfHandledInApps(methodCall: MethodCall, result: MethodChannel.Result) {
+        try {
+            Logger.print { "$tag getSelfHandledInApps() : Arguments: ${methodCall.arguments}" }
+            if (methodCall.arguments == null) {
+                result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Invalid Arguments", null)
+                return
+            }
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag getSelfHandledInApps() : Payload: $payload" }
+            pluginHelper.getSelfHandledInApps(context, payload) { data ->
+                if (data == null) {
+                    result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Error occurred", null)
+                } else {
+                    result.success(selfHandledInAppsToJson(data).toString())
+                }
+            }
+        } catch (t: Throwable) {
+            result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Error occurred", null)
+            Logger.print(LogLevel.ERROR, t) { "$tag getSelfHandledInApps() : " }
         }
     }
 
