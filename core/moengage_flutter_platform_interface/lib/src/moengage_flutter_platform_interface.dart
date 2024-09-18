@@ -226,4 +226,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) =>
       throw UnimplementedError(
           'getSelfHandledInApps() not implemented for Platform');
+
+  /// Register for Provisional Push
+  void registerForProvisionalPush();
 }

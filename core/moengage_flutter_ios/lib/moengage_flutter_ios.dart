@@ -252,4 +252,9 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
       return Future.error(exception);
     }
   }
+
+  @override
+  void registerForProvisionalPush() {
+    _channel.invokeMethod(methodiOSRegisterProvisionalPush);
+  }
 }

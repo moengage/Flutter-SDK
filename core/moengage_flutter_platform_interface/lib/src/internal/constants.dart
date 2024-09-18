@@ -33,6 +33,7 @@ const String methodRequestPushPermissionAndroid = 'requestPushPermission';
 const String methodUpdatePushPermissionRequestCount =
     'updatePushPermissionRequestCount';
 const String methodPermissionResponse = 'permissionResponse';
+const String methodiOSRegisterProvisionalPush = 'registerForProvisionalPush';
 
 // Callback Names
 const String callbackOnPushClick = 'onPushClick';

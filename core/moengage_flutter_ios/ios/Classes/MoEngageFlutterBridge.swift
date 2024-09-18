@@ -17,7 +17,8 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         switch call.method {
         case MoEngageFlutterConstants.MethodNames.kRegisterForPush:
             MoEngagePluginBridge.sharedInstance.registerForPush()
-            
+        case MoEngageFlutterConstants.MethodNames.kRegisterForProvisionalPush:
+            MoEngagePluginBridge.sharedInstance.registerForProvisionalPush()
         default:
             handleWithPayload(call: call, result: result)
         }

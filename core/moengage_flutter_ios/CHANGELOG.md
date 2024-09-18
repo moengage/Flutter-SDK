@@ -5,6 +5,7 @@
 ## Next Version
 
 - Added support for multiple self-handled in-apps
+- Added support for Provisional Push
 
 # 07-08-2024
 

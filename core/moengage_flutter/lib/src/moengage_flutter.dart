@@ -409,4 +409,10 @@ class MoEngageFlutter {
   Future<SelfHandledCampaignsData> getSelfHandledInApps() {
     return _platform.getSelfHandledInApps(appId);
   }
+
+  /// Register for Provisional Push Notification
+  /// Note: This API is only for iOS Platform.
+  void registerForProvisionalPush() {
+    _platform.registerForProvisionalPush();
+  }
 }
