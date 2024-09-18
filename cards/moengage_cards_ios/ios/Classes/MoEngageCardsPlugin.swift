@@ -52,8 +52,8 @@ public class MoEngageCardsPlugin: NSObject, FlutterPlugin {
             }
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.onCardSectionLoaded:
             pluginHelper.onCardsSectionLoaded(payload)
-        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.setAppOpenCardsSyncListener:
-            pluginHelper.setAppOpenSyncListener(payload)
+        case MoEngageFlutterCardsConstants.FlutterToNativeMethods.cardGenericSync:
+            pluginHelper.setSyncListener(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.onCardSectionUnloaded:
             pluginHelper.onCardsSectionUnLoaded(payload)
         case MoEngageFlutterCardsConstants.FlutterToNativeMethods.getCardsCategories:
