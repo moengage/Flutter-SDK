@@ -325,9 +325,4 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
       return Future.error(exception);
     }
   }
-
-  @override
-  void registerForProvisionalPush() {
-    Logger.v('registerForProvisionalPush() method not available for Android');
-  }
 }

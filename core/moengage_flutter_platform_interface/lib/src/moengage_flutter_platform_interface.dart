@@ -228,5 +228,6 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
           'getSelfHandledInApps() not implemented for Platform');
 
   /// Register for Provisional Push
-  void registerForProvisionalPush();
+  void registerForProvisionalPush() => throw UnimplementedError(
+      'registerForProvisionalPush() not implemented for Platform');
 }
