@@ -8,6 +8,6 @@ melos unittest
 echo "Running flutter analyze"
 melos analyze
 echo "Running dry run"
-melos exec -c 1 --no-private --ignore="*example*" -- flutter pub publish --dry-run
+./github/scripts/dry_run.sh
 echo "Project Verification Completed."
 cd "$ORIGINAL_DIR" || exit
