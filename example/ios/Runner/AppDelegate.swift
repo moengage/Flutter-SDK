@@ -3,6 +3,7 @@ import Flutter
 import moengage_flutter_ios
 import MoEngageSDK
 import MoEngageInApps
+import MoEngageMessaging
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -22,6 +23,19 @@ import MoEngageInApps
         
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+    
+    override func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        MoEngageSDKMessaging.sharedInstance.setPushToken(deviceToken)
+    }
+    
+    override func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+    
+    override func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        MoEngageSDKMessaging.sharedInstance.userNotificationCenter(center, didReceive: response)
+        completionHandler()
     }
     
     override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
