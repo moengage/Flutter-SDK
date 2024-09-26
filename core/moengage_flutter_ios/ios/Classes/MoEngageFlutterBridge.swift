@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import MoEngagePluginBase
+import MoEngageCore
 
 public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
     
@@ -18,7 +19,7 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         case MoEngageFlutterConstants.MethodNames.kRegisterForPush:
             MoEngagePluginBridge.sharedInstance.registerForPush()
         case MoEngageFlutterConstants.MethodNames.kRegisterForProvisionalPush:
-            MoEngagePluginBridge.sharedInstance.registerForProvisionalPush()
+            registerForProvisionalPush()
         default:
             handleWithPayload(call: call, result: result)
         }
@@ -70,6 +71,15 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         MoEngagePluginBridge.sharedInstance.setPluginBridgeDelegate(self, payload: payload)
         MoEngagePluginBridge.sharedInstance.pluginInitialized(payload)
     }
+    
+    private func registerForProvisionalPush() {
+        if #available(iOS 12.0, *) {
+            MoEngagePluginBridge.sharedInstance.registerForProvisionalPush()
+        } else {
+            MoEngageLogger.logDefault(message: "Register for Provisional Push is not supported below iOS 12")
+        }
+    }
+    
 }
 
 
