@@ -3,10 +3,18 @@
 # Next Release
 
 ## Next Version
+- Refresh cards on uniqueID set
+- Breaking Change:
+
+|                     Then                      |                   Now                   |
+|:---------------------------------------------:|:---------------------------------------:|
+| MoEngageCards#setAppOpenCardsSyncListener()   | MoEngageCards#setSyncCompleteListener() |
+
 - Android
     - Bundling `cards-core` dependency with the plugin
-    - Refresh cards on uniqueID set
     - `cards-core` version updated to `2.3.0`
+- iOS
+    - Updated MoEngageCards to `4.18.0`
 
 # 07-08-2024
 
@@ -21,16 +29,6 @@
 - Exact version pinning for Cards Module dependencies
 - iOS
   - Updated MoEngageCards to `4.17.0`
-
-# Next Release date
-
-## Next version
-- Refresh cards on uniqueID set
-- Breaking Change: 
-
-|                     Then                      |            Now                     |
-|:---------------------------------------------:|:----------------------------------:|
-| MoEngageCards#setAppOpenCardsSyncListener()   | MoEngageCards#setSyncCompleteListener() |
 
 # 15-07-2024
 
