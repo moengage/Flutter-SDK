@@ -21,12 +21,13 @@ Run flutter packages get to install the SDK.
  
  ### Android Installation
 
-Note: From `moengage_inbox` plugin version `7.1.0` onwards, the plugin will bundle the `inbox-core` version.
-Application developers need not add the `inbox-core` in the `build.gradle` file.
+> **Note:**
+> Starting from `moengage_inbox` plugin version `8.0.0`, the `inbox-core` dependency is included within the plugin itself.
+> Developers should remove the `com.moengage:inbox-core` dependency from the `build.gradle` as it is now included with the plugin.
 
 ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/inbox-core/badge.svg) 
 
-For `moengage_inbox` version less than`7.1.0`,
+For `moengage_inbox` version less than`8.0.0`,
   Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android project of your application.
   Navigate to `android --> app --> build.gradle`. Add the MoEngage Android SDK's dependency in the `dependencies` block
   

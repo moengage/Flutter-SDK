@@ -2,14 +2,21 @@
 
 # 30-09-2024
 
-## 8.1.0
+## 9.0.0
 - Added support for multiple self-handled in-apps
 - Android
-    - Bundling `moe-android-sdk` & `inapp` dependencies with the plugin
-    - `moe-android-sdk` version updated to `13.05.00`
-    - `inapp` version updated to `8.6.0`
+  - Bundling `moe-android-sdk` & `inapp` dependencies with the plugin
+  - `moe-android-sdk` version updated to `13.05.00`
+  - `inapp` version updated to `8.6.0`
+  - **Breaking Change**: Developers should remove the `com.moengage:moe-android-sdk` and `com.moengage:inapp` dependencies from the `build.gradle` as it is now included with the plugin.
+  - **Note**: If using features like `hms-pushkit`, `rich-push`,  `push-amp` etc. please ensure you still need to manually add those dependencies.
+  
 - iOS
-    - Added support for Provisional Push.
+  - Added support for Provisional Push.
+  - Updated MoEngage-iOS-SDK to `9.20.0`
+
+## 8.1.0
+- This version might have unintentional breaking changes. We recommend not to use this version. Please upgrade to `9.0.0`.
 
 # 07-08-2024
 
