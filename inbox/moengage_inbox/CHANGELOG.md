@@ -6,7 +6,7 @@
 - Android
   - Bundling `inbox-core` dependency with the plugin
   - `inbox-core` version updated to `3.2.0`
-  - **Note**: Developers should remove the `inbox-core` dependency from the `build.gradle` as it is now included with the plugin.
+  - **Breaking Change**: Developers should remove the `com.moengage:inbox-core` dependency from the `build.gradle` as it is now included with the plugin.
 - iOS
   - Updated MoEngageInbox to `2.18.0`
 

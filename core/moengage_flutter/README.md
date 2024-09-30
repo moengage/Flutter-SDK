@@ -33,9 +33,9 @@ replace `$latestSdkVersion` with the latest SDK version.
   ```
 where `$sdkVersion` should be replaced by the latest version of the MoEngage SDK.
 
-> **Breaking Change:**
+> **Note:**
 > From version `9.0.0` of the `moengage_flutter` plugin, the `moe-android-sdk` and `inapp` are included within the plugin itself.
-> Developers should remove the `moe-android-sdk` and `inapp` dependencies from the `build.gradle` file if they are present. SDK will automatically include compatible versions of these dependencies.
+> Developers should remove the `com.moengage:moe-android-sdk` and `com.moengage:inapp` dependencies from the `build.gradle` file if they are present. SDK will automatically include compatible versions of these dependencies.
 > If using features like `hms-pushkit` or `rich-push`, please ensure you still manually add those dependencies.
 
 ## SDK Initialization

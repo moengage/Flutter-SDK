@@ -5,6 +5,7 @@
 ## 3.1.0
 - Bundling `geofence` dependency with the plugin
 - `geofence` version updated to `4.2.0`
+- **Breaking Change**: Developers should remove the `com.moengage:geofence` dependency from the `build.gradle` as it is now included with the plugin.
 
 # 07-08-2024
 

@@ -21,9 +21,9 @@ Run flutter packages get to install the SDK.
 
 ### Android Installation
 
-> **Breaking Change:**
+> **Note:**
 > As of `moengage_geofence` plugin version `5.0.0`, the `geofence` dependency is included within the plugin itself
-> Developers should remove the `geofence` dependency from the `build.gradle` as it is now included with the plugin.
+> Developers should remove the `com.moengage:geofence` dependency from the `build.gradle` as it is now included with the plugin.
 
 ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/geofence/badge.svg)
 

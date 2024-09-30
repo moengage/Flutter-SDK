@@ -21,9 +21,9 @@ Run flutter packages get to install the SDK.
  
  ### Android Installation
 
-> **Breaking Change:**
+> **Note:**
 > Starting from `moengage_inbox` plugin version `8.0.0`, the `inbox-core` dependency is included within the plugin itself.
-> Developers should remove the `inbox-core` dependency from the `build.gradle` as it is now included with the plugin.
+> Developers should remove the `com.moengage:inbox-core` dependency from the `build.gradle` as it is now included with the plugin.
 
 ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/inbox-core/badge.svg) 
 
