@@ -1,8 +1,8 @@
 # MoEngage Cards Platform Interface
 
-# Next Release date
+# 30-09-2024
 
-## Next version
+## 4.0.0
 - Refresh cards on uniqueID set
 
 # 07-08-2024

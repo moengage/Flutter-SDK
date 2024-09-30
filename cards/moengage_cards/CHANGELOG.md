@@ -1,8 +1,8 @@
 # MoEngage Cards Plugin
 
-# Next Release
+# 30-09-2024
 
-## Next Version
+## 5.0.0
 - Refresh cards on uniqueID set
 - Breaking Change:
 
