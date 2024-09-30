@@ -1,5 +1,10 @@
 # MoEngage Geofence iOS Plugin
 
+# Next Release
+
+## Next version
+- Updated MoEngageGeofence to 5.18.0
+
 # 07-08-2024
 
 ## 3.0.0

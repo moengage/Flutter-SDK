@@ -4,6 +4,7 @@
 
 ## Next version
 - Refresh cards on uniqueID set
+- Updated MoEngageCards to `4.18.0`
 
 # 07-08-2024
 
