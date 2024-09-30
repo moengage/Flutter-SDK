@@ -1,8 +1,8 @@
 # MoEngage Cards iOS Plugin
 
-# Next Release date
+# 30-09-2024
 
-## Next version
+## 4.0.0
 - Refresh cards on uniqueID set
 - Updated MoEngageCards to `4.18.0`
 

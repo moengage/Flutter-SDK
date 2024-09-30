@@ -1,5 +1,4 @@
 // ignore_for_file: use_setters_to_change_properties
-import 'dart:convert';
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
@@ -405,13 +404,14 @@ class MoEngageFlutter {
 
   /// Get Multiple Self Handled InApps
   /// @returns - Instance of [Future] of type [SelfHandledCampaignsData]
-  /// @since TODO : Add Version.
+  /// @since 8.1.0
   Future<SelfHandledCampaignsData> getSelfHandledInApps() {
     return _platform.getSelfHandledInApps(appId);
   }
 
   /// Register for Provisional Push Notification
   /// Note: This API is only for iOS Platform.
+  /// @since 8.1.0
   void registerForProvisionalPush() {
     _platform.registerForProvisionalPush();
   }
