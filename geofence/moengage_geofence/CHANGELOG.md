@@ -1,5 +1,10 @@
 # MoEngage Geofence Plugin
 
+# 03-10-2024
+
+## 5.0.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
 # 30-09-2024
 
 ## 5.0.0
