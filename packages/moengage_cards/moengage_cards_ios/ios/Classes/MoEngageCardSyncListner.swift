@@ -37,8 +37,9 @@ extension MoEngageCardsSyncEventType {
             return MoEngageFlutterCardsConstants.NativeToFlutterMethods.pullToRefreshCardsSync
         case .inboxOpen:
             return MoEngageFlutterCardsConstants.NativeToFlutterMethods.inboxOpenCardsSync
-        case .appOpen:
-            return MoEngageFlutterCardsConstants.NativeToFlutterMethods.appOpenCardsSync
+        case .appOpen,
+             .immediate: 
+            return MoEngageFlutterCardsConstants.NativeToFlutterMethods.cardGenericSync
         }
     }
 }

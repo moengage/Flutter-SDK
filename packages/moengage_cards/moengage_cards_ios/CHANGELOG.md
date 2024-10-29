@@ -1,5 +1,16 @@
 # MoEngage Cards iOS Plugin
 
+# 03-10-2024
+
+## 4.0.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
+# 30-09-2024
+
+## 4.0.0
+- Refresh cards on uniqueID set
+- Updated MoEngageCards to `4.18.0`
+
 # 07-08-2024
 
 ## 3.0.1

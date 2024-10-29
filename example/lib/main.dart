@@ -663,6 +663,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   });
                 },
               ),
+              ListTile(
+                  title: const Text('iOS -- Register For Provisional Push'),
+                  onTap: () {
+                    _moengagePlugin.registerForProvisionalPush();
+                  }),
             ]).toList(),
           ),
         ),

@@ -20,8 +20,8 @@ class _CardsHomeState extends State<CardsHome> {
   @override
   void initState() {
     super.initState();
-    cards.setAppOpenCardsSyncListener((moe.SyncCompleteData? data) {
-      debugPrint('Cards App Open Sync Listener: $data');
+    cards.setSyncCompleteListener((moe.SyncCompleteData? data) {
+      debugPrint('Cards Sync Listener: $data');
     });
     cards.initialize();
   }

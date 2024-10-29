@@ -33,6 +33,7 @@ const String methodRequestPushPermissionAndroid = 'requestPushPermission';
 const String methodUpdatePushPermissionRequestCount =
     'updatePushPermissionRequestCount';
 const String methodPermissionResponse = 'permissionResponse';
+const String methodiOSRegisterProvisionalPush = 'registerForProvisionalPush';
 
 // Callback Names
 const String callbackOnPushClick = 'onPushClick';
@@ -165,3 +166,9 @@ const String keyUserDeletionStatus = 'isUserDeletionSuccess';
 /// Non Intrusive Nudges
 const String methodNameShowNudge = 'showNudge';
 const String keyNudgePosition = 'position';
+
+/// SelfHandled InApp
+const String methodSelfHandledInApps = 'selfHandledInApps';
+const String keyDisplayRules = 'displayRules';
+const String keyScreenName = 'screenName';
+const String keyCampaigns = 'campaigns';

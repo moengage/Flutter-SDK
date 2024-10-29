@@ -1,5 +1,17 @@
 # MoEngage Cards Android Plugin
 
+# 03-10-2024
+
+## 4.0.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
+# 30-09-2024
+
+## 4.0.0
+- Bundling `cards-core` dependency with the plugin
+- Refresh cards on uniqueID set
+- `cards-core` version updated to `2.3.0`
+
 # 07-08-2024
 
 ## 3.0.0

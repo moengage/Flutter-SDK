@@ -6,14 +6,13 @@ This repository contains the Flutter plugins for the [MoEngage](https://www.moen
 
 ### Repository Description
 
-| Folder    | Description                                                                       |
-|-----------|-----------------------------------------------------------------------------------|
-| core      | Contains the implementation for the SDK implementation for Core MoEngage Platform |
-| inbox     | Contains the implementation for the SDK implementation for Inbox Feature          |
-| example   | Sample Integration for reference.                                                 |
-| cards     | Contains the implementation for the SDK implementation for Cards Feature          |
-| geofence  | Contains the implementation for the SDK implementation for Geofence Feature       |
-
+| Folder                      | Description                                                                       |
+|-----------------------------|-----------------------------------------------------------------------------------|
+| packages/moengage_flutter   | Contains the implementation for the SDK implementation for Core MoEngage Platform |
+| packages/moengage_inbox     | Contains the implementation for the SDK implementation for Inbox Feature          |
+| packages/moengage_cards     | Contains the implementation for the SDK implementation for Cards Feature          |
+| packages/moengage_geofence  | Contains the implementation for the SDK implementation for Geofence Feature       |
+| example                     | Sample Integration for reference.                                                 |
 
 # How to run the sample application?
 
@@ -30,14 +29,11 @@ Before running the sample application, you need to update your MoEngage app-id i
     ```
 
 ### Android
-
-- In the `example/android/app/src/main/com/moengage/sampleapp/SampleApplication.kt` file, update the `APP_ID` constant with your actual App ID.
-
-    ```kotlin
-    private const val APP_ID = "<YOUR_APP_ID>"
-    ```
-
-- Place your `google-services.json` file in the `example/android/app` directory.
+Add the MoEngage app-id in the `local.properties` file of `example --> android`. Add the below key and value and replace `moengageAppId`` with the App Id on the MoEngage Dashboard.
+```
+moengageAppId=YOUR_APP_ID
+```
+- Replace your `google-services.json` file in the `example/android/app` directory.
 
 ### iOS
 

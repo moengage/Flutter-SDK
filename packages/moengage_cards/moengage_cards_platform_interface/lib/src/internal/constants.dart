@@ -79,7 +79,7 @@ const String methodInitialize = 'initialize';
 const String methodRefreshCards = 'refreshCards';
 const String methodFetchCards = 'fetchCards';
 const String methodOnCardSectionLoaded = 'onCardSectionLoaded';
-const String methodSetAppOpenCardsSyncListener = 'setAppOpenCardsSyncListener';
+const String methodSetCardsSyncListener = 'setSyncCompleteListener';
 const String methodOnCardSectionUnLoaded = 'onCardSectionUnLoaded';
 const String methodCardsCategories = 'getCardsCategories';
 const String methodCardsInfo = 'getCardsInfo';
@@ -93,10 +93,11 @@ const String methodNewCardsCount = 'getNewCardsCount';
 const String methodUnClickedCardsCount = 'unClickedCardsCount';
 const String methodOnInboxOpenCardsSync = 'onInboxOpenCardsSync';
 const String methodPullToRefreshCardsSync = 'onPullToRefreshCardsSync';
-const String methodOnAppOpenCardsSync = 'onAppOpenCardsSync';
+const String methodOnCardsSync = 'onCardsSync';
 
 //JSON Values Constants
 const String argumentPullToRefreshSync = 'PULL_TO_REFRESH';
 const String argumentInboxOpenSync = 'INBOX_OPEN';
 const String argumentAppOpenSync = 'APP_OPEN';
 const String argumentAllCards = 'All';
+const String argumentImmediateSync = 'IMMEDIATE';

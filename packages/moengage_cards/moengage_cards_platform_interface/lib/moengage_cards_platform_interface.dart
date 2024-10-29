@@ -116,12 +116,10 @@ abstract class MoEngageCardsPlatformInterface extends PlatformInterface {
   Future<int> getUnClickedCardsCount(String appId) async =>
       throw UnimplementedError();
 
-  /// Listener for Cards App Open Sync Listener
+  /// Listener for Cards Sync Listener whenever MoEngage SDK syncs the cards
   /// [cardsSyncListener] - Callback for Card Sync Completion of type [CardsSyncListener]
   /// [appId] - MoEngage App ID
-  void setAppOpenCardsSyncListener(
-    CardsSyncListener cardsSyncListener,
-    String appId,
-  ) =>
+  void setSyncCompleteListener(
+          CardsSyncListener cardsSyncListener, String appId) =>
       throw UnimplementedError();
 }

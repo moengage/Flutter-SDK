@@ -18,8 +18,12 @@ replace `$latestSdkVersion` with the latest SDK version.
 
 ### Android Installation
 
+Note: From `moengage_cards` plugin version `5.1.0` onwards, the plugin will bundle the `cards-core` version.
+Application developers need not add the `cards-core` in the `build.gradle` file.
+
 ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/com.moengage/cards-core/badge.svg)
 
+For `moengage_cards` version less than`5.1.0`,
 Once you install the Flutter Plugin add MoEngage's native Android SDK dependency to the Android
 project of your application.
 Navigate to `android --> app --> build.gradle`. Add the MoEngage Android SDK's dependency in
@@ -44,11 +48,11 @@ moe.MoEngageCards cards = moe.MoEngageCards("<MOE_APP_ID>");
 cards.initialize();
 ```
 
-Set App Open Cards Sync Listener
+Set Cards Sync complete callback listener
 
 ```
-cards.setAppOpenCardsSyncListener((data) {
-      debugPrint("Cards App Open Sync Listener: $data");
+cards.setSyncCompleteListener((data) {
+      debugPrint("Cards Sync Listener: $data");
 });
 ```
 

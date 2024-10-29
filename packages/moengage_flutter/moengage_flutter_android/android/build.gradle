@@ -56,9 +56,9 @@ android {
     }
 }
 dependencies {
-    compileOnly("com.moengage:moe-android-sdk:13.03.00")
-    compileOnly("com.moengage:inapp:8.4.0")
-    api("com.moengage:plugin-base:4.1.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    api("com.moengage:moe-android-sdk:13.05.00")
+    api("com.moengage:inapp:8.6.0")
+    api("com.moengage:plugin-base:4.2.0")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
 apply from: file("./user-agent.gradle")

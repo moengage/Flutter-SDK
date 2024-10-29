@@ -3,6 +3,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
+import '../src/model/inapp/self_handled_campaigns_data.dart';
 import 'internal/method_channel_moengage_flutter.dart';
 import 'model/app_status.dart';
 import 'model/gender.dart';
@@ -217,4 +218,16 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// @since 2.0.0
   void showNudge(MoEngageNudgePosition position, String appId) =>
       throw UnimplementedError('showNudge() not implemented for Platform');
+
+  /// Get Multiple Self Handled InApps
+  /// @returns - Instance of [Future] of type [SelfHandledCampaignsData]
+  /// @since 3.1.0
+  Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) =>
+      throw UnimplementedError(
+          'getSelfHandledInApps() not implemented for Platform');
+
+  /// Register for Provisional Push
+  /// @since 3.1.0
+  void registerForProvisionalPush() => throw UnimplementedError(
+      'registerForProvisionalPush() not implemented for Platform');
 }

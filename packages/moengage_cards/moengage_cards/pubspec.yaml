@@ -1,6 +1,6 @@
 name: moengage_cards
 description: MoEngage Cards Plugin
-version: 4.0.0
+version: 5.0.1
 homepage: https://moengage.com
 
 environment:
@@ -18,10 +18,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_cards_android: 3.0.0
-  moengage_cards_ios: 3.0.1
-  moengage_cards_platform_interface: 3.0.0
-  moengage_flutter: ^8.0.0
+  moengage_cards_android: 4.0.1
+  moengage_cards_ios: 4.0.1
+  moengage_cards_platform_interface: 4.0.1
+  moengage_flutter: ^9.0.0
 
 dev_dependencies:
   flutter_test:
