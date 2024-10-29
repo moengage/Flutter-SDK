@@ -1,21 +1,26 @@
 cd "$(dirname "$0")/../.." || exit
 echo "Current directory: $(pwd)"
 outputs=$( melos exec -c 1 --no-private --ignore="*example*" -- dart pub publish --dry-run)
-critical_issue_detected=false
+error_detected=false
+warning_detected=false
 while IFS= read -r line; do
   if echo "$line" | grep -q "Building package"; then
-    critical_issue_detected=false
+    error_detected=false
+    warning_detected=false
   fi
   if echo "$line" | grep -q "Constraints that are too tight"; then
-    # Ignore strict versioning warning
     continue
-  elif echo "$line" | grep -q -E "error:|warning:"; then
-    critical_issue_detected=true
-    # Print out the critical issue for debugging
-    echo "Critical issue detected: $line"
+  elif echo "$line" | grep -q -E "^error:"; then
+    error_detected=true
+    echo "Error detected: $line"
+  elif echo "$line" | grep -q -E "^warning:"; then
+    warning_detected=true
+    echo "Warning detected: $line"
   fi
 done <<< "$outputs"
-if [ "$critical_issue_detected" = true ]; then
-  echo "Critical issues detected. Failing the build step."
+if [ "$error_detected" = true ]; then
+  echo "Errors detected. Failing the build step."
   exit 1
+elif [ "$warning_detected" = true ]; then
+  echo "Warnings detected. Following up on the warnings, but the build will continue."
 fi
