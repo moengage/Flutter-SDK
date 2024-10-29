@@ -30,14 +30,11 @@ Before running the sample application, you need to update your MoEngage app-id i
     ```
 
 ### Android
-
-- In the `example/android/app/src/main/com/moengage/sampleapp/SampleApplication.kt` file, update the `APP_ID` constant with your actual App ID.
-
-    ```kotlin
-    private const val APP_ID = "<YOUR_APP_ID>"
-    ```
-
-- Place your `google-services.json` file in the `example/android/app` directory.
+Add the MoEngage app-id in the `local.properties` file of `example --> android`. Add the below key and value and replace `moengageAppId`` with the App Id on the MoEngage Dashboard.
+```
+moengageAppId=YOUR_APP_ID
+```
+- Replace your `google-services.json` file in the `example/android/app` directory.
 
 ### iOS
 
