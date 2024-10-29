@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 
@@ -49,6 +51,11 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
     }
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
+    await handleAction(context, message);
+  }
+
+  Future<void> handleAction(
+      BuildContext context, SelfHandledCampaignData message) async {
     final SelfHandledActions? action = await asyncSelfHandledDialog(context);
     switch (action) {
       case SelfHandledActions.Shown:
@@ -141,6 +148,123 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
               _moengagePlugin.getSelfHandledInApp();
             },
           ),
+          ListTile(
+            title: const Text('Get Self handled InApps'),
+            onTap: () {
+              _moengagePlugin.getSelfHandledInApps().then((campaignsData) {
+                _showBottomSheet(campaignsData, context);
+              }).catchError((e) {
+                debugPrint('Error in getting self handled inapps $e');
+              });
+            },
+          ),
         ]).toList()));
+  }
+
+  void _showBottomSheet(
+      SelfHandledCampaignsData campaignsData, BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          children: [
+            Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Self Handled InApps',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            if (campaignsData.campaigns.isEmpty)
+              const Center(child: Text('No Self Handled Campaigns'))
+            else
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: campaignsData.campaigns.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final campaign = campaignsData.campaigns[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          ExpandableText(text: campaign.campaign.toString()),
+                          const Spacer(),
+                          // Customize as needed
+                          ElevatedButton(
+                            onPressed: () async {
+                              await handleAction(context, campaign);
+                            },
+                            child: const Text('Action'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )
+          ],
+        );
+      },
+    );
+  }
+}
+
+class ExpandableText extends StatefulWidget {
+  const ExpandableText({super.key, required this.text, this.maxLines = 6});
+
+  final String text;
+  final int maxLines;
+
+  @override
+  _ExpandableTextState createState() => _ExpandableTextState();
+}
+
+class _ExpandableTextState extends State<ExpandableText> {
+  bool _isExpanded = false;
+
+  void _toggleExpand() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.6,
+          child: Text(
+            widget.text,
+            maxLines: _isExpanded ? null : widget.maxLines,
+            overflow:
+                _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+          ),
+        ),
+        IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          onPressed: _toggleExpand,
+          icon: Icon(_isExpanded
+              ? Icons.keyboard_arrow_down_rounded
+              : Icons.keyboard_arrow_up_rounded),
+        ),
+      ],
+    );
   }
 }

@@ -1,5 +1,24 @@
 # MoEngage Geofence Plugin
 
+# 03-10-2024
+
+## 5.0.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
+# 30-09-2024
+
+## 5.0.0
+
+- Android
+  - Bundling `geofence` dependency with the plugin
+  - `geofence` version updated to `4.2.0`
+  - **Note**: Developers should remove the `com.moengage:geofence` dependency from the `build.gradle` as it is now included with the plugin.
+- iOS
+  - Updated MoEngageGeofence to `5.18.0`
+
+## 4.1.0
+- This version might have unintentional breaking changes. We recommend not to use this version. Please upgrade to `5.0.0`.
+
 # 07-08-2024
 
 ## 4.0.0

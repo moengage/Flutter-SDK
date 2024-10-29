@@ -114,6 +114,8 @@ SyncType syncTypeFromString(String? syncType) {
       return SyncType.inboxOpen;
     case argumentAppOpenSync:
       return SyncType.appOpen;
+    case argumentImmediateSync:
+      return SyncType.immediate;
     default:
       throw UnimplementedError('Sync Type Not Supported');
   }
@@ -127,6 +129,8 @@ String syncTypeToString(SyncType syncType) {
       return argumentInboxOpenSync;
     case SyncType.appOpen:
       return argumentAppOpenSync;
+    case SyncType.immediate:
+      return argumentImmediateSync;
   }
 }
 

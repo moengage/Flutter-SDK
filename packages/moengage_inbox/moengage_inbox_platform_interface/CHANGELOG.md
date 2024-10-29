@@ -1,5 +1,10 @@
 # MoEngage Inbox Platform Interface
 
+# 03-10-2024
+
+## 3.0.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
 # 07-08-2024
 
 ## 3.0.0

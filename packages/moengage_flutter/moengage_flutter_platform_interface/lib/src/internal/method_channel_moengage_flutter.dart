@@ -285,4 +285,9 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
     _methodChannel.invokeMethod(methodNameShowNudge,
         jsonEncode(getShowNudgeJsonPayload(position, appId)));
   }
+
+  @override
+  void registerForProvisionalPush() {
+    _methodChannel.invokeMethod(methodiOSRegisterProvisionalPush);
+  }
 }

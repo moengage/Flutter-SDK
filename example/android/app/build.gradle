@@ -46,6 +46,7 @@ android {
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    buildConfigField("String", "MOENGAGE_APP_ID", "\"${localProperties.getProperty("moengageAppId")}\"")
   }
 
   signingConfigs {
@@ -107,13 +108,8 @@ dependencies {
   implementation(appLibs.kotlin)
   implementation(appLibs.playLocation)
   implementation(appLibs.glideCore)
-  implementation(moengage.core)
-  implementation(moengage.inapp)
-  implementation(moengage.cardsCore)
   implementation(moengage.pushKit)
   implementation(moengage.richNotification)
-  implementation(moengage.inboxCore)
-  implementation(moengage.geofence)
   testImplementation(appLibs.junit)
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)

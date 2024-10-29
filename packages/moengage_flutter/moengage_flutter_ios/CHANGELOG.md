@@ -1,5 +1,13 @@
 # MoEngage Flutter iOS Plugin
 
+# 30-09-2024
+
+## 3.1.0
+
+- Added support for multiple self-handled in-apps
+- Added support for Provisional Push
+- Updated MoEngage-iOS-SDK to 9.20.0
+
 # 07-08-2024
 
 ## 3.0.0

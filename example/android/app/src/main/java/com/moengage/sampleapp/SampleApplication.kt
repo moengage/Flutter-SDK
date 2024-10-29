@@ -1,5 +1,6 @@
 package com.moengage.sampleapp
 
+import com.moengage.core.DataCenter
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
@@ -14,6 +15,7 @@ import com.moengage.flutter.MoEInitializer
 import com.moengage.pushbase.MoEPushHelper
 import io.flutter.app.FlutterApplication
 import com.moengage.inapp.MoEInAppHelper
+import com.moengage.sampleapp.BuildConfig
 
 /**
  * @author Umang Chamaria
@@ -21,10 +23,9 @@ import com.moengage.inapp.MoEInAppHelper
  */
 class SampleApplication : FlutterApplication() {
 
-    private const val APP_ID = "<YOUR_APP_ID>"
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, APP_ID)
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID,DataCenter.DATA_CENTER_1)
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,
@@ -41,7 +42,7 @@ class SampleApplication : FlutterApplication() {
             .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
-        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta(APP_ID)))
+        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta(BuildConfig.MOENGAGE_APP_ID)))
         MoEInAppHelper.getInstance().enableActivityRegistrationOnResume()
     }
 }

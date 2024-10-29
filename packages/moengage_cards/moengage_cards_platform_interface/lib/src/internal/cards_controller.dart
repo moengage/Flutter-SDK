@@ -38,14 +38,14 @@ class CardsController {
             .getCallbackCacheForInstance(accountMeta.appId)
             .pullToRefreshOpenSyncListener
             ?.call(data);
-      } else if (call.method == methodOnAppOpenCardsSync) {
+      } else if (call.method == methodOnCardsSync) {
         final syncJson = json[keyData]?[keySyncCompleteData];
         final SyncCompleteData? data = (syncJson != null)
             ? SyncCompleteData.fromJson(syncJson as Map<String, dynamic>)
             : null;
         CardsInstanceProvider()
             .getCallbackCacheForInstance(accountMeta.appId)
-            .appOpenSyncListener
+            .cardsSyncListener
             ?.call(data);
       } else if (call.method == methodOnInboxOpenCardsSync) {
         final syncJson = json?[keyData]?[keySyncCompleteData];

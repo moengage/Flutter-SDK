@@ -1,6 +1,6 @@
 name: moengage_inbox_android
 description: Android implementation of the moengage_inbox plugin
-version: 3.0.0
+version: 3.1.1
 homepage: https://moengage.com
 
 environment:
@@ -19,7 +19,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter: ^8.0.0
+  moengage_flutter: ^9.0.0
   moengage_inbox_platform_interface: ^3.0.0
 
 dev_dependencies:

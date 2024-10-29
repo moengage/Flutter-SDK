@@ -1,5 +1,16 @@
 # MoEngage Inbox Android Plugin
 
+# 03-10-2024
+
+## 3.1.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
+# 30-09-2024
+
+## 3.1.0
+- Bundling `inbox-core` dependency with the plugin
+- `inbox-core` version updated to `3.2.0`
+
 # 07-08-2024
 
 ## 3.0.0

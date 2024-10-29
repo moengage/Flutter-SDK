@@ -1,5 +1,15 @@
 # MoEngage Geofence iOS Plugin
 
+# 03-10-2024
+
+## 3.1.1
+- Fixed dependency version incompatibility issue with `moengage_flutter`
+
+# 30-09-2024
+
+## 3.1.0
+- Updated MoEngageGeofence to 5.18.0
+
 # 07-08-2024
 
 ## 3.0.0

@@ -2,16 +2,19 @@ import 'dart:convert';
 
 import '../internal/constants.dart';
 import '../internal/logger.dart';
+import '../model/account_meta.dart';
 import '../model/inapp/action.dart';
 import '../model/inapp/campaign_context.dart';
 import '../model/inapp/campaign_data.dart';
 import '../model/inapp/click_data.dart';
+import '../model/inapp/display_rules.dart';
 import '../model/inapp/inapp_action_type.dart';
 import '../model/inapp/inapp_custom_action.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/navigation_action.dart';
 import '../model/inapp/navigation_type.dart';
 import '../model/inapp/self_handled_campaign.dart';
+import '../model/inapp/self_handled_campaigns_data.dart';
 import '../model/inapp/self_handled_data.dart';
 import '../model/platforms.dart';
 import 'utils.dart';
@@ -32,13 +35,7 @@ class InAppPayloadMapper {
             '$_tag selfHandledCampaignFromJson() : SelfHandled InApp Data is Null');
         return null;
       }
-      return SelfHandledCampaignData(
-          campaignDataFromMap(data),
-          accountMetaFromMap(
-              selfHandledPayload[keyAccountMeta] as Map<String, dynamic>),
-          selfHandledCampaignFromMap(
-              data[keySelfHandled] as Map<String, dynamic>),
-          PlatformsExtension.fromString(data[keyPlatform].toString()));
+      return selfHandledCampaignDataFromMap(selfHandledPayload);
     } catch (e, stackTrace) {
       Logger.e('$_tag Error: selfHandledCampaignFromJson() :',
           error: e, stackTrace: stackTrace);
@@ -139,7 +136,9 @@ class InAppPayloadMapper {
         dataPayload[keyPayload].toString(),
         (dataPayload.containsKey(keyDismissInterval)
             ? dataPayload[keyDismissInterval]
-            : -1) as int);
+            : -1) as int,
+        Rules.fromJson((dataPayload[keyDisplayRules] ?? <String, dynamic>{})
+            as Map<String, dynamic>));
   }
 
   /// Convert [SelfHandledCampaign] to [Map] for given ActionType
@@ -153,7 +152,7 @@ class InAppPayloadMapper {
       keyCampaignId: campaignData.campaignData.campaignId,
       keyCampaignContext: campaignData.campaignData.context.attributes,
       keySelfHandled: selfHandleCampaignToMap(campaignData.campaign),
-      keyPlatform: getPlatform()
+      keyPlatform: getPlatform(),
     };
 
     return payload;
@@ -164,8 +163,45 @@ class InAppPayloadMapper {
       SelfHandledCampaign selfHandledCampaign) {
     return {
       keyPayload: selfHandledCampaign.payload,
-      keyDismissInterval: selfHandledCampaign.dismissInterval
+      keyDismissInterval: selfHandledCampaign.dismissInterval,
+      keyDisplayRules: displayRulesToMap(selfHandledCampaign.displayRules)
     };
+  }
+
+  /// Get [SelfHandledCampaignData] from [data] provided the [accountMeta]
+  SelfHandledCampaignData selfHandledCampaignDataFromMap(
+      Map<String, dynamic> data) {
+    return SelfHandledCampaignData(
+        campaignDataFromMap(data[keyData] as Map<String, dynamic>),
+        accountMetaFromMap(data[keyAccountMeta] as Map<String, dynamic>),
+        selfHandledCampaignFromMap(
+            data[keyData][keySelfHandled] as Map<String, dynamic>),
+        PlatformsExtension.fromString(data[keyData][keyPlatform].toString()));
+  }
+
+  /// Get [SelfHandledCampaignsData] from JSON String
+  SelfHandledCampaignsData selfHandledCampaignsDataFromJson(
+      dynamic data, String appId) {
+    try {
+      final Map<String, dynamic> selfHandledInAppsPayload =
+          json.decode(data.toString()) as Map<String, dynamic>;
+      final accountMeta = accountMetaFromMap(
+          selfHandledInAppsPayload[keyAccountMeta] as Map<String, dynamic>);
+      final campaigns = (selfHandledInAppsPayload[keyCampaigns] as List)
+          .map((e) => selfHandledCampaignDataFromMap(e as Map<String, dynamic>))
+          .toList();
+      return SelfHandledCampaignsData(
+          accountMeta: accountMeta, campaigns: campaigns);
+    } catch (e) {
+      Logger.e('$_tag Error: selfHandledCampaignsFromJson() :', error: e);
+      return SelfHandledCampaignsData(
+          accountMeta: AccountMeta(appId), campaigns: []);
+    }
+  }
+
+  /// Convert [SelfHandledCampaign] to [Map]
+  Map<String, dynamic> displayRulesToMap(Rules rules) {
+    return {keyScreenName: rules.screenName, keyContexts: rules.context};
   }
 }
 
