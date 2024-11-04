@@ -15,7 +15,7 @@ class _CardsScreenState extends State<CardsScreen>
     with TickerProviderStateMixin {
   List<moe.Card> cardList = [];
 
-  moe.MoEngageCards cards = moe.MoEngageCards(APP_ID);
+  moe.MoEngageCards cards = moe.MoEngageCards(WORKSPACE_ID);
 
   List<String> categories = [];
 
