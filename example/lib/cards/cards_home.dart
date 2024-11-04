@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:moengage_cards/moengage_cards.dart' as moe;
 
+import '../constants.dart';
 import 'cards_screen.dart';
 
 class CardsHome extends StatefulWidget {
@@ -13,7 +14,7 @@ class CardsHome extends StatefulWidget {
 }
 
 class _CardsHomeState extends State<CardsHome> {
-  moe.MoEngageCards cards = moe.MoEngageCards('DAO6UGZ73D9RTK8B5W96TPYN');
+  moe.MoEngageCards cards = moe.MoEngageCards(WORKSPACE_ID);
 
   @override
   void initState() {

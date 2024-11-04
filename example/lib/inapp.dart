@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
+
+import '../constants.dart';
 import 'utils.dart';
 
 /// InApp Screen
@@ -14,7 +16,7 @@ class InAppHomeScreen extends StatefulWidget {
 
 class _InAppHomeScreenState extends State<InAppHomeScreen> {
   final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageFlutter(WORKSPACE_ID);
 
   static const String tag = 'InAppHomeScreen';
 

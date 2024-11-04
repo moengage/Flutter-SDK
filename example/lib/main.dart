@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
+import 'package:moengage_flutter_example/constants.dart';
 import 'package:moengage_geofence/moengage_geofence.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -42,16 +43,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(
-      'DAO6UGZ73D9RTK8B5W96TPYN',
+  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(WORKSPACE_ID,
       moEInitConfig: MoEInitConfig(
           pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
           analyticsConfig:
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
   final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageGeofence(WORKSPACE_ID);
   final MoEngageInbox _moEngageInbox =
-      MoEngageInbox('DAO6UGZ73D9RTK8B5W96TPYN');
+      MoEngageInbox(WORKSPACE_ID);
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -490,7 +490,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     pushPayload.putIfAbsent('push_from', () => 'moengage');
                     pushPayload.putIfAbsent('gcm_title', () => 'Title');
                     pushPayload.putIfAbsent(
-                        'moe_app_id', () => 'DAO6UGZ73D9RTK8B5W96TPYN');
+                        'moe_app_id', () => WORKSPACE_ID);
                     pushPayload.putIfAbsent(
                         'gcm_notificationType', () => 'normal notification');
                     pushPayload.putIfAbsent('gcm_alert', () => 'Message');
