@@ -15,7 +15,7 @@ class CardsHome extends StatefulWidget {
 }
 
 class _CardsHomeState extends State<CardsHome> {
-  moe.MoEngageCards cards = moe.MoEngageCards(APP_ID);
+  moe.MoEngageCards cards = moe.MoEngageCards(WORKSPACE_ID);
 
   @override
   void initState() {

@@ -14,8 +14,6 @@ import com.moengage.core.model.environment.MoEngageEnvironment
 import com.moengage.flutter.MoEInitializer
 import com.moengage.pushbase.MoEPushHelper
 import io.flutter.app.FlutterApplication
-import com.moengage.inapp.MoEInAppHelper
-import com.moengage.sampleapp.BuildConfig
 
 /**
  * @author Umang Chamaria
@@ -25,7 +23,7 @@ class SampleApplication : FlutterApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        val moEngage: MoEngage.Builder = MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID,DataCenter.DATA_CENTER_1)
+        val moEngage: MoEngage.Builder = MoEngage.Builder(this, BuildConfig.MOENGAGE_WORKSPACE_ID,DataCenter.DATA_CENTER_1)
             .configureNotificationMetaData(
                 NotificationConfig(
                     R.drawable.icon,
@@ -42,7 +40,6 @@ class SampleApplication : FlutterApplication() {
             .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
         // optional, required in-case notification customisation is required.
-        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta(BuildConfig.MOENGAGE_APP_ID)))
-        MoEInAppHelper.getInstance().enableActivityRegistrationOnResume()
+        MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta(BuildConfig.MOENGAGE_WORKSPACE_ID)))
     }
 }

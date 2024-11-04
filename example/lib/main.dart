@@ -44,13 +44,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(APP_ID,
+  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(WORKSPACE_ID,
       moEInitConfig: MoEInitConfig(
           pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
           analyticsConfig:
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
-  final MoEngageGeofence _moEngageGeofence = MoEngageGeofence(APP_ID);
-  final MoEngageInbox _moEngageInbox = MoEngageInbox(APP_ID);
+  final MoEngageGeofence _moEngageGeofence =
+      MoEngageGeofence(WORKSPACE_ID);
+  final MoEngageInbox _moEngageInbox =
+      MoEngageInbox(WORKSPACE_ID);
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -488,7 +490,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     Map<String, String> pushPayload = <String, String>{};
                     pushPayload.putIfAbsent('push_from', () => 'moengage');
                     pushPayload.putIfAbsent('gcm_title', () => 'Title');
-                    pushPayload.putIfAbsent('moe_app_id', () => APP_ID);
+                    pushPayload.putIfAbsent(
+                        'moe_app_id', () => WORKSPACE_ID);
                     pushPayload.putIfAbsent(
                         'gcm_notificationType', () => 'normal notification');
                     pushPayload.putIfAbsent('gcm_alert', () => 'Message');

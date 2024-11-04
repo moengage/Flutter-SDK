@@ -16,7 +16,8 @@ class InAppHomeScreen extends StatefulWidget {
 }
 
 class _InAppHomeScreenState extends State<InAppHomeScreen> {
-  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(APP_ID);
+  final MoEngageFlutter _moengagePlugin =
+      MoEngageFlutter(WORKSPACE_ID);
 
   static const String tag = 'InAppHomeScreen';
 

@@ -16,48 +16,48 @@ This repository contains the Flutter plugins for the [MoEngage](https://www.moen
 
 # How to run the sample application?
 
-## Update MoEngage App ID
+## Update MoEngage Workspace Id/AppId
 
-Before running the sample application, you need to update your MoEngage app-id in various files as follows:
+Before running the sample application, you need to update your MoEngage workspace-id(Previously referred as AppId)  in various files as follows:
 
 ### Dart
 
-- In the `example/lib/constants.dart` file, update the `APP_ID` constant with your actual App ID from the MoEngage Dashboard.
+- In the `example/lib/constants.dart` file, update the `WORKSPACE_ID` constant with your actual Workspace ID from the MoEngage Dashboard.
 
     ```dart
-    const String APP_ID = '<Your_App_ID>';
+    const String WORKSPACE_ID = '<YOUR_WORKSPACE_ID>';
     ```
 
 ### Android
-Add the MoEngage app-id in the `local.properties` file of `example --> android`. Add the below key and value and replace `moengageAppId`` with the App Id on the MoEngage Dashboard.
+Add the MoEngage app-id in the `local.properties` file of `example --> android`. Add the below key and value and replace `moengageWorkspaceId`` with the Workspace Id on the MoEngage Dashboard.
 ```
-moengageAppId=YOUR_APP_ID
+moengageWorkspaceId=YOUR_WORKSPACE_ID
 ```
 - Replace your `google-services.json` file in the `example/android/app` directory.
 
 ### iOS
 
-- In the `example/ios/Runner/AppDelegate.swift` file, update the `yourAppID` variable with your actual App ID.
+- In the `example/ios/Runner/AppDelegate.swift` file, update the `yourWorkspaceID` variable with your actual App ID.
 
     ```swift
-    let yourAppID = "<YOUR_APP_ID>"
+    let yourWorkspaceID = "<YOUR_WORKSPACE_ID>"
     ```
 
 - Add your `GoogleService-Info.plist` file to the `example/ios/Runner` directory.
 
 ### Web
 
-- In the `example/web/index.html` file, update the `moeAppID` variable with your actual App ID.
+- In the `example/web/index.html` file, update the `moeWorkspaceID` variable with your actual App ID.
 
     ```html
     <script>
-     var moeAppID = "<Your_App_ID>";
+     var moeWorkspaceID = "<YOUR_WORKSPACE_ID>";
     </script>
     ```
 
 ## Running the Application
 
-After updating the App ID and placing the necessary platform-specific files, follow the instructions below to run the application:
+After updating the Workspace ID and placing the necessary platform-specific files, follow the instructions below to run the application:
 
 1. Open the terminal and navigate to the `example` directory.
 2. Run `flutter pub get` to fetch all the dependencies.
