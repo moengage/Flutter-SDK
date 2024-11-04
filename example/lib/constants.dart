@@ -1,2 +1,2 @@
-/// MoEngage AppId
-const String APP_ID = '<Your_App_ID>';
+/// MoEngage AppId / Workspace ID
+const String WORKSPACE_ID = '<YOUR_WORKSPACE_ID>';

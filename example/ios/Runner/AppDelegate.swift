@@ -13,8 +13,8 @@ import MoEngageMessaging
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
-        let yourAppID = "<YOUR_APP_ID>" //App ID: You can be obtain it from App Settings in MoEngage Dashboard.
-        let sdkConfig = MoEngageSDKConfig(withAppID: yourAppID)
+        let yourWorkspaceID = "<YOUR_WORKSPACE_ID>" //Workspace ID: You can be obtain it from App Settings in MoEngage Dashboard.
+        let sdkConfig = MoEngageSDKConfig(withAppID: yourWorkspaceID)
         sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
         sdkConfig.consoleLogConfig = MoEngageConsoleLogConfig(isLoggingEnabled: true, loglevel: .verbose)
 
