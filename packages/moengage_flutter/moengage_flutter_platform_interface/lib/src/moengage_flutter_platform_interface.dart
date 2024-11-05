@@ -1,9 +1,9 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import '../src/model/inapp/self_handled_campaigns_data.dart';
 import '../src/model/permission_type.dart';
 import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
-import '../src/model/inapp/self_handled_campaigns_data.dart';
 import 'internal/method_channel_moengage_flutter.dart';
 import 'model/app_status.dart';
 import 'model/gender.dart';
