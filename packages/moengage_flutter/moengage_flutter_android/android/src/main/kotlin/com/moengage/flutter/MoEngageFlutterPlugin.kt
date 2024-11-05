@@ -131,10 +131,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 METHOD_NAME_SHOW_NUDGE -> showNudge(call)
                 METHOD_NAME_SELF_HANDLED_IN_APPS -> getSelfHandledInApps(call, result)
-                else -> Logger.print(LogLevel.ERROR) {
-                    "$tag onMethodCall() : No mapping for this" +
-                            " method."
-                    }
+                else ->
+                    Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
             }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
@@ -470,7 +468,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /**
      * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to Flutter.
      */
-    private fun getSelfHandledInApps(methodCall: MethodCall, result: MethodChannel.Result) {
+    private fun getSelfHandledInApps(
+        methodCall: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
             Logger.print { "$tag getSelfHandledInApps() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) {
