@@ -43,7 +43,7 @@ jobs:
         run:  melos unittest
         # We need to build APK before running Ktlint as setting up gradle environment will be handled by flutter build apk
       - name: Flutter build APK
-        run: (cd example && flutter build apk)
+        run: (cd example && flutter build apk --debug)
       - name: Run Ktlint
         run: |
           chmod +x ./.github/scripts/ktlint-verify.sh
