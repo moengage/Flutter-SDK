@@ -1,8 +1,8 @@
-import '../../src/model/analytics/analytics_config.dart';
-import '../../src/model/moe_init_config.dart';
 import '../../src/model/push/push_config.dart';
-import '../../src/utils/utils.dart';
 import '../internal/constants.dart';
+import '../model/analytics/analytics_config.dart';
+import '../model/moe_init_config.dart';
+import 'utils.dart';
 
 /// PayloadMapper for [MoEInitConfig]
 class InitConfigPayloadMapper {

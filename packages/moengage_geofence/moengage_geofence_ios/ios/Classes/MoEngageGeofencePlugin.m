@@ -1,4 +1,4 @@
-#import "MoengageGeofencePlugin.h"
+#import "MoEngageGeofencePlugin.h"
 #if __has_include(<moengage_geofence_ios/moengage_geofence_ios-Swift.h>)
 #import <moengage_geofence_ios/moengage_geofence_ios-Swift.h>
 #else

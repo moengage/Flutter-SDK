@@ -1,5 +1,5 @@
 import '../model/permission_type.dart';
-import '../model/platforms.dart';
+import 'platforms.dart';
 
 /// Permission Result Data
 class PermissionResultData {
