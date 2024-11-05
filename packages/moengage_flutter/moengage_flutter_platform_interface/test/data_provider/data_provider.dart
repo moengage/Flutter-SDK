@@ -59,8 +59,8 @@ final SelfHandledCampaignData selfHandledCampaign = SelfHandledCampaignData(
           'moe_variation_id': '1'
         })),
     AccountMeta(''),
-    SelfHandledCampaign(
-        '{"key1":"value1","key2":"value2","key3":"value3"}', 60, Rules()),
+    SelfHandledCampaign('{"key1":"value1","key2":"value2","key3":"value3"}', 60,
+        Rules(screenName: 'Dashboard')),
     Platforms.android);
 
 final InAppData inAppData = InAppData(
@@ -183,3 +183,39 @@ final mapWithInvalidAndValidData = {
   'nested_map': {'key': 'value'},
   'key': null // Null value
 };
+
+final SelfHandledCampaignsData selfHandledCampaigns =
+    SelfHandledCampaignsData(accountMeta: AccountMeta(''), campaigns: [
+  SelfHandledCampaignData(
+      CampaignData(
+          '64ca642685373efd30dced83',
+          'Self handled Test in-app<::>0<::>1',
+          CampaignContext('64ca642685373efd30dced83_F_T_IA_AB_1_P_0_L_0', {
+            'cid': '64ca642685373efd30dced83_F_T_IA_AB_1_P_0_L_0',
+            'campaign_name': 'Self handled Test in-app',
+            'moe_locale_name': 'Default',
+            'moe_locale_id': '0',
+            'moe_variation_id': '1'
+          })),
+      AccountMeta(''),
+      SelfHandledCampaign('{"key1":"value1","key2":"value2","key3":"value3"}',
+          60, Rules(screenName: 'Dashboard', context: [])),
+      Platforms.android),
+  SelfHandledCampaignData(
+      CampaignData(
+          '64ca642685373efd30dced84',
+          'Self handled Test in-app<::>0<::>1',
+          CampaignContext('64ca642685373efd30dced84_F_T_IA_AB_1_P_0_L_0', {
+            'cid': '64ca642685373efd30dced84_F_T_IA_AB_1_P_0_L_0',
+            'campaign_name': 'Self handled Test in-app1',
+            'moe_locale_name': 'Default',
+            'moe_locale_id': '0',
+            'moe_variation_id': '1'
+          })),
+      AccountMeta(''),
+      SelfHandledCampaign(
+          '{"key1":"value1","key2":"value2","key3":"value3"}',
+          60,
+          Rules(screenName: 'Dashboard', context: ['section_1', 'section_2'])),
+      Platforms.android),
+]);

@@ -12,8 +12,4 @@ const setUserAttributesData = {
   'string-array': ['data', 'array']
 };
 
-const unsetUserAttributesData = {
-  'obj': {},
-  'bool-array': [true, false],
-  'mixed-array': [1, 1.5, 'data']
-};
+const unsetUserAttributesData = {'obj': {}};

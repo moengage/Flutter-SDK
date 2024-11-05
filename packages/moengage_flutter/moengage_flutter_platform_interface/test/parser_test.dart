@@ -157,4 +157,13 @@ void main() {
     expect(getShowNudgeJsonPayload(MoEngageNudgePosition.bottom, '1234'),
         jsonDecode(nudgePayload));
   });
+
+  test('Multiple Self Handled Payload', () {
+    expect(
+        Comparator().isSelfHandledCampaignsDataEqual(
+            InAppPayloadMapper().selfHandledCampaignsDataFromJson(
+                multipleSelfHandledPayload, ''),
+            selfHandledCampaigns),
+        true);
+  });
 }
