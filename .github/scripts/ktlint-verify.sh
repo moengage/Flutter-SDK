@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$(dirname "${BASH_SOURCE[0]}")/.." && PROJECT_ROOT=$(pwd)
+cd "$(dirname "${BASH_SOURCE[0]}")/../.." && PROJECT_ROOT=$(pwd)
 echo "Project root directory: $PROJECT_ROOT"
 
 CLASSPATH_KTLINT_PATTERN="classpath \"org.jlleitschuh.gradle:ktlint-gradle:"
