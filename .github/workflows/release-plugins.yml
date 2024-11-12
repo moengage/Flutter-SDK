@@ -1,0 +1,39 @@
+name: Release Plugins
+on: [workflow_dispatch]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🔔
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      # Install dependencies
+      - name: Install Flutter 🎯
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Set Up GCloud CLI
+        run: sudo snap install google-cloud-sdk --classic
+      - name: Set Up Secrets
+        run: |
+          cat <<EOF > $HOME/key-file.json
+          ${{ secrets.SERVICE_ACCOUNT }}
+          EOF
+      - name: Authenticate GCloud
+        run: gcloud auth activate-service-account --key-file=$HOME/key-file.json
+      - name: Create Temp Token
+        run: gcloud auth print-identity-token --audiences=https://pub.dev | dart pub token add https://pub.dev
+      - name: Configure git
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+      - name: Activate Melos
+        run: dart pub global activate melos
+      - name: Release plugins
+        run: |
+          chmod +x ./.github/scripts/release.sh
+          ./.github/scripts/release.sh
