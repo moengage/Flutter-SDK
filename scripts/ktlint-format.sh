@@ -21,7 +21,7 @@ find "$PROJECT_ROOT" -name '*.gradle' -type f \
 EXAMPLE_DIR="$PROJECT_ROOT/example/android"
 if [ -d "$EXAMPLE_DIR" ]; then
   echo "Running ktlint format in $EXAMPLE_DIR directory..."
-  cd "$EXAMPLE_DIR" && ./gradlew ktlintcheck || { echo "Failed to run ktlint format"; exit 1; }
+  cd "$EXAMPLE_DIR" && ./gradlew ktlintformat || { echo "Failed to run ktlint format"; exit 1; }
 else
   echo "The example/android directory does not exist in the project."
   exit 1
