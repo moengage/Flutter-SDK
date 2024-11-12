@@ -17,7 +17,6 @@ jobs:
         with:
           repository: moengage/sdk-automation-scripts
           path: sdk-automation-scripts
-          ref: 'MOEN-34394_flutter_automation_scripts'
           token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
       - name: Automation script setup
         uses: ./sdk-automation-scripts/actions/flutter-repository-setup
