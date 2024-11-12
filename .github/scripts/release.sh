@@ -1,10 +1,9 @@
 shell
 #!/bin/bash
 
-# This script is used to merge the development branch to the master branch, publish packages, and merge the master branch back to the development branch.
-
+# Merge development to master
 function merge_dev_to_master() {
-    echo "Merging dev to master..."
+    echo "Merging development to master..."
     git checkout master
     git pull origin master
     git checkout development
@@ -13,9 +12,10 @@ function merge_dev_to_master() {
     git checkout master
     git merge development
     git push origin master
-    echo "Merge dev to master completed."
+    echo "Merge development to master completed."
 }
 
+# Publish packages using Melos
 function publish_packages() {
   echo "Publishing packages..."
   melos bootstrap
@@ -25,8 +25,9 @@ function publish_packages() {
   echo "Package publishing completed."
 }
 
+# BackMerge master to dev(Just for safety case)
 function merge_master_to_dev() {
-  echo "Merging master to dev..."
+  echo "Merging master to development..."
   git checkout development
   git pull origin development
   git merge master
