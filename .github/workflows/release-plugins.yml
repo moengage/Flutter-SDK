@@ -4,18 +4,23 @@ on: [workflow_dispatch]
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: contains(fromJSON('["umangmoe", "arshiya-moengage"]'), github.actor)
     steps:
+      - name: Checkout sdk automation scripts
+        uses: actions/checkout@v3
+        with:
+          repository: moengage/sdk-automation-scripts
+          path: sdk-automation-scripts
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Automation script setup
+        uses: ./sdk-automation-scripts/actions/flutter-repository-setup
       - name: Checkout 🔔
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           fetch-tags: true
+          path: source
           token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
-      # Install dependencies
-      - name: Install Flutter 🎯
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
       - name: Set Up GCloud CLI
         run: sudo snap install google-cloud-sdk --classic
       - name: Set Up Secrets
@@ -25,15 +30,13 @@ jobs:
           EOF
       - name: Authenticate GCloud
         run: gcloud auth activate-service-account --key-file=$HOME/key-file.json
-      - name: Create Temp Token
+      - name: Create pub.dev Temporary Token
         run: gcloud auth print-identity-token --audiences=https://pub.dev | dart pub token add https://pub.dev
-      - name: Configure git
+      - name: Script setup
+        working-directory: source
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "Github Actions"
-      - name: Activate Melos
-        run: dart pub global activate melos
-      - name: Release plugins
+          chmod +x .github/scripts/release.main.kts
+      - name: Publishing plugins
+        working-directory: source
         run: |
-          chmod +x ./.github/scripts/release.sh
-          ./.github/scripts/release.sh
+          .github/scripts/release.main.kts
