@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs
+// ignore_for_file: type=lint
 
 import 'dart:async';
 
@@ -48,10 +49,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           pushConfig: PushConfig(shouldDeliverCallbackOnForegroundClick: true),
           analyticsConfig:
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
-  final MoEngageGeofence _moEngageGeofence =
-      MoEngageGeofence(WORKSPACE_ID);
-  final MoEngageInbox _moEngageInbox =
-      MoEngageInbox(WORKSPACE_ID);
+  final MoEngageGeofence _moEngageGeofence = MoEngageGeofence(WORKSPACE_ID);
+  final MoEngageInbox _moEngageInbox = MoEngageInbox(WORKSPACE_ID);
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -489,8 +488,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     Map<String, String> pushPayload = <String, String>{};
                     pushPayload.putIfAbsent('push_from', () => 'moengage');
                     pushPayload.putIfAbsent('gcm_title', () => 'Title');
-                    pushPayload.putIfAbsent(
-                        'moe_app_id', () => WORKSPACE_ID);
+                    pushPayload.putIfAbsent('moe_app_id', () => WORKSPACE_ID);
                     pushPayload.putIfAbsent(
                         'gcm_notificationType', () => 'normal notification');
                     pushPayload.putIfAbsent('gcm_alert', () => 'Message');

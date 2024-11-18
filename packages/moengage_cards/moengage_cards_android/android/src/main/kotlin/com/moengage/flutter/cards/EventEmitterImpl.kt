@@ -13,7 +13,6 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
     CardsEventEmitter {
     private val tag = "${MODULE_TAG}EventEmitterImpl"
 
-
     override fun emit(event: CardsEvent) {
         try {
             when (event) {
@@ -32,18 +31,22 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
                 Logger.print(LogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is null" }
             }
             val syncCompleteJson = cardsSyncToJson(syncCompleteData, event.accountMeta)
-            val method = when (event.cardEventType) {
-                CardEventType.GENERIC_SYNC -> METHOD_GENERIC_CARDS_SYNC
-                CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
-                CardEventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
-            }
+            val method =
+                when (event.cardEventType) {
+                    CardEventType.GENERIC_SYNC -> METHOD_GENERIC_CARDS_SYNC
+                    CardEventType.INBOX_OPEN_SYNC -> METHOD_INBOX_OPEN_CARDS_SYNC
+                    CardEventType.PULL_TO_REFRESH_SYNC -> METHOD_PULL_TO_REFRESH_CARDS_SYNC
+                }
             emit(method, syncCompleteJson)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag emitCardSyncEvent(): $event" }
         }
     }
 
-    private fun emit(methodName: String, payload: JSONObject) {
+    private fun emit(
+        methodName: String,
+        payload: JSONObject,
+    ) {
         try {
             Logger.print { "$tag emit() : methodName: $methodName , payload: $payload" }
             callBack.invoke(methodName, payload.toString())
@@ -51,5 +54,4 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
             Logger.print(LogLevel.ERROR, t) { "$tag emit() : " }
         }
     }
-
 }

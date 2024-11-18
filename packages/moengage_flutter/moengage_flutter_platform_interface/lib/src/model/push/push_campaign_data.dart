@@ -1,6 +1,6 @@
-import './push_campaign.dart';
 import '../account_meta.dart';
 import '../platforms.dart';
+import './push_campaign.dart';
 
 /// Push Campaign Related Data
 class PushCampaignData {

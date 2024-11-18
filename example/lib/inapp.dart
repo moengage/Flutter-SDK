@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs
+// ignore_for_file: type=lint
 
 import 'package:flutter/material.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
@@ -15,8 +16,7 @@ class InAppHomeScreen extends StatefulWidget {
 }
 
 class _InAppHomeScreenState extends State<InAppHomeScreen> {
-  final MoEngageFlutter _moengagePlugin =
-      MoEngageFlutter(WORKSPACE_ID);
+  final MoEngageFlutter _moengagePlugin = MoEngageFlutter(WORKSPACE_ID);
 
   static const String tag = 'InAppHomeScreen';
 

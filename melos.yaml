@@ -1,0 +1,22 @@
+name: moengage_flutter
+repository: https://github.com/moengage/Flutter-SDK/
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+packages:
+  - packages/*
+  - packages/*/*
+  - packages/*/*/*
+  - example
+scripts:
+  analyze: melos exec -- flutter analyze
+  format: melos exec -- dart format .
+  get: melos exec -- flutter pub get
+  dry-run: flutter pub publish --dry-run
+  unittest:
+    run: melos exec -- flutter test
+    select-package:
+      dir-exists:
+        - test
+      scope: "*interface*"

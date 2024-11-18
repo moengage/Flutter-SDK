@@ -8,11 +8,9 @@ import com.moengage.inapp.MoEInAppHelper
  * @author Arshiya Khanum
  */
 public class MoEFlutterHelper {
-
     private val tag = "${MODULE_TAG}MoEFlutterHelper"
 
     public companion object {
-
         private var instance: MoEFlutterHelper? = null
 
         @JvmStatic

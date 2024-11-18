@@ -39,7 +39,8 @@ class Comparator {
   bool isSelfHandledCampaignEqual(
       SelfHandledCampaign? data1, SelfHandledCampaign? data2) {
     return data1?.payload == data2?.payload &&
-        data1?.dismissInterval == data2?.dismissInterval;
+        data1?.dismissInterval == data2?.dismissInterval &&
+        isDisplayRuleEqual(data1?.displayRules, data2?.displayRules);
   }
 
   bool isCampaignDataEqual(CampaignData? data1, CampaignData? data2) {
@@ -69,5 +70,22 @@ class Comparator {
 
   bool isCampaignActionEqual(Action? action1, Action? action2) {
     return action1?.actionType == action2?.actionType;
+  }
+
+  bool isSelfHandledCampaignsDataEqual(
+      SelfHandledCampaignsData? data1, SelfHandledCampaignsData? data2) {
+    return isAccountMetaEqual(data1?.accountMeta, data2?.accountMeta) &&
+        data1?.campaigns.length == data2?.campaigns.length &&
+        IterableZip([
+          data1?.campaigns ?? <SelfHandledCampaignData>[],
+          data2?.campaigns ?? <SelfHandledCampaignData>[]
+        ]).every((pair) {
+          return isSelfHandledDataEqual(pair[0], pair[1]);
+        });
+  }
+
+  bool isDisplayRuleEqual(Rules? data1, Rules? data2) {
+    return data1?.screenName == data2?.screenName &&
+        const DeepCollectionEquality().equals(data1?.context, data2?.context);
   }
 }

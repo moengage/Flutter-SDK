@@ -1,5 +1,5 @@
-import 'analytics/analytics_config.dart';
 import '../model/push/push_config.dart';
+import 'analytics/analytics_config.dart';
 
 /// Init Config instance to be passed during initialization. If it is not passed
 /// default values will be used.

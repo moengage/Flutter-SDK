@@ -20,10 +20,10 @@ import java.util.concurrent.Executors
 
 /** MoengageInboxPlugin */
 class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
-    /// The MethodChannel that will the communication between Flutter and native Android
-    ///
-    /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-    /// when the Flutter Engine is detached from the Activity
+    // / The MethodChannel that will the communication between Flutter and native Android
+    // /
+    // / This local reference serves to register the plugin with the Flutter Engine and unregister it
+    // / when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
     private val tag = "MoEngageInboxPlugin"
@@ -32,7 +32,9 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     private val mainThread = Handler(Looper.getMainLooper())
     private val inboxHelper = InboxPluginHelper()
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding,
+    ) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL_NAME)
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
@@ -40,12 +42,15 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @Suppress("SENSELESS_COMPARISON")
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(
+        @NonNull call: MethodCall,
+        @NonNull result: Result,
+    ) {
         try {
             if (call == null) {
                 Logger.print(LogLevel.ERROR) {
                     "$tag onMethodCall() : MethodCall instance is null " +
-                            "cannot proceed further."
+                        "cannot proceed further."
                 }
                 return
             }
@@ -67,11 +72,16 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(
+        @NonNull binding: FlutterPlugin.FlutterPluginBinding,
+    ) {
         channel.setMethodCallHandler(null)
     }
 
-    private fun getUnClickedCount(c: MethodCall, result: Result) {
+    private fun getUnClickedCount(
+        c: MethodCall,
+        result: Result,
+    ) {
         try {
             if (c.arguments == null) return
             val payload: String = c.arguments.toString()
@@ -92,7 +102,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun fetchMessages(call: MethodCall, result: Result) {
+    private fun fetchMessages(
+        call: MethodCall,
+        result: Result,
+    ) {
         try {
             if (call.arguments == null) return
             val payload: String = call.arguments.toString()
@@ -113,7 +126,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun deleteMessage(call: MethodCall, result: Result) {
+    private fun deleteMessage(
+        call: MethodCall,
+        result: Result,
+    ) {
         try {
             if (call.arguments == null) return
             val payload = call.arguments.toString()
@@ -124,7 +140,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun trackMessageClicked(call: MethodCall, result: Result) {
+    private fun trackMessageClicked(
+        call: MethodCall,
+        result: Result,
+    ) {
         try {
             if (call.arguments == null) return
             val payload = call.arguments.toString()
@@ -141,8 +160,9 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     @WorkerThread
     private fun getMoEngageInboxVersion(context: Context): String {
         return try {
-            val json = context.assets.open(ASSET_CONFIG_FILE_PATH)
-                .bufferedReader().use { it.readText() }
+            val json =
+                context.assets.open(ASSET_CONFIG_FILE_PATH)
+                    .bufferedReader().use { it.readText() }
             JSONObject(json).getString(VERSION_KEY)
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
