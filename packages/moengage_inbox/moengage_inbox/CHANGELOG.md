@@ -1,4 +1,9 @@
 # MoEngage Flutter Inbox Plugin
+          
+# 25-11-2024
+
+## 8.0.2
+- Internal improvements.
 
 # 03-10-2024
 

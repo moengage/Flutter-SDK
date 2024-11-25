@@ -1,6 +1,6 @@
 name: moengage_inbox_platform_interface
 description: A common platform interface for the moengage_inbox plugin.
-version: 3.0.1
+version: 3.0.2
 homepage: https://www.moengage.com
 
 environment:

@@ -1,4 +1,9 @@
 # MoEngage Cards Plugin
+          
+# 25-11-2024
+
+## 5.0.2
+- Internal improvements.
 
 # 03-10-2024
 

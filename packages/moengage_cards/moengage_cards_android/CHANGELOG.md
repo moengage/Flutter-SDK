@@ -1,4 +1,9 @@
 # MoEngage Cards Android Plugin
+          
+# 25-11-2024
+
+## 4.0.2
+- Internal improvements.
 
 # 03-10-2024
 
