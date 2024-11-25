@@ -1,5 +1,6 @@
 name: Release Plugins
-on: [workflow_dispatch]
+on:
+  workflow_dispatch: # manual trigger
 
 jobs:
   publish:
