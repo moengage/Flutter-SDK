@@ -1,4 +1,9 @@
 # MoEngage Flutter Web Plugin
+          
+# 25-11-2024
+
+## 4.0.1
+- Internal improvements.
 
 # 07-08-2024
 

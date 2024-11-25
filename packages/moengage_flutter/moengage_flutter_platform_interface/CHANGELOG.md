@@ -1,4 +1,9 @@
 # MoEngage Flutter Platform Interface
+          
+# 25-11-2024
+
+## 3.1.1
+- Internal improvements.
 
 # 30-09-2024
 

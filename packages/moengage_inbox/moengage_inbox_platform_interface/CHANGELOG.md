@@ -1,4 +1,9 @@
 # MoEngage Inbox Platform Interface
+          
+# 25-11-2024
+
+## 3.0.2
+- Internal improvements.
 
 # 03-10-2024
 
