@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart'
     show Logger, getAccountMeta;
@@ -19,7 +21,7 @@ class MoEngageGeofenceAndroid extends MoEngageGeofencePlatform {
   void startGeofenceMonitoring(String appId) {
     try {
       _channel.invokeMethod(
-          methodStartGeofenceMonitoring, getAccountMeta(appId));
+          methodStartGeofenceMonitoring, jsonEncode(getAccountMeta(appId)));
     } catch (e) {
       Logger.e('$_tag Error: startGeofenceMonitoring() : $e');
     }
@@ -29,7 +31,7 @@ class MoEngageGeofenceAndroid extends MoEngageGeofencePlatform {
   void stopGeofenceMonitoring(String appId) {
     try {
       _channel.invokeMethod(
-          methodStopGeofenceMonitoring, getAccountMeta(appId));
+          methodStopGeofenceMonitoring, jsonEncode(getAccountMeta(appId)));
     } catch (e) {
       Logger.e('$_tag Error: stopGeofenceMonitoring() : $e');
     }
