@@ -33,7 +33,7 @@ class MoEngageCardsAndroid extends MoEngageCardsPlatform {
   Future<CardsData> fetchCards(String appId) async {
     final result = await methodChannel.invokeMethod(
       methodFetchCards,
-      getAccountMeta(appId),
+      jsonEncode(getAccountMeta(appId)),
     );
     return deSerializeCardsData(result.toString());
   }
