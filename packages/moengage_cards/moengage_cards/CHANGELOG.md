@@ -3,7 +3,7 @@
 # Next Release version
 
 ## Next version
-- Add jsonEncode for missing APIs
+- Add `jsonEncode()` for missing APIs
 - Android
   - `cards-core` version updated to `2.3.1`
           

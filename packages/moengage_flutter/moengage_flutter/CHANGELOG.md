@@ -3,7 +3,7 @@
 # Next Release version
 
 ## Next version
-- Add jsonEncode for missing APIs
+- Add `jsonEncode()` for missing APIs
 - Android
   - `moe-android-sdk` version updated to `13.05.01`
   - `inapp` version updated to `8.7.0`

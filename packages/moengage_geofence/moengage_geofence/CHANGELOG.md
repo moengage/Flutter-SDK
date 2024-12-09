@@ -3,7 +3,7 @@
 # Next Release Date
 
 ## Next version
-- Add jsonEncode for missing APIs
+- Add `jsonEncode()` for missing APIs
 - Android
   - `geofence` version updated to `4.2.1`
 

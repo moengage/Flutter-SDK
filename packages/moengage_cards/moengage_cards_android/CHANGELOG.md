@@ -3,7 +3,7 @@
 # Next Release Date
 
 ## Next Version
-- Add jsonEncode for missing APIs
+- Add `jsonEncode()` for missing APIs
 - `cards-core` version updated to `2.3.1`
 
 # 25-11-2024
