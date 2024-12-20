@@ -20,8 +20,10 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
 
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
-    _methodChannel.invokeMethod(methodInitialise,
-        InitConfigPayloadMapper().getInitPayload(appId, moEInitConfig));
+    _methodChannel.invokeMethod(
+        methodInitialise,
+        jsonEncode(
+            InitConfigPayloadMapper().getInitPayload(appId, moEInitConfig)));
   }
 
   @override
@@ -247,7 +249,7 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   @override
   void updatePushPermissionRequestCountAndroid(int requestCount, String appId) {
     _methodChannel.invokeMethod(methodUpdatePushPermissionRequestCount,
-        _getUpdatePushCountJsonPayload(requestCount, appId));
+        jsonEncode(_getUpdatePushCountJsonPayload(requestCount, appId)));
   }
 
   /// Delete User Data from MoEngage Server
@@ -259,7 +261,7 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
     try {
       final result = await _methodChannel.invokeMethod(
         methodNameDeleteUser,
-        getAccountMeta(appId),
+        jsonEncode(getAccountMeta(appId)),
       );
       return Future.value(
           PayloadMapper().deSerializeDeleteUserData(result.toString(), appId));
@@ -318,7 +320,7 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   Future<SelfHandledCampaignsData> getSelfHandledInApps(String appId) async {
     try {
       final data = await _methodChannel.invokeMethod(
-          methodSelfHandledInApps, getAccountMeta(appId));
+          methodSelfHandledInApps, jsonEncode(getAccountMeta(appId)));
       return InAppPayloadMapper().selfHandledCampaignsDataFromJson(data, appId);
     } catch (exception) {
       Logger.e('$tag getSelfHandledInApps(): Error', error: exception);

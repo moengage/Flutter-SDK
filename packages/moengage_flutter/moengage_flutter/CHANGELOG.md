@@ -1,4 +1,12 @@
 # MoEngage Flutter Plugin
+
+# Next Release version
+
+## Next version
+- Add `jsonEncode()` for missing APIs
+- Android
+  - `moe-android-sdk` version updated to `13.05.01`
+  - `inapp` version updated to `8.7.0`
           
 # 25-11-2024
 

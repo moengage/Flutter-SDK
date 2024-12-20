@@ -59,10 +59,19 @@ moengageWorkspaceId=YOUR_WORKSPACE_ID
 
 After updating the Workspace ID and placing the necessary platform-specific files, follow the instructions below to run the application:
 
-1. Setup project using `melos bootstrap` command in the root directory. 
+1. Setting Up the Project, Install Melos and Fetch Flutter dependencies
+
+   a. Using setup script
+      - Simply run the following command in the root directory
+      ```sh
+      sh scripts/setup.sh
+      ```
+   b. Using the Command-Line Interface (CLI)
+      - Install Melos CLI tool using `dart pub global activate melos` if not installed already
+      - Setup project using `melos bootstrap` command in the root directory
+      - Run `melos get` command in the root directory to fetch all the dependencies.
 2. Open the terminal and navigate to the `example` directory.
-3. Run `flutter pub get` to fetch all the dependencies.
-4. To run on Android or iOS, connect a device or start an emulator.
-5. Run the application with `flutter run` for your targeted platform.
+3. To run on Android or iOS, connect a device or start an emulator.
+4. Run the application with `flutter run` for your targeted platform.
 
 Ensure that you have set up the development environment for Flutter and the respective platform you are targeting (Android Studio/Xcode for Android/iOS, updated web browser for Web) before attempting to run the sample application.

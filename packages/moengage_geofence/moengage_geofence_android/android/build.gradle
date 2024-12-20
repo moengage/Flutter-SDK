@@ -56,8 +56,8 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-    compileOnly("com.moengage:moe-android-sdk:13.05.00")
-    api("com.moengage:geofence:4.2.0")
+    compileOnly("com.moengage:moe-android-sdk:13.05.01")
+    api("com.moengage:geofence:4.2.1")
     implementation("com.moengage:plugin-base-geofence:2.1.0")
 }
 
