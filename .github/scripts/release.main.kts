@@ -1,5 +1,5 @@
 #!/usr/bin/env kotlin
 
-@file:Import("../../../sdk-automation-scripts/scripts/release/flutter-release.main.kts")
+@file:Import("../../../sdk-automation-scripts/scripts/hybrid/flutter-release.main.kts")
 
 releasePlugins()
