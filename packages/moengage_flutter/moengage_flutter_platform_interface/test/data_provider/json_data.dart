@@ -352,7 +352,8 @@ const String selfHandledPayload = r'''
       "dismissInterval": 60,
       "displayRules": {
           "screenName": "Dashboard",
-          "contexts": []
+          "contexts": [],
+          "screenNames": ["Dashboard"]
       }
     }
   }
@@ -472,7 +473,8 @@ const String multipleSelfHandledPayload = r'''
           "dismissInterval": 60,
           "displayRules": {
           "screenName": "Dashboard",
-          "contexts": []
+          "contexts": [],
+          "screenNames": ["Dashboard"]
           }
         }
       }
@@ -497,7 +499,8 @@ const String multipleSelfHandledPayload = r'''
           "dismissInterval": 60,
           "displayRules": {
           "screenName": "Dashboard",
-          "contexts": ["section_1","section_2"]
+          "contexts": ["section_1","section_2"],
+          "screenNames": ["Dashboard"]
           }
         }
       }
