@@ -1,4 +1,7 @@
 # MoEngage Flutter Android Plugin
+
+## Next Vesion
+- Adding support for identify user based on multiple identities
           
 # 29-01-2025
 

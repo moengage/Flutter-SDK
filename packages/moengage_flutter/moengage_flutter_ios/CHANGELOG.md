@@ -1,5 +1,10 @@
 # MoEngage Flutter iOS Plugin
 
+# Release Date
+
+## Release Version
+- Adding support for identify user based on multiple identities
+
 # 29-01-2025
 
 ## 3.2.0

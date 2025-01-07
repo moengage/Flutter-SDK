@@ -668,6 +668,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () {
                     _moengagePlugin.registerForProvisionalPush();
                   }),
+              ListTile(
+                  title: const Text('Identify User (String)'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser("flutter-uid");
+                  }),
+              ListTile(
+                  title: const Text('Identify User (Map)'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser(
+                        {"email": "flutter@moengage.com", "id": "flutter"});
+                  }),
+              ListTile(
+                  title: const Text('Get Identities'),
+                  onTap: () async {
+                    Map<String, String>? identities =
+                        await _moengagePlugin.getUserIdentities();
+                    debugPrint('$tag Main : User Identities $identities');
+                  })
             ]).toList(),
           ),
         ),
