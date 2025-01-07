@@ -3,6 +3,7 @@
 # Next Release version
 
 ## Next version
+- Adding support for identify user based on multiple identities
 - Add `jsonEncode()` for missing APIs
 - Android
   - `moe-android-sdk` version updated to `13.05.01`
