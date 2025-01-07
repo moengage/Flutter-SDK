@@ -257,4 +257,26 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   void registerForProvisionalPush() {
     _channel.invokeMethod(methodiOSRegisterProvisionalPush);
   }
+
+  @override
+  void identifyUser(dynamic identity, String appId) {
+    if (!isSupportedIdentity(identity)) {
+      Logger.w('$tag identifyUser(): Identity type is not supported');
+      return;
+    }
+    _channel.invokeMapMethod(
+        methodIdentifyUser, getIdentifyUserPayload(identity, appId));
+  }
+
+  @override
+  Future<Map<String, String>?> getUserIdentities(String appId) async {
+    try {
+      final dynamic identity = await _channel.invokeMethod(
+          methodGetUserIdentities, getAccountMeta(appId));
+      return Future.value(identity as Map<String, String>?);
+    } catch (e) {
+      Logger.e(' $tag getUserIdentities(): Error', error: e);
+      return Future.error(e);
+    }
+  }
 }

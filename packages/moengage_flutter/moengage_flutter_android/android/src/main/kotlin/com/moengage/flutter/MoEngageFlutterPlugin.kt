@@ -19,6 +19,7 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import org.json.JSONObject
 
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
@@ -131,6 +132,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_DELETE_USER -> deleteUser(call, result)
                 METHOD_NAME_SHOW_NUDGE -> showNudge(call)
                 METHOD_NAME_SELF_HANDLED_IN_APPS -> getSelfHandledInApps(call, result)
+                METHOD_NAME_IDENTIFY_USER -> identifyUser(call)
+                METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
                 else ->
                     Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
             }
@@ -490,6 +493,41 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         } catch (t: Throwable) {
             result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Error occurred", null)
             Logger.print(LogLevel.ERROR, t) { "$tag getSelfHandledInApps() : " }
+        }
+    }
+
+    /**
+     *  Identify the user with the given identity argument in [methodCall]
+     */
+    private fun identifyUser(methodCall: MethodCall) {
+        try {
+            val argument = methodCall.arguments ?: run {
+                Logger.print { "$tag identifyUser() : Invalid argument" }
+                return@run
+            }
+            Logger.print { "$tag identifyUser() : Arguments: $argument" }
+            pluginHelper.identifyUser(context, argument.toString())
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag identifyUser() : " }
+        }
+    }
+
+    /**
+     *  Return Identities of the user that has been set.
+     */
+    private fun getUserIdentities(methodCall: MethodCall, result: MethodChannel.Result) {
+        try {
+            val argument = methodCall.arguments ?: run {
+                Logger.print { "$tag getUserIdentities() : Invalid argument" }
+                result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
+                return@run
+            }
+            Logger.print { "$tag getUserIdentities() : $argument" }
+            val identities = pluginHelper.getUserIdentities(context, argument.toString())
+            result.success(JSONObject(identities).toString())
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag getUserIdentities() : " }
+            result.error(ERROR_CODE_GET_USER_IDENTITIES, "Error occurred", null)
         }
     }
 

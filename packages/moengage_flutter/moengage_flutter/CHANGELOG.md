@@ -3,6 +3,7 @@
 # Next Release version
 
 ## Next version
+- Adding support for identify user based on multiple identities
 - Android
     - Added support for AGP version `8.7.3` and above
 

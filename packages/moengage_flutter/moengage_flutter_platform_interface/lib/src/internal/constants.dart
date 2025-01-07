@@ -172,3 +172,9 @@ const String methodSelfHandledInApps = 'selfHandledInApps';
 const String keyDisplayRules = 'displayRules';
 const String keyScreenName = 'screenName';
 const String keyCampaigns = 'campaigns';
+
+/// Identify User
+const String keyUserIdentity = 'identity';
+const String keyUniqueUserIdentity = 'uid';
+const String methodIdentifyUser = 'identifyUser';
+const String methodGetUserIdentities = 'getUserIdentities';
