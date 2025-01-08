@@ -18,6 +18,7 @@ import 'inapp.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
+// ignore_for_file: deprecated_member_use
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FirebaseApp not configured for web app. Added the check to avoid run time errors.
