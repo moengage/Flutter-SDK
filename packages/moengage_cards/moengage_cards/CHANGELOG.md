@@ -6,6 +6,7 @@
 - Add `jsonEncode()` for missing APIs
 - Android
   - `cards-core` version updated to `2.3.1`
+  - Added support for AGP version `8.7.3` and above
           
 # 25-11-2024
 
