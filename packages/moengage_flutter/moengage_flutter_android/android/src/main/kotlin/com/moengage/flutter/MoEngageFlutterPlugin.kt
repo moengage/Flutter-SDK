@@ -523,8 +523,15 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 return@run
             }
             Logger.print { "$tag getUserIdentities() : $argument" }
-            val identities = pluginHelper.getUserIdentities(context, argument.toString())
-            result.success(JSONObject(identities).toString())
+            pluginHelper.getUserIdentities(context, argument.toString()) { identities ->
+                result.success(
+                    if (identities != null) {
+                        JSONObject(identities).toString()
+                    } else {
+                        null
+                    }
+                )
+            }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getUserIdentities() : " }
             result.error(ERROR_CODE_GET_USER_IDENTITIES, "Error occurred", null)
