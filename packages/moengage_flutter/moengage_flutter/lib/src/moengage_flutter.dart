@@ -82,7 +82,7 @@ class MoEngageFlutter {
   @Deprecated(
       'This method is deprecated in favour of identifyUser(). This method will be removed in 11.0.0')
   void setUniqueId(String uniqueId) {
-    Logger.w('"Deprecated function usage `setUserUniqueID`');
+    Logger.w('"Deprecated function usage `setUserUniqueID`, use `identifyUser`');
     _platform.setUniqueId(uniqueId, appId);
   }
 
@@ -91,7 +91,7 @@ class MoEngageFlutter {
   @Deprecated(
       'This method is deprecated in favour of identifyUser(). This method will be removed in 11.0.0')
   void setAlias(String newUniqueId) {
-    Logger.w('"Deprecated function usage `setAlias`');
+    Logger.w('"Deprecated function usage `setAlias`, use `identifyUser`');
     _platform.setAlias(newUniqueId, appId);
   }
 
