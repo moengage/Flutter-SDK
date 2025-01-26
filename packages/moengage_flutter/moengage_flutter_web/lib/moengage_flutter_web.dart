@@ -114,6 +114,30 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   }
 
   @override
+  void identifyUser(dynamic identity, String appId) {
+    if (!isSupportedIdentity(identity)) {
+      Logger.w('$tag identifyUser(): Identity type is not supported');
+      return;
+    }
+    _moengage?.callMethod(
+      methodIdentifyUser,
+      [identity],
+    );
+  }
+
+  @override
+  Future<Map<String, String>?> getUserIdentities(String appId) async {
+    try {
+      final dynamic identity = await  _moengage?.callMethod(
+          methodGetUserIdentities);
+      return Future.value(identity as Map<String, String>?);
+    } catch (e) {
+      Logger.e(' $tag getUserIdentities(): Error', error: e);
+      return Future.error(e);
+    }
+  }
+
+  @override
   void setUserName(String userName, String appId) {
     _moengage?.callMethod(
       methodSetUserAttributeSDK,
