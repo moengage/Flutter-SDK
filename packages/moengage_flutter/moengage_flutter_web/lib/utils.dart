@@ -56,3 +56,22 @@ dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
   }
   return userAttributeValue;
 }
+
+dynamic getIdentifyUserPayload(dynamic identities) {
+  if (identities is Map<String, String>) {
+    return js.JsObject.jsify(identities);
+  }
+  return identities;
+}
+
+Map<String, String> convertJSObjectToMap(dynamic jsObject) {
+  var resultMap = <String, String>{};
+  if (jsObject is Map<String, dynamic>) {
+    jsObject.forEach((key, value) {
+      if (key is String && value is String) {
+        resultMap[key] = value;
+      }
+    });
+  }
+  return resultMap;
+}

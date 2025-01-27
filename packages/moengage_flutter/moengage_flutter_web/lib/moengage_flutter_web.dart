@@ -1,6 +1,6 @@
 import 'dart:js';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
-    hide keyAlias, keyEventAttributes, keyEventName;
+    hide keyAlias, keyEventAttributes, keyEventName, getIdentifyUserPayload;
 import 'constants.dart';
 import 'utils.dart';
 
@@ -121,7 +121,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     }
     _moengage?.callMethod(
       methodIdentifyUser,
-      [identity],
+      [getIdentifyUserPayload(identity)],
     );
   }
 
@@ -130,7 +130,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     try {
       final dynamic identity = await  _moengage?.callMethod(
           methodGetUserIdentities);
-      return Future.value(identity as Map<String, String>?);
+      return Future.value(convertJSObjectToMap(identity) as Map<String, String>?);
     } catch (e) {
       Logger.e(' $tag getUserIdentities(): Error', error: e);
       return Future.error(e);

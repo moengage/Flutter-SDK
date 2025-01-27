@@ -12,8 +12,6 @@ const String methodTrackEventSDK = 'track_event';
 const String methodSetUserAttributeSDK = 'add_user_attribute';
 const String methodSetAliasSDK = 'update_unique_user_id';
 const String methodLogoutSDK = 'destroy_session';
-const String methodIdentifyUser = 'identifyUser';
-const String methodGetUserIdentities = 'getUserIdentities';
 
 // Keys Constants
 String keyEventName = 'eventName';
