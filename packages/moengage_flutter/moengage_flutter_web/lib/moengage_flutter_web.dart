@@ -1,4 +1,4 @@
-import 'dart:js';
+import 'dart:js_interop';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
     hide keyAlias, keyEventAttributes, keyEventName;
 import 'constants.dart';
