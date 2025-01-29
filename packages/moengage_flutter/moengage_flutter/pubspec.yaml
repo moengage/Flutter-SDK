@@ -1,6 +1,6 @@
 name: moengage_flutter
 description: Flutter Plugin for MoEngage Platform. MoEngage is an Intelligent Customer Engagement Platform
-version: 9.0.1
+version: 9.1.0
 homepage: https://www.moengage.com
 
 environment:
@@ -22,8 +22,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_flutter_android: 3.1.1
-  moengage_flutter_ios: 3.1.1
+  moengage_flutter_android: 3.2.0
+  moengage_flutter_ios: 3.2.0
   moengage_flutter_platform_interface: 3.1.1
   moengage_flutter_web: 4.0.1
 
