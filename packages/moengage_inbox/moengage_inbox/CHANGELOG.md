@@ -5,6 +5,8 @@
 ## Next Release
 - Android
   - `inbox-core` version updated to `3.2.1`
+- iOS
+  - Updated MoEngageInbox to `2.19.0`
 
 # 25-11-2024
 

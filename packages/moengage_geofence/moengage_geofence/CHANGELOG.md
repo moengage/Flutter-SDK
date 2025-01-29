@@ -6,6 +6,8 @@
 - Add `jsonEncode()` for missing APIs
 - Android
   - `geofence` version updated to `4.2.1`
+- iOS
+  - Updated MoEngageGeofence to `5.19.0`
 
 # 25-11-2024
 

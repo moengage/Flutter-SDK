@@ -7,6 +7,9 @@
 - Android
   - `moe-android-sdk` version updated to `13.05.01`
   - `inapp` version updated to `8.7.0`
+- iOS
+  - Updated MoEngage-iOS-SDK to 9.22.1
+  - Updated MoEngageInApp to 6.04.0
           
 # 25-11-2024
 
