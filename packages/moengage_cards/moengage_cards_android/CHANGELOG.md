@@ -1,8 +1,8 @@
 # MoEngage Cards Android Plugin
           
-# Next Release Date
+# 29-01-2025
 
-## Next Version
+## 4.1.0
 - Add `jsonEncode()` for missing APIs
 - `cards-core` version updated to `2.3.2`
 

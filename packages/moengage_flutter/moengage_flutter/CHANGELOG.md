@@ -1,8 +1,8 @@
 # MoEngage Flutter Plugin
 
-# Next Release version
+# 29-01-2025
 
-## Next version
+## 9.1.0
 - Add `jsonEncode()` for missing APIs
 - Android
   - `moe-android-sdk` version updated to `13.05.01`
