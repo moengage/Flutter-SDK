@@ -1,8 +1,8 @@
 # MoEngage Inbox Android Plugin
           
-# Next Release version
+# 29-01-2025
 
-## Next version
+## 3.2.0
 - `inbox-core` version updated to `3.2.1`
 
 # 25-11-2024
