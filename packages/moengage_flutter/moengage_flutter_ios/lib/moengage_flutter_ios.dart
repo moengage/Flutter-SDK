@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
@@ -271,9 +273,11 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   @override
   Future<Map<String, String>?> getUserIdentities(String appId) async {
     try {
-      final dynamic identity = await _channel.invokeMethod(
+      final dynamic identities = await _channel.invokeMethod(
           methodGetUserIdentities, getAccountMeta(appId));
-      return Future.value(identity as Map<String, String>?);
+      return Future.value(
+          (json.decode(identities.toString()) as Map<String, dynamic>?)
+              ?.map((key, value) => MapEntry(key, value as String)));
     } catch (e) {
       Logger.e(' $tag getUserIdentities(): Error', error: e);
       return Future.error(e);

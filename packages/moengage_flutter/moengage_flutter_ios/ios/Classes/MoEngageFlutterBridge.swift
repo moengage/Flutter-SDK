@@ -63,6 +63,13 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             MoEngagePluginBridge.sharedInstance.getSelfHandledInApps(payload) { campaignPayload in
                 MoEngageFlutterUtil.resume(channel: call.method, havingResult: result, withData: campaignPayload)
             }
+        // Identities
+        case MoEngageFlutterConstants.MethodNames.kIdentifyUser:
+            MoEngagePluginBridge.sharedInstance.identifyUser(payload)
+        case MoEngageFlutterConstants.MethodNames.kGetUserIdentities:
+            MoEngagePluginBridge.sharedInstance.getUserIdentities(payload) { identitiesPayload in
+                MoEngageFlutterUtil.resume(channel: call.method, havingResult: result, withData: identitiesPayload)
+            }
         default:
             print("Invalid invocation: \(call.method)")
         }
