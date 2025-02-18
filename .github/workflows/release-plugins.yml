@@ -5,7 +5,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["umangmoe", "arshiya-moengage"]'), github.actor)
+    if: contains(fromJSON('["umangmoe", "arshiya-moengage", "harish-engg-inbound", "kkgowtham-engg-sdk"]'), github.actor)
     steps:
       - name: Checkout sdk automation scripts
         uses: actions/checkout@v3
