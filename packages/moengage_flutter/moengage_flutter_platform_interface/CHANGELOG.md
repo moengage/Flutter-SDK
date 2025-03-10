@@ -1,5 +1,10 @@
 # MoEngage Flutter Platform Interface
-          
+
+# Next Release
+
+## Next version
+- Session triggered InApps and support multiple screen names in `DisplayRules`
+
 # 25-11-2024
 
 ## 3.1.1
