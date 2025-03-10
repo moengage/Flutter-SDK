@@ -278,6 +278,7 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
       return Future.value(
           (json.decode(identities.toString()) as Map<String, dynamic>?)
               ?.map((key, value) => MapEntry(key, value as String)));
+
     } catch (e) {
       Logger.e(' $tag getUserIdentities(): Error', error: e);
       return Future.error(e);
