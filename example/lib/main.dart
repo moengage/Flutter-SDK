@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,7 +23,7 @@ import 'utils.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FirebaseApp not configured for web app. Added the check to avoid run time errors.
-  if (!kIsWeb) {
+  if (!kIsWeb && !Platform.isIOS) {
     await Firebase.initializeApp();
     // Set the background messaging handler early on, as a named top-level function
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

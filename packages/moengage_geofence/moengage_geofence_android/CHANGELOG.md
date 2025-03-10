@@ -1,8 +1,8 @@
 # MoEngage Geofence Android Plugin
           
-# Next Release Date
+# 29-01-2025
 
-## Next version
+## 3.2.0
 - Add `jsonEncode()` for missing APIs
 - `geofence` version updated to `4.2.1`
 

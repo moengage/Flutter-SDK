@@ -1,10 +1,12 @@
 # MoEngage Flutter Inbox Plugin
           
-# Next Release Date
+# 29-01-2025
 
-## Next Release
+## 8.1.0
 - Android
   - `inbox-core` version updated to `3.2.1`
+- iOS
+  - Updated MoEngageInbox to `2.19.0`
 
 # 25-11-2024
 

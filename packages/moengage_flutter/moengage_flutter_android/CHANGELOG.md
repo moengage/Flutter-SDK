@@ -1,12 +1,14 @@
 # MoEngage Flutter Android Plugin
-          
-# Next Release Date
 
 ## Next Vesion
 - Adding support for identify user based on multiple identities
+          
+# 29-01-2025
+
+## 3.2.0
 - Add `jsonEncode()` for missing APIs 
-- `moe-android-sdk` version updated to `13.05.01`
-- `inapp` version updated to `8.7.0`
+- `moe-android-sdk` version updated to `13.05.02`
+- `inapp` version updated to `8.7.1`
 
 # 25-11-2024
 

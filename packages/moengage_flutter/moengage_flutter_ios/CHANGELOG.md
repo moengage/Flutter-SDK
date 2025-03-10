@@ -4,7 +4,12 @@
 
 ## Release Version
 - Adding support for identify user based on multiple identities
-          
+
+# 29-01-2025
+
+## 3.2.0
+- Updated MoEngage-iOS-SDK to 9.22.1
+
 # 25-11-2024
 
 ## 3.1.1
