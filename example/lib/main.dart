@@ -682,6 +682,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                         {"email": "flutter@moengage.com", "id": "flutter"});
                   }),
               ListTile(
+                  title: const Text('Identify User (Map): Web'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser(
+                        {"u_em": "flutter@moengage.com", "uid": "flutter"});
+                  }),
+              ListTile(
                   title: const Text('Get Identities'),
                   onTap: () async {
                     Map<String, String>? identities =
