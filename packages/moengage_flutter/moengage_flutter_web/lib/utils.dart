@@ -64,14 +64,14 @@ dynamic getIdentifyUserPayload(dynamic identities) {
   return identities;
 }
 
-Map<String, String> convertJSObjectToMap(dynamic jsObject) {
-  var resultMap = <String, String>{};
-  if (jsObject is Map<String, dynamic>) {
-    jsObject.forEach((key, value) {
-      if (key is String && value is String) {
-        resultMap[key] = value;
-      }
-    });
+Map<String, String>? convertJSObjectToMap(dynamic jsObject) {
+  if (jsObject == null) {
+    return null;
+  }
+  final resultMap = <String, String>{};
+  final keys = js.context['Object'].callMethod('keys', [jsObject]) as js.JsArray;
+  for (final key in keys) {
+    resultMap[key.toString()] = jsObject[key].toString();
   }
   return resultMap;
 }

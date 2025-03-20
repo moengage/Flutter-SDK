@@ -128,9 +128,9 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   Future<Map<String, String>?> getUserIdentities(String appId) async {
     try {
-      final dynamic identity = await  _moengage?.callMethod(
+      final dynamic identity = await _moengage?.callMethod(
           methodGetUserIdentities);
-      return Future.value(convertJSObjectToMap(identity) as Map<String, String>?);
+      return Future.value(convertJSObjectToMap(identity));
     } catch (e) {
       Logger.e(' $tag getUserIdentities(): Error', error: e);
       return Future.error(e);
