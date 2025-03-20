@@ -11,11 +11,19 @@ void main() {
   });
 
   test('Test Supported Identity with type Map<String, dynamic>', () {
-    expect(isSupportedIdentity({'id1': 'value1', 'id2': 2}), false);
+    expect(isSupportedIdentity({'id1': 'value1', 'id2': 2}), true);
+  });
+
+  test('Test Supported Identity with type Map<String, dynamic?>', () {
+    expect(isSupportedIdentity({'id1': 'value1', 'id2': null}), true);
   });
 
   test('Test Supported Identity with type Map<String, Number>', () {
-    expect(isSupportedIdentity({'id1': 2}), false);
+    expect(isSupportedIdentity({'id1': 2}), true);
+  });
+
+  test('Test Supported Identity with type Map<Number, String>', () {
+    expect(isSupportedIdentity({2: 'string'}), false);
   });
 
   test('Test Supported Identity with type Number', () {

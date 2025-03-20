@@ -50,7 +50,7 @@ Map<String, dynamic> getIdentifyUserPayload(dynamic identity, String appId) {
     payload[keyData] = {
       keyUserIdentity: {keyUniqueUserIdentity: identity}
     };
-  } else if (identity is Map<String, String>) {
+  } else if (identity is Map<String, dynamic>) {
     payload[keyData] = {keyUserIdentity: identity};
   }
 

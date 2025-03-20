@@ -174,5 +174,5 @@ Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
 
 /// Return whether type of [identity] is supported or not
 bool isSupportedIdentity(dynamic identity) {
-  return identity is String || identity is Map<String, String>;
+  return identity is String || identity is Map<String, dynamic>;
 }

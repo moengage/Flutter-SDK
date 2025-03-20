@@ -19,4 +19,18 @@ void main() {
     };
     expect(getIdentifyUserPayload({'key1': 'id1'}, dummyAppId), payload);
   });
+
+  test('Test payload for Map Identity With Number', () {
+    payload[keyData] = {
+      keyUserIdentity: {'key1': 'id1', 'key2': 2}
+    };
+    expect(getIdentifyUserPayload({'key1': 'id1', 'key2': 2}, dummyAppId), payload);
+  });
+
+  test('Test payload for Map Identity With Null', () {
+    payload[keyData] = {
+      keyUserIdentity: {'key1': 'id1', 'key2': null}
+    };
+    expect(getIdentifyUserPayload({'key1': 'id1', 'key2': null}, dummyAppId), payload);
+  });
 }
