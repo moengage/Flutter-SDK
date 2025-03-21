@@ -1,5 +1,11 @@
 # MoEngage Cards Plugin
 
+# Next Release version
+
+## Next version
+- Android
+  - Added support for AGP version `8.7.3` and above
+  
 # 18-02-2025
 
 ## 5.1.1
