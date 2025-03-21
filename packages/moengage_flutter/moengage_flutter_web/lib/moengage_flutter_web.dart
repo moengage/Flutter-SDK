@@ -108,8 +108,8 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   void setUniqueId(String uniqueId, String appId) {
     _moengage?.callMethod(
-      methodSetUserAttributeSDK,
-      [userAttrNameUniqueId, uniqueId],
+      methodSetUniqueIdSDK,
+      [uniqueId],
     );
   }
 
