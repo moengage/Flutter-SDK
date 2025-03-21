@@ -28,14 +28,14 @@ apply plugin: 'kotlin-android'
 // apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace "com.moengage.flutter.inbox"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 23
     }
     lintOptions {
         disable 'InvalidPackage'
