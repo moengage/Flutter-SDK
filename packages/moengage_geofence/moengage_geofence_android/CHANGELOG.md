@@ -1,5 +1,12 @@
 # MoEngage Geofence Android Plugin
-          
+
+# Release Date
+
+## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+  
 # 29-01-2025
 
 ## 3.2.0

@@ -29,7 +29,7 @@ apply plugin: 'kotlin-android'
 // apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace "com.moengage.flutter.cards"
 
     compileOptions {
@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 23
     }
 
     buildFeatures {

@@ -28,7 +28,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-  compileSdk 34
+  compileSdk 35
   namespace "com.moengage.sampleapp"
 
   sourceSets {
@@ -41,8 +41,8 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdk 21
-    targetSdk 34
+    minSdk 23
+    targetSdk 35
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -101,16 +101,20 @@ flutter {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
-  implementation(appLibs.fcm)
-  implementation(appLibs.lifecycleOwner)
-  implementation(appLibs.adIdentifier)
-  implementation(appLibs.hmsPush)
+
   implementation(appLibs.kotlin)
-  implementation(appLibs.playLocation)
-  implementation(appLibs.glideCore)
+
+  implementation(moengage.firebaseMessaging)
+  implementation(moengage.androidXLifecycle)
+  implementation(moengage.gmsPlayAdIdentifier)
+  implementation(moengage.hmsPushKit)
+  implementation(moengage.gmsPlayLocation)
+  implementation(moengage.glide)
   implementation(moengage.pushKit)
   implementation(moengage.richNotification)
+
   testImplementation(appLibs.junit)
+
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)
 }
