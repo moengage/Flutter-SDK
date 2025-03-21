@@ -501,10 +501,11 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      */
     private fun identifyUser(methodCall: MethodCall) {
         try {
-            val argument = methodCall.arguments ?: run {
-                Logger.print { "$tag identifyUser() : Invalid argument" }
-                return@run
-            }
+            val argument =
+                methodCall.arguments ?: run {
+                    Logger.print { "$tag identifyUser() : Invalid argument" }
+                    return@run
+                }
             Logger.print { "$tag identifyUser() : Arguments: $argument" }
             pluginHelper.identifyUser(context, argument.toString())
         } catch (t: Throwable) {
@@ -515,13 +516,17 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /**
      *  Return Identities of the user that has been set.
      */
-    private fun getUserIdentities(methodCall: MethodCall, result: MethodChannel.Result) {
+    private fun getUserIdentities(
+        methodCall: MethodCall,
+        result: MethodChannel.Result,
+    ) {
         try {
-            val argument = methodCall.arguments ?: run {
-                Logger.print { "$tag getUserIdentities() : Invalid argument" }
-                result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
-                return@run
-            }
+            val argument =
+                methodCall.arguments ?: run {
+                    Logger.print { "$tag getUserIdentities() : Invalid argument" }
+                    result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
+                    return@run
+                }
             Logger.print { "$tag getUserIdentities() : $argument" }
             pluginHelper.getUserIdentities(context, argument.toString()) { identities ->
                 result.success(
@@ -529,7 +534,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                         JSONObject(identities).toString()
                     } else {
                         null
-                    }
+                    },
                 )
             }
         } catch (t: Throwable) {

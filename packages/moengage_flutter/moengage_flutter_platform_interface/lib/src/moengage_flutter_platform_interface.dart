@@ -232,12 +232,12 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
       'registerForProvisionalPush() not implemented for Platform');
 
   /// Identify the user with the given identity.
-  /// @since Todo: Add Version
+  /// @since 3.2.0
   void identifyUser(dynamic identity, String appId) =>
       throw UnimplementedError('identifyUser() not implemented for Platform');
 
   /// Return Identities of the user that has been set.
-  /// @since Todo: Add Version
+  /// @since 3.2.0
   Future<Map<String, String>?> getUserIdentities(String appId) =>
       throw UnimplementedError(
           'getUserIdentities() not implemented for Platform');

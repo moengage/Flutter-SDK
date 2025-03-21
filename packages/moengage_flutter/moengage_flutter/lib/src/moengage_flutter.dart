@@ -425,13 +425,13 @@ class MoEngageFlutter {
 
   /// Identify the user with the given identity.
   /// Supported types: [String] and [Map<String, String>]
-  /// @since Todo: Add Version
+  /// @since 9.2.0
   void identifyUser(dynamic identity) {
     _platform.identifyUser(identity, appId);
   }
 
   /// Return Identities of the user that has been set.
-  /// @since Todo: Add Version
+  /// @since 9.2.0
   Future<Map<String, String>?> getUserIdentities() {
     return _platform.getUserIdentities(appId);
   }
