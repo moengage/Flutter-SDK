@@ -23,7 +23,7 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter_android: 3.3.0
-  moengage_flutter_ios: 3.2.1
+  moengage_flutter_ios: 3.3.0
   moengage_flutter_platform_interface: 3.2.0
   moengage_flutter_web: 4.1.0
 

@@ -5,6 +5,8 @@
 ## 5.2.0
 - Android
   - Added support for AGP version `8.7.3` and above
+- iOS
+  - Updated MoEngageCards to `4.20.0`
   
 # 18-02-2025
 

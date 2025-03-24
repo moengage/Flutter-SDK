@@ -1,9 +1,10 @@
 # MoEngage Flutter iOS Plugin
 
-# Release Date
+# 24-03-2025
 
-## Release Version
+## 3.3.0
 - Adding support for identify user based on multiple identities
+- Updated MoEngage-iOS-SDK to 9.23.1
 
 # 18-02-2025
 

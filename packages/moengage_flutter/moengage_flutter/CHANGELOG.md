@@ -6,6 +6,8 @@
 - Adding support for identify user based on multiple identities
 - Android
     - Added support for AGP version `8.7.3` and above
+- iOS
+  - Updated MoEngage-iOS-SDK to 9.23.1
 
 # 18-02-2025
 
