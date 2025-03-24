@@ -1,6 +1,6 @@
 import 'dart:js';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
-    hide keyAlias, keyEventAttributes, keyEventName;
+    hide keyAlias, keyEventAttributes, keyEventName, getIdentifyUserPayload;
 import 'constants.dart';
 import 'utils.dart';
 
@@ -108,9 +108,33 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   void setUniqueId(String uniqueId, String appId) {
     _moengage?.callMethod(
-      methodSetUserAttributeSDK,
-      [userAttrNameUniqueId, uniqueId],
+      methodSetUniqueIdSDK,
+      [uniqueId],
     );
+  }
+
+  @override
+  void identifyUser(dynamic identity, String appId) {
+    if (!isSupportedIdentity(identity)) {
+      Logger.w('$tag identifyUser(): Identity type is not supported');
+      return;
+    }
+    _moengage?.callMethod(
+      methodIdentifyUser,
+      [getIdentifyUserPayload(identity)],
+    );
+  }
+
+  @override
+  Future<Map<String, String>?> getUserIdentities(String appId) async {
+    try {
+      final dynamic identity = await _moengage?.callMethod(
+          methodGetUserIdentities);
+      return Future.value(convertJSObjectToMap(identity));
+    } catch (e) {
+      Logger.e(' $tag getUserIdentities(): Error', error: e);
+      return Future.error(e);
+    }
   }
 
   @override
