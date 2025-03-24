@@ -1,8 +1,8 @@
 # MoEngage Flutter Android Plugin
 
-# Next Release version
+# 24-03-2025
 
-## Next version
+## 3.3.0
 - Adding support for identify user based on multiple identities
 - Android
     - Added support for AGP version `8.7.3` and above
