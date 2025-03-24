@@ -222,3 +222,8 @@ final SelfHandledCampaignsData selfHandledCampaigns =
           Rules(screenName: 'Dashboard', context: ['section_1', 'section_2'], screenNames: ['Dashboard'])),
       Platforms.android),
 ]);
+
+const dummyAppId = 'Dummy_App_ID';
+const accountMetaPayload = {
+  keyAccountMeta: {keyAppId: dummyAppId}
+};

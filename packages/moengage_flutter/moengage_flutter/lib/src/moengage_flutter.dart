@@ -79,13 +79,20 @@ class MoEngageFlutter {
 
   /// Set a unique identifier for a user.<br/>
   /// [uniqueId] - Unique Identifier of type [String]
+  @Deprecated(
+      'This method is deprecated in favour of identifyUser(). This method will be removed in 11.0.0')
   void setUniqueId(String uniqueId) {
+    Logger.w(
+        '"Deprecated function usage `setUserUniqueID`, use `identifyUser`');
     _platform.setUniqueId(uniqueId, appId);
   }
 
   /// Update user's unique id which was previously set by setUniqueId().
   /// [newUniqueId] - Unique Identifier of type [String]
+  @Deprecated(
+      'This method is deprecated in favour of identifyUser(). This method will be removed in 11.0.0')
   void setAlias(String newUniqueId) {
+    Logger.w('"Deprecated function usage `setAlias`, use `identifyUser`');
     _platform.setAlias(newUniqueId, appId);
   }
 
@@ -414,5 +421,18 @@ class MoEngageFlutter {
   /// @since 8.1.0
   void registerForProvisionalPush() {
     _platform.registerForProvisionalPush();
+  }
+
+  /// Identify the user with the given identity.
+  /// Supported types: [String] and [Map<String, String>]
+  /// @since 9.2.0
+  void identifyUser(dynamic identity) {
+    _platform.identifyUser(identity, appId);
+  }
+
+  /// Return Identities of the user that has been set.
+  /// @since 9.2.0
+  Future<Map<String, String>?> getUserIdentities() {
+    return _platform.getUserIdentities(appId);
   }
 }

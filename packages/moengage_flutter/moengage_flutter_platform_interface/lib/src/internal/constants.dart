@@ -173,4 +173,3 @@ const String keyDisplayRules = 'displayRules';
 const String keyScreenName = 'screenName';
 const String keyCampaigns = 'campaigns';
 const String keyScreenNames = 'screenNames';
-
