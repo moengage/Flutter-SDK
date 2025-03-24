@@ -42,3 +42,17 @@ Map<String, dynamic> getShowNudgeJsonPayload(
   payload[keyData] = {keyNudgePosition: position.name};
   return payload;
 }
+
+/// Get identifyUser Payload with params [identity] and [appId]
+Map<String, dynamic> getIdentifyUserPayload(dynamic identity, String appId) {
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  if (identity is String) {
+    payload[keyData] = {
+      keyUserIdentity: {keyUniqueUserIdentity: identity}
+    };
+  } else if (identity is Map<String, dynamic>) {
+    payload[keyData] = {keyUserIdentity: identity};
+  }
+
+  return payload;
+}

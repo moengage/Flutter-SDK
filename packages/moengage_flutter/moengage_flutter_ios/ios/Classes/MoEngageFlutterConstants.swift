@@ -32,6 +32,8 @@ struct MoEngageFlutterConstants{
         static let kResetUser                   = "logout"
         static let kGetSelfHandleInApps         = "selfHandledInApps"
         static let kRegisterForProvisionalPush  = "registerForProvisionalPush"
+        static let kIdentifyUser                = "identifyUser"
+        static let kGetUserIdentities           = "getUserIdentities"
     }
     
     struct CallbackNames {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
@@ -256,5 +258,29 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   @override
   void registerForProvisionalPush() {
     _channel.invokeMethod(methodiOSRegisterProvisionalPush);
+  }
+
+  @override
+  void identifyUser(dynamic identity, String appId) {
+    if (!isSupportedIdentity(identity)) {
+      Logger.w('$tag identifyUser(): Identity type is not supported');
+      return;
+    }
+    _channel.invokeMapMethod(
+        methodIdentifyUser, getIdentifyUserPayload(identity, appId));
+  }
+
+  @override
+  Future<Map<String, String>?> getUserIdentities(String appId) async {
+    try {
+      final dynamic identities = await _channel.invokeMethod(
+          methodGetUserIdentities, getAccountMeta(appId));
+      return Future.value(
+          (json.decode(identities.toString()) as Map<String, dynamic>?)
+              ?.map((key, value) => MapEntry(key, value as String)));
+    } catch (e) {
+      Logger.e(' $tag getUserIdentities(): Error', error: e);
+      return Future.error(e);
+    }
   }
 }

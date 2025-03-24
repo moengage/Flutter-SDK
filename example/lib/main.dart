@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,10 +19,11 @@ import 'inapp.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
+// ignore_for_file: deprecated_member_use
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FirebaseApp not configured for web app. Added the check to avoid run time errors.
-  if (!kIsWeb) {
+  if (!kIsWeb && !Platform.isIOS) {
     await Firebase.initializeApp();
     // Set the background messaging handler early on, as a named top-level function
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -668,6 +670,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   onTap: () {
                     _moengagePlugin.registerForProvisionalPush();
                   }),
+              ListTile(
+                  title: const Text('Identify User (String)'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser("flutter-uid");
+                  }),
+              ListTile(
+                  title: const Text('Identify User (Map)'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser(
+                        {"email": "flutter@moengage.com", "id": "flutter"});
+                  }),
+              ListTile(
+                  title: const Text('Identify User (Map): Web'),
+                  onTap: () {
+                    _moengagePlugin.identifyUser(
+                        {"u_em": "flutter@moengage.com", "uid": "flutter"});
+                  }),
+              ListTile(
+                  title: const Text('Get Identities'),
+                  onTap: () async {
+                    Map<String, String>? identities =
+                        await _moengagePlugin.getUserIdentities();
+                    debugPrint('$tag Main : User Identities $identities');
+                  })
             ]).toList(),
           ),
         ),
