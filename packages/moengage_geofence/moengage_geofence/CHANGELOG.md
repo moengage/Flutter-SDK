@@ -1,6 +1,6 @@
 # MoEngage Geofence Plugin
 
-# 24-03-2025
+# 25-03-2025
 
 ## 5.2.0
 - Android
