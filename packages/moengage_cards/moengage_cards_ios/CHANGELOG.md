@@ -1,6 +1,6 @@
 # MoEngage Cards iOS Plugin
 
-# 24-03-2025
+# 25-03-2025
 
 ## 4.2.0
 - Updated MoEngageCards to `4.20.0`

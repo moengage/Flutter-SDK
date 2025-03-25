@@ -1,6 +1,6 @@
 # MoEngage Geofence Android Plugin
           
-# 24-03-2025
+# 25-03-2025
 
 ## 3.3.0
 - Added support for AGP version `8.7.3` and above
