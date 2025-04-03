@@ -9,6 +9,7 @@ import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interf
 class MoEngageInboxIOS extends MoEngageInboxPlatform {
   /// [MoEngageInboxIOS] Constructor
   MoEngageInboxIOS();
+
   final MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
 
   /// Registers this class as the default instance of [MoEngageInboxPlatform]
@@ -39,9 +40,14 @@ class MoEngageInboxIOS extends MoEngageInboxPlatform {
 
   @override
   Future<InboxData?> fetchAllMessages(String appId) async {
-    final Map<String, dynamic> payload = getAccountMeta(appId);
-    final serialisedMessages =
-        await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
-    return deSerializeInboxMessages(serialisedMessages);
+    try {
+      final Map<String, dynamic> payload = getAccountMeta(appId);
+      final serialisedMessages =
+          await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
+      return deSerializeInboxMessages(serialisedMessages);
+    } catch (e) {
+      Logger.e('fetchAllMessages(): Error fetching messages: $e');
+      return null;
+    }
   }
 }
