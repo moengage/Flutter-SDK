@@ -111,9 +111,9 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
             if (call.arguments == null) return
             val payload: String = call.arguments.toString()
             executorService.submit {
-                val inboxData : InboxData? = inboxHelper.fetchAllMessages(context, payload)
+                val inboxData: InboxData? = inboxHelper.fetchAllMessages(context, payload)
                 if (inboxData == null) {
-                    result.error(ERROR_CODE_INBOX,"Inbox Message cannot be fetched",null)
+                    result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
                     return@submit
                 }
                 val serialisedMessages = inboxDataToJson(inboxData)
@@ -122,7 +122,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
                         Logger.print { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
                         result.success(serialisedMessages.toString())
                     } catch (t: Throwable) {
-                        result.error(ERROR_CODE_INBOX,"Inbox Message cannot be fetched",null)
+                        result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
                         Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
                     }
                 }
