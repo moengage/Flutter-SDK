@@ -1,4 +1,10 @@
 # MoEngage Inbox Platform Interface
+
+# Next Release
+
+## Next Version
+- BugFix:
+    - ANR while accessing fetchAllMessages API in Main Thread
           
 # 25-11-2024
 

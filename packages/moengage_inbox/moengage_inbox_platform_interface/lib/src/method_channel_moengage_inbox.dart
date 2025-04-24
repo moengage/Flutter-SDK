@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show getAccountMeta;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show Logger, getAccountMeta;
 
 import 'internal/constants.dart';
 import 'internal/moe_inbox_utils.dart';
@@ -34,9 +35,14 @@ class MethodChannelMoEngageInbox extends MoEngageInboxPlatform {
 
   @override
   Future<InboxData?> fetchAllMessages(String appId) async {
-    final Map<String, dynamic> payload = getAccountMeta(appId);
-    final serialisedMessages =
-        await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
-    return deSerializeInboxMessages(serialisedMessages);
+    try {
+      final Map<String, dynamic> payload = getAccountMeta(appId);
+      final serialisedMessages =
+          await _channel.invokeMethod(METHOD_NAME_FETCH_MESSAGES, payload);
+      return deSerializeInboxMessages(serialisedMessages);
+    } catch (e) {
+      Logger.e('fetchAllMessages(): Error fetching messages: $e');
+      return null;
+    }
   }
 }
