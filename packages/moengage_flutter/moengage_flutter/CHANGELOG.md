@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- Android 
+  - `inapp` version updated to `8.8.1`
+
 # 25-03-2025
 
 ## 9.2.0
