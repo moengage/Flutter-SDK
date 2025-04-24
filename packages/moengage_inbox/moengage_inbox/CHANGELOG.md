@@ -1,8 +1,8 @@
 # MoEngage Flutter Inbox Plugin
 
-# Next Release
+# 24-04-2025
 
-## Next Version
+## 8.2.1
 - BugFix:
   - ANR while accessing fetchAllMessages API in Main Thread
 
