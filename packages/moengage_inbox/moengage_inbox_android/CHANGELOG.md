@@ -1,8 +1,8 @@
 # MoEngage Inbox Android Plugin
 
-# Next Release
+# 24-04-2025
 
-## Next Version
+## 3.3.1
 - BugFix:
   - ANR while accessing fetchAllMessages API in Main Thread
 
