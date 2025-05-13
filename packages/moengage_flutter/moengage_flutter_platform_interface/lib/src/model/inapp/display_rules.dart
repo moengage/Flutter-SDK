@@ -29,6 +29,6 @@ class Rules {
 
   @override
   String toString() {
-    return 'Rules{screenName: $screenName, context: $context}';
+    return 'Rules{screenName: $screenName, screenNames: $screenNames, context: $context}';
   }
 }
