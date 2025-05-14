@@ -1,5 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Version
+
+## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+  
 # 24-04-2025
 
 ## 8.2.1
