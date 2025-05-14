@@ -273,6 +273,10 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void updateSdkState(bool shouldEnableSdk, String appId) {
-    Logger.v('updateSdkState(): Not supported in Web Platform');
+    if (shouldEnableSdk) {
+      _moengage?.callMethod(methodEnableSDK, []);
+    } else {
+      _moengage?.callMethod(methodDisableSDK, []);
+    }
   }
 }
