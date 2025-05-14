@@ -1,5 +1,11 @@
 # MoEngage Flutter Web Plugin
 
+# Release Date
+
+## Release Version
+
+- Added support for enableSdk() and disableSdk() methods
+
 # 25-03-2025
 
 ## 4.1.0
