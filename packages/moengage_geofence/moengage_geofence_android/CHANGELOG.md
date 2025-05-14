@@ -7,6 +7,11 @@
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
   
+# 25-03-2025
+
+## 3.3.0
+- Added support for AGP version `8.7.3` and above
+
 # 29-01-2025
 
 ## 3.2.0

@@ -1,4 +1,9 @@
 # MoEngage Flutter Web Plugin
+
+# 25-03-2025
+
+## 4.1.0
+- Adding support for identify user based on multiple identities
           
 # 25-11-2024
 

@@ -3,11 +3,22 @@
 # Release Date
 
 ## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+
+# 24-04-2025 
+
+## 3.3.1
+
+- `inapp` version updated to `8.8.1`
+
+# 25-03-2025
+
+## 3.3.0
 - Adding support for identify user based on multiple identities
 - Android
     - Added support for AGP version `8.7.3` and above
-    - Compiled SDK Version updated to 35
-    - Min SDK Version updated to 23
 
 # 29-01-2025
 

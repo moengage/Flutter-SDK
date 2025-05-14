@@ -55,8 +55,8 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-    compileOnly("com.moengage:moe-android-sdk:13.06.00")
-    api("com.moengage:inbox-core:3.3.0")
+    compileOnly("com.moengage:moe-android-sdk:14.00.00")
+    api("com.moengage:inbox-core:4.0.0")
     implementation("com.moengage:plugin-base-inbox:4.2.0")
 }
 

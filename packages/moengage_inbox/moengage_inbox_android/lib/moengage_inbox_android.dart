@@ -38,9 +38,14 @@ class MoEngageInboxAndroid extends MoEngageInboxPlatform {
 
   @override
   Future<InboxData?> fetchAllMessages(String appId) async {
-    final Map<String, dynamic> payload = getAccountMeta(appId);
-    final serialisedMessages = await _channel.invokeMethod(
-        METHOD_NAME_FETCH_MESSAGES, json.encode(payload));
-    return deSerializeInboxMessages(serialisedMessages.toString());
+    try {
+      final Map<String, dynamic> payload = getAccountMeta(appId);
+      final serialisedMessages = await _channel.invokeMethod(
+          METHOD_NAME_FETCH_MESSAGES, json.encode(payload));
+      return deSerializeInboxMessages(serialisedMessages.toString());
+    } catch (e) {
+      Logger.e('fetchAllMessages(): Error fetching messages: $e');
+      return null;
+    }
   }
 }

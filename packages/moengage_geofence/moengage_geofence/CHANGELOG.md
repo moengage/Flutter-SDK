@@ -4,9 +4,16 @@
 
 ## Release Version
 - Android
-    - Added support for AGP version `8.7.3` and above
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
+  
+# 25-03-2025
+
+## 5.2.0
+- Android
+    - Added support for AGP version `8.7.3` and above
+- iOS
+  - Internal improvements
 
 # 18-02-2025
 

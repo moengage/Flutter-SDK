@@ -1,5 +1,16 @@
 # MoEngage Inbox iOS Plugin
 
+# 24-04-2025
+
+## 3.3.1
+- BugFix:
+    - ANR while accessing fetchAllMessages API in Main Thread
+
+# 25-03-2025
+
+## 3.3.0
+- Updated MoEngageInbox to 2.19.1
+
 # 18-02-2025
 
 ## 3.2.1

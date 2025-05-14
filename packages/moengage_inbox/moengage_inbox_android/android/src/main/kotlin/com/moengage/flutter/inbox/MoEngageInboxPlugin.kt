@@ -8,6 +8,7 @@ import androidx.annotation.WorkerThread
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
+import com.moengage.inbox.core.model.InboxData
 import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
 import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -109,14 +110,19 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call.arguments == null) return
             val payload: String = call.arguments.toString()
-            val inboxData = inboxHelper.fetchAllMessages(context, payload) ?: return
             executorService.submit {
+                val inboxData: InboxData? = inboxHelper.fetchAllMessages(context, payload)
+                if (inboxData == null) {
+                    result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
+                    return@submit
+                }
                 val serialisedMessages = inboxDataToJson(inboxData)
                 mainThread.post {
                     try {
                         Logger.print { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
                         result.success(serialisedMessages.toString())
                     } catch (t: Throwable) {
+                        result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
                         Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
                     }
                 }

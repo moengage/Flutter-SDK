@@ -4,14 +4,24 @@
 
 ## Release Version
 - Android
-  - Compiled SDK Version updated to 35
-  - Min SDK Version updated to 23
-          
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+  
+# 24-04-2025
+
+## 3.3.1
+- BugFix:
+  - ANR while accessing fetchAllMessages API in Main Thread
+
+# 25-03-2025
+
+## 3.3.0
+- Added support for AGP version `8.7.3` and above
+
 # 29-01-2025
 
 ## 3.2.0
 - `inbox-core` version updated to `3.2.1`
-- Added support for AGP version `8.7.3` and above
 
 # 25-11-2024
 

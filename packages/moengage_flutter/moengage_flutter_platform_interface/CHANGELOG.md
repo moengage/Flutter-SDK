@@ -1,8 +1,8 @@
 # MoEngage Flutter Platform Interface
 
-# Release Date
+# 25-03-2025
 
-## Release Version
+## 3.2.0
 - Adding support for identify user based on multiple identities
           
 # 25-11-2024

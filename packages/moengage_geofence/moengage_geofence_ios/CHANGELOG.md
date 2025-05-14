@@ -1,5 +1,10 @@
 # MoEngage Geofence iOS Plugin
 
+# 25-03-2025
+
+## 3.3.0
+- Internal improvements
+
 # 18-02-2025
 
 ## 3.2.1

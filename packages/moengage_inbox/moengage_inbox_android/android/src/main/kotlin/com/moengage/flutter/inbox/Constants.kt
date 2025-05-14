@@ -16,3 +16,5 @@ const val INTEGRATION_TYPE = "flutter"
 // Asset Location for config.json under moengage_flutter package.
 const val ASSET_CONFIG_FILE_PATH = "flutter_assets/packages/moengage_inbox/config.json"
 const val VERSION_KEY = "version"
+
+const val ERROR_CODE_INBOX = "INBOX_ERROR"

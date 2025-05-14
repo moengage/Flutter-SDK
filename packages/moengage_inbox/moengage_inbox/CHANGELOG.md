@@ -4,9 +4,22 @@
 
 ## Release Version
 - Android
-    - Added support for AGP version `8.7.3` and above
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
+  
+# 24-04-2025
+
+## 8.2.1
+- BugFix:
+  - ANR while accessing fetchAllMessages API in Main Thread
+
+# 25-03-2025
+
+## 8.2.0
+- Android
+    - Added support for AGP version `8.7.3` and above
+- iOS
+  - Updated MoEngageInbox to `2.19.1`
 
 # 18-02-2025
 

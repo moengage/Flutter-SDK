@@ -3,11 +3,25 @@
 # Release Date
 
 ## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+  
+# 24-04-2025
+
+## 9.2.1
+
+- Android 
+  - `inapp` version updated to `8.8.1`
+
+# 25-03-2025
+
+## 9.2.0
 - Adding support for identify user based on multiple identities
 - Android
     - Added support for AGP version `8.7.3` and above
-    - Compiled SDK Version updated to 35
-    - Min SDK Version updated to 23
+- iOS
+  - Updated MoEngage-iOS-SDK to 9.23.1
 
 # 18-02-2025
 
