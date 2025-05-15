@@ -7,6 +7,8 @@
 - Android
   - `moe-android-sdk` version updated to `13.05.01`
   - `inapp` version updated to `8.7.0`
+- iOS
+  - **Breaking Change**: Minimum deployment target updated to 13
           
 # 25-11-2024
 

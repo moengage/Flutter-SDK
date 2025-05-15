@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.name             = 'moengage_inbox_ios'
   s.version          = libraryVersion
   s.platform         = :ios
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '13.0'
   s.summary          = 'A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs.'
   s.description      = <<-DESC
 A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs.

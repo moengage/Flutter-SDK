@@ -5,6 +5,8 @@
 ## Next Release
 - Android
   - `inbox-core` version updated to `3.2.1`
+- iOS
+  - **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-11-2024
 
