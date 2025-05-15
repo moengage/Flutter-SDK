@@ -4,6 +4,7 @@
 
 ## Next version
 - Updated MoEngageCards to `4.20.1`
+- **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-11-2024
 

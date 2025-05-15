@@ -6,6 +6,8 @@
 - Add `jsonEncode()` for missing APIs
 - Android
   - `cards-core` version updated to `2.3.1`
+- iOS
+  - **Breaking Change**: Minimum deployment target updated to 13
           
 # 25-11-2024
 
