@@ -6,6 +6,8 @@
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
+- iOS
+    - **Breaking Change**: Minimum deployment target updated to 13
   
 # 24-04-2025
 
