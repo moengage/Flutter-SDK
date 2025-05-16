@@ -42,6 +42,9 @@ const String inboxPayload = '''
         "receivedTime": "2023-08-15T06:17:30.167Z",
         "expiry": "2023-11-13T06:17:30.000Z",
         "tag": "general",
+        "groupKey": "group",
+        "notificationId": "id",
+        "sentTime": "2023-08-15T06:17:30.167Z",
         "payload": {
           "moe_app_id": "",
           "moe_notification_posted_time": 1692080250175,
