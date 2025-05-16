@@ -1,5 +1,9 @@
 # MoEngage Inbox Platform Interface
-          
+# Next Release 
+
+## Next Version
+- Added support for Notification grouping and replacement.          
+
 # 25-11-2024
 
 ## 3.0.2
