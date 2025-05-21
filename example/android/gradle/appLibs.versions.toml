@@ -1,16 +1,5 @@
-[versions]
-glide = "4.16.0"
-
 [libraries]
-fcm = { module = "com.google.firebase:firebase-messaging", version = "23.4.1" }
-playLocation = { module = "com.google.android.gms:play-services-location", version = "21.0.1" }
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version = "1.9.23" }
-hmsPush = { module = "com.huawei.hms:push", version = "6.10.0.300" }
-adIdentifier = { module = "com.google.android.gms:play-services-ads-identifier", version = "18.0.1" }
-lifecycleOwner = { module = "androidx.lifecycle:lifecycle-process", version = "2.7.0" }
 expresso = { module = "androidx.test.espresso:espresso-core", version = "3.5.1" }
 androidJUnit = { module = "androidx.test.ext:junit", version = "1.1.5" }
 junit = { module = "junit:junit", version = "4.13.2" }
-
-
-glideCore = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

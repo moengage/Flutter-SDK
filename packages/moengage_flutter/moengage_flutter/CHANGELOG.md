@@ -3,10 +3,12 @@
 # Release Date
 
 ## Release Version
-
-- Web 
-  - Added support for enableSdk() and disableSdk() methods
-
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+- Web
+    - Added support for enableSdk() and disableSdk() methods
+  
 # 24-04-2025
 
 ## 9.2.1
