@@ -174,7 +174,6 @@ const String keyScreenName = 'screenName';
 const String keyCampaigns = 'campaigns';
 const String keyScreenNames = 'screenNames';
 
-
 /// Identify User
 const String keyUserIdentity = 'identity';
 const String keyUniqueUserIdentity = 'uid';

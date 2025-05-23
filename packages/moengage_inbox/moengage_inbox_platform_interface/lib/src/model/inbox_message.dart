@@ -15,7 +15,10 @@ class InboxMessage {
       this.tag,
       this.receivedTime,
       this.expiry,
-      this.payload);
+      this.payload,
+      this.groupKey,
+      this.notificationId,
+      this.sentTime);
 
   /// internal identifier used by the SDK for storage.
   int id;
@@ -51,8 +54,19 @@ class InboxMessage {
   /// Complete message payload.
   Map<String, dynamic> payload;
 
+  /// A key representing the group to which the inbox message belongs.
+  String groupKey;
+
+  /// Notification Replacement Id.
+  String notificationId;
+
+  /// The timestamp indicating when the message was sent.
+  ///
+  /// Format - ISO-8601 yyyy-MM-dd'T'HH:mm:ss'Z'
+  String sentTime;
+
   @override
   String toString() {
-    return 'InboxMessage{id: $id, campaignId: $campaignId, textContent: $textContent, isClicked: $isClicked, media: $media, action: $action, tag: $tag, receivedTime: $receivedTime, expiry: $expiry, payload: $payload}';
+    return 'InboxMessage{id: $id, campaignId: $campaignId, textContent: $textContent, isClicked: $isClicked, media: $media, action: $action, tag: $tag, receivedTime: $receivedTime, expiry: $expiry, payload: $payload, payload: $payload, groupKey: $groupKey, notificationId: $notificationId, sentTime: $sentTime}';
   }
 }
