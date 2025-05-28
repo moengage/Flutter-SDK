@@ -3,8 +3,8 @@
 # Next Release
 
 ## Next version
-- Updated MoEngage-iOS-SDK to 9.24.0
-- Updated MoEngageInApp to 6.06.0          
+- Updated MoEngage-iOS-SDK to 10.00.0
+- Updated MoEngageInApp to 7.00.0          
 - **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-11-2024

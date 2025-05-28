@@ -2,7 +2,7 @@
 # Next release date
 
 ## Next version 
--  Updated MoEngageInbox to 2.20.0
+-  Updated MoEngageInbox to 3.00.0
 - **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-11-2024
