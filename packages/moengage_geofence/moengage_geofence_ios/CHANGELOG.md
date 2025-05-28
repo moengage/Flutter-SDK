@@ -18,7 +18,7 @@
 # Next Release date
 
 ## Next version
-- Updated MoEngageGeofence to 5.19.1
+- Updated MoEngageGeofence to 6.00.0
 - **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-11-2024
