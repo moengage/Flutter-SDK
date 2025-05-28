@@ -31,7 +31,10 @@ Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
     keyExpiryTime: inboxMessage.expiry,
     keyPayload: inboxMessage.payload,
     keyTextContent: mapFromTextContent(inboxMessage.textContent),
-    keyAction: actionsListFromModel(inboxMessage.action)
+    keyAction: actionsListFromModel(inboxMessage.action),
+    keyGroupKey: inboxMessage.groupKey,
+    keyNotificationId: inboxMessage.notificationId,
+    keySentTime: inboxMessage.sentTime
   };
   final Media? media = inboxMessage.media;
   if (media != null) {
@@ -81,7 +84,10 @@ InboxMessage? messageFromJson(Map<String, dynamic> message) {
         (message.containsKey(keyTag) ? message[keyTag] : 'general').toString(),
         message[keyReceivedTime].toString(),
         message[keyExpiryTime].toString(),
-        message[keyPayload] as Map<String, dynamic>);
+        message[keyPayload] as Map<String, dynamic>,
+        message[keyGroupKey].toString(),
+        message[keyNotificationId].toString(),
+        message[keySentTime].toString());
   } catch (e, stacktrace) {
     Logger.e('$_tag Error: messageFromJson InboxMessage ',
         stackTrace: stacktrace);
