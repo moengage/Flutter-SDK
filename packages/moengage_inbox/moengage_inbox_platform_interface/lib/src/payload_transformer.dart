@@ -119,7 +119,20 @@ Media? mediaFromMap(Map<String, dynamic> mediaMap) {
     return null;
   }
   return Media(MediaTypeExt.fromString(mediaMap[keyType].toString()),
-      mediaMap[keyUrl].toString());
+        mediaMap[keyUrl].toString(),
+        mediaMap.containsKey(keyAccessibility) && mediaMap[keyAccessibility] != null
+          ? accessibilityFromMap(mediaMap[keyAccessibility] as Map<String, dynamic>)
+          : null);
+}
+
+/// Get [Accessibility] from [Map]
+Accessibility? accessibilityFromMap(Map<String, dynamic> accessibilityMap) {
+  if (accessibilityMap.isEmpty) {
+    return null;
+  }
+  return Accessibility(
+      accessibilityMap[keyText] as String?,
+      accessibilityMap[keyHint] as String?);
 }
 
 /// Get [List] of [Action] from Json Array
@@ -165,8 +178,16 @@ Map<String, String> mapFromTextContent(TextContent content) {
 }
 
 /// Get [Map] from [Media]
-Map<String, String> mapFromMedia(Media media) {
-  return <String, String>{keyType: media.mediaType.asString, keyUrl: media.url};
+Map<String, dynamic> mapFromMedia(Media media) {
+  return <String, dynamic>{keyType: media.mediaType.asString, keyUrl: media.url, keyAccessibility: mapFromAccessibility(media.accessibility)};
+}
+
+/// Get [Map] from [Accessibility]
+Map<String, String?> mapFromAccessibility(Accessibility? accessibility) {
+  return <String, String?>{
+    keyText: accessibility?.text,
+    keyHint: accessibility?.hint
+  };
 }
 
 /// Get [List] of [Map] from [List] of [Action]
