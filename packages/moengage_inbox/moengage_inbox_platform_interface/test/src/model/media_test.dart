@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData;
 import 'package:moengage_inbox_platform_interface/src/model/media.dart';
-import 'package:moengage_inbox_platform_interface/src/model/accessibility.dart';
 import 'package:moengage_inbox_platform_interface/src/model/media_type.dart';
 
 void main() {
@@ -8,12 +8,12 @@ void main() {
     test('should create Media with non-null accessibility', () {
       final mediaType = MediaType.image;
       final url = 'https://example.com/image.png';
-      final accessibility = Accessibility('Accessible text', 'Accessible hint');
+      final accessibility = AccessibilityData('Accessible text', 'Accessible hint');
       final media = Media(mediaType, url, accessibility);
 
       expect(media.mediaType, equals(mediaType));
       expect(media.url, equals(url));
-      expect(media.accessibility, equals(accessibility));
+      expect(media.accessibilityData, equals(accessibility));
     });
 
     test('should create Media with null accessibility', () {
@@ -23,13 +23,13 @@ void main() {
 
       expect(media.mediaType, equals(mediaType));
       expect(media.url, equals(url));
-      expect(media.accessibility, isNull);
+      expect(media.accessibilityData, isNull);
     });
 
     test('toString returns expected string representation', () {
       final mediaType = MediaType.image;
       final url = 'https://example.com/media.png';
-      final accessibility = Accessibility('Text', 'Hint');
+      final accessibility = AccessibilityData('Text', 'Hint');
       final media = Media(mediaType, url, accessibility);
 
       final expectedString =

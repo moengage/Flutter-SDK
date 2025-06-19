@@ -1,10 +1,10 @@
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData;
 import 'media_type.dart';
-import 'accessibility.dart';
 
 /// Media associated with the [InboxMessage]
 class Media {
   /// [Media] constructor
-  Media(this.mediaType, this.url, [this.accessibility]);
+  Media(this.mediaType, this.url, [this.accessibilityData]);
 
   /// Content type of the Media.
   MediaType mediaType;
@@ -13,10 +13,10 @@ class Media {
   String url;
 
   /// Defines the accessibility properties for the media model
-  Accessibility? accessibility;
+  AccessibilityData? accessibilityData;
 
   @override
   String toString() {
-    return 'Media{mediaType: $mediaType, url: $url, accessibility: $accessibility}';
+    return 'Media{mediaType: $mediaType, url: $url, accessibility: $accessibilityData}';
   }
 }
