@@ -1,7 +1,9 @@
 import '../../internal/constants.dart';
 
+/// Accessibility Data UI Component
 class AccessibilityData {
 
+  /// [AccessibilityData] Constructor
 AccessibilityData(this.text, this.hint);
 
 /// Creates an [AccessibilityData] instance from a JSON [Map]
@@ -14,7 +16,7 @@ AccessibilityData(this.text, this.hint);
   /// Text for the AccessibilityData
   String? text;
 
-  /// Hint for the AccessibilityData
+  /// Hint for the AccessibilityData. Applicable only for iOS Platform
   String? hint;
 
   @override
