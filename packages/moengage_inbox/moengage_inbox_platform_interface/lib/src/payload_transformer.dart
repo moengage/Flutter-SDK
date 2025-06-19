@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, Logger, keyData;
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, Logger, keyData, keyAccessibility;
 import 'internal/constants.dart';
 import 'model/models.dart';
 

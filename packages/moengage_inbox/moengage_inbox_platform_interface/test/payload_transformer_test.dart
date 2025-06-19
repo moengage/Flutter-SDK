@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData;
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, keyAccessibility;
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
 
 
