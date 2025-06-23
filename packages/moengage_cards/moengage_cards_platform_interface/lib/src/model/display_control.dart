@@ -55,4 +55,9 @@ class DisplayControl {
         keyIsPinned: isPinned,
         keyShowTime: showTime.toJson()
       };
+
+  @override
+  String toString() {
+    return 'DisplayControl{expireAt: $expireAt, expireAfterSeen: $expireAfterSeen, expireAfterDelivered: $expireAfterDelivered, maxCount: $maxCount, isPinned: $isPinned, showTime: $showTime}';    
+  }
 }

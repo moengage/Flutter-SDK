@@ -38,7 +38,8 @@ const String singleCard = '''
                 "kvPairs": {
                 }
               }
-            ]
+            ],
+            "accessibility": null
           },
           {
             "id": 1,
@@ -48,7 +49,8 @@ const String singleCard = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           },
           {
             "id": 2,
@@ -58,7 +60,8 @@ const String singleCard = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           },
           {
             "id": 3,
@@ -68,7 +71,8 @@ const String singleCard = '''
               "bgColor": "#FFFFF",
               "fontSize": 2
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           }
         ]
       }
@@ -387,6 +391,7 @@ const String cardsForCategoryJson = '''
 const String cardsData = '''
 {
      "category":"promotions",
+      "accessibility":null,
      "cards":[
      {
   "id": 210,
@@ -427,7 +432,8 @@ const String cardsData = '''
                 "kvPairs": {
                 }
               }
-            ]
+            ],
+             "accessibility":null
           },
           {
             "id": 1,
@@ -437,7 +443,8 @@ const String cardsData = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility":null
           },
           {
             "id": 2,
@@ -447,7 +454,8 @@ const String cardsData = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility":null
           },
           {
             "id": 3,
@@ -457,7 +465,8 @@ const String cardsData = '''
               "bgColor": "#FFFFF",
               "fontSize": 2
             },
-            "actions": []
+            "actions": [],
+            "accessibility":null
           }
         ]
       }
@@ -498,6 +507,7 @@ const String cardsData = '''
 const String cardsInfoData = '''
 {
      "shouldShowAllTab":true,
+     "accessibility": null,
      "categories": ["promotions"],
      "cards":[
      {
@@ -539,7 +549,8 @@ const String cardsInfoData = '''
                 "kvPairs": {
                 }
               }
-            ]
+            ],
+           "accessibility": null
           },
           {
             "id": 1,
@@ -549,7 +560,8 @@ const String cardsInfoData = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           },
           {
             "id": 2,
@@ -559,7 +571,8 @@ const String cardsInfoData = '''
               "bgColor": "#ed2a4a",
               "fontSize": 20
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           },
           {
             "id": 3,
@@ -569,7 +582,8 @@ const String cardsInfoData = '''
               "bgColor": "#FFFFF",
               "fontSize": 2
             },
-            "actions": []
+            "actions": [],
+            "accessibility": null
           }
         ]
       }

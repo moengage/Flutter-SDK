@@ -78,4 +78,9 @@ class MetaData {
         keyCreatedAt: createdAt,
         keyCampaignPayload: campaignPayload
       };
+
+  @override
+  String toString() {
+    return 'MetaData{isNewCard: $isNewCard, campaignState: $campaignState, deletionTime: $deletionTime, displayControl: $displayControl, metaData: $metaData, updatedTime: $updatedTime, createdAt: $createdAt, campaignPayload: $campaignPayload, isPinned: $isPinned}';
+  }
 }
