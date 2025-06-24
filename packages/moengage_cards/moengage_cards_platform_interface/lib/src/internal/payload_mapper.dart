@@ -3,9 +3,10 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show keyAppId, keyAccountMeta, keyData;
+    show AccessibilityData, keyAccountMeta, keyAppId, keyData;
 
 import '../../moengage_cards_platform_interface.dart';
+import '../model/enums/static_image_type.dart';
 
 WidgetStyle? widgetStyleFromJson(
   Map<String, dynamic>? json,
@@ -104,6 +105,32 @@ Map<String, dynamic> getDeleteCardsPayload(List<Card> cards, String appId) {
     keyAccountMeta: getAppIdPayload(appId),
     keyData: {keyCards: cards.map((Card e) => e.toJson()).toList()}
   };
+}
+
+/// Parses static image accessibility data from JSON.
+Map<StaticImageType, AccessibilityData>? parseStaticImageAccessibilityData(dynamic accessibilityJson) {
+  if (accessibilityJson != null && accessibilityJson is Map<String, dynamic>) {
+  return accessibilityJson.map(
+    (key, value) => MapEntry(
+    StaticImageType.fromString(key),
+    AccessibilityData.fromJson(value as Map<String, dynamic>),
+    ),
+  );
+  }
+  return null;
+}
+
+/// Serializes static image accessibility data to JSON.
+Map<String, dynamic>? serializeStaticImageAccessibilityData(Map<StaticImageType, AccessibilityData>? accessibilityData) {
+  if (accessibilityData != null) {
+  return accessibilityData.map(
+    (key, value) => MapEntry(
+    key.toShortString(),
+    value.toJson(),
+    ),
+  );
+  }
+  return null;
 }
 
 SyncType syncTypeFromString(String? syncType) {

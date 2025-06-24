@@ -1,5 +1,6 @@
 import 'package:moengage_flutter/moengage_flutter.dart'
   show AccessibilityData, keyAccessibility;
+import '../../moengage_cards_platform_interface.dart';
 import '../internal/constants.dart';
 import 'card.dart';
 import 'enums/static_image_type.dart';
@@ -24,17 +25,7 @@ class CardsInfo {
     cards: List.from((json[keyCards] ?? []) as Iterable)
       .map((e) => Card.fromJson(e as Map<String, dynamic>))
       .toList(),
-    staticImagesAccessibilityData:
-      (json[keyAccessibility] != null &&
-          json[keyAccessibility] is Map<String, dynamic>)
-        ? (json[keyAccessibility] as Map<String, dynamic>).map(
-          (key, value) => MapEntry(
-          StaticImageType.fromString(key),
-          AccessibilityData.fromJson(
-            value as Map<String, dynamic>),
-          ),
-        )
-        : null,
+    staticImagesAccessibilityData: parseStaticImageAccessibilityData(json[keyAccessibility]),
   );
   }
 
@@ -55,9 +46,7 @@ class CardsInfo {
     keyShouldShowAllTab: shouldShowAllTab,
     keyCategories: categories,
     keyCards: cards.map((Card e) => e.toJson()).toList(),
-    keyAccessibility: staticImagesAccessibilityData?.map(
-      (key, value) => MapEntry(key.toShortString(), value.toJson()),
-    ),
+    keyAccessibility:  serializeStaticImageAccessibilityData(staticImagesAccessibilityData)
     };
 
   @override
