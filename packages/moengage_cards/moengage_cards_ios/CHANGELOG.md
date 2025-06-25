@@ -15,6 +15,11 @@
 ## 4.1.0
 - Updated MoEngageCards to `4.19.1`
           
+# Next Release
+
+## Next version
+- Updated MoEngageCards to `4.20.1`
+
 # 25-11-2024
 
 ## 4.0.2
