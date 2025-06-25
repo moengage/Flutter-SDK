@@ -15,6 +15,11 @@
 ## 3.2.0
 - Updated MoEngageGeofence to 5.19.0
           
+# Next Release date
+
+## Next version
+- Updated MoEngageGeofence to 5.19.1
+
 # 25-11-2024
 
 ## 3.1.2

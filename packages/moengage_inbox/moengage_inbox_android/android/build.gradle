@@ -57,7 +57,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     compileOnly("com.moengage:moe-android-sdk:14.00.00")
     api("com.moengage:inbox-core:4.0.0")
-    implementation("com.moengage:plugin-base-inbox:4.2.0")
+    implementation("com.moengage:plugin-base-inbox:5.2.0-SNAPSHOT")
 }
 
 apply from: file("./user-agent.gradle")
