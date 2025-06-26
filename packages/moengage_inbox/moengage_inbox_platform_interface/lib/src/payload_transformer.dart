@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger, keyData;
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, Logger, keyData, keyAccessibility;
 import 'internal/constants.dart';
 import 'model/models.dart';
 
@@ -119,7 +119,17 @@ Media? mediaFromMap(Map<String, dynamic> mediaMap) {
     return null;
   }
   return Media(MediaTypeExt.fromString(mediaMap[keyType].toString()),
-      mediaMap[keyUrl].toString());
+        mediaMap[keyUrl].toString(),
+        mediaMap.containsKey(keyAccessibility) && mediaMap[keyAccessibility] != null
+          ? accessibilityFromMap(mediaMap[keyAccessibility] as Map<String, dynamic>)
+          : null);
+}
+
+/// Get [Accessibility] from [Map]
+AccessibilityData? accessibilityFromMap(Map<String, dynamic> accessibilityMap) {
+  return accessibilityMap.isNotEmpty
+      ? AccessibilityData.fromJson(accessibilityMap)
+      : null;
 }
 
 /// Get [List] of [Action] from Json Array
@@ -165,8 +175,13 @@ Map<String, String> mapFromTextContent(TextContent content) {
 }
 
 /// Get [Map] from [Media]
-Map<String, String> mapFromMedia(Media media) {
-  return <String, String>{keyType: media.mediaType.asString, keyUrl: media.url};
+Map<String, dynamic> mapFromMedia(Media media) {
+  return <String, dynamic>{keyType: media.mediaType.asString, keyUrl: media.url, keyAccessibility: mapFromAccessibility(media.accessibilityData)};
+}
+
+/// Get [Map] from [Accessibility]
+Map<String, String?> mapFromAccessibility(AccessibilityData? accessibility) {
+  return accessibility?.toJson().cast<String, String?>() ?? <String, String?>{};
 }
 
 /// Get [List] of [Map] from [List] of [Action]
