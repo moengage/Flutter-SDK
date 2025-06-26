@@ -37,3 +37,7 @@ const String keyActionType = 'actionType';
 const String keyNavigationType = 'navigationType';
 const String keyValue = 'value';
 const String keyKvPair = 'kvPair';
+
+const String keyGroupKey = 'groupKey';
+const String keyNotificationId = 'notificationId';
+const String keySentTime = 'sentTime';

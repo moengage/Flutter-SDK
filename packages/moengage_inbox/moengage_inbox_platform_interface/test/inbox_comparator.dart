@@ -24,7 +24,10 @@ class InboxComparator {
         isMediaEqual(data1.media, data2.media) &&
         data1.receivedTime == data2.receivedTime &&
         data1.tag == data2.tag &&
-        isTextContentEqual(data1.textContent, data2.textContent);
+        isTextContentEqual(data1.textContent, data2.textContent) &&
+        data1.groupKey == data2.groupKey &&
+        data1.notificationId == data2.notificationId &&
+        data1.sentTime == data2.sentTime;
   }
 
   bool isInboxMessagesEqual(
