@@ -3,6 +3,7 @@
 # Release Date
 
 ## Release Version
+- Added Accessibility support in Cards.
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
