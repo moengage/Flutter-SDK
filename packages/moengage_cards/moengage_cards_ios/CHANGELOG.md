@@ -3,7 +3,7 @@
 # Next Release
 
 ## Next version
-- Updated MoEngageCards to `5.00.0`
+- Updated MoEngageCards to `5.01.1`
 - **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-03-2025
