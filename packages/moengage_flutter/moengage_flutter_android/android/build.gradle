@@ -62,9 +62,8 @@ android {
     }
 }
 dependencies {
-    api("com.moengage:moe-android-sdk:14.02.00")
-    api("com.moengage:core:8.2.0-SNAPSHOT")
-    api("com.moengage:inapp:9.1.0")
+    api("com.moengage:moe-android-sdk:14.02.01")
+    api("com.moengage:inapp:9.1.1")
     api("com.moengage:plugin-base:5.5.0-SNAPSHOT")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }

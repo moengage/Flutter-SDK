@@ -1,4 +1,9 @@
 # MoEngage Cards Platform Interface
+
+# Next Release
+
+## Next version
+- Added Accessibility support in Cards.
           
 # 25-11-2024
 
