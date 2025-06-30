@@ -1,6 +1,6 @@
 name: moengage_flutter_ios
 description: iOS implementation of the moengage_flutter plugin
-version: 3.3.0
+version: 3.3.1
 homepage: https://www.moengage.com
 
 environment:
