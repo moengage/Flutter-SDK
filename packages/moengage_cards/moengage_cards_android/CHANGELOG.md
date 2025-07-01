@@ -3,10 +3,9 @@
 # Release Date
 
 ## Release Version
-- Android
-    - Compiled SDK Version updated to 35
-    - Min SDK Version updated to 23
-    - `cards-core` version updated to `3.1.0`
+- Compiled SDK Version updated to 35
+- Min SDK Version updated to 23
+- `cards-core` version updated to `3.1.0`
   
 # 25-03-2025
 
