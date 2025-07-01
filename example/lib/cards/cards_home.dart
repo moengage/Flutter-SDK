@@ -83,6 +83,8 @@ class _CardsHomeState extends State<CardsHome> {
                     title: const Text('Fetch Cards'),
                     onTap: () async {
                       final moe.CardsData data = await cards.fetchCards();
+                      debugPrint('Fetched Cards API response: ${data.toString()}');
+                      debugPrint('Static Image Accessibility Data: ${data.staticImagesAccessibilityData.toString()}');
                       final int count = data.cards.length;
                       // ignore: use_build_context_synchronously
                       showSnackBar(

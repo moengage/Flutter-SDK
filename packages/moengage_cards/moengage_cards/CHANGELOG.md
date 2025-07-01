@@ -3,9 +3,11 @@
 # Release Date
 
 ## Release Version
+- Added Accessibility support in Cards.
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
+    - `cards-core` version updated to `3.1.0`
 - iOS
   - **Breaking Change**: Minimum deployment target updated to 13
   

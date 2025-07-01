@@ -3,9 +3,10 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show keyAppId, keyAccountMeta, keyData;
+    show AccessibilityData, keyAccountMeta, keyAppId, keyData;
 
 import '../../moengage_cards_platform_interface.dart';
+import '../model/enums/static_image_type.dart';
 
 WidgetStyle? widgetStyleFromJson(
   Map<String, dynamic>? json,
@@ -135,3 +136,42 @@ String syncTypeToString(SyncType syncType) {
 }
 
 Map<String, dynamic> getAppIdPayload(String appId) => {keyAppId: appId};
+
+/// Parses static image accessibility data from JSON.
+Map<StaticImageType, AccessibilityData>? parseStaticImageAccessibilityData(dynamic accessibilityJson) {
+  if (accessibilityJson != null && accessibilityJson is Map<String, dynamic>) {
+  return accessibilityJson.map(
+    (key, value) => MapEntry(
+    StaticImageType.fromString(key),
+    AccessibilityData.fromJson(value as Map<String, dynamic>),
+    ),
+  );
+  }
+  return null;
+}
+
+/// Serializes static image accessibility data to JSON.
+Map<String, dynamic>? serializeStaticImageAccessibilityData(Map<StaticImageType, AccessibilityData>? accessibilityData) {
+  if (accessibilityData != null) {
+  return accessibilityData.map(
+    (key, value) => MapEntry(
+    key.toShortString(),
+    value.toJson(),
+    ),
+  );
+  }
+  return null;
+}
+
+/// Helper method to parse a list of Card objects from JSON.
+List<Card> parseCardsListFromJson(dynamic json) {
+   final list = (json ?? []) as Iterable;
+    return list
+        .map((cardJson) => Card.fromJson(cardJson as Map<String, dynamic>))
+        .toList();
+}
+
+/// Helper method to serialize a list of `Card` objects to JSON.
+List<Map<String, dynamic>> serializeCardsToJson(List<Card> cards) {
+  return cards.map((card) => card.toJson()).toList();
+}
