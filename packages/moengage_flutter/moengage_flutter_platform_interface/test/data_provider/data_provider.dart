@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'package:moengage_flutter_platform_interface/src/model/platforms.dart';
-
-import '../../lib/src/internal/constants.dart';
 
 final MoEProperties properties = MoEProperties()
     .addAttribute('string', 'Mark')

@@ -72,8 +72,8 @@ void main() {
       final map = cardsInfo.toJson();
       expect(map['shouldShowAllTab'], true);
       expect(map['categories'], ['cat1']);
-      expect(map['cards'], isA<Iterable>());
-      expect(map['accessibility'], isA<Map>());
+      expect(map['cards'], isA<Iterable<Map<String,dynamic>>>());
+      expect(map['accessibility'], isA<Map<String,dynamic>>());
       expect(map['accessibility']['no_cards'], {'text': 'label', 'hint': 'hint'});
     });
 
@@ -87,7 +87,7 @@ void main() {
       final map = cardsInfo.toJson();
       expect(map['shouldShowAllTab'], true);
       expect(map['categories'], ['cat1']);
-      expect(map['cards'], isA<Iterable>());
+      expect(map['cards'], isA<Iterable<Map<String,dynamic>>>());
       expect(map['accessibility'], isNull);
       });
   });

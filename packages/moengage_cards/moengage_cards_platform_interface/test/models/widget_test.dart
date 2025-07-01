@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_cards_platform_interface/src/model/enums/widget_type.dart';
 import 'package:moengage_cards_platform_interface/src/model/style/widget_style.dart';

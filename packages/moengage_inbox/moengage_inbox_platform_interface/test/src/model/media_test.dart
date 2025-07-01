@@ -6,8 +6,8 @@ import 'package:moengage_inbox_platform_interface/src/model/media_type.dart';
 void main() {
   group('Media', () {
     test('should create Media with non-null accessibility', () {
-      final mediaType = MediaType.image;
-      final url = 'https://example.com/image.png';
+      const mediaType = MediaType.image;
+      const url = 'https://example.com/image.png';
       final accessibility = AccessibilityData('Accessible text', 'Accessible hint');
       final media = Media(mediaType, url, accessibility);
 
@@ -17,9 +17,9 @@ void main() {
     });
 
     test('should create Media with null accessibility', () {
-      final mediaType = MediaType.video;
-      final url = 'https://example.com/video.mp4';
-      final media = Media(mediaType, url, null);
+      const mediaType = MediaType.video;
+      const url = 'https://example.com/video.mp4';
+      final media = Media(mediaType, url);
 
       expect(media.mediaType, equals(mediaType));
       expect(media.url, equals(url));
@@ -27,8 +27,8 @@ void main() {
     });
 
     test('toString returns expected string representation', () {
-      final mediaType = MediaType.image;
-      final url = 'https://example.com/media.png';
+      const mediaType = MediaType.image;
+      const url = 'https://example.com/media.png';
       final accessibility = AccessibilityData('Text', 'Hint');
       final media = Media(mediaType, url, accessibility);
 
