@@ -407,7 +407,7 @@ const String inAppClickDataPayload = '''
 ''';
 
 const String inAppClickData =
-    r'''{"accountMeta":{"appId":""},"data":{"type":"click","campaignName":"Self handled Test in-app<::>0<::>1","campaignId":"64ca642685373efd30dced83","campaignContext":{"cid":"64ca642685373efd30dced83_F_T_IA_AB_1_P_0_L_0","campaign_name":"Self handled Test in-app","moe_locale_name":"Default","moe_locale_id":"0","moe_variation_id":"1"},"selfHandled":{"payload":"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}","dismissInterval":60,"displayRules":{"screenName":"Dashboard","contexts":[]}},"platform":null}}''';
+    r'''{"accountMeta":{"appId":""},"data":{"type":"click","campaignName":"Self handled Test in-app<::>0<::>1","campaignId":"64ca642685373efd30dced83","campaignContext":{"cid":"64ca642685373efd30dced83_F_T_IA_AB_1_P_0_L_0","campaign_name":"Self handled Test in-app","moe_locale_name":"Default","moe_locale_id":"0","moe_variation_id":"1"},"selfHandled":{"payload":"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}","dismissInterval":60,"displayRules":{"screenName":"Dashboard","contexts":[],"screenNames":["Dashboard"]}},"platform":null}}''';
 
 const String nudgePayload = r'''
 {
