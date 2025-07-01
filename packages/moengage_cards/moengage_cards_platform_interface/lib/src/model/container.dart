@@ -59,4 +59,9 @@ class Container {
         keyWidgets: widgets.map((Widget e) => e.toJson()).toList(),
         keyActions: actionList.map((Action e) => e.toJson()).toList()
       };
+
+  @override
+  String toString() {
+    return 'Container{id: $id, templateType: $templateType, style: $style, widgets: $widgets, actionList: $actionList}';
+  }
 }

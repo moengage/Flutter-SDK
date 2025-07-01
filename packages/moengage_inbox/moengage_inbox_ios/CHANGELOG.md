@@ -1,5 +1,11 @@
 # MoEngage Inbox iOS Plugin
 
+# Next release date
+
+## Next version 
+-  Updated MoEngageInbox to 3.01.1
+- **Breaking Change**: Minimum deployment target updated to 13
+
 # 24-04-2025
 
 ## 3.3.1

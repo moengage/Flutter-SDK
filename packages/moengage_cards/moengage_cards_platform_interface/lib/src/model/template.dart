@@ -40,4 +40,9 @@ class Template {
         keyContainers: containers.map((Container e) => e.toJson()).toList(),
         keyKVPairs: kvPairs
       };
+
+  @override
+  String toString() {
+    return 'Template{templateType: $templateType, containers: $containers, kvPairs: $kvPairs}';
+  }
 }

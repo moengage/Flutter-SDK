@@ -60,7 +60,7 @@ final SelfHandledCampaignData selfHandledCampaign = SelfHandledCampaignData(
         })),
     AccountMeta(''),
     SelfHandledCampaign('{"key1":"value1","key2":"value2","key3":"value3"}', 60,
-        Rules(screenName: 'Dashboard')),
+        Rules(screenName: 'Dashboard', context: [], screenNames: ['Dashboard'])),
     Platforms.android);
 
 final InAppData inAppData = InAppData(
@@ -199,7 +199,7 @@ final SelfHandledCampaignsData selfHandledCampaigns =
           })),
       AccountMeta(''),
       SelfHandledCampaign('{"key1":"value1","key2":"value2","key3":"value3"}',
-          60, Rules(screenName: 'Dashboard', context: [])),
+          60, Rules(screenName: 'Dashboard', context: [], screenNames: ['Dashboard'])),
       Platforms.android),
   SelfHandledCampaignData(
       CampaignData(
@@ -216,7 +216,7 @@ final SelfHandledCampaignsData selfHandledCampaigns =
       SelfHandledCampaign(
           '{"key1":"value1","key2":"value2","key3":"value3"}',
           60,
-          Rules(screenName: 'Dashboard', context: ['section_1', 'section_2'])),
+          Rules(screenName: 'Dashboard', context: ['section_1', 'section_2'], screenNames: ['Dashboard'])),
       Platforms.android),
 ]);
 

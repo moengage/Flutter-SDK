@@ -3,10 +3,17 @@
 # Release Date
 
 ## Release Version
-
-- Web 
-  - Added support for enableSdk() and disableSdk() methods
-
+- Support for Simplifying InApp Triggers
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+    - `moe-android-sdk` version updated to `14.02.02`
+    - `inapp` version updated to `9.1.1`
+- iOS
+    - **Breaking Change**: Minimum deployment target updated to 13
+- Web
+    - Added support for enableSdk() and disableSdk() methods
+  
 # 24-04-2025
 
 ## 9.2.1

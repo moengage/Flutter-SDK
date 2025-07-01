@@ -50,5 +50,9 @@ final InboxData inboxData = InboxData('android', [
         'gcm_webUrl': 'monengage://moe_app/add_to_cart',
         'gcm_campaign_id': '000000000000000088470679_L_0',
         'moe_channel_id': 'moe_sound_channel'
-      }),
+      },      
+      'group',
+      'id',
+      '2023-08-15T06:17:30.167Z'
+  )
 ]);

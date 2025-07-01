@@ -534,6 +534,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     if (data.messages.isNotEmpty) {
                       for (final InboxMessage message in data.messages) {
                         debugPrint('$tag Main : Inbox Messages $message');
+                        debugPrint('$tag Main : Inbox groupKey: ${message.groupKey}');
+                        debugPrint('$tag Main : Inbox notificationId: ${message.notificationId}');
+                        debugPrint('$tag Main : Inbox sentTime: ${message.sentTime}');
+                        debugPrint('Accessibility data : ${message.media?.accessibilityData}');
                       }
                     }
                   }

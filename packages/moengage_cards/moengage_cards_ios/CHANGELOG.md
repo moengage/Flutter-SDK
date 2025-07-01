@@ -1,4 +1,10 @@
 # MoEngage Cards iOS Plugin
+          
+# Next Release
+
+## Next version
+- Updated MoEngageCards to `5.01.1`
+- **Breaking Change**: Minimum deployment target updated to 13
 
 # 25-03-2025
 
@@ -14,7 +20,7 @@
 
 ## 4.1.0
 - Updated MoEngageCards to `4.19.1`
-          
+
 # 25-11-2024
 
 ## 4.0.2

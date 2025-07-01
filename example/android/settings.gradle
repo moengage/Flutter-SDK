@@ -18,11 +18,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://central.sonatype.com/repository/maven-snapshots/"
+        }
     }
     versionCatalogs {
         libs {
             create("moengage") {
-                from("com.moengage:android-dependency-catalog:4.7.0")
+                from("com.moengage:android-dependency-catalog:5.3.1")
             }
             create("appLibs") {
                 from(files("../android/gradle/appLibs.versions.toml"))

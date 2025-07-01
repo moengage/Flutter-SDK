@@ -1,5 +1,14 @@
 # MoEngage Geofence Plugin
 
+# Release Date
+
+## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+- iOS
+    - **Breaking Change**: Minimum deployment target updated to 13
+  
 # 25-03-2025
 
 ## 5.2.0

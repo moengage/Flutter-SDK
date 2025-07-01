@@ -27,15 +27,33 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 
 flutter_ios_podfile_setup
 
+# Uncomment and populate plugin base and native branch for using unreleased pluginbase
+# test_native_source = { :git => 'https://github.com/moengage/MoEngage-iPhone-SDK.git', :branch => 'MOEN-37979_ver-upgrade' }
+
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Uncomment and populate plugin base branch for using unreleased pluginbase
-  # pod 'MoEngagePluginBase', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
-  # pod 'MoEngagePluginCards', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
-  # pod 'MoEngagePluginInbox', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
-  # pod 'MoEngagePluginGeofence', :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-30032-update-9.16.0'
+  # Uncomment and populate plugin base and native branch for using unreleased pluginbase
+  # pod 'MoEngage-iOS-SDK', **test_native_source
+  # pod 'MoEngageSecurity', **test_native_source
+  # pod 'MoEngageCore', **test_native_source
+  # pod 'MoEngageMessaging', **test_native_source
+  # pod 'MoEngageSDK', **test_native_source
+  # pod 'MoEngageTriggerEvaluator', **test_native_source
+  # pod 'MoEngageInApps', **test_native_source
+  # pod 'MoEngageCards', **test_native_source
+  # pod 'MoEngageInbox', **test_native_source
+  # pod 'MoEngageGeofence', **test_native_source
+  # pod 'MoEngageRichNotification', **test_native_source
+  # pod 'MoEngageRealTimeTrigger', **test_native_source
+
+  # test_pluginbase_source = { :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-38539_Version-Upgrade' }
+  # pod 'MoEngagePluginBase', **test_pluginbase_source
+  # pod 'MoEngagePluginCards', **test_pluginbase_source
+  # pod 'MoEngagePluginInbox', **test_pluginbase_source
+  # pod 'MoEngagePluginGeofence', **test_pluginbase_source
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
@@ -51,11 +69,11 @@ end
 target 'PushTemplates' do
   use_frameworks!
   pod 'MoEngageRichNotification'
-  
+  # pod 'MoEngageRichNotification', **test_native_source
 end
 
 target 'NotificationServices' do
   use_frameworks!
   pod 'MoEngageRichNotification'
-  
+  # pod 'MoEngageRichNotification', **test_native_source
 end

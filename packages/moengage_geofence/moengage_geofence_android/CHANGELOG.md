@@ -1,5 +1,12 @@
 # MoEngage Geofence Android Plugin
-          
+
+# Release Date
+
+## Release Version
+- Android
+    - Compiled SDK Version updated to 35
+    - Min SDK Version updated to 23
+  
 # 25-03-2025
 
 ## 3.3.0
@@ -10,6 +17,7 @@
 ## 3.2.0
 - Add `jsonEncode()` for missing APIs
 - `geofence` version updated to `4.2.1`
+- Added support for AGP version `8.7.3` and above
 
 # 25-11-2024
 

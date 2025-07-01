@@ -86,6 +86,7 @@ class Comparator {
 
   bool isDisplayRuleEqual(Rules? data1, Rules? data2) {
     return data1?.screenName == data2?.screenName &&
-        const DeepCollectionEquality().equals(data1?.context, data2?.context);
+        const DeepCollectionEquality().equals(data1?.context, data2?.context) &&
+        const DeepCollectionEquality().equals(data1?.screenNames, data2?.screenNames);
   }
 }

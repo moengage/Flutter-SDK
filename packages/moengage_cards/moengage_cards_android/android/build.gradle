@@ -7,6 +7,9 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url "https://central.sonatype.com/repository/maven-snapshots/"
+        }
     }
 
     dependencies {
@@ -21,6 +24,9 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
+        maven {
+            url "https://central.sonatype.com/repository/maven-snapshots/"
+        }
     }
 }
 
@@ -29,7 +35,7 @@ apply plugin: 'kotlin-android'
 // apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace "com.moengage.flutter.cards"
 
     compileOptions {
@@ -46,7 +52,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 23
     }
 
     buildFeatures {
@@ -56,8 +62,8 @@ android {
 
 dependencies {
 
-    implementation("com.moengage:plugin-base-cards:3.1.0")
-    compileOnly("com.moengage:moe-android-sdk:13.06.00")
-    compileOnly("com.moengage:plugin-base:4.3.0")
-    api("com.moengage:cards-core:2.4.0")
+    implementation("com.moengage:plugin-base-cards:4.0.2-SNAPSHOT")
+    compileOnly("com.moengage:moe-android-sdk:14.02.02")
+    compileOnly("com.moengage:plugin-base:5.0.2-SNAPSHOT")
+    api("com.moengage:cards-core:3.1.0")
 }

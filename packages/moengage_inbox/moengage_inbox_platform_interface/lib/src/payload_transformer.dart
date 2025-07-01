@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger, keyData;
+import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, Logger, keyData, keyAccessibility;
 import 'internal/constants.dart';
 import 'model/models.dart';
 
@@ -31,7 +31,10 @@ Map<String, dynamic> messageToMap(InboxMessage inboxMessage) {
     keyExpiryTime: inboxMessage.expiry,
     keyPayload: inboxMessage.payload,
     keyTextContent: mapFromTextContent(inboxMessage.textContent),
-    keyAction: actionsListFromModel(inboxMessage.action)
+    keyAction: actionsListFromModel(inboxMessage.action),
+    keyGroupKey: inboxMessage.groupKey,
+    keyNotificationId: inboxMessage.notificationId,
+    keySentTime: inboxMessage.sentTime
   };
   final Media? media = inboxMessage.media;
   if (media != null) {
@@ -81,7 +84,10 @@ InboxMessage? messageFromJson(Map<String, dynamic> message) {
         (message.containsKey(keyTag) ? message[keyTag] : 'general').toString(),
         message[keyReceivedTime].toString(),
         message[keyExpiryTime].toString(),
-        message[keyPayload] as Map<String, dynamic>);
+        message[keyPayload] as Map<String, dynamic>,
+        message[keyGroupKey].toString(),
+        message[keyNotificationId].toString(),
+        message[keySentTime].toString());
   } catch (e, stacktrace) {
     Logger.e('$_tag Error: messageFromJson InboxMessage ',
         stackTrace: stacktrace);
@@ -113,7 +119,17 @@ Media? mediaFromMap(Map<String, dynamic> mediaMap) {
     return null;
   }
   return Media(MediaTypeExt.fromString(mediaMap[keyType].toString()),
-      mediaMap[keyUrl].toString());
+        mediaMap[keyUrl].toString(),
+        mediaMap.containsKey(keyAccessibility) && mediaMap[keyAccessibility] != null
+          ? accessibilityFromMap(mediaMap[keyAccessibility] as Map<String, dynamic>)
+          : null);
+}
+
+/// Get [Accessibility] from [Map]
+AccessibilityData? accessibilityFromMap(Map<String, dynamic> accessibilityMap) {
+  return accessibilityMap.isNotEmpty
+      ? AccessibilityData.fromJson(accessibilityMap)
+      : null;
 }
 
 /// Get [List] of [Action] from Json Array
@@ -159,8 +175,13 @@ Map<String, String> mapFromTextContent(TextContent content) {
 }
 
 /// Get [Map] from [Media]
-Map<String, String> mapFromMedia(Media media) {
-  return <String, String>{keyType: media.mediaType.asString, keyUrl: media.url};
+Map<String, dynamic> mapFromMedia(Media media) {
+  return <String, dynamic>{keyType: media.mediaType.asString, keyUrl: media.url, keyAccessibility: mapFromAccessibility(media.accessibilityData)};
+}
+
+/// Get [Map] from [Accessibility]
+Map<String, String?> mapFromAccessibility(AccessibilityData? accessibility) {
+  return accessibility?.toJson().cast<String, String?>() ?? <String, String?>{};
 }
 
 /// Get [List] of [Map] from [List] of [Action]
