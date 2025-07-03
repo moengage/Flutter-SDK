@@ -7,9 +7,6 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven {
-            url "https://central.sonatype.com/repository/maven-snapshots/"
-        }
     }
 
     dependencies {
@@ -23,9 +20,6 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url "https://central.sonatype.com/repository/maven-snapshots/"
-        }
     }
 }
 
@@ -64,7 +58,7 @@ android {
 dependencies {
     api("com.moengage:moe-android-sdk:14.02.02")
     api("com.moengage:inapp:9.1.1")
-    api("com.moengage:plugin-base:5.0.2-SNAPSHOT")
+    api("com.moengage:plugin-base:5.0.0")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
 apply from: file("./user-agent.gradle")

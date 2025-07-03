@@ -4,6 +4,7 @@
 
 ## Release Version
 - Support for Simplifying InApp Triggers
+- Accessibility support in SDK
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23

@@ -4,6 +4,7 @@
 
 ## Release Version
 - Added support for notification grouping and replacement
+- Added Accessibility support in Inbox
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
