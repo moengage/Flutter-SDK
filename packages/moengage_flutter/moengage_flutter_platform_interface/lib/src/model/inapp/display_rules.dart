@@ -3,7 +3,11 @@ import '../../../moengage_flutter_platform_interface.dart';
 /// InApp Campaign Display Rules
 class Rules {
   /// Creates an instance of [Rules] with the provided [screenName] and [context]
-  Rules({this.screenName, List<String>? context, List<String>? screenNames})
+  Rules({
+      @Deprecated('This parameter is deprecated and will be removed in future releases. Use [screenNames] instead')
+      this.screenName,
+      List<String>? context,
+      List<String>? screenNames})
       : context = context ?? [],
         screenNames = screenNames ?? [];
 
