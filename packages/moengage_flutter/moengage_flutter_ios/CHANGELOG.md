@@ -1,15 +1,8 @@
-# MoEngage Cards Plugin
+# MoEngage Flutter iOS Plugin
+
 # 03-07-2025
 
 ## 4.0.0
-- Internal improvements.
-
-
-# MoEngage Flutter iOS Plugin
-
-# Next Release
-
-## Next version
 - Updated MoEngage-iOS-SDK to 10.02.1
 - Updated MoEngageInApp to 7.01.1      
 - **Breaking Change**: Minimum deployment target updated to 13
