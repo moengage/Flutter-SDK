@@ -1,6 +1,6 @@
 name: moengage_cards_ios
 description: iOS implementation of the moengage_cards plugin
-version: 4.2.0
+version: 5.0.0
 homepage: https://www.moengage.com
 
 environment:
@@ -18,8 +18,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_cards_platform_interface: ^4.0.0
-  moengage_flutter: ^9.0.0
+  moengage_cards_platform_interface: ^5.0.0
+  moengage_flutter: ^10.0.0
 
 dev_dependencies:
   flutter_test:

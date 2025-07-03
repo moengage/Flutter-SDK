@@ -19,6 +19,7 @@ class Rules {
       );
 
   /// Screen name on which the campaign should be shown.
+  @Deprecated('This field is deprecated and will be removed in future releases. Use [screenNames] instead')
   String? screenName;
 
   /// Context for which the campaign should be shown.

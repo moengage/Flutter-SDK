@@ -1,8 +1,8 @@
 # MoEngage Geofence iOS Plugin
           
-# Next Release date
+# 03-07-2025
 
-## Next version
+## 4.0.0
 - Updated MoEngageGeofence to 6.00.1
 - **Breaking Change**: Minimum deployment target updated to 13
 

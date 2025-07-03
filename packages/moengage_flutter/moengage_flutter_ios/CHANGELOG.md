@@ -1,3 +1,10 @@
+# MoEngage Cards Plugin
+# 03-07-2025
+
+## 4.0.0
+- Internal improvements.
+
+
 # MoEngage Flutter iOS Plugin
 
 # Next Release

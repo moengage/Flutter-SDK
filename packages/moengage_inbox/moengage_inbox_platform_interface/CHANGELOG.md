@@ -1,5 +1,10 @@
 # MoEngage Inbox Platform Interface
 
+# 03-07-2025
+
+## 4.0.0
+- - Added Accessibility support in Inbox.
+
 # 24-04-2025
 
 ## 3.0.3
