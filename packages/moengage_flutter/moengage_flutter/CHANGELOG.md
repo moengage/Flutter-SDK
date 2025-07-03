@@ -1,9 +1,10 @@
 # MoEngage Flutter Plugin
 
-# Release Date
+# 03-07-2025
 
-## Release Version
+## 10.0.0
 - Support for Simplifying InApp Triggers
+- Accessibility support in SDK
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23

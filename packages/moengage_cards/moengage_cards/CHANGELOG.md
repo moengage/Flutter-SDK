@@ -1,8 +1,8 @@
 # MoEngage Cards Plugin
 
-# Release Date
+# 03-07-2025
 
-## Release Version
+## 6.0.0
 - Added Accessibility support in Cards.
 - Android
     - Compiled SDK Version updated to 35

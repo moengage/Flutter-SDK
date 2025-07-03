@@ -1,5 +1,10 @@
 # MoEngage Geofence Platform Interface
-          
+
+# 03-07-2025
+
+## 4.0.0
+- Internal improvements. 
+    
 # 25-11-2024
 
 ## 3.0.2

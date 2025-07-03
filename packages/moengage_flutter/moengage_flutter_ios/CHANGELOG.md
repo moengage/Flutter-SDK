@@ -1,8 +1,8 @@
 # MoEngage Flutter iOS Plugin
 
-# Next Release
+# 03-07-2025
 
-## Next version
+## 4.0.0
 - Updated MoEngage-iOS-SDK to 10.02.1
 - Updated MoEngageInApp to 7.01.1      
 - **Breaking Change**: Minimum deployment target updated to 13

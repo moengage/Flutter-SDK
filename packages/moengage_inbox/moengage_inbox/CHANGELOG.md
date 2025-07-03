@@ -1,9 +1,10 @@
 # MoEngage Flutter Inbox Plugin
 
-# Release Version
+# 03-07-2025
 
-## Release Version
+## 9.0.0
 - Added support for notification grouping and replacement
+- Added Accessibility support in Inbox
 - Android
     - Compiled SDK Version updated to 35
     - Min SDK Version updated to 23
