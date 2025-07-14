@@ -3,7 +3,7 @@
 # Release Date
 
 ## Release version
-- Export `platforms.dart` in platform interface
+- Export `platforms.dart` in platform interface barrel file
 
 # 03-07-2025
 
