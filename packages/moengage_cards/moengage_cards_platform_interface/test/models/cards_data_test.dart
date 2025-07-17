@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_cards_platform_interface/src/model/cards_data.dart';
-import 'package:moengage_cards_platform_interface/src/model/enums/static_image_type.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, keyAccessibility;
+import 'package:moengage_cards_platform_interface/src/model/model.dart';
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show AccessibilityData, keyAccessibility;
 
 import '../data_provider/data_model_provider.dart';
 
@@ -12,9 +12,11 @@ const String argumentAllCards = 'ALL';
 void main() {
   group('CardsData', () {
     test('fromJson creates correct CardsData object', () {
-      final Map<String, dynamic> json = { // Explicit type for json
+      final Map<String, dynamic> json = {
+        // Explicit type for json
         keyCategory: 'promotions',
-        keyCards: [], // This is a List<dynamic> currently. If it's always Card objects, make it List<Card>
+        keyCards:
+            [], // This is a List<dynamic> currently. If it's always Card objects, make it List<Card>
         keyAccessibility: {
           'no_cards': {
             'text': 'Banner Image',
@@ -29,13 +31,23 @@ void main() {
 
       expect(cardsData.category, 'promotions');
       expect(cardsData.staticImagesAccessibilityData, isNotNull);
-      expect(cardsData.staticImagesAccessibilityData!.containsKey(StaticImageType.emptyState), isTrue);
-      expect(cardsData.staticImagesAccessibilityData![StaticImageType.emptyState]!.text, 'Banner Image');
-      expect(cardsData.staticImagesAccessibilityData![StaticImageType.emptyState]!.hint, 'Banner image for promotions');
+      expect(
+          cardsData.staticImagesAccessibilityData!
+              .containsKey(StaticImageType.emptyState),
+          isTrue);
+      expect(
+          cardsData
+              .staticImagesAccessibilityData![StaticImageType.emptyState]!.text,
+          'Banner Image');
+      expect(
+          cardsData
+              .staticImagesAccessibilityData![StaticImageType.emptyState]!.hint,
+          'Banner image for promotions');
     });
 
     test('fromJson handles missing accessibility key', () {
-      final Map<String, dynamic> json = { // Explicit type for json
+      final Map<String, dynamic> json = {
+        // Explicit type for json
         keyCategory: 'promotions',
         keyCards: [],
         // keyAccessibility is intentionally missing
@@ -48,7 +60,8 @@ void main() {
     });
 
     test('fromJson handles null accessibility data', () {
-      final Map<String, dynamic> json = { // Explicit type for json
+      final Map<String, dynamic> json = {
+        // Explicit type for json
         keyCategory: 'promotions',
         keyCards: [],
         keyAccessibility: null,
@@ -62,7 +75,8 @@ void main() {
     });
 
     test('toJson returns correct map', () {
-      final card = cardModel; // Assuming cardModel is a specific type, e.g., Card
+      final card =
+          cardModel; // Assuming cardModel is a specific type, e.g., Card
       final accessibilityData = AccessibilityData('text', 'hint');
       final cardsData = CardsData(
         category: 'promotions',
@@ -72,17 +86,24 @@ void main() {
         },
       );
 
-      final Map<String, dynamic> json = cardsData.toJson(); // Explicit type for json
+      final Map<String, dynamic> json =
+          cardsData.toJson(); // Explicit type for json
 
       expect(json[keyCategory], 'promotions');
       // Here, json[keyCards] is a List<dynamic> because toJson() returns Map<String, dynamic>
       // The actual type of elements in json[keyCards] is Map<String, dynamic>
       expect(json[keyCards], isA<List<Map<String, dynamic>>>());
-      expect((json[keyCards] as List<dynamic>)[0]['card_id'], '123457'); // Explicit cast for clarity
-      expect((json[keyCards] as List<dynamic>)[0]['id'], 210); // Explicit cast for clarity
+      expect((json[keyCards] as List<dynamic>)[0]['card_id'],
+          '123457'); // Explicit cast for clarity
+      expect((json[keyCards] as List<dynamic>)[0]['id'],
+          210); // Explicit cast for clarity
       // Similarly for accessibility data, it's a Map<String, dynamic>
-      expect((json[keyAccessibility] as Map<String, dynamic>)['no_cards']['text'], 'text');
-      expect((json[keyAccessibility] as Map<String, dynamic>)['no_cards']['hint'], 'hint');
+      expect(
+          (json[keyAccessibility] as Map<String, dynamic>)['no_cards']['text'],
+          'text');
+      expect(
+          (json[keyAccessibility] as Map<String, dynamic>)['no_cards']['hint'],
+          'hint');
     });
 
     test('toJson omits accessibility data if null', () {
@@ -117,7 +138,8 @@ void main() {
 
       // This expectation is good, as it checks if the key is indeed a StaticImageType.
       // The internal implementation of fromJson in CardsData needs to handle the conversion from String to StaticImageType.
-      expect(cardsData.staticImagesAccessibilityData!.keys.first, isA<StaticImageType>());
+      expect(cardsData.staticImagesAccessibilityData!.keys.first,
+          isA<StaticImageType>());
     });
   });
 }
