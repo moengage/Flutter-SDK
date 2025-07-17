@@ -84,7 +84,7 @@ class _CardsHomeState extends State<CardsHome> {
                     onTap: () async {
                       final moe.CardsData data = await cards.fetchCards();
                       debugPrint(
-                          "Cards data: ${data.staticImagesAccessibilityData?[moe.StaticImageType.emptyState]}");
+                          "Empty State Cards data: ${data.staticImagesAccessibilityData?[moe.StaticImageType.emptyState]}");
                       debugPrint(
                           'Fetched Cards API response: ${data.toString()}');
                       debugPrint(
