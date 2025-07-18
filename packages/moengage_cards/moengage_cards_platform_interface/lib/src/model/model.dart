@@ -7,6 +7,7 @@ export 'cards_info.dart';
 export 'container.dart';
 export 'display_control.dart';
 export 'enums/action_type.dart';
+export 'enums/static_image_type.dart';
 export 'enums/template_type.dart';
 export 'enums/widget_type.dart';
 export 'meta_data.dart';

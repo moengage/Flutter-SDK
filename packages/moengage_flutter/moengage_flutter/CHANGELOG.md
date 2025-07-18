@@ -1,5 +1,10 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release version
+- Export `platforms.dart` in platform interface barrel file
+
 # 03-07-2025
 
 ## 10.0.0

@@ -49,6 +49,7 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
       debugPrint('$tag _onInAppSelfHandle(): SelfHandled InApp Data is Null');
       return;
     }
+    debugPrint('Is Android Platform: ${message.platform == Platforms.android}');
     debugPrint(
         '$tag Main : _onInAppSelfHandle() : This is a callback on inapp self handle from native to flutter. Payload $message');
     await handleAction(context, message);

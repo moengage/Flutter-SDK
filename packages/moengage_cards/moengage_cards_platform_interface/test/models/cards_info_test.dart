@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_cards_platform_interface/src/model/cards_info.dart';
-import 'package:moengage_cards_platform_interface/src/model/enums/static_image_type.dart';
+import 'package:moengage_cards_platform_interface/src/model/model.dart';
 import 'package:moengage_flutter/moengage_flutter.dart';
 
 void main() {
@@ -44,11 +43,13 @@ void main() {
           contains(StaticImageType.emptyState));
       expect(cardsInfo.staticImagesAccessibilityData!.keys,
           contains(StaticImageType.pinCard));
-      expect(cardsInfo.staticImagesAccessibilityData![StaticImageType.emptyState]!.text,
+      expect(
+          cardsInfo
+              .staticImagesAccessibilityData![StaticImageType.emptyState]!.text,
           'icon label');
     });
 
-     test('parses with staticImagesAccessibilityData as null', () {
+    test('parses with staticImagesAccessibilityData as null', () {
       final json = {
         'shouldShowAllTab': false,
         'categories': [],
@@ -72,23 +73,20 @@ void main() {
       final map = cardsInfo.toJson();
       expect(map['shouldShowAllTab'], true);
       expect(map['categories'], ['cat1']);
-      expect(map['cards'], isA<Iterable<Map<String,dynamic>>>());
-      expect(map['accessibility'], isA<Map<String,dynamic>>());
-      expect(map['accessibility']['no_cards'], {'text': 'label', 'hint': 'hint'});
+      expect(map['cards'], isA<Iterable<Map<String, dynamic>>>());
+      expect(map['accessibility'], isA<Map<String, dynamic>>());
+      expect(
+          map['accessibility']['no_cards'], {'text': 'label', 'hint': 'hint'});
     });
 
-
     test('toJson returns correct map', () {
-      final cardsInfo = CardsInfo(
-        shouldShowAllTab: true,
-        categories: ['cat1'],
-        cards: []
-      );
+      final cardsInfo =
+          CardsInfo(shouldShowAllTab: true, categories: ['cat1'], cards: []);
       final map = cardsInfo.toJson();
       expect(map['shouldShowAllTab'], true);
       expect(map['categories'], ['cat1']);
-      expect(map['cards'], isA<Iterable<Map<String,dynamic>>>());
+      expect(map['cards'], isA<Iterable<Map<String, dynamic>>>());
       expect(map['accessibility'], isNull);
-      });
+    });
   });
 }

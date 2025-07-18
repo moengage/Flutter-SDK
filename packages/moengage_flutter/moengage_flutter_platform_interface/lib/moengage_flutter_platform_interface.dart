@@ -29,6 +29,7 @@ export 'src/model/inapp/self_handled_data.dart';
 export 'src/model/moe_init_config.dart';
 export 'src/model/permission_result.dart';
 export 'src/model/permission_type.dart';
+export 'src/model/platforms.dart';
 export 'src/model/properties.dart';
 export 'src/model/push/moe_push_service.dart';
 export 'src/model/push/push_campaign.dart';
