@@ -1,8 +1,8 @@
 # MoEngage Cards Plugin
 
-# Release Date
+# 18-07-2025
 
-## Release version
+## 6.0.1
 - Export `static_image_type.dart` in the platform interface barrel file
 
 # 03-07-2025

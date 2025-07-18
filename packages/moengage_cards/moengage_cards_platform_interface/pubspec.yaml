@@ -1,6 +1,6 @@
 name: moengage_cards_platform_interface
 description: A common platform interface for the moengage_cards plugin.
-version: 5.0.0
+version: 5.0.1
 homepage: https://www.moengage.com
 
 environment:
