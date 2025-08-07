@@ -4,7 +4,7 @@
 
 ## Release Version
 - iOS
-    - Updated MoEngagePluginCards to `3.3.0`
+  - Updated MoEngagePluginCards to `3.4.0`
 
 # 18-07-2025
 

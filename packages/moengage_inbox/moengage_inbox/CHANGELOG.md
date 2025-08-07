@@ -4,7 +4,7 @@
 
 ## Release version
 - iOS
-  - Updated MoEngagePluginInbox to `4.2.0`
+  - Updated MoEngagePluginInbox to `4.3.0`
 
 # 03-07-2025
 
