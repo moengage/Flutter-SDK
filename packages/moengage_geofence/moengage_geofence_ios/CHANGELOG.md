@@ -3,7 +3,7 @@
 # Release date
 
 ## Release version
-- Updated MoEngagePluginGeofence to `4.2.0`
+- Updated MoEngagePluginGeofence to `4.3.0`
 
 # 03-07-2025
 

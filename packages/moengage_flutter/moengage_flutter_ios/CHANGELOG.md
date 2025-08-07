@@ -3,7 +3,7 @@
 # Release date
 
 ## Release version
-- Updated MoEngage-iOS-SDK to `10.03.0`
+- Updated MoEngage-iOS-SDK to `10.04.0`
 
 # 03-07-2025
 
