@@ -5,8 +5,8 @@
 ## 10.0.1
 - Export `platforms.dart` in platform interface barrel file
 - Android
-  - `moe-android-sdk` version updated to `14.03.00`
-  - `inapp` version updated to `9.2.0`
+  - `moe-android-sdk` version updated to `14.03.01`
+  - `inapp` version updated to `9.2.1`
 - iOS
   - Updated MoEngage-iOS-SDK to `10.04.0`
 

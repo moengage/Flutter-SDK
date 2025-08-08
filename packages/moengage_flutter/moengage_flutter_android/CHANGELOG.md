@@ -3,8 +3,8 @@
 # Release Date
 
 ## Release version
-- `moe-android-sdk` version updated to `14.03.00`
-- `inapp` version updated to `9.2.0`
+- `moe-android-sdk` version updated to `14.03.01`
+- `inapp` version updated to `9.2.1`
 
 # 03-07-2025
 
