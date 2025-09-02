@@ -1,14 +1,23 @@
 name: Release Plugins
 on:
-  workflow_dispatch: # manual trigger
+  workflow_dispatch:
+    inputs:
+      releaseTicket:
+        type: string
+        description: 'Enter the Release ticket number'
+        required: true
+      releaseNotes:
+        type: string
+        description: 'Enter the Release note'
+        required: true
 
 jobs:
-  publish:
+  pre-release:
     runs-on: ubuntu-latest
     if: contains(fromJSON('["umangmoe", "arshiya-moengage", "harish-engg-inbound", "kkgowtham-engg-sdk"]'), github.actor)
     steps:
       - name: Checkout sdk automation scripts
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: moengage/sdk-automation-scripts
           path: sdk-automation-scripts
@@ -16,7 +25,36 @@ jobs:
       - name: Automation script setup
         uses: ./sdk-automation-scripts/actions/flutter-repository-setup
       - name: Checkout 🔔
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          path: source
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Merge Development to Master
+        uses: ./sdk-automation-scripts/actions/action-git-development-to-master
+        with:
+          working-directory: source
+      - name: Pre-Release process
+        working-directory: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          kotlin .github/scripts/pre-release.main.kts ${{ github.event.inputs.releaseTicket }}
+  release:
+    needs: pre-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sdk automation scripts
+        uses: actions/checkout@v4
+        with:
+          repository: moengage/sdk-automation-scripts
+          path: sdk-automation-scripts
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Automation script setup
+        uses: ./sdk-automation-scripts/actions/flutter-repository-setup
+      - name: Checkout 🔔
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -33,11 +71,9 @@ jobs:
         run: gcloud auth activate-service-account --key-file=$HOME/key-file.json
       - name: Create pub.dev Temporary Token
         run: gcloud auth print-identity-token --audiences=https://pub.dev | dart pub token add https://pub.dev
-      - name: Script setup
+      - name: Release process
         working-directory: source
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          chmod +x .github/scripts/release.main.kts
-      - name: Publishing plugins
-        working-directory: source
-        run: |
-          .github/scripts/release.main.kts
+          kotlin .github/scripts/release.main.kts ${{ github.event.inputs.releaseNotes }}
