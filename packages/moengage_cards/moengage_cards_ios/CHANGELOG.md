@@ -3,7 +3,7 @@
 # Release Date
 
 ## Release Version
-- Updated MoEngagePluginCards to `3.4.1`
+- Updated MoEngagePluginCards to `3.5.0`
 
 # 03-07-2025
 
