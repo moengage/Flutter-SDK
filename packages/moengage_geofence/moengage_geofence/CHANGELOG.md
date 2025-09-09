@@ -6,7 +6,7 @@
 - Android
   - `geofence` version updated to `5.0.2`
 - iOS
-  - Updated MoEngagePluginGeofence to `4.3.1`
+  - Updated MoEngagePluginGeofence to `4.4.0`
 
 # 03-07-2025
 

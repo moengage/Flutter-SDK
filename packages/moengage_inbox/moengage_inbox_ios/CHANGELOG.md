@@ -3,7 +3,7 @@
 # Release date
 
 ## Release version
-- Updated MoEngagePluginInbox to `4.3.1`
+- Updated MoEngagePluginInbox to `4.4.0`
 
 # 03-07-2025
 
