@@ -3,7 +3,7 @@
 # Release Date
 
 ## Release Version
-- `cards-core` version updated to `3.1.1`
+- `cards-core` version updated to `3.1.2`
 
 # 03-07-2025
 

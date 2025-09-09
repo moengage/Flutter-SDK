@@ -4,7 +4,7 @@
 
 ## Release Version
 - Android
-  - Updated `cards-core` version to `3.1.1`
+  - Updated `cards-core` version to `3.1.2`
 - iOS
   - Updated MoEngagePluginCards to `3.4.1`
 

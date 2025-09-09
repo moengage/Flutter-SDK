@@ -3,6 +3,8 @@
 # Release Date
 
 ## Release version
+- Android
+  - `geofence` version updated to `5.0.2`
 - iOS
   - Updated MoEngagePluginGeofence to `4.3.1`
 
