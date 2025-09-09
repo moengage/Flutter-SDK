@@ -1,8 +1,8 @@
 # MoEngage Cards Android Plugin
 
-# Release Date
+# 09-09-2025
 
-## Release Version
+## 5.1.0
 - `cards-core` version updated to `3.1.2`
 
 # 03-07-2025
