@@ -1,14 +1,19 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - `moe-android-sdk` version updated to `14.03.03`
+  - `inapp` version updated to `9.3.0`
+- iOS
+  - Updated MoEngage-iOS-SDK to `10.04.2`
+
 # 18-07-2025
 
 ## 10.0.1
 - Export `platforms.dart` in platform interface barrel file
-- Android
-  - `moe-android-sdk` version updated to `14.03.02`
-  - `inapp` version updated to `9.2.1`
-- iOS
-  - Updated MoEngage-iOS-SDK to `10.04.2`
 
 # 03-07-2025
 

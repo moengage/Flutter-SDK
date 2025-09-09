@@ -3,6 +3,9 @@
 # Release Date
 
 ## Release version
+- Android
+  - `moe-android-sdk` version updated to `14.03.03`
+  - `plugin-base-inbox` version updated to `5.0.1`
 - iOS
   - Updated MoEngagePluginInbox to `4.3.1`
 
