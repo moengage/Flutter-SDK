@@ -13,7 +13,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout sdk automation scripts
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: moengage/sdk-automation-scripts
           path: sdk-automation-scripts
@@ -21,7 +21,7 @@ jobs:
       - name: Automation script setup
         uses: ./sdk-automation-scripts/actions/flutter-repository-setup
       - name: Checkout 🔔
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true

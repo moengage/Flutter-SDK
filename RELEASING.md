@@ -1,11 +1,9 @@
 # Release Process
 
 - Create a new branch from `development` for any new feature or bugfix
+- While working on feature update the changelog in the format of
+    - Release Header Placeholder = `# Release Date`
+    - Release Date Placeholder = `## Release Version`
+    - [Release Type (major / minor / patch)] TicketNumber: <Content>
 - After QA, merge the feature/bugfix branch into `development`
-- Once all the releasing features/changes into `development`, checkout release branch from `development`
-- Update Changelog release date and version 
-- Update versions in the `pubspec.yaml`
-- Update versions in `config.json`
-- and raise a PR to `development`
-- Once PR is merged, trigger the Release Plugins action to publish the updated plugins to `pub.dev`.
-- Create a github release
+- Trigger the release workflow from `development`
