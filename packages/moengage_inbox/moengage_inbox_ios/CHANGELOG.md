@@ -1,11 +1,4 @@
 # MoEngage Inbox iOS Plugin
-
-# Release Date
-
-## Release Version
-- [patch] `moe-android-sdk` version updated to `14.03.05`
-- [patch] `plugin-base-inbox` version updated to `5.0.2`
-
 # 09-09-2025
 
 ## 4.1.0
