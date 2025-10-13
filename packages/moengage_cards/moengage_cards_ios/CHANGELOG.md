@@ -1,5 +1,10 @@
 # MoEngage Cards iOS Plugin
-        
+
+# Release Date
+
+## Release Version
+- [patch] Updated MoEngageCards to `5.01.5`
+
 # 09-09-2025
 
 ## 5.1.0
