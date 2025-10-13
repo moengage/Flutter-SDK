@@ -6,6 +6,8 @@
 - Android
   - [patch] `moe-android-sdk` version updated to `14.03.05`
   - [patch] `plugin-base-inbox` version updated to `5.0.2`
+- iOS
+  - [patch] Updated MoEngageInbox to `3.01.2`
 
 # 09-09-2025
 

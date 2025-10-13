@@ -5,6 +5,8 @@
 ## Release Version
 - Android
   - [patch] `geofence` version updated to `5.0.3`
+- iOS
+  - [patch] Internal dependency updated.
 
 # 09-09-2025
 
