@@ -1,12 +1,12 @@
 # MoEngage Cards Plugin
 
-# Release Date
+# 14-10-2025
 
-## Release Version
+## 6.1.1
 - Android
-  - [patch] Updated `cards-core` version to `3.1.3`
+  - Updated `cards-core` version to `3.1.3`
 - iOS
-  - [patch] Updated MoEngageCards to `5.01.5`
+  - Updated MoEngageCards to `5.01.5`
 
 # 09-09-2025
 
