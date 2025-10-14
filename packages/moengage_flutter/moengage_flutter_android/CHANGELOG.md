@@ -1,5 +1,11 @@
 # MoEngage Flutter Android Plugin
 
+# Release Date
+
+## Release Version
+- [patch] `moe-android-sdk` version updated to `14.03.05`
+- [minor] `inapp` version updated to `9.4.0`
+
 # 09-09-2025
 
 ## 4.1.0
