@@ -1,12 +1,12 @@
 # MoEngage Geofence Plugin
 
-# Release Date
+# 14-10-2025
 
-## Release Version
+## 6.1.1
 - Android
-  - [patch] `geofence` version updated to `5.0.3`
+  - `geofence` version updated to `5.0.3`
 - iOS
-  - [patch] Internal dependency updated.
+  - Internal dependency updated.
 
 # 09-09-2025
 

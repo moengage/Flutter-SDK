@@ -1,6 +1,6 @@
 name: moengage_geofence_ios
 description: iOS implementation of the moengage_geofence plugin
-version: 4.1.0
+version: 4.1.1
 homepage: https://www.moengage.com
 
 environment:

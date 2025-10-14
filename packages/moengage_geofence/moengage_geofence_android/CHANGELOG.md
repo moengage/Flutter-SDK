@@ -1,9 +1,9 @@
 # MoEngage Geofence Android Plugin
 
-# Release Date
+# 14-10-2025
 
-## Release Version
-- [patch] `geofence` version updated to `5.0.3`
+## 4.1.1
+- `geofence` version updated to `5.0.3`
 
 # 09-09-2025
 
