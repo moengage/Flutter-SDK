@@ -1,6 +1,7 @@
 #!/usr/bin/env kotlin
 
 @file:Import("../../../sdk-automation-scripts/scripts/common/utils.main.kts")
+@file:Import("./flutter-utils.main.kts")
 
 val releasebranch = "master"
 releasePlugins(args[0])
