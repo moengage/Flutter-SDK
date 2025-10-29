@@ -16,15 +16,17 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'MoEngage Inc.' => 'mobiledevs@moengage.com' }
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+
+  root = "#{s.name}/Sources"
+  s.source_files     = "#{root}/**/*"
+  s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
   s.dependency 'MoEngagePluginBase', '6.6.0'
   s.swift_version = '5.0'
   s.prepare_command = <<-CMD
-      echo // Generated file, do not edit > Classes/MoEngageFlutterPluginInfo.swift
-      echo "import Foundation" >> Classes/MoEngageFlutterPluginInfo.swift
-      echo "struct MoEngageFlutterPluginInfo{\n  static let kVersion = \\"#{libraryVersion}\\" \n }" >> Classes/MoEngageFlutterPluginInfo.swift
+      echo // Generated file, do not edit > #{root}/MoEngageFlutterPluginInfo.swift
+      echo "import Foundation" >> #{root}/MoEngageFlutterPluginInfo.swift
+      echo "struct MoEngageFlutterPluginInfo{\n  static let kVersion = \\"#{libraryVersion}\\" \n }" >> #{root}/MoEngageFlutterPluginInfo.swift
     CMD
 
 end
