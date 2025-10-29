@@ -7,7 +7,7 @@ on:
 jobs:
   verify:
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: macos-15
     concurrency:
       group: ${{ github.head_ref }}-${{ github.event_name }}
       cancel-in-progress: true
@@ -20,6 +20,8 @@ jobs:
           token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
       - name: Automation script setup
         uses: ./sdk-automation-scripts/actions/flutter-repository-setup
+        env:
+          SDK_BOT_ACCESS_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
       - name: Checkout 🔔
         uses: actions/checkout@v4
         with:
@@ -59,3 +61,9 @@ jobs:
         run: |
           chmod +x ./.github/scripts/ktlint-verify.sh
           ./.github/scripts/ktlint-verify.sh
+      - name: Flutter build Cocoa ipa
+        working-directory: source
+        run: (cd example && flutter build ipa --debug --no-codesign)
+      - name: Flutter build SPM ipa
+        working-directory: source
+        run: (cd example_spm && flutter build ipa --debug --no-codesign)

@@ -53,10 +53,13 @@ All the configuration should be added to the builder before calling initialize. 
 
 Make sure to run `flutter build` command to make sure all the CocoaPods dependencies are added to your project. (i.e, `MoEngage-iOS-SDK` and `moengage_flutter`)
 
-To initialize the iOS Application with the MoEngage App ID from Settings in Dashboard. In your project, go to AppDelegate file and call the initialize method of `MOFlutterInitializer` instance in applicationdidFinishLaunchingWithOptions() method as shown below:
+To initialize the iOS Application with the MoEngage App ID from Settings in Dashboard. In your project, go to AppDelegate file and call the initialize method of `MoEngageInitializer` instance in applicationdidFinishLaunchingWithOptions() method as shown below:
 
 ```swift
-  MOFlutterInitializer.sharedInstance.initializeWithAppID("Your App ID", withLaunchOptions: launchOptions)
+let yourWorkspaceID = "<YOUR_WORKSPACE_ID>" //Workspace ID: You can be obtain it from App Settings in MoEngage Dashboard.
+let sdkConfig = MoEngageSDKConfig(appId: yourWorkspaceID, dataCenter: .data_center_01)
+
+MoEngageInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
 ```
 
 Refer to the [Documentation](https://developers.moengage.com/hc/en-us/categories/4404300700308-Flutter-SDK) for complete integration guide. 
