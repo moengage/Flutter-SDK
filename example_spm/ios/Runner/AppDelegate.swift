@@ -20,8 +20,12 @@ import MoEngageMessaging
         sdkConfig.consoleLogConfig = MoEngageConsoleLogConfig(isLoggingEnabled: true, loglevel: .verbose)
 
         MoEngageSDKCore.sharedInstance.enableAllLogs()
+        // Code based
         MoEngageInitializer.sharedInstance.initializeDefaultInstance(sdkConfig, launchOptions: launchOptions)
-        
+
+        // File based
+        // MoEngageInitializer.sharedInstance.initializeDefaultInstance()
+
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }

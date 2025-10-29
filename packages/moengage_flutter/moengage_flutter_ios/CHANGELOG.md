@@ -5,6 +5,7 @@
 ## Release Version
 - [minor] Added SPM integration support
 - [minor] Updated MoEngage-iOS-SDK to `10.08.0`
+- [minor] Added support for initialization from `Info.plist` data
 
 # 14-10-2025
 
