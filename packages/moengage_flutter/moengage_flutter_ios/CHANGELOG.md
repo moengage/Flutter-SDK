@@ -1,5 +1,11 @@
 # MoEngage Flutter iOS Plugin
 
+# Release Date
+
+## Release Version
+- iOS
+  - [patch] Updated MoEngage-iOS-SDK to `10.07.2`
+
 # 14-10-2025
 
 ## 4.2.0

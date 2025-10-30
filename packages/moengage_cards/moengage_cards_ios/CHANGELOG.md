@@ -1,5 +1,11 @@
 # MoEngage Cards iOS Plugin
 
+# Release Date
+
+## Release Version
+- iOS
+  - [patch] Internal dependency updated.
+  
 # 14-10-2025
 
 ## 5.1.1

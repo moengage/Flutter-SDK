@@ -1,5 +1,11 @@
 # MoEngage Inbox iOS Plugin
 
+# Release Date
+
+## Release Version
+- iOS
+  - [patch] Internal dependency updated
+
 # 14-10-2025
 
 ## 4.1.1
