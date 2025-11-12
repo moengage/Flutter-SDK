@@ -4,6 +4,7 @@
 
 ## Release Version
 
+- [minor] Adding support for initialising the SDK using file configuration from xml resource (android) / plist file (iOS)
 - Android
   - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 
