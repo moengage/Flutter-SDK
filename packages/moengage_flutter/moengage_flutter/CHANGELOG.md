@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+- Web
+    - [minor] Added support for enableDataTracking() and disableDataTracking() methods
+
 # 14-10-2025
 
 ## 10.2.0
