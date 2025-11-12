@@ -18,10 +18,14 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
         google()
         mavenCentral()
     }
+}
+
+ext {
+    moengageNativeBomVersion = "1.1.1"
+    moengagePluginBaseBomVersion = "1.1.0"
 }
 
 apply plugin: 'com.android.library'
@@ -55,9 +59,11 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    implementation("com.moengage:plugin-base-cards")
+    compileOnly("com.moengage:plugin-base")
 
-    implementation("com.moengage:plugin-base-cards:4.0.2")
-    compileOnly("com.moengage:moe-android-sdk:14.03.05")
-    compileOnly("com.moengage:plugin-base:5.1.3")
-    api("com.moengage:cards-core:3.1.3")
+    implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
+    compileOnly("com.moengage:moe-android-sdk")
+    api("com.moengage:cards-core")
 }
