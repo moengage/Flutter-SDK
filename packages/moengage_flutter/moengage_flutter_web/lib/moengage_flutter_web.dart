@@ -233,7 +233,11 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void optOutDataTracking(bool optOutDataTracking, String appId) {
-    Logger.v('optOutDataTracking(): Not supported in Web Platform');
+    if (optOutDataTracking) {
+      _moengage?.callMethod(methodDisableDataTracking, []);
+    } else {
+      _moengage?.callMethod(methodEnableDataTracking, []);
+    }
   }
 
   @override
