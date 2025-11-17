@@ -52,6 +52,19 @@ import MoEngageSDK
         plugin.trackPluginInfo(MoEngageFlutterConstants.kPluginName, version: getCoreVersion())
     }
 
+    /// Initializes the default MoEngage instance with configuration from Info.plist.
+    ///
+    /// This method enables SDK initialization using configuration values defined in the app's Info.plist file
+    /// under the `MoEngage` dictionary key. The Info.plist should contain SDK configuration such as:
+    /// - WorkspaceId: Your MoEngage workspace/app ID (required)
+    /// - DataCenter: The data center region (default: 1)
+    /// - IsSdkAutoInitialisationDisabled: Whether to disable auto-initialization (default: false)
+    /// - IsTestEnvironment: Whether running in test mode
+    /// - AppGroupName: App group name for sharing SDK data
+    /// - KeychainGroupName: Keychain group name for storing encryption keys
+    ///
+    /// - Parameter config: Additional configuration options that can override or supplement Info.plist settings.
+    ///   Defaults to a new instance of `MoEngageSDKDefaultInitializationConfig` if not provided.
     @objc public func initializeDefaultInstance(withAdditionalConfig config: MoEngageSDKDefaultInitializationConfig = MoEngageSDKDefaultInitializationConfig()) {
         let plugin = MoEngagePlugin()
         plugin.initializeDefaultInstance(withAdditionalConfig: config)
