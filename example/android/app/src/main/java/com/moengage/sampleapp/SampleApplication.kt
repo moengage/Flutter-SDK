@@ -38,7 +38,14 @@ class SampleApplication : FlutterApplication() {
             .configureFcm(FcmConfig(true))
             .configurePushKit(PushKitConfig(true))
             .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
+
+        // Source Code based initialization
         MoEInitializer.initialiseDefaultInstance(applicationContext, moEngage, SdkState.ENABLED,true)
+
+        // File based initialization
+//        MoEInitializer.initialiseDefaultInstance(this, true, SdkState.ENABLED)
+
+
         // optional, required in-case notification customisation is required.
         MoEPushHelper.getInstance().registerMessageListener(CustomPushListener(AccountMeta(BuildConfig.MOENGAGE_WORKSPACE_ID)))
     }

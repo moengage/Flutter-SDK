@@ -4,6 +4,7 @@
 
 ## Release Version
 
+- [minor] Adding support for initialising the SDK using file configuration from xml resource
 - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 
 # 14-10-2025
