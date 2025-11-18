@@ -13,11 +13,14 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'MoEngage Inc.' => 'mobiledevs@moengage.com' }
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
+
+  root = "#{s.name}/Sources"
+  s.source_files     = "#{root}/**/*"
+  s.public_header_files = "#{root}/**/*.h"
   s.platform         = :ios, '13.0'
 
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginCards', '3.7.0'
+  s.dependency 'MoEngagePluginCards', '3.8.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

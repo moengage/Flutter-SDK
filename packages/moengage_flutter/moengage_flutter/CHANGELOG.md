@@ -7,6 +7,9 @@
 - [minor] Adding support for initialising the SDK using file configuration from xml resource (android) / plist file (iOS)
 - Android
   - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+- iOS
+  - [minor] Added SPM integration support
+  - [minor] Updated MoEngage-iOS-SDK to `10.08.0`
 
 # 14-10-2025
 

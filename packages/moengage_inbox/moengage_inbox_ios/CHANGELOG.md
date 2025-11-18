@@ -1,5 +1,11 @@
 # MoEngage Inbox iOS Plugin
 
+# Release Date
+
+## Release Version
+- [minor] Added SPM integration support
+- [patch] Updated MoEngageInbox to `3.01.3`
+
 # 14-10-2025
 
 ## 4.1.1

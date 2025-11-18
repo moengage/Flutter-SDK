@@ -35,6 +35,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  disable-swift-package-manager: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -71,3 +72,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  # config:
+  #   enable-swift-package-manager: false

@@ -8,7 +8,7 @@ packages:
   - packages/*
   - packages/*/*
   - packages/*/*/*
-  - example
+  - example*
 scripts:
   analyze: melos exec -- flutter analyze
   format: melos exec -- dart format .
@@ -20,3 +20,16 @@ scripts:
       dir-exists:
         - test
       scope: "*interface*"
+  update-ios:
+    description: Update iOS dependencies
+    exec: $MELOS_ROOT_PATH/scripts/update-version.rb
+    packageFilters:
+      scope: '*_ios'
+    env:
+      MO_APPLE_VERSIONS: |
+        {
+          "MoEngagePluginBase": "6.7.0",
+          "MoEngagePluginCards": "3.8.0",
+          "MoEngagePluginGeofence": "4.7.0",
+          "MoEngagePluginInbox": "4.7.0"
+        }
