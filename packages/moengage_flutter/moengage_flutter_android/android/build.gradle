@@ -23,6 +23,12 @@ rootProject.allprojects {
     }
 }
 
+
+ext {
+    moengageNativeBomVersion = "1.1.1"
+    moengagePluginBaseBomVersion = "1.1.0"
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 // apply plugin: 'org.jlleitschuh.gradle.ktlint'
@@ -56,9 +62,13 @@ android {
     }
 }
 dependencies {
-    api("com.moengage:moe-android-sdk:14.03.05")
-    api("com.moengage:inapp:9.4.0")
-    api("com.moengage:plugin-base:5.1.3")
+    implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
+    api("com.moengage:moe-android-sdk")
+    api("com.moengage:inapp")
+
+    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    api("com.moengage:plugin-base")
+
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
 apply from: file("./user-agent.gradle")

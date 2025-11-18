@@ -1,5 +1,12 @@
 # MoEngage Cards Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+
 # 14-10-2025
 
 ## 6.1.1
