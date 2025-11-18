@@ -6,6 +6,9 @@
 
 - Android
   - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+- iOS
+  - [minor] Added SPM integration support
+  - [patch] Updated MoEngageGeofence to `6.00.4`
 
 # 14-10-2025
 

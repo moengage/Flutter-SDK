@@ -4,6 +4,7 @@
 
 ## Release Version
 - [minor] Added SPM integration support
+- [patch] Updated MoEngageCards to `5.01.6`
 
 # 14-10-2025
 

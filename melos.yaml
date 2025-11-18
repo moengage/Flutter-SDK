@@ -28,8 +28,8 @@ scripts:
     env:
       MO_APPLE_VERSIONS: |
         {
-          "MoEngagePluginBase": "6.6.0",
-          "MoEngagePluginCards": "3.7.0",
-          "MoEngagePluginGeofence": "4.6.0",
-          "MoEngagePluginInbox": "4.6.0"
+          "MoEngagePluginBase": "6.7.0",
+          "MoEngagePluginCards": "3.8.0",
+          "MoEngagePluginGeofence": "4.7.0",
+          "MoEngagePluginInbox": "4.7.0"
         }

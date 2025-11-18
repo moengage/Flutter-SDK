@@ -4,6 +4,7 @@
 
 ## Release Version
 - [minor] Added SPM integration support
+- [minor] Updated MoEngage-iOS-SDK to `10.08.0`
 
 # 14-10-2025
 

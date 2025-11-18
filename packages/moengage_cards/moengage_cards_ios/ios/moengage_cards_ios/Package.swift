@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "moengage-cards-ios", targets: ["moengage_cards_ios"])
     ],
     dependencies: [
-        .package(url: "https://github.com/moengage/apple-plugin-cards.git", exact: "3.7.0"),
+        .package(url: "https://github.com/moengage/apple-plugin-cards.git", exact: "3.8.0"),
         // For development
         // .package(path: "../../../../../../../../apple-plugin-cards"),
     ],
