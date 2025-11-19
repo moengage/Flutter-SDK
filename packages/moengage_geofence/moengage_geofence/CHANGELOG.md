@@ -1,14 +1,14 @@
 # MoEngage Geofence Plugin
 
-# Release Date
+# 19-11-2025
 
-## Release Version
+## 6.2.0
 
 - Android
-  - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+  - Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 - iOS
-  - [minor] Added SPM integration support
-  - [patch] Updated MoEngageGeofence to `6.00.4`
+  - Added SPM integration support
+  - Updated MoEngageGeofence to `6.00.4`
 
 # 14-10-2025
 

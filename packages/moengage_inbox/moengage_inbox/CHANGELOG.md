@@ -1,14 +1,14 @@
 # MoEngage Flutter Inbox Plugin
 
-# Release Date
+# 19-11-2025
 
-## Release Version
+## 9.2.0
 
 - Android
-  - [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+  - Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 - iOS
-  - [minor] Added SPM integration support
-  - [patch] Updated MoEngageInbox to `3.01.3`
+  - Added SPM integration support
+  - Updated MoEngageInbox to `3.01.3`
 
 # 14-10-2025
 

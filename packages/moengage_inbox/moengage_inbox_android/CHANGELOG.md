@@ -1,10 +1,10 @@
 # MoEngage Inbox Android Plugin
 
-# Release Date
+# 19-11-2025
 
-## Release Version
+## 4.1.2
 
-- [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+- Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 
 # 14-10-2025
 

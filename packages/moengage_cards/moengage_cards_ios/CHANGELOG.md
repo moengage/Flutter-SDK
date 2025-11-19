@@ -1,10 +1,10 @@
 # MoEngage Cards iOS Plugin
 
-# Release Date
+# 19-11-2025
 
-## Release Version
-- [minor] Added SPM integration support
-- [patch] Updated MoEngageCards to `5.01.6`
+## 5.2.0
+- Added SPM integration support
+- Updated MoEngageCards to `5.01.6`
 
 # 14-10-2025
 

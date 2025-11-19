@@ -1,11 +1,11 @@
 # MoEngage Flutter Android Plugin
 
-# Release Date
+# 19-11-2025
 
-## Release Version
+## 4.3.0
 
-- [minor] Adding support for initialising the SDK using file configuration from xml resource
-- [patch] Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+- Adding support for initialising the SDK using file configuration from xml resource
+- Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
 
 # 14-10-2025
 
