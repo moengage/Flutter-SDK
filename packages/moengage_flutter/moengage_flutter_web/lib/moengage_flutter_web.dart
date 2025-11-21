@@ -6,9 +6,7 @@ import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_in
         keyAlias,
         keyEventAttributes,
         keyEventName,
-        getIdentifyUserPayload,
-        methodGetUserIdentities,
-        methodIdentifyUser;
+        getIdentifyUserPayload;
 import 'package:web/web.dart' as web;
 
 import 'constants.dart';
@@ -78,7 +76,8 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     dynamic userAttributeValue,
     String appId,
   ) {
-    final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue);
+    final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue).toJS;
+
     _callMethod(
       methodSetUserAttributeSDK,
       userAttributeName.toJS,
@@ -159,14 +158,9 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
       Logger.w('$tag identifyUser(): Identity type is not supported');
       return;
     }
-    final moengage = _moengage;
-    if (moengage == null) return;
-    
+
     final identityPayload = web_utils.getIdentifyUserPayload(identity);
-    final method = moengage.getProperty(methodIdentifyUser.toJS);
-    if (method != null && method.typeofEquals('function')) {
-      (method as JSFunction).callAsFunction(moengage, identityPayload as JSAny);
-    }
+    _callMethod(methodIdentifyUserSDK, identityPayload as JSAny);
   }
 
   @override
@@ -175,10 +169,12 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
       final moengage = _moengage;
       if (moengage == null) return null;
       
-      final method = moengage.getProperty(methodGetUserIdentities.toJS);
+      final method = moengage.getProperty(methodGetUserIdentitiesSDK.toJS);
       if (method != null && method.typeofEquals('function')) {
         final result = (method as JSFunction).callAsFunction(moengage);
-        return Future.value(web_utils.convertJSObjectToMap(result));
+        final dynamicMap = web_utils.convertJSObjectToMap(result);
+        final stringMap = dynamicMap?.map((key, value) => MapEntry(key, value.toString()));
+        return Future.value(stringMap);
       }
       return null;
     } catch (e) {
@@ -328,9 +324,6 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     if (moengage == null) return;
     
     final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
-    final method = moengage.getProperty(methodName.toJS);
-    if (method != null && method.typeofEquals('function')) {
-      (method as JSFunction).callAsFunction(moengage);
-    }
+    _callMethod(methodName);
   }
 }
