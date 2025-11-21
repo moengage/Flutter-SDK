@@ -6,6 +6,8 @@ const String methodSetUserAttribute = 'setUserAttribute';
 const String methodSetUserAttributeTimeStamp = 'setUserAttributeTimeStamp';
 const String methodSetAlias = 'setAlias';
 const String methodLogout = 'logout';
+const String methodIdentifyUser = 'add_user_name';
+const String methodGetUserIdentities = 'get_user_attribute';
 
 // SDK Method Names
 const String methodTrackEventSDK = 'track_event';

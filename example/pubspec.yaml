@@ -24,6 +24,7 @@ dependencies:
   url_launcher: ^6.1.0
   collection:
   firebase_messaging: ^15.2.4
+  firebase_messaging_web: ^3.8.0
   firebase_core: ^3.12.1
 
 dev_dependencies:
@@ -35,7 +36,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  disable-swift-package-manager: true
+  config:
+    disable-swift-package-manager: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

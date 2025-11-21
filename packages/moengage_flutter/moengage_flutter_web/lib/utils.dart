@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs
-import 'dart:js' as js;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 import 'extensions.dart';
 
@@ -37,14 +38,14 @@ dynamic recursivelyJsifyObjects(List<dynamic> list) {
   final usrAttr = list.map((e) {
     if (e is Map<String, dynamic>) {
       // element was an object, Jsify it
-      return js.JsObject.jsify(e);
+      return e.jsify();
     } else if (e is List<dynamic>) {
       // nested list
       return recursivelyJsifyObjects(e);
     }
     return e;
   });
-  return js.JsArray.from(usrAttr);
+  return usrAttr.toList().jsify();
 }
 
 dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
@@ -52,14 +53,14 @@ dynamic getUserAttributeValuePayload(dynamic userAttributeValue) {
     return recursivelyJsifyObjects(userAttributeValue);
   }
   if (userAttributeValue is Map<String, dynamic>) {
-    return js.JsObject.jsify(userAttributeValue);
+    return userAttributeValue.jsify();
   }
   return userAttributeValue;
 }
 
 dynamic getIdentifyUserPayload(dynamic identities) {
   if (identities is Map<String, String>) {
-    return js.JsObject.jsify(identities);
+    return identities.jsify();
   }
   return identities;
 }
@@ -68,10 +69,18 @@ Map<String, String>? convertJSObjectToMap(dynamic jsObject) {
   if (jsObject == null) {
     return null;
   }
+  
   final resultMap = <String, String>{};
-  final keys = js.context['Object'].callMethod('keys', [jsObject]) as js.JsArray;
-  for (final key in keys) {
-    resultMap[key.toString()] = jsObject[key].toString();
+  if (jsObject is JSObject) {
+    final keys = (globalContext['Object'] as JSObject)
+        .callMethod('keys'.toJS, jsObject) as JSArray;
+    
+    final length = keys.getProperty('length'.toJS).dartify() as int;
+    for (var i = 0; i < length; i++) {
+      final key = keys.getProperty(i.toJS).dartify().toString();
+      final value = jsObject.getProperty(key.toJS).dartify().toString();
+      resultMap[key] = value;
+    }
   }
   return resultMap;
 }
