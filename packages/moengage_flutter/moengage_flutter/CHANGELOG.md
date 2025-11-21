@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Updated web deprecated packages like dart:js
+
 # 19-11-2025
 
 ## 10.3.0
