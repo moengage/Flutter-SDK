@@ -21,7 +21,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   moengage_flutter_platform_interface: ^4.0.0
-  web: ^0.5.0
+  web: ^1.0.0
 
 dev_dependencies:
   flutter_test:
