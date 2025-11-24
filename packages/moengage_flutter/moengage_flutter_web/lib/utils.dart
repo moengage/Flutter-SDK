@@ -71,6 +71,7 @@ dynamic getIdentifyUserPayload(dynamic identities) {
 /// a JSObject and creating a corresponding Dart Map<String, dynamic>.
 /// 
 /// Returns null if [jsObject] is null or not a JSObject.
+/// Throws an exception if the conversion fails due to invalid JavaScript object.
 Map<String, dynamic>? convertJSObjectToMap(dynamic jsObject) {
   // Handle null input early
   if (jsObject == null) {
@@ -81,29 +82,74 @@ Map<String, dynamic>? convertJSObjectToMap(dynamic jsObject) {
   final resultMap = <String, dynamic>{};
   
   // Only process if we have a valid JavaScript object
-  if (jsObject is JSObject) {
+  if (jsObject is! JSObject) {
+    return resultMap;
+  }
+  
+  try {
+    // Get the global Object constructor
+    final objectConstructor = globalContext['Object'];
+    if (objectConstructor == null) {
+      return resultMap;
+    }
+    
     // Use JavaScript's Object.keys() method to get all property names
     // This returns a JSArray containing all enumerable property keys
-    final keys = (globalContext['Object'] as JSObject)
-        .callMethod('keys'.toJS, jsObject) as JSArray;
+    final keysResult = (objectConstructor as JSObject)
+        .callMethod('keys'.toJS, jsObject);
+    
+    if (keysResult == null || keysResult is! JSArray) {
+      return resultMap;
+    }
+    
+    final keys = keysResult;
     
     // Get the number of keys (properties) in the JavaScript object
-    final length = keys.getProperty('length'.toJS).dartify() as int;
+    final lengthProperty = keys.getProperty('length'.toJS);
+    if (lengthProperty == null) {
+      return resultMap;
+    }
+    
+    final lengthDartified = lengthProperty.dartify();
+    if (lengthDartified is! int) {
+      return resultMap;
+    }
+    
+    final length = lengthDartified;
     
     // Iterate through each key and extract the corresponding value
     for (var i = 0; i < length; i++) {
-      // Get the key name and convert it to a Dart String
-      final key = keys.getProperty(i.toJS).dartify().toString();
-      
-      // Get the value for this key and convert it to a Dart type
-      // .dartify() handles the conversion from JS types to Dart types
-      final value = jsObject.getProperty(key.toJS).dartify();
-      
-      // Store the key-value pair in our result map
-      resultMap[key] = value;
+      try {
+        // Get the key name and convert it to a Dart String
+        final keyProperty = keys.getProperty(i.toJS);
+        if (keyProperty == null) {
+          continue;
+        }
+        
+        final keyDartified = keyProperty.dartify();
+        if (keyDartified == null) {
+          continue;
+        }
+        
+        final key = keyDartified.toString();
+        
+        // Get the value for this key and convert it to a Dart type
+        // .dartify() handles the conversion from JS types to Dart types
+        final valueProperty = jsObject.getProperty(key.toJS);
+        final value = valueProperty.dartify();
+        
+        // Store the key-value pair in our result map
+        resultMap[key] = value;
+      } catch (e) {
+        // Skip individual properties that fail to convert
+        continue;
+      }
     }
+  } catch (e) {
+    // If conversion fails completely, return empty map
+    return resultMap;
   }
   
-  // Return the populated map (or empty map if jsObject wasn't a JSObject)
+  // Return the populated map
   return resultMap;
 }

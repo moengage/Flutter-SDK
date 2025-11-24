@@ -12,8 +12,6 @@ import 'package:web/web.dart' as web;
 import 'constants.dart';
 import 'utils.dart' as web_utils;
 
-const String tag = 'MoEngageFlutterWeb';
-
 /// The Web implementation of [MoEngageFlutterPlatform].
 class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   /// Registers this class as the default instance of [MoEngageFlutterPlatform]
@@ -35,7 +33,9 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   void _callMethod(String methodName, [JSAny? arg1, JSAny? arg2]) {
     final moengage = _moengage;
-    if (moengage == null) return;
+    if (moengage == null) {
+      return;
+    }
     
     final method = moengage.getProperty(methodName.toJS);
     if (method != null && method.typeofEquals('function')) {
@@ -58,11 +58,14 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   ) {
     final Map<String, dynamic> payload =
         web_utils.getEventPayloadWeb(eventName, eventAttributes);
-    _callMethod(
-      methodTrackEventSDK,
-      eventName.toJS,
-      (payload[keyEventAttributes] as Map<String, dynamic>).jsify(),
-    );
+    final moengage = _moengage;
+    if (moengage != null) {
+      _callMethod(
+        methodTrackEventSDK,
+        eventName.toJS,
+        (payload[keyEventAttributes] as Map<String, dynamic>).jsify(),
+      );
+    }
   }
 
   @override
@@ -76,13 +79,16 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     dynamic userAttributeValue,
     String appId,
   ) {
-    final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue).toJS;
+    final moengage = _moengage;
+    if (moengage != null) {
+      final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue).toJS;
 
-    _callMethod(
-      methodSetUserAttributeSDK,
-      userAttributeName.toJS,
-      jsValue is JSAny ? jsValue : null,
-    );
+      _callMethod(
+        methodSetUserAttributeSDK,
+        userAttributeName.toJS,
+        jsValue is JSAny ? jsValue : null,
+      );
+    }
   }
 
   @override
@@ -167,7 +173,9 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   Future<Map<String, String>?> getUserIdentities(String appId) async {
     try {
       final moengage = _moengage;
-      if (moengage == null) return null;
+      if (moengage == null) {
+        return null;
+      }
       
       final method = moengage.getProperty(methodGetUserIdentitiesSDK.toJS);
       if (method != null && method.typeofEquals('function')) {
@@ -321,7 +329,9 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   @override
   void updateSdkState(bool shouldEnableSdk, String appId) {
     final moengage = _moengage;
-    if (moengage == null) return;
+    if (moengage == null) {
+      return;
+    }
     
     final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
     _callMethod(methodName);
