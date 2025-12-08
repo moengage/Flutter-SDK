@@ -23,35 +23,65 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
+def plugin_dev_pods
+  test_pluginbase_source = nil
+  test_plugincards_source = nil
+  test_plugininox_source = nil
+  test_plugingeofence_source = nil
+  # test_pluginbase_source = { :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => '' }
+  # test_pluginbase_source = { :path => '../../../iOS-PluginBase' }
+  # test_plugincards_source = { :path => '../../../apple-plugin-cards' }
+  # test_plugininox_source = { :path => '../../../apple-plugin-inbox' }
+  # test_plugingeofence_source = { :path => '../../../apple-plugin-geofence' }
+  pod 'MoEngagePluginBase', **test_pluginbase_source if test_pluginbase_source
+  pod 'MoEngagePluginCards', **test_plugincards_source if test_plugincards_source
+  pod 'MoEngagePluginInbox', **test_plugininox_source if test_plugininox_source
+  pod 'MoEngagePluginGeofence', **test_plugingeofence_source if test_plugingeofence_source
+end
+
+def native_source
+  test_source = nil
+  # test_source = { :git => 'https://github.com/moengage/MoEngage-iPhone-SDK.git', :branch => '' }
+  # test_source = { :path => '../../../MoEngage-iPhone-SDK' }
+  return test_source
+end
+
+def native_dev_pods
+  test_source = native_source
+  return unless test_source
+  pod 'MoEngage-iOS-SDK', **test_source
+  pod 'MoEngageSecurity', **test_source
+  pod 'MoEngageCore', **test_source
+  pod 'MoEngageMessaging', **test_source
+  pod 'MoEngageSDK', **test_source
+  pod 'MoEngageTriggerEvaluator', **test_source
+  pod 'MoEngageInApps', **test_source
+  pod 'MoEngageCards', **test_source
+  pod 'MoEngageInbox', **test_source
+  pod 'MoEngageGeofence', **test_source
+  pod 'MoEngageRichNotification', **test_source
+  pod 'MoEngageRealTimeTrigger', **test_source
+end
+
+def extension_pods
+  test_source = native_source
+  if test_source
+    pod 'MoEngageRichNotification', **test_source
+  else
+    pod 'MoEngageRichNotification'
+  end
+end
+
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
-
-# Uncomment and populate plugin base and native branch for using unreleased pluginbase
-# test_native_source = { :git => 'https://github.com/moengage/MoEngage-iPhone-SDK.git', :branch => 'MOEN-37979_ver-upgrade' }
 
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Uncomment and populate plugin base and native branch for using unreleased pluginbase
-  # pod 'MoEngage-iOS-SDK', **test_native_source
-  # pod 'MoEngageSecurity', **test_native_source
-  # pod 'MoEngageCore', **test_native_source
-  # pod 'MoEngageMessaging', **test_native_source
-  # pod 'MoEngageSDK', **test_native_source
-  # pod 'MoEngageTriggerEvaluator', **test_native_source
-  # pod 'MoEngageInApps', **test_native_source
-  # pod 'MoEngageCards', **test_native_source
-  # pod 'MoEngageInbox', **test_native_source
-  # pod 'MoEngageGeofence', **test_native_source
-  # pod 'MoEngageRichNotification', **test_native_source
-  # pod 'MoEngageRealTimeTrigger', **test_native_source
-
-  # pod 'MoEngagePluginBase', :path => '../../../iOS-PluginBase'
-  # pod 'MoEngagePluginCards', :path => '../../../apple-plugin-cards'
-  # pod 'MoEngagePluginInbox', :path => '../../../apple-plugin-inbox'
-  # pod 'MoEngagePluginGeofence', :path => '../../../apple-plugin-geofence'
+  native_dev_pods
+  plugin_dev_pods
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
@@ -67,12 +97,10 @@ end
 
 target 'PushTemplates' do
   use_frameworks!
-  pod 'MoEngageRichNotification'
-  # pod 'MoEngageRichNotification', **test_native_source
+  extension_pods
 end
 
 target 'NotificationServices' do
   use_frameworks!
-  pod 'MoEngageRichNotification'
-  # pod 'MoEngageRichNotification', **test_native_source
+  extension_pods
 end

@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- iOS
+  - [minor] Added no-code SDK file based initialization
+
 # 19-11-2025
 
 ## 10.3.0
