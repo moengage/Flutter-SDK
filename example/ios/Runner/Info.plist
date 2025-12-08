@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>MoEngageAppDelegateProxyEnabled</key>
-	<false/>
+	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

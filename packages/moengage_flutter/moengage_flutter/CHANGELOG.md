@@ -9,6 +9,8 @@
 - Android
     - [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
     - [minor] `android-bom` version updated to `1.5.0`
+- iOS
+    - [minor] Added no-code SDK file based initialization
 
 # 19-11-2025
 

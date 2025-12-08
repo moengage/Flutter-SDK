@@ -23,11 +23,5 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.dependency 'MoEngagePluginBase', '6.7.0'
   s.swift_version = '5.0'
-  s.prepare_command = <<-CMD
-      echo // Generated file, do not edit > #{root}/MoEngageFlutterPluginInfo.swift
-      echo "import Foundation" >> #{root}/MoEngageFlutterPluginInfo.swift
-      echo "struct MoEngageFlutterPluginInfo{\n  static let kVersion = \\"#{libraryVersion}\\" \n }" >> #{root}/MoEngageFlutterPluginInfo.swift
-    CMD
-
 end
 
