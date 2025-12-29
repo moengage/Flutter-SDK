@@ -1,5 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] Native Android SDK version automation
+
 # 19-11-2025
 
 ## 9.2.0

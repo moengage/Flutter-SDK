@@ -23,10 +23,60 @@ allprojects {
     }
 }
 
-ext {
-    moengageNativeBomVersion = "1.1.1"
-    moengagePluginBaseBomVersion = "1.1.0"
+// Helper function to get BOM version from moengage_flutter module (mandatory)
+def getMoEngageBomVersion(propertyName) {
+    // Try to find moengage_flutter_android project (the Android implementation)
+    def moengageFlutterProjectAndroid = findProject(':moengage_flutter_android')
+    def moengageFlutterProject = moengageFlutterProjectAndroid ?: findProject(':moengage_flutter')
+    
+    if (moengageFlutterProject == null) {
+        throw new GradleException(
+            'Could not find the moengage_flutter Flutter plugin. ' +
+            'moengage_cards requires moengage_flutter to be added as a dependency in your pubspec.yaml. ' +
+            'Please add moengage_flutter to your dependencies.'
+        )
+    }
+    
+    // Try to access the property directly from ext (camelCase: moengageNativeBomVersion)
+    if (moengageFlutterProject.ext.has(propertyName)) {
+        return moengageFlutterProject.ext[propertyName]
+    }
+    
+    // Try accessing via ext.properties map (camelCase)
+    def value = moengageFlutterProject.ext.properties.get(propertyName)
+    if (value != null) {
+        return value
+    }
+    
+    // Try PascalCase version (MoEngageNativeBomVersion)
+    def pascalCaseProperty = 'Mo' + propertyName.substring(2, 3).toUpperCase() + propertyName.substring(3)
+    
+    if (moengageFlutterProject.ext.has(pascalCaseProperty)) {
+        return moengageFlutterProject.ext[pascalCaseProperty]
+    }
+    
+    value = moengageFlutterProject.ext.properties.get(pascalCaseProperty)
+    if (value != null) {
+        return value
+    }
+    
+    throw new GradleException(
+        "A newer version of the moengage_flutter plugin is required. " +
+        "The property '$propertyName' is not found in moengage_flutter. " +
+        "Please update your moengage_flutter dependency."
+    )
 }
+
+def moengageNativeBomVersion = getMoEngageBomVersion('moengageNativeBomVersion')
+def moengagePluginBaseBomVersion = getMoEngageBomVersion('moengagePluginBaseBomVersion')
+
+// Log BOM versions for verification
+println("=========================================")
+println("Flutter Cards Module - BOM Versions:")
+println("  moengageNativeBomVersion: $moengageNativeBomVersion")
+println("  moengagePluginBaseBomVersion: $moengagePluginBaseBomVersion")
+println("  Source: moengage_flutter module project properties")
+println("=========================================")
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'

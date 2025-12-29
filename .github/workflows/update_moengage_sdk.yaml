@@ -1,0 +1,71 @@
+name: Update MoEngage Android SDK Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticket_number:
+        description: 'Ticket number for the update.'
+        required: true
+      moengage_version:
+        description: 'Native BOM version to update'
+        required: false
+      plugin_base_version:
+        description: 'Plugin-base BOM version to update'
+        required: false
+      release_notes:
+        description: 'Link to native release notes'
+        required: true
+        type: string
+      raise_pr_only:
+        description: 'Raise PR only (don\'t trigger release)?'
+        type: boolean
+        default: false
+      flutter_changelog:
+        description: 'Link to Flutter Release Notes (required if direct release)'
+        required: false
+        type: string
+
+env:
+  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
+  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
+  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKeyId }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKeyPassword }}
+  GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+
+jobs:
+  update_moengage_sdk:
+    environment: publishing_gradle_config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: "development"
+          path: source
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Checkout sdk automation scripts
+        uses: actions/checkout@v4
+        with:
+          repository: moengage/sdk-automation-scripts
+          path: sdk-automation-scripts
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Automation script setup
+        uses: ./sdk-automation-scripts/actions/flutter-repository-setup
+      - name: Checkout android-dependency-catalog
+        uses: actions/checkout@v4
+        with:
+          repository: moengage/android-dependency-catalog
+          path: ../android-dependency-catalog
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Checkout android-plugin-base
+        uses: actions/checkout@v4
+        with:
+          repository: moengage/android-plugin-base
+          path: ../android-plugin-base
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Update MoEngage Android SDK version
+        working-directory: source
+        env:
+          GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        run: ../sdk-automation-scripts/scripts/android/flutter-version-update.main.kts "${{ github.event.inputs.ticket_number }}" "${{ github.event.inputs.release_notes }}" "${{ github.event.inputs.moengage_version }}" "${{ github.event.inputs.plugin_base_version }}" "${{ github.event.inputs.raise_pr_only }}" "${{ github.event.inputs.flutter_changelog }}"

@@ -1,5 +1,12 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] Native Android SDK version automation
+
 # 19-11-2025
 
 ## 10.3.0

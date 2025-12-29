@@ -23,11 +23,27 @@ rootProject.allprojects {
     }
 }
 
+// Read BOM versions from gradle.properties
+def moengageNativeBomVersion = project.findProperty('MoEngageNativeBomVersion') ?: "0.0.0"
+def moengagePluginBaseBomVersion = project.findProperty('MoEngagePluginBaseBomVersion') ?: "0.0.0"
 
+// Log BOM versions for verification
+println("=========================================")
+println("Flutter Core Module - BOM Versions:")
+println("  MoEngageNativeBomVersion: $moengageNativeBomVersion")
+println("  MoEngagePluginBaseBomVersion: $moengagePluginBaseBomVersion")
+println("  Source: gradle.properties")
+println("=========================================")
+
+// Expose versions as project properties so other modules can access them
 ext {
-    moengageNativeBomVersion = "1.1.1"
-    moengagePluginBaseBomVersion = "1.1.0"
+    moengageNativeBomVersion = moengageNativeBomVersion
+    moengagePluginBaseBomVersion = moengagePluginBaseBomVersion
 }
+
+// Store in project properties for access by other modules
+project.ext.MoEngageNativeBomVersion = moengageNativeBomVersion
+project.ext.MoEngagePluginBaseBomVersion = moengagePluginBaseBomVersion
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'

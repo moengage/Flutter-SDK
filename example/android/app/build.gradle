@@ -1,57 +1,85 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.huawei.agconnect"
+    id "com.google.gms.google-services"
+}
+
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
+def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
-  localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader)
-  }
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-  throw new GradleException(
-      "Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-  flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-  flutterVersionName = '1.0'
+// Helper function to get BOM version from moengage_flutter module or root project
+def getMoEngageBomVersion(propertyName, defaultValue) {
+    // Try to find moengage_flutter_android project (the Android implementation)
+    def moengageFlutterProjectAndroid = findProject(':moengage_flutter_android')
+    def moengageFlutterProject = moengageFlutterProjectAndroid ?: findProject(':moengage_flutter')
+    
+    if (moengageFlutterProject != null) {
+        if (moengageFlutterProject.ext.has(propertyName)) {
+            return moengageFlutterProject.ext[propertyName]
+        }
+        // Try PascalCase version (MoEngageNativeBomVersion)
+        def pascalCaseProperty = 'Mo' + propertyName.substring(2, 3).toUpperCase() + propertyName.substring(3)
+        if (moengageFlutterProject.ext.has(pascalCaseProperty)) {
+            return moengageFlutterProject.ext[pascalCaseProperty]
+        }
+        def value = moengageFlutterProject.ext.properties.get(pascalCaseProperty)
+        if (value != null) {
+            return value
+        }
+    }
+    
+    // Fallback: try root project ext
+    if (rootProject.ext.has('MoEngage') && rootProject.ext.MoEngage.hasProperty(propertyName)) {
+        return rootProject.ext.MoEngage[propertyName]
+    }
+    
+    // Final fallback
+    return project.findProperty(propertyName) ?: defaultValue
 }
 
 ext {
-  moengageNativeBomVersion = "1.1.1"
+  moengageNativeBomVersion = getMoEngageBomVersion('moengageNativeBomVersion', '0.0.0')
 }
 
-apply plugin: 'com.android.application'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.huawei.agconnect'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
-
 android {
-  compileSdk 35
-  namespace "com.moengage.sampleapp"
+    namespace = "com.moengage.sampleapp"
+    compileSdk = flutter.compileSdkVersion
+    // NDK version removed - using default NDK to avoid corrupted NDK installation issues
 
-  sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
-  }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 
-  lintOptions {
-    disable 'InvalidPackage'
-  }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 
-  defaultConfig {
-    applicationId "com.moengage.sampleapp"
-    minSdk 23
-    targetSdk 35
-    versionCode flutterVersionCode.toInteger()
-    versionName flutterVersionName
-    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-    buildConfigField("String", "MOENGAGE_WORKSPACE_ID", "\"${localProperties.getProperty("moengageWorkspaceId")}\"")
-  }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        applicationId = "com.moengage.sampleapp"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+        testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+        buildConfigField("String", "MOENGAGE_WORKSPACE_ID", "\"${localProperties.getProperty("moengageWorkspaceId")}\"")
+    }
 
   signingConfigs {
     Properties properties = new Properties()
@@ -70,37 +98,29 @@ android {
     }
   }
 
-  buildTypes {
-    release {
-      signingConfig signingConfigs.release
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.release
+            proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro')
+        }
+        debug {
+            signingConfig = signingConfigs.debug
+        }
     }
-    debug {
-      signingConfig signingConfigs.debug
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
-  }
 
-  repositories {
-    flatDir {
-      dirs 'libs'
+    buildFeatures {
+        buildConfig = true
     }
-  }
-  compileOptions {
-    sourceCompatibility 1.8
-    targetCompatibility 1.8
-  }
-
-  kotlinOptions {
-    jvmTarget = '1.8'
-  }
-
-  buildFeatures {
-    buildConfig true
-  }
 }
 
 flutter {
-  source '../..'
+    source = "../.."
 }
 
 dependencies {
@@ -130,5 +150,3 @@ dependencies {
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)
 }
-
-apply plugin: 'com.google.gms.google-services'
