@@ -5,6 +5,7 @@
 ## Release Version
 
 - [minor] Added support for enableDataTracking() and disableDataTracking() methods
+- [patch] Updated deprecated packages like dart:js
 
 # 03-07-2025
 

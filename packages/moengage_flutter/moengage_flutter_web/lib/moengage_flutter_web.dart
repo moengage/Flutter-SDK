@@ -1,8 +1,16 @@
-import 'dart:js';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
-    hide keyAlias, keyEventAttributes, keyEventName, getIdentifyUserPayload;
+    hide
+        keyAlias,
+        keyEventAttributes,
+        keyEventName,
+        getIdentifyUserPayload;
+import 'package:web/web.dart' as web;
+
 import 'constants.dart';
-import 'utils.dart';
+import 'utils.dart' as web_utils;
 
 /// The Web implementation of [MoEngageFlutterPlatform].
 class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
@@ -11,7 +19,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     MoEngageFlutterPlatform.instance = MoEngageFlutterWeb();
   }
 
-  JsObject? _moengage;
+  JSObject? _moengage;
   @override
   void initialise(MoEInitConfig moEInitConfig, String appId) {
     Logger.d('initialise() : Initialising MoEngage web SDK');
@@ -20,7 +28,26 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   // ignore: public_member_api_docs
   void moengageInitialiser() {
-    _moengage = JsObject.fromBrowserObject(context['Moengage'] as Object);
+    _moengage = (web.window as JSObject)['Moengage'] as JSObject?;
+  }
+
+  void _callMethod(String methodName, [JSAny? arg1, JSAny? arg2]) {
+    final moengage = _moengage;
+    if (moengage == null) {
+      return;
+    }
+    
+    final method = moengage.getProperty(methodName.toJS);
+    if (method != null && method.typeofEquals('function')) {
+      final jsFunction = method as JSFunction;
+      if (arg1 != null && arg2 != null) {
+        jsFunction.callAsFunction(moengage, arg1, arg2);
+      } else if (arg1 != null) {
+        jsFunction.callAsFunction(moengage, arg1);
+      } else {
+        jsFunction.callAsFunction(moengage);
+      }
+    }
   }
 
   @override
@@ -30,16 +57,20 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     String appId,
   ) {
     final Map<String, dynamic> payload =
-        getEventPayloadWeb(eventName, eventAttributes);
-    _moengage?.callMethod(methodTrackEventSDK, [
-      payload[keyEventName],
-      JsObject.jsify(payload[keyEventAttributes] as Object)
-    ]);
+        web_utils.getEventPayloadWeb(eventName, eventAttributes);
+    final moengage = _moengage;
+    if (moengage != null) {
+      _callMethod(
+        methodTrackEventSDK,
+        eventName.toJS,
+        (payload[keyEventAttributes] as Map<String, dynamic>).jsify(),
+      );
+    }
   }
 
   @override
   void logout(String appId) {
-    _moengage?.callMethod(methodLogoutSDK);
+    _callMethod(methodLogoutSDK);
   }
 
   @override
@@ -48,68 +79,82 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     dynamic userAttributeValue,
     String appId,
   ) {
-    _moengage?.callMethod(
-      methodSetUserAttributeSDK,
-      [userAttributeName, getUserAttributeValuePayload(userAttributeValue)],
-    );
+    final moengage = _moengage;
+    if (moengage != null) {
+      final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue).toJS;
+
+      _callMethod(
+        methodSetUserAttributeSDK,
+        userAttributeName.toJS,
+        jsValue is JSAny ? jsValue : null,
+      );
+    }
   }
 
   @override
   void setAlias(String newUniqueId, String appId) {
-    _moengage?.callMethod(methodSetAliasSDK, [newUniqueId]);
+    _callMethod(methodSetAliasSDK, newUniqueId.toJS);
   }
 
   @override
   void setBirthDate(String birthDate, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNameBirtdate, birthDate],
+      userAttrNameBirtdate.toJS,
+      birthDate.toJS,
     );
   }
 
   @override
   void setEmail(String emailId, String appId) {
-    _moengage
-        ?.callMethod(methodSetUserAttributeSDK, [userAttrNameEmailId, emailId]);
+    _callMethod(
+      methodSetUserAttributeSDK,
+      userAttrNameEmailId.toJS,
+      emailId.toJS,
+    );
   }
 
   @override
   void setFirstName(String firstName, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNameFirstName, firstName],
+      userAttrNameFirstName.toJS,
+      firstName.toJS,
     );
   }
 
   @override
   void setGender(MoEGender gender, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNameGender, genderToString(gender)],
+      userAttrNameGender.toJS,
+      genderToString(gender).toJS,
     );
   }
 
   @override
   void setLastName(String lastName, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNameLastName, lastName],
+      userAttrNameLastName.toJS,
+      lastName.toJS,
     );
   }
 
   @override
   void setPhoneNumber(String phoneNumber, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNamePhoneNum, phoneNumber],
+      userAttrNamePhoneNum.toJS,
+      phoneNumber.toJS,
     );
   }
 
   @override
   void setUniqueId(String uniqueId, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUniqueIdSDK,
-      [uniqueId],
+      uniqueId.toJS,
     );
   }
 
@@ -119,18 +164,27 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
       Logger.w('$tag identifyUser(): Identity type is not supported');
       return;
     }
-    _moengage?.callMethod(
-      methodIdentifyUser,
-      [getIdentifyUserPayload(identity)],
-    );
+
+    final identityPayload = web_utils.getIdentifyUserPayload(identity);
+    _callMethod(methodIdentifyUserSDK, identityPayload as JSAny);
   }
 
   @override
   Future<Map<String, String>?> getUserIdentities(String appId) async {
     try {
-      final dynamic identity = await _moengage?.callMethod(
-          methodGetUserIdentities);
-      return Future.value(convertJSObjectToMap(identity));
+      final moengage = _moengage;
+      if (moengage == null) {
+        return null;
+      }
+      
+      final method = moengage.getProperty(methodGetUserIdentitiesSDK.toJS);
+      if (method != null && method.typeofEquals('function')) {
+        final result = (method as JSFunction).callAsFunction(moengage);
+        final dynamicMap = web_utils.convertJSObjectToMap(result);
+        final stringMap = dynamicMap?.map((key, value) => MapEntry(key, value.toString()));
+        return Future.value(stringMap);
+      }
+      return null;
     } catch (e) {
       Logger.e(' $tag getUserIdentities(): Error', error: e);
       return Future.error(e);
@@ -139,9 +193,10 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void setUserName(String userName, String appId) {
-    _moengage?.callMethod(
+    _callMethod(
       methodSetUserAttributeSDK,
-      [userAttrNameUserName, userName],
+      userAttrNameUserName.toJS,
+      userName.toJS,
     );
   }
 
@@ -277,10 +332,12 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void updateSdkState(bool shouldEnableSdk, String appId) {
-    if (shouldEnableSdk) {
-      _moengage?.callMethod(methodEnableSDK, []);
-    } else {
-      _moengage?.callMethod(methodDisableSDK, []);
+    final moengage = _moengage;
+    if (moengage == null) {
+      return;
     }
+    
+    final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
+    _callMethod(methodName);
   }
 }
