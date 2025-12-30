@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>moengage_flutter_example_spm</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>moengage_flutter_example_spm</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Need Location permission to monitor Geofence</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need Location permission to monitor Geofence</string>
+
+	<!-- MoEngage SDK Initialization Info -->
+	<key>MoEngage</key>
+	<dict>
+		<key>IsSdkAutoInitialisationDisabled</key>
+		<false/>
+		<!-- true/false, default: false -->
+
+		<key>WorkspaceId</key>
+		<string>appId</string>
+		<!-- Workspace Id, mandatory -->
+
+		<key>DataCenter</key>
+		<integer>1</integer>
+		<!-- 1/2/3/4/5/6, default: 1 -->
+
+		<key>IsTestEnvironment</key>
+		<!-- <false/> -->
+		<!-- true/false, customer selected option -->
+		<!-- or -->
+		<string>$(SWIFT_ACTIVE_COMPILATION_CONDITIONS)|$(GCC_PREPROCESSOR_DEFINITIONS)</string>
+		<!-- by default added if customer hasn't provided preference -->
+
+		<!-- <key>IntegrationPartner</key>
+		<string>segment</string> -->
+		<!-- segment/mparticle, default: none -->
+
+		<key>AppGroupName</key>
+		<string>group.com.alphadevs.MoEngage.NotificationServices</string>
+		<!-- App group name used for sharing SDK data, default: "" -->
+
+		<key>KeychainGroupName</key>
+		<string>BPWYRAF5X7.com.alphadevs.MoEngage.keychain</string>
+		<!--
+		Keychain group name used for storing storage encryption key,
+		mandatory if IsStorageEncryptionEnabled set to true,
+		default: ""
+		-->
+
+		<key>AnalyticsDisablePeriodicFlush</key>
+		<false/>
+		<!-- true/false, default: false -->
+
+		<key>AnalyticsPeriodicFlushDuration</key>
+		<integer>60</integer>
+		<!-- integer in seconds, default: 60 -->
+
+		<key>InAppDisplaySafeAreaInset</key>
+		<real>0</real>
+		<!-- decimal value representing safe area padding, default: 0 -->
+
+		<key>InAppShouldProvideDeeplinkCallback</key>
+		<false />
+		<!-- true/false, default: false -->
+
+		<key>IsStorageEncryptionEnabled</key>
+		<false />
+		<!-- true/false, default: false -->
+
+		<key>IsNetworkEncryptionEnabled</key>
+		<false />
+		<!-- true/false, default: false -->
+
+		<key>EncryptionEncodedTestKey</key>
+		<string>debugKey</string>
+		<!-- dashboard auto populated string if IsNetworkEncryptionEnabled is true -->
+
+		<key>EncryptionEncodedLiveKey</key>
+		<string>liveKey</string>
+		<!-- dashboard auto populated string if IsNetworkEncryptionEnabled is true -->
+
+		<key>IsJwtEnabled</key>
+		<false/>
+		<!-- true/false, default: false -->
+
+		<key>IsUserRegistrationEnabled</key>
+		<false/>
+		<!--
+		true/false,
+		dashboard auto populated based on enrolment enabled or not,
+		default: false
+		-->
+
+		<key>IsLoggingEnabled</key>
+		<true />
+		<!-- true/false, default: false -->
+
+		<key>LogLevel</key>
+		<integer>5</integer>
+		<!-- 0/1/2/3/4/5, default: 2 -->
+
+		<key>Environment</key>
+		<string>live</string>
+		<!-- 
+		test/live, Citi specific,
+		default: based on initializeDefaultLiveInstance/initializeDefaultTestInstance
+		used
+		-->
+	</dict>
+</dict>
+</plist>

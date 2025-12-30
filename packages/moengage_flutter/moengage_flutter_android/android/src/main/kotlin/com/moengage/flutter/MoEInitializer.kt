@@ -1,5 +1,6 @@
 package com.moengage.flutter
 
+import android.app.Application
 import android.content.Context
 import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
@@ -111,6 +112,35 @@ class MoEInitializer {
                     IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
                     appId,
                 )
+            }
+        }
+
+        /**
+         * Initialize SDK using file based configuration.
+         *
+         * Note: While using this function to initialise the SDK, make sure you have configured all the
+         * required configuration in the xml as resource value
+         *
+         * @param application instance of [Application]
+         * @param sdkState instance of [SdkState]
+         * @param lifecycleAwareCallbackEnabled - If true, on App background the events will be queued and on App Open the events will be flushed.
+         */
+        @JvmStatic
+        @JvmOverloads
+        fun initialiseDefaultInstance(
+            application: Application,
+            lifecycleAwareCallbackEnabled: Boolean = false,
+            sdkState: SdkState? = null,
+        ) {
+            try {
+                Logger.print { "$TAG initialiseDefaultInstance(): Initialising MoEngage SDK with file based configuration" }
+                val workspaceId = PluginInitializer.initialize(application, null, sdkState)
+                workspaceId?.let {
+                    addIntegrationMeta(application, it)
+                }
+                GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
+            } catch (t: Throwable) {
+                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance(): " }
             }
         }
     }

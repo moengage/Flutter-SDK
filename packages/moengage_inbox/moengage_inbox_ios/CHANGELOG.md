@@ -1,5 +1,11 @@
 # MoEngage Inbox iOS Plugin
 
+# 19-11-2025
+
+## 4.2.0
+- Added SPM integration support
+- Updated MoEngageInbox to `3.01.3`
+
 # 14-10-2025
 
 ## 4.1.1

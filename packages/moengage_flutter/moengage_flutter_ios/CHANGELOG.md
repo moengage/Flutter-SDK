@@ -1,5 +1,12 @@
 # MoEngage Flutter iOS Plugin
 
+# 19-11-2025
+
+## 4.3.0
+- Added SPM integration support
+- Updated MoEngage-iOS-SDK to `10.08.0`
+- Added support for initialization from `Info.plist` data
+
 # 14-10-2025
 
 ## 4.2.0

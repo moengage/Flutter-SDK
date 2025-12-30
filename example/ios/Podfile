@@ -48,11 +48,10 @@ target 'Runner' do
   # pod 'MoEngageRichNotification', **test_native_source
   # pod 'MoEngageRealTimeTrigger', **test_native_source
 
-  # test_pluginbase_source = { :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => 'MOEN-38539_Version-Upgrade' }
-  # pod 'MoEngagePluginBase', **test_pluginbase_source
-  # pod 'MoEngagePluginCards', **test_pluginbase_source
-  # pod 'MoEngagePluginInbox', **test_pluginbase_source
-  # pod 'MoEngagePluginGeofence', **test_pluginbase_source
+  # pod 'MoEngagePluginBase', :path => '../../../iOS-PluginBase'
+  # pod 'MoEngagePluginCards', :path => '../../../apple-plugin-cards'
+  # pod 'MoEngagePluginInbox', :path => '../../../apple-plugin-inbox'
+  # pod 'MoEngagePluginGeofence', :path => '../../../apple-plugin-geofence'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end

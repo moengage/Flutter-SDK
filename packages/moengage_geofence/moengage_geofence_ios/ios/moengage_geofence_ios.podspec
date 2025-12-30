@@ -13,9 +13,12 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'MoEngage Inc.' => 'mobiledevs@moengage.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+
+  root = "#{s.name}/Sources"
+  s.source_files     = "#{root}/**/*"
+  s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
   s.swift_version = '5.0'
-  s.dependency 'MoEngagePluginGeofence', '4.6.0'
+  s.dependency 'MoEngagePluginGeofence', '4.7.0'
 end

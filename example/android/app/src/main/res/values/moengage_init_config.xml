@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014-2025 MoEngage Inc.
+  ~
+  ~ All rights reserved.
+  ~
+  ~ * Use of source code or binaries contained within MoEngage SDK is permitted only to enable use of the MoEngage platform by customers of MoEngage.
+  ~ * Modification of source code and inclusion in mobile apps is explicitly allowed provided that all other conditions are met.
+  ~ * Neither the name of MoEngage nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+  ~ * Redistribution of source code or binaries is disallowed except with specific prior written permission. Any such redistribution must retain the above copyright notice, this list of conditions and the following disclaimer.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<resources>
+    <bool name="com_moengage_core_file_based_initialisation_enabled">true</bool>
+    <string name="com_moengage_core_workspace_id">YOUR_WORKSPACE_ID</string>
+    <integer name="com_moengage_core_data_center">1</integer>
+    <string name="com_moengage_core_environment">default</string>
+    <drawable name="com_moengage_cards_ui_place_holder_image" />
+    <drawable name="com_moengage_cards_ui_inbox_empty_image" />
+    <string name="com_moengage_cards_ui_date_format">MMM dd</string>
+    <bool name="com_moengage_cards_ui_swipe_refresh_enabled">true</bool>
+    <integer name="com_moengage_push_notification_token_retry_interval">60</integer>
+    <drawable name="com_moengage_push_notification_small_icon">@drawable/icon</drawable>
+    <drawable name="com_moengage_push_notification_large_icon">@drawable/icon</drawable>
+    <color name="com_moengage_push_notification_color" />
+    <bool name="com_moengage_push_multiple_notification_in_drawer_enabled">false</bool>
+    <bool name="com_moengage_push_building_back_stack_enabled">false</bool>
+    <bool name="com_moengage_push_large_icon_display_enabled">true</bool>
+    <bool name="com_moengage_push_direct_posting_for_heads_up_enabled">true</bool>
+    <bool name="com_moengage_fcm_registration_enabled">true</bool>
+    <bool name="com_moengage_push_kit_registration_enabled">true</bool>
+    <integer name="com_moengage_core_log_level">5</integer>
+    <bool name="com_moengage_core_log_enabled_for_release_build">true</bool>
+    <bool name="com_moengage_core_carrier_tracking_enabled">true</bool>
+    <bool name="com_moengage_core_device_attribute_tracking_enabled">true</bool>
+    <string-array name="com_moengage_core_screen_tracking_opt_out_activities">
+        <item>com.moengage.sampleapp.ui.activity.SplashActivity</item>
+    </string-array>
+    <bool name="com_moengage_core_screen_tracking_package_filtering_enabled">true</bool>
+    <string-array name="com_moengage_core_screen_tracking_whitelisted_packages">
+        <item>com.moengage</item>
+    </string-array>
+    <bool name="com_moengage_rtt_background_sync_enabled">true</bool>
+    <string-array name="com_moengage_inapp_display_opt_out_activities">
+        <item>com.moengage.sampleapp.ui.activity.SplashActivity</item>
+        <item>com.moengage.sampleapp.ui.activity.SampleTransparentActivity</item>
+    </string-array>
+    <bool name="com_moengage_inapp_show_in_new_activity_enabled">false</bool>
+    <bool name="com_moengage_core_periodic_data_sync_enabled">true</bool>
+    <integer name="com_moengage_core_periodic_data_sync_interval">60</integer>
+    <bool name="com_moengage_core_background_data_sync_enabled">true</bool>
+    <string name="com_moengage_core_integration_partner" />
+    <bool name="com_moengage_core_storage_encryption_enabled">false</bool>
+    <bool name="com_moengage_core_network_encryption_enabled">false</bool>
+    <string name="com_moengage_core_encryption_encoded_debug_key" />
+    <string name="com_moengage_core_encryption_encoded_release_key" />
+    <bool name="com_moengage_core_jwt_authorization_enabled">false</bool>
+    <bool name="com_moengage_core_should_cache_connection">true</bool>
+    <bool name="com_moengage_core_user_registration_enabled">false</bool>
+</resources>

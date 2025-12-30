@@ -69,14 +69,6 @@
         </activity>
 
         <service
-            android:name="com.moengage.firebase.MoEFireBaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service
             android:name="com.moengage.hms.pushkit.MoEPushKitMessageService"
             android:exported="false">
             <intent-filter>

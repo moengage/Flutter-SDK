@@ -21,6 +21,10 @@ if (flutterVersionName == null) {
   flutterVersionName = '1.0'
 }
 
+ext {
+  moengageNativeBomVersion = "1.1.1"
+}
+
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.huawei.agconnect'
@@ -102,16 +106,24 @@ flutter {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
 
-  implementation(appLibs.kotlin)
+  /**
+   * MoEngage dependencies
+   */
+  implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
+  implementation("com.moengage:hms-pushkit")
+  implementation("com.moengage:rich-notification")
 
+  /**
+   * MoEngage required external dependencies (based on the modules you use)
+   */
   implementation(moengage.firebaseMessaging)
   implementation(moengage.androidXLifecycle)
   implementation(moengage.gmsPlayAdIdentifier)
   implementation(moengage.hmsPushKit)
   implementation(moengage.gmsPlayLocation)
   implementation(moengage.glide)
-  implementation(moengage.pushKit)
-  implementation(moengage.richNotification)
+
+  implementation(appLibs.kotlin)
 
   testImplementation(appLibs.junit)
 

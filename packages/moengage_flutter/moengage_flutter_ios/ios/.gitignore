@@ -35,3 +35,12 @@ Icon?
 
 /Flutter/Generated.xcconfig
 /Flutter/flutter_export_environment.sh
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+.swiftpm
+Packages/
+Package.pins
+Package.resolved
+.build/

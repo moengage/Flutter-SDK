@@ -1,5 +1,11 @@
 # MoEngage Geofence Android Plugin
 
+# 19-11-2025
+
+## 4.1.2
+
+- Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+
 # 14-10-2025
 
 ## 4.1.1

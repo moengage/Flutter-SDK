@@ -5,6 +5,19 @@
 ## Release Version
 - Web
     - [minor] Added support for enableDataTracking() and disableDataTracking() methods
+- Android
+    - [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
+
+# 19-11-2025
+
+## 10.3.0
+
+- Adding support for initialising the SDK using file configuration from xml resource (android) / plist file (iOS)
+- Android
+  - Moving the internal native dependencies to bill-of-materials (BOM) for better version management.
+- iOS
+  - Added SPM integration support
+  - Updated MoEngage-iOS-SDK to `10.08.0`
 
 # 14-10-2025
 

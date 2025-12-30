@@ -1,4 +1,10 @@
 # MoEngage Geofence iOS Plugin
+
+# 19-11-2025
+
+## 4.2.0
+- Added SPM integration support
+- Updated MoEngageGeofence to `6.00.4`
           
 # 14-10-2025
 
