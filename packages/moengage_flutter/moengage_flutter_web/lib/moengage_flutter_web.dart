@@ -288,10 +288,15 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
 
   @override
   void optOutDataTracking(bool optOutDataTracking, String appId) {
+    final moengage = _moengage;
+    if (moengage == null) {
+      return;
+    }
+
     if (optOutDataTracking) {
-      _moengage?.callMethod(methodDisableDataTracking, []);
+      _callMethod(methodDisableDataTracking);
     } else {
-      _moengage?.callMethod(methodEnableDataTracking, []);
+      _callMethod(methodEnableDataTracking);
     }
   }
 
