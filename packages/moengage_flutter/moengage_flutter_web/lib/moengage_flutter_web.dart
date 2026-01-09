@@ -81,12 +81,26 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   ) {
     final moengage = _moengage;
     if (moengage != null) {
-      final jsValue = web_utils.getUserAttributeValuePayload(userAttributeValue).toJS;
-
+      final payload = web_utils.getUserAttributeValuePayload(userAttributeValue);
+      // Convert to JSAny based on the type
+      final JSAny jsValue;
+      if (payload is JSAny) {
+        // Already jsified (List or Map)
+        jsValue = payload;
+      } else if (payload is String) {
+        jsValue = payload.toJS;
+      } else if (payload is num) {
+        jsValue = payload.toJS;
+      } else if (payload is bool) {
+        jsValue = payload.toJS;
+      } else {
+        // Fallback for any other primitive type
+        jsValue = payload.toString().toJS;
+      }
       _callMethod(
         methodSetUserAttributeSDK,
         userAttributeName.toJS,
-        jsValue is JSAny ? jsValue : null,
+        jsValue,
       );
     }
   }
