@@ -135,7 +135,7 @@ bool isSupportedPrimitiveType(dynamic attributeValue) {
 }
 
 /// Filter List with Only Supported Data Types. Unsupported and null values will be filtered out
-Iterable<dynamic> filterIterableWithSupportedTypes(Iterable<dynamic> iterable) {
+Iterable<dynamic>? filterIterableWithSupportedTypes(Iterable<dynamic> iterable) {
   final List<dynamic> filteredList = [];
   for (final value in iterable) {
     if (isSupportedPrimitiveType(value)) {
@@ -147,6 +147,7 @@ Iterable<dynamic> filterIterableWithSupportedTypes(Iterable<dynamic> iterable) {
     } else {
       Logger.w(
           '$tag filterIterableWithSupportedTypes() : Unsupported Value: $value');
+      return null;
     }
   }
   return filteredList;
@@ -155,8 +156,9 @@ Iterable<dynamic> filterIterableWithSupportedTypes(Iterable<dynamic> iterable) {
 /// Filter Map with Only Supported Data Types. Unsupported and  null values will be filtered out
 /// [data] - Instance of [Map] containing Key-Value Pairs
 /// Returns [Map] with valid data
-Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
+Map<String, dynamic>? filterMapWithSupportedTypes(Map<String, dynamic> data) {
   final Map<String, dynamic> filteredMap = {};
+  bool isValid = true;
   data.forEach((key, value) {
     if (isSupportedPrimitiveType(value)) {
       filteredMap[key] = value;
@@ -167,8 +169,12 @@ Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
     } else {
       Logger.w(
           '$tag filterMapWithSupportedTypes() : UnSupported Value: $value for the key: $key');
+      isValid = false;
     }
   });
+  if(!isValid) {
+    return null;
+  }
   return filteredMap;
 }
 
