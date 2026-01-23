@@ -3,8 +3,9 @@
 # Release Date
 
 ## Release Version
-
-- [patch] Updated web deprecated packages like dart:js
+- Web
+    - [minor] Added support for enableDataTracking() and disableDataTracking() methods
+    - [patch] Updated web deprecated packages like dart:js
 - Android
     - [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
 

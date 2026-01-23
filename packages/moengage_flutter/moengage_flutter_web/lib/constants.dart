@@ -17,6 +17,8 @@ const String methodGetUserIdentitiesSDK = 'getUserIdentities';
 const String methodLogoutSDK = 'destroy_session';
 const String methodEnableSDK = 'enableSdk';
 const String methodDisableSDK = 'disableSdk';
+const String methodEnableDataTracking = 'enableDataTracking';
+const String methodDisableDataTracking = 'disableDataTracking';
 
 // Keys Constants
 String keyEventName = 'eventName';
