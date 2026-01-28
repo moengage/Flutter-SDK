@@ -26,11 +26,6 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     moengageInitialiser();
   }
 
-  // ignore: public_member_api_docs
-  void moengageInitialiser() {
-    _moengage = (web.window as JSObject)['Moengage'] as JSObject?;
-  }
-
   void _callMethod(String methodName, [JSAny? arg1, JSAny? arg2]) {
     final moengage = _moengage;
     if (moengage == null) {
@@ -48,6 +43,15 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
         jsFunction.callAsFunction(moengage);
       }
     }
+  }
+
+  // ignore: public_member_api_docs
+  void moengageInitialiser() {
+    _moengage = (web.window as JSObject)['Moengage'] as JSObject?;
+    _callMethod(
+      methodSetIntegrationTypeSDK,
+      'Flutter'.toJS,
+    );
   }
 
   @override
