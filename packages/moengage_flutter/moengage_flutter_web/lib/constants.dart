@@ -9,6 +9,7 @@ const String methodLogout = 'logout';
 
 // SDK Method Names
 const String methodTrackEventSDK = 'track_event';
+const String methodSetIntegrationTypeSDK = 'setIntegrationType';
 const String methodSetUserAttributeSDK = 'add_user_attribute';
 const String methodSetUniqueIdSDK = 'add_unique_user_id';
 const String methodSetAliasSDK = 'update_unique_user_id';
