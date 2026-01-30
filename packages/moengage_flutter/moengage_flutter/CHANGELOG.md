@@ -8,6 +8,7 @@
     - [patch] Updated web deprecated packages like dart:js
 - Android
     - [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
+    - [minor] `android-bom` version updated to `1.5.0`
 
 # 19-11-2025
 
