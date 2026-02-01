@@ -8,14 +8,14 @@ const String methodSetAlias = 'setAlias';
 const String methodLogout = 'logout';
 
 // SDK Method Names
-const String methodTrackEventSDK = 'track_event';
+const String methodTrackEventSDK = 'trackEvent';
 const String methodSetIntegrationTypeSDK = 'setIntegrationType';
-const String methodSetUserAttributeSDK = 'add_user_attribute';
+const String methodSetUserAttributeSDK = 'setUserAttribute';
 const String methodSetUniqueIdSDK = 'add_unique_user_id';
 const String methodSetAliasSDK = 'update_unique_user_id';
 const String methodIdentifyUserSDK = 'identifyUser';
 const String methodGetUserIdentitiesSDK = 'getUserIdentities';
-const String methodLogoutSDK = 'destroy_session';
+const String methodLogoutSDK = 'logoutUser';
 const String methodEnableSDK = 'enableSdk';
 const String methodDisableSDK = 'disableSdk';
 const String methodEnableDataTracking = 'enableDataTracking';
