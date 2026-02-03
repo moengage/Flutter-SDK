@@ -1,11 +1,11 @@
 # MoEngage Flutter Web Plugin
 
-# Release Date
+# 03-02-2026
 
-## Release Version
+## 5.1.0
 
-- [minor] Added support for enableDataTracking() and disableDataTracking() methods
-- [patch] Updated deprecated packages like dart:js
+- Added support for enableDataTracking() and disableDataTracking() methods
+- Updated deprecated packages like dart:js
 
 # 03-07-2025
 

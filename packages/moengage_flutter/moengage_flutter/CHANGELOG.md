@@ -1,13 +1,13 @@
 # MoEngage Flutter Plugin
 
-# Release Date
+# 03-02-2026
 
-## Release Version
+## 10.4.0
 - Web
-    - [minor] Added support for enableDataTracking() and disableDataTracking() methods
-    - [patch] Updated web deprecated packages like dart:js
+    - Added support for enableDataTracking() and disableDataTracking() methods
+    - Updated web deprecated packages like dart:js
 - Android
-    - [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
+    - Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
 
 # 19-11-2025
 
