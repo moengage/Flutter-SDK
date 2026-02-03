@@ -5,6 +5,7 @@
 ## Release Version
 
 - [minor] Added no-code SDK file based initialization
+- [minor] Updated MoEngage-iOS-SDK to `10.10.0`
 
 # 19-11-2025
 
