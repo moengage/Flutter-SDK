@@ -1,5 +1,11 @@
 # MoEngage Geofence Plugin
 
+# Release Date
+
+## Release Version
+- Android
+    - [minor] `android-bom` version updated to `1.5.0`
+
 # 19-11-2025
 
 ## 6.2.0
