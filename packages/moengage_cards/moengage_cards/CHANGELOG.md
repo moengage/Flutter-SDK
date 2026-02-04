@@ -4,6 +4,8 @@
 
 ## Release Version
 - [minor] `android-bom` version updated to `1.5.0`
+- iOS
+  - [minor] Updated MoEngageCards to `5.01.9`
 
 # 19-11-2025
 

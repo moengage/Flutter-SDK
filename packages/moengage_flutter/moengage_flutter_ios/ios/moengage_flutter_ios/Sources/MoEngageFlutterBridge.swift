@@ -74,9 +74,25 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             print("Invalid invocation: \(call.method)")
         }
     }
+
+    func getCoreVersion() -> String {
+        guard
+            let path = Bundle.main.url(
+                forResource: "config", withExtension: "json",
+                subdirectory: "Frameworks/App.framework/flutter_assets/packages/moengage_flutter"
+            ),
+            let data = try? Data(contentsOf: path),
+            let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let version = obj["version"] as? String
+        else { return "" }
+        return version
+    }
+
     private func pluginInitialized(payload: [String: Any]){
         MoEngagePluginBridge.sharedInstance.setPluginBridgeDelegate(self, payload: payload)
         MoEngagePluginBridge.sharedInstance.pluginInitialized(payload)
+        let plugin = MoEngagePlugin()
+        plugin.trackPluginInfo(MoEngageFlutterConstants.kPluginName, version: getCoreVersion())
     }
     
     private func registerForProvisionalPush() {
