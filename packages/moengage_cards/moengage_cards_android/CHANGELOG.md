@@ -3,7 +3,7 @@
 # Release Date
 
 ## Release Version
-- [minor] `android-bom` version updated to `1.5.0`
+- [minor] `android-bom` version updated to `1.5.1`
 
 # 19-11-2025
 
