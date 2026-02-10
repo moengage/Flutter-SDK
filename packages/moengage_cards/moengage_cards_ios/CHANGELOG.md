@@ -5,6 +5,7 @@
 ## Release Version
 
 - [minor] Updated MoEngageCards to `5.01.9`
+- [minor] License Update
 
 # 19-11-2025
 

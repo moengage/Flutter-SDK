@@ -3,6 +3,7 @@
 # Release Date
 
 ## Release Version
+- [minor] License Update
 - Android
     - [minor] `android-bom` version updated to `1.5.1`
   

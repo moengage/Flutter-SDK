@@ -5,6 +5,7 @@
 ## Release Version
 
 - [minor] Updated MoEngageInbox to `3.02.0`
+- [minor] License Update
 
 # 19-11-2025
 

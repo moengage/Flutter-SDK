@@ -4,6 +4,7 @@
 
 ## Release Version
 - [minor] `android-bom` version updated to `1.5.1`
+- [minor] License Update
 
 # 19-11-2025
 
