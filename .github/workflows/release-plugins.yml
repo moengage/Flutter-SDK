@@ -14,7 +14,7 @@ on:
 jobs:
   pre-release:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["umangmoe", "arshiya-moengage", "harish-engg-inbound", "kkgowtham-engg-sdk"]'), github.actor)
+    if: contains(fromJSON('["umangmoe", "arshiya-moengage", "kkgowtham-engg-sdk"]'), github.actor)
     steps:
       - name: Checkout sdk automation scripts
         uses: actions/checkout@v4
@@ -77,3 +77,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           kotlin .github/scripts/release.main.kts ${{ github.event.inputs.releaseNotes }}
+      - name: Notify release
+        working-directory: source
+        run: |
+          kotlin .github/scripts/notify-release.main.kts ${{ github.event.inputs.releaseNotes }}
+        env:
+          GH_TOKEN: ${{ github.token }}
