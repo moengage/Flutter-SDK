@@ -3,7 +3,7 @@
 # Release Date
 
 ## Release Version
-
+- [minor] License Update
 - [minor] Updated MoEngageGeofence to `6.00.6`
 
 # 19-11-2025

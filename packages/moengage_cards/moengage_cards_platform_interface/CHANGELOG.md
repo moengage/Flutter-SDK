@@ -1,5 +1,11 @@
 # MoEngage Cards Platform Interface
 
+# Release Date
+
+## Release Version
+
+- [minor] License Update
+
 # 18-07-2025
 
 ## 5.0.1
