@@ -19,7 +19,9 @@ fun releasePlugins(releaseNotes: String) {
 
     val newTags = executeShellCommandWithStringOutput("git tag --points-at HEAD").trim().split("\n")
     println("New tags: $newTags")
-
+    // Post Release
+    mergeMasterToDevBranch()
+    pushLocalTags()
     val releaseTagPackages = packageParentFolder.values.toSet()
     newTags.forEach { tag ->
         if (releaseTagPackages.contains(tag.split("-").first())) {
@@ -27,9 +29,5 @@ fun releasePlugins(releaseNotes: String) {
             createGitRelease(tag, releaseNotes)
         }
     }
-
-    // Post Release
-    mergeMasterToDevBranch()
-    pushLocalTags()
     println("Published plugins successfully")
 }
