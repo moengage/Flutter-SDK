@@ -1,14 +1,14 @@
 # MoEngage Flutter Plugin
 
-# Release Date
+# 11-02-2026
 
-## Release Version
-- [minor] License Update
+## 10.5.0
+- License Update
 - Android
-    - [minor] `android-bom` version updated to `1.5.1`
+    - `android-bom` version updated to `1.5.1`
 - iOS
-    - [minor] Added no-code SDK file based initialization
-    - [minor] Updated MoEngage-iOS-SDK to `10.10.0`
+    - Added no-code SDK file based initialization
+    - Updated MoEngage-iOS-SDK to `10.10.0`
 
 # 03-02-2026
 
