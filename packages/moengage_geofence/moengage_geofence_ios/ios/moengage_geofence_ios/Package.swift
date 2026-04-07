@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "moengage-geofence-ios", targets: ["moengage_geofence_ios"])
     ],
     dependencies: [
-        .package(url: "https://github.com/moengage/apple-plugin-geofence.git", exact: "4.8.2"),
+        .package(url: "https://github.com/moengage/apple-plugin-geofence.git", exact: "4.8.0"),
         // For development
         // .package(path: "../../../../../../../../apple-plugin-geofence")
     ],
