@@ -1,5 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- iOS
+    - Updated MoEngageInbox to `3.02.1`
+
 # 11-02-2026
 
 ## 9.3.0
