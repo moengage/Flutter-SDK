@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# 11-02-2026
+
+## 4.1.0
+
+- License Update
+
 # 18-07-2025
 
 ## 4.0.1

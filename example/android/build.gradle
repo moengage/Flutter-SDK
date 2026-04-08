@@ -21,9 +21,6 @@ allprojects {
     mavenLocal()
     google()
     maven { url 'https://developer.huawei.com/repo/' }
-    maven {
-      url "https://central.sonatype.com/repository/maven-snapshots/"
-    }
   }
 }
 

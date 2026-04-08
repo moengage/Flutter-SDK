@@ -1,5 +1,14 @@
 # MoEngage Flutter Inbox Plugin
 
+# 11-02-2026
+
+## 9.3.0
+- License Update
+- Android
+    - `android-bom` version updated to `1.5.1`
+- iOS
+    - Updated MoEngageInbox to `3.02.0`
+
 # 19-11-2025
 
 ## 9.2.0

@@ -1,5 +1,11 @@
 # MoEngage Inbox Platform Interface
 
+# 11-02-2026
+
+## 4.1.0
+
+- License Update
+
 # 03-07-2025
 
 ## 4.0.0

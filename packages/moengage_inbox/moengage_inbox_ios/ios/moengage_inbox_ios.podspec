@@ -20,6 +20,6 @@ A flutter plugin for using Notification Inbox from MoEngage iOS and Android SDKs
   s.source_files     = "#{root}/**/*"
   s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginInbox', '4.7.0'
+  s.dependency 'MoEngagePluginInbox', '4.8.0'
   s.swift_version = '5.0'
 end

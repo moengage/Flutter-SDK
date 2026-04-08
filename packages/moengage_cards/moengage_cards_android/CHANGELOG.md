@@ -1,5 +1,11 @@
 # MoEngage Cards Android Plugin
 
+# 11-02-2026
+
+## 5.2.0
+- `android-bom` version updated to `1.5.1`
+- License Update
+
 # 19-11-2025
 
 ## 5.1.2

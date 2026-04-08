@@ -1,5 +1,12 @@
 # MoEngage Inbox Android Plugin
 
+# 11-02-2026
+
+## 4.2.0
+- License Update
+- Android
+    - `android-bom` version updated to `1.5.1`
+  
 # 19-11-2025
 
 ## 4.1.2

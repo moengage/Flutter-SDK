@@ -1,5 +1,11 @@
 # MoEngage Geofence iOS Plugin
 
+# 11-02-2026
+
+## 4.3.0
+- License Update
+- Updated MoEngageGeofence to `6.00.6`
+
 # 19-11-2025
 
 ## 4.2.0

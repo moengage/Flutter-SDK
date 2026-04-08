@@ -1,9 +1,18 @@
 # MoEngage Flutter Android Plugin
 
-# Release Date
+# 11-02-2026
 
-## Release Version
-- [minor] Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
+## 4.5.0
+- License Update
+- Android
+  - `android-bom` version updated to `1.5.1`
+
+# MoEngage Flutter Android Plugin
+
+# 03-02-2026
+
+## 4.4.0
+- Bundling `MoEFireBaseMessagingService` in Plugin's manifest to reduce integration steps for developers using FCM Push.
 
 # 19-11-2025
 
