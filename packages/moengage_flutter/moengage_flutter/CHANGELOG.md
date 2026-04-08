@@ -4,6 +4,8 @@
 
 ## Release Version
 
+- Android
+    - [minor] `android-bom` version updated to `2.1.0`
 - iOS
     - Updated MoEngage-iOS-SDK to `10.10.2`
 

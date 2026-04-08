@@ -4,6 +4,8 @@
 
 ## Release Version
 
+- Android
+    - [minor] `android-bom` version updated to `2.1.0`
 - iOS
     - Updated MoEngageGeofence to `6.00.7`
 
