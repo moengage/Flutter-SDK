@@ -4,7 +4,7 @@
 
 ## Release Version
 
-- Updated MoEngageInbox to `3.02.1`
+- [patch] Updated MoEngageInbox to `3.02.1`
 
 # 11-02-2026
 

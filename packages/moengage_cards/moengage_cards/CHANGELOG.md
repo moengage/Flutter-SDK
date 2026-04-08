@@ -5,7 +5,7 @@
 ## Release Version
 
 - iOS
-  - Updated MoEngageCards to `5.01.11`
+  - [patch] Updated MoEngageCards to `5.01.11`
 
 # 11-02-2026
 
