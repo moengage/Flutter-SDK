@@ -4,6 +4,8 @@
 
 ## Release Version
 
+- Android
+  - [minor] `android-bom` version updated to `2.1.0`
 - iOS
   - [patch] Updated MoEngageCards to `5.01.11`
 
