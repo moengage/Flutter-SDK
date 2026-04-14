@@ -1,5 +1,14 @@
 # MoEngage Geofence Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+    - [minor] `android-bom` version updated to `2.1.0`
+- iOS
+    - [patch] Updated MoEngageGeofence to `6.00.7`
+
 # 11-02-2026
 
 ## 6.3.0

@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "moengage-flutter-ios", targets: ["moengage_flutter_ios"])
     ],
     dependencies: [
-        .package(url: "https://github.com/moengage/iOS-PluginBase.git", exact: "6.8.0"),
+        .package(url: "https://github.com/moengage/iOS-PluginBase.git", exact: "6.8.2"),
         // For development
         // .package(path: "../../../../../../../../iOS-PluginBase")
     ],

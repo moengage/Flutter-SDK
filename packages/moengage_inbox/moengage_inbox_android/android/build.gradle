@@ -24,8 +24,8 @@ rootProject.allprojects {
 }
 
 ext {
-    moengageNativeBomVersion = "1.5.1"
-    moengagePluginBaseBomVersion = "1.2.1"
+    moengageNativeBomVersion = "2.1.0"
+    moengagePluginBaseBomVersion = "2.0.0"
 }
 
 apply plugin: 'com.android.library'
