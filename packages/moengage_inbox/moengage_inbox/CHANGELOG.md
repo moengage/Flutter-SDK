@@ -7,6 +7,7 @@
 - Android
     - [minor] `android-bom` version updated to `2.1.0`
     - [minor] AGP Version update from `8.7.3` to `8.13.2`
+    - [minor] Migrating from common gradle config to gradle config plugin
 - iOS
     - [patch] Updated MoEngageInbox to `3.02.1`
 
