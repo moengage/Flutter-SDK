@@ -1,44 +1,26 @@
 /// Status of an experience campaign.
 enum ExperienceStatus {
   /// Campaign is currently active.
-  active,
+  active('active'),
 
   /// Campaign is paused.
-  paused,
+  paused('paused'),
 
   /// Campaign is scheduled for future activation.
-  scheduled,
-}
+  scheduled('scheduled');
 
-/// Extension for [ExperienceStatus] serialization.
-extension ExperienceStatusExt on ExperienceStatus {
-  /// Convert [ExperienceStatus] to its JSON string value.
-  String get asString {
-    switch (this) {
-      case ExperienceStatus.active:
-        return _valueActive;
-      case ExperienceStatus.paused:
-        return _valuePaused;
-      case ExperienceStatus.scheduled:
-        return _valueScheduled;
-    }
-  }
+  const ExperienceStatus(this.value);
+
+  /// JSON string representation of this status.
+  final String value;
 
   /// Get [ExperienceStatus] from a JSON string value.
-  static ExperienceStatus fromString(String value) {
-    switch (value) {
-      case _valueActive:
-        return ExperienceStatus.active;
-      case _valuePaused:
-        return ExperienceStatus.paused;
-      case _valueScheduled:
-        return ExperienceStatus.scheduled;
-      default:
-        return ExperienceStatus.active;
-    }
-  }
+  ///
+  /// Falls back to [ExperienceStatus.active] for unknown values
+  /// so new server-side statuses do not crash older SDK versions.
+  static ExperienceStatus fromString(String str) =>
+      ExperienceStatus.values.firstWhere(
+        (s) => s.value == str,
+        orElse: () => ExperienceStatus.active,
+      );
 }
-
-const String _valueActive = 'active';
-const String _valuePaused = 'paused';
-const String _valueScheduled = 'scheduled';

@@ -1,26 +1,21 @@
 /// Source from which experience data was retrieved.
 enum DataSource {
   /// Data was served from the local cache.
-  cache,
+  cache('CACHE'),
 
   /// Data was fetched from the network.
-  network,
-}
+  network('NETWORK');
 
-/// Extension for [DataSource] serialization.
-extension DataSourceExt on DataSource {
+  const DataSource(this.value);
+
+  /// JSON string representation of this source.
+  final String value;
+
   /// Get [DataSource] from a JSON string value.
-  static DataSource fromString(String value) {
-    switch (value) {
-      case _valueCache:
-        return DataSource.cache;
-      case _valueNetwork:
-        return DataSource.network;
-      default:
-        return DataSource.network;
-    }
-  }
+  ///
+  /// Falls back to [DataSource.network] for unknown values.
+  static DataSource fromString(String str) => DataSource.values.firstWhere(
+        (s) => s.value == str,
+        orElse: () => DataSource.network,
+      );
 }
-
-const String _valueCache = 'CACHE';
-const String _valueNetwork = 'NETWORK';

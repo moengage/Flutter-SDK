@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show Logger, getAccountMeta, keyData;
+    show getAccountMeta, keyData;
 
 import '../model/models.dart';
 import 'constants.dart';
@@ -13,7 +13,7 @@ Map<String, dynamic> getFetchExperiencesMetaPayload(
     List<ExperienceStatus> statuses, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
-    keyStatus: statuses.map((s) => s.asString).toList(),
+    keyStatus: statuses.map((s) => s.value).toList(),
   };
   return payload;
 }
@@ -95,7 +95,7 @@ ExperienceCampaignsMetadata deserializeExperiencesMeta(
   final Map<String, dynamic> dataPayload =
       response[keyData] as Map<String, dynamic>;
   final source =
-      DataSourceExt.fromString(dataPayload[keySource]?.toString() ?? '');
+      DataSource.fromString(dataPayload[keySource]?.toString() ?? '');
   final experiencesList = dataPayload[keyExperiences] as List? ?? [];
 
   final experiences = experiencesList.map((exp) {
@@ -103,8 +103,7 @@ ExperienceCampaignsMetadata deserializeExperiencesMeta(
     return ExperienceCampaignMeta(
       experienceKey: map[keyExperienceKey]?.toString() ?? '',
       experienceName: map[keyExperienceName]?.toString() ?? '',
-      status:
-          ExperienceStatusExt.fromString(map[keyStatus]?.toString() ?? ''),
+      status: ExperienceStatus.fromString(map[keyStatus]?.toString() ?? ''),
     );
   }).toList();
 
@@ -129,8 +128,7 @@ ExperienceCampaignsResult deserializeExperiencesResult(
       payload: map[keyPayload] as Map<String, dynamic>? ?? {},
       experienceContext:
           map[keyExperienceContext] as Map<String, dynamic>? ?? {},
-      source:
-          DataSourceExt.fromString(map[keySource]?.toString() ?? ''),
+      source: DataSource.fromString(map[keySource]?.toString() ?? ''),
     );
   }).toList();
 

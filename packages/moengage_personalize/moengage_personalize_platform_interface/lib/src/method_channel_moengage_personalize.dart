@@ -21,7 +21,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
           METHOD_NAME_FETCH_EXPERIENCES_META, payload);
       return deserializeExperiencesMeta(response);
     } catch (e, stackTrace) {
-      Logger.e('$TAG fetchExperiencesMeta(): $e', stackTrace: stackTrace);
+      Logger.e('fetchExperiencesMeta(): Error: $e', stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -38,7 +38,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
           METHOD_NAME_FETCH_EXPERIENCES, payload);
       return deserializeExperiencesResult(response);
     } catch (e, stackTrace) {
-      Logger.e('$TAG fetchExperiences(): $e', stackTrace: stackTrace);
+      Logger.e('fetchExperiences(): Error: $e', stackTrace: stackTrace);
       rethrow;
     }
   }
