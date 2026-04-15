@@ -31,5 +31,6 @@ scripts:
           "MoEngagePluginBase": "6.8.0",
           "MoEngagePluginCards": "3.9.0",
           "MoEngagePluginGeofence": "4.8.0",
-          "MoEngagePluginInbox": "4.8.0"
+          "MoEngagePluginInbox": "4.8.0",
+          "MoEngagePluginPersonalize": "1.0.0"
         }
