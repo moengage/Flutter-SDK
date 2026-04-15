@@ -1,10 +1,10 @@
 # MoEngage Inbox iOS Plugin
 
-# Release Date
+# 15-04-2026
 
-## Release Version
+## 4.3.1
 
-- [patch] Updated MoEngageInbox to `3.02.1`
+- Updated MoEngageInbox to `3.02.1`
 
 # 11-02-2026
 

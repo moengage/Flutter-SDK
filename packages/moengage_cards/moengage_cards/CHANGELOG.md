@@ -1,15 +1,15 @@
 # MoEngage Cards Plugin
 
-# Release Date
+# 15-04-2026
 
-## Release Version
+## 6.4.0
 
 - Android
-  - [minor] `android-bom` version updated to `2.1.0`
-  - [minor] AGP Version update from `8.7.3` to `8.13.2`
-  - [minor] Migrating from common gradle config to gradle config plugin
+  - `android-bom` version updated to `2.1.0`
+  - AGP Version update from `8.7.3` to `8.13.2`
+  - Migrating from common gradle config to gradle config plugin
 - iOS
-  - [patch] Updated MoEngageCards to `5.01.11`
+  - Updated MoEngageCards to `5.01.11`
 
 # 11-02-2026
 

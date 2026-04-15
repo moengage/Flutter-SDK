@@ -1,13 +1,13 @@
 # MoEngage Geofence Android Plugin
 
-# Release Date
+# 15-04-2026
 
-## Release Version
+## 4.3.0
 
-- [minor] `android-bom` version updated to `2.1.0`
-- [minor] AGP Version update from `8.7.3` to `8.13.2`
-- [minor] Migrating from common gradle config to gradle config plugin
-- [patch] Removing the usage of JCenter
+- `android-bom` version updated to `2.1.0`
+- AGP Version update from `8.7.3` to `8.13.2`
+- Migrating from common gradle config to gradle config plugin
+- Removing the usage of JCenter
 
 # 11-02-2026
 
