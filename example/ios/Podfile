@@ -28,15 +28,18 @@ def plugin_dev_pods
   test_plugincards_source = nil
   test_plugininox_source = nil
   test_plugingeofence_source = nil
+  test_pluginpersonalize_source = nil
   # test_pluginbase_source = { :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => '' }
   # test_pluginbase_source = { :path => '../../../iOS-PluginBase' }
   # test_plugincards_source = { :path => '../../../apple-plugin-cards' }
   # test_plugininox_source = { :path => '../../../apple-plugin-inbox' }
   # test_plugingeofence_source = { :path => '../../../apple-plugin-geofence' }
+  # test_pluginpersonalize_source = { :path => '../../../apple-plugin-personalize' }
   pod 'MoEngagePluginBase', **test_pluginbase_source if test_pluginbase_source
   pod 'MoEngagePluginCards', **test_plugincards_source if test_plugincards_source
   pod 'MoEngagePluginInbox', **test_plugininox_source if test_plugininox_source
   pod 'MoEngagePluginGeofence', **test_plugingeofence_source if test_plugingeofence_source
+  pod 'MoEngagePluginPersonalize', **test_pluginpersonalize_source if test_pluginpersonalize_source
 end
 
 def native_source
