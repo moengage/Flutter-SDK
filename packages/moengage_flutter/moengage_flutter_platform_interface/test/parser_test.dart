@@ -166,4 +166,24 @@ void main() {
             selfHandledCampaigns),
         true);
   });
+
+  test('Logout Complete Data - Android', () {
+    expect(
+        Comparator().isLogoutCompleteDataEqual(
+            logoutCompleteDataFromJson(logoutCompletePayload),
+            logoutCompleteData),
+        true);
+  });
+
+  test('Logout Complete Data - iOS', () {
+    expect(
+        Comparator().isLogoutCompleteDataEqual(
+            logoutCompleteDataFromJson(logoutCompletePayloadIOS),
+            logoutCompleteDataIOS),
+        true);
+  });
+
+  test('Logout Complete Data - Invalid Payload', () {
+    expect(logoutCompleteDataFromJson(logoutCompletePayloadInvalid), null);
+  });
 }
