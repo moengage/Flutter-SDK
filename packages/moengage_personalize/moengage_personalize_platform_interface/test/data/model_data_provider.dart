@@ -31,7 +31,7 @@ final experienceCampaignFailure = ExperienceCampaignFailure(
 );
 
 final experienceCampaignFailureWithoutMessage = ExperienceCampaignFailure(
-  reason: 'IN_VALID_EXPERIENCE_KEY',
+  reason: 'INVALID_EXPERIENCE_KEY',
   experienceKeys: ['bad_key'],
 );
 

@@ -146,7 +146,7 @@ void main() {
         final result = deserializeExperiencesResult(
             fetchExperiencesFailureWithoutMessageJson);
         expect(result.failures.length, 1);
-        expect(result.failures[0].reason, 'IN_VALID_EXPERIENCE_KEY');
+        expect(result.failures[0].reason, 'INVALID_EXPERIENCE_KEY');
         expect(result.failures[0].experienceKeys, ['bad_key']);
         expect(result.failures[0].message, isNull);
       });

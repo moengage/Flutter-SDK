@@ -72,7 +72,7 @@ final String fetchExperiencesFailureWithoutMessageJson = json.encode({
     'experiences': [],
     'failures': [
       {
-        'reason': 'IN_VALID_EXPERIENCE_KEY',
+        'reason': 'INVALID_EXPERIENCE_KEY',
         'experienceKeys': ['bad_key'],
       },
     ],
