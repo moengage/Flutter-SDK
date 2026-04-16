@@ -1,5 +1,11 @@
 # MoEngage Flutter Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support Logout Complete listener
+
 # 15-04-2026
 
 ## 4.6.0

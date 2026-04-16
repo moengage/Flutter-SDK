@@ -74,6 +74,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     debugPrint('$tag Permission Result: $data');
   }
 
+  void _onLogoutCallbackHandler(LogoutCompleteData data) {
+    debugPrint(
+        '$tag Main : _onLogoutCallbackHandler(): Logout complete callback from native to flutter. Data $data');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,6 +89,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
+    _moengagePlugin.setLogoutCompleteCallbackHandler(_onLogoutCallbackHandler);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
   }

@@ -4,6 +4,7 @@ import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
+import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
 import '../model/platforms.dart';
@@ -84,6 +85,22 @@ PermissionResultData permissionResultFromMap(dynamic methodCallArgs) {
       permissionPayload[keyIsPermissionGranted] as bool,
       PermissionTypeExtension.fromString(
           permissionPayload[keyPermissionType].toString()));
+}
+
+/// Get [LogoutCompleteData] from Json String
+LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
+  try {
+    final Map<String, dynamic> payload =
+        json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+    return LogoutCompleteData(
+        platform:
+            PlatformsExtension.fromString(payload[keyPlatform].toString()),
+        accountMeta: accountMetaFromMap(
+            payload[keyAccountMeta] as Map<String, dynamic>));
+  } catch (e, stackTrace) {
+    Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
+  }
+  return null;
 }
 
 /// Get Permission Response Payload
