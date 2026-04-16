@@ -419,6 +419,30 @@ const String nudgePayload = r'''
   }
 }''';
 
+const String logoutCompletePayload = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "platform": "android"
+}
+''';
+
+const String logoutCompletePayloadIOS = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "platform": "iOS"
+}
+''';
+
+const String logoutCompletePayloadInvalid = '''
+{
+  "invalid": "data"
+}
+''';
+
 const String userAttrJsonObjectPayload = '''
 {
   "accountMeta": {
