@@ -26,6 +26,7 @@ export 'src/model/inapp/nudge_position.dart';
 export 'src/model/inapp/self_handled_campaign.dart';
 export 'src/model/inapp/self_handled_campaigns_data.dart';
 export 'src/model/inapp/self_handled_data.dart';
+export 'src/model/logout_complete_data.dart';
 export 'src/model/moe_init_config.dart';
 export 'src/model/permission_result.dart';
 export 'src/model/permission_type.dart';
