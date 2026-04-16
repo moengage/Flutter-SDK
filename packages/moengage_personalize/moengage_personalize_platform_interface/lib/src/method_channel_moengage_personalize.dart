@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 
@@ -48,14 +50,16 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_SHOWN, payload);
+    unawaited(
+        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_SHOWN, payload));
   }
 
   @override
   void trackExperienceClicked(ExperienceCampaign campaign, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_CLICKED, payload);
+    unawaited(
+        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_CLICKED, payload));
   }
 
   @override
@@ -63,7 +67,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<Map<String, dynamic>> offeringAttributes, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingShownPayload(offeringAttributes, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_SHOWN, payload);
+    unawaited(
+        _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_SHOWN, payload));
   }
 
   @override
@@ -71,6 +76,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       Map<String, dynamic> offeringAttributes, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingClickedPayload(campaign, offeringAttributes, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_CLICKED, payload);
+    unawaited(
+        _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_CLICKED, payload));
   }
 }

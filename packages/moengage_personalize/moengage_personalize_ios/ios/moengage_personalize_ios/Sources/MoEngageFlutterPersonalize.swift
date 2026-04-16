@@ -15,8 +15,6 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else {
-            print("Failed to capture flutter method channel arguments for method "
-                + "\(call.method), arguments: \(String(describing: call.arguments))")
             result(nil)
             return
         }
@@ -49,7 +47,6 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
             MoEngagePluginPersonalizeBridge.sharedInstance.trackOfferingClicked(payload)
 
         default:
-            print("Invalid invocation: \(call.method)")
             result(FlutterMethodNotImplemented)
         }
     }
@@ -61,7 +58,6 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
             result(jsonString)
         } else {
-            print("Failed to serialize personalize response to JSON")
             result(nil)
         }
     }

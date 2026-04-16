@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_personalize_platform_interface/moengage_personalize_platform_interface.dart';
-import 'package:moengage_personalize_platform_interface/src/method_channel_moengage_personalize.dart';
 
 import 'data/json_data_provider.dart';
 

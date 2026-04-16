@@ -2,4 +2,4 @@
 
 ## Release Version
 
-- [minor] Initial release
+- [minor] Added Personalize module and feature support
