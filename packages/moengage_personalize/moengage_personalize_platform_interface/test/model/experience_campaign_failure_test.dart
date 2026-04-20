@@ -5,27 +5,16 @@ void main() {
   group('ExperienceCampaignFailure', () {
     test('constructor sets required fields correctly', () {
       final failure = ExperienceCampaignFailure(
-        reason: 'USER_NOT_IN_SEGMENT',
+        reason: ExperienceFailureReason.userNotInSegment,
         experienceKeys: ['key1', 'key2'],
       );
-      expect(failure.reason, 'USER_NOT_IN_SEGMENT');
+      expect(failure.reason, ExperienceFailureReason.userNotInSegment);
       expect(failure.experienceKeys, ['key1', 'key2']);
-      expect(failure.message, isNull);
-    });
-
-    test('constructor sets optional message when provided', () {
-      final failure = ExperienceCampaignFailure(
-        reason: 'NETWORK_ERROR',
-        experienceKeys: ['key1'],
-        message: 'Timeout',
-      );
-      expect(failure.reason, 'NETWORK_ERROR');
-      expect(failure.message, 'Timeout');
     });
 
     test('handles empty experienceKeys list', () {
       final failure = ExperienceCampaignFailure(
-        reason: 'UNKNOWN',
+        reason: ExperienceFailureReason.invalidExperienceKey,
         experienceKeys: [],
       );
       expect(failure.experienceKeys, isEmpty);
@@ -33,13 +22,11 @@ void main() {
 
     test('toString returns expected format', () {
       final failure = ExperienceCampaignFailure(
-        reason: 'PARSE_ERROR',
+        reason: ExperienceFailureReason.personalizationFailed,
         experienceKeys: ['k1'],
-        message: 'Bad JSON',
       );
       expect(failure.toString(), contains('ExperienceCampaignFailure'));
-      expect(failure.toString(), contains('PARSE_ERROR'));
-      expect(failure.toString(), contains('Bad JSON'));
+      expect(failure.toString(), contains('personalizationFailed'));
     });
   });
 }

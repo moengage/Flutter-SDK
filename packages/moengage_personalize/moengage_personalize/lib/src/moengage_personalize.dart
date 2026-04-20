@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
 import 'package:moengage_personalize_platform_interface/moengage_personalize_platform_interface.dart';
 
 /// Helper class to interact with MoEngage Personalize Experience APIs.
@@ -9,6 +10,8 @@ class MoEngagePersonalize {
 
   /// AppId available in MoEngage Platform.
   final String appId;
+
+  static const String _tag = '${moduleTag}MoEngagePersonalize';
 
   final MoEngagePersonalizePlatform _platform =
       MoEngagePersonalizePlatform.instance;
@@ -21,6 +24,7 @@ class MoEngagePersonalize {
   Future<ExperienceCampaignsMetadata> fetchExperiencesMeta(
     List<ExperienceStatus> statuses,
   ) async {
+    Logger.v('$_tag fetchExperiencesMeta(): statuses: $statuses');
     return _platform.fetchExperiencesMeta(statuses, appId);
   }
 
@@ -32,6 +36,7 @@ class MoEngagePersonalize {
     List<String> experienceKeys, {
     Map<String, String> attributes = const {},
   }) async {
+    Logger.v('$_tag fetchExperiences(): keys: $experienceKeys');
     return _platform.fetchExperiences(experienceKeys, attributes, appId);
   }
 
@@ -40,6 +45,7 @@ class MoEngagePersonalize {
     String experienceKey, {
     Map<String, String> attributes = const {},
   }) async {
+    Logger.v('$_tag fetchExperience(): key: $experienceKey');
     return fetchExperiences([experienceKey], attributes: attributes);
   }
 
@@ -47,16 +53,19 @@ class MoEngagePersonalize {
 
   /// Tracks impression events for one or more experience [campaigns].
   void trackExperienceShown(List<ExperienceCampaign> campaigns) {
+    Logger.v('$_tag trackExperienceShown(): campaigns: ${campaigns.length}');
     _platform.trackExperienceShown(campaigns, appId);
   }
 
   /// Tracks a click event for a single experience [campaign].
   void trackExperienceClicked(ExperienceCampaign campaign) {
+    Logger.v('$_tag trackExperienceClicked(): key: ${campaign.experienceKey}');
     _platform.trackExperienceClicked(campaign, appId);
   }
 
   /// Tracks impression events for one or more offerings.
   void trackOfferingShown(List<Map<String, dynamic>> offeringAttributes) {
+    Logger.v('$_tag trackOfferingShown(): count: ${offeringAttributes.length}');
     _platform.trackOfferingShown(offeringAttributes, appId);
   }
 
@@ -65,6 +74,7 @@ class MoEngagePersonalize {
     ExperienceCampaign campaign,
     Map<String, dynamic> offeringAttributes,
   ) {
+    Logger.v('$_tag trackOfferingClicked(): key: ${campaign.experienceKey}');
     _platform.trackOfferingClicked(campaign, offeringAttributes, appId);
   }
 }

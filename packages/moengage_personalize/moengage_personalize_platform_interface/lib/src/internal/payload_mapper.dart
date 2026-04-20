@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show getAccountMeta, keyData;
+    show Logger, getAccountMeta, keyData;
 
 import '../model/models.dart';
 import 'constants.dart';
@@ -92,8 +92,13 @@ ExperienceCampaignsMetadata deserializeExperiencesMeta(
       json.decode(responsePayload.toString()) as Map<String, dynamic>;
   _checkForError(response);
 
-  final Map<String, dynamic> dataPayload =
-      response[keyData] as Map<String, dynamic>;
+  final dataPayload = response[keyData];
+  if (dataPayload is! Map<String, dynamic>) {
+    Logger.w('${moduleTag}deserializeExperiencesMeta(): missing or invalid data key');
+    return ExperienceCampaignsMetadata(
+        source: DataSource.network, experiences: []);
+  }
+
   final source =
       DataSource.fromString(dataPayload[keySource]?.toString() ?? '');
   final experiencesList = dataPayload[keyExperiences] as List? ?? [];
@@ -117,8 +122,11 @@ ExperienceCampaignsResult deserializeExperiencesResult(
       json.decode(responsePayload.toString()) as Map<String, dynamic>;
   _checkForError(response);
 
-  final Map<String, dynamic> dataPayload =
-      response[keyData] as Map<String, dynamic>;
+  final dataPayload = response[keyData];
+  if (dataPayload is! Map<String, dynamic>) {
+    Logger.w('${moduleTag}deserializeExperiencesResult(): missing or invalid data key');
+    return ExperienceCampaignsResult(experiences: [], failures: []);
+  }
 
   final experiencesList = dataPayload[keyExperiences] as List? ?? [];
   final experiences = experiencesList.map((exp) {
@@ -127,7 +135,7 @@ ExperienceCampaignsResult deserializeExperiencesResult(
       experienceKey: map[keyExperienceKey]?.toString() ?? '',
       payload: map[keyPayload] as Map<String, dynamic>? ?? {},
       experienceContext:
-          map[keyExperienceContext] as Map<String, dynamic>? ?? {},
+          (map[keyExperienceContext] as Map?)?.cast<String, String>() ?? {},
       source: DataSource.fromString(map[keySource]?.toString() ?? ''),
     );
   }).toList();
@@ -136,12 +144,12 @@ ExperienceCampaignsResult deserializeExperiencesResult(
   final failures = failuresList.map((f) {
     final map = f as Map<String, dynamic>;
     return ExperienceCampaignFailure(
-      reason: map[keyReason]?.toString() ?? '',
+      reason: ExperienceFailureReason.fromString(
+          map[keyReason]?.toString() ?? ''),
       experienceKeys: (map[keyExperienceKeys] as List?)
               ?.map((k) => k.toString())
               .toList() ??
           [],
-      message: map[keyMessage]?.toString(),
     );
   }).toList();
 

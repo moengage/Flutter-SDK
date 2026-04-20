@@ -1,7 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:moengage_personalize_ios/moengage_personalize_ios.dart';
+import 'package:moengage_personalize_platform_interface/moengage_personalize_platform_interface.dart';
 
 void main() {
-  test('Sample Test', () {
-    expect(1 + 1, equals(2));
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('registerWith sets MoEngagePersonalizeIOS as platform instance', () {
+    MoEngagePersonalizeIOS.registerWith();
+    expect(
+      MoEngagePersonalizePlatform.instance,
+      isA<MoEngagePersonalizeIOS>(),
+    );
   });
 }

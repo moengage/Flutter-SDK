@@ -11,7 +11,10 @@ import 'moengage_personalize_platform_interface.dart';
 /// An implementation of [MoEngagePersonalizePlatform] that uses method channels.
 class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
   /// The method channel used to interact with the native platform.
-  final MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
+  final MethodChannel _channel = const MethodChannel(channelName);
+
+  static const String _tag =
+      '${moduleTag}MethodChannelMoEngagePersonalize';
 
   @override
   Future<ExperienceCampaignsMetadata> fetchExperiencesMeta(
@@ -20,10 +23,11 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       final Map<String, dynamic> payload =
           getFetchExperiencesMetaPayload(statuses, appId);
       final response = await _channel.invokeMethod(
-          METHOD_NAME_FETCH_EXPERIENCES_META, payload);
+          methodFetchExperiencesMeta, payload);
       return deserializeExperiencesMeta(response);
     } catch (e, stackTrace) {
-      Logger.e('fetchExperiencesMeta(): Error: $e', stackTrace: stackTrace);
+      Logger.e('$_tag fetchExperiencesMeta(): Error: $e',
+          stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -37,10 +41,10 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       final Map<String, dynamic> payload =
           getFetchExperiencesPayload(experienceKeys, attributes, appId);
       final response = await _channel.invokeMethod(
-          METHOD_NAME_FETCH_EXPERIENCES, payload);
+          methodFetchExperiences, payload);
       return deserializeExperiencesResult(response);
     } catch (e, stackTrace) {
-      Logger.e('fetchExperiences(): Error: $e', stackTrace: stackTrace);
+      Logger.e('$_tag fetchExperiences(): Error: $e', stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -50,16 +54,14 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
-    unawaited(
-        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_SHOWN, payload));
+    unawaited(_channel.invokeMethod(methodTrackExperienceShown, payload));
   }
 
   @override
   void trackExperienceClicked(ExperienceCampaign campaign, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
-    unawaited(
-        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_CLICKED, payload));
+    unawaited(_channel.invokeMethod(methodTrackExperienceClicked, payload));
   }
 
   @override
@@ -67,8 +69,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<Map<String, dynamic>> offeringAttributes, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingShownPayload(offeringAttributes, appId);
-    unawaited(
-        _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_SHOWN, payload));
+    unawaited(_channel.invokeMethod(methodTrackOfferingShown, payload));
   }
 
   @override
@@ -76,7 +77,6 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       Map<String, dynamic> offeringAttributes, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingClickedPayload(campaign, offeringAttributes, appId);
-    unawaited(
-        _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_CLICKED, payload));
+    unawaited(_channel.invokeMethod(methodTrackOfferingClicked, payload));
   }
 }

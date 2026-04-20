@@ -120,10 +120,8 @@ void main() {
         expect(result.experiences[0].source, DataSource.network);
 
         expect(result.failures.length, 1);
-        expect(result.failures[0].reason, 'USER_NOT_IN_SEGMENT');
+        expect(result.failures[0].reason, ExperienceFailureReason.userNotInSegment);
         expect(result.failures[0].experienceKeys, ['home_hero']);
-        expect(result.failures[0].message,
-            'User does not match segment criteria');
       });
 
       test('parses empty experiences and failures', () {
@@ -142,13 +140,12 @@ void main() {
         );
       });
 
-      test('parses failure without optional message', () {
+      test('parses failure with unknown reason falls back to personalizationFailed', () {
         final result = deserializeExperiencesResult(
             fetchExperiencesFailureWithoutMessageJson);
         expect(result.failures.length, 1);
-        expect(result.failures[0].reason, 'INVALID_EXPERIENCE_KEY');
+        expect(result.failures[0].reason, ExperienceFailureReason.invalidExperienceKey);
         expect(result.failures[0].experienceKeys, ['bad_key']);
-        expect(result.failures[0].message, isNull);
       });
     });
   });

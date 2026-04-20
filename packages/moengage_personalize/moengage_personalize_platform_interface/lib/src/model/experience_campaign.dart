@@ -17,7 +17,7 @@ class ExperienceCampaign {
   final Map<String, dynamic> payload;
 
   /// Contextual data associated with the experience.
-  final Map<String, dynamic> experienceContext;
+  final Map<String, String> experienceContext;
 
   /// Source from which the data was retrieved.
   final DataSource source;

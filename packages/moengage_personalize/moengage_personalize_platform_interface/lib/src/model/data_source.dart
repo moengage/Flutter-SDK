@@ -1,3 +1,7 @@
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+
+import '../internal/constants.dart';
+
 /// Source from which experience data was retrieved.
 enum DataSource {
   /// Data was served from the local cache.
@@ -16,6 +20,10 @@ enum DataSource {
   /// Falls back to [DataSource.network] for unknown values.
   static DataSource fromString(String str) => DataSource.values.firstWhere(
         (s) => s.value == str,
-        orElse: () => DataSource.network,
+        orElse: () {
+          Logger.w(
+              '${moduleTag}DataSource fromString(): Unknown value "$str", defaulting to network');
+          return DataSource.network;
+        },
       );
 }

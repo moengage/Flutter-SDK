@@ -1,15 +1,14 @@
 import Foundation
 
-struct MoEngageFlutterPersonalizeConstants {
+enum MoEngageFlutterPersonalizeConstants {
+    static let pluginChannelName = "com.moengage/personalize"
 
-    static let kPluginChannelName = "com.moengage/personalize"
-
-    struct MethodNames {
-        static let kFetchExperiencesMeta    = "fetchExperiencesMeta"
-        static let kFetchExperiences        = "fetchExperiences"
-        static let kTrackExperienceShown    = "trackExperienceShown"
-        static let kTrackExperienceClicked  = "trackExperienceClicked"
-        static let kTrackOfferingShown      = "trackOfferingShown"
-        static let kTrackOfferingClicked    = "trackOfferingClicked"
+    enum MethodNames {
+        static let fetchExperiencesMeta   = "fetchExperiencesMeta"
+        static let fetchExperiences       = "fetchExperiences"
+        static let trackExperienceShown   = "trackExperienceShown"
+        static let trackExperienceClicked = "trackExperienceClicked"
+        static let trackOfferingShown     = "trackOfferingShown"
+        static let trackOfferingClicked   = "trackOfferingClicked"
     }
 }

@@ -25,13 +25,12 @@ final experienceCampaign = ExperienceCampaign(
 );
 
 final experienceCampaignFailure = ExperienceCampaignFailure(
-  reason: 'USER_NOT_IN_SEGMENT',
+  reason: ExperienceFailureReason.userNotInSegment,
   experienceKeys: ['home_hero'],
-  message: 'User does not match segment criteria',
 );
 
-final experienceCampaignFailureWithoutMessage = ExperienceCampaignFailure(
-  reason: 'INVALID_EXPERIENCE_KEY',
+final experienceCampaignFailureInvalidKey = ExperienceCampaignFailure(
+  reason: ExperienceFailureReason.invalidExperienceKey,
   experienceKeys: ['bad_key'],
 );
 

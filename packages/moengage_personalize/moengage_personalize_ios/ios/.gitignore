@@ -35,6 +35,7 @@ Icon?
 
 /Flutter/Generated.xcconfig
 /Flutter/flutter_export_environment.sh
+/Flutter/ephemeral/
 
 # Swift Package Manager
 #

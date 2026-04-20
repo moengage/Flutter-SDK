@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs
-const String TAG = 'Personalize_';
-const String CHANNEL_NAME = 'com.moengage/personalize';
+const String moduleTag = 'Personalize_';
+const String channelName = 'com.moengage/personalize';
 
 // Method Names
-const String METHOD_NAME_FETCH_EXPERIENCES_META = 'fetchExperiencesMeta';
-const String METHOD_NAME_FETCH_EXPERIENCES = 'fetchExperiences';
-const String METHOD_NAME_TRACK_EXPERIENCE_SHOWN = 'trackExperienceShown';
-const String METHOD_NAME_TRACK_EXPERIENCE_CLICKED = 'trackExperienceClicked';
-const String METHOD_NAME_TRACK_OFFERING_SHOWN = 'trackOfferingShown';
-const String METHOD_NAME_TRACK_OFFERING_CLICKED = 'trackOfferingClicked';
+const String methodFetchExperiencesMeta = 'fetchExperiencesMeta';
+const String methodFetchExperiences = 'fetchExperiences';
+const String methodTrackExperienceShown = 'trackExperienceShown';
+const String methodTrackExperienceClicked = 'trackExperienceClicked';
+const String methodTrackOfferingShown = 'trackOfferingShown';
+const String methodTrackOfferingClicked = 'trackOfferingClicked';
 
 // JSON Keys
 const String keyStatus = 'status';

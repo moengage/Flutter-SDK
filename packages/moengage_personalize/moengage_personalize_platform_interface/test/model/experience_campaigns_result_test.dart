@@ -11,7 +11,7 @@ void main() {
         source: DataSource.network,
       );
       final failure = ExperienceCampaignFailure(
-        reason: 'UNKNOWN',
+        reason: ExperienceFailureReason.invalidExperienceKey,
         experienceKeys: ['bad_key'],
       );
       final result = ExperienceCampaignsResult(
@@ -21,7 +21,8 @@ void main() {
       expect(result.experiences.length, 1);
       expect(result.failures.length, 1);
       expect(result.experiences.first.experienceKey, 'banner');
-      expect(result.failures.first.reason, 'UNKNOWN');
+      expect(result.failures.first.reason,
+          ExperienceFailureReason.invalidExperienceKey);
     });
 
     test('handles empty lists', () {

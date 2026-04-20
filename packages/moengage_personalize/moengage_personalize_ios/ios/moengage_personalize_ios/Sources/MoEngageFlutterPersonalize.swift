@@ -6,7 +6,7 @@ import MoEngagePluginPersonalize
 public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(
-            name: MoEngageFlutterPersonalizeConstants.kPluginChannelName,
+            name: MoEngageFlutterPersonalizeConstants.pluginChannelName,
             binaryMessenger: registrar.messenger()
         )
         let instance = MoEngageFlutterPersonalize()
@@ -15,36 +15,45 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else {
-            result(nil)
+            print("[MoEngageFlutterPersonalize] handle(): invalid payload for \(call.method)")
+            result(FlutterError(
+                code: "INVALID_PAYLOAD",
+                message: "Expected [String: Any] arguments for \(call.method)",
+                details: nil
+            ))
             return
         }
 
         switch call.method {
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kFetchExperiencesMeta:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.fetchExperiencesMeta:
             MoEngagePluginPersonalizeBridge.sharedInstance.fetchExperiencesMeta(payload) { response in
                 DispatchQueue.main.async {
                     MoEngageFlutterPersonalize.sendFetchResult(response, result: result)
                 }
             }
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kFetchExperiences:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.fetchExperiences:
             MoEngagePluginPersonalizeBridge.sharedInstance.fetchExperiences(payload) { response in
                 DispatchQueue.main.async {
                     MoEngageFlutterPersonalize.sendFetchResult(response, result: result)
                 }
             }
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kTrackExperienceShown:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.trackExperienceShown:
             MoEngagePluginPersonalizeBridge.sharedInstance.trackExperienceShown(payload)
+            result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kTrackExperienceClicked:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.trackExperienceClicked:
             MoEngagePluginPersonalizeBridge.sharedInstance.trackExperienceClicked(payload)
+            result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kTrackOfferingShown:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.trackOfferingShown:
             MoEngagePluginPersonalizeBridge.sharedInstance.trackOfferingShown(payload)
+            result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.kTrackOfferingClicked:
+        case MoEngageFlutterPersonalizeConstants.MethodNames.trackOfferingClicked:
             MoEngagePluginPersonalizeBridge.sharedInstance.trackOfferingClicked(payload)
+            result(nil)
 
         default:
             result(FlutterMethodNotImplemented)
@@ -58,6 +67,7 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
             result(jsonString)
         } else {
+            print("[MoEngageFlutterPersonalize] sendFetchResult(): failed to serialize response")
             result(nil)
         }
     }

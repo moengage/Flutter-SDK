@@ -1,3 +1,7 @@
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+
+import '../internal/constants.dart';
+
 /// Status of an experience campaign.
 enum ExperienceStatus {
   /// Campaign is currently active.
@@ -21,6 +25,10 @@ enum ExperienceStatus {
   static ExperienceStatus fromString(String str) =>
       ExperienceStatus.values.firstWhere(
         (s) => s.value == str,
-        orElse: () => ExperienceStatus.active,
+        orElse: () {
+          Logger.w(
+              '${moduleTag}ExperienceStatus fromString(): Unknown value "$str", defaulting to active');
+          return ExperienceStatus.active;
+        },
       );
 }
