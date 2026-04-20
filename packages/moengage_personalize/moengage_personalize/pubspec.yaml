@@ -1,6 +1,6 @@
 name: moengage_personalize
 description: Flutter Plugin for using Personalize Experience feature of MoEngage Platform.
-version: 1.0.0
+version: 0.1.1
 homepage: https://www.moengage.com
 
 environment:
@@ -11,8 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^10.0.0
-  moengage_personalize_ios: 1.0.0
-  moengage_personalize_platform_interface: 1.0.0
+  moengage_personalize_android: 0.1.1
+  moengage_personalize_ios: 0.1.1
+  moengage_personalize_platform_interface: 0.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -24,5 +25,7 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
+      android:
+        default_package: moengage_personalize_android
       ios:
         default_package: moengage_personalize_ios
