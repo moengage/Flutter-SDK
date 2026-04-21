@@ -87,22 +87,6 @@ PermissionResultData permissionResultFromMap(dynamic methodCallArgs) {
           permissionPayload[keyPermissionType].toString()));
 }
 
-/// Get [LogoutCompleteData] from Json String
-LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
-  try {
-    final Map<String, dynamic> payload =
-        json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
-    return LogoutCompleteData(
-        platform:
-            PlatformsExtension.fromString(payload[keyPlatform].toString()),
-        accountMeta: accountMetaFromMap(
-            payload[keyAccountMeta] as Map<String, dynamic>));
-  } catch (e, stackTrace) {
-    Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
-  }
-  return null;
-}
-
 /// Get Permission Response Payload
 Map<String, dynamic> getPermissionResponsePayload(
     bool isGranted, PermissionType type) {
@@ -192,4 +176,20 @@ Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
 /// Return whether type of [identity] is supported or not
 bool isSupportedIdentity(dynamic identity) {
   return identity is String || identity is Map<String, dynamic>;
+}
+
+/// Get [LogoutCompleteData] from Json String
+LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
+  try {
+    final Map<String, dynamic> payload =
+    json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+    return LogoutCompleteData(
+        platform:
+        PlatformsExtension.fromString(payload[keyPlatform].toString()),
+        accountMeta: accountMetaFromMap(
+            payload[keyAccountMeta] as Map<String, dynamic>));
+  } catch (e, stackTrace) {
+    Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
+  }
+  return null;
 }
