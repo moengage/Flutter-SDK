@@ -52,29 +52,29 @@ class MoEngagePersonalize {
   // --- Tracking APIs (Fire-and-forget) ---
 
   /// Tracks impression events for one or more experience [campaigns].
-  void trackExperienceShown(List<ExperienceCampaign> campaigns) {
-    Logger.v('$_tag trackExperienceShown(): campaigns: ${campaigns.length}');
-    _platform.trackExperienceShown(campaigns, appId);
+  void experiencesShown(List<ExperienceCampaign> campaigns) {
+    Logger.v('$_tag experiencesShown(): campaigns: ${campaigns.length}');
+    _platform.experiencesShown(campaigns, appId);
   }
 
   /// Tracks a click event for a single experience [campaign].
-  void trackExperienceClicked(ExperienceCampaign campaign) {
-    Logger.v('$_tag trackExperienceClicked(): key: ${campaign.experienceKey}');
-    _platform.trackExperienceClicked(campaign, appId);
+  void experienceClicked(ExperienceCampaign campaign) {
+    Logger.v('$_tag experienceClicked(): key: ${campaign.experienceKey}');
+    _platform.experienceClicked(campaign, appId);
   }
 
   /// Tracks impression events for one or more offerings.
-  void trackOfferingShown(List<Map<String, dynamic>> offeringAttributes) {
-    Logger.v('$_tag trackOfferingShown(): count: ${offeringAttributes.length}');
-    _platform.trackOfferingShown(offeringAttributes, appId);
+  void offeringsShown(List<Map<String, dynamic>> offeringPayloads) {
+    Logger.v('$_tag offeringsShown(): count: ${offeringPayloads.length}');
+    _platform.offeringsShown(offeringPayloads, appId);
   }
 
   /// Tracks a click event for a single offering within an experience [campaign].
-  void trackOfferingClicked(
+  void offeringClicked(
     ExperienceCampaign campaign,
-    Map<String, dynamic> offeringAttributes,
+    Map<String, dynamic> offeringPayload,
   ) {
-    Logger.v('$_tag trackOfferingClicked(): key: ${campaign.experienceKey}');
-    _platform.trackOfferingClicked(campaign, offeringAttributes, appId);
+    Logger.v('$_tag offeringClicked(): key: ${campaign.experienceKey}');
+    _platform.offeringClicked(campaign, offeringPayload, appId);
   }
 }

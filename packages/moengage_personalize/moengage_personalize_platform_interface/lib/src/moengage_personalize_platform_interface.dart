@@ -43,23 +43,23 @@ abstract class MoEngagePersonalizePlatform extends PlatformInterface {
   /// Tracks impression events for one or more experience campaigns.
   /// [campaigns] - List of [ExperienceCampaign] to track.
   /// [appId] - MoEngage App ID.
-  void trackExperienceShown(List<ExperienceCampaign> campaigns, String appId);
+  void experiencesShown(List<ExperienceCampaign> campaigns, String appId);
 
   /// Tracks a click event for a single experience campaign.
   /// [campaign] - The [ExperienceCampaign] that was clicked.
   /// [appId] - MoEngage App ID.
-  void trackExperienceClicked(ExperienceCampaign campaign, String appId);
+  void experienceClicked(ExperienceCampaign campaign, String appId);
 
   /// Tracks impression events for one or more offerings.
-  /// [offeringAttributes] - List of offering attribute maps.
+  /// [offeringPayloads] - List of full offering dicts (each containing dp_offering_id, offering_content, offering_context).
   /// [appId] - MoEngage App ID.
-  void trackOfferingShown(
-      List<Map<String, dynamic>> offeringAttributes, String appId);
+  void offeringsShown(
+      List<Map<String, dynamic>> offeringPayloads, String appId);
 
   /// Tracks a click event for a single offering.
   /// [campaign] - The [ExperienceCampaign] containing the offering.
-  /// [offeringAttributes] - Attributes of the clicked offering.
+  /// [offeringPayload] - Full offering dict (containing dp_offering_id, offering_content, offering_context).
   /// [appId] - MoEngage App ID.
-  void trackOfferingClicked(ExperienceCampaign campaign,
-      Map<String, dynamic> offeringAttributes, String appId);
+  void offeringClicked(ExperienceCampaign campaign,
+      Map<String, dynamic> offeringPayload, String appId);
 }

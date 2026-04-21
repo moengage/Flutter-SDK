@@ -66,22 +66,22 @@ void main() {
       expect(experience[keyExperienceKey], 'welcome_banner');
     });
 
-    test('getTrackOfferingShownPayload wraps offering attributes', () {
-      final attrs = [
+    test('getTrackOfferingShownPayload wraps offering payloads', () {
+      final offeringPayloads = [
         {'offer_id': '123'}
       ];
-      final payload = getTrackOfferingShownPayload(attrs, testAppId);
+      final payload = getTrackOfferingShownPayload(offeringPayloads, testAppId);
       final data = payload[keyData] as Map<String, dynamic>;
-      expect(data[keyOfferingAttributes], attrs);
+      expect(data[keyOfferingPayloads], offeringPayloads);
     });
 
-    test('getTrackOfferingClickedPayload wraps campaign + attributes', () {
-      final attrs = {'offer_id': '123'};
+    test('getTrackOfferingClickedPayload wraps campaign + offering payload', () {
+      final offeringPayload = {'offer_id': '123'};
       final payload = getTrackOfferingClickedPayload(
-          experienceCampaign, attrs, testAppId);
+          experienceCampaign, offeringPayload, testAppId);
       final data = payload[keyData] as Map<String, dynamic>;
       expect(data[keyExperience], isA<Map<String, dynamic>>());
-      expect(data[keyOfferingAttributes], attrs);
+      expect(data[keyOfferingPayload], offeringPayload);
     });
   });
 

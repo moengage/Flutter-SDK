@@ -39,20 +39,20 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
                 }
             }
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.trackExperienceShown:
-            MoEngagePluginPersonalizeBridge.sharedInstance.trackExperienceShown(payload)
+        case MoEngageFlutterPersonalizeConstants.MethodNames.experiencesShown:
+            MoEngagePluginPersonalizeBridge.sharedInstance.experiencesShown(payload)
             result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.trackExperienceClicked:
-            MoEngagePluginPersonalizeBridge.sharedInstance.trackExperienceClicked(payload)
+        case MoEngageFlutterPersonalizeConstants.MethodNames.experienceClicked:
+            MoEngagePluginPersonalizeBridge.sharedInstance.experienceClicked(payload)
             result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.trackOfferingShown:
-            MoEngagePluginPersonalizeBridge.sharedInstance.trackOfferingShown(payload)
+        case MoEngageFlutterPersonalizeConstants.MethodNames.offeringsShown:
+            MoEngagePluginPersonalizeBridge.sharedInstance.offeringsShown(payload)
             result(nil)
 
-        case MoEngageFlutterPersonalizeConstants.MethodNames.trackOfferingClicked:
-            MoEngagePluginPersonalizeBridge.sharedInstance.trackOfferingClicked(payload)
+        case MoEngageFlutterPersonalizeConstants.MethodNames.offeringClicked:
+            MoEngagePluginPersonalizeBridge.sharedInstance.offeringClicked(payload)
             result(nil)
 
         default:

@@ -55,13 +55,13 @@ void main() {
         .thenAnswer((_) async => stubMeta);
     when(() => mockPlatform.fetchExperiences(any(), any(), any()))
         .thenAnswer((_) async => stubResult);
-    when(() => mockPlatform.trackExperienceShown(any(), any()))
+    when(() => mockPlatform.experiencesShown(any(), any()))
         .thenReturn(null);
-    when(() => mockPlatform.trackExperienceClicked(any(), any()))
+    when(() => mockPlatform.experienceClicked(any(), any()))
         .thenReturn(null);
-    when(() => mockPlatform.trackOfferingShown(any(), any()))
+    when(() => mockPlatform.offeringsShown(any(), any()))
         .thenReturn(null);
-    when(() => mockPlatform.trackOfferingClicked(any(), any(), any()))
+    when(() => mockPlatform.offeringClicked(any(), any(), any()))
         .thenReturn(null);
   });
 
@@ -89,29 +89,29 @@ void main() {
           .called(1);
     });
 
-    test('trackExperienceShown forwards campaigns and appId to platform', () {
-      personalize.trackExperienceShown([campaign]);
-      verify(() => mockPlatform.trackExperienceShown([campaign], _appId))
+    test('experiencesShown forwards campaigns and appId to platform', () {
+      personalize.experiencesShown([campaign]);
+      verify(() => mockPlatform.experiencesShown([campaign], _appId))
           .called(1);
     });
 
-    test('trackExperienceClicked forwards campaign and appId to platform', () {
-      personalize.trackExperienceClicked(campaign);
-      verify(() => mockPlatform.trackExperienceClicked(campaign, _appId))
+    test('experienceClicked forwards campaign and appId to platform', () {
+      personalize.experienceClicked(campaign);
+      verify(() => mockPlatform.experienceClicked(campaign, _appId))
           .called(1);
     });
 
-    test('trackOfferingShown forwards attributes and appId to platform', () {
-      final attrs = [{'id': '1'}];
-      personalize.trackOfferingShown(attrs);
-      verify(() => mockPlatform.trackOfferingShown(attrs, _appId)).called(1);
+    test('offeringsShown forwards payloads and appId to platform', () {
+      final offeringPayloads = [{'id': '1'}];
+      personalize.offeringsShown(offeringPayloads);
+      verify(() => mockPlatform.offeringsShown(offeringPayloads, _appId)).called(1);
     });
 
-    test('trackOfferingClicked forwards campaign, attributes and appId', () {
-      final attrs = {'id': '1'};
-      personalize.trackOfferingClicked(campaign, attrs);
+    test('offeringClicked forwards campaign, payload and appId to platform', () {
+      final offeringPayload = {'id': '1'};
+      personalize.offeringClicked(campaign, offeringPayload);
       verify(() =>
-              mockPlatform.trackOfferingClicked(campaign, attrs, _appId))
+              mockPlatform.offeringClicked(campaign, offeringPayload, _appId))
           .called(1);
     });
   });

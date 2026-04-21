@@ -50,33 +50,33 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
   }
 
   @override
-  void trackExperienceShown(
+  void experiencesShown(
       List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
-    unawaited(_channel.invokeMethod(methodTrackExperienceShown, payload));
+    unawaited(_channel.invokeMethod(methodExperiencesShown, payload));
   }
 
   @override
-  void trackExperienceClicked(ExperienceCampaign campaign, String appId) {
+  void experienceClicked(ExperienceCampaign campaign, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
-    unawaited(_channel.invokeMethod(methodTrackExperienceClicked, payload));
+    unawaited(_channel.invokeMethod(methodExperienceClicked, payload));
   }
 
   @override
-  void trackOfferingShown(
-      List<Map<String, dynamic>> offeringAttributes, String appId) {
+  void offeringsShown(
+      List<Map<String, dynamic>> offeringPayloads, String appId) {
     final Map<String, dynamic> payload =
-        getTrackOfferingShownPayload(offeringAttributes, appId);
-    unawaited(_channel.invokeMethod(methodTrackOfferingShown, payload));
+        getTrackOfferingShownPayload(offeringPayloads, appId);
+    unawaited(_channel.invokeMethod(methodOfferingsShown, payload));
   }
 
   @override
-  void trackOfferingClicked(ExperienceCampaign campaign,
-      Map<String, dynamic> offeringAttributes, String appId) {
+  void offeringClicked(ExperienceCampaign campaign,
+      Map<String, dynamic> offeringPayload, String appId) {
     final Map<String, dynamic> payload =
-        getTrackOfferingClickedPayload(campaign, offeringAttributes, appId);
-    unawaited(_channel.invokeMethod(methodTrackOfferingClicked, payload));
+        getTrackOfferingClickedPayload(campaign, offeringPayload, appId);
+    unawaited(_channel.invokeMethod(methodOfferingClicked, payload));
   }
 }

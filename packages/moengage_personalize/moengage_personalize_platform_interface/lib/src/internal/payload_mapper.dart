@@ -40,7 +40,7 @@ Map<String, dynamic> campaignToMap(ExperienceCampaign campaign) {
   };
 }
 
-/// Build payload for trackExperienceShown.
+/// Build payload for experiencesShown.
 Map<String, dynamic> getTrackExperienceShownPayload(
     List<ExperienceCampaign> campaigns, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
@@ -50,7 +50,7 @@ Map<String, dynamic> getTrackExperienceShownPayload(
   return payload;
 }
 
-/// Build payload for trackExperienceClicked.
+/// Build payload for experienceClicked.
 Map<String, dynamic> getTrackExperienceClickedPayload(
     ExperienceCampaign campaign, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
@@ -60,25 +60,25 @@ Map<String, dynamic> getTrackExperienceClickedPayload(
   return payload;
 }
 
-/// Build payload for trackOfferingShown.
+/// Build payload for offeringsShown.
 Map<String, dynamic> getTrackOfferingShownPayload(
-    List<Map<String, dynamic>> offeringAttributes, String appId) {
+    List<Map<String, dynamic>> offeringPayloads, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
-    keyOfferingAttributes: offeringAttributes,
+    keyOfferingPayloads: offeringPayloads,
   };
   return payload;
 }
 
-/// Build payload for trackOfferingClicked.
+/// Build payload for offeringClicked.
 Map<String, dynamic> getTrackOfferingClickedPayload(
     ExperienceCampaign campaign,
-    Map<String, dynamic> offeringAttributes,
+    Map<String, dynamic> offeringPayload,
     String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
     keyExperience: campaignToMap(campaign),
-    keyOfferingAttributes: offeringAttributes,
+    keyOfferingPayload: offeringPayload,
   };
   return payload;
 }

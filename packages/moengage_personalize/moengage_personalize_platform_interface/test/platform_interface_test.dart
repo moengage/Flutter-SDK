@@ -23,10 +23,10 @@ void main() {
           return fetchExperiencesMetaSuccessJson;
         case methodFetchExperiences:
           return fetchExperiencesSuccessJson;
-        case methodTrackExperienceShown:
-        case methodTrackExperienceClicked:
-        case methodTrackOfferingShown:
-        case methodTrackOfferingClicked:
+        case methodExperiencesShown:
+        case methodExperienceClicked:
+        case methodOfferingsShown:
+        case methodOfferingClicked:
           return null;
         default:
           return null;
@@ -96,24 +96,24 @@ void main() {
       source: DataSource.network,
     );
 
-    test('trackExperienceShown invokes correct method', () {
-      platform.trackExperienceShown([campaign], testAppId);
-      expect(invokedMethods, contains(methodTrackExperienceShown));
+    test('experiencesShown invokes correct method', () {
+      platform.experiencesShown([campaign], testAppId);
+      expect(invokedMethods, contains(methodExperiencesShown));
     });
 
-    test('trackExperienceClicked invokes correct method', () {
-      platform.trackExperienceClicked(campaign, testAppId);
-      expect(invokedMethods, contains(methodTrackExperienceClicked));
+    test('experienceClicked invokes correct method', () {
+      platform.experienceClicked(campaign, testAppId);
+      expect(invokedMethods, contains(methodExperienceClicked));
     });
 
-    test('trackOfferingShown invokes correct method', () {
-      platform.trackOfferingShown([{'id': '1'}], testAppId);
-      expect(invokedMethods, contains(methodTrackOfferingShown));
+    test('offeringsShown invokes correct method', () {
+      platform.offeringsShown([{'id': '1'}], testAppId);
+      expect(invokedMethods, contains(methodOfferingsShown));
     });
 
-    test('trackOfferingClicked invokes correct method', () {
-      platform.trackOfferingClicked(campaign, {'id': '1'}, testAppId);
-      expect(invokedMethods, contains(methodTrackOfferingClicked));
+    test('offeringClicked invokes correct method', () {
+      platform.offeringClicked(campaign, {'id': '1'}, testAppId);
+      expect(invokedMethods, contains(methodOfferingClicked));
     });
   });
 }

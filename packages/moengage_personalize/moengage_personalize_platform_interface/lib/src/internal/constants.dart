@@ -5,10 +5,10 @@ const String channelName = 'com.moengage/personalize';
 // Method Names
 const String methodFetchExperiencesMeta = 'fetchExperiencesMeta';
 const String methodFetchExperiences = 'fetchExperiences';
-const String methodTrackExperienceShown = 'trackExperienceShown';
-const String methodTrackExperienceClicked = 'trackExperienceClicked';
-const String methodTrackOfferingShown = 'trackOfferingShown';
-const String methodTrackOfferingClicked = 'trackOfferingClicked';
+const String methodExperiencesShown = 'experiencesShown';
+const String methodExperienceClicked = 'experienceClicked';
+const String methodOfferingsShown = 'offeringsShown';
+const String methodOfferingClicked = 'offeringClicked';
 
 // JSON Keys
 const String keyStatus = 'status';
@@ -18,7 +18,8 @@ const String keyExperiences = 'experiences';
 const String keyExperienceKey = 'experienceKey';
 const String keyExperienceContext = 'experienceContext';
 const String keyExperience = 'experience';
-const String keyOfferingAttributes = 'offeringAttributes';
+const String keyOfferingPayloads = 'offeringPayloads';
+const String keyOfferingPayload = 'offeringPayload';
 const String keyExperienceName = 'experienceName';
 const String keySource = 'source';
 const String keyFailures = 'failures';
