@@ -24,7 +24,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
   final TextEditingController _keysController = TextEditingController();
 
   ExperienceCampaign? _lastCampaign;
-  Map<String, dynamic>? _offeringAttrs;
+  Map<String, dynamic>? _offeringPayload;
 
   List<String> _parseList(String input) =>
       input.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
@@ -35,17 +35,16 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
         .toList();
   }
 
-  /// Extract offering_context from campaign payload, returns null if unavailable.
-  Map<String, dynamic>? _extractOfferingAttributes(
-      ExperienceCampaign campaign) {
+  /// Extract the full offering dict from campaign payload, returns null if unavailable.
+  Map<String, dynamic>? _extractOfferingPayload(ExperienceCampaign campaign) {
     try {
       final offeringsRaw = campaign.payload['offerings'];
       if (offeringsRaw is String) {
         final offerings = json.decode(offeringsRaw);
         if (offerings is List && offerings.isNotEmpty) {
-          final context = offerings[0]['offering_context'];
-          if (context is Map<String, dynamic> && context.isNotEmpty) {
-            return context;
+          final offering = offerings[0];
+          if (offering is Map<String, dynamic> && offering.isNotEmpty) {
+            return offering.cast<String, dynamic>();
           }
         }
       }
@@ -85,7 +84,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
         final campaign = result.experiences.first;
         setState(() {
           _lastCampaign = campaign;
-          _offeringAttrs = _extractOfferingAttributes(campaign);
+          _offeringPayload = _extractOfferingPayload(campaign);
         });
       }
       final expLines = result.experiences
@@ -106,28 +105,28 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     }
   }
 
-  void _onTrackExperienceShown() {
+  void _onExperiencesShown() {
     if (!_requireCampaign()) return;
-    _personalize.trackExperienceShown([_lastCampaign!]);
+    _personalize.experiencesShown([_lastCampaign!]);
     _showSnackBar('Experience Shown: ${_lastCampaign!.experienceKey}');
   }
 
-  void _onTrackExperienceClicked() {
+  void _onExperienceClicked() {
     if (!_requireCampaign()) return;
-    _personalize.trackExperienceClicked(_lastCampaign!);
+    _personalize.experienceClicked(_lastCampaign!);
     _showSnackBar('Experience Clicked: ${_lastCampaign!.experienceKey}');
   }
 
-  void _onTrackOfferingShown() {
-    if (!_requireOfferingAttrs()) return;
-    _personalize.trackOfferingShown([_offeringAttrs!]);
+  void _onOfferingsShown() {
+    if (!_requireOfferingPayload()) return;
+    _personalize.offeringsShown([_offeringPayload!]);
     _showSnackBar('Offering Shown');
   }
 
-  void _onTrackOfferingClicked() {
+  void _onOfferingClicked() {
     if (!_requireCampaign()) return;
-    if (!_requireOfferingAttrs()) return;
-    _personalize.trackOfferingClicked(_lastCampaign!, _offeringAttrs!);
+    if (!_requireOfferingPayload()) return;
+    _personalize.offeringClicked(_lastCampaign!, _offeringPayload!);
     _showSnackBar('Offering Clicked: ${_lastCampaign!.experienceKey}');
   }
 
@@ -139,10 +138,10 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     return true;
   }
 
-  bool _requireOfferingAttrs() {
-    if (_offeringAttrs == null) {
+  bool _requireOfferingPayload() {
+    if (_offeringPayload == null) {
       _showSnackBar(
-          'No offering attributes — fetch an experience with offerings');
+          'No offering payload — fetch an experience with offerings');
       return false;
     }
     return true;
@@ -216,20 +215,20 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
               onTap: _onFetchExperiences,
             ),
             ListTile(
-              title: const Text('Track Experience Shown'),
-              onTap: _onTrackExperienceShown,
+              title: const Text('Experience Shown'),
+              onTap: _onExperiencesShown,
             ),
             ListTile(
-              title: const Text('Track Experience Clicked'),
-              onTap: _onTrackExperienceClicked,
+              title: const Text('Experience Clicked'),
+              onTap: _onExperienceClicked,
             ),
             ListTile(
-              title: const Text('Track Offering Shown'),
-              onTap: _onTrackOfferingShown,
+              title: const Text('Offering Shown'),
+              onTap: _onOfferingsShown,
             ),
             ListTile(
-              title: const Text('Track Offering Clicked'),
-              onTap: _onTrackOfferingClicked,
+              title: const Text('Offering Clicked'),
+              onTap: _onOfferingClicked,
             ),
           ]),
           if (_lastCampaign != null)
