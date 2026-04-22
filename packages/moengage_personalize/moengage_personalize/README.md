@@ -76,12 +76,12 @@ Convenience wrapper for a single key:
 final result = await personalize.fetchExperience('welcome_banner');
 ```
 
-### Track experience shown
+### Track experiences shown
 
 Call when one or more experience campaigns are rendered:
 
 ```dart
-personalize.trackExperienceShown([experienceCampaign]);
+personalize.experiencesShown([experienceCampaign]);
 ```
 
 ### Track experience clicked
@@ -89,15 +89,15 @@ personalize.trackExperienceShown([experienceCampaign]);
 Call when the user interacts with an experience:
 
 ```dart
-personalize.trackExperienceClicked(experienceCampaign);
+personalize.experienceClicked(experienceCampaign);
 ```
 
-### Track offering shown
+### Track offerings shown
 
 Call when one or more offerings inside an experience are rendered:
 
 ```dart
-personalize.trackOfferingShown([
+personalize.offeringsShown([
   {'offer_id': 'promo_123', 'position': '1'},
 ]);
 ```
@@ -107,7 +107,7 @@ personalize.trackOfferingShown([
 Call when the user clicks a specific offering:
 
 ```dart
-personalize.trackOfferingClicked(
+personalize.offeringClicked(
   experienceCampaign,
   {'offer_id': 'promo_123'},
 );

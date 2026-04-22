@@ -24,6 +24,11 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
             return
         }
 
+        MoEngagePluginPersonalizeLogger.debug(
+            "Got data \(payload) from client for channel method \(call.method)",
+            forData: payload
+        )
+
         switch call.method {
         case MoEngageFlutterPersonalizeConstants.MethodNames.fetchExperiencesMeta:
             MoEngagePluginPersonalizeBridge.sharedInstance.fetchExperiencesMeta(payload) { response in

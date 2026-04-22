@@ -1,3 +1,7 @@
+import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+
+import '../internal/constants.dart';
+
 /// Known failure reasons for an experience campaign.
 enum ExperienceFailureReason {
   /// User does not match the segment criteria.
@@ -20,6 +24,10 @@ enum ExperienceFailureReason {
   static ExperienceFailureReason fromString(String str) =>
       ExperienceFailureReason.values.firstWhere(
         (r) => r.value == str,
-        orElse: () => ExperienceFailureReason.personalizationFailed,
+        orElse: () {
+          Logger.w(
+              '${moduleTag}ExperienceFailureReason fromString(): Unknown value "$str", defaulting to personalizationFailed');
+          return ExperienceFailureReason.personalizationFailed;
+        },
       );
 }
