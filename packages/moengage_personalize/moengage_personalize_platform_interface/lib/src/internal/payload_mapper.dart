@@ -33,6 +33,12 @@ Map<String, dynamic> getFetchExperiencesPayload(
 
 /// Serialize an [ExperienceCampaign] to a JSON map.
 Map<String, dynamic> campaignToMap(ExperienceCampaign campaign) {
+  if (campaign.payload.isEmpty) {
+    Logger.w('${moduleTag}campaignToMap(): payload is empty for "${campaign.experienceKey}"');
+  }
+  if (campaign.experienceContext.isEmpty) {
+    Logger.w('${moduleTag}campaignToMap(): experienceContext is empty for "${campaign.experienceKey}"');
+  }
   return {
     keyExperienceKey: campaign.experienceKey,
     keyPayload: campaign.payload,
