@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import MoEngageCore
 import MoEngagePluginBase
 import MoEngagePluginPersonalize
 
@@ -15,7 +16,9 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let payload = call.arguments as? [String: Any] else {
-            print("[MoEngageFlutterPersonalize] handle(): invalid payload for \(call.method)")
+            MoEngageLogger.logDefault(
+                message: "[MoEngageFlutterPersonalize] handle(): invalid payload for \(call.method)"
+            )
             result(FlutterError(
                 code: "INVALID_PAYLOAD",
                 message: "Expected [String: Any] arguments for \(call.method)",
@@ -24,9 +27,9 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
             return
         }
 
-        MoEngagePluginPersonalizeLogger.debug(
-            "Got data \(payload) from client for channel method \(call.method)",
-            forData: payload
+        MoEngageLogger.logDefault(
+            logLevel: .verbose,
+            message: "[MoEngageFlutterPersonalize] Got data from client for channel method \(call.method)"
         )
 
         switch call.method {
@@ -72,7 +75,9 @@ public class MoEngageFlutterPersonalize: NSObject, FlutterPlugin {
            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
             result(jsonString)
         } else {
-            print("[MoEngageFlutterPersonalize] sendFetchResult(): failed to serialize response")
+            MoEngageLogger.logDefault(
+                message: "[MoEngageFlutterPersonalize] sendFetchResult(): failed to serialize response"
+            )
             result(nil)
         }
     }
