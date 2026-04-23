@@ -1,12 +1,12 @@
 package com.moengage.flutter.personalize
 
 import android.content.Context
-import com.moengage.campaigns.personalize.PersonalizeExperienceListener
-import com.moengage.campaigns.personalize.PersonalizationHelper
 import com.moengage.core.LogLevel
-import com.moengage.core.internal.global.GlobalResources
 import com.moengage.core.internal.logger.Logger
+import com.moengage.core.internal.utils.postOnMainThread
 import com.moengage.core.model.RequestFailureReasonCode
+import com.moengage.plugin.base.personalization.PersonalizationHelper
+import com.moengage.plugin.base.personalization.PersonalizeExperienceListener
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -35,52 +35,52 @@ class PlatformMethodCallHandler(
                 METHOD_OFFERING_CLICKED -> offeringClicked(call)
                 else -> {
                     Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+                    result.notImplemented()
                 }
             }
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
+            result.error("exception", t.message, null)
         }
     }
 
     private fun fetchExperiencesMeta(
         call: MethodCall,
-        result: MethodChannel.Result,
+        methodChannelResult: MethodChannel.Result,
     ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag fetchExperiencesMeta() : $payload" }
-            GlobalResources.executor.submit {
-                personalizationHelper.fetchExperiencesMeta(
-                    context,
-                    payload,
-                    object : PersonalizeExperienceListener {
-                        override fun onSuccess(resultPayload: String) {
-                            GlobalResources.mainThread.post {
-                                try {
-                                    Logger.print { "$tag fetchExperiencesMeta(): Result : $resultPayload" }
-                                    result.success(resultPayload)
-                                } catch (t: Throwable) {
-                                    Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
-                                }
+            personalizationHelper.fetchExperiencesMeta(
+                context,
+                payload,
+                object : PersonalizeExperienceListener {
+                    override fun onSuccess(result: String) {
+                        postOnMainThread {
+                            try {
+                                Logger.print { "$tag fetchExperiencesMeta(): Result : $result" }
+                                methodChannelResult.success(result)
+                            } catch (t: Throwable) {
+                                Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
                             }
                         }
+                    }
 
-                        override fun onFailure(
-                            reason: RequestFailureReasonCode,
-                            message: String,
-                        ) {
-                            GlobalResources.mainThread.post {
-                                try {
-                                    Logger.print(LogLevel.ERROR) { "$tag fetchExperiencesMeta(): Error : $reason - $message" }
-                                    result.error(reason.name, message, null)
-                                } catch (t: Throwable) {
-                                    Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
-                                }
+                    override fun onFailure(
+                        reason: RequestFailureReasonCode,
+                        message: String,
+                    ) {
+                        postOnMainThread {
+                            try {
+                                Logger.print(LogLevel.ERROR) { "$tag fetchExperiencesMeta(): Error : $reason - $message" }
+                                methodChannelResult.error(reason.name, message, null)
+                            } catch (t: Throwable) {
+                                Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
                             }
                         }
-                    },
-                )
-            }
+                    }
+                },
+            )
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
         }
@@ -88,43 +88,41 @@ class PlatformMethodCallHandler(
 
     private fun fetchExperiences(
         call: MethodCall,
-        result: MethodChannel.Result,
+        methodChannelResult: MethodChannel.Result,
     ) {
         try {
             val payload = call.arguments.toString()
             Logger.print { "$tag fetchExperiences() : $payload" }
-            GlobalResources.executor.submit {
-                personalizationHelper.fetchExperiences(
-                    context,
-                    payload,
-                    object : PersonalizeExperienceListener {
-                        override fun onSuccess(resultPayload: String) {
-                            GlobalResources.mainThread.post {
-                                try {
-                                    Logger.print { "$tag fetchExperiences(): Result : $resultPayload" }
-                                    result.success(resultPayload)
-                                } catch (t: Throwable) {
-                                    Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiences() : " }
-                                }
+            personalizationHelper.fetchExperiences(
+                context,
+                payload,
+                object : PersonalizeExperienceListener {
+                    override fun onSuccess(result: String) {
+                        postOnMainThread {
+                            try {
+                                Logger.print { "$tag fetchExperiences(): Result : $result" }
+                                methodChannelResult.success(result)
+                            } catch (t: Throwable) {
+                                Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiences() : " }
                             }
                         }
+                    }
 
-                        override fun onFailure(
-                            reason: RequestFailureReasonCode,
-                            message: String,
-                        ) {
-                            GlobalResources.mainThread.post {
-                                try {
-                                    Logger.print(LogLevel.ERROR) { "$tag fetchExperiences(): Error : $reason - $message" }
-                                    result.error(reason.name, message, null)
-                                } catch (t: Throwable) {
-                                    Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiences() : " }
-                                }
+                    override fun onFailure(
+                        reason: RequestFailureReasonCode,
+                        message: String,
+                    ) {
+                        postOnMainThread {
+                            try {
+                                Logger.print(LogLevel.ERROR) { "$tag fetchExperiences(): Error : $reason - $message" }
+                                methodChannelResult.error(reason.name, message, null)
+                            } catch (t: Throwable) {
+                                Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiences() : " }
                             }
                         }
-                    },
-                )
-            }
+                    }
+                },
+            )
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag fetchExperiences() : " }
         }

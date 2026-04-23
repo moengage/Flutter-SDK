@@ -1,5 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] `android-bom` version updated to `2.2.1`
+
 # 15-04-2026
 
 ## 9.4.0

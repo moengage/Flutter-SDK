@@ -7,11 +7,12 @@ import 'package:moengage_personalize_platform_interface/moengage_personalize_pla
 
 /// The Android implementation of [MoEngagePersonalizePlatform].
 class MoEngagePersonalizeAndroid extends MoEngagePersonalizePlatform {
-  final MethodChannel _channel = const MethodChannel(CHANNEL_NAME);
+  final String _tag = '${moduleTag}MoEngagePersonalizeAndroid';
+  final MethodChannel _channel = const MethodChannel(channelName);
 
   /// Registers this class as the default instance of [MoEngagePersonalizePlatform].
   static void registerWith() {
-    Logger.v('Registering MoEngagePersonalizeAndroid with Platform Interface');
+    Logger.v('${moduleTag}MoEngagePersonalizeAndroid registerWith(): Registering MoEngagePersonalizeAndroid with Platform Interface');
     MoEngagePersonalizePlatform.instance = MoEngagePersonalizeAndroid();
   }
 
@@ -21,11 +22,12 @@ class MoEngagePersonalizeAndroid extends MoEngagePersonalizePlatform {
     try {
       final Map<String, dynamic> payload =
           getFetchExperiencesMetaPayload(statuses, appId);
+      Logger.v('$_tag fetchExperiencesMeta(): $payload');
       final response = await _channel.invokeMethod(
-          METHOD_NAME_FETCH_EXPERIENCES_META, json.encode(payload));
+          methodFetchExperiencesMeta, json.encode(payload));
       return deserializeExperiencesMeta(response);
     } catch (e, stackTrace) {
-      Logger.e('fetchExperiencesMeta(): Error: $e', stackTrace: stackTrace);
+      Logger.e('$_tag fetchExperiencesMeta(): Error: $e', stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -38,47 +40,48 @@ class MoEngagePersonalizeAndroid extends MoEngagePersonalizePlatform {
     try {
       final Map<String, dynamic> payload =
           getFetchExperiencesPayload(experienceKeys, attributes, appId);
+      Logger.v('$_tag fetchExperiences(): $payload');
       final response = await _channel.invokeMethod(
-          METHOD_NAME_FETCH_EXPERIENCES, json.encode(payload));
+          methodFetchExperiences, json.encode(payload));
       return deserializeExperiencesResult(response);
     } catch (e, stackTrace) {
-      Logger.e('fetchExperiences(): Error: $e', stackTrace: stackTrace);
+      Logger.e('$_tag fetchExperiences(): Error: $e', stackTrace: stackTrace);
       rethrow;
     }
   }
 
   @override
-  void trackExperienceShown(
-      List<ExperienceCampaign> campaigns, String appId) {
+  void experiencesShown(List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
+    Logger.v('$_tag experiencesShown(): $payload');
     unawaited(
-        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_SHOWN, json.encode(payload)));
+        _channel.invokeMethod(methodExperiencesShown, json.encode(payload)));
   }
 
   @override
-  void trackExperienceClicked(ExperienceCampaign campaign, String appId) {
+  void experienceClicked(ExperienceCampaign campaign, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
-        _channel.invokeMethod(METHOD_NAME_TRACK_EXPERIENCE_CLICKED, json.encode(payload));
+    _channel.invokeMethod(methodExperienceClicked, json.encode(payload));
   }
 
   @override
-  void trackOfferingShown(
-      List<Map<String, dynamic>> offeringAttributes, String appId) {
+  void offeringsShown(
+      List<Map<String, dynamic>> offeringPayloads, String appId) {
     final Map<String, dynamic> payload =
-        getTrackOfferingShownPayload(offeringAttributes, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_SHOWN, json.encode(payload));
+        getTrackOfferingShownPayload(offeringPayloads, appId);
+    _channel.invokeMethod(methodOfferingsShown, json.encode(payload));
   }
 
   @override
-  void trackOfferingClicked(
+  void offeringClicked(
     ExperienceCampaign campaign,
-    Map<String, dynamic> offeringAttributes,
+    Map<String, dynamic> offeringPayload,
     String appId,
   ) {
     final Map<String, dynamic> payload =
-        getTrackOfferingClickedPayload(campaign, offeringAttributes, appId);
-    _channel.invokeMethod(METHOD_NAME_TRACK_OFFERING_CLICKED, json.encode(payload));
+        getTrackOfferingClickedPayload(campaign, offeringPayload, appId);
+    _channel.invokeMethod(methodOfferingClicked, json.encode(payload));
   }
 }

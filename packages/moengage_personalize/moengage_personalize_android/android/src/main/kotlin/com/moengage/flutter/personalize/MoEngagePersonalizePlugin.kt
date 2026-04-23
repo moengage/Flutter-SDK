@@ -1,9 +1,9 @@
 package com.moengage.flutter.personalize
 
 import android.content.Context
-import com.moengage.campaigns.personalize.PersonalizationHelper
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
+import com.moengage.plugin.base.personalization.PersonalizationHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -16,7 +16,7 @@ class MoEngagePersonalizePlugin : FlutterPlugin, ActivityAware {
 
     private val personalizationHelper: PersonalizationHelper by lazy { PersonalizationHelper() }
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         try {
@@ -32,26 +32,18 @@ class MoEngagePersonalizePlugin : FlutterPlugin, ActivityAware {
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
-        try {
-            Logger.print { "$tag initPlugin(): Initializing MoEngage Personalize Plugin" }
-            methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
-            methodChannel?.setMethodCallHandler(
-                PlatformMethodCallHandler(
-                    context,
-                    personalizationHelper,
-                ),
-            )
-        } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
-        }
+        Logger.print { "$tag initPlugin(): Initializing MoEngage Personalize Plugin" }
+        methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
+        methodChannel?.setMethodCallHandler(
+            PlatformMethodCallHandler(
+                context,
+                personalizationHelper,
+            ),
+        )
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
-        try {
-            Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
-        } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() : " }
-        }
+        Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
     }
 
     /**
