@@ -23,6 +23,11 @@ let package = Package(
                 .product(name: "MoEngagePluginBase", package: "iOS-PluginBase")
             ],
             path: "Sources"
+        ),
+        .testTarget(
+            name: "moengage_flutter_iosTests",
+            dependencies: ["moengage_flutter_ios"],
+            path: "Tests"
         )
     ]
 )

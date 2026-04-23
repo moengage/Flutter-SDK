@@ -23,5 +23,13 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.dependency 'MoEngagePluginBase', '6.8.2'
   s.swift_version = '5.0'
+
+  test_file_glob = "#{s.name}/Tests/**/*.{swift}"
+  s.test_spec 'Tests' do |ts|
+    ts.ios.deployment_target = '13.0'
+    ts.source_files = test_file_glob
+    ts.requires_app_host = true
+    s.scheme = { :code_coverage => true }
+  end unless Dir.glob(test_file_glob).empty?
 end
 
