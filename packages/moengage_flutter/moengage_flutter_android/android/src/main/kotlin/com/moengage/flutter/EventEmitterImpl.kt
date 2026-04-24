@@ -5,13 +5,13 @@ import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.internal.EventEmitter
 import com.moengage.plugin.base.internal.clickDataToJson
 import com.moengage.plugin.base.internal.inAppDataToJson
+import com.moengage.plugin.base.internal.logoutCompleteEventToJson
 import com.moengage.plugin.base.internal.model.events.Event
 import com.moengage.plugin.base.internal.model.events.EventType
+import com.moengage.plugin.base.internal.model.events.LogoutCompleteEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
-import com.moengage.plugin.base.internal.logoutCompleteEventToJson
-import com.moengage.plugin.base.internal.model.events.LogoutCompleteEvent
 import com.moengage.plugin.base.internal.model.events.push.PermissionEvent
 import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
 import com.moengage.plugin.base.internal.model.events.push.TokenEvent
