@@ -1,4 +1,4 @@
-group 'com.moengage.flutter'
+group 'com.moengage.flutter_personalize'
 version '1.0'
 
 buildscript {
@@ -10,9 +10,10 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:8.13.2"
+        classpath 'com.android.tools.build:gradle:8.13.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.4"
+        // classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
     }
 }
 
@@ -20,9 +21,9 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 }
-
 
 ext {
     moengageNativeBomVersion = "2.2.1"
@@ -30,6 +31,7 @@ ext {
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
+// apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 hybridModuleConfig.configurePlugin {
     kotlinOptions {
@@ -39,19 +41,21 @@ hybridModuleConfig.configurePlugin {
 }
 
 android {
-    namespace "com.moengage.flutter"
+    namespace "com.moengage.flutter.personalize"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
 dependencies {
+   implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    api("com.moengage:plugin-base-personalization")
+    compileOnly("com.moengage:plugin-base")
+
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
-    api("com.moengage:moe-android-sdk")
-    api("com.moengage:inapp")
-
-    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
-    api("com.moengage:plugin-base")
-
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    compileOnly(platform("com.moengage:android-bom:$moengageNativeBomVersion")) {
+        exclude group: 'com.moengage', module: 'core'
+    }
+    compileOnly("com.moengage:moe-android-sdk")
+    api("com.moengage:personalization-core")
 }

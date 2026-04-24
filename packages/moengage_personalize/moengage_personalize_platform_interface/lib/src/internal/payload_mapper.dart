@@ -43,6 +43,7 @@ Map<String, dynamic> campaignToMap(ExperienceCampaign campaign) {
     keyExperienceKey: campaign.experienceKey,
     keyPayload: campaign.payload,
     keyExperienceContext: campaign.experienceContext,
+    keySource: campaign.source.value
   };
 }
 
