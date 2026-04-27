@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_personalize/moengage_personalize.dart';
 
 import 'constants.dart';
@@ -56,6 +57,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     try {
       final statuses = _parseStatuses(_statusController.text);
       final result = await _personalize.fetchExperiencesMeta(statuses);
+      Logger.d("$tag _onFetchMeta(): Callback : $result");
       final lines = result.experiences
           .map((e) => '- ${e.experienceKey} (${e.status.value})')
           .join('\n');
@@ -80,6 +82,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     }
     try {
       final result = await _personalize.fetchExperiences(keys);
+      Logger.d("$tag _onFetchExperiences(): Callback : $result");
       if (result.experiences.isNotEmpty) {
         final campaign = result.experiences.first;
         setState(() {
