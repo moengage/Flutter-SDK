@@ -20,7 +20,6 @@ const String keyExperienceContext = 'experienceContext';
 const String keyExperience = 'experience';
 const String keyOfferingPayloads = 'offeringPayloads';
 const String keyOfferingPayload = 'offeringPayload';
-const String keyOfferingAttributes = 'offeringAttributes';
 const String keyExperienceName = 'experienceName';
 const String keySource = 'source';
 const String keyFailures = 'failures';

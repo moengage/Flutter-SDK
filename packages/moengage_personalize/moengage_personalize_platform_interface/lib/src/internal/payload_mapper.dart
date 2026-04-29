@@ -72,7 +72,7 @@ Map<String, dynamic> getTrackOfferingShownPayload(
     List<Map<String, dynamic>> offeringPayloads, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
-    keyOfferingAttributes: offeringPayloads,
+    keyOfferingPayloads: offeringPayloads,
   };
   return payload;
 }
@@ -85,7 +85,7 @@ Map<String, dynamic> getTrackOfferingClickedPayload(
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
     keyExperience: campaignToMap(campaign),
-    keyOfferingAttributes: offeringPayload,
+    keyOfferingPayload: offeringPayload,
   };
   return payload;
 }
