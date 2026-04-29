@@ -95,6 +95,14 @@ void main() {
           .called(1);
     });
 
+    test(
+        'experienceShown wraps single campaign and forwards to platform.experiencesShown',
+        () {
+      personalize.experienceShown(campaign);
+      verify(() => mockPlatform.experiencesShown([campaign], _appId))
+          .called(1);
+    });
+
     test('experienceClicked forwards campaign and appId to platform', () {
       personalize.experienceClicked(campaign);
       verify(() => mockPlatform.experienceClicked(campaign, _appId))
@@ -105,6 +113,15 @@ void main() {
       final offeringPayloads = [{'id': '1'}];
       personalize.offeringsShown(offeringPayloads);
       verify(() => mockPlatform.offeringsShown(offeringPayloads, _appId)).called(1);
+    });
+
+    test(
+        'offeringShown wraps single payload and forwards to platform.offeringsShown',
+        () {
+      final offeringPayload = {'id': '1'};
+      personalize.offeringShown(offeringPayload);
+      verify(() => mockPlatform.offeringsShown([offeringPayload], _appId))
+          .called(1);
     });
 
     test('offeringClicked forwards campaign, payload and appId to platform', () {

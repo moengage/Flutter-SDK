@@ -95,6 +95,7 @@ Map<String, dynamic> getTrackOfferingClickedPayload(
 /// Deserialize fetchExperiencesMeta response.
 ExperienceCampaignsMetadata deserializeExperiencesMeta(
     dynamic responsePayload) {
+  Logger.v('${moduleTag}deserializeExperiencesMeta(): $responsePayload');
   final Map<String, dynamic> response =
       json.decode(responsePayload.toString()) as Map<String, dynamic>;
   _checkForError(response);
@@ -125,6 +126,7 @@ ExperienceCampaignsMetadata deserializeExperiencesMeta(
 /// Deserialize fetchExperiences response.
 ExperienceCampaignsResult deserializeExperiencesResult(
     dynamic responsePayload) {
+  Logger.v('${moduleTag}deserializeExperiencesResult(): $responsePayload');
   final Map<String, dynamic> response =
       json.decode(responsePayload.toString()) as Map<String, dynamic>;
   _checkForError(response);

@@ -24,7 +24,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
   final TextEditingController _keysController = TextEditingController();
 
   ExperienceCampaign? _lastCampaign;
-  Map<String, dynamic>? _offeringPayload;
+  List<Map<String, dynamic>> _offerings = [];
 
   List<String> _parseList(String input) =>
       input.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
@@ -35,21 +35,38 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
         .toList();
   }
 
-  /// Extract the full offering dict from campaign payload, returns null if unavailable.
-  Map<String, dynamic>? _extractOfferingPayload(ExperienceCampaign campaign) {
-    try {
-      final offeringsRaw = campaign.payload['offerings'];
-      if (offeringsRaw is String) {
-        final offerings = json.decode(offeringsRaw);
-        if (offerings is List && offerings.isNotEmpty) {
-          final offering = offerings[0];
-          if (offering is Map<String, dynamic> && offering.isNotEmpty) {
-            return offering.cast<String, dynamic>();
+  /// Extract ALL valid offerings from the campaign's payload. The offering key is
+  /// dashboard-configurable, so we scan all entries. An entry may be either a stringified
+  /// JSON array (server data_type "string") or an already-parsed list (data_type "json"),
+  /// after the iOS plugin unwraps the {value, data_type} envelope. Android delivers the
+  /// same shape via its native mapToAny(). Returns the full list — callers pass the array
+  /// to offeringsShown(plural) and the first element to offeringShown / offeringClicked.
+  List<Map<String, dynamic>> _extractOfferings(ExperienceCampaign campaign) {
+    final result = <Map<String, dynamic>>[];
+    for (final entry in campaign.payload.values) {
+      List<dynamic>? offerings;
+      if (entry is List) {
+        offerings = entry;
+      } else if (entry is String) {
+        try {
+          final decoded = json.decode(entry);
+          if (decoded is List) {
+            offerings = decoded;
           }
+        } catch (_) {
+          continue;
         }
       }
-    } catch (_) {}
-    return null;
+      if (offerings == null) continue;
+      for (final offering in offerings) {
+        if (offering is Map &&
+            offering['offering_context'] is Map &&
+            (offering['offering_context'] as Map).isNotEmpty) {
+          result.add(Map<String, dynamic>.from(offering));
+        }
+      }
+    }
+    return result;
   }
 
   Future<void> _onFetchMeta() async {
@@ -86,7 +103,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
         final campaign = result.experiences.first;
         setState(() {
           _lastCampaign = campaign;
-          _offeringPayload = _extractOfferingPayload(campaign);
+          _offerings = _extractOfferings(campaign);
         });
       }
       final expLines = result.experiences
@@ -110,6 +127,12 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
   void _onExperiencesShown() {
     if (!_requireCampaign()) return;
     _personalize.experiencesShown([_lastCampaign!]);
+    _showSnackBar('Experiences Shown: ${_lastCampaign!.experienceKey}');
+  }
+
+  void _onExperienceShown() {
+    if (!_requireCampaign()) return;
+    _personalize.experienceShown(_lastCampaign!);
     _showSnackBar('Experience Shown: ${_lastCampaign!.experienceKey}');
   }
 
@@ -120,15 +143,21 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
   }
 
   void _onOfferingsShown() {
-    if (!_requireOfferingPayload()) return;
-    _personalize.offeringsShown([_offeringPayload!]);
+    if (!_requireOfferings()) return;
+    _personalize.offeringsShown(_offerings);
+    _showSnackBar('Offerings Shown: ${_offerings.length}');
+  }
+
+  void _onOfferingShown() {
+    if (!_requireOfferings()) return;
+    _personalize.offeringShown(_offerings.first);
     _showSnackBar('Offering Shown');
   }
 
   void _onOfferingClicked() {
     if (!_requireCampaign()) return;
-    if (!_requireOfferingPayload()) return;
-    _personalize.offeringClicked(_lastCampaign!, _offeringPayload!);
+    if (!_requireOfferings()) return;
+    _personalize.offeringClicked(_lastCampaign!, _offerings.first);
     _showSnackBar('Offering Clicked: ${_lastCampaign!.experienceKey}');
   }
 
@@ -140,10 +169,10 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     return true;
   }
 
-  bool _requireOfferingPayload() {
-    if (_offeringPayload == null) {
+  bool _requireOfferings() {
+    if (_offerings.isEmpty) {
       _showSnackBar(
-          'No offering payload — fetch an experience with offerings');
+          'No offerings — fetch an experience with offerings');
       return false;
     }
     return true;
@@ -217,16 +246,24 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
               onTap: _onFetchExperiences,
             ),
             ListTile(
-              title: const Text('Experience Shown'),
+              title: const Text('Experiences Shown (plural)'),
               onTap: _onExperiencesShown,
+            ),
+            ListTile(
+              title: const Text('Experience Shown (singular)'),
+              onTap: _onExperienceShown,
             ),
             ListTile(
               title: const Text('Experience Clicked'),
               onTap: _onExperienceClicked,
             ),
             ListTile(
-              title: const Text('Offering Shown'),
+              title: const Text('Offerings Shown (plural)'),
               onTap: _onOfferingsShown,
+            ),
+            ListTile(
+              title: const Text('Offering Shown (singular)'),
+              onTap: _onOfferingShown,
             ),
             ListTile(
               title: const Text('Offering Clicked'),

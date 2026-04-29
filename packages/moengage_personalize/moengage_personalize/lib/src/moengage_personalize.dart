@@ -57,6 +57,12 @@ class MoEngagePersonalize {
     _platform.experiencesShown(campaigns, appId);
   }
 
+  /// Tracks an impression event for a single experience [campaign].
+  void experienceShown(ExperienceCampaign campaign) {
+    Logger.v('$_tag experienceShown(): key: ${campaign.experienceKey}');
+    experiencesShown([campaign]);
+  }
+
   /// Tracks a click event for a single experience [campaign].
   void experienceClicked(ExperienceCampaign campaign) {
     Logger.v('$_tag experienceClicked(): key: ${campaign.experienceKey}');
@@ -67,6 +73,12 @@ class MoEngagePersonalize {
   void offeringsShown(List<Map<String, dynamic>> offeringPayloads) {
     Logger.v('$_tag offeringsShown(): count: ${offeringPayloads.length}');
     _platform.offeringsShown(offeringPayloads, appId);
+  }
+
+  /// Tracks an impression event for a single offering.
+  void offeringShown(Map<String, dynamic> offeringPayload) {
+    Logger.v('$_tag offeringShown(): payload: $offeringPayload');
+    offeringsShown([offeringPayload]);
   }
 
   /// Tracks a click event for a single offering within an experience [campaign].

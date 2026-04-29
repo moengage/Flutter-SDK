@@ -22,6 +22,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
     try {
       final Map<String, dynamic> payload =
           getFetchExperiencesMetaPayload(statuses, appId);
+      Logger.v('$_tag fetchExperiencesMeta(): $payload');
       final response = await _channel.invokeMethod(
           methodFetchExperiencesMeta, payload);
       return deserializeExperiencesMeta(response);
@@ -40,6 +41,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
     try {
       final Map<String, dynamic> payload =
           getFetchExperiencesPayload(experienceKeys, attributes, appId);
+      Logger.v('$_tag fetchExperiences(): $payload');
       final response = await _channel.invokeMethod(
           methodFetchExperiences, payload);
       return deserializeExperiencesResult(response);
@@ -54,6 +56,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
+    Logger.v('$_tag experiencesShown(): $payload');
     unawaited(_channel.invokeMethod(methodExperiencesShown, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag experiencesShown(): Error: $e', stackTrace: st);
@@ -64,6 +67,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
   void experienceClicked(ExperienceCampaign campaign, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
+    Logger.v('$_tag experienceClicked(): $payload');
     unawaited(_channel.invokeMethod(methodExperienceClicked, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag experienceClicked(): Error: $e', stackTrace: st);
@@ -75,6 +79,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       List<Map<String, dynamic>> offeringPayloads, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingShownPayload(offeringPayloads, appId);
+    Logger.v('$_tag offeringsShown(): $payload');
     unawaited(_channel.invokeMethod(methodOfferingsShown, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag offeringsShown(): Error: $e', stackTrace: st);
@@ -86,6 +91,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       Map<String, dynamic> offeringPayload, String appId) {
     final Map<String, dynamic> payload =
         getTrackOfferingClickedPayload(campaign, offeringPayload, appId);
+    Logger.v('$_tag offeringClicked(): $payload');
     unawaited(_channel.invokeMethod(methodOfferingClicked, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag offeringClicked(): Error: $e', stackTrace: st);
