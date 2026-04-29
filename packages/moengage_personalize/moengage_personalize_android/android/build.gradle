@@ -28,7 +28,7 @@ rootProject.allprojects {
 
 ext {
     moengageNativeBomVersion = "2.2.1"
-    moengagePluginBaseBomVersion = "2.1.0-SNAPSHOT"
+    moengagePluginBaseBomVersion = "2.1.2-SNAPSHOT"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
@@ -50,7 +50,7 @@ android {
 
 dependencies {
    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
-    api("com.moengage:plugin-base-personalization:0.0.2-SNAPSHOT")
+    api("com.moengage:plugin-base-personalization:0.0.3-SNAPSHOT")
     compileOnly("com.moengage:plugin-base")
 
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
