@@ -23,7 +23,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
       TextEditingController(text: 'active');
   final TextEditingController _keysController = TextEditingController();
 
-  ExperienceCampaign? _lastCampaign;
+  List<ExperienceCampaign> _campaigns = [];
   List<Map<String, dynamic>> _offerings = [];
 
   List<String> _parseList(String input) =>
@@ -99,13 +99,11 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
     try {
       final result = await _personalize.fetchExperiences(keys);
       debugPrint("_onFetchExperiences(): Callback : $result");
-      if (result.experiences.isNotEmpty) {
-        final campaign = result.experiences.first;
-        setState(() {
-          _lastCampaign = campaign;
-          _offerings = _extractOfferings(campaign);
-        });
-      }
+      setState(() {
+        _campaigns = result.experiences;
+        _offerings =
+            result.experiences.expand(_extractOfferings).toList();
+      });
       final expLines = result.experiences
           .map((e) => '- ${e.experienceKey} [${e.source.value}]')
           .join('\n');
@@ -126,20 +124,20 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
 
   void _onExperiencesShown() {
     if (!_requireCampaign()) return;
-    _personalize.experiencesShown([_lastCampaign!]);
-    _showSnackBar('Experiences Shown: ${_lastCampaign!.experienceKey}');
+    _personalize.experiencesShown(_campaigns);
+    _showSnackBar('Experiences Shown: ${_campaigns.length}');
   }
 
   void _onExperienceShown() {
     if (!_requireCampaign()) return;
-    _personalize.experienceShown(_lastCampaign!);
-    _showSnackBar('Experience Shown: ${_lastCampaign!.experienceKey}');
+    _personalize.experienceShown(_campaigns.first);
+    _showSnackBar('Experience Shown: ${_campaigns.first.experienceKey}');
   }
 
   void _onExperienceClicked() {
     if (!_requireCampaign()) return;
-    _personalize.experienceClicked(_lastCampaign!);
-    _showSnackBar('Experience Clicked: ${_lastCampaign!.experienceKey}');
+    _personalize.experienceClicked(_campaigns.first);
+    _showSnackBar('Experience Clicked: ${_campaigns.first.experienceKey}');
   }
 
   void _onOfferingsShown() {
@@ -157,12 +155,12 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
   void _onOfferingClicked() {
     if (!_requireCampaign()) return;
     if (!_requireOfferings()) return;
-    _personalize.offeringClicked(_lastCampaign!, _offerings.first);
-    _showSnackBar('Offering Clicked: ${_lastCampaign!.experienceKey}');
+    _personalize.offeringClicked(_campaigns.first, _offerings.first);
+    _showSnackBar('Offering Clicked: ${_campaigns.first.experienceKey}');
   }
 
   bool _requireCampaign() {
-    if (_lastCampaign == null) {
+    if (_campaigns.isEmpty) {
       _showSnackBar('Run Fetch Experiences first to obtain a campaign');
       return false;
     }
@@ -270,11 +268,12 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
               onTap: _onOfferingClicked,
             ),
           ]),
-          if (_lastCampaign != null)
+          if (_campaigns.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text(
-                'Last campaign: ${_lastCampaign!.experienceKey}',
+                'Campaigns (${_campaigns.length}): '
+                '${_campaigns.map((c) => c.experienceKey).join(', ')}',
                 style: const TextStyle(
                     fontStyle: FontStyle.italic, color: Colors.grey),
               ),
