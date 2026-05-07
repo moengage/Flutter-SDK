@@ -1,8 +1,10 @@
+# MoEngage Personalize Plugin
+
 # Release Date
 
 ## Release Version
 
-- [major] Added Personalize module and feature support
+- [major] Added Personalize module and feature support.
 
 # 07-05-2026
 

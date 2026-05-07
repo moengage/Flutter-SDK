@@ -4,7 +4,7 @@
 
 ## Release Version
 
-- [minor] Updated MoEngage-iOS-SDK to `10.12.0`
+- [minor] Updated MoEngage-iOS-SDK to `10.12.0`.
 
 # 15-04-2026
 
