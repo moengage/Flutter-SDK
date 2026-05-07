@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:moengage_personalize/moengage_personalize.dart';
-import 'package:moengage_personalize_platform_interface/moengage_personalize_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockMoEngagePersonalizePlatform extends Mock
