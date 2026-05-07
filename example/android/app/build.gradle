@@ -22,7 +22,7 @@ if (flutterVersionName == null) {
 }
 
 ext {
-  moengageNativeBomVersion = "2.1.0"
+  moengageNativeBomVersion = "2.2.2"
 }
 
 apply plugin: 'com.android.application'

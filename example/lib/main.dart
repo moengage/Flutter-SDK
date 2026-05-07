@@ -16,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'cards/cards_home.dart';
 import 'inapp.dart';
+import 'personalize_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
@@ -137,6 +138,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>
                           const InAppHomeScreen()));
+                },
+              ),
+              ListTile(
+                title: const Text('Go To Personalize'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const PersonalizeHome()));
                 },
               ),
               ListTile(

@@ -1,0 +1,27 @@
+name: moengage_personalize_ios
+description: iOS implementation of the moengage_personalize plugin
+version: 0.1.1
+homepage: https://www.moengage.com
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+flutter:
+  plugin:
+    implements: moengage_personalize
+    platforms:
+      ios:
+        pluginClass: MoEngagePersonalizePlugin
+        dartPluginClass: MoEngagePersonalizeIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  moengage_flutter: ^10.0.0
+  moengage_personalize_platform_interface: ^0.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.0

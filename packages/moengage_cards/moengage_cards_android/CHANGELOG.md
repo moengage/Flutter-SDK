@@ -1,5 +1,11 @@
 # MoEngage Cards Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] `android-bom` version updated to `2.2.2`
+
 # 15-04-2026
 
 ## 5.3.0
