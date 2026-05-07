@@ -7,7 +7,6 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 
     dependencies {
@@ -21,14 +20,13 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 }
 
 
 ext {
-    moengageNativeBomVersion = "2.2.1"
-    moengagePluginBaseBomVersion = "2.1.2-SNAPSHOT"
+    moengageNativeBomVersion = "2.2.2"
+    moengagePluginBaseBomVersion = "3.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
