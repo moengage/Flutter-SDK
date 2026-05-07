@@ -1,10 +1,10 @@
 # MoEngage Personalize Android Plugin
 
-# Release Date
+# 07-05-2026
 
-## Release Version
+## 1.0.0
 
-- [major] Added Personalize module and feature support.
+- Added Personalize module and feature support.
 
 # 07-05-2026
 

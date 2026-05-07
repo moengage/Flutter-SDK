@@ -1,13 +1,13 @@
 # MoEngage Cards Plugin
 
-# Release Date
+# 07-05-2026
 
-## Release Version
+## 6.5.0
 
 - Android
-  - [minor] `android-bom` version updated to `2.2.2`.
+  - `android-bom` version updated to `2.2.2`.
 - iOS
-  - [minor] Updated MoEngage-iOS-SDK to `10.12.0`
+  - Updated MoEngage-iOS-SDK to `10.12.0`
 
 # 15-04-2026
 

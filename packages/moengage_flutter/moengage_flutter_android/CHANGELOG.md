@@ -1,10 +1,10 @@
 # MoEngage Flutter Android Plugin
 
-# Release Date
+# 07-05-2026
 
-## Release Version
+## 4.8.0
 
-- [minor] `android-bom` version updated to `2.2.2`.
+- `android-bom` version updated to `2.2.2`.
 
 # 15-04-2026
 

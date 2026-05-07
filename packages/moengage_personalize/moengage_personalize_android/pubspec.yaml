@@ -1,6 +1,6 @@
 name: moengage_personalize_android
 description: Android implementation of the moengage_personalize plugin
-version: 0.0.1
+version: 1.0.0
 homepage: https://www.moengage.com
 
 environment:
@@ -19,7 +19,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  moengage_personalize_platform_interface: ^0.0.1
+  moengage_personalize_platform_interface: ^1.0.0
   moengage_flutter: ^10.0.0
 
 dev_dependencies:
