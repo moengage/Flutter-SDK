@@ -364,6 +364,12 @@ class MoEngageFlutter {
     Cache().permissionResultCallbackHandler = handler;
   }
 
+  /// Sets Logout Complete Callback Handler
+  /// [handler] - Callback of type [LogoutCompleteCallbackHandler]
+  void setLogoutCompleteCallbackHandler(LogoutCompleteCallbackHandler? handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId).logoutCompleteCallbackHandler = handler;
+  }
+
   /// Configure MoEngage SDK Logs
   /// [logLevel] - [LogLevel] for SDK logs
   /// [isEnabledForReleaseBuild] If true, logs will be printed for the Release build. By default the logs are disabled for the Release build.

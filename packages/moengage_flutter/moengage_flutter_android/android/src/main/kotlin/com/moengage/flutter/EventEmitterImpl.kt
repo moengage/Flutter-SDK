@@ -5,8 +5,10 @@ import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.internal.EventEmitter
 import com.moengage.plugin.base.internal.clickDataToJson
 import com.moengage.plugin.base.internal.inAppDataToJson
+import com.moengage.plugin.base.internal.logoutCompleteEventToJson
 import com.moengage.plugin.base.internal.model.events.Event
 import com.moengage.plugin.base.internal.model.events.EventType
+import com.moengage.plugin.base.internal.model.events.LogoutCompleteEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
@@ -48,6 +50,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 }
                 is PermissionEvent -> {
                     emitPermissionEvent(event)
+                }
+                is LogoutCompleteEvent -> {
+                    emitLogoutCompleteEvent(event)
                 }
             }
         } catch (t: Throwable) {
@@ -136,6 +141,17 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         }
     }
 
+    private fun emitLogoutCompleteEvent(event: LogoutCompleteEvent) {
+        try {
+            Logger.print { "$tag emitLogoutCompleteEvent() logout complete event: $event:" }
+            val eventType = eventMap[event.eventType] ?: return
+            val payload = logoutCompleteEventToJson(event)
+            emit(eventType, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitLogoutCompleteEvent() : " }
+        }
+    }
+
     companion object {
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
@@ -148,6 +164,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.INAPP_SELF_HANDLED_AVAILABLE] = "onInAppSelfHandle"
             eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
             eventMap[EventType.PERMISSION] = "onPermissionResult"
+            eventMap[EventType.LOGOUT_COMPLETE] = "onLogoutComplete"
         }
     }
 }

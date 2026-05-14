@@ -1,5 +1,11 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support Logout Complete listener
+
 # 07-05-2026
 
 ## 10.7.0

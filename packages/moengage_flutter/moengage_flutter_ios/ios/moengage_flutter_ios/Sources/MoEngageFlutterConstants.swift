@@ -44,5 +44,6 @@ struct MoEngageFlutterConstants{
         static let kInAppClickedCustomAction    = "onInAppCustomAction"
         static let kInAppDismissed              = "onInAppDismiss"
         static let kInAppSelfHandled            = "onInAppSelfHandle"
+        static let kLogoutComplete              = "onLogoutComplete"
     }
 }
