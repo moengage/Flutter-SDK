@@ -1,0 +1,58 @@
+name: Update Dependency
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticketNumber:
+        type: string
+        description: 'Ticket number (e.g. MOEN-12345)'
+        required: true
+
+jobs:
+  update-dependency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Update dependency versions
+        run: |
+          kotlin .github/scripts/update-bom.main.kts
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No files were updated."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Files updated:"
+            git diff --name-only
+          fi
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        run: |
+          git config user.name "sdk-bot-user"
+          git config user.email "sdk.bot@moengage.com"
+          DATE=$(date +%Y-%m-%d)
+          TICKET="${{ github.event.inputs.ticketNumber }}"
+          BRANCH="${TICKET}/dependency_update"
+          echo $BRANCH
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "${TICKET}: Dependency Update ${DATE}"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --base development \
+            --title "${TICKET}: Dependency Update ${DATE}" \
+            --body "$(cat <<'EOF'
+          ## Summary
+          Updated android-bom and plugin-base-bom to the latest versions from Maven Central.
+          Only modules with changed artifacts were updated.
+          Both the Android package and public-facing package changelogs have been updated.
+          EOF
+          )"
