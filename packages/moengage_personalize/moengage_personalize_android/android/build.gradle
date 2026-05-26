@@ -52,9 +52,6 @@ dependencies {
     compileOnly("com.moengage:plugin-base")
 
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
-    compileOnly(platform("com.moengage:android-bom:$moengageNativeBomVersion")) {
-        exclude group: 'com.moengage', module: 'core'
-    }
     compileOnly("com.moengage:moe-android-sdk")
     api("com.moengage:personalization-core")
 }

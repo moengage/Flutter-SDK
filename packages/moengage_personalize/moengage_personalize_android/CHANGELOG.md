@@ -1,5 +1,11 @@
 # MoEngage Personalize Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Removing the redundant dependency inclusion for `moe-android-sdk`
+
 # 07-05-2026
 
 ## 1.0.0
