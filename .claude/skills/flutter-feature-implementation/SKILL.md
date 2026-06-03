@@ -76,8 +76,8 @@ Before starting, verify at least one platform's data is present:
 - **iOS data present** = both `ios_plugin_version` and `ios_plugin_base_pr_url` are provided
 
 | Android data | iOS data | Action |
-|---|---|---|
-| ✓ present | ✓ present | Run all three steps |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || ✓ present | ✓ present | Run all three steps |
 | ✓ present | ✗ absent | Run Android + Dart; skip iOS |
 | ✗ absent | ✓ present | Skip Android; run iOS + Dart; create branch in iOS step |
 | ✗ absent | ✗ absent | **Stop and ask** — at least one platform's data is required |
@@ -154,8 +154,8 @@ Branch: `<contract_branch>` in mobile-sdk-contracts
 
 ## Methods
 | Method | Type | Android | iOS | Dart return |
-|---|---|---|---|---|
-<combined table rows>
+ --- || --- | --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
+ --- |<combined table rows>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
@@ -175,8 +175,8 @@ Print:
 ## Focused Skills (use these when you only need one layer)
 
 | When | Use |
-|---|---|
-| Android bridge only | `flutter-android-bridge-implementation` |
+ --- || --- | --- || --- | --- || --- |
+ --- || Android bridge only | `flutter-android-bridge-implementation` |
 | iOS bridge only | `flutter-ios-bridge-implementation` |
 | Dart interface only (bridges already done) | `flutter-dart-interface-implementation` |
 | All layers at once | `flutter-feature-implementation` (this skill) |

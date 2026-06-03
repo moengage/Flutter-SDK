@@ -75,8 +75,8 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 ### 1.2 Identifiers table
 
 | Identifier | Example | Rule |
-|---|---|---|
-| `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
 | `contractSuffix` | `jwt_contract` | branch name after first `/` or `_MOEN-XXXXX_` |
 | `featureName` | `jwt` | lowercase slug from feature_description |
 | `featureNameCamel` | `Jwt` | PascalCase of featureName |
@@ -92,8 +92,8 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 Scan `feature_description` for a framework keyword and map to the existing package directory:
 
 | Keyword in `feature_description` | `packageDir` |
-|---|---|
-| `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
+ --- || --- | --- || --- | --- || --- |
+ --- || `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
 | `cards` | `packages/moengage_cards` |
 | `geofence` | `packages/moengage_geofence` |
 | `inbox` | `packages/moengage_inbox` |
@@ -110,8 +110,8 @@ Examples:
 Scan `feature_description` for a framework keyword:
 
 | Keyword in feature_description | `iosPluginBridge` | Import |
-|---|---|---|
-| `analytics`, `inapps`, `messaging`, or `core` | `MoEngagePluginBridge` | `MoEngagePluginBase` |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `analytics`, `inapps`, `messaging`, or `core` | `MoEngagePluginBridge` | `MoEngagePluginBase` |
 | anything else (cards, geofence, inbox, jwt, …) | `MoEngagePlugin<featureNameCamel>Bridge` | `MoEngagePlugin<featureNameCamel>` |
 
 ### 1.5 Resolve `iosHandlerFile` and `iosHandlerClass`
@@ -119,8 +119,8 @@ Scan `feature_description` for a framework keyword:
 Look up the existing handler class and file by `packageDir`. Do **not** generate these from a formula — use the actual names from the codebase.
 
 | `packageDir` | `iosHandlerClass` | `iosHandlerFile` |
-|---|---|---|
-| `packages/moengage_flutter` | `MoEngageFlutterBridge` | `MoEngageFlutterBridge.swift` |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `packages/moengage_flutter` | `MoEngageFlutterBridge` | `MoEngageFlutterBridge.swift` |
 | `packages/moengage_cards` | `MoEngageCardsPlugin` | `MoEngageCardsPlugin.swift` |
 | `packages/moengage_geofence` | `MoEngageFlutterGeofence` | `MoEngageFlutterGeofence.swift` |
 | `packages/moengage_inbox` | `MoEngageFlutterInbox` | `MoEngageFlutterInbox.swift` |
@@ -150,8 +150,8 @@ git checkout <contract_branch>
 ### Method classification
 
 | Condition | Type | iOS pattern | Files needed |
-|---|---|---|---|
-| `hybridToNative` only | **fire-and-forget** | `pluginHelper.methodName(payload)` | Plugin + Constants |
+ --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `hybridToNative` only | **fire-and-forget** | `pluginHelper.methodName(payload)` | Plugin + Constants |
 | both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends | see below |
 | `nativeToHybrid` only | **event** | delegate → `channel.invokeMethod(name, jsonStr)` | Plugin + Constants + EventListener |
 
@@ -165,8 +165,8 @@ gh pr view <ios_plugin_base_pr_url> --json headRefName
 Look for the method in the plugin-base bridge file:
 
 | Plugin-base pattern found | Type | iOS pattern | Files needed |
-|---|---|---|---|
-| Method has a `completionBlock` / `completionHandler` closure parameter | **result** | `pluginHelper.methodName(payload) { data in Util.resume(...) }` | Plugin + Constants + Util |
+ --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || Method has a `completionBlock` / `completionHandler` closure parameter | **result** | `pluginHelper.methodName(payload) { data in Util.resume(...) }` | Plugin + Constants + Util |
 | Method uses a delegate protocol / `flushMessage` / `EventEmitter` pattern | **event** | direct call + delegate → `channel.invokeMethod(name, jsonStr)` | Plugin + Constants + EventListener |
 
 If the plugin-base branch is unreadable or the pattern is still ambiguous after reading it, **then** ask the user.
@@ -342,8 +342,8 @@ Branch: `<contract_branch>` in mobile-sdk-contracts
 
 ## Methods
 | Method | Type |
-|---|---|
-<table rows from method table>
+ --- || --- | --- || --- | --- || --- |
+ --- |<table rows from method table>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
@@ -370,8 +370,8 @@ Then **ask the user**:
 ## Codebase Reference Files
 
 | What | Codebase path |
-|---|---|
-| Handler (core/analytics — bridge pattern) | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios/Sources/MoEngageFlutterBridge.swift` |
+ --- || --- | --- || --- | --- || --- |
+ --- || Handler (core/analytics — bridge pattern) | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios/Sources/MoEngageFlutterBridge.swift` |
 | Constants (core/analytics) | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios/Sources/MoEngageFlutterConstants.swift` |
 | Handler (cards — plugin-is-handler pattern) | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios/Sources/MoEngageCardsPlugin.swift` |
 | Constants (cards) | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios/Sources/MoEngageFlutterCardsConstants.swift` |

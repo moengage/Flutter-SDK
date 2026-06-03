@@ -95,8 +95,8 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 ### 1.2 Identifiers table
 
 | Identifier | Example | Rule |
-|---|---|---|
-| `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
 | `contractSuffix` | `jwt_contract` | branch name after first `/` or `_MOEN-XXXXX_` |
 | `featureName` | `jwt` | lowercase slug from feature_description |
 | `featureNameCamel` | `Jwt` | PascalCase of featureName |
@@ -113,8 +113,8 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 Scan `feature_description` for a framework keyword and map to the existing package directory:
 
 | Keyword in `feature_description` | `packageDir` |
-|---|---|
-| `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
+ --- || --- | --- || --- | --- || --- |
+ --- || `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
 | `cards` | `packages/moengage_cards` |
 | `geofence` | `packages/moengage_geofence` |
 | `inbox` | `packages/moengage_inbox` |
@@ -148,8 +148,8 @@ git checkout <contract_branch>
 ### Method classification
 
 | Condition | Type | Dart pattern |
-|---|---|---|
-| `hybridToNative` only | **fire-and-forget** | `void methodName(...)` → `methodChannel.invokeMethod(...)` |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || `hybridToNative` only | **fire-and-forget** | `void methodName(...)` → `methodChannel.invokeMethod(...)` |
 | both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends |
 | `nativeToHybrid` only | **event** | listener callback registered by caller; fired from `controller.dart` |
 
@@ -166,8 +166,8 @@ gh pr view <ios_plugin_base_pr_url> --json headRefName
 ```
 
 | Plugin-base pattern found | Type | Dart pattern |
-|---|---|---|
-| Method returns a value / calls `result.success(...)` / has `completionBlock` | **result** | `Future<ModelType> methodName(...)` → `await methodChannel.invokeMethod(...)` → deserialize |
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- || Method returns a value / calls `result.success(...)` / has `completionBlock` | **result** | `Future<ModelType> methodName(...)` → `await methodChannel.invokeMethod(...)` → deserialize |
 | Method registers/calls an `EventEmitter` / delegate / `flushMessage` pattern | **event** | `void methodName(...)` + listener callback registered by caller; fired from `controller.dart` |
 
 If the plugin-base branch is unreadable or the pattern is still ambiguous after reading it, **then** ask the user.
@@ -442,8 +442,8 @@ Branch: `<contract_branch>` in mobile-sdk-contracts
 
 ## Methods
 | Method | Type | Dart return |
-|---|---|---|
-<table rows from method table>
+ --- || --- | --- || --- | --- || --- | --- || --- |
+ --- |<table rows from method table>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
@@ -465,8 +465,8 @@ Print:
 ## Codebase Reference Files
 
 | What | Codebase path |
-|---|---|
-| Platform interface abstract class | `packages/moengage_cards/moengage_cards_platform_interface/lib/moengage_cards_platform_interface.dart` |
+ --- || --- | --- || --- | --- || --- |
+ --- || Platform interface abstract class | `packages/moengage_cards/moengage_cards_platform_interface/lib/moengage_cards_platform_interface.dart` |
 | constants.dart | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/constants.dart` |
 | method_channel | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/method_channel_moengage_cards.dart` |
 | platform_base | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_platform.dart` |
