@@ -14,12 +14,8 @@ parameters:
     description: "Comma-separated list of package names to update. E.g. 'moengage_flutter,moengage_cards'. If 'all', updates every package."
   - name: "ios_plugin_version"
     description: "New iOS plugin version to set. E.g. '7.0.0'."
-  - name: "native_sdk_version"
-    description: "MoEngage-iOS-SDK version bundled in this plugin release. Optional — if provided, adds a separate '[bump] Updated MoEngage-iOS-SDK to X' bullet below the plugin entry in both CHANGELOGs."
-    optional: true
   - name: "changelog_description"
-    description: "One-line changelog entry describing the plugin update. E.g. 'Updated MoEngagePluginBase to 8.0.0'. If omitted, auto-generated as 'Updated <pluginName> to <ios_plugin_version>'."
-    optional: true
+    description: "One-line changelog entry describing the update. E.g. 'Updated MoEngage-iOS-SDK to 10.10.2'."
 ---
 
 ## Overview
@@ -37,22 +33,22 @@ Do **not** duplicate version-update logic in any other skill.
 
 **Package → file mapping:**
 
-| `packageName` | podspec path | Package.swift path | iOS CHANGELOG | Main CHANGELOG |
- --- || --- | --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
- --- || `moengage_flutter` | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios.podspec` | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios/Package.swift` | `packages/moengage_flutter/moengage_flutter_ios/CHANGELOG.md` | `packages/moengage_flutter/moengage_flutter/CHANGELOG.md` |
-| `moengage_cards` | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios.podspec` | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios/Package.swift` | `packages/moengage_cards/moengage_cards_ios/CHANGELOG.md` | `packages/moengage_cards/moengage_cards/CHANGELOG.md` |
-| `moengage_geofence` | `packages/moengage_geofence/moengage_geofence_ios/ios/moengage_geofence_ios.podspec` | `packages/moengage_geofence/moengage_geofence_ios/ios/moengage_geofence_ios/Package.swift` | `packages/moengage_geofence/moengage_geofence_ios/CHANGELOG.md` | `packages/moengage_geofence/moengage_geofence/CHANGELOG.md` |
-| `moengage_inbox` | `packages/moengage_inbox/moengage_inbox_ios/ios/moengage_inbox_ios.podspec` | `packages/moengage_inbox/moengage_inbox_ios/ios/moengage_inbox_ios/Package.swift` | `packages/moengage_inbox/moengage_inbox_ios/CHANGELOG.md` | `packages/moengage_inbox/moengage_inbox/CHANGELOG.md` |
+| `packageName`          | podspec path                                                                                  | Package.swift path                                                                                  | iOS CHANGELOG                                                         | Main CHANGELOG                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `moengage_flutter`     | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios.podspec`             | `packages/moengage_flutter/moengage_flutter_ios/ios/moengage_flutter_ios/Package.swift`             | `packages/moengage_flutter/moengage_flutter_ios/CHANGELOG.md`         | `packages/moengage_flutter/moengage_flutter/CHANGELOG.md`         |
+| `moengage_cards`       | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios.podspec`                   | `packages/moengage_cards/moengage_cards_ios/ios/moengage_cards_ios/Package.swift`                   | `packages/moengage_cards/moengage_cards_ios/CHANGELOG.md`             | `packages/moengage_cards/moengage_cards/CHANGELOG.md`             |
+| `moengage_geofence`    | `packages/moengage_geofence/moengage_geofence_ios/ios/moengage_geofence_ios.podspec`          | `packages/moengage_geofence/moengage_geofence_ios/ios/moengage_geofence_ios/Package.swift`          | `packages/moengage_geofence/moengage_geofence_ios/CHANGELOG.md`       | `packages/moengage_geofence/moengage_geofence/CHANGELOG.md`       |
+| `moengage_inbox`       | `packages/moengage_inbox/moengage_inbox_ios/ios/moengage_inbox_ios.podspec`                   | `packages/moengage_inbox/moengage_inbox_ios/ios/moengage_inbox_ios/Package.swift`                   | `packages/moengage_inbox/moengage_inbox_ios/CHANGELOG.md`             | `packages/moengage_inbox/moengage_inbox/CHANGELOG.md`             |
 | `moengage_personalize` | `packages/moengage_personalize/moengage_personalize_ios/ios/moengage_personalize_ios.podspec` | `packages/moengage_personalize/moengage_personalize_ios/ios/moengage_personalize_ios/Package.swift` | `packages/moengage_personalize/moengage_personalize_ios/CHANGELOG.md` | `packages/moengage_personalize/moengage_personalize/CHANGELOG.md` |
 
 **Package → GitHub repo URL (for Package.swift):**
 
-| `packageName` | GitHub URL |
- --- || --- | --- || --- | --- || --- |
- --- || `moengage_flutter` | `https://github.com/moengage/iOS-PluginBase.git` |
-| `moengage_cards` | `https://github.com/moengage/apple-plugin-cards.git` |
-| `moengage_geofence` | `https://github.com/moengage/apple-plugin-geofence.git` |
-| `moengage_inbox` | `https://github.com/moengage/apple-plugin-inbox.git` |
+| `packageName`          | GitHub URL                                                 |
+| ---------------------- | ---------------------------------------------------------- |
+| `moengage_flutter`     | `https://github.com/moengage/iOS-PluginBase.git`           |
+| `moengage_cards`       | `https://github.com/moengage/apple-plugin-cards.git`       |
+| `moengage_geofence`    | `https://github.com/moengage/apple-plugin-geofence.git`    |
+| `moengage_inbox`       | `https://github.com/moengage/apple-plugin-inbox.git`       |
 | `moengage_personalize` | `https://github.com/moengage/apple-plugin-personalize.git` |
 
 ---
@@ -124,19 +120,11 @@ Rules:
 
 Read the iOS package CHANGELOG. Find the line immediately after the title (`# MoEngage <X> iOS Plugin`).
 
-**Determine bump type** for `<changelog_description>` line by comparing `ios_plugin_version` against the most recent released version in the CHANGELOG (first dated entry).
-
-**If `native_sdk_version` is provided**, also determine its bump type by comparing against the `MoEngage-iOS-SDK` version in the most recent dated entry.
-
 **If the next section is already `# Release Date` / `## Release Version`** (i.e. a pending unreleased block exists):
-- Append the new bullet(s) under the existing `## Release Version` block.
+- Append the new bullet under the existing `## Release Version` block.
 
 **If no pending block exists** (next line is a dated release like `# 11-02-2026`):
 - Insert a new pending block before the dated release.
-
-**Changelog entry rules:**
-- If `native_sdk_version` is **not** provided → add only the `<changelog_description>` line (plugin version entry)
-- If `native_sdk_version` is **provided** → add only the `Updated MoEngage-iOS-SDK to <native_sdk_version>` line — **omit the plugin version line entirely**
 
 Format to insert/append:
 ```markdown
@@ -144,48 +132,50 @@ Format to insert/append:
 
 ## Release Version
 
-- [<bump>] <changelog_description>                                          ← only if native_sdk_version NOT provided
-- [<native_sdk_bump>] Updated MoEngage-iOS-SDK to <native_sdk_version>     ← only if native_sdk_version provided
+- [patch] <changelog_description>
 ```
 
-Example — **without** `native_sdk_version`:
+Example result at top of file (new block):
 ```markdown
+# MoEngage Cards iOS Plugin
+
 # Release Date
 
 ## Release Version
 
-- [major] Updated MoEngagePluginBase to 8.0.0
-```
+- [patch] Updated MoEngagePluginCards to `7.0.0`
 
-Example — **with** `native_sdk_version` (`11.0.0`):
-```markdown
-# Release Date
+# 07-05-2026
 
-## Release Version
-
-- [major] Updated MoEngage-iOS-SDK to 11.0.0
+## 5.4.0
+...
 ```
 
 ### 2.4 Main package CHANGELOG.md — prepend iOS bullet
 
 Read the main package CHANGELOG. Find or create the `# Release Date` / `## Release Version` pending block (same logic as §2.3).
 
-Apply the same rule — if `native_sdk_version` provided, add only the SDK line; if not, add only the plugin line.
-
-Add under the iOS section:
+Add an iOS bullet under the block. If an `- iOS` section already exists in the block, append to it. If not, add a new `- iOS` section:
 
 ```markdown
+# Release Date
+
+## Release Version
+
 - iOS
-  - [<bump>] <changelog_description>                                          ← only if native_sdk_version NOT provided
-  - [<native_sdk_bump>] Updated MoEngage-iOS-SDK to <native_sdk_version>     ← only if native_sdk_version provided
+  - [patch] <changelog_description>
 ```
 
 If an Android bullet is already present, place iOS after it:
 ```markdown
+# Release Date
+
+## Release Version
+
 - Android
   - [minor] `android-bom` version updated to `x.x.x`
 - iOS
-  - [<native_sdk_bump>] Updated MoEngage-iOS-SDK to <native_sdk_version>     ← (native_sdk_version provided example)
+  - [patch] <changelog_description>
 ```
 
 ---
@@ -223,8 +213,8 @@ gh pr create \
 
 ## Packages Updated
 | Package | podspec | Package.swift |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- |<one row per package>
+| ------- | ------- | ------------- |
+<one row per package>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF

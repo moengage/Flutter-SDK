@@ -75,33 +75,33 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 
 ### 1.2 Identifiers table
 
-| Identifier | Example | Rule |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- || `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
-| `contractSuffix` | `jwt_contract` | branch name after first `/` or `_MOEN-XXXXX_` |
-| `featureName` | `jwt` | lowercase slug from feature_description |
-| `featureNameCamel` | `Jwt` | PascalCase of featureName |
-| `featureNameUpper` | `JWT` | UPPER_SNAKE of featureName |
-| `contractDir` | `authentication` | subdirectory found in contracts `json/` after checkout |
-| `androidPackage` | `com.moengage.flutter.jwt` | `com.moengage.flutter.<featureName>` |
-| `androidModuleName` | `plugin-base-jwt` | `plugin-base-<featureName>` (verify from plugin-base PR) |
-| `packageDir` | `packages/moengage_flutter` | see rule below |
-| `androidPkgDir` | `packages/moengage_flutter/moengage_flutter_android` | `<packageDir>/moengage_<featureName>_android` |
-| `channelName` | `com.moengage/jwt` | `com.moengage/<featureName>` |
-| `branchName` | `feature/MOEN-44072-jwt_contract` | `feature/<ticketId>-<contractSuffix>` |
+| Identifier          | Example                                              | Rule                                                     |
+| ------------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `ticketId`          | `MOEN-44072`                                         | `MOEN-\d+` from raw command or parameter                 |
+| `contractSuffix`    | `jwt_contract`                                       | branch name after first `/` or `_MOEN-XXXXX_`            |
+| `featureName`       | `jwt`                                                | lowercase slug from feature_description                  |
+| `featureNameCamel`  | `Jwt`                                                | PascalCase of featureName                                |
+| `featureNameUpper`  | `JWT`                                                | UPPER_SNAKE of featureName                               |
+| `contractDir`       | `authentication`                                     | subdirectory found in contracts `json/` after checkout   |
+| `androidPackage`    | `com.moengage.flutter.jwt`                           | `com.moengage.flutter.<featureName>`                     |
+| `androidModuleName` | `plugin-base-jwt`                                    | `plugin-base-<featureName>` (verify from plugin-base PR) |
+| `packageDir`        | `packages/moengage_flutter`                          | see rule below                                           |
+| `androidPkgDir`     | `packages/moengage_flutter/moengage_flutter_android` | `<packageDir>/moengage_<featureName>_android`            |
+| `channelName`       | `com.moengage/jwt`                                   | `com.moengage/<featureName>`                             |
+| `branchName`        | `feature/MOEN-44072-jwt_contract`                    | `feature/<ticketId>-<contractSuffix>`                    |
 
 ### 1.3 Resolve `packageDir`
 
 Scan `feature_description` for a framework keyword and map to the existing package directory:
 
-| Keyword in `feature_description` | `packageDir` |
- --- || --- | --- || --- | --- || --- |
- --- || `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
-| `cards` | `packages/moengage_cards` |
-| `geofence` | `packages/moengage_geofence` |
-| `inbox` | `packages/moengage_inbox` |
-| `personalize` | `packages/moengage_personalize` |
-| none of the above | ask the user which package to add the feature to |
+| Keyword in `feature_description`              | `packageDir`                                     |
+| --------------------------------------------- | ------------------------------------------------ |
+| `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter`                      |
+| `cards`                                       | `packages/moengage_cards`                        |
+| `geofence`                                    | `packages/moengage_geofence`                     |
+| `inbox`                                       | `packages/moengage_inbox`                        |
+| `personalize`                                 | `packages/moengage_personalize`                  |
+| none of the above                             | ask the user which package to add the feature to |
 
 Examples:
 - `"setDeviceAttribute from analytics"` → `packages/moengage_flutter`
@@ -130,11 +130,11 @@ git checkout <contract_branch>
 
 ### Method classification
 
-| Condition | Type | Android pattern | Files needed |
- --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
- --- || `hybridToNative` only | **fire-and-forget** | `call.arguments.toString()` → helper, no result | Plugin + Handler only |
-| both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends | see below |
-| `nativeToHybrid` only | **event** | `EventEmitterImpl` → `methodChannel?.invokeMethod(name, payload)` | Plugin + Handler + EventEmitterImpl |
+| Condition                                | Type                             | Android pattern                                                   | Files needed                        |
+| ---------------------------------------- | -------------------------------- | ----------------------------------------------------------------- | ----------------------------------- |
+| `hybridToNative` only                    | **fire-and-forget**              | `call.arguments.toString()` → helper, no result                   | Plugin + Handler only               |
+| both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends                                                           | see below                           |
+| `nativeToHybrid` only                    | **event**                        | `EventEmitterImpl` → `methodChannel?.invokeMethod(name, payload)` | Plugin + Handler + EventEmitterImpl |
 
 **When both `hybridToNative` and `nativeToHybrid` exist**, auto-detect the type by reading the plugin-base branch:
 
@@ -145,10 +145,10 @@ gh pr view <android_plugin_base_pr_url> --json headRefName
 
 Look for the method in the plugin-base helper class:
 
-| Plugin-base pattern found | Type | Android pattern | Files needed |
- --- || --- | --- || --- | --- || --- | --- || --- | --- || --- |
- --- || Method returns a value / calls `result.success(...)` directly | **result** | `GlobalResources.executor` → `result.success(...)` | Plugin + Handler |
-| Method registers/calls an `EventEmitter` interface | **event** | direct call + `EventEmitterImpl` → `methodChannel?.invokeMethod(name, payload)` | Plugin + Handler + EventEmitterImpl |
+| Plugin-base pattern found                                     | Type       | Android pattern                                                                 | Files needed                        |
+| ------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------- | ----------------------------------- |
+| Method returns a value / calls `result.success(...)` directly | **result** | `GlobalResources.executor` → `result.success(...)`                              | Plugin + Handler                    |
+| Method registers/calls an `EventEmitter` interface            | **event**  | direct call + `EventEmitterImpl` → `methodChannel?.invokeMethod(name, payload)` | Plugin + Handler + EventEmitterImpl |
 
 If the plugin-base branch is unreadable or the pattern is still ambiguous after reading it, **then** ask the user.
 
@@ -300,8 +300,8 @@ Branch: `<contract_branch>` in mobile-sdk-contracts
 
 ## Methods
 | Method | Type |
- --- || --- | --- || --- | --- || --- |
- --- |<table rows from method table>
+| ------ | ---- |
+<table rows from method table>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
@@ -329,15 +329,15 @@ Then **ask the user**:
 
 Read these before generating output — copy logging conventions, patterns, and structure exactly.
 
-| What | Codebase path |
- --- || --- | --- || --- | --- || --- |
- --- || Plugin.kt reference | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/MoEngageCardsPlugin.kt` |
+| What                                | Codebase path                                                                                                                    |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Plugin.kt reference                 | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/MoEngageCardsPlugin.kt`       |
 | PlatformMethodCallHandler reference | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/PlatformMethodCallHandler.kt` |
-| EventEmitterImpl reference | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/EventEmitterImpl.kt` |
-| Constants.kt reference | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/Constants.kt` |
-| build.gradle reference | `packages/moengage_cards/moengage_cards_android/android/build.gradle` |
-| pubspec.yaml reference | `packages/moengage_cards/moengage_cards_android/pubspec.yaml` |
-| Dart plugin file reference | `packages/moengage_cards/moengage_cards_android/lib/moengage_cards_android.dart` |
+| EventEmitterImpl reference          | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/EventEmitterImpl.kt`          |
+| Constants.kt reference              | `packages/moengage_cards/moengage_cards_android/android/src/main/kotlin/com/moengage/flutter/cards/Constants.kt`                 |
+| build.gradle reference              | `packages/moengage_cards/moengage_cards_android/android/build.gradle`                                                            |
+| pubspec.yaml reference              | `packages/moengage_cards/moengage_cards_android/pubspec.yaml`                                                                    |
+| Dart plugin file reference          | `packages/moengage_cards/moengage_cards_android/lib/moengage_cards_android.dart`                                                 |
 
 ---
 

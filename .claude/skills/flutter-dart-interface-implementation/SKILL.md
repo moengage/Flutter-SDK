@@ -94,32 +94,32 @@ Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 
 ### 1.2 Identifiers table
 
-| Identifier | Example | Rule |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- || `ticketId` | `MOEN-44072` | `MOEN-\d+` from raw command or parameter |
-| `contractSuffix` | `jwt_contract` | branch name after first `/` or `_MOEN-XXXXX_` |
-| `featureName` | `jwt` | lowercase slug from feature_description |
-| `featureNameCamel` | `Jwt` | PascalCase of featureName |
-| `featureNameUpper` | `JWT` | UPPER_SNAKE |
-| `contractDir` | `authentication` | subdirectory found in contracts `json/` after checkout |
-| `packageDir` | `packages/moengage_flutter` | see rule below |
-| `piDir` | `packages/moengage_flutter/moengage_flutter_platform_interface` | `<packageDir>/moengage_<featureName>_platform_interface` |
-| `mainDir` | `packages/moengage_flutter/moengage_flutter` | `<packageDir>/moengage_<featureName>` |
-| `channelName` | `com.moengage/jwt` | `com.moengage/<featureName>` |
-| `branchName` | `feature/MOEN-44072-jwt_contract` | `feature/<ticketId>-<contractSuffix>` |
+| Identifier         | Example                                                         | Rule                                                     |
+| ------------------ | --------------------------------------------------------------- | -------------------------------------------------------- |
+| `ticketId`         | `MOEN-44072`                                                    | `MOEN-\d+` from raw command or parameter                 |
+| `contractSuffix`   | `jwt_contract`                                                  | branch name after first `/` or `_MOEN-XXXXX_`            |
+| `featureName`      | `jwt`                                                           | lowercase slug from feature_description                  |
+| `featureNameCamel` | `Jwt`                                                           | PascalCase of featureName                                |
+| `featureNameUpper` | `JWT`                                                           | UPPER_SNAKE                                              |
+| `contractDir`      | `authentication`                                                | subdirectory found in contracts `json/` after checkout   |
+| `packageDir`       | `packages/moengage_flutter`                                     | see rule below                                           |
+| `piDir`            | `packages/moengage_flutter/moengage_flutter_platform_interface` | `<packageDir>/moengage_<featureName>_platform_interface` |
+| `mainDir`          | `packages/moengage_flutter/moengage_flutter`                    | `<packageDir>/moengage_<featureName>`                    |
+| `channelName`      | `com.moengage/jwt`                                              | `com.moengage/<featureName>`                             |
+| `branchName`       | `feature/MOEN-44072-jwt_contract`                               | `feature/<ticketId>-<contractSuffix>`                    |
 
 ### 1.3 Resolve `packageDir`
 
 Scan `feature_description` for a framework keyword and map to the existing package directory:
 
-| Keyword in `feature_description` | `packageDir` |
- --- || --- | --- || --- | --- || --- |
- --- || `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter` |
-| `cards` | `packages/moengage_cards` |
-| `geofence` | `packages/moengage_geofence` |
-| `inbox` | `packages/moengage_inbox` |
-| `personalize` | `packages/moengage_personalize` |
-| none of the above | ask the user which package to add the feature to |
+| Keyword in `feature_description`              | `packageDir`                                     |
+| --------------------------------------------- | ------------------------------------------------ |
+| `core`, `analytics`, `inapps`, or `messaging` | `packages/moengage_flutter`                      |
+| `cards`                                       | `packages/moengage_cards`                        |
+| `geofence`                                    | `packages/moengage_geofence`                     |
+| `inbox`                                       | `packages/moengage_inbox`                        |
+| `personalize`                                 | `packages/moengage_personalize`                  |
+| none of the above                             | ask the user which package to add the feature to |
 
 Examples:
 - `"setDeviceAttribute from analytics"` → `packages/moengage_flutter`
@@ -147,11 +147,11 @@ git checkout <contract_branch>
 
 ### Method classification
 
-| Condition | Type | Dart pattern |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- || `hybridToNative` only | **fire-and-forget** | `void methodName(...)` → `methodChannel.invokeMethod(...)` |
-| both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends |
-| `nativeToHybrid` only | **event** | listener callback registered by caller; fired from `controller.dart` |
+| Condition                                | Type                             | Dart pattern                                                         |
+| ---------------------------------------- | -------------------------------- | -------------------------------------------------------------------- |
+| `hybridToNative` only                    | **fire-and-forget**              | `void methodName(...)` → `methodChannel.invokeMethod(...)`           |
+| both `hybridToNative` + `nativeToHybrid` | **auto-detect from plugin-base** | depends                                                              |
+| `nativeToHybrid` only                    | **event**                        | listener callback registered by caller; fired from `controller.dart` |
 
 **When both `hybridToNative` and `nativeToHybrid` exist**, auto-detect the type by reading the plugin-base branch (Android takes priority; iOS used as fallback):
 
@@ -165,10 +165,10 @@ gh pr view <ios_plugin_base_pr_url> --json headRefName
 # read changed Swift files on that branch
 ```
 
-| Plugin-base pattern found | Type | Dart pattern |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- || Method returns a value / calls `result.success(...)` / has `completionBlock` | **result** | `Future<ModelType> methodName(...)` → `await methodChannel.invokeMethod(...)` → deserialize |
-| Method registers/calls an `EventEmitter` / delegate / `flushMessage` pattern | **event** | `void methodName(...)` + listener callback registered by caller; fired from `controller.dart` |
+| Plugin-base pattern found                                                    | Type       | Dart pattern                                                                                  |
+| ---------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| Method returns a value / calls `result.success(...)` / has `completionBlock` | **result** | `Future<ModelType> methodName(...)` → `await methodChannel.invokeMethod(...)` → deserialize   |
+| Method registers/calls an `EventEmitter` / delegate / `flushMessage` pattern | **event**  | `void methodName(...)` + listener callback registered by caller; fired from `controller.dart` |
 
 If the plugin-base branch is unreadable or the pattern is still ambiguous after reading it, **then** ask the user.
 
@@ -442,8 +442,8 @@ Branch: `<contract_branch>` in mobile-sdk-contracts
 
 ## Methods
 | Method | Type | Dart return |
- --- || --- | --- || --- | --- || --- | --- || --- |
- --- |<table rows from method table>
+| ------ | ---- | ----------- |
+<table rows from method table>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
@@ -464,22 +464,22 @@ Print:
 
 ## Codebase Reference Files
 
-| What | Codebase path |
- --- || --- | --- || --- | --- || --- |
- --- || Platform interface abstract class | `packages/moengage_cards/moengage_cards_platform_interface/lib/moengage_cards_platform_interface.dart` |
-| constants.dart | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/constants.dart` |
-| method_channel | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/method_channel_moengage_cards.dart` |
-| platform_base | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_platform.dart` |
-| controller | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_controller.dart` |
-| instance_provider | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_instance_provider.dart` |
-| callback_cache | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/callback_cache.dart` |
-| payload_mapper | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/payload_mapper.dart` |
-| model barrel | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/model.dart` |
-| SyncCompleteData model | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/sync_data.dart` |
-| SyncType enum | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/sync_type.dart` |
-| platform interface pubspec | `packages/moengage_cards/moengage_cards_platform_interface/pubspec.yaml` |
-| public API class | `packages/moengage_cards/moengage_cards/lib/src/moengage_cards.dart` |
-| main package pubspec | `packages/moengage_cards/moengage_cards/pubspec.yaml` |
+| What                              | Codebase path                                                                                                   |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Platform interface abstract class | `packages/moengage_cards/moengage_cards_platform_interface/lib/moengage_cards_platform_interface.dart`          |
+| constants.dart                    | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/constants.dart`                     |
+| method_channel                    | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/method_channel_moengage_cards.dart` |
+| platform_base                     | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_platform.dart`                |
+| controller                        | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_controller.dart`              |
+| instance_provider                 | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/cards_instance_provider.dart`       |
+| callback_cache                    | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/callback_cache.dart`                |
+| payload_mapper                    | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/internal/payload_mapper.dart`                |
+| model barrel                      | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/model.dart`                            |
+| SyncCompleteData model            | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/sync_data.dart`                        |
+| SyncType enum                     | `packages/moengage_cards/moengage_cards_platform_interface/lib/src/model/sync_type.dart`                        |
+| platform interface pubspec        | `packages/moengage_cards/moengage_cards_platform_interface/pubspec.yaml`                                        |
+| public API class                  | `packages/moengage_cards/moengage_cards/lib/src/moengage_cards.dart`                                            |
+| main package pubspec              | `packages/moengage_cards/moengage_cards/pubspec.yaml`                                                           |
 
 ---
 
