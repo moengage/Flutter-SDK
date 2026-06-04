@@ -1,0 +1,26 @@
+# Thin caller — minimal (secret-scan only; no build pipeline in source)
+name: CI
+
+on:
+  push:
+    branches: ['**']
+    tags: ['**']
+  pull_request:
+    branches: ['**']
+    types: [opened, synchronize, closed]
+
+jobs:
+  ci:
+    uses: moengage/github-workflows/.github/workflows/python-ci.yaml@master
+    with:
+      use_gha_venv_path: 'false'
+      enable_lint: 'false'
+      enable_test: 'false'
+      enable_cd_deploy: 'false'
+      enable_legacy_cd_deploy: 'false'
+      k8s_support: 'false'
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: write
+      actions: read
