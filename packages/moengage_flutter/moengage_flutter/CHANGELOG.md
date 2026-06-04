@@ -5,6 +5,8 @@
 ## Release Version
 
 - [minor] Added support Logout Complete listener
+- Android
+    - [patch] Downgrading Compile Java Version to 17
 
 # 07-05-2026
 
