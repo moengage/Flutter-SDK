@@ -168,8 +168,32 @@ git checkout -b feature/<ticketId>-<contractSuffix>
 ### 3.2 Create package directory structure
 ```bash
 mkdir -p <androidPkgDir>/android/src/main/kotlin/<androidPackage/slash-form>
+mkdir -p <androidPkgDir>/android/gradle/wrapper
 mkdir -p <androidPkgDir>/lib
 ```
+
+Then create these boilerplate files (copy from `moengage_cards_android/android/` and update names):
+
+**`<androidPkgDir>/android/src/main/AndroidManifest.xml`**
+```xml
+<manifest package="<androidPackage>" />
+```
+
+**`<androidPkgDir>/android/settings.gradle`**
+```groovy
+rootProject.name = "moengage_<featureName>"
+```
+
+**`<androidPkgDir>/android/gradle.properties`**
+```
+org.gradle.jvmargs=-Xmx1536M
+```
+
+**`<androidPkgDir>/android/gradle/wrapper/gradle-wrapper.properties`**
+Copy from `packages/moengage_cards/moengage_cards_android/android/gradle/wrapper/gradle-wrapper.properties` unchanged.
+
+**`<androidPkgDir>/android/.gitignore`**
+Copy from `packages/moengage_cards/moengage_cards_android/android/.gitignore` unchanged.
 
 ### 3.3 build.gradle
 → See `examples/build.gradle`
@@ -180,6 +204,22 @@ Copy `packages/moengage_cards/moengage_cards_android/android/build.gradle`, then
 - `moengagePluginBaseBomVersion` → `<plugin_base_bom_version>`
 - `implementation("com.moengage:plugin-base-cards")` → `implementation("com.moengage:<androidModuleName>")`
 - `api("com.moengage:cards-core")` → `api("com.moengage:<featureName>-core")` *(ask user if unknown)*
+- **Keep** `compileOnly("com.moengage:plugin-base")` — do not remove this line
+- **Keep** the `hybridModuleConfig.configurePlugin` block and the custom Gradle plugin classpath/apply lines unchanged:
+  ```groovy
+  // buildscript.dependencies — keep as-is:
+  classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.4"
+
+  // top-level — keep as-is:
+  apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
+
+  hybridModuleConfig.configurePlugin {
+      kotlinOptions {
+          enableJvmTarget = true
+          compilerArgs = []
+      }
+  }
+  ```
 
 ### 3.4 Constants.kt
 → See `examples/Constants.kt`
