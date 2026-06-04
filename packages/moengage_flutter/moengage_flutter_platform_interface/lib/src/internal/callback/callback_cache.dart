@@ -16,4 +16,7 @@ class CallbackCache {
 
   /// InApp Dismiss Callback
   InAppDismissedCallbackHandler? inAppDismissedCallbackHandler;
+
+  /// Authentication Error Callback
+  AuthenticationErrorCallbackHandler? authenticationErrorCallbackHandler;
 }

@@ -183,3 +183,12 @@ const String methodGetUserIdentities = 'getUserIdentities';
 const String keyAccessibilityText = 'text';
 const String keyAccessibilityHint = 'hint';
 const String keyAccessibility = 'accessibility';
+
+/// JWT Authentication
+const String methodPassAuthenticationDetails = 'authenticationDetails';
+const String callbackOnAuthenticationError = 'authenticationError';
+const String keyAuthenticationType = 'authenticationType';
+const String keyToken = 'token';
+const String keyUserIdentifier = 'userIdentifier';
+const String keyAuthErrorCode = 'code';
+const String keyAuthErrorMessage = 'message';

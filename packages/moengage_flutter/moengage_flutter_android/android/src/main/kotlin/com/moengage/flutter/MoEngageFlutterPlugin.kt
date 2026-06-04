@@ -134,6 +134,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_SELF_HANDLED_IN_APPS -> getSelfHandledInApps(call, result)
                 METHOD_NAME_IDENTIFY_USER -> identifyUser(call)
                 METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
+                METHOD_NAME_PASS_AUTHENTICATION_DETAILS -> passAuthenticationDetails(call)
                 else ->
                     Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
             }
@@ -540,6 +541,17 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         } catch (t: Throwable) {
             Logger.print(LogLevel.ERROR, t) { "$tag getUserIdentities() : " }
             result.error(ERROR_CODE_GET_USER_IDENTITIES, "Error occurred", null)
+        }
+    }
+
+    private fun passAuthenticationDetails(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.print { "$tag passAuthenticationDetails() : Arguments: $payload" }
+            pluginHelper.passAuthenticationDetails(context, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag passAuthenticationDetails() : " }
         }
     }
 

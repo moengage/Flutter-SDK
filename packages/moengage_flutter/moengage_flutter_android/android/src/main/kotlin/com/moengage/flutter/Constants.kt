@@ -58,3 +58,7 @@ const val ERROR_CODE_SELF_HANDLED_IN_APPS = "SELF_HANDLED_IN_APPS_ERROR"
 const val METHOD_NAME_IDENTIFY_USER = "identifyUser"
 const val METHOD_NAME_GET_USER_IDENTITIES = "getUserIdentities"
 const val ERROR_CODE_GET_USER_IDENTITIES = "GET_USER_IDENTITIES_ERROR"
+
+// JWT Authentication
+const val METHOD_NAME_PASS_AUTHENTICATION_DETAILS = "authenticationDetails"
+const val METHOD_NAME_AUTHENTICATION_ERROR = "authenticationError"

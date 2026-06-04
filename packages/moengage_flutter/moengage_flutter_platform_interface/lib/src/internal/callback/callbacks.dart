@@ -1,3 +1,4 @@
+import '../../model/authentication/authentication_error_data.dart';
 import '../../model/inapp/click_data.dart';
 import '../../model/inapp/inapp_data.dart';
 import '../../model/inapp/self_handled_data.dart';
@@ -27,3 +28,7 @@ typedef InAppDismissedCallbackHandler = void Function(InAppData data);
 /// Push Permission Result Callback
 typedef PermissionResultCallbackHandler = void Function(
     PermissionResultData data);
+
+/// Authentication Error Callback
+typedef AuthenticationErrorCallbackHandler = void Function(
+    AuthenticationErrorData data);

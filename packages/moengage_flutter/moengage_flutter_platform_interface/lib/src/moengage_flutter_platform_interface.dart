@@ -241,4 +241,14 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   Future<Map<String, String>?> getUserIdentities(String appId) =>
       throw UnimplementedError(
           'getUserIdentities() not implemented for Platform');
+
+  /// Pass JWT authentication details to the MoEngage SDK.
+  /// [authenticationType] - Authentication type (e.g. 'JWT')
+  /// [token] - JWT token string
+  /// [userIdentifier] - User identifier associated with the token
+  /// [appId] - MoEngage App ID
+  void passAuthenticationDetails(
+          String authenticationType, String token, String userIdentifier, String appId) =>
+      throw UnimplementedError(
+          'passAuthenticationDetails() not implemented for Platform');
 }

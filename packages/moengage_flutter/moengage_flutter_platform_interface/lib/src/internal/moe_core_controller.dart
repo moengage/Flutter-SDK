@@ -7,6 +7,7 @@ import '../model/inapp/self_handled_data.dart';
 import '../model/permission_result.dart';
 import '../model/push/push_campaign_data.dart';
 import '../model/push/push_token_data.dart';
+import '../utils/authentication_payload_mapper.dart';
 import '../utils/in_app_payload_mapper.dart';
 import '../utils/push_payload_mapper.dart';
 import '../utils/utils.dart';
@@ -116,6 +117,18 @@ class CoreController {
           final PermissionResultData data =
               permissionResultFromMap(call.arguments);
           handler.call(data);
+        }
+      }
+      if (call.method == callbackOnAuthenticationError) {
+        final data = authenticationErrorFromJson(call.arguments);
+        if (data != null) {
+          final AuthenticationErrorCallbackHandler? handler =
+              CoreInstanceProvider()
+                  .getCallbackCacheForInstance(data.accountMeta.appId)
+                  .authenticationErrorCallbackHandler;
+          if (handler != null) {
+            handler.call(data);
+          }
         }
       }
     } catch (e, stackTrace) {

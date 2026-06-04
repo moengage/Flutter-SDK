@@ -435,4 +435,23 @@ class MoEngageFlutter {
   Future<Map<String, String>?> getUserIdentities() {
     return _platform.getUserIdentities(appId);
   }
+
+  /// Pass JWT authentication details to the MoEngage SDK.
+  /// [authenticationType] - Authentication type string (e.g. [MoEAuthenticationType.jwt.asString])
+  /// [token] - JWT token string
+  /// [userIdentifier] - User identifier tied to the token
+  void passAuthenticationDetails(
+      String authenticationType, String token, String userIdentifier) {
+    _platform.passAuthenticationDetails(
+        authenticationType, token, userIdentifier, appId);
+  }
+
+  /// Sets a callback handler to receive JWT authentication errors from the native SDK.
+  /// [handler] - Callback of type [AuthenticationErrorCallbackHandler]
+  void setAuthenticationErrorCallbackHandler(
+      AuthenticationErrorCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .authenticationErrorCallbackHandler = handler;
+  }
 }
