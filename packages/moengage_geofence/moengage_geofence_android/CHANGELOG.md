@@ -1,5 +1,11 @@
 # MoEngage Geofence Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Downgrading Compile Java Version to 17
+
 # 07-05-2026
 
 ## 4.5.0

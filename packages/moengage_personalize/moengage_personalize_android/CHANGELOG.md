@@ -5,6 +5,7 @@
 ## Release Version
 
 - [patch] Removing the redundant dependency inclusion for `moe-android-sdk`
+- [patch] Downgrading Compile Java Version to 17
 
 # 07-05-2026
 
