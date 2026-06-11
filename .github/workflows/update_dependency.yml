@@ -1,0 +1,98 @@
+name: Update Dependency
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticketNumber:
+        type: string
+        description: 'Ticket number (e.g. MOEN-12345)'
+        required: true
+      target:
+        type: choice
+        description: 'Which platform(s) to update'
+        required: true
+        default: both
+        options:
+          - android
+          - ios
+          - both
+
+jobs:
+  update-dependency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+      - name: Update Android dependency versions
+        id: android
+        if: inputs.target == 'android' || inputs.target == 'both'
+        continue-on-error: true
+        run: |
+          kotlin .github/scripts/update-bom.main.kts
+      - name: Update iOS dependency versions
+        id: ios
+        if: inputs.target == 'ios' || inputs.target == 'both'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        run: |
+          kotlin .github/scripts/update-ios-deps.main.kts
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No files were updated."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Files updated:"
+            git diff --name-only
+          fi
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        run: |
+          git config user.name "sdk-bot-user"
+          git config user.email "sdk.bot@moengage.com"
+          DATE=$(date +%Y-%m-%d)
+          TICKET="${{ github.event.inputs.ticketNumber }}"
+          TARGET="${{ github.event.inputs.target }}"
+          BRANCH="${TICKET}/dependency_update"
+
+          case "$TARGET" in
+            android) TITLE_SCOPE="Android Dependency Update" ;;
+            ios)     TITLE_SCOPE="iOS Dependency Update" ;;
+            *)       TITLE_SCOPE="Dependency Update" ;;
+          esac
+
+          BODY_FILE=$(mktemp)
+          {
+            echo "## Summary"
+            if [ "$TARGET" = "android" ] || [ "$TARGET" = "both" ]; then
+              echo "- Updated \`android-bom\` and \`plugin-base-bom\` to the latest versions from Maven Central."
+              echo "  Only modules with changed artifacts were updated."
+              echo "  Both the Android package and public-facing package changelogs have been updated."
+            fi
+            if [ "$TARGET" = "ios" ] || [ "$TARGET" = "both" ]; then
+              echo "- Updated \`MoEngagePlugin*\` pinned versions and \`MoEngage-iOS-SDK\` floor."
+              echo "  Podspec and \`Package.swift\` files refreshed; iOS-package CHANGELOG and public CHANGELOG updated."
+            fi
+            if [ "$TARGET" = "both" ]; then
+              echo ""
+              echo "_Android outcome: ${{ steps.android.outcome }} · iOS outcome: ${{ steps.ios.outcome }}_"
+            fi
+          } > "$BODY_FILE"
+
+          echo "$BRANCH"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "${TICKET}: ${TITLE_SCOPE} ${DATE}"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --base development \
+            --title "${TICKET}: ${TITLE_SCOPE} ${DATE}" \
+            --body-file "$BODY_FILE"
