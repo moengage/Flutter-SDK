@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support Logout Complete listener
+
 # 11-02-2026
 
 ## 4.1.0
