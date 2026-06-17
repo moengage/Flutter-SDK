@@ -1,6 +1,6 @@
 name: moengage_cards_android
 description: Android implementation of the moengage_cards plugin
-version: 5.5.0
+version: 5.5.1
 homepage: https://www.moengage.com
 
 environment:

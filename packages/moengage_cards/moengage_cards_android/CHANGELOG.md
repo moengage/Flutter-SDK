@@ -1,10 +1,10 @@
 # MoEngage Cards Android Plugin
 
-# Release Date
+# 17-06-2026
 
-## Release Version
+## 5.5.1
 
-- [patch] Downgrading Compile Java Version to 17
+- Downgrading Compile Java Version to 17
 
 # 07-05-2026
 

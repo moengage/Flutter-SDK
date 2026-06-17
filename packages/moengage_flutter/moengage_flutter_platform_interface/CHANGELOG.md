@@ -1,10 +1,10 @@
 # MoEngage Flutter Platform Interface
 
-# Release Date
+# 17-06-2026
 
-## Release Version
+## 4.2.0
 
-- [minor] Added support Logout Complete listener
+- Added support Logout Complete listener
 
 # 11-02-2026
 

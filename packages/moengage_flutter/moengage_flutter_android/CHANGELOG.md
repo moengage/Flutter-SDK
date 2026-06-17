@@ -1,11 +1,11 @@
 # MoEngage Flutter Android Plugin
 
-# Release Date
+# 17-06-2026
 
-## Release Version
+## 4.9.0
 
-- [minor] Added support Logout Complete listener
-- [patch] Downgrading Compile Java Version to 17
+- Added support Logout Complete listener
+- Downgrading Compile Java Version to 17
 
 # 07-05-2026
 

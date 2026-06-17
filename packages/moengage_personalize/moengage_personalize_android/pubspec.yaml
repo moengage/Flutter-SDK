@@ -1,6 +1,6 @@
 name: moengage_personalize_android
 description: Android implementation of the moengage_personalize plugin
-version: 1.0.0
+version: 1.0.1
 homepage: https://www.moengage.com
 
 environment:
