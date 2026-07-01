@@ -1,5 +1,14 @@
 # MoEngage Personalize Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] `android-bom` version updated to `2.3.0`.
+- iOS
+    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+
 # 17-06-2026
 
 ## 1.0.1

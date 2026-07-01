@@ -25,8 +25,8 @@ rootProject.allprojects {
 
 
 ext {
-    moengageNativeBomVersion = "2.2.2"
-    moengagePluginBaseBomVersion = "3.0.1"
+    moengageNativeBomVersion = "2.3.0"
+    moengagePluginBaseBomVersion = "3.1.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'

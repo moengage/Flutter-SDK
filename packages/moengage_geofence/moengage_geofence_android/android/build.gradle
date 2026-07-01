@@ -25,7 +25,7 @@ rootProject.allprojects {
 }
 
 ext {
-    moengageNativeBomVersion = "2.2.2"
+    moengageNativeBomVersion = "2.3.0"
     moengagePluginBaseBomVersion = "3.0.1"
 }
 

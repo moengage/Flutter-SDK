@@ -1,5 +1,11 @@
 # MoEngage Geofence iOS Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+
 # 07-05-2026
 
 ## 4.4.0
