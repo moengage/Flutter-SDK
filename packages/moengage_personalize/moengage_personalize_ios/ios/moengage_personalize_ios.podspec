@@ -19,7 +19,7 @@ A flutter plugin for using Personalize Experience feature from MoEngage iOS SDK.
   s.source_files     = "#{root}/**/*"
   s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginPersonalize', '1.0.0'
+  s.dependency 'MoEngagePluginPersonalize', '1.1.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
