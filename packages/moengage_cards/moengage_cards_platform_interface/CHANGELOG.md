@@ -1,5 +1,11 @@
 # MoEngage Cards Platform Interface
 
+# Release Date
+
+## Release Version
+
+- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.27.0`
+
 # 11-02-2026
 
 ## 5.1.0

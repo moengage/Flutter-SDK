@@ -1,3 +1,11 @@
+plugins {
+  id "com.android.application"
+  id "kotlin-android"
+  id "dev.flutter.flutter-gradle-plugin"
+  id "com.google.gms.google-services"
+  id "com.huawei.agconnect"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -25,14 +33,8 @@ ext {
   moengageNativeBomVersion = "2.3.1"
 }
 
-apply plugin: 'com.android.application'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.huawei.agconnect'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
-
 android {
-  compileSdk 35
+  compileSdk 36
   namespace "com.moengage.sampleapp"
 
   sourceSets {
@@ -45,8 +47,8 @@ android {
 
   defaultConfig {
     applicationId "com.moengage.sampleapp"
-    minSdk 23
-    targetSdk 35
+    minSdkVersion flutter.minSdkVersion
+    targetSdk 36
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -130,5 +132,3 @@ dependencies {
   androidTestImplementation(appLibs.androidJUnit)
   androidTestImplementation(appLibs.expresso)
 }
-
-apply plugin: 'com.google.gms.google-services'
