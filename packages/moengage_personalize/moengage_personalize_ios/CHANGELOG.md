@@ -1,5 +1,11 @@
 # MoEngage Personalize iOS Plugin
 
+# Release Date
+
+## Release Version
+
+- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.27.0`
+
 # 07-05-2026
 
 ## 1.0.0

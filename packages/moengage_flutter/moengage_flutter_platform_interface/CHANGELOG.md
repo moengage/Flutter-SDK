@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# Release Date
+
+## Release Version
+
+- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.27.0`
+
 # 17-06-2026
 
 ## 4.2.0
