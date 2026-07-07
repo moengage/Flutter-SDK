@@ -2,17 +2,17 @@ import '../../internal/constants.dart';
 
 /// Accessibility Data UI Component
 class AccessibilityData {
-
   /// [AccessibilityData] Constructor
-AccessibilityData(this.text, this.hint);
+  AccessibilityData(this.text, this.hint);
 
-/// Creates an [AccessibilityData] instance from a JSON [Map]
+  /// Creates an [AccessibilityData] instance from a JSON [Map]
   factory AccessibilityData.fromJson(Map<String, dynamic> json) {
     return AccessibilityData(
       json[keyAccessibilityText] as String?,
       json[keyAccessibilityHint] as String?,
     );
   }
+
   /// Text for the AccessibilityData
   String? text;
 
@@ -23,7 +23,8 @@ AccessibilityData(this.text, this.hint);
   String toString() {
     return 'AccessibilityData(text: $text, hint: $hint)';
   }
-   /// Converts the [AccessibilityData] instance to a JSON [Map]
+
+  /// Converts the [AccessibilityData] instance to a JSON [Map]
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       keyAccessibilityText: text,

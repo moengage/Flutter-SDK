@@ -13,8 +13,7 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
   /// The method channel used to interact with the native platform.
   final MethodChannel _channel = const MethodChannel(channelName);
 
-  static const String _tag =
-      '${moduleTag}MethodChannelMoEngagePersonalize';
+  static const String _tag = '${moduleTag}MethodChannelMoEngagePersonalize';
 
   @override
   Future<ExperienceCampaignsMetadata> fetchExperiencesMeta(
@@ -23,8 +22,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       final Map<String, dynamic> payload =
           getFetchExperiencesMetaPayload(statuses, appId);
       Logger.v('$_tag fetchExperiencesMeta(): $payload');
-      final response = await _channel.invokeMethod(
-          methodFetchExperiencesMeta, payload);
+      final response =
+          await _channel.invokeMethod(methodFetchExperiencesMeta, payload);
       return deserializeExperiencesMeta(response);
     } catch (e, stackTrace) {
       Logger.e('$_tag fetchExperiencesMeta(): Error: $e',
@@ -42,8 +41,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
       final Map<String, dynamic> payload =
           getFetchExperiencesPayload(experienceKeys, attributes, appId);
       Logger.v('$_tag fetchExperiences(): $payload');
-      final response = await _channel.invokeMethod(
-          methodFetchExperiences, payload);
+      final response =
+          await _channel.invokeMethod(methodFetchExperiences, payload);
       return deserializeExperiencesResult(response);
     } catch (e, stackTrace) {
       Logger.e('$_tag fetchExperiences(): Error: $e', stackTrace: stackTrace);
@@ -52,12 +51,12 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
   }
 
   @override
-  void experiencesShown(
-      List<ExperienceCampaign> campaigns, String appId) {
+  void experiencesShown(List<ExperienceCampaign> campaigns, String appId) {
     final Map<String, dynamic> payload =
         getTrackExperienceShownPayload(campaigns, appId);
     Logger.v('$_tag experiencesShown(): $payload');
-    unawaited(_channel.invokeMethod(methodExperiencesShown, payload)
+    unawaited(_channel
+        .invokeMethod(methodExperiencesShown, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag experiencesShown(): Error: $e', stackTrace: st);
     }));
@@ -68,7 +67,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
     final Map<String, dynamic> payload =
         getTrackExperienceClickedPayload(campaign, appId);
     Logger.v('$_tag experienceClicked(): $payload');
-    unawaited(_channel.invokeMethod(methodExperienceClicked, payload)
+    unawaited(_channel
+        .invokeMethod(methodExperienceClicked, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag experienceClicked(): Error: $e', stackTrace: st);
     }));
@@ -80,7 +80,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
     final Map<String, dynamic> payload =
         getTrackOfferingShownPayload(offeringPayloads, appId);
     Logger.v('$_tag offeringsShown(): $payload');
-    unawaited(_channel.invokeMethod(methodOfferingsShown, payload)
+    unawaited(_channel
+        .invokeMethod(methodOfferingsShown, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag offeringsShown(): Error: $e', stackTrace: st);
     }));
@@ -92,7 +93,8 @@ class MethodChannelMoEngagePersonalize extends MoEngagePersonalizePlatform {
     final Map<String, dynamic> payload =
         getTrackOfferingClickedPayload(campaign, offeringPayload, appId);
     Logger.v('$_tag offeringClicked(): $payload');
-    unawaited(_channel.invokeMethod(methodOfferingClicked, payload)
+    unawaited(_channel
+        .invokeMethod(methodOfferingClicked, payload)
         .catchError((Object e, StackTrace st) {
       Logger.e('$_tag offeringClicked(): Error: $e', stackTrace: st);
     }));

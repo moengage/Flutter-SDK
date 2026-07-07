@@ -8,7 +8,8 @@ void main() {
     test('should create Media with non-null accessibility', () {
       const mediaType = MediaType.image;
       const url = 'https://example.com/image.png';
-      final accessibility = AccessibilityData('Accessible text', 'Accessible hint');
+      final accessibility =
+          AccessibilityData('Accessible text', 'Accessible hint');
       final media = Media(mediaType, url, accessibility);
 
       expect(media.mediaType, equals(mediaType));

@@ -16,8 +16,7 @@ class PersonalizeHome extends StatefulWidget {
 }
 
 class _PersonalizeHomeState extends State<PersonalizeHome> {
-  final MoEngagePersonalize _personalize =
-      MoEngagePersonalize(WORKSPACE_ID);
+  final MoEngagePersonalize _personalize = MoEngagePersonalize(WORKSPACE_ID);
 
   final TextEditingController _statusController =
       TextEditingController(text: 'active');
@@ -101,8 +100,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
       debugPrint("_onFetchExperiences(): Callback : $result");
       setState(() {
         _campaigns = result.experiences;
-        _offerings =
-            result.experiences.expand(_extractOfferings).toList();
+        _offerings = result.experiences.expand(_extractOfferings).toList();
       });
       final expLines = result.experiences
           .map((e) => '- ${e.experienceKey} [${e.source.value}]')
@@ -169,8 +167,7 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
 
   bool _requireOfferings() {
     if (_offerings.isEmpty) {
-      _showSnackBar(
-          'No offerings — fetch an experience with offerings');
+      _showSnackBar('No offerings — fetch an experience with offerings');
       return false;
     }
     return true;

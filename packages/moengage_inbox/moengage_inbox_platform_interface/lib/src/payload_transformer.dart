@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, Logger, keyData, keyAccessibility;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show AccessibilityData, Logger, keyData, keyAccessibility;
 import 'internal/constants.dart';
 import 'model/models.dart';
 
@@ -118,10 +119,13 @@ Media? mediaFromMap(Map<String, dynamic> mediaMap) {
   if (mediaMap.isEmpty) {
     return null;
   }
-  return Media(MediaTypeExt.fromString(mediaMap[keyType].toString()),
-        mediaMap[keyUrl].toString(),
-        mediaMap.containsKey(keyAccessibility) && mediaMap[keyAccessibility] != null
-          ? accessibilityFromMap(mediaMap[keyAccessibility] as Map<String, dynamic>)
+  return Media(
+      MediaTypeExt.fromString(mediaMap[keyType].toString()),
+      mediaMap[keyUrl].toString(),
+      mediaMap.containsKey(keyAccessibility) &&
+              mediaMap[keyAccessibility] != null
+          ? accessibilityFromMap(
+              mediaMap[keyAccessibility] as Map<String, dynamic>)
           : null);
 }
 
@@ -176,7 +180,11 @@ Map<String, String> mapFromTextContent(TextContent content) {
 
 /// Get [Map] from [Media]
 Map<String, dynamic> mapFromMedia(Media media) {
-  return <String, dynamic>{keyType: media.mediaType.asString, keyUrl: media.url, keyAccessibility: mapFromAccessibility(media.accessibilityData)};
+  return <String, dynamic>{
+    keyType: media.mediaType.asString,
+    keyUrl: media.url,
+    keyAccessibility: mapFromAccessibility(media.accessibilityData)
+  };
 }
 
 /// Get [Map] from [Accessibility]

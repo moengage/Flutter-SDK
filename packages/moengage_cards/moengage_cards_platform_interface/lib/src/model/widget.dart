@@ -1,4 +1,5 @@
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, keyAccessibility;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show AccessibilityData, keyAccessibility;
 import '../internal/constants.dart';
 import '../internal/payload_mapper.dart';
 import 'action/action.dart';
@@ -22,21 +23,23 @@ class Widget {
     final WidgetType widgetType =
         WidgetType.values.byName(json[keyWidgetType].toString().toLowerCase());
     return Widget(
-      id: (json[keyWidgetId] ?? -1) as int,
-      widgetType: widgetType,
-      content: (json[keyWidgetContent] ?? '') as String,
-      style: widgetStyleFromJson(
-        (json[keyWidgetStyle] ?? <String, dynamic>{}) as Map<String, dynamic>,
-        widgetType,
-      ),
-      actionList: (json[keyActions] as Iterable)
-          .map(
-            (action) => actionStyleFromJson(action as Map<String, dynamic>),
-          )
-          .toList(),
-      accessibilityData: json.containsKey(keyAccessibility) && json[keyAccessibility] != null
-          ? AccessibilityData.fromJson(json[keyAccessibility] as Map<String, dynamic>)
-          : null);
+        id: (json[keyWidgetId] ?? -1) as int,
+        widgetType: widgetType,
+        content: (json[keyWidgetContent] ?? '') as String,
+        style: widgetStyleFromJson(
+          (json[keyWidgetStyle] ?? <String, dynamic>{}) as Map<String, dynamic>,
+          widgetType,
+        ),
+        actionList: (json[keyActions] as Iterable)
+            .map(
+              (action) => actionStyleFromJson(action as Map<String, dynamic>),
+            )
+            .toList(),
+        accessibilityData:
+            json.containsKey(keyAccessibility) && json[keyAccessibility] != null
+                ? AccessibilityData.fromJson(
+                    json[keyAccessibility] as Map<String, dynamic>)
+                : null);
   }
 
   /// Identifier for the widget.
