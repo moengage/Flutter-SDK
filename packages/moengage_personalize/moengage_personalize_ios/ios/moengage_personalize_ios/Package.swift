@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "moengage-personalize-ios", targets: ["moengage_personalize_ios"])
     ],
     dependencies: [
-        .package(url: "https://github.com/moengage/apple-plugin-personalize.git", exact: "1.0.0"),
+        .package(url: "https://github.com/moengage/apple-plugin-personalize.git", exact: "1.1.0"),
         // For development
         // .package(path: "../../../../../../../../apple-plugin-personalize")
     ],

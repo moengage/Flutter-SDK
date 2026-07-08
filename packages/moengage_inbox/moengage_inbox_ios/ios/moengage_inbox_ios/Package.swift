@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "moengage-inbox-ios", targets: ["moengage_inbox_ios"])
     ],
     dependencies: [
-        .package(url: "https://github.com/moengage/apple-plugin-inbox.git", exact: "4.9.0"),
+        .package(url: "https://github.com/moengage/apple-plugin-inbox.git", exact: "4.10.0"),
         // For development
         // .package(path: "../../../../../../../../apple-plugin-inbox")
     ],
