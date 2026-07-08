@@ -144,6 +144,18 @@ fun findChangedArtifacts(bomArtifact: String, oldVersion: String, newVersion: St
     return changed
 }
 
+// ── Semver Diff ──────────────────────────────────────────────────────────────
+
+fun determineReleaseType(oldVersion: String, newVersion: String): String {
+    val oldParts = oldVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    val newParts = newVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    return when {
+        newParts.getOrElse(0) { 0 } != oldParts.getOrElse(0) { 0 } -> "major"
+        newParts.getOrElse(1) { 0 } != oldParts.getOrElse(1) { 0 } -> "minor"
+        else -> "patch"
+    }
+}
+
 // ── Gradle File Update ─────────────────────────────────────────────────────────
 
 fun readCurrentVersion(file: File, versionKey: String): String? {
