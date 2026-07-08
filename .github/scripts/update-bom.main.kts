@@ -26,7 +26,7 @@ val CHANGELOG_DATE_PLACEHOLDER = "Release Date"
 val CHANGELOG_VERSION_PLACEHOLDER = "Release Version"
 
 val DATED_ENTRY_REGEX = Regex("""^# \d{2}-\d{2}-\d{4}$""")
-val ANDROID_BOM_LINE_REGEX = Regex("""^\s*- (\[minor\] )?`android-bom` version updated to `[^`]+`\.?$""")
+val ANDROID_BOM_LINE_REGEX = Regex("""^\s*- (\[(major|minor|patch)\] )?`android-bom` version updated to `[^`]+`\.?$""")
 
 data class ModuleConfig(
     val gradleFilePath: String,
@@ -143,6 +143,18 @@ fun findChangedArtifacts(bomArtifact: String, oldVersion: String, newVersion: St
     return changed
 }
 
+// ── Semver Diff ──────────────────────────────────────────────────────────────
+
+fun determineReleaseType(oldVersion: String, newVersion: String): String {
+    val oldParts = oldVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    val newParts = newVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    return when {
+        newParts.getOrElse(0) { 0 } != oldParts.getOrElse(0) { 0 } -> "major"
+        newParts.getOrElse(1) { 0 } != oldParts.getOrElse(1) { 0 } -> "minor"
+        else -> "patch"
+    }
+}
+
 // ── Gradle File Update ─────────────────────────────────────────────────────────
 
 fun readCurrentVersion(file: File, versionKey: String): String? {
@@ -165,13 +177,14 @@ fun updateVersionInFile(file: File, versionKey: String, oldVersion: String, newV
 // ── Changelog Update — Android Package ────────────────────────────────────────
 //
 // Format written into an unreleased section:
-//   - [minor] `android-bom` version updated to `X.Y.Z`.
+//   - [major|minor|patch] `android-bom` version updated to `X.Y.Z`.
 //
-// The [minor] tag is read by the pre-release script to determine the release type.
+// The tag is derived from the semver diff between the old and new bom version and
+// is read by the pre-release script to determine the release type.
 // It is stripped out automatically when the version is stamped at release time.
 
-fun updateAndroidChangelog(file: File, newAndroidBomVersion: String) {
-    val bomEntry = "- [minor] `android-bom` version updated to `$newAndroidBomVersion`."
+fun updateAndroidChangelog(file: File, newAndroidBomVersion: String, releaseType: String) {
+    val bomEntry = "- [$releaseType] `android-bom` version updated to `$newAndroidBomVersion`."
     val lines = file.readLines().toMutableList()
     val hasUnreleased = lines.any { it.contains(CHANGELOG_VERSION_PLACEHOLDER) }
 
@@ -207,11 +220,11 @@ fun updateAndroidChangelog(file: File, newAndroidBomVersion: String) {
 //
 // Format written into an unreleased section:
 //   - Android
-//     - [minor] `android-bom` version updated to `X.Y.Z`.
+//     - [major|minor|patch] `android-bom` version updated to `X.Y.Z`.
 
-fun updatePublicChangelog(file: File, newAndroidBomVersion: String) {
+fun updatePublicChangelog(file: File, newAndroidBomVersion: String, releaseType: String) {
     val androidSectionHeader = "- Android"
-    val bomEntry = "  - [minor] `android-bom` version updated to `$newAndroidBomVersion`."
+    val bomEntry = "  - [$releaseType] `android-bom` version updated to `$newAndroidBomVersion`."
     val lines = file.readLines().toMutableList()
     val hasUnreleased = lines.any { it.contains(CHANGELOG_VERSION_PLACEHOLDER) }
 
@@ -325,9 +338,11 @@ fun updateBom() {
         }
 
         if (shouldUpdateAndroidBom) {
+            val androidBomReleaseType = determineReleaseType(currentAndroidBomVersion, newAndroidBomVersion)
+
             val androidChangelogFile = File(projectRoot, config.androidChangelogPath)
             if (androidChangelogFile.exists()) {
-                updateAndroidChangelog(androidChangelogFile, newAndroidBomVersion)
+                updateAndroidChangelog(androidChangelogFile, newAndroidBomVersion, androidBomReleaseType)
                 println("  UPDATED: ${config.androidChangelogPath}")
             } else {
                 println("  WARN: ${config.androidChangelogPath} not found, skipping.")
@@ -335,7 +350,7 @@ fun updateBom() {
 
             val publicChangelogFile = File(projectRoot, config.publicChangelogPath)
             if (publicChangelogFile.exists()) {
-                updatePublicChangelog(publicChangelogFile, newAndroidBomVersion)
+                updatePublicChangelog(publicChangelogFile, newAndroidBomVersion, androidBomReleaseType)
                 println("  UPDATED: ${config.publicChangelogPath}")
             } else {
                 println("  WARN: ${config.publicChangelogPath} not found, skipping.")
