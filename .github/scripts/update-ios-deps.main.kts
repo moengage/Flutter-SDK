@@ -15,7 +15,19 @@ val CHANGELOG_DATE_PLACEHOLDER = "Release Date"
 val CHANGELOG_VERSION_PLACEHOLDER = "Release Version"
 
 val DATED_ENTRY_REGEX = Regex("""^# \d{2}-\d{2}-\d{4}$""")
-val NATIVE_SDK_LINE_REGEX = Regex("""^\s*- (\[minor\] )?Updated `$NATIVE_SDK_POD` to `[^`]+`\.?$""")
+val NATIVE_SDK_LINE_REGEX = Regex("""^\s*- (\[(major|minor|patch)\] )?Updated `$NATIVE_SDK_POD` to `[^`]+`\.?$""")
+
+// ── Semver Diff ──────────────────────────────────────────────────────────────
+
+fun determineReleaseType(oldVersion: String, newVersion: String): String {
+    val oldParts = oldVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    val newParts = newVersion.split(".").map { it.toIntOrNull() ?: 0 }
+    return when {
+        newParts.getOrElse(0) { 0 } != oldParts.getOrElse(0) { 0 } -> "major"
+        newParts.getOrElse(1) { 0 } != oldParts.getOrElse(1) { 0 } -> "minor"
+        else -> "patch"
+    }
+}
 
 data class PodConfig(
     val podName: String,              // e.g. MoEngagePluginBase
@@ -150,13 +162,14 @@ fun rewritePackageSwift(
 // ── Changelog Update — iOS Package ────────────────────────────────────────────
 //
 // Format written into an unreleased section:
-//   - [minor] Updated `MoEngage-iOS-SDK` to `X.Y.Z`.
+//   - [major|minor|patch] Updated `MoEngage-iOS-SDK` to `X.Y.Z`.
 //
-// The [minor] tag is read by the pre-release script to determine the release type.
+// The tag is derived from the semver diff between the old and new pod version and
+// is read by the pre-release script to determine the release type.
 // It is stripped out automatically when the version is stamped at release time.
 
-fun updateIosChangelog(file: File, newNativeSdkVersion: String) {
-    val entry = "- [minor] Updated `$NATIVE_SDK_POD` to `$newNativeSdkVersion`."
+fun updateIosChangelog(file: File, newNativeSdkVersion: String, releaseType: String) {
+    val entry = "- [$releaseType] Updated `$NATIVE_SDK_POD` to `$newNativeSdkVersion`."
     val lines = file.readLines().toMutableList()
     val hasUnreleased = lines.any { it.contains(CHANGELOG_VERSION_PLACEHOLDER) }
 
@@ -192,15 +205,15 @@ fun updateIosChangelog(file: File, newNativeSdkVersion: String) {
 //
 // Format written into an unreleased section:
 //   - iOS
-//       - [minor] Updated `MoEngage-iOS-SDK` to `X.Y.Z`.
+//       - [major|minor|patch] Updated `MoEngage-iOS-SDK` to `X.Y.Z`.
 //
 // Indent under `- iOS` is 4 spaces (matches historical public CHANGELOG entries).
 // If `- Android` heading is present, `- iOS` is inserted AFTER it.
 
-fun updatePublicChangelog(file: File, newNativeSdkVersion: String) {
+fun updatePublicChangelog(file: File, newNativeSdkVersion: String, releaseType: String) {
     val iosSectionHeader = "- iOS"
     val androidSectionHeader = "- Android"
-    val entry = "    - [minor] Updated `$NATIVE_SDK_POD` to `$newNativeSdkVersion`."
+    val entry = "    - [$releaseType] Updated `$NATIVE_SDK_POD` to `$newNativeSdkVersion`."
     val lines = file.readLines().toMutableList()
     val hasUnreleased = lines.any { it.contains(CHANGELOG_VERSION_PLACEHOLDER) }
 
@@ -326,6 +339,8 @@ fun updateIosDeps() {
             continue
         }
 
+        val releaseType = determineReleaseType(oldPodVer, upstream.podVersion)
+
         rewritePodspec(podspecFile, config.podName, oldPodVer, upstream.podVersion)
         println("  UPDATED ${config.podspecPath}: $oldPodVer -> ${upstream.podVersion}")
 
@@ -334,7 +349,7 @@ fun updateIosDeps() {
 
         val iosChangelogFile = File(projectRoot, config.iosChangelogPath)
         if (iosChangelogFile.exists()) {
-            updateIosChangelog(iosChangelogFile, upstream.nativeSdkVerMin)
+            updateIosChangelog(iosChangelogFile, upstream.nativeSdkVerMin, releaseType)
             println("  UPDATED ${config.iosChangelogPath} (MoEngage-iOS-SDK ${upstream.nativeSdkVerMin})")
         } else {
             println("  WARN: ${config.iosChangelogPath} not found, skipping iOS CHANGELOG.")
@@ -342,7 +357,7 @@ fun updateIosDeps() {
 
         val publicChangelogFile = File(projectRoot, config.publicChangelogPath)
         if (publicChangelogFile.exists()) {
-            updatePublicChangelog(publicChangelogFile, upstream.nativeSdkVerMin)
+            updatePublicChangelog(publicChangelogFile, upstream.nativeSdkVerMin, releaseType)
             println("  UPDATED ${config.publicChangelogPath} (MoEngage-iOS-SDK ${upstream.nativeSdkVerMin})")
         } else {
             println("  WARN: ${config.publicChangelogPath} not found, skipping public CHANGELOG.")
