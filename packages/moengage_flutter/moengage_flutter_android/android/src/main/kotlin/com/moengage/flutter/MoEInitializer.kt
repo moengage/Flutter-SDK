@@ -2,14 +2,14 @@ package com.moengage.flutter
 
 import android.app.Application
 import android.content.Context
-import com.moengage.core.LogLevel
 import com.moengage.core.MoEngage
-import com.moengage.core.internal.global.GlobalResources
-import com.moengage.core.internal.logger.Logger
 import com.moengage.core.internal.model.IntegrationMeta
 import com.moengage.core.model.SdkState
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.PluginInitializer
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.platform.internal.resources.PlatformResources
 import org.json.JSONObject
 
 /**
@@ -36,12 +36,12 @@ class MoEInitializer {
             lifecycleAwareCallbackEnabled: Boolean = false,
         ) {
             try {
-                Logger.print { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
+                Logger.record { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(builder, null, SdkState.ENABLED)
                 addIntegrationMeta(context, builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
+                Logger.record(PlatformLogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
             }
         }
 
@@ -70,7 +70,7 @@ class MoEInitializer {
             lifecycleAwareCallbackEnabled: Boolean = false,
         ) {
             try {
-                Logger.print { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
+                Logger.record { "$TAG initialiseDefaultInstance() : Will try to initialize the sdk." }
                 PluginInitializer.initialize(
                     builder,
                     null,
@@ -79,7 +79,7 @@ class MoEInitializer {
                 addIntegrationMeta(context, builder.appId)
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
+                Logger.record(PlatformLogLevel.ERROR, t) { "$TAG initialiseDefaultInstance() : " }
             }
         }
 
@@ -94,7 +94,7 @@ class MoEInitializer {
                         .bufferedReader().use { it.readText() }
                 JSONObject(json).getString(VERSION_KEY)
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$TAG getMoEngageFlutterVersion() : " }
+                Logger.record(PlatformLogLevel.ERROR, t) { "$TAG getMoEngageFlutterVersion() : " }
                 ""
             }
         }
@@ -106,8 +106,8 @@ class MoEInitializer {
             context: Context,
             appId: String,
         ) {
-            GlobalResources.executor.execute {
-                Logger.print { "$TAG addIntegrationMeta(): Add Integration Meta for AppId : $appId" }
+            PlatformResources.executor.execute {
+                Logger.record { "$TAG addIntegrationMeta(): Add Integration Meta for AppId : $appId" }
                 PluginHelper.addIntegrationMeta(
                     IntegrationMeta(INTEGRATION_TYPE, getMoEngageFlutterVersion(context)),
                     appId,
@@ -133,14 +133,14 @@ class MoEInitializer {
             sdkState: SdkState? = null,
         ) {
             try {
-                Logger.print { "$TAG initialiseDefaultInstance(): Initialising MoEngage SDK with file based configuration" }
+                Logger.record { "$TAG initialiseDefaultInstance(): Initialising MoEngage SDK with file based configuration" }
                 val workspaceId = PluginInitializer.initialize(application, null, sdkState)
                 workspaceId?.let {
                     addIntegrationMeta(application, it)
                 }
                 GlobalCache.lifecycleAwareCallbackEnabled = lifecycleAwareCallbackEnabled
             } catch (t: Throwable) {
-                Logger.print(LogLevel.ERROR, t) { "$TAG initialiseDefaultInstance(): " }
+                Logger.record(PlatformLogLevel.ERROR, t) { "$TAG initialiseDefaultInstance(): " }
             }
         }
     }

@@ -29,7 +29,7 @@ if (flutterVersionName == null) {
 }
 
 ext {
-  moengageNativeBomVersion = "2.3.1"
+  moengageNativeBomVersion = "4.0.0"
 }
 
 android {
@@ -91,8 +91,10 @@ android {
     targetCompatibility 1.8
   }
 
-  kotlinOptions {
-    jvmTarget = '1.8'
+  kotlin {
+    compilerOptions {
+      jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+    }
   }
 
   buildFeatures {

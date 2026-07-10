@@ -5,12 +5,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.WorkerThread
-import com.moengage.core.LogLevel
-import com.moengage.core.internal.global.GlobalResources
-import com.moengage.core.internal.logger.Logger
 import com.moengage.inbox.core.model.InboxData
 import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
 import com.moengage.plugin.base.inbox.internal.inboxDataToJson
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.platform.internal.resources.PlatformResources
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -49,19 +49,19 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     ) {
         try {
             if (call == null) {
-                Logger.print(LogLevel.ERROR) {
+                Logger.record(PlatformLogLevel.ERROR) {
                     "$tag onMethodCall() : MethodCall instance is null " +
                         "cannot proceed further."
                 }
                 return
             }
             if (context == null) {
-                Logger.print(LogLevel.ERROR) {
+                Logger.record(PlatformLogLevel.ERROR) {
                     "$tag onMethodCall() : Context is null cannot proceed further."
                 }
                 return
             }
-            Logger.print { "$tag onMethodCall() : Method: ${call.method}" }
+            Logger.record { "$tag onMethodCall() : Method: ${call.method}" }
             when (call.method) {
                 METHOD_NAME_UN_CLICKED_COUNT -> getUnClickedCount(call, result)
                 METHOD_NAME_FETCH_MESSAGES -> fetchMessages(call, result)
@@ -69,7 +69,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
                 METHOD_NAME_TRACK_CLICKED -> trackMessageClicked(call, result)
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
 
@@ -86,20 +86,20 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (c.arguments == null) return
             val payload: String = c.arguments.toString()
-            Logger.print { "$tag getUnClickedCount() : Will fetch unclicked count" }
+            Logger.record { "$tag getUnClickedCount() : Will fetch unclicked count" }
             executorService.submit {
                 val countJson = inboxHelper.getUnClickedMessagesCount(context, payload)
-                Logger.print { "$tag getUnClickedCount() : Count: $countJson" }
+                Logger.record { "$tag getUnClickedCount() : Count: $countJson" }
                 mainThread.post {
                     try {
                         result.success(countJson)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUnClickedCount() : " }
         }
     }
 
@@ -118,15 +118,15 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
                         return@submit
                     }
                     val serialisedMessages = inboxDataToJson(inboxData).toString()
-                    Logger.print { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
+                    Logger.record { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
                     mainThread.post { result.success(serialisedMessages) }
                 } catch (t: Throwable) {
                     result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
-                    Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
+                    Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchMessages() : " }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag fetchMessages() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchMessages() : " }
         }
     }
 
@@ -137,10 +137,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call.arguments == null) return
             val payload = call.arguments.toString()
-            Logger.print { "$tag deleteMessage() : Argument :$payload" }
+            Logger.record { "$tag deleteMessage() : Argument :$payload" }
             inboxHelper.deleteMessage(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag deleteMessage() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag deleteMessage() : " }
         }
     }
 
@@ -151,10 +151,10 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call.arguments == null) return
             val payload = call.arguments.toString()
-            Logger.print { "$tag trackMessageClicked() : Argument :$payload" }
+            Logger.record { "$tag trackMessageClicked() : Argument :$payload" }
             inboxHelper.trackMessageClicked(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag trackMessageClicked() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag trackMessageClicked() : " }
         }
     }
 
@@ -169,7 +169,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
                     .bufferedReader().use { it.readText() }
             JSONObject(json).getString(VERSION_KEY)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
             ""
         }
     }
@@ -178,7 +178,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
      * Log Inbox Plugin Meta Data to Console
      */
     private fun logInboxPluginMeta(context: Context) {
-        GlobalResources.executor.execute {
+        PlatformResources.executor.execute {
             inboxHelper.logPluginMeta(INTEGRATION_TYPE, getMoEngageInboxVersion(context))
         }
     }
