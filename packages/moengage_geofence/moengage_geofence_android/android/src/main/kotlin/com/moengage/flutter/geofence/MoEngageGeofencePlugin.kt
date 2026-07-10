@@ -2,9 +2,9 @@ package com.moengage.flutter.geofence
 
 import android.content.Context
 import androidx.annotation.NonNull
-import com.moengage.core.LogLevel
-import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.geofence.internal.GeofencePluginHelper
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -32,24 +32,24 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
     ) {
         try {
             if (call == null) {
-                Logger.print(LogLevel.ERROR) {
+                Logger.record(PlatformLogLevel.ERROR) {
                     "$tag onMethodCall() : MethodCall instance is null cannot proceed further."
                 }
                 return
             }
             if (context == null) {
-                Logger.print(LogLevel.ERROR) {
+                Logger.record(PlatformLogLevel.ERROR) {
                     "$tag onMethodCall() : Context is null cannot proceed further."
                 }
                 return
             }
-            Logger.print { "$tag onMethodCall() : Method: ${call.method}" }
+            Logger.record { "$tag onMethodCall() : Method: ${call.method}" }
             when (call.method) {
                 METHOD_NAME_START_GEOFENCE_MONITORING -> startGeofenceMonitoring(call)
                 METHOD_NAME_STOP_GEOFENCE_MONITORING -> stopGeofenceMonitoring(call)
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
 
@@ -63,10 +63,10 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag startGeofenceMonitoring() : $payload" }
+            Logger.record { "$tag startGeofenceMonitoring() : $payload" }
             geofenceHelper.startGeofenceMonitoring(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) {
+            Logger.record(PlatformLogLevel.ERROR, t) {
                 "$tag startGeofenceMonitoring() : "
             }
         }
@@ -76,10 +76,10 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag stopGeofenceMonitoring() : $payload" }
+            Logger.record { "$tag stopGeofenceMonitoring() : $payload" }
             geofenceHelper.stopGeofenceMonitoring(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) {
+            Logger.record(PlatformLogLevel.ERROR, t) {
                 "$tag stopGeofenceMonitoring() : "
             }
         }

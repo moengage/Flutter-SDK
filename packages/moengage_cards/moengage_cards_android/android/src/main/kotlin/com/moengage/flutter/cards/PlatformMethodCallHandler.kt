@@ -2,12 +2,13 @@ package com.moengage.flutter.cards
 
 import android.content.Context
 import com.moengage.cards.core.model.CardData
-import com.moengage.core.LogLevel
-import com.moengage.core.internal.global.GlobalResources
-import com.moengage.core.internal.logger.Logger
+import com.moengage.core.internal.utils.postOnMainThread
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import com.moengage.plugin.base.cards.internal.cardDataToJson
 import com.moengage.plugin.base.internal.instanceMetaFromJson
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.platform.internal.resources.PlatformResources
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONObject
@@ -24,10 +25,10 @@ class PlatformMethodCallHandler(
     ) {
         try {
             if (call.arguments == null) {
-                Logger.print(LogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
+                Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
                 return
             }
-            Logger.print { "$tag onMethodCall() : Method: ${call.method}" }
+            Logger.record { "$tag onMethodCall() : Method: ${call.method}" }
             when (call.method) {
                 METHOD_INITIALIZE -> initialize(call)
                 METHOD_REFRESH_CARDS -> refreshCards(call)
@@ -45,91 +46,91 @@ class PlatformMethodCallHandler(
                 METHOD_UN_CLICKED_CARDS_COUNT -> getUnClickedCardsCount(call, result)
                 METHOD_FETCH_CARDS -> fetchCards(call, result)
                 else -> {
-                    Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+                    Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
 
     private fun initialize(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag initialize() : MoEngage Cards plugin initialised. $payload" }
+            Logger.record { "$tag initialize() : MoEngage Cards plugin initialised. $payload" }
             cardsPluginHelper.initialise(payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag initialize() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag initialize() : " }
         }
     }
 
     private fun refreshCards(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag refreshCards() : $payload" }
+            Logger.record { "$tag refreshCards() : $payload" }
             cardsPluginHelper.refreshCards(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag refreshCards() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag refreshCards() : " }
         }
     }
 
     private fun onCardsSectionLoaded(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag onCardsSectionLoaded() : $payload" }
+            Logger.record { "$tag onCardsSectionLoaded() : $payload" }
             cardsPluginHelper.onCardSectionLoaded(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag onCardsSectionLoaded() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag onCardsSectionLoaded() : " }
         }
     }
 
     private fun onCardsSectionUnLoaded(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag onCardsSectionUnLoaded() : $payload" }
+            Logger.record { "$tag onCardsSectionUnLoaded() : $payload" }
             cardsPluginHelper.onCardSectionUnLoaded(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag onCardsSectionUnLoaded() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag onCardsSectionUnLoaded() : " }
         }
     }
 
     private fun cardClicked(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag cardClicked() : $payload" }
+            Logger.record { "$tag cardClicked() : $payload" }
             cardsPluginHelper.cardClicked(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag cardClicked() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag cardClicked() : " }
         }
     }
 
     private fun cardDelivered(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag cardDelivered() : $payload" }
+            Logger.record { "$tag cardDelivered() : $payload" }
             cardsPluginHelper.cardDelivered(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag cardDelivered() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag cardDelivered() : " }
         }
     }
 
     private fun cardShown(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag cardShown() : $payload" }
+            Logger.record { "$tag cardShown() : $payload" }
             cardsPluginHelper.cardShown(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag cardShown() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag cardShown() : " }
         }
     }
 
     private fun deleteCards(call: MethodCall) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag deleteCards() : $payload" }
+            Logger.record { "$tag deleteCards() : $payload" }
             cardsPluginHelper.deleteCards(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR) { "$tag deleteCards() : " }
+            Logger.record(PlatformLogLevel.ERROR) { "$tag deleteCards() : " }
         }
     }
 
@@ -139,20 +140,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag getCardsInfo() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag getCardsInfo() : $payload" }
+            PlatformResources.executor.submit {
                 val cardsInfo = cardsPluginHelper.getCardsInfo(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag getCardsInfo(): Result : $cardsInfo" }
+                        Logger.record { "$tag getCardsInfo(): Result : $cardsInfo" }
                         result.success(cardsInfo)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getCardsInfo() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsInfo() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getCardsInfo() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsInfo() : " }
         }
     }
 
@@ -162,18 +163,18 @@ class PlatformMethodCallHandler(
     ) {
         val payload = call.arguments.toString()
         try {
-            Logger.print { "$tag fetchCards() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag fetchCards() : $payload" }
+            PlatformResources.executor.submit {
                 cardsPluginHelper.fetchCards(context, payload, cardAvailableListener = {
-                    GlobalResources.mainThread.post {
-                        Logger.print { "$tag fetchCards(): Result Success: $it" }
+                    postOnMainThread {
+                        Logger.record { "$tag fetchCards(): Result Success: $it" }
                         result.success(getCardPayload(it, payload).toString())
                     }
                 })
             }
         } catch (t: Throwable) {
             result.success(getCardPayload(null, payload).toString())
-            Logger.print(LogLevel.ERROR, t) { "$tag fetchCards() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchCards() : " }
         }
     }
 
@@ -183,20 +184,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag getCardsCategories() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag getCardsCategories() : $payload" }
+            PlatformResources.executor.submit {
                 val categories = cardsPluginHelper.getCardsCategories(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag getCardsCategories():  Result : $categories" }
+                        Logger.record { "$tag getCardsCategories():  Result : $categories" }
                         result.success(categories)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getCardsCategories() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsCategories() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getCardsCategories() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsCategories() : " }
         }
     }
 
@@ -206,20 +207,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag getCardsForCategory() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag getCardsForCategory() : $payload" }
+            PlatformResources.executor.submit {
                 val cards = cardsPluginHelper.getCardsForCategory(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag getCardsForCategory(): Result : $cards" }
+                        Logger.record { "$tag getCardsForCategory(): Result : $cards" }
                         result.success(cards)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getCardsCategories() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsCategories() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getCardsForCategory() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getCardsForCategory() : " }
         }
     }
 
@@ -229,20 +230,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag isAllCategoryEnabled() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag isAllCategoryEnabled() : $payload" }
+            PlatformResources.executor.submit {
                 val isAllCategoryEnabled = cardsPluginHelper.isAllCategoryEnabled(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag isAllCategoryEnabled(): Result : $isAllCategoryEnabled" }
+                        Logger.record { "$tag isAllCategoryEnabled(): Result : $isAllCategoryEnabled" }
                         result.success(isAllCategoryEnabled)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag isAllCategoryEnabled() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag isAllCategoryEnabled() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag isAllCategoryEnabled() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag isAllCategoryEnabled() : " }
         }
     }
 
@@ -252,20 +253,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag getNewCardsCount() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag getNewCardsCount() : $payload" }
+            PlatformResources.executor.submit {
                 val newCardsCountResult = cardsPluginHelper.getNewCardsCount(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag getNewCardsCount(): Result : $newCardsCountResult" }
+                        Logger.record { "$tag getNewCardsCount(): Result : $newCardsCountResult" }
                         result.success(newCardsCountResult)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getNewCardsCount() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getNewCardsCount() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getNewCardsCount() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getNewCardsCount() : " }
         }
     }
 
@@ -275,20 +276,20 @@ class PlatformMethodCallHandler(
     ) {
         try {
             val payload = call.arguments.toString()
-            Logger.print { "$tag getUnClickedCardsCount() : $payload" }
-            GlobalResources.executor.submit {
+            Logger.record { "$tag getUnClickedCardsCount() : $payload" }
+            PlatformResources.executor.submit {
                 val unClickedCardsCount = cardsPluginHelper.getUnClickedCardsCount(context, payload)
-                GlobalResources.mainThread.post {
+                postOnMainThread {
                     try {
-                        Logger.print { "$tag getUnClickedCardsCount(): Result : $unClickedCardsCount" }
+                        Logger.record { "$tag getUnClickedCardsCount(): Result : $unClickedCardsCount" }
                         result.success(unClickedCardsCount)
                     } catch (t: Throwable) {
-                        Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
                     }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
         }
     }
 
