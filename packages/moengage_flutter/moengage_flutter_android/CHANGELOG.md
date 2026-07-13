@@ -1,5 +1,13 @@
 # MoEngage Flutter Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support for JWT Authentication Support
+- `android-bom` version updated to `4.0.0`.
+- `plugin-base-bom` version updated to `4.0.0-SNAPSHOT`.
+
 # 17-06-2026
 
 ## 4.9.0

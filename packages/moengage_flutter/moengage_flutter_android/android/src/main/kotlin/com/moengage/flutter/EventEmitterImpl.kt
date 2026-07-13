@@ -3,12 +3,14 @@ package com.moengage.flutter
 import com.moengage.core.LogLevel
 import com.moengage.core.internal.logger.Logger
 import com.moengage.plugin.base.internal.EventEmitter
+import com.moengage.plugin.base.internal.authenticationErrorToJson
 import com.moengage.plugin.base.internal.clickDataToJson
 import com.moengage.plugin.base.internal.inAppDataToJson
 import com.moengage.plugin.base.internal.logoutCompleteEventToJson
 import com.moengage.plugin.base.internal.model.events.Event
 import com.moengage.plugin.base.internal.model.events.EventType
 import com.moengage.plugin.base.internal.model.events.LogoutCompleteEvent
+import com.moengage.plugin.base.internal.model.events.authentication.AuthenticationErrorEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
@@ -53,6 +55,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 }
                 is LogoutCompleteEvent -> {
                     emitLogoutCompleteEvent(event)
+                }
+                is AuthenticationErrorEvent -> {
+                    emitAuthenticationErrorEvent(event)
                 }
             }
         } catch (t: Throwable) {
@@ -152,6 +157,17 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         }
     }
 
+    private fun emitAuthenticationErrorEvent(event: AuthenticationErrorEvent) {
+        try {
+            Logger.print { "$tag emitAuthenticationErrorEvent() authentication error event: $event:" }
+            val eventType = eventMap[event.eventType] ?: return
+            val payload = authenticationErrorToJson(event)
+            emit(eventType, payload)
+        } catch (t: Throwable) {
+            Logger.print(LogLevel.ERROR, t) { "$tag emitAuthenticationErrorEvent() : " }
+        }
+    }
+
     companion object {
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
@@ -165,6 +181,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.PUSH_TOKEN_GENERATED] = "onPushTokenGenerated"
             eventMap[EventType.PERMISSION] = "onPermissionResult"
             eventMap[EventType.LOGOUT_COMPLETE] = "onLogoutComplete"
+            eventMap[EventType.AUTHENTICATION_ERROR] = "onAuthenticationError"
         }
     }
 }
