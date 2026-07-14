@@ -1,3 +1,4 @@
+import '../../model/authentication/authentication_error_data.dart';
 import '../../model/inapp/click_data.dart';
 import '../../model/inapp/inapp_data.dart';
 import '../../model/inapp/self_handled_data.dart';
@@ -32,3 +33,7 @@ typedef PermissionResultCallbackHandler = void Function(
 /// Logout Complete Callback
 typedef LogoutCompleteCallbackHandler = void Function(
     LogoutCompleteData data);
+
+/// JWT Authentication Error Callback
+typedef AuthenticationErrorCallbackHandler = void Function(
+    AuthenticationErrorData data);

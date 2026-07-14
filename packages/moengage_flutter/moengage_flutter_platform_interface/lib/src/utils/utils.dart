@@ -4,6 +4,8 @@ import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
+import '../model/authentication/authentication_error_data.dart';
+import '../model/authentication/jwt_error_code.dart';
 import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
@@ -190,6 +192,42 @@ LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
             payload[keyAccountMeta] as Map<String, dynamic>));
   } catch (e, stackTrace) {
     Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
+  }
+  return null;
+}
+
+/// Get JWT Authentication Details Payload for the given [appId]
+Map<String, dynamic> getAuthenticationDetailsPayload(
+    String token, String userIdentifier, String appId) {
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  payload[keyData] = <String, dynamic>{
+    keyAuthenticationType: authenticationTypeJwt,
+    keyToken: token,
+    keyUserIdentifier: userIdentifier
+  };
+  return payload;
+}
+
+/// Get [AuthenticationErrorData] from Json String
+AuthenticationErrorData? authenticationErrorFromJson(dynamic methodCallArgs) {
+  try {
+    final Map<String, dynamic> payload =
+        json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+    final Map<String, dynamic> data =
+        payload[keyData] as Map<String, dynamic>;
+    return AuthenticationErrorData(
+        platform:
+            PlatformsExtension.fromString(payload[keyPlatform].toString()),
+        accountMeta: accountMetaFromMap(
+            payload[keyAccountMeta] as Map<String, dynamic>),
+        code: JwtErrorCodeExtension.fromString(
+            data[keyAuthenticationErrorCode].toString()),
+        token: data[keyToken].toString(),
+        userIdentifier: data[keyUserIdentifier].toString(),
+        message: data[keyAuthenticationErrorMessage].toString());
+  } catch (e, stackTrace) {
+    Logger.e('$tag Error: authenticationErrorFromJson() :',
+        error: e, stackTrace: stackTrace);
   }
   return null;
 }

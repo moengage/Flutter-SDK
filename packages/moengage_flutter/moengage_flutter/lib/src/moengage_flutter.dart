@@ -199,6 +199,13 @@ class MoEngageFlutter {
     _platform.logout(appId);
   }
 
+  /// Passes the JWT authentication details to the native SDK.
+  /// [token] - JWT Token
+  /// [userIdentifier] - User Identifier the JWT Token was generated for
+  void passAuthenticationDetails(String token, String userIdentifier) {
+    _platform.passAuthenticationDetails(token, userIdentifier, appId);
+  }
+
   /// Try to return a self handled in-app to the callback listener.
   /// Ensure self handled in-app listener is set using [setSelfHandledInAppHandler]
   /// before you call this API
@@ -368,6 +375,13 @@ class MoEngageFlutter {
   /// [handler] - Callback of type [LogoutCompleteCallbackHandler]
   void setLogoutCompleteCallbackHandler(LogoutCompleteCallbackHandler? handler) {
     CoreInstanceProvider().getCallbackCacheForInstance(appId).logoutCompleteCallbackHandler = handler;
+  }
+
+  /// Sets JWT Authentication Error Callback Handler
+  /// [handler] - Callback of type [AuthenticationErrorCallbackHandler]
+  void setAuthenticationErrorCallbackHandler(
+      AuthenticationErrorCallbackHandler? handler) {
+    CoreInstanceProvider().getCallbackCacheForInstance(appId).authenticationErrorCallbackHandler = handler;
   }
 
   /// Configure MoEngage SDK Logs

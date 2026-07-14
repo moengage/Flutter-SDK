@@ -35,6 +35,15 @@ const String methodUpdatePushPermissionRequestCount =
 const String methodPermissionResponse = 'permissionResponse';
 const String methodiOSRegisterProvisionalPush = 'registerForProvisionalPush';
 
+/// JWT Authentication
+const String methodAuthenticationDetails = 'authenticationDetails';
+const String keyAuthenticationType = 'authenticationType';
+const String authenticationTypeJwt = 'JWT';
+const String keyToken = 'token';
+const String keyUserIdentifier = 'userIdentifier';
+const String keyAuthenticationErrorCode = 'code';
+const String keyAuthenticationErrorMessage = 'message';
+
 // Callback Names
 const String callbackOnPushClick = 'onPushClick';
 const String callbackOnInAppShown = 'onInAppShown';
@@ -45,6 +54,7 @@ const String callbackOnInAppSelfHandled = 'onInAppSelfHandle';
 const String callbackPushTokenGenerated = 'onPushTokenGenerated';
 const String callbackPermissionResult = 'onPermissionResult';
 const String callbackOnLogoutComplete = 'onLogoutComplete';
+const String callbackOnAuthenticationError = 'onAuthenticationError';
 
 // Gender Value Constants
 const String genderMale = 'male';

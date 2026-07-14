@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import '../model/account_meta.dart';
+import '../model/authentication/authentication_error_data.dart';
 import '../model/inapp/click_data.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';
@@ -126,6 +127,19 @@ class CoreController {
           final LogoutCompleteCallbackHandler? handler = CoreInstanceProvider()
               .getCallbackCacheForInstance(data.accountMeta.appId)
               .logoutCompleteCallbackHandler;
+          if (handler != null) {
+            handler.call(data);
+          }
+        }
+      }
+      if (call.method == callbackOnAuthenticationError) {
+        final AuthenticationErrorData? data =
+            authenticationErrorFromJson(call.arguments);
+        if (data != null) {
+          final AuthenticationErrorCallbackHandler? handler =
+              CoreInstanceProvider()
+                  .getCallbackCacheForInstance(data.accountMeta.appId)
+                  .authenticationErrorCallbackHandler;
           if (handler != null) {
             handler.call(data);
           }
