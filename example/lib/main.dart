@@ -80,6 +80,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '$tag Main : _onLogoutCallbackHandler(): Logout complete callback from native to flutter. Data $data');
   }
 
+  void _onAuthenticationError(AuthenticationErrorData data) {
+    debugPrint(
+        '$tag Main : _onAuthenticationError(): JWT authentication error callback from native to flutter. Data $data');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +96,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
     _moengagePlugin.setLogoutCompleteCallbackHandler(_onLogoutCallbackHandler);
+    _moengagePlugin.setAuthenticationErrorCallbackHandler(_onAuthenticationError);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
   }
@@ -530,6 +536,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: const Text('Logout'),
                 onTap: () {
                   _moengagePlugin.logout();
+                },
+              ),
+              ListTile(
+                title: const Text('Pass JWT Authentication Details'),
+                onTap: () {
+                  // TODO: replace with a real JWT token and user identifier
+                  _moengagePlugin.passAuthenticationDetails(
+                      'sample-jwt-token', 'flutter-uid');
                 },
               ),
               ListTile(
