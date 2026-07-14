@@ -5,7 +5,7 @@
 ## Release Version
 
 - [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
-- [minor] Added support for JWT Authentication Support
+- [minor] Added support for JWT Authentication
 
 # 17-06-2026
 

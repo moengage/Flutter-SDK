@@ -16,11 +16,13 @@ parameters:
   - name: "feature_description"
     description: "Natural language description of the feature. E.g. 'JWT authentication parity'."
   - name: "contract_branch"
-    description: "Branch in 'mobile-sdk-contracts' with the feature contract. E.g. 'MOEN-44072_jwt_contract'."
+    description: "Branch in 'mobile-sdk-contracts' with the feature contract. E.g. 'MOEN-44072_jwt_contract'. If this is 'master' (or 'main'), there's no feature suffix to derive — the skill asks for a branch name/suffix (and an optional prefix) before proceeding."
   - name: "android_bom_version"
-    description: "Target MoEngage Android BOM version. E.g. '2.2.2'."
+    description: "Target MoEngage Android BOM version. E.g. '2.2.2'. Optional — sometimes the BOM is already bumped on a development branch. If absent, the skill asks which branch to use as the base branch instead of a version."
+    optional: true
   - name: "plugin_base_bom_version"
-    description: "Target MoEngage plugin-base BOM version. E.g. '3.0.1'."
+    description: "Target MoEngage plugin-base BOM version. E.g. '3.0.1'. Optional — same rule as android_bom_version."
+    optional: true
   - name: "android_plugin_base_pr_url"
     description: "URL of the android-plugin-base PR from plugin-base-feature-implementation."
 ---
@@ -64,6 +66,12 @@ examples/
 Scan the user's full command for `MOEN-\d+` → **`ticketId`**.
 If not found in the command or parameters, ask before proceeding.
 
+### 0.2 Check for a base branch when BOM versions are absent
+If both `android_bom_version` and `plugin_base_bom_version` are absent, the BOM bump may already
+exist on a development branch. Ask the user which branch in `Flutter-SDK` should be used as the
+**base branch** for the new feature branch (instead of the default). Use their answer as
+`sourceBranch`; otherwise `sourceBranch` defaults to the repo's default branch.
+
 ---
 
 ## Phase 1 — Parse Inputs & Derive All Identifiers
@@ -72,6 +80,12 @@ If not found in the command or parameters, ask before proceeding.
 Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 - `feature/experience_contracts` → **`contractSuffix`** = `experience_contracts`
 - `MOEN-44072_jwt_contract` → **`contractSuffix`** = `jwt_contract`
+
+**If `contract_branch` is `master` or `main`**, there is no feature suffix to strip. Ask the user
+for the branch name/suffix to use for the `Flutter-SDK` implementation branch (this becomes
+`contractSuffix`, plugged into `branchName` = `feature/<ticketId>-<contractSuffix>` as usual). If
+the user doesn't provide one, offer to default `contractSuffix` to a prefix derived from
+`featureName` (e.g. `<featureName>_contract`) and confirm before using it.
 
 ### 1.2 Identifiers table
 
@@ -162,6 +176,8 @@ If the plugin-base branch is unreadable or the pattern is still ambiguous after 
 ```bash
 cd Flutter-SDK
 git fetch
+git checkout <sourceBranch>        # default branch unless the user gave one in Phase 0.2
+git pull
 git checkout -b feature/<ticketId>-<contractSuffix>
 ```
 
@@ -200,8 +216,8 @@ Copy from `packages/moengage_cards/moengage_cards_android/android/.gitignore` un
 Copy `packages/moengage_cards/moengage_cards_android/android/build.gradle`, then update:
 - `group` → `'com.moengage.flutter_<featureName>'`
 - `namespace` → `"<androidPackage>"`
-- `moengageNativeBomVersion` → `<android_bom_version>`
-- `moengagePluginBaseBomVersion` → `<plugin_base_bom_version>`
+- `moengageNativeBomVersion` → `<android_bom_version>` — **only if provided**; if absent, leave whatever value already exists on `sourceBranch` (it was bumped there already) and note this in the final report
+- `moengagePluginBaseBomVersion` → `<plugin_base_bom_version>` — same rule as above
 - `implementation("com.moengage:plugin-base-cards")` → `implementation("com.moengage:<androidModuleName>")`
 - `api("com.moengage:cards-core")` → `api("com.moengage:<featureName>-core")` *(ask user if unknown)*
 - **Keep** `compileOnly("com.moengage:plugin-base")` — do not remove this line
@@ -253,6 +269,7 @@ Rules:
 - Implements the plugin-base `<featureNameCamel>EventEmitter` interface
 - `emit(event)` — switch on event type, call private `emitXxxEvent(event)`
 - Each private emitter: serialize to JSON via plugin-base helper; determine method name constant; call `callBack.invoke(methodName, payload.toString())`
+- **Placement in an existing file**: add the new `emitXxxEvent` method after the last existing private emitter method and *above* `companion object { ... }` — never insert it in the middle of existing methods, and never after the companion object
 
 ### 3.7 MoEngage<featureNameCamel>Plugin.kt
 → See `examples/Plugin.kt`
@@ -268,6 +285,7 @@ Rules:
 - `onAttachedToActivity`: call `initPlugin(flutterPluginBinding?.binaryMessenger)`
 - `onDetachedFromActivity`: set `methodChannel = null`
 - Companion object: `var methodChannel: MethodChannel?`, `var flutterPluginBinding: FlutterPluginBinding?`
+- **Placement in an existing file**: add each new private method-call handler (e.g. `authenticationDetails(methodCall)`) after the last existing private method and *above* `companion object { ... }` — never insert it in the middle of existing methods, and never after the companion object
 
 ### 3.8 pubspec.yaml
 → See `examples/pubspec.yaml`
@@ -318,10 +336,31 @@ git commit -m "<ticketId>: Add Flutter Android bridge for <featureName>"
 
 ---
 
-## Phase 4 — Create Pull Request
+## Phase 4 — Create / Update Pull Request
 
 ```bash
 git push -u origin feature/<ticketId>-<contractSuffix>
+
+# Check if a PR already exists on this branch (e.g. iOS-first flow ran earlier):
+gh pr list --head feature/<ticketId>-<contractSuffix> --json number,url
+```
+
+**If a PR already exists**: never just add a comment and leave the title/body stale — a reader
+opening the PR should see the full current scope at a glance. Refresh **both** the title and the
+body with `gh pr edit <number>` so they describe every layer implemented on the branch so far
+(this step's Android changes plus whatever the existing description already covered), not only
+the latest commit:
+```bash
+gh pr edit <number> \
+  --title "<ticketId>: Add Flutter <combined layers, e.g. \"Android bridge and iOS bridge\"> for <featureName>" \
+  --body "$(cat <<'EOF'
+<merged summary covering every step done so far — see the combined-PR-body convention in flutter-feature-implementation for the shape to merge into>
+EOF
+)"
+```
+
+**If no PR exists** (Android-first or Android-only flow):
+```bash
 gh pr create \
   --title "<ticketId>: Add Flutter Android bridge for <featureName>" \
   --base development \
@@ -330,7 +369,7 @@ gh pr create \
 - Adds Android Kotlin bridge (`<androidPkgDir>/android/`) for the <featureName> feature
 - PlatformMethodCallHandler routes all Dart→Native calls to `<featureNameCamel>PluginHelper`
 - Plugin emits native events back to Flutter via MethodChannel
-- Android BOM: <android_bom_version>, plugin-base BOM: <plugin_base_bom_version>
+- Android BOM: <android_bom_version or "unchanged, inherited from <sourceBranch>">, plugin-base BOM: <plugin_base_bom_version or "unchanged, inherited from <sourceBranch>">
 
 ## Related PRs
 - android-plugin-base: <android_plugin_base_pr_url>
@@ -386,6 +425,7 @@ Read these before generating output — copy logging conventions, patterns, and 
 - `contract_branch` not found in `../mobile-sdk-contracts` → stop and tell the user
 - `contractDir` not found in `json/hybridToNative/` → list available dirs and ask
 - `androidPkgDir` already exists with source files → read existing files, add only missing methods
+- **New method placement**: always insert a new method as the *last* method in the class — after every existing method. If the class has a `companion object { ... }` block, insert the new method right after the last existing method and *above* the `companion object` (never inside it, never after it)
 - Plugin-base helper class name unknown → add `// TODO: verify helper class name` and continue
 - `<featureName>-core` artifact name unknown → add `// TODO: verify native SDK artifact` in build.gradle and continue
 - Push fails → report error and local branch name so the user can push manually

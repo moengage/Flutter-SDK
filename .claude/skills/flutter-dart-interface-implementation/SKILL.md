@@ -10,6 +10,9 @@ description: >
   implementation, constants, payload mapper, controller (for events), instance provider,
   callback cache, and model/enum files from the contract protos.
   Main package contains: public API class and pubspec wiring both native implementations.
+  Also wires the new APIs into the top-level shared sample app (example/lib/main.dart) with a
+  demo trigger and, if the feature has events, listener registration — skip only if the user
+  explicitly opts out.
   Do NOT use before at least one native bridge exists.
 parameters:
   - name: "ticket_id"
@@ -18,7 +21,7 @@ parameters:
   - name: "feature_description"
     description: "Natural language description of the feature. E.g. 'JWT authentication parity'."
   - name: "contract_branch"
-    description: "Branch in 'mobile-sdk-contracts' with the feature contract."
+    description: "Branch in 'mobile-sdk-contracts' with the feature contract. If this is 'master' (or 'main') and no native bridge has run yet to derive a suffix, the skill asks for a branch name/suffix (and an optional prefix) before proceeding."
   - name: "android_bridge_pr_url"
     description: "URL of the Flutter Android bridge PR."
     optional: true
@@ -91,6 +94,12 @@ If not found, ask before proceeding.
 Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 - `feature/experience_contracts` → **`contractSuffix`** = `experience_contracts`
 - `MOEN-44072_jwt_contract` → **`contractSuffix`** = `jwt_contract`
+
+If a native bridge step already ran, reuse its `contractSuffix` as-is instead of re-deriving.
+Otherwise, **if `contract_branch` is `master` or `main`**, there is no feature suffix to strip —
+ask the user for the branch name/suffix to use for the `Flutter-SDK` implementation branch. If
+they don't provide one, offer to default `contractSuffix` to a prefix derived from `featureName`
+(e.g. `<featureName>_contract`) and confirm before using it.
 
 ### 1.2 Identifiers table
 
@@ -388,7 +397,64 @@ git commit -m "<ticketId>: Add Flutter Dart public API for <featureName>"
 
 ---
 
-## Phase 5 — Update Native Package pubspec files
+## Phase 5 — Wire New APIs into the Sample App
+
+Demonstrate the new feature in the top-level sample app at `example/` (the shared Flutter
+sample app used across all MoEngage packages — **not** the per-package `example/` stub, which
+just points here). This is expected for every Dart interface step; skip only if the user
+explicitly says not to.
+
+### 5.1 Import the package
+
+If `<mainDir>`'s package isn't already imported in `example/lib/main.dart`, add:
+```dart
+import 'package:moengage_<featureName>/moengage_<featureName>.dart';
+```
+(Skip if `packageDir` is `packages/moengage_flutter` — `moengage_flutter` is already imported
+and `_moengagePlugin` already exists.)
+
+### 5.2 Register event listeners *(only if event methods exist)*
+
+In `_MyAppState.initState()` in `example/lib/main.dart`, alongside the other
+`_moengagePlugin.setXxxCallbackHandler(...)` calls, register the new listener:
+```dart
+_moengagePlugin.set<EventNameCamel>CallbackHandler(_on<EventNameCamel>);
+```
+Add the corresponding top-level handler function near the other `_onXxx` handlers (e.g. next to
+`_onLogoutCallbackHandler`):
+```dart
+void _on<EventNameCamel>(<ModelName> data) {
+  debugPrint('$tag Main : _on<EventNameCamel>(): $data');
+}
+```
+
+### 5.3 Add a demo trigger per hybridToNative / result method
+
+For each fire-and-forget or `Future` method, add one `ListTile` to the `ListView` in
+`example/lib/main.dart`, near the other feature demos (e.g. next to the `Logout` tile):
+```dart
+ListTile(
+  title: const Text('<Human-readable label>'),
+  onTap: () {
+    _moengagePlugin.<methodName>(<placeholder arguments>);
+  },
+),
+```
+For `Future`-returning methods, make `onTap` `async` and `debugPrint` the result, following the
+`Inbox: Get all messages` tile as the template.
+
+Use realistic placeholder values for arguments (e.g. a dummy token/identifier) — add a
+`// TODO: replace with a real value` comment if the value is only a stand-in.
+
+### 5.4 Commit
+```bash
+git add example/
+git commit -m "Demonstrate <featureName> APIs in the sample app"
+```
+
+---
+
+## Phase 6 — Update Native Package pubspec files
 
 The Android and iOS pubspec.yaml files generated in earlier steps reference
 `moengage_<featureName>_platform_interface: ^1.0.0`. Verify these references are correct.
@@ -409,7 +475,7 @@ git commit -m "<ticketId>: Wire platform interface dependency in native packages
 
 ---
 
-## Phase 6 — Create / Update Pull Request
+## Phase 7 — Create / Update Pull Request
 
 ```bash
 git push -u origin feature/<ticketId>-<contractSuffix>
@@ -418,7 +484,18 @@ git push -u origin feature/<ticketId>-<contractSuffix>
 gh pr list --head feature/<ticketId>-<contractSuffix> --json number,url
 ```
 
-**If PR already exists** (from native bridge steps): push new commits to the same branch and add a PR comment summarizing what was added. Update the PR body to the combined template below.
+**If PR already exists** (from native bridge steps): push new commits to the same branch. Do
+**not** just add a comment and leave the title/body stale — refresh **both** the PR title and
+body with `gh pr edit <number>` to the combined template below, so the PR reflects every layer
+implemented on the branch (native bridges + Dart), not only what the title said before:
+```bash
+gh pr edit <number> \
+  --title "<ticketId>: Add Flutter <combined layers, e.g. \"Android bridge, iOS bridge, and Dart interface\"> for <featureName>" \
+  --body "$(cat <<'EOF'
+<combined template below, filled in>
+EOF
+)"
+```
 
 **If no PR exists:**
 ```bash
@@ -430,6 +507,7 @@ gh pr create \
 - Platform interface (`<piDir>/`): abstract class, MethodChannel impl, models, constants, payload mapper
 - Public API (`<mainDir>/`): MoEngage<featureNameCamel> class wrapping the platform interface
 - Models derived from proto contracts in `<contractDir>/`
+- Sample app (`example/`): new APIs wired up with a demo trigger (and listener registration, if events exist)
 
 ## Related PRs
 - android-plugin-base: <android_plugin_base_pr_url>
@@ -452,7 +530,7 @@ EOF
 
 ---
 
-## Phase 7 — Report
+## Phase 8 — Report
 
 Print:
 1. PR URL
@@ -480,6 +558,7 @@ Print:
 | platform interface pubspec        | `packages/moengage_cards/moengage_cards_platform_interface/pubspec.yaml`                                        |
 | public API class                  | `packages/moengage_cards/moengage_cards/lib/src/moengage_cards.dart`                                            |
 | main package pubspec              | `packages/moengage_cards/moengage_cards/pubspec.yaml`                                                           |
+| Sample app                        | `example/lib/main.dart` (top-level shared sample app — not the per-package `example/` stub)                     |
 
 ---
 
@@ -488,6 +567,8 @@ Print:
 - `contract_branch` not found → stop and tell the user
 - `contractDir` not found in `json/hybridToNative/` → list available dirs and ask
 - `piDir` already has source files → read existing files, add only missing items
+- **New method placement**: always insert a new method as the *last* method in the class — after every existing method, never interleaved between existing ones (applies to the platform interface abstract class, the MethodChannel impl, and the public API class in `<mainDir>`)
 - Proto field type unknown → use `dynamic` and add `// TODO: verify type` comment
 - Enum string value unknown → add `// TODO: verify enum value` and use placeholder string
 - Push fails → report error and local branch name
+- Skip Phase 5 (sample app wiring) only if the user explicitly opts out — otherwise always wire the new APIs into `example/lib/main.dart`
