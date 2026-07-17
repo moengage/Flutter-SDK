@@ -1,6 +1,7 @@
 #!/usr/bin/env kotlin
 
 @file:DependsOn("org.json:json:20251224")
+@file:Import("utils.main.kts")
 
 import java.io.File
 import java.net.URL
@@ -141,18 +142,6 @@ fun findChangedArtifacts(bomArtifact: String, oldVersion: String, newVersion: St
         println("    No artifact version changes detected.")
     }
     return changed
-}
-
-// ── Semver Diff ──────────────────────────────────────────────────────────────
-
-fun determineReleaseType(oldVersion: String, newVersion: String): String {
-    val oldParts = oldVersion.split(".").map { it.toIntOrNull() ?: 0 }
-    val newParts = newVersion.split(".").map { it.toIntOrNull() ?: 0 }
-    return when {
-        newParts.getOrElse(0) { 0 } != oldParts.getOrElse(0) { 0 } -> "major"
-        newParts.getOrElse(1) { 0 } != oldParts.getOrElse(1) { 0 } -> "minor"
-        else -> "patch"
-    }
 }
 
 // ── Gradle File Update ─────────────────────────────────────────────────────────

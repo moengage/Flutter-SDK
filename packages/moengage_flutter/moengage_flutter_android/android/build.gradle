@@ -12,8 +12,20 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:9.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.5"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
     }
+}
+
+// gradle-config-plugin 2.0.0 dropped its own org.jetbrains.kotlin.android apply
+// in favor of AGP 9's built-in Kotlin, which is only active when AGP >= 9 and
+// android.builtInKotlin isn't opted out. Fall back to explicit kotlin-android.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty("android.builtInKotlin")
+        .map { it.toBoolean() }
+        .orElse(agpMajor >= 9)
+        .get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
 }
 
 rootProject.allprojects {

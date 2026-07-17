@@ -1,6 +1,7 @@
 #!/usr/bin/env kotlin
 
 @file:DependsOn("org.json:json:20251224")
+@file:Import("utils.main.kts")
 
 import java.io.File
 import java.util.Base64
@@ -16,18 +17,6 @@ val CHANGELOG_VERSION_PLACEHOLDER = "Release Version"
 
 val DATED_ENTRY_REGEX = Regex("""^# \d{2}-\d{2}-\d{4}$""")
 val NATIVE_SDK_LINE_REGEX = Regex("""^\s*- (\[(major|minor|patch)\] )?Updated `$NATIVE_SDK_POD` to `[^`]+`\.?$""")
-
-// ── Semver Diff ──────────────────────────────────────────────────────────────
-
-fun determineReleaseType(oldVersion: String, newVersion: String): String {
-    val oldParts = oldVersion.split(".").map { it.toIntOrNull() ?: 0 }
-    val newParts = newVersion.split(".").map { it.toIntOrNull() ?: 0 }
-    return when {
-        newParts.getOrElse(0) { 0 } != oldParts.getOrElse(0) { 0 } -> "major"
-        newParts.getOrElse(1) { 0 } != oldParts.getOrElse(1) { 0 } -> "minor"
-        else -> "patch"
-    }
-}
 
 data class PodConfig(
     val podName: String,              // e.g. MoEngagePluginBase

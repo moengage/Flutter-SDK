@@ -12,9 +12,21 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:9.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.5"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
         // classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
     }
+}
+
+group 'com.moengage.moengage_geofence'
+version '1.0'
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty("android.builtInKotlin")
+        .map { it.toBoolean() }
+        .orElse(agpMajor >= 9)
+        .get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
 }
 
 rootProject.allprojects {
