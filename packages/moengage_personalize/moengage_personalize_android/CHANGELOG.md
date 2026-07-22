@@ -1,5 +1,11 @@
 # MoEngage Personalize Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] `android-bom` version updated to `2.3.0`.
+
 # 17-06-2026
 
 ## 1.0.1
