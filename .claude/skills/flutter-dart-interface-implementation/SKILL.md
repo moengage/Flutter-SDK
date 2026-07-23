@@ -10,6 +10,10 @@ description: >
   implementation, constants, payload mapper, controller (for events), instance provider,
   callback cache, and model/enum files from the contract protos.
   Main package contains: public API class and pubspec wiring both native implementations.
+  Also updates the ALREADY-REGISTERED Android/iOS Dart platform classes
+  (moengage_<featureName>_android, moengage_<featureName>_ios) with an override for every
+  new method — the MethodChannel class is only a fallback default and is never what runs in
+  a real app, so skipping this step leaves the method throwing UnimplementedError at runtime.
   Also wires the new APIs into the top-level shared sample app (example/lib/main.dart) with a
   demo trigger and, if the feature has events, listener registration — skip only if the user
   explicitly opts out.
@@ -52,6 +56,20 @@ Produces two packages:
 - `moengage_<featureName>_platform_interface/` — abstract contract + MethodChannel impl + models
 - `moengage_<featureName>/` — public API class that consumers import
 
+**Critical architecture fact — read before touching Phase 3:** In every existing package
+(moengage_flutter, moengage_cards, moengage_geofence, moengage_inbox, moengage_personalize),
+the classes that actually get registered at runtime —
+`MoEngage<featureNameCamel>Android` in `<androidPkgDir>/lib/moengage_<featureName>_android.dart`
+and `MoEngage<featureNameCamel>IOS` in `<iosPkgDir>/lib/moengage_<featureName>_ios.dart` —
+extend `MoEngage<featureNameCamel>Platform` (the platform_base/platform_interface abstract
+class) **directly**. Neither one extends `MethodChannelMoEngage<featureNameCamel>`. So
+`method_channel.dart` is a fallback default that is not exercised by a real Android or iOS
+build. **Writing a new method's body only into `method_channel.dart` is not enough** — do
+this once and the abstract class's `throw UnimplementedError()` default is what actually
+runs, exactly the bug this skill previously shipped for `passAuthenticationDetails` in
+moengage_flutter. Every method added to the platform interface needs a matching `@override`
+copied into both registered classes (Phase 3.13).
+
 **Example files:** Templates are in `examples/` adjacent to this SKILL.md.
 
 ---
@@ -73,6 +91,9 @@ examples/
     SomeModel.dart            ← lib/src/model/<ModelName>.dart (one per proto entity)
     SomeEnum.dart             ← lib/src/model/enums/<EnumName>.dart (one per proto enum)
     pubspec.yaml              ← pubspec.yaml for platform interface package
+    registered_platform_impl.dart ← edits to make in the EXISTING
+                                    <androidPkgDir>/lib/moengage_<featureName>_android.dart and
+                                    <iosPkgDir>/lib/moengage_<featureName>_ios.dart (Phase 3.13)
   main_package/
     public_api.dart           ← lib/src/moengage_<featureName>.dart
     pubspec.yaml              ← pubspec.yaml for main package
@@ -114,6 +135,8 @@ they don't provide one, offer to default `contractSuffix` to a prefix derived fr
 | `packageDir`       | `packages/moengage_flutter`                                     | see rule below                                           |
 | `piDir`            | `packages/moengage_flutter/moengage_flutter_platform_interface` | `<packageDir>/moengage_<featureName>_platform_interface` |
 | `mainDir`          | `packages/moengage_flutter/moengage_flutter`                    | `<packageDir>/moengage_<featureName>`                    |
+| `androidPkgDir`    | `packages/moengage_flutter/moengage_flutter_android`            | `<packageDir>/moengage_<featureName>_android`            |
+| `iosPkgDir`        | `packages/moengage_flutter/moengage_flutter_ios`                | `<packageDir>/moengage_<featureName>_ios`                |
 | `channelName`      | `com.moengage/jwt`                                              | `com.moengage/<featureName>`                             |
 | `branchName`       | `feature/MOEN-44072-jwt_contract`                               | `feature/<ticketId>-<contractSuffix>`                    |
 
@@ -295,7 +318,34 @@ Rules:
 - Future result: `final result = await methodChannel.invokeMethod(method<Name>, jsonEncode(...)); return deSerialize<ModelName>(result as String)`
 - Listener-setting methods: call `super.setXxxListener(listener, appId)` then `methodChannel.invokeMethod(...)` if native needs to know
 
-### 3.13 platform_interface.dart (top-level file)
+### 3.13 Update the existing Android/iOS Dart platform implementations
+
+→ See `examples/platform_interface/registered_platform_impl.dart`
+
+This step is **not optional** and is separate from Phase 6 (which only checks pubspec
+dependency wiring). Do it every time this skill adds a method to a platform interface —
+whether the package is brand new (native bridge steps 1/2 just created a minimal
+`registerWith()` stub) or already existed (moengage_flutter, moengage_cards, etc.).
+
+1. Open `<androidPkgDir>/lib/moengage_<featureName>_android.dart`. Find
+   `class MoEngage<featureNameCamel>Android extends MoEngage<featureNameCamel>Platform`.
+   For every method just added to the platform interface abstract class, add a matching
+   `@override` here, copying the invocation style of the neighboring methods in the same
+   file exactly (e.g. `jsonEncode(...)` + the file's own `MethodChannel` field name —
+   do not introduce a new pattern or delegate to `MethodChannelMoEngage<featureNameCamel>`).
+2. Do the same in `<iosPkgDir>/lib/moengage_<featureName>_ios.dart` for
+   `class MoEngage<featureNameCamel>IOS extends MoEngage<featureNameCamel>Platform`.
+3. If a method is genuinely not supported on one platform, follow the existing convention
+   in that file (e.g. `Logger.v('methodName(): Not supported in iOS Platform')`) instead of
+   leaving the abstract default in place silently.
+4. **Verify no method falls through to the abstract default**: for each new method name,
+   grep both files —
+   `grep -n "<methodName>" <androidPkgDir>/lib/*.dart <iosPkgDir>/lib/*.dart` — and confirm
+   an `@override` exists in both, not just in `method_channel.dart`.
+5. Run `flutter analyze` on `<androidPkgDir>` and `<iosPkgDir>` (and the workspace) to catch
+   missing overrides of other abstract methods before committing.
+
+### 3.14 platform_interface.dart (top-level file)
 → See `examples/platform_interface/platform_interface.dart`
 Generate at: `<piDir>/lib/moengage_<featureName>_platform_interface.dart`
 
@@ -308,16 +358,16 @@ Rules:
   - `void`, `Future<ModelType>`, or listener-accepting methods depending on type
   - JSDoc comment on every method
 
-### 3.14 pubspec.yaml
+### 3.15 pubspec.yaml
 → See `examples/platform_interface/pubspec.yaml`
 Copy `packages/moengage_cards/moengage_cards_platform_interface/pubspec.yaml`, then update:
 - `name` → `moengage_<featureName>_platform_interface`
 - `description` → `A common platform interface for the moengage_<featureName> plugin.`
 - `version` → `1.0.0`
 
-### 3.15 Commit
+### 3.16 Commit
 ```bash
-git add <piDir>/
+git add <piDir>/ <androidPkgDir>/lib/ <iosPkgDir>/lib/
 git commit -m "<ticketId>: Add Flutter Dart platform interface for <featureName>"
 ```
 
@@ -456,6 +506,10 @@ git commit -m "Demonstrate <featureName> APIs in the sample app"
 
 ## Phase 6 — Update Native Package pubspec files
 
+This phase only covers pubspec *dependency* wiring. The actual Dart method overrides in
+`<androidPkgDir>/lib/` and `<iosPkgDir>/lib/` are handled in Phase 3.13 — do not treat this
+phase as a substitute for that one.
+
 The Android and iOS pubspec.yaml files generated in earlier steps reference
 `moengage_<featureName>_platform_interface: ^1.0.0`. Verify these references are correct.
 If native packages were scaffolded without the platform interface dependency, add it now:
@@ -558,6 +612,9 @@ Print:
 | platform interface pubspec        | `packages/moengage_cards/moengage_cards_platform_interface/pubspec.yaml`                                        |
 | public API class                  | `packages/moengage_cards/moengage_cards/lib/src/moengage_cards.dart`                                            |
 | main package pubspec              | `packages/moengage_cards/moengage_cards/pubspec.yaml`                                                           |
+| Registered Android impl (extends platform_base directly, NOT method_channel) | `packages/moengage_cards/moengage_cards_android/lib/moengage_cards_android.dart` |
+| Registered iOS impl (extends platform_base directly, NOT method_channel)     | `packages/moengage_cards/moengage_cards_ios/lib/moengage_cards_ios.dart`         |
+| Real-world example of the missing-override bug this phase prevents | `packages/moengage_flutter/moengage_flutter_android/lib/moengage_flutter_android.dart` and `..._ios/lib/moengage_flutter_ios.dart` — `passAuthenticationDetails` was added only to `method_channel_moengage_flutter.dart` and threw `UnimplementedError` at runtime until overrides were added here too |
 | Sample app                        | `example/lib/main.dart` (top-level shared sample app — not the per-package `example/` stub)                     |
 
 ---
@@ -566,8 +623,9 @@ Print:
 
 - `contract_branch` not found → stop and tell the user
 - `contractDir` not found in `json/hybridToNative/` → list available dirs and ask
-- `piDir` already has source files → read existing files, add only missing items
-- **New method placement**: always insert a new method as the *last* method in the class — after every existing method, never interleaved between existing ones (applies to the platform interface abstract class, the MethodChannel impl, and the public API class in `<mainDir>`)
+- `piDir` already has source files → read existing files, add only missing items. This is the common case (adding a method to an existing feature) — Phase 3.13 (updating `<androidPkgDir>`/`<iosPkgDir>`) applies just as much here as for a brand-new package; do not skip it just because the platform interface itself already existed.
+- **New method placement**: always insert a new method as the *last* method in the class — after every existing method, never interleaved between existing ones (applies to the platform interface abstract class, the MethodChannel impl, the registered `<androidPkgDir>`/`<iosPkgDir>` classes, and the public API class in `<mainDir>`)
+- **Never treat `method_channel.dart` as sufficient on its own.** If asked to "just add the method" without more detail, still perform Phase 3.13 — a method that only exists in `method_channel.dart` is unreachable in a shipped app because the registered Android/iOS classes never delegate to it.
 - Proto field type unknown → use `dynamic` and add `// TODO: verify type` comment
 - Enum string value unknown → add `// TODO: verify enum value` and use placeholder string
 - Push fails → report error and local branch name
