@@ -66,6 +66,7 @@ dependencies {
 
     api(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
     api("com.moengage:plugin-base")
+    api("com.moengage:security")
 
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }

@@ -16,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'cards/cards_home.dart';
 import 'inapp.dart';
+import 'jwt_authentication_page.dart';
 import 'personalize_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
@@ -539,11 +540,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               ListTile(
-                title: const Text('Pass JWT Authentication Details'),
+                title: const Text('JWT authentication'),
                 onTap: () {
-                  // TODO: replace with a real JWT token and user identifier
-                  _moengagePlugin.passAuthenticationDetails(
-                      'sample-jwt-token', 'flutter-uid');
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        JwtAuthenticationPage(moengagePlugin: _moengagePlugin),
+                  ));
                 },
               ),
               ListTile(
