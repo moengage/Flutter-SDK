@@ -9,6 +9,7 @@ export 'src/log_level.dart';
 export 'src/model/account_meta.dart';
 export 'src/model/analytics/analytics_config.dart';
 export 'src/model/app_status.dart';
+export 'src/model/authentication/authentication_data.dart';
 export 'src/model/authentication/authentication_error_data.dart';
 export 'src/model/authentication/jwt_error_code.dart';
 export 'src/model/campaignsCore/accessibility_data.dart';

@@ -142,7 +142,8 @@ class _JwtAuthenticationPageState extends State<JwtAuthenticationPage> {
     }
 
     try {
-      widget.moengagePlugin.passAuthenticationDetails(token, userIdentifier);
+      widget.moengagePlugin.passAuthenticationDetails(
+          AuthenticationData(token: token, userIdentifier: userIdentifier));
       await _showAlert(
           'Done', 'passAuthenticationDetails was sent to the native SDK.');
     } catch (e) {

@@ -4,6 +4,7 @@ import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
+import '../model/authentication/authentication_data.dart';
 import '../model/authentication/authentication_error_data.dart';
 import '../model/authentication/jwt_error_code.dart';
 import '../model/logout_complete_data.dart';
@@ -196,14 +197,14 @@ LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
   return null;
 }
 
-/// Get JWT Authentication Details Payload for the given [appId]
+/// Get JWT Authentication Details Payload for the given [data] and [appId]
 Map<String, dynamic> getAuthenticationDetailsPayload(
-    String token, String userIdentifier, String appId) {
+    AuthenticationData data, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = <String, dynamic>{
     keyAuthenticationType: authenticationTypeJwt,
-    keyToken: token,
-    keyUserIdentifier: userIdentifier
+    keyToken: data.token,
+    keyUserIdentifier: data.userIdentifier
   };
   return payload;
 }

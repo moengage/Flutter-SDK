@@ -6,6 +6,7 @@ import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
 import 'model/app_status.dart';
+import 'model/authentication/authentication_data.dart';
 import 'model/gender.dart';
 import 'model/geo_location.dart';
 import 'model/inapp/nudge_position.dart';
@@ -243,11 +244,9 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
           'getUserIdentities() not implemented for Platform');
 
   /// Passes the JWT authentication details to the native SDK.
-  /// [token] - JWT Token
-  /// [userIdentifier] - User Identifier the JWT Token was generated for
+  /// [data] - Instance of [AuthenticationData]
   /// [appId] - MoEngage App ID
-  void passAuthenticationDetails(
-          String token, String userIdentifier, String appId) =>
+  void passAuthenticationDetails(AuthenticationData data, String appId) =>
       throw UnimplementedError(
           'passAuthenticationDetails() not implemented for Platform');
 }

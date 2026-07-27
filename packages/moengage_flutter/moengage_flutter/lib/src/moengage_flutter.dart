@@ -443,10 +443,9 @@ class MoEngageFlutter {
   }
 
   /// Passes the JWT authentication details to the native SDK.
-  /// [token] - JWT Token
-  /// [userIdentifier] - User Identifier the JWT Token was generated for
-  void passAuthenticationDetails(String token, String userIdentifier) {
-    _platform.passAuthenticationDetails(token, userIdentifier, appId);
+  /// [data] - Instance of [AuthenticationData]
+  void passAuthenticationDetails(AuthenticationData data) {
+    _platform.passAuthenticationDetails(data, appId);
   }
 
   /// Sets JWT Authentication Error Callback Handler

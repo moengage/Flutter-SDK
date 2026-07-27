@@ -532,3 +532,16 @@ const String multipleSelfHandledPayload = r'''
   ]
 }
 ''';
+
+const String authenticationDetailsPayload = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "data": {
+    "authenticationType": "JWT",
+    "token": "jwt-token",
+    "userIdentifier": "user1234"
+  }
+}
+''';
