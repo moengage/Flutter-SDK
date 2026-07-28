@@ -95,4 +95,24 @@ class Comparator {
     return data1?.platform == data2?.platform &&
         isAccountMetaEqual(data1?.accountMeta, data2?.accountMeta);
   }
+
+  bool isAuthenticationErrorDataEqual(
+      AuthenticationErrorData? data1, AuthenticationErrorData? data2) {
+    return data1?.platform == data2?.platform &&
+        isAccountMetaEqual(data1?.accountMeta, data2?.accountMeta) &&
+        data1?.authenticationType == data2?.authenticationType &&
+        isAuthenticationErrorDetailsEqual(data1?.data, data2?.data);
+  }
+
+  bool isAuthenticationErrorDetailsEqual(
+      AuthenticationErrorDetails? data1, AuthenticationErrorDetails? data2) {
+    if (data1 is JwtAuthenticationErrorData &&
+        data2 is JwtAuthenticationErrorData) {
+      return data1.code == data2.code &&
+          data1.token == data2.token &&
+          data1.userIdentifier == data2.userIdentifier &&
+          data1.message == data2.message;
+    }
+    return data1 == null && data2 == null;
+  }
 }

@@ -545,3 +545,26 @@ const String authenticationDetailsPayload = '''
   }
 }
 ''';
+
+
+const String authenticationErrorPayload = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "platform": "android",
+  "data": {
+    "authenticationType": "JWT",
+    "code": "TIME_CONSTRAINT_FAILURE",
+    "token": "jwt-token",
+    "userIdentifier": "user1234",
+    "message": "Token has expired"
+  }
+}
+''';
+
+const String authenticationErrorPayloadInvalid = '''
+{
+  "invalid": "data"
+}
+''';

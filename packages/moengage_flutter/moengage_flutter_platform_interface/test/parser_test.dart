@@ -197,4 +197,17 @@ void main() {
             '1234'),
         jsonDecode(authenticationDetailsPayload));
   });
+
+  test('Authentication Error Data', () {
+    expect(
+        Comparator().isAuthenticationErrorDataEqual(
+            authenticationErrorFromJson(authenticationErrorPayload),
+            authenticationErrorData),
+        true);
+  });
+
+  test('Authentication Error Data - Invalid Payload', () {
+    expect(
+        authenticationErrorFromJson(authenticationErrorPayloadInvalid), null);
+  });
 }
