@@ -5,7 +5,9 @@ import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
 import '../model/authentication/authentication_data.dart';
+import '../model/authentication/authentication_details_request.dart';
 import '../model/authentication/authentication_error_data.dart';
+import '../model/authentication/authentication_type.dart';
 import '../model/authentication/jwt_error_code.dart';
 import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
@@ -197,15 +199,18 @@ LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
   return null;
 }
 
-/// Get JWT Authentication Details Payload for the given [data] and [appId]
+/// Get JWT Authentication Details Payload for the given [request] and [appId]
 Map<String, dynamic> getAuthenticationDetailsPayload(
-    AuthenticationData data, String appId) {
+    AuthenticationDetailsRequest request, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
-  payload[keyData] = <String, dynamic>{
-    keyAuthenticationType: authenticationTypeJwt,
-    keyToken: data.token,
-    keyUserIdentifier: data.userIdentifier
-  };
+  final AuthenticationDetails data = request.data;
+  if (data is JwtAuthenticationData) {
+    payload[keyData] = <String, dynamic>{
+      keyAuthenticationType: request.authenticationType.asString,
+      keyToken: data.token,
+      keyUserIdentifier: data.userIdentifier
+    };
+  }
   return payload;
 }
 
@@ -221,11 +226,14 @@ AuthenticationErrorData? authenticationErrorFromJson(dynamic methodCallArgs) {
             PlatformsExtension.fromString(payload[keyPlatform].toString()),
         accountMeta: accountMetaFromMap(
             payload[keyAccountMeta] as Map<String, dynamic>),
-        code: JwtErrorCodeExtension.fromString(
-            data[keyAuthenticationErrorCode].toString()),
-        token: data[keyToken].toString(),
-        userIdentifier: data[keyUserIdentifier].toString(),
-        message: data[keyAuthenticationErrorMessage].toString());
+        authenticationType: AuthenticationTypeExtension.fromString(
+            data[keyAuthenticationType].toString()),
+        data: JwtAuthenticationErrorData(
+            code: JwtErrorCodeExtension.fromString(
+                data[keyAuthenticationErrorCode].toString()),
+            token: data[keyToken].toString(),
+            userIdentifier: data[keyUserIdentifier].toString(),
+            message: data[keyAuthenticationErrorMessage].toString()));
   } catch (e, stackTrace) {
     Logger.e('$tag Error: authenticationErrorFromJson() :',
         error: e, stackTrace: stackTrace);

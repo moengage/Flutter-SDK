@@ -190,8 +190,10 @@ void main() {
   test('JWT Authentication Details Payload', () {
     expect(
         getAuthenticationDetailsPayload(
-            AuthenticationData(
-                token: 'jwt-token', userIdentifier: 'user1234'),
+            AuthenticationDetailsRequest(
+                authenticationType: AuthenticationType.jwt,
+                data: JwtAuthenticationData(
+                    token: 'jwt-token', userIdentifier: 'user1234')),
             '1234'),
         jsonDecode(authenticationDetailsPayload));
   });

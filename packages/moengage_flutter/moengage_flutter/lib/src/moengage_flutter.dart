@@ -442,10 +442,10 @@ class MoEngageFlutter {
     return _platform.getUserIdentities(appId);
   }
 
-  /// Passes the JWT authentication details to the native SDK.
-  /// [data] - Instance of [AuthenticationData]
-  void passAuthenticationDetails(AuthenticationData data) {
-    _platform.passAuthenticationDetails(data, appId);
+  /// Passes the authentication details to the native SDK.
+  /// [request] - Instance of [AuthenticationDetailsRequest]
+  void passAuthenticationDetails(AuthenticationDetailsRequest request) {
+    _platform.passAuthenticationDetails(request, appId);
   }
 
   /// Sets JWT Authentication Error Callback Handler

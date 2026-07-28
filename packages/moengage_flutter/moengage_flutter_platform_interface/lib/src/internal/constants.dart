@@ -38,7 +38,6 @@ const String methodiOSRegisterProvisionalPush = 'registerForProvisionalPush';
 /// JWT Authentication
 const String methodAuthenticationDetails = 'authenticationDetails';
 const String keyAuthenticationType = 'authenticationType';
-const String authenticationTypeJwt = 'JWT';
 const String keyToken = 'token';
 const String keyUserIdentifier = 'userIdentifier';
 const String keyAuthenticationErrorCode = 'code';

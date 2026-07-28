@@ -1,7 +1,15 @@
+/// Base class for the scheme specific authentication payload carried by
+/// [AuthenticationDetailsRequest]. Extend this to add authentication schemes
+/// beyond [JwtAuthenticationData] in the future.
+sealed class AuthenticationDetails {
+  /// Const constructor for [AuthenticationDetails]
+  const AuthenticationDetails();
+}
+
 /// JWT Authentication Data
-class AuthenticationData {
-  /// [AuthenticationData] Constructor
-  AuthenticationData({
+final class JwtAuthenticationData extends AuthenticationDetails {
+  /// [JwtAuthenticationData] Constructor
+  JwtAuthenticationData({
     required this.token,
     required this.userIdentifier,
   });

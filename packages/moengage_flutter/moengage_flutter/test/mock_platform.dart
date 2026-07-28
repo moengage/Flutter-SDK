@@ -9,7 +9,7 @@ class MockMoEngageFlutterPlatform extends MethodChannelMoEngageFlutter
   dynamic setUserAttributeLastUserAttributeValue;
   String? setUserAttributeLastAppId;
 
-  AuthenticationData? passAuthenticationDetailsLastData;
+  AuthenticationDetailsRequest? passAuthenticationDetailsLastData;
   String? passAuthenticationDetailsLastAppId;
 
   @override
@@ -21,8 +21,9 @@ class MockMoEngageFlutterPlatform extends MethodChannelMoEngageFlutter
   }
 
   @override
-  void passAuthenticationDetails(AuthenticationData data, String appId) {
-    passAuthenticationDetailsLastData = data;
+  void passAuthenticationDetails(
+      AuthenticationDetailsRequest request, String appId) {
+    passAuthenticationDetailsLastData = request;
     passAuthenticationDetailsLastAppId = appId;
   }
 

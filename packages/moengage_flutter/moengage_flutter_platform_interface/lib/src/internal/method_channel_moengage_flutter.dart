@@ -292,9 +292,10 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   }
 
   @override
-  void passAuthenticationDetails(AuthenticationData data, String appId) {
+  void passAuthenticationDetails(
+      AuthenticationDetailsRequest request, String appId) {
     _methodChannel.invokeMethod(
         methodAuthenticationDetails,
-        json.encode(getAuthenticationDetailsPayload(data, appId)));
+        json.encode(getAuthenticationDetailsPayload(request, appId)));
   }
 }
