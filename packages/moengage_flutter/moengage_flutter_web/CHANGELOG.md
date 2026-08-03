@@ -1,5 +1,11 @@
 # MoEngage Flutter Web Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Standardized SDK initialization and API names
+
 # 11-02-2026
 
 ## 5.2.0
