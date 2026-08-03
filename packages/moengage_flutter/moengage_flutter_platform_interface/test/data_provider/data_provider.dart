@@ -95,6 +95,12 @@ final ClickData clickData = ClickData(
     NavigationAction(ActionType.navigation, NavigationType.deeplink,
         'https://google.com', {}));
 
+final LogoutCompleteData logoutCompleteData = LogoutCompleteData(
+    platform: Platforms.android, accountMeta: AccountMeta('1234'));
+
+final LogoutCompleteData logoutCompleteDataIOS = LogoutCompleteData(
+    platform: Platforms.iOS, accountMeta: AccountMeta('1234'));
+
 final jsonObjectAttribute = {
   'position': 1,
   'score': 96.4,

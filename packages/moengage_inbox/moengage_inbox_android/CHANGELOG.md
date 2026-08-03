@@ -1,5 +1,31 @@
 # MoEngage Inbox Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] `android-bom` version updated to `2.3.0`.
+
+# 17-06-2026
+
+## 4.5.1
+
+- Downgrading Compile Java Version to 17
+
+# 07-05-2026
+
+## 4.5.0
+
+- `android-bom` version updated to `2.2.2`.
+
+# 15-04-2026
+
+## 4.3.0
+
+- `android-bom` version updated to `2.1.0`
+- AGP Version update from `8.7.3` to `8.13.2`
+- Migrating from common gradle config to gradle config plugin
+
 # 11-02-2026
 
 ## 4.2.0

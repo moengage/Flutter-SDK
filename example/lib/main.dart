@@ -16,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'cards/cards_home.dart';
 import 'inapp.dart';
+import 'personalize_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
@@ -74,6 +75,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     debugPrint('$tag Permission Result: $data');
   }
 
+  void _onLogoutCallbackHandler(LogoutCompleteData data) {
+    debugPrint(
+        '$tag Main : _onLogoutCallbackHandler(): Logout complete callback from native to flutter. Data $data');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,6 +90,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setPushTokenCallbackHandler(_onPushTokenGenerated);
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
+    _moengagePlugin.setLogoutCompleteCallbackHandler(_onLogoutCallbackHandler);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
   }
@@ -137,6 +144,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>
                           const InAppHomeScreen()));
+                },
+              ),
+              ListTile(
+                title: const Text('Go To Personalize'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const PersonalizeHome()));
                 },
               ),
               ListTile(

@@ -1,5 +1,41 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] `android-bom` version updated to `2.3.0`.
+- iOS
+    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+
+# 17-06-2026
+
+## 9.5.1
+
+- Android
+    - Downgrading Compile Java Version to 17
+
+# 07-05-2026
+
+## 9.5.0
+
+- Android
+  - `android-bom` version updated to `2.2.2`.
+- iOS
+  - Updated MoEngage-iOS-SDK to `10.12.0`
+
+# 15-04-2026
+
+## 9.4.0
+
+- Android
+    - `android-bom` version updated to `2.1.0`
+    - AGP Version update from `8.7.3` to `8.13.2`
+    - Migrating from common gradle config to gradle config plugin
+- iOS
+    - Updated MoEngageInbox to `3.02.1`
+
 # 11-02-2026
 
 ## 9.3.0

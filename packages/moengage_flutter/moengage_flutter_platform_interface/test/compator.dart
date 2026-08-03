@@ -89,4 +89,10 @@ class Comparator {
         const DeepCollectionEquality().equals(data1?.context, data2?.context) &&
         const DeepCollectionEquality().equals(data1?.screenNames, data2?.screenNames);
   }
+
+  bool isLogoutCompleteDataEqual(
+      LogoutCompleteData? data1, LogoutCompleteData? data2) {
+    return data1?.platform == data2?.platform &&
+        isAccountMetaEqual(data1?.accountMeta, data2?.accountMeta);
+  }
 }

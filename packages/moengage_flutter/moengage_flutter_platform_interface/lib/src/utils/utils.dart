@@ -4,6 +4,7 @@ import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/account_meta.dart';
 import '../model/app_status.dart';
+import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
 import '../model/platforms.dart';
@@ -175,4 +176,20 @@ Map<String, dynamic> filterMapWithSupportedTypes(Map<String, dynamic> data) {
 /// Return whether type of [identity] is supported or not
 bool isSupportedIdentity(dynamic identity) {
   return identity is String || identity is Map<String, dynamic>;
+}
+
+/// Get [LogoutCompleteData] from Json String
+LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
+  try {
+    final Map<String, dynamic> payload =
+    json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+    return LogoutCompleteData(
+        platform:
+        PlatformsExtension.fromString(payload[keyPlatform].toString()),
+        accountMeta: accountMetaFromMap(
+            payload[keyAccountMeta] as Map<String, dynamic>));
+  } catch (e, stackTrace) {
+    Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
+  }
+  return null;
 }

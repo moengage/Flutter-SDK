@@ -19,7 +19,11 @@ val packageParentFolder = mapOf(
     "moengage_inbox" to "moengage_inbox",
     "moengage_inbox_android" to "moengage_inbox",
     "moengage_inbox_ios" to "moengage_inbox",
-    "moengage_inbox_platform_interface" to "moengage_inbox"
+    "moengage_inbox_platform_interface" to "moengage_inbox",
+    "moengage_personalize" to "moengage_personalize",
+    "moengage_personalize_android" to "moengage_personalize",
+    "moengage_personalize_ios" to "moengage_personalize",
+    "moengage_personalize_platform_interface" to "moengage_personalize"
 )
 
 val dependencyMapping = mapOf(
@@ -95,6 +99,25 @@ val dependencyMapping = mapOf(
         "moengage_flutter" to "incremental"
     ),
     "moengage_inbox_platform_interface" to mapOf(
+        "moengage_flutter" to "incremental"
+    ),
+
+    /** Personalize Packages */
+    "moengage_personalize" to mapOf(
+        "moengage_personalize_android" to "pinned",
+        "moengage_personalize_ios" to "pinned",
+        "moengage_personalize_platform_interface" to "pinned",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_personalize_android" to mapOf(
+        "moengage_personalize_platform_interface" to "incremental",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_personalize_ios" to mapOf(
+        "moengage_personalize_platform_interface" to "incremental",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_personalize_platform_interface" to mapOf(
         "moengage_flutter" to "incremental"
     )
 )

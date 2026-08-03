@@ -1,5 +1,43 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [minor] `android-bom` version updated to `2.3.0`.
+- iOS
+    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+
+# 17-06-2026
+
+## 10.8.0
+
+- Added support Logout Complete listener
+- Android
+    - Downgrading Compile Java Version to 17
+
+# 07-05-2026
+
+## 10.7.0
+
+- Android
+    - `android-bom` version updated to `2.2.2`.
+- iOS
+    - Updated MoEngage-iOS-SDK to `10.12.0`
+
+# 15-04-2026
+
+## 10.6.0
+
+- Android
+    - `android-bom` version updated to `2.1.0`
+    - AGP Version update from `8.7.3` to `8.13.2`
+    - Migrating from common gradle config to gradle config plugin
+- iOS
+    - Updated MoEngage-iOS-SDK to `10.10.2`
+
+
 # 11-02-2026
 
 ## 10.5.0

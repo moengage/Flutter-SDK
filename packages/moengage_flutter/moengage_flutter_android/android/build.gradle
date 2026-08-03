@@ -10,9 +10,9 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:8.7.3"
+        classpath "com.android.tools.build:gradle:8.13.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.5"
     }
 }
 
@@ -25,42 +25,26 @@ rootProject.allprojects {
 
 
 ext {
-    moengageNativeBomVersion = "1.5.1"
-    moengagePluginBaseBomVersion = "1.2.1"
+    moengageNativeBomVersion = "2.3.0"
+    moengagePluginBaseBomVersion = "3.1.0"
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-// apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
+
+hybridModuleConfig.configurePlugin {
+    kotlinOptions {
+        enableJvmTarget = true
+        compilerArgs = []
+    }
+}
 
 android {
-    compileSdk 35
     namespace "com.moengage.flutter"
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-
-    defaultConfig {
-        minSdkVersion 23
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    buildFeatures {
-        buildConfig true
-    }
 }
+
 dependencies {
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
     api("com.moengage:moe-android-sdk")
@@ -71,4 +55,3 @@ dependencies {
 
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
-apply from: file("./user-agent.gradle")

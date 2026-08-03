@@ -44,6 +44,7 @@ const String callbackOnInAppCustomAction = 'onInAppCustomAction';
 const String callbackOnInAppSelfHandled = 'onInAppSelfHandle';
 const String callbackPushTokenGenerated = 'onPushTokenGenerated';
 const String callbackPermissionResult = 'onPermissionResult';
+const String callbackOnLogoutComplete = 'onLogoutComplete';
 
 // Gender Value Constants
 const String genderMale = 'male';

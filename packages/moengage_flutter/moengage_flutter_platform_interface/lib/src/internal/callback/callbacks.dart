@@ -1,6 +1,7 @@
 import '../../model/inapp/click_data.dart';
 import '../../model/inapp/inapp_data.dart';
 import '../../model/inapp/self_handled_data.dart';
+import '../../model/logout_complete_data.dart';
 import '../../model/permission_result.dart';
 import '../../model/push/push_campaign_data.dart';
 import '../../model/push/push_token_data.dart';
@@ -27,3 +28,7 @@ typedef InAppDismissedCallbackHandler = void Function(InAppData data);
 /// Push Permission Result Callback
 typedef PermissionResultCallbackHandler = void Function(
     PermissionResultData data);
+
+/// Logout Complete Callback
+typedef LogoutCompleteCallbackHandler = void Function(
+    LogoutCompleteData data);

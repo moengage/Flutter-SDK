@@ -1,0 +1,13 @@
+# MoEngage Personalize Platform Interface
+
+# 07-05-2026
+
+## 1.0.0
+
+- Added Personalize module and feature support.
+
+# 07-05-2026
+
+## 0.0.1
+
+- Added Personalize module and feature support

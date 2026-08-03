@@ -10,7 +10,8 @@ val packages = listOf(
     "moengage_flutter",
     "moengage_cards",
     "moengage_geofence",
-    "moengage_inbox"
+    "moengage_inbox",
+    "moengage_personalize"
 )
 
 /**

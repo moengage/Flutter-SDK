@@ -16,4 +16,7 @@ class CallbackCache {
 
   /// InApp Dismiss Callback
   InAppDismissedCallbackHandler? inAppDismissedCallbackHandler;
+
+  /// Logout Complete Callback
+  LogoutCompleteCallbackHandler? logoutCompleteCallbackHandler;
 }

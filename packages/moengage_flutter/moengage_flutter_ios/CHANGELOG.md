@@ -1,5 +1,29 @@
 # MoEngage Flutter iOS Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+
+# 17-06-2026
+
+## 4.6.0
+
+- Added support for Logout Complete listener
+
+# 07-05-2026
+
+## 4.5.0
+
+- Updated MoEngage-iOS-SDK to `10.12.0`.
+
+# 15-04-2026
+
+## 4.4.1
+
+- Updated MoEngage-iOS-SDK to `10.10.2`
+
 # 11-02-2026
 
 ## 4.4.0

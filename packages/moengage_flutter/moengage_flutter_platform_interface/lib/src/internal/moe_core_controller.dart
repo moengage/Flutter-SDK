@@ -4,6 +4,7 @@ import '../model/account_meta.dart';
 import '../model/inapp/click_data.dart';
 import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';
+import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
 import '../model/push/push_campaign_data.dart';
 import '../model/push/push_token_data.dart';
@@ -116,6 +117,18 @@ class CoreController {
           final PermissionResultData data =
               permissionResultFromMap(call.arguments);
           handler.call(data);
+        }
+      }
+      if (call.method == callbackOnLogoutComplete) {
+        final LogoutCompleteData? data =
+            logoutCompleteDataFromJson(call.arguments);
+        if (data != null) {
+          final LogoutCompleteCallbackHandler? handler = CoreInstanceProvider()
+              .getCallbackCacheForInstance(data.accountMeta.appId)
+              .logoutCompleteCallbackHandler;
+          if (handler != null) {
+            handler.call(data);
+          }
         }
       }
     } catch (e, stackTrace) {

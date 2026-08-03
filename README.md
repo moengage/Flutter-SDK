@@ -11,8 +11,9 @@ This repository contains the Flutter plugins for the [MoEngage](https://www.moen
 | packages/moengage_flutter   | Contains the implementation for the SDK implementation for Core MoEngage Platform |
 | packages/moengage_inbox     | Contains the implementation for the SDK implementation for Inbox Feature          |
 | packages/moengage_cards     | Contains the implementation for the SDK implementation for Cards Feature          |
-| packages/moengage_geofence  | Contains the implementation for the SDK implementation for Geofence Feature       |
-| example                     | Sample Integration for reference.                                                 |
+| packages/moengage_geofence      | Contains the implementation for the SDK implementation for Geofence Feature       |
+| packages/moengage_personalize  | Contains the implementation for the SDK implementation for Personalize Feature    |
+| example                         | Sample Integration for reference.                                                 |
 
 # How to run the sample application?
 

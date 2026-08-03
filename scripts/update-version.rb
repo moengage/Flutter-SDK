@@ -12,7 +12,8 @@ plugin_maps = {
   'MoEngagePluginBase' => 'iOS-PluginBase',
   'MoEngagePluginCards' => 'apple-plugin-cards',
   'MoEngagePluginGeofence' => 'apple-plugin-geofence',
-  'MoEngagePluginInbox' => 'apple-plugin-inbox'
+  'MoEngagePluginInbox' => 'apple-plugin-inbox',
+  'MoEngagePluginPersonalize' => 'apple-plugin-personalize'
 }
 
 versions = JSON.parse(ENV['MO_APPLE_VERSIONS'])

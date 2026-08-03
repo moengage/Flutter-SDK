@@ -139,6 +139,8 @@ extension MoEngageFlutterBridge: MoEngagePluginBridgeDelegate{
             return MoEngageFlutterConstants.CallbackNames.kInAppDismissed
         case MoEngagePluginConstants.CallBackEvents.inAppSelfHandled:
             return MoEngageFlutterConstants.CallbackNames.kInAppSelfHandled
+        case MoEngagePluginConstants.CallBackEvents.logOutCompleted:
+            return MoEngageFlutterConstants.CallbackNames.kLogoutComplete
         default:
             return nil
         }
