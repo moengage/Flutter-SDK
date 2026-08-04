@@ -283,4 +283,45 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
       return Future.error(e);
     }
   }
+
+  @override
+  void activateDesignMode() {
+    _channel.invokeMethod(methodActivateDesignMode);
+  }
+
+  @override
+  void deactivateDesignMode() {
+    _channel.invokeMethod(methodDeactivateDesignMode);
+  }
+
+  @override
+  void reportDesignModeElementSelected(DesignModeElementTag tag) {
+    _channel.invokeMethod(methodDesignModeElementSelected, tag.toMap());
+  }
+
+  @override
+  void setDesignModeActivationHandler(
+    void Function() onActivate,
+    void Function() onDeactivate,
+  ) {
+    Cache().designModeActivateHandler = onActivate;
+    Cache().designModeDeactivateHandler = onDeactivate;
+  }
+
+  @override
+  void showElementTooltip({
+    required DesignModeElementTag anchor,
+    required String message,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    final Map<String, dynamic> payload = anchor.toMap()
+      ..[keyTooltipMessage] = message
+      ..[keyTooltipOverlayType] = overlayType.wireValue;
+    _channel.invokeMethod(methodShowElementTooltip, payload);
+  }
+
+  @override
+  void dismissElementTooltip() {
+    _channel.invokeMethod(methodDismissElementTooltip);
+  }
 }

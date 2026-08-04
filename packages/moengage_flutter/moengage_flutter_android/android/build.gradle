@@ -33,6 +33,8 @@ rootProject.allprojects {
         google()
         mavenCentral()
         maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
+        // com.moengage:tooltip:1.0.0 is only published to the local Maven repo for now.
+        mavenLocal()
     }
 }
 
@@ -67,5 +69,19 @@ dependencies {
     api(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
     api("com.moengage:plugin-base")
 
+    // Native tooltip/beacon/spotlight overlays - only available via mavenLocal() for now.
+    implementation("com.moengage:tooltip:1.0.0")
+    // ViewTreeLifecycleOwner - tooltip's Compose-based beacon/spotlight overlays require this to
+    // be set on the decor view; FlutterActivity doesn't set it up itself (see NativeTooltipRenderer).
+    implementation("androidx.lifecycle:lifecycle-runtime-android:2.10.0")
+
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+}
+
+tasks.register("printLifecycleJar") {
+    doLast {
+        configurations.debugCompileClasspath.files.each { f ->
+            println "CP_FILE: " + f.name
+        }
+    }
 }

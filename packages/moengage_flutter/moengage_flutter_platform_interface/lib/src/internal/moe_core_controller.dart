@@ -119,6 +119,12 @@ class CoreController {
           handler.call(data);
         }
       }
+      if (call.method == callbackActivateDesignMode) {
+        Cache().designModeActivateHandler?.call();
+      }
+      if (call.method == callbackDeactivateDesignMode) {
+        Cache().designModeDeactivateHandler?.call();
+      }
       if (call.method == callbackOnLogoutComplete) {
         final LogoutCompleteData? data =
             logoutCompleteDataFromJson(call.arguments);

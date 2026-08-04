@@ -97,6 +97,7 @@ class _CardsHomeState extends State<CardsHome> {
                     },
                   ),
                   ListTile(
+                    key: const ValueKey<String>('cards_home_anchor'),
                     title: const Text('Go To Cards UI'),
                     tileColor: Colors.blueGrey.shade50.withAlpha(100),
                     onTap: () async {

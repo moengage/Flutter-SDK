@@ -290,4 +290,46 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   void registerForProvisionalPush() {
     _methodChannel.invokeMethod(methodiOSRegisterProvisionalPush);
   }
+
+  @override
+  void activateDesignMode() {
+    _methodChannel.invokeMethod(methodActivateDesignMode);
+  }
+
+  @override
+  void deactivateDesignMode() {
+    _methodChannel.invokeMethod(methodDeactivateDesignMode);
+  }
+
+  @override
+  void reportDesignModeElementSelected(DesignModeElementTag tag) {
+    _methodChannel.invokeMethod(
+        methodDesignModeElementSelected, json.encode(tag.toMap()));
+  }
+
+  @override
+  void setDesignModeActivationHandler(
+    void Function() onActivate,
+    void Function() onDeactivate,
+  ) {
+    Cache().designModeActivateHandler = onActivate;
+    Cache().designModeDeactivateHandler = onDeactivate;
+  }
+
+  @override
+  void showElementTooltip({
+    required DesignModeElementTag anchor,
+    required String message,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    final Map<String, dynamic> payload = anchor.toMap()
+      ..[keyTooltipMessage] = message
+      ..[keyTooltipOverlayType] = overlayType.wireValue;
+    _methodChannel.invokeMethod(methodShowElementTooltip, json.encode(payload));
+  }
+
+  @override
+  void dismissElementTooltip() {
+    _methodChannel.invokeMethod(methodDismissElementTooltip);
+  }
 }

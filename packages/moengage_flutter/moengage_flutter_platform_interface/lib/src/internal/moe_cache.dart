@@ -14,4 +14,10 @@ class Cache {
 
   /// Permission Result Callback
   PermissionResultCallbackHandler? permissionResultCallbackHandler;
+
+  /// Invoked when native asks Flutter to activate the Design Mode element picker.
+  void Function()? designModeActivateHandler;
+
+  /// Invoked when native asks Flutter to deactivate the Design Mode element picker.
+  void Function()? designModeDeactivateHandler;
 }

@@ -6,10 +6,12 @@ import '../src/model/properties.dart';
 import '../src/model/push/moe_push_service.dart';
 import 'internal/method_channel_moengage_flutter.dart';
 import 'model/app_status.dart';
+import 'model/design_mode_element_tag.dart';
 import 'model/gender.dart';
 import 'model/geo_location.dart';
 import 'model/inapp/nudge_position.dart';
 import 'model/moe_init_config.dart';
+import 'model/native_tooltip_overlay_type.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
@@ -241,4 +243,54 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   Future<Map<String, String>?> getUserIdentities(String appId) =>
       throw UnimplementedError(
           'getUserIdentities() not implemented for Platform');
+
+  /// Notifies native that the Design Mode element picker has been activated.
+  void activateDesignMode() => throw UnimplementedError(
+      'activateDesignMode() not implemented for Platform');
+
+  /// Notifies native that the Design Mode element picker has been deactivated.
+  void deactivateDesignMode() => throw UnimplementedError(
+      'deactivateDesignMode() not implemented for Platform');
+
+  /// Reports a marketer-confirmed Design Mode element selection to native.
+  /// [tag] - Instance of [DesignModeElementTag]
+  void reportDesignModeElementSelected(DesignModeElementTag tag) =>
+      throw UnimplementedError(
+          'reportDesignModeElementSelected() not implemented for Platform');
+
+  /// Sets the handler invoked when native asks Flutter to activate/deactivate
+  /// the Design Mode element picker (e.g. from a native debug menu).
+  /// [onActivate] - called when native requests activation
+  /// [onDeactivate] - called when native requests deactivation
+  void setDesignModeActivationHandler(
+    void Function() onActivate,
+    void Function() onDeactivate,
+  ) =>
+      throw UnimplementedError(
+          'setDesignModeActivationHandler() not implemented for Platform');
+
+  /// Asks native to render a tooltip anchored to [anchor]'s resolved bounds,
+  /// e.g. when a hardcoded/backend campaign matches the currently active
+  /// screen.
+  /// [anchor] - Instance of [DesignModeElementTag] identifying the target
+  /// widget and its bounds.
+  /// [message] - Tooltip copy to render natively. Only honoured by the
+  /// [NativeTooltipOverlayType.tooltip] overlay type, and only if the
+  /// native SDK's public API supports custom copy - `com.moengage:tooltip`
+  /// 1.0.0's imperative helpers currently always render fixed default copy.
+  /// [overlayType] - which native overlay to render; defaults to
+  /// [NativeTooltipOverlayType.tooltip].
+  void showElementTooltip({
+    required DesignModeElementTag anchor,
+    required String message,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) =>
+      throw UnimplementedError(
+          'showElementTooltip() not implemented for Platform');
+
+  /// Dismisses the tooltip shown by [showElementTooltip], if any. Called
+  /// whenever the active screen changes so the tooltip doesn't outlive the
+  /// screen it was anchored to.
+  void dismissElementTooltip() => throw UnimplementedError(
+      'dismissElementTooltip() not implemented for Platform');
 }

@@ -1,10 +1,16 @@
 package com.moengage.flutter
 
+import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.moengage.core.MoECoreHelper
 import com.moengage.core.listeners.AppBackgroundListener
+import com.moengage.flutter.internal.designmode.DesignModeElementBounds
+import com.moengage.flutter.internal.designmode.DesignModeElementSelection
+import com.moengage.flutter.internal.designmode.DesignModeInstanceProvider
+import com.moengage.flutter.internal.tooltip.MoeTooltipPlatformViewFactory
+import com.moengage.flutter.internal.tooltip.NativeTooltipRenderer
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
@@ -24,6 +30,7 @@ import org.json.JSONObject
 class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private val tag = "${MODULE_TAG}MoEngageFlutterPlugin"
     private lateinit var context: Context
+    private var activity: Activity? = null
     private val pluginHelper = PluginHelper()
 
     private val appBackgroundListener =
@@ -41,6 +48,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         if (methodChannel == null) {
             initPlugin(binding.binaryMessenger)
         }
+        binding.platformViewRegistry.registerViewFactory(
+            PLATFORM_VIEW_TYPE_ELEMENT_TOOLTIP,
+            MoeTooltipPlatformViewFactory(),
+        )
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
@@ -134,6 +145,11 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_SELF_HANDLED_IN_APPS -> getSelfHandledInApps(call, result)
                 METHOD_NAME_IDENTIFY_USER -> identifyUser(call)
                 METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
+                METHOD_NAME_ACTIVATE_DESIGN_MODE -> activateDesignMode()
+                METHOD_NAME_DEACTIVATE_DESIGN_MODE -> deactivateDesignMode()
+                METHOD_NAME_DESIGN_MODE_ELEMENT_SELECTED -> reportDesignModeElementSelected(call)
+                METHOD_NAME_SHOW_ELEMENT_TOOLTIP -> showElementTooltip(call)
+                METHOD_NAME_DISMISS_ELEMENT_TOOLTIP -> NativeTooltipRenderer.dismiss()
                 else ->
                     Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
             }
@@ -421,6 +437,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         Logger.record { "$tag onAttachedToActivity() : Attached To Activity" }
+        activity = binding.activity
         flutterPluginBinding?.binaryMessenger?.let {
             initPlugin(it)
         }
@@ -430,6 +447,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
      * Called when the plugin is Detached From Flutter Activity.
      */
     override fun onDetachedFromActivity() {
+        DesignModeInstanceProvider.notifyDeactivated()
+        NativeTooltipRenderer.dismiss()
+        activity = null
         Logger.record { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
         methodChannel = null
     }
@@ -450,6 +470,95 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         Logger.record {
             "$tag onReattachedToActivityForConfigChanges() : ReAttached To Activity for Config changes"
+        }
+        activity = binding.activity
+    }
+
+    /**
+     * Notifies the native SDK that the Dart-side Design Mode element picker (boom menu + widget
+     * tree inspector) has been activated. The picker overlay itself is entirely implemented in
+     * Flutter since only Dart can see individual widget bounds; native only needs to know the
+     * lifecycle state, e.g. to suppress other in-apps while picking is in progress.
+     */
+    private fun activateDesignMode() {
+        Logger.record { "$tag activateDesignMode() : Design Mode activated from Dart." }
+        DesignModeInstanceProvider.notifyActivated()
+    }
+
+    /**
+     * Notifies the native SDK that Design Mode has been deactivated.
+     */
+    private fun deactivateDesignMode() {
+        Logger.record { "$tag deactivateDesignMode() : Design Mode deactivated from Dart." }
+        DesignModeInstanceProvider.notifyDeactivated()
+    }
+
+    /**
+     * Receives a marketer-confirmed element selection from the Dart element inspector and
+     * forwards it to whichever native SDK module has registered a
+     * [com.moengage.flutter.internal.designmode.DesignModeElementListener].
+     */
+    private fun reportDesignModeElementSelected(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = JSONObject(methodCall.arguments.toString())
+            Logger.record { "$tag reportDesignModeElementSelected() : Payload: ${payload.toString(2)}" }
+            val boundsJson = payload.getJSONObject(KEY_BOUNDS)
+            val ancestorsJson = payload.optJSONArray(KEY_ANCESTORS)
+            val ancestors = mutableListOf<String>()
+            if (ancestorsJson != null) {
+                for (i in 0 until ancestorsJson.length()) {
+                    ancestors.add(ancestorsJson.getString(i))
+                }
+            }
+            val selection =
+                DesignModeElementSelection(
+                    nodeId = payload.getString(KEY_NODE_ID),
+                    widgetType = payload.optString(KEY_WIDGET_TYPE),
+                    path = payload.optString(KEY_PATH),
+                    screenName = payload.optString(KEY_SCREEN_NAME),
+                    bounds =
+                        DesignModeElementBounds(
+                            top = boundsJson.getInt(KEY_BOUNDS_TOP),
+                            left = boundsJson.getInt(KEY_BOUNDS_LEFT),
+                            bottom = boundsJson.getInt(KEY_BOUNDS_BOTTOM),
+                            right = boundsJson.getInt(KEY_BOUNDS_RIGHT),
+                        ),
+                    ancestors = ancestors,
+                    paused = payload.optBoolean(KEY_PAUSED, false),
+                )
+            DesignModeInstanceProvider.notifyElementSelected(selection)
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag reportDesignModeElementSelected() : " }
+        }
+    }
+
+    /**
+     * Receives a resolved element-anchor from Dart (matched against a hardcoded/backend campaign
+     * for the active screen) and renders it via the native `com.moengage:tooltip` SDK - a
+     * tooltip, beacon or spotlight per [KEY_TOOLTIP_OVERLAY_TYPE] - anchored to that element's
+     * bounds. See [NativeTooltipRenderer].
+     */
+    private fun showElementTooltip(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = JSONObject(methodCall.arguments.toString())
+            Logger.record { "$tag showElementTooltip() : Payload: ${payload.toString(2)}" }
+            val boundsJson = payload.getJSONObject(KEY_BOUNDS)
+            val bounds =
+                DesignModeElementBounds(
+                    top = boundsJson.getInt(KEY_BOUNDS_TOP),
+                    left = boundsJson.getInt(KEY_BOUNDS_LEFT),
+                    bottom = boundsJson.getInt(KEY_BOUNDS_BOTTOM),
+                    right = boundsJson.getInt(KEY_BOUNDS_RIGHT),
+                )
+            when (payload.optString(KEY_TOOLTIP_OVERLAY_TYPE, OVERLAY_TYPE_TOOLTIP)) {
+                OVERLAY_TYPE_BEACON -> NativeTooltipRenderer.showBeacon(activity, bounds)
+                OVERLAY_TYPE_SPOTLIGHT -> NativeTooltipRenderer.showSpotlight(activity, bounds)
+                else -> NativeTooltipRenderer.showTooltip(activity, bounds)
+            }
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag showElementTooltip() : " }
         }
     }
 
@@ -553,5 +662,24 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
          * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
          */
         internal var flutterPluginBinding: FlutterPluginBinding? = null
+
+        /**
+         * Asks the Flutter layer to start the Design Mode element picker, e.g. from a native
+         * debug menu or shake gesture. No-op if Flutter isn't attached.
+         */
+        fun activateDesignModeFromNative() {
+            Handler(Looper.getMainLooper()).post {
+                methodChannel?.invokeMethod(CALLBACK_ACTIVATE_DESIGN_MODE, null)
+            }
+        }
+
+        /**
+         * Asks the Flutter layer to stop the Design Mode element picker.
+         */
+        fun deactivateDesignModeFromNative() {
+            Handler(Looper.getMainLooper()).post {
+                methodChannel?.invokeMethod(CALLBACK_DEACTIVATE_DESIGN_MODE, null)
+            }
+        }
     }
 }

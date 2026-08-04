@@ -58,3 +58,47 @@ const val ERROR_CODE_SELF_HANDLED_IN_APPS = "SELF_HANDLED_IN_APPS_ERROR"
 const val METHOD_NAME_IDENTIFY_USER = "identifyUser"
 const val METHOD_NAME_GET_USER_IDENTITIES = "getUserIdentities"
 const val ERROR_CODE_GET_USER_IDENTITIES = "GET_USER_IDENTITIES_ERROR"
+
+// Design Mode Element Picker
+// Dart -> Native: notify lifecycle state / report a marketer-confirmed element selection.
+const val METHOD_NAME_ACTIVATE_DESIGN_MODE = "activateDesignMode"
+const val METHOD_NAME_DEACTIVATE_DESIGN_MODE = "deactivateDesignMode"
+const val METHOD_NAME_DESIGN_MODE_ELEMENT_SELECTED = "designModeElementSelected"
+
+// Native -> Dart: ask the Flutter layer to start/stop the element picker overlay
+// (e.g. triggered from a native debug menu).
+const val CALLBACK_ACTIVATE_DESIGN_MODE = "onActivateDesignMode"
+const val CALLBACK_DEACTIVATE_DESIGN_MODE = "onDeactivateDesignMode"
+
+const val KEY_NODE_ID = "nodeId"
+const val KEY_WIDGET_TYPE = "widgetType"
+const val KEY_PATH = "path"
+const val KEY_SCREEN_NAME = "screenName"
+const val KEY_BOUNDS = "bounds"
+const val KEY_BOUNDS_TOP = "top"
+const val KEY_BOUNDS_LEFT = "left"
+const val KEY_BOUNDS_BOTTOM = "bottom"
+const val KEY_BOUNDS_RIGHT = "right"
+const val KEY_ANCESTORS = "ancestors"
+const val KEY_PAUSED = "paused"
+
+// Element Tooltip
+// Dart -> Native: render a tooltip anchored to a resolved element, e.g. when a
+// hardcoded/backend campaign matches the currently active screen. Used only in the
+// `nativeOverlay` tooltip render mode - see PLATFORM_VIEW_TYPE_ELEMENT_TOOLTIP for the
+// alternative embedded rendering.
+const val METHOD_NAME_SHOW_ELEMENT_TOOLTIP = "showElementTooltip"
+const val METHOD_NAME_DISMISS_ELEMENT_TOOLTIP = "dismissElementTooltip"
+const val KEY_TOOLTIP_MESSAGE = "message"
+
+// Which native `com.moengage:tooltip` overlay to render for the resolved element - one of
+// OVERLAY_TYPE_TOOLTIP / OVERLAY_TYPE_BEACON / OVERLAY_TYPE_SPOTLIGHT. Defaults to
+// OVERLAY_TYPE_TOOLTIP when absent/unrecognised. See NativeTooltipBridge.
+const val KEY_TOOLTIP_OVERLAY_TYPE = "overlayType"
+const val OVERLAY_TYPE_TOOLTIP = "tooltip"
+const val OVERLAY_TYPE_BEACON = "beacon"
+const val OVERLAY_TYPE_SPOTLIGHT = "spotlight"
+
+// View type id for the PlatformView factory used to embed the element tooltip directly in
+// the Flutter widget tree (the `platformView` tooltip render mode).
+const val PLATFORM_VIEW_TYPE_ELEMENT_TOOLTIP = "moengage_flutter/tooltip_view"

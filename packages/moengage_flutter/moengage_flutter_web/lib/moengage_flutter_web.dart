@@ -359,8 +359,48 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     if (moengage == null) {
       return;
     }
-    
+
     final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
     _callMethod(methodName);
+  }
+
+  @override
+  void activateDesignMode() {
+    Logger.v('activateDesignMode(): Not supported in Web Platform');
+  }
+
+  @override
+  void deactivateDesignMode() {
+    Logger.v('deactivateDesignMode(): Not supported in Web Platform');
+  }
+
+  @override
+  void reportDesignModeElementSelected(DesignModeElementTag tag) {
+    Logger.v(
+      'reportDesignModeElementSelected(): Not supported in Web Platform',
+    );
+  }
+
+  @override
+  void setDesignModeActivationHandler(
+    void Function() onActivate,
+    void Function() onDeactivate,
+  ) {
+    Cache().designModeActivateHandler = onActivate;
+    Cache().designModeDeactivateHandler = onDeactivate;
+  }
+
+  @override
+  void showElementTooltip({
+    required DesignModeElementTag anchor,
+    required String message,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    Logger.v('showElementTooltip(): Not supported in Web Platform');
+  }
+
+  @override
+  void dismissElementTooltip() {
+    Logger.v('dismissElementTooltip(): Not supported in Web Platform');
   }
 }

@@ -82,6 +82,7 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
         body: ListView(
             children: ListTile.divideTiles(context: context, tiles: [
           ListTile(
+            key: const ValueKey<String>('inapp_home_anchor'),
             title: const Text('Show InApp'),
             onTap: () {
               _moengagePlugin.showInApp();

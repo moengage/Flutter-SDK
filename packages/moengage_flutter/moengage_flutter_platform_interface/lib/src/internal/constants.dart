@@ -184,3 +184,48 @@ const String methodGetUserIdentities = 'getUserIdentities';
 const String keyAccessibilityText = 'text';
 const String keyAccessibilityHint = 'hint';
 const String keyAccessibility = 'accessibility';
+
+/// Design Mode Element Picker.
+/// Dart -> Native: notify lifecycle state / report a marketer-confirmed element selection.
+const String methodActivateDesignMode = 'activateDesignMode';
+const String methodDeactivateDesignMode = 'deactivateDesignMode';
+const String methodDesignModeElementSelected = 'designModeElementSelected';
+
+/// Native -> Dart: ask the Flutter layer to start/stop the element picker overlay
+/// (e.g. triggered from a native debug menu).
+const String callbackActivateDesignMode = 'onActivateDesignMode';
+const String callbackDeactivateDesignMode = 'onDeactivateDesignMode';
+
+const String keyNodeId = 'nodeId';
+const String keyWidgetType = 'widgetType';
+const String keyPath = 'path';
+const String keyBounds = 'bounds';
+const String keyBoundsTop = 'top';
+const String keyBoundsLeft = 'left';
+const String keyBoundsBottom = 'bottom';
+const String keyBoundsRight = 'right';
+const String keyAncestors = 'ancestors';
+const String keyPaused = 'paused';
+
+/// Element Tooltip.
+/// Dart -> Native: ask native to render a tooltip anchored to a resolved
+/// element, e.g. when a hardcoded/backend campaign matches the active screen.
+/// Used only in the `nativeOverlay` tooltip render mode - see
+/// [platformViewTypeElementTooltip] for the alternative embedded rendering.
+const String methodShowElementTooltip = 'showElementTooltip';
+const String methodDismissElementTooltip = 'dismissElementTooltip';
+const String keyTooltipMessage = 'message';
+
+/// Which native `com.moengage:tooltip` overlay to render - one of
+/// [overlayTypeTooltip] / [overlayTypeBeacon] / [overlayTypeSpotlight].
+/// Sent alongside [methodShowElementTooltip]; defaults to [overlayTypeTooltip]
+/// on the native side when absent.
+const String keyTooltipOverlayType = 'overlayType';
+const String overlayTypeTooltip = 'tooltip';
+const String overlayTypeBeacon = 'beacon';
+const String overlayTypeSpotlight = 'spotlight';
+
+/// View type id for the native `PlatformView` factory registered by the
+/// Android plugin, used to embed the element tooltip directly in the
+/// Flutter widget tree as an alternative to [methodShowElementTooltip].
+const String platformViewTypeElementTooltip = 'moengage_flutter/tooltip_view';

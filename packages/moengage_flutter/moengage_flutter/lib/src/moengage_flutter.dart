@@ -2,6 +2,9 @@
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
+import 'internal/designmode/design_mode_controller.dart';
+import 'internal/tooltip/moe_tooltip_controller.dart';
+
 /// Helper Class to interact with MoEngage SDK
 class MoEngageFlutter {
   /// [MoEngageFlutter] Constructor
@@ -9,6 +12,10 @@ class MoEngageFlutter {
       : _moEInitConfig = moEInitConfig ?? MoEInitConfig.defaultConfig() {
     //Requires For Setting Up Native to Hybrid Method Channel Callback
     CoreController.init();
+    _platform.setDesignModeActivationHandler(
+      DesignModeController.instance().activate,
+      DesignModeController.instance().deactivate,
+    );
   }
 
   /// MoEngage App ID
@@ -67,6 +74,30 @@ class MoEngageFlutter {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .selfHandledInAppCallbackHandler = handler;
+  }
+
+  /// Activates the Design Mode element picker: a boom-menu overlay that lets
+  /// a marketer/QA user tap any widget on screen to select it, then confirm,
+  /// pause, find it after a scroll, or navigate to its parent/child before
+  /// reporting the pick to the native SDK.
+  ///
+  /// Requires the app to be wrapped in [MoEDesignModeWrapper] (typically via
+  /// `MaterialApp.builder`) - see its documentation for setup.
+  void activateDesignMode() {
+    DesignModeController.instance().activate();
+  }
+
+  /// Deactivates the Design Mode element picker.
+  void deactivateDesignMode() {
+    DesignModeController.instance().deactivate();
+  }
+
+  /// Selects how a Design Mode campaign's element tooltip is rendered:
+  /// [TooltipRenderMode.nativeOverlay] (default) draws it entirely in native
+  /// and positions it using resolved bounds; [TooltipRenderMode.platformView]
+  /// embeds it as a native `PlatformView` directly in the Flutter widget tree.
+  void setElementTooltipRenderMode(TooltipRenderMode mode) {
+    MoETooltipController.instance().renderMode = mode;
   }
 
   /// Tracks an event with the given attributes.
