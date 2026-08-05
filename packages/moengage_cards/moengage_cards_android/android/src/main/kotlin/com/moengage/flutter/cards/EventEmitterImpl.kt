@@ -1,12 +1,12 @@
 package com.moengage.flutter.cards
 
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.plugin.base.cards.internal.CardsEventEmitter
 import com.moengage.plugin.base.cards.internal.cardsSyncToJson
 import com.moengage.plugin.base.cards.internal.model.events.CardEventType
 import com.moengage.plugin.base.cards.internal.model.events.CardsEvent
 import com.moengage.plugin.base.cards.internal.model.events.CardsSyncEvent
-import com.moengage.platform.internal.logger.Logger
-import com.moengage.platform.internal.logger.PlatformLogLevel
 import org.json.JSONObject
 
 class EventEmitterImpl(private val callBack: (methodName: String, payload: String) -> Unit) :
@@ -17,7 +17,8 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
         try {
             when (event) {
                 is CardsSyncEvent -> emitCardSyncEvent(event)
-                else -> Logger.record(PlatformLogLevel.ERROR) { "$tag emit() Unknown Event: $event" }
+                else ->
+                    Logger.record(PlatformLogLevel.ERROR) { "$tag emit() Unknown Event: $event" }
             }
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "emit(): $event" }
@@ -28,7 +29,9 @@ class EventEmitterImpl(private val callBack: (methodName: String, payload: Strin
         try {
             val syncCompleteData = event.syncCompleteData
             if (syncCompleteData == null) {
-                Logger.record(PlatformLogLevel.ERROR) { "emitCardSyncEvent(): $event : Sync CompleteData is null" }
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "emitCardSyncEvent(): $event : Sync CompleteData is null"
+                }
             }
             val syncCompleteJson = cardsSyncToJson(syncCompleteData, event.accountMeta)
             val method =

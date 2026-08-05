@@ -6,24 +6,25 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.WorkerThread
 import com.moengage.inbox.core.model.InboxData
-import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
-import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.platform.internal.resources.PlatformResources
+import com.moengage.plugin.base.inbox.internal.InboxPluginHelper
+import com.moengage.plugin.base.inbox.internal.inboxDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import org.json.JSONObject
 import java.util.concurrent.Executors
+import org.json.JSONObject
 
 /** MoengageInboxPlugin */
 class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
     // / The MethodChannel that will the communication between Flutter and native Android
     // /
-    // / This local reference serves to register the plugin with the Flutter Engine and unregister it
+    // / This local reference serves to register the plugin with the Flutter Engine and unregister
+    // it
     // / when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
@@ -50,8 +51,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call == null) {
                 Logger.record(PlatformLogLevel.ERROR) {
-                    "$tag onMethodCall() : MethodCall instance is null " +
-                        "cannot proceed further."
+                    "$tag onMethodCall() : MethodCall instance is null " + "cannot proceed further."
                 }
                 return
             }
@@ -158,15 +158,12 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    /**
-     * Get moengage_inbox version from Config File
-     */
+    /** Get moengage_inbox version from Config File */
     @WorkerThread
     private fun getMoEngageInboxVersion(context: Context): String {
         return try {
             val json =
-                context.assets.open(ASSET_CONFIG_FILE_PATH)
-                    .bufferedReader().use { it.readText() }
+                context.assets.open(ASSET_CONFIG_FILE_PATH).bufferedReader().use { it.readText() }
             JSONObject(json).getString(VERSION_KEY)
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "$tag getMoEngageFlutterVersion() : " }
@@ -174,9 +171,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    /**
-     * Log Inbox Plugin Meta Data to Console
-     */
+    /** Log Inbox Plugin Meta Data to Console */
     private fun logInboxPluginMeta(context: Context) {
         PlatformResources.executor.execute {
             inboxHelper.logPluginMeta(INTEGRATION_TYPE, getMoEngageInboxVersion(context))

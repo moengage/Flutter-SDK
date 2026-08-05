@@ -1,9 +1,9 @@
 package com.moengage.flutter.personalize
 
 import android.content.Context
-import com.moengage.plugin.base.personalization.PersonalizationHelper
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.plugin.base.personalization.PersonalizationHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -48,26 +48,21 @@ class MoEngagePersonalizePlugin : FlutterPlugin, ActivityAware {
 
     /**
      * Called when the plugin is attached to Flutter Activity.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         Logger.record { "$tag onAttachedToActivity() : Attached To Activity" }
-        flutterPluginBinding?.binaryMessenger?.let {
-            initPlugin(it)
-        }
+        flutterPluginBinding?.binaryMessenger?.let { initPlugin(it) }
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity.
-     */
+    /** Called when the plugin is Detached From Flutter Activity. */
     override fun onDetachedFromActivity() {
         Logger.record { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
         methodChannel = null
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity for Config Changes
-     */
+    /** Called when the plugin is Detached From Flutter Activity for Config Changes */
     override fun onDetachedFromActivityForConfigChanges() {
         Logger.record {
             "$tag onDetachedFromActivityForConfigChanges() : Detached From Activity for Config changes"
@@ -76,6 +71,7 @@ class MoEngagePersonalizePlugin : FlutterPlugin, ActivityAware {
 
     /**
      * Called when the plugin is Reattached to Flutter Activity For Config Changes.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -85,13 +81,12 @@ class MoEngagePersonalizePlugin : FlutterPlugin, ActivityAware {
     }
 
     companion object {
-        /**
-         * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
-         */
+        /** Static MethodChannel instance to avoid plugin reinitializing from Background Isolate */
         internal var methodChannel: MethodChannel? = null
 
         /**
-         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on
+         * [onAttachedToActivity]
          */
         internal var flutterPluginBinding: FlutterPluginBinding? = null
     }
