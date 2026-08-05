@@ -33,13 +33,12 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 }
 
 ext {
-    moengageNativeBomVersion = "4.0.0"
-    moengagePluginBaseBomVersion = "4.0.1-SNAPSHOT"
+    moengageNativeBomVersion = "4.1.0"
+    moengagePluginBaseBomVersion = "4.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
