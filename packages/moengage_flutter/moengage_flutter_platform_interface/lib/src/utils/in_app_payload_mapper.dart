@@ -201,7 +201,11 @@ class InAppPayloadMapper {
 
   /// Convert [SelfHandledCampaign] to [Map]
   Map<String, dynamic> displayRulesToMap(Rules rules) {
-    return {keyScreenName: rules.screenName, keyContexts: rules.context, keyScreenNames: rules.screenNames};
+    return {
+      keyScreenName: rules.screenName,
+      keyContexts: rules.context,
+      keyScreenNames: rules.screenNames
+    };
   }
 }
 

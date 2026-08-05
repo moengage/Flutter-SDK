@@ -30,5 +30,4 @@ typedef PermissionResultCallbackHandler = void Function(
     PermissionResultData data);
 
 /// Logout Complete Callback
-typedef LogoutCompleteCallbackHandler = void Function(
-    LogoutCompleteData data);
+typedef LogoutCompleteCallbackHandler = void Function(LogoutCompleteData data);

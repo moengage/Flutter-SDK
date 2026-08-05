@@ -58,6 +58,6 @@ class DisplayControl {
 
   @override
   String toString() {
-    return 'DisplayControl{expireAt: $expireAt, expireAfterSeen: $expireAfterSeen, expireAfterDelivered: $expireAfterDelivered, maxCount: $maxCount, isPinned: $isPinned, showTime: $showTime}';    
+    return 'DisplayControl{expireAt: $expireAt, expireAfterSeen: $expireAfterSeen, expireAfterDelivered: $expireAfterDelivered, maxCount: $maxCount, isPinned: $isPinned, showTime: $showTime}';
   }
 }

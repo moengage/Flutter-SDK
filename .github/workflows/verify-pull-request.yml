@@ -52,15 +52,15 @@ jobs:
       - name: Run tests
         working-directory: source
         run:  melos unittest
-        # We need to build APK before running Ktlint as setting up gradle environment will be handled by flutter build apk
+        # We need to build APK before running Spotless as setting up gradle environment will be handled by flutter build apk
       - name: Flutter build APK
         working-directory: source
         run: (cd example && flutter build apk --debug)
-      - name: Run Ktlint
+      - name: Run Spotless
         working-directory: source
         run: |
-          chmod +x ./.github/scripts/ktlint-verify.sh
-          ./.github/scripts/ktlint-verify.sh
+          chmod +x ./.github/scripts/spotless-verify.sh
+          ./.github/scripts/spotless-verify.sh
       - name: Flutter build Cocoa ipa
         working-directory: source
         run: (cd example && flutter build ipa --debug --no-codesign)
