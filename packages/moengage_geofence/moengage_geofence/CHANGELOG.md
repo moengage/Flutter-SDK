@@ -7,7 +7,7 @@
 - Android
   - [minor] `android-bom` version updated to `2.3.0`.
 - iOS
-    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+    - [minor] Updated `MoEngage-iOS-SDK` to `11.00.0`.
 
 # 17-06-2026
 
