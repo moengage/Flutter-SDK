@@ -209,7 +209,7 @@ Map<String, dynamic>? actionToMap(Action action) {
   switch (action.actionType) {
     case ActionType.navigation:
       return navigationActionToMap(action as NavigationAction);
-    // ignore: no_default_cases
+    // ignore: no_default_cases, unreachable_switch_default
     default:
       return null;
   }
