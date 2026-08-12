@@ -4,7 +4,7 @@
 
 ## Release Version
 
-- [minor] `android-bom` version updated to `2.3.0`.
+- [minor] `android-bom` version updated to `2.3.1`.
 
 # 17-06-2026
 
