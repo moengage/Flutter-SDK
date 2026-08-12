@@ -6,6 +6,8 @@
 
 - Android
   - [minor] `android-bom` version updated to `2.3.0`.
+  - BugFix:
+    - [patch] ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
 - iOS
     - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
 

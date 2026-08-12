@@ -5,6 +5,8 @@
 ## Release Version
 
 - [minor] `android-bom` version updated to `2.3.0`.
+- BugFix:
+  - [patch] ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
 
 # 17-06-2026
 
