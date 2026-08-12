@@ -8,6 +8,8 @@
   - [minor] `android-bom` version updated to `2.3.1`.
 - iOS
     - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+- Web
+  - [minor] Standardized SDK initialization and API names
 
 # 17-06-2026
 
