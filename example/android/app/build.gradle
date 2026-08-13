@@ -33,7 +33,7 @@ ext {
 }
 
 android {
-  compileSdk 36
+  compileSdk 37
   namespace "com.moengage.sampleapp"
 
   sourceSets {
