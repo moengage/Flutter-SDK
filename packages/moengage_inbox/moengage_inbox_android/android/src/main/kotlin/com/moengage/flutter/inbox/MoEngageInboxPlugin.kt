@@ -118,7 +118,9 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
                         return@submit
                     }
                     val serialisedMessages = inboxDataToJson(inboxData).toString()
-                    Logger.record { "$tag fetchMessages() : serialisedMessages: $serialisedMessages" }
+                    Logger.record {
+                        "$tag fetchMessages() : serialisedMessages: $serialisedMessages"
+                    }
                     mainThread.post { result.success(serialisedMessages) }
                 } catch (t: Throwable) {
                     result.error(ERROR_CODE_INBOX, "Inbox Message cannot be fetched", null)
