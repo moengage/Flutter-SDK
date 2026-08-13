@@ -1,15 +1,15 @@
 # MoEngage Flutter Plugin
 
-# Release Date
+# 13-08-2026
 
-## Release Version
+## 10.9.0
 
 - Android
-  - [minor] `android-bom` version updated to `2.3.1`.
+  - `android-bom` version updated to `2.3.1`.
 - iOS
-    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+    - Updated `MoEngage-iOS-SDK` to `10.14.0`.
 - Web
-  - [minor] Standardized SDK initialization and API names
+  - Standardized SDK initialization and API names
 
 # 17-06-2026
 

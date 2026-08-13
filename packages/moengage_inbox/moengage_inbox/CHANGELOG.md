@@ -1,15 +1,15 @@
 # MoEngage Flutter Inbox Plugin
 
-# Release Date
+# 13-08-2026
 
-## Release Version
+## 9.6.0
 
 - Android
-  - [minor] `android-bom` version updated to `2.3.1`.
+  - `android-bom` version updated to `2.3.1`.
   - BugFix:
-    - [patch] ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
+    - ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
 - iOS
-    - [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+    - Updated `MoEngage-iOS-SDK` to `10.14.0`.
 
 # 17-06-2026
 

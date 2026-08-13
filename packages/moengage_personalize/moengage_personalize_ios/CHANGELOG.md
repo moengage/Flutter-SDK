@@ -1,10 +1,10 @@
 # MoEngage Personalize iOS Plugin
 
-# Release Date
+# 13-08-2026
 
-## Release Version
+## 1.1.0
 
-- [minor] Updated `MoEngage-iOS-SDK` to `10.14.0`.
+- Updated `MoEngage-iOS-SDK` to `10.14.0`.
 
 # 07-05-2026
 

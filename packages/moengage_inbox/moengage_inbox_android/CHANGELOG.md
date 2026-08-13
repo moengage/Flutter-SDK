@@ -1,12 +1,12 @@
 # MoEngage Inbox Android Plugin
 
-# Release Date
+# 13-08-2026
 
-## Release Version
+## 4.6.0
 
-- [minor] `android-bom` version updated to `2.3.1`.
+- `android-bom` version updated to `2.3.1`.
 - BugFix:
-  - [patch] ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
+  - ANR in `fetchMessages` API caused by serialising the inbox message payload on the Main Thread.
 
 # 17-06-2026
 
