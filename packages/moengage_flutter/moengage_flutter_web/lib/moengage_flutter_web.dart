@@ -2,11 +2,7 @@ import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart'
-    hide
-        keyAlias,
-        keyEventAttributes,
-        keyEventName,
-        getIdentifyUserPayload;
+    hide keyAlias, keyEventAttributes, keyEventName, getIdentifyUserPayload;
 import 'package:web/web.dart' as web;
 
 import 'constants.dart';
@@ -31,7 +27,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     if (moengage == null) {
       return;
     }
-    
+
     final method = moengage.getProperty(methodName.toJS);
     if (method != null && method.typeofEquals('function')) {
       final jsFunction = method as JSFunction;
@@ -85,7 +81,8 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   ) {
     final moengage = _moengage;
     if (moengage != null) {
-      final payload = web_utils.getUserAttributeValuePayload(userAttributeValue);
+      final payload =
+          web_utils.getUserAttributeValuePayload(userAttributeValue);
       // Convert to JSAny based on the type
       final JSAny jsValue;
       if (payload is JSAny) {
@@ -194,12 +191,13 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
       if (moengage == null) {
         return null;
       }
-      
+
       final method = moengage.getProperty(methodGetUserIdentitiesSDK.toJS);
       if (method != null && method.typeofEquals('function')) {
         final result = (method as JSFunction).callAsFunction(moengage);
         final dynamicMap = web_utils.convertJSObjectToMap(result);
-        final stringMap = dynamicMap?.map((key, value) => MapEntry(key, value.toString()));
+        final stringMap =
+            dynamicMap?.map((key, value) => MapEntry(key, value.toString()));
         return Future.value(stringMap);
       }
       return null;
@@ -359,7 +357,7 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     if (moengage == null) {
       return;
     }
-    
+
     final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
     _callMethod(methodName);
   }

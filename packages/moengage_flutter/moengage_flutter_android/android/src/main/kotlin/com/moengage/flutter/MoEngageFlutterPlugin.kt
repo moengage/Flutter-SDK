@@ -5,12 +5,12 @@ import android.os.Handler
 import android.os.Looper
 import com.moengage.core.MoECoreHelper
 import com.moengage.core.listeners.AppBackgroundListener
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
 import com.moengage.plugin.base.internal.userDeletionDataToJson
-import com.moengage.platform.internal.logger.Logger
-import com.moengage.platform.internal.logger.PlatformLogLevel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -26,13 +26,12 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
-    private val appBackgroundListener =
-        AppBackgroundListener { _, _ ->
-            run {
-                Logger.record { "$tag onAppBackground() : Detaching the Framework" }
-                pluginHelper.onFrameworkDetached()
-            }
+    private val appBackgroundListener = AppBackgroundListener { _, _ ->
+        run {
+            Logger.record { "$tag onAppBackground() : Detaching the Framework" }
+            pluginHelper.onFrameworkDetached()
         }
+    }
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         Logger.record { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
@@ -91,13 +90,14 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     ) {
         try {
             if (call == null) {
-                Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : MethodCall instance is null cannot proceed further." }
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag onMethodCall() : MethodCall instance is null cannot proceed further."
+                }
                 return
             }
             if (context == null) {
                 Logger.record(PlatformLogLevel.ERROR) {
-                    "$tag onMethodCall() : Context is null cannot " +
-                        "proceed further."
+                    "$tag onMethodCall() : Context is null cannot " + "proceed further."
                 }
                 return
             }
@@ -136,7 +136,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
                 METHOD_NAME_AUTHENTICATION_DETAILS -> authenticationDetails(call)
                 else ->
-                    Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag onMethodCall() : No mapping for this method."
+                    }
             }
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "$tag onMethodCall() : " }
@@ -190,8 +192,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) {
                 Logger.record(PlatformLogLevel.ERROR) {
-                    "$tag trackEvent() : Arguments are null, cannot" +
-                        " trackEvent"
+                    "$tag trackEvent() : Arguments are null, cannot" + " trackEvent"
                 }
                 return
             }
@@ -337,7 +338,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             Logger.record { "$tag updateDeviceIdentifierTrackingStatus() : Arguments: $payload" }
             pluginHelper.deviceIdentifierTrackingStatusUpdate(context, payload)
         } catch (t: Throwable) {
-            Logger.record(PlatformLogLevel.ERROR, t) { "$tag updateDeviceIdentifierTrackingStatus() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) {
+                "$tag updateDeviceIdentifierTrackingStatus() : "
+            }
         }
     }
 
@@ -379,7 +382,9 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     private fun updatePushPermissionRequestCount(methodCall: MethodCall) {
         try {
-            Logger.record { "$tag updatePushPermissionRequestCount() : Arguments: ${methodCall.arguments}" }
+            Logger.record {
+                "$tag updatePushPermissionRequestCount() : Arguments: ${methodCall.arguments}"
+            }
             if (methodCall.arguments == null) return
             val payload: String = methodCall.arguments.toString()
             Logger.record { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
@@ -391,6 +396,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     /**
      * API to delete the user from MoEngage Server
+     *
      * @param methodCall - Instance of [MethodCall] to get message from Flutter Method Channel
      * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
      * @since 1.1.0
@@ -418,26 +424,21 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     /**
      * Called when the plugin is attached to Flutter Activity.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         Logger.record { "$tag onAttachedToActivity() : Attached To Activity" }
-        flutterPluginBinding?.binaryMessenger?.let {
-            initPlugin(it)
-        }
+        flutterPluginBinding?.binaryMessenger?.let { initPlugin(it) }
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity.
-     */
+    /** Called when the plugin is Detached From Flutter Activity. */
     override fun onDetachedFromActivity() {
         Logger.record { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
         methodChannel = null
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity for Config Changes
-     */
+    /** Called when the plugin is Detached From Flutter Activity for Config Changes */
     override fun onDetachedFromActivityForConfigChanges() {
         Logger.record {
             "$tag onDetachedFromActivityForConfigChanges() : Detached From Activity for Config changes"
@@ -446,6 +447,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     /**
      * Called when the plugin is Reattached to Flutter Activity For Config Changes.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -454,9 +456,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    /**
-     * Show Non Intrusive Nudge InApp provided the payload in [methodCall] object.
-     */
+    /** Show Non Intrusive Nudge InApp provided the payload in [methodCall] object. */
     private fun showNudge(methodCall: MethodCall) {
         try {
             Logger.record { "$tag showNudge() : Arguments: ${methodCall.arguments}" }
@@ -470,7 +470,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     /**
-     * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to Flutter.
+     * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to
+     * Flutter.
      */
     private fun getSelfHandledInApps(
         methodCall: MethodCall,
@@ -497,16 +498,15 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    /**
-     *  Identify the user with the given identity argument in [methodCall]
-     */
+    /** Identify the user with the given identity argument in [methodCall] */
     private fun identifyUser(methodCall: MethodCall) {
         try {
             val argument =
-                methodCall.arguments ?: run {
-                    Logger.record { "$tag identifyUser() : Invalid argument" }
-                    return@run
-                }
+                methodCall.arguments
+                    ?: run {
+                        Logger.record { "$tag identifyUser() : Invalid argument" }
+                        return@run
+                    }
             Logger.record { "$tag identifyUser() : Arguments: $argument" }
             pluginHelper.identifyUser(context, argument.toString())
         } catch (t: Throwable) {
@@ -514,20 +514,19 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    /**
-     *  Return Identities of the user that has been set.
-     */
+    /** Return Identities of the user that has been set. */
     private fun getUserIdentities(
         methodCall: MethodCall,
         result: MethodChannel.Result,
     ) {
         try {
             val argument =
-                methodCall.arguments ?: run {
-                    Logger.record { "$tag getUserIdentities() : Invalid argument" }
-                    result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
-                    return@run
-                }
+                methodCall.arguments
+                    ?: run {
+                        Logger.record { "$tag getUserIdentities() : Invalid argument" }
+                        result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
+                        return@run
+                    }
             Logger.record { "$tag getUserIdentities() : $argument" }
             pluginHelper.getUserIdentities(context, argument.toString()) { identities ->
                 result.success(
@@ -544,9 +543,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    /**
-     *  Passes the JWT authentication details provided in [methodCall] to the native SDK.
-     */
+    /** Passes the JWT authentication details provided in [methodCall] to the native SDK. */
     private fun authenticationDetails(methodCall: MethodCall) {
         try {
             if (methodCall.arguments == null) return
@@ -559,13 +556,12 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     companion object {
-        /**
-         * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
-         */
+        /** Static MethodChannel instance to avoid plugin reinitializing from Background Isolate */
         internal var methodChannel: MethodChannel? = null
 
         /**
-         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on
+         * [onAttachedToActivity]
          */
         internal var flutterPluginBinding: FlutterPluginBinding? = null
     }

@@ -366,8 +366,11 @@ class MoEngageFlutter {
 
   /// Sets Logout Complete Callback Handler
   /// [handler] - Callback of type [LogoutCompleteCallbackHandler]
-  void setLogoutCompleteCallbackHandler(LogoutCompleteCallbackHandler? handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId).logoutCompleteCallbackHandler = handler;
+  void setLogoutCompleteCallbackHandler(
+      LogoutCompleteCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .logoutCompleteCallbackHandler = handler;
   }
 
   /// Configure MoEngage SDK Logs
@@ -452,6 +455,8 @@ class MoEngageFlutter {
   /// [handler] - Callback of type [AuthenticationErrorCallbackHandler]
   void setAuthenticationErrorCallbackHandler(
       AuthenticationErrorCallbackHandler? handler) {
-    CoreInstanceProvider().getCallbackCacheForInstance(appId).authenticationErrorCallbackHandler = handler;
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .authenticationErrorCallbackHandler = handler;
   }
 }

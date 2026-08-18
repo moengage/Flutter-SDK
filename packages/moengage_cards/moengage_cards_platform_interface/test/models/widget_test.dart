@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_cards_platform_interface/src/model/enums/widget_type.dart';
 import 'package:moengage_cards_platform_interface/src/model/style/widget_style.dart';
-import 'package:moengage_cards_platform_interface/src/model/widget.dart' as card_widget;
+import 'package:moengage_cards_platform_interface/src/model/widget.dart'
+    as card_widget;
 import 'package:moengage_flutter/moengage_flutter.dart';
 
 void main() {
@@ -67,7 +68,8 @@ void main() {
         content: 'Image Content',
         style: null,
         actionList: [],
-        accessibilityData: AccessibilityData('Accessible text', 'Accessible hint'),
+        accessibilityData:
+            AccessibilityData('Accessible text', 'Accessible hint'),
       );
 
       final json = widget.toJson();

@@ -6,6 +6,12 @@
 
 - [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
 
+# 13-08-2026
+
+## 5.3.0
+
+- Standardized SDK initialization and API names
+
 # 11-02-2026
 
 ## 5.2.0

@@ -187,14 +187,15 @@ bool isSupportedIdentity(dynamic identity) {
 LogoutCompleteData? logoutCompleteDataFromJson(dynamic methodCallArgs) {
   try {
     final Map<String, dynamic> payload =
-    json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+        json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
     return LogoutCompleteData(
         platform:
-        PlatformsExtension.fromString(payload[keyPlatform].toString()),
+            PlatformsExtension.fromString(payload[keyPlatform].toString()),
         accountMeta: accountMetaFromMap(
             payload[keyAccountMeta] as Map<String, dynamic>));
   } catch (e, stackTrace) {
-    Logger.e('$tag Error: logoutCompleteDataFromJson() :', error: e, stackTrace: stackTrace);
+    Logger.e('$tag Error: logoutCompleteDataFromJson() :',
+        error: e, stackTrace: stackTrace);
   }
   return null;
 }
@@ -219,13 +220,12 @@ AuthenticationErrorData? authenticationErrorFromJson(dynamic methodCallArgs) {
   try {
     final Map<String, dynamic> payload =
         json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
-    final Map<String, dynamic> data =
-        payload[keyData] as Map<String, dynamic>;
+    final Map<String, dynamic> data = payload[keyData] as Map<String, dynamic>;
     return AuthenticationErrorData(
         platform:
             PlatformsExtension.fromString(payload[keyPlatform].toString()),
-        accountMeta: accountMetaFromMap(
-            payload[keyAccountMeta] as Map<String, dynamic>),
+        accountMeta:
+            accountMetaFromMap(payload[keyAccountMeta] as Map<String, dynamic>),
         authenticationType: AuthenticationTypeExtension.fromString(
             data[keyAuthenticationType].toString()),
         data: JwtAuthenticationErrorData(

@@ -59,8 +59,8 @@ void main() {
   group('Fetch APIs', () {
     test('fetchExperiencesMeta invokes correct method and parses response',
         () async {
-      final result = await platform.fetchExperiencesMeta(
-          [ExperienceStatus.active], testAppId);
+      final result = await platform
+          .fetchExperiencesMeta([ExperienceStatus.active], testAppId);
       expect(invokedMethods, contains(methodFetchExperiencesMeta));
       expect(result, isA<ExperienceCampaignsMetadata>());
       expect(result.source, DataSource.cache);
@@ -82,8 +82,7 @@ void main() {
 
     test('fetchExperiences invokes correct method and parses response',
         () async {
-      final result =
-          await platform.fetchExperiences(['banner'], {}, testAppId);
+      final result = await platform.fetchExperiences(['banner'], {}, testAppId);
       expect(invokedMethods, contains(methodFetchExperiences));
       expect(result, isA<ExperienceCampaignsResult>());
       expect(result.experiences.length, 1);
@@ -124,7 +123,9 @@ void main() {
     });
 
     test('offeringsShown invokes correct method', () {
-      platform.offeringsShown([{'id': '1'}], testAppId);
+      platform.offeringsShown([
+        {'id': '1'}
+      ], testAppId);
       expect(invokedMethods, contains(methodOfferingsShown));
     });
 
@@ -135,7 +136,8 @@ void main() {
 
     // Regression guards for the "plural API drops items past the first" bug:
     // every campaign/offering passed to the plural APIs must reach the wire.
-    test('experiencesShown forwards ALL campaigns to the wire payload', () async {
+    test('experiencesShown forwards ALL campaigns to the wire payload',
+        () async {
       final campaigns = List.generate(
         3,
         (i) => ExperienceCampaign(

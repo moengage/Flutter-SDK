@@ -2,9 +2,9 @@ package com.moengage.flutter.geofence
 
 import android.content.Context
 import androidx.annotation.NonNull
-import com.moengage.plugin.base.geofence.internal.GeofencePluginHelper
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.plugin.base.geofence.internal.GeofencePluginHelper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -66,9 +66,7 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
             Logger.record { "$tag startGeofenceMonitoring() : $payload" }
             geofenceHelper.startGeofenceMonitoring(context, payload)
         } catch (t: Throwable) {
-            Logger.record(PlatformLogLevel.ERROR, t) {
-                "$tag startGeofenceMonitoring() : "
-            }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag startGeofenceMonitoring() : " }
         }
     }
 
@@ -79,9 +77,7 @@ class MoEngageGeofencePlugin : FlutterPlugin, MethodCallHandler {
             Logger.record { "$tag stopGeofenceMonitoring() : $payload" }
             geofenceHelper.stopGeofenceMonitoring(context, payload)
         } catch (t: Throwable) {
-            Logger.record(PlatformLogLevel.ERROR, t) {
-                "$tag stopGeofenceMonitoring() : "
-            }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag stopGeofenceMonitoring() : " }
         }
     }
 }

@@ -4,9 +4,7 @@ import com.moengage.core.internal.inapp.InAppManager
 import com.moengage.inapp.MoEInAppHelper
 import com.moengage.platform.internal.logger.Logger
 
-/**
- * @author Arshiya Khanum
- */
+/** @author Arshiya Khanum */
 public class MoEFlutterHelper {
     private val tag = "${MODULE_TAG}MoEFlutterHelper"
 
@@ -15,11 +13,12 @@ public class MoEFlutterHelper {
 
         @JvmStatic
         public fun getInstance(): MoEFlutterHelper {
-            return instance ?: synchronized(MoEFlutterHelper::class.java) {
-                val inst = instance ?: MoEFlutterHelper()
-                instance = inst
-                inst
-            }
+            return instance
+                ?: synchronized(MoEFlutterHelper::class.java) {
+                    val inst = instance ?: MoEFlutterHelper()
+                    instance = inst
+                    inst
+                }
         }
     }
 

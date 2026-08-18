@@ -21,14 +21,12 @@ import com.moengage.plugin.base.internal.permissionResultToJson
 import com.moengage.plugin.base.internal.pushPayloadToJson
 import com.moengage.plugin.base.internal.selfHandledDataToJson
 import com.moengage.plugin.base.internal.tokenEventToJson
-import org.json.JSONObject
 import java.util.EnumMap
+import org.json.JSONObject
 
-/**
- * @author Arshiya Khanum
- * Date: 2020/10/21
- */
-class EventEmitterImpl(private val onEvent: (methodName: String, payload: String) -> Unit) : EventEmitter {
+/** @author Arshiya Khanum Date: 2020/10/21 */
+class EventEmitterImpl(private val onEvent: (methodName: String, payload: String) -> Unit) :
+    EventEmitter {
     private val tag: String = "${MODULE_TAG}EventEmitterImpl"
 
     override fun emit(event: Event) {
@@ -67,7 +65,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     private fun emitInAppActionEvent(inAppActionEvent: InAppActionEvent) {
         try {
-            Logger.record { "$tag emitInAppActionEvent() : inAppActionEvent: ${inAppActionEvent.eventType} , ${inAppActionEvent.clickData}" }
+            Logger.record {
+                "$tag emitInAppActionEvent() : inAppActionEvent: ${inAppActionEvent.eventType} , ${inAppActionEvent.clickData}"
+            }
             val eventType = eventMap[inAppActionEvent.eventType] ?: return
             val campaign: JSONObject = clickDataToJson(inAppActionEvent.clickData)
             emit(eventType, campaign)
@@ -78,7 +78,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     private fun emitInAppLifeCycleEvent(inAppLifecycleEvent: InAppLifecycleEvent) {
         try {
-            Logger.record { "$tag emitInAppLifeCycleEvent() : inAppLifecycleEvent: $inAppLifecycleEvent" }
+            Logger.record {
+                "$tag emitInAppLifeCycleEvent() : inAppLifecycleEvent: $inAppLifecycleEvent"
+            }
             val eventType = eventMap[inAppLifecycleEvent.eventType] ?: return
             val campaign = inAppDataToJson(inAppLifecycleEvent.inAppData)
             emit(eventType, campaign)
@@ -89,10 +91,10 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     private fun emitInAppSelfHandledEvent(inAppSelfHandledEvent: InAppSelfHandledEvent) {
         try {
-            Logger.record { "$tag emitInAppSelfHandledEvent() : inAppSelfHandledEvent: ${inAppSelfHandledEvent.data}" }
-            val eventType =
-                eventMap[inAppSelfHandledEvent.eventType]
-                    ?: return
+            Logger.record {
+                "$tag emitInAppSelfHandledEvent() : inAppSelfHandledEvent: ${inAppSelfHandledEvent.data}"
+            }
+            val eventType = eventMap[inAppSelfHandledEvent.eventType] ?: return
             val campaign: JSONObject =
                 selfHandledDataToJson(inAppSelfHandledEvent.accountMeta, inAppSelfHandledEvent.data)
             emit(eventType, campaign)
@@ -159,7 +161,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
 
     private fun emitAuthenticationErrorEvent(event: AuthenticationErrorEvent) {
         try {
-            Logger.record { "$tag emitAuthenticationErrorEvent() authentication error event: $event:" }
+            Logger.record {
+                "$tag emitAuthenticationErrorEvent() authentication error event: $event:"
+            }
             val eventType = eventMap[event.eventType] ?: return
             val payload = authenticationErrorToJson(event)
             emit(eventType, payload)

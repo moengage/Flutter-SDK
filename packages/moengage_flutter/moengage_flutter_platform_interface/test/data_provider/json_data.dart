@@ -546,7 +546,6 @@ const String authenticationDetailsPayload = '''
 }
 ''';
 
-
 const String authenticationErrorPayload = '''
 {
   "accountMeta": {

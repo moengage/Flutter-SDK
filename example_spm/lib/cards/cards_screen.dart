@@ -50,7 +50,8 @@ class _CardsScreenState extends State<CardsScreen>
   void fetchCards() {
     cards.getCardsInfo().then((moe.CardsInfo data) {
       print('Cards Info: ${data.toString()}');
-      print('Static Images Accessibility Data: ${data.staticImagesAccessibilityData}');
+      print(
+          'Static Images Accessibility Data: ${data.staticImagesAccessibilityData}');
       setState(() {
         cardList = data.cards;
         categories.clear();
@@ -249,11 +250,12 @@ class _CardsListWidgetState extends State<CardsListWidget> {
               if (data.isEmpty) {
                 return const Center(child: Text('No Data'));
               }
-                // Print all card data as JSON
+              // Print all card data as JSON
               for (var card in data) {
                 print('Received Cards for Category: ${card.toString()}');
               }
-              print("Received with static Images Accessibility Data: ${snapshot.data?.staticImagesAccessibilityData}");
+              print(
+                  "Received with static Images Accessibility Data: ${snapshot.data?.staticImagesAccessibilityData}");
               return ListView.builder(
                   itemCount: data.length,
                   shrinkWrap: true,

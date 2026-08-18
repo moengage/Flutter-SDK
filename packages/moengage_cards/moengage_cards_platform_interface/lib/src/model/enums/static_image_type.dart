@@ -19,7 +19,8 @@ enum StaticImageType {
   static StaticImageType fromString(String str) =>
       StaticImageType.values.firstWhere(
         (type) => type.value == str,
-        orElse: () => throw ArgumentError('No matching StaticImageType for $str'),
+        orElse: () =>
+            throw ArgumentError('No matching StaticImageType for $str'),
       );
 }
 

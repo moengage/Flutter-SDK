@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show AccessibilityData, keyAccessibility;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show AccessibilityData, keyAccessibility;
 import 'package:moengage_inbox_platform_interface/moengage_inbox_platform_interface.dart';
-
 
 void main() {
   group('mediaFromMap', () {
@@ -10,7 +10,9 @@ void main() {
       expect(result, isNull);
     });
 
-    test('returns Media with null accessibility when keyAccessibility is missing', () {
+    test(
+        'returns Media with null accessibility when keyAccessibility is missing',
+        () {
       final mediaMap = <String, dynamic>{
         keyType: 'image',
         keyUrl: 'http://example.com/image.png'
@@ -22,7 +24,8 @@ void main() {
       expect(result.accessibilityData, isNull);
     });
 
-    test('returns Media with null accessibility when keyAccessibility is null', () {
+    test('returns Media with null accessibility when keyAccessibility is null',
+        () {
       final accessibility = AccessibilityData(null, null);
       final accessibilityMap = accessibility.toJson();
       final mediaMap = <String, dynamic>{
@@ -39,7 +42,8 @@ void main() {
       expect(result.accessibilityData?.hint, isNull);
     });
 
-    test('returns Media with accessibility when keyAccessibility is provided', () {
+    test('returns Media with accessibility when keyAccessibility is provided',
+        () {
       final accessibility = AccessibilityData('Media Text', 'Media Hint');
       final accessibilityMap = accessibility.toJson();
       final mediaMap = <String, dynamic>{
@@ -58,8 +62,10 @@ void main() {
   });
 
   group('mapFromMedia', () {
-    test('returns map with null accessibility when media.accessibility is null', () {
-      final media = Media(MediaTypeExt.fromString('image'), 'http://example.com/image.png', AccessibilityData(null, null));
+    test('returns map with null accessibility when media.accessibility is null',
+        () {
+      final media = Media(MediaTypeExt.fromString('image'),
+          'http://example.com/image.png', AccessibilityData(null, null));
       final result = mapFromMedia(media);
       expect(result, isA<Map<String, dynamic>>());
       expect(result[keyType], equals('image'));
@@ -69,9 +75,12 @@ void main() {
       expect(result[keyAccessibility]['hint'], isNull);
     });
 
-    test('returns map with provided accessibility when media.accessibility is provided', () {
+    test(
+        'returns map with provided accessibility when media.accessibility is provided',
+        () {
       final accessibility = AccessibilityData('Media Text', 'Media Hint');
-      final media = Media(MediaTypeExt.fromString('audio'), 'http://example.com/audio.mp3', accessibility);
+      final media = Media(MediaTypeExt.fromString('audio'),
+          'http://example.com/audio.mp3', accessibility);
       final result = mapFromMedia(media);
       expect(result, isA<Map<String, dynamic>>());
       expect(result[keyType], equals('audio'));

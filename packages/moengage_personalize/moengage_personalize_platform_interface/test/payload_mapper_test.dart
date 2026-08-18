@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show keyAccountMeta, keyAppId, keyData;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show keyAccountMeta, keyAppId, keyData;
 import 'package:moengage_personalize_platform_interface/moengage_personalize_platform_interface.dart';
 
 import 'data/json_data_provider.dart';
@@ -45,8 +46,7 @@ void main() {
       final map = campaignToMap(experienceCampaign);
       expect(map[keyExperienceKey], 'welcome_banner');
       expect(map[keyPayload], {'title': 'Welcome', 'body': 'Hello World'});
-      expect(
-          map[keyExperienceContext], {'campaignId': 'c123', 'locale': 'en'});
+      expect(map[keyExperienceContext], {'campaignId': 'c123', 'locale': 'en'});
     });
 
     test('getTrackExperienceShownPayload wraps campaigns in array', () {
@@ -75,7 +75,8 @@ void main() {
       expect(data[keyOfferingPayloads], offeringPayloads);
     });
 
-    test('getTrackOfferingClickedPayload wraps campaign + offering payload', () {
+    test('getTrackOfferingClickedPayload wraps campaign + offering payload',
+        () {
       final offeringPayload = {'offer_id': '123'};
       final payload = getTrackOfferingClickedPayload(
           experienceCampaign, offeringPayload, testAppId);
@@ -102,8 +103,8 @@ void main() {
       test('throws PersonalizeError on error response', () {
         expect(
           () => deserializeExperiencesMeta(fetchExperiencesMetaErrorJson),
-          throwsA(isA<PersonalizeError>().having(
-              (e) => e.code, 'code', 'SDK_NOT_INITIALIZED')),
+          throwsA(isA<PersonalizeError>()
+              .having((e) => e.code, 'code', 'SDK_NOT_INITIALIZED')),
         );
       });
     });
@@ -114,19 +115,20 @@ void main() {
             deserializeExperiencesResult(fetchExperiencesSuccessJson);
         expect(result.experiences.length, 1);
         expect(result.experiences[0].experienceKey, 'welcome_banner');
-        expect(result.experiences[0].payload, {'title': 'Welcome', 'body': 'Hello World'});
+        expect(result.experiences[0].payload,
+            {'title': 'Welcome', 'body': 'Hello World'});
         expect(result.experiences[0].experienceContext,
             {'campaignId': 'c123', 'locale': 'en'});
         expect(result.experiences[0].source, DataSource.network);
 
         expect(result.failures.length, 1);
-        expect(result.failures[0].reason, ExperienceFailureReason.userNotInSegment);
+        expect(result.failures[0].reason,
+            ExperienceFailureReason.userNotInSegment);
         expect(result.failures[0].experienceKeys, ['home_hero']);
       });
 
       test('parses empty experiences and failures', () {
-        final result =
-            deserializeExperiencesResult(fetchExperiencesEmptyJson);
+        final result = deserializeExperiencesResult(fetchExperiencesEmptyJson);
         expect(result.experiences, isEmpty);
         expect(result.failures, isEmpty);
       });
@@ -140,11 +142,14 @@ void main() {
         );
       });
 
-      test('parses failure with unknown reason falls back to personalizationFailed', () {
+      test(
+          'parses failure with unknown reason falls back to personalizationFailed',
+          () {
         final result = deserializeExperiencesResult(
             fetchExperiencesFailureWithoutMessageJson);
         expect(result.failures.length, 1);
-        expect(result.failures[0].reason, ExperienceFailureReason.invalidExperienceKey);
+        expect(result.failures[0].reason,
+            ExperienceFailureReason.invalidExperienceKey);
         expect(result.failures[0].experienceKeys, ['bad_key']);
       });
     });

@@ -5,6 +5,13 @@
 ## Release Version
 
 - [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+
+# 13-08-2026
+
+## 1.1.0
+
+- Updated `MoEngage-iOS-SDK` to `10.14.0`.
 
 # 07-05-2026
 

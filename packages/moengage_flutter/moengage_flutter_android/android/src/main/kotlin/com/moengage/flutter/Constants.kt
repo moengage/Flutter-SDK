@@ -1,10 +1,6 @@
 package com.moengage.flutter
 
-/**
- * @author Umang Chamaria
- * Date: 2019-12-12
- */
-
+/** @author Umang Chamaria Date: 2019-12-12 */
 const val MODULE_TAG = "MoEFlutter_"
 const val INTEGRATION_TYPE = "flutter"
 const val FLUTTER_PLUGIN_CHANNEL_NAME = "com.moengage/core"

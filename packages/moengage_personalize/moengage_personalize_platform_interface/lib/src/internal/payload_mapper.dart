@@ -20,9 +20,7 @@ Map<String, dynamic> getFetchExperiencesMetaPayload(
 
 /// Build payload for fetchExperiences.
 Map<String, dynamic> getFetchExperiencesPayload(
-    List<String> experienceKeys,
-    Map<String, String> attributes,
-    String appId) {
+    List<String> experienceKeys, Map<String, String> attributes, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
     keyExperienceKeys: experienceKeys,
@@ -34,10 +32,12 @@ Map<String, dynamic> getFetchExperiencesPayload(
 /// Serialize an [ExperienceCampaign] to a JSON map.
 Map<String, dynamic> campaignToMap(ExperienceCampaign campaign) {
   if (campaign.payload.isEmpty) {
-    Logger.w('${moduleTag}campaignToMap(): payload is empty for "${campaign.experienceKey}"');
+    Logger.w(
+        '${moduleTag}campaignToMap(): payload is empty for "${campaign.experienceKey}"');
   }
   if (campaign.experienceContext.isEmpty) {
-    Logger.w('${moduleTag}campaignToMap(): experienceContext is empty for "${campaign.experienceKey}"');
+    Logger.w(
+        '${moduleTag}campaignToMap(): experienceContext is empty for "${campaign.experienceKey}"');
   }
   return {
     keyExperienceKey: campaign.experienceKey,
@@ -78,10 +78,8 @@ Map<String, dynamic> getTrackOfferingShownPayload(
 }
 
 /// Build payload for offeringClicked.
-Map<String, dynamic> getTrackOfferingClickedPayload(
-    ExperienceCampaign campaign,
-    Map<String, dynamic> offeringPayload,
-    String appId) {
+Map<String, dynamic> getTrackOfferingClickedPayload(ExperienceCampaign campaign,
+    Map<String, dynamic> offeringPayload, String appId) {
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {
     keyExperience: campaignToMap(campaign),
@@ -102,7 +100,8 @@ ExperienceCampaignsMetadata deserializeExperiencesMeta(
 
   final dataPayload = response[keyData];
   if (dataPayload is! Map<String, dynamic>) {
-    Logger.w('${moduleTag}deserializeExperiencesMeta(): missing or invalid data key');
+    Logger.w(
+        '${moduleTag}deserializeExperiencesMeta(): missing or invalid data key');
     return ExperienceCampaignsMetadata(
         source: DataSource.network, experiences: []);
   }
@@ -133,7 +132,8 @@ ExperienceCampaignsResult deserializeExperiencesResult(
 
   final dataPayload = response[keyData];
   if (dataPayload is! Map<String, dynamic>) {
-    Logger.w('${moduleTag}deserializeExperiencesResult(): missing or invalid data key');
+    Logger.w(
+        '${moduleTag}deserializeExperiencesResult(): missing or invalid data key');
     return ExperienceCampaignsResult(experiences: [], failures: []);
   }
 
@@ -153,8 +153,8 @@ ExperienceCampaignsResult deserializeExperiencesResult(
   final failures = failuresList.map((f) {
     final map = f as Map<String, dynamic>;
     return ExperienceCampaignFailure(
-      reason: ExperienceFailureReason.fromString(
-          map[keyReason]?.toString() ?? ''),
+      reason:
+          ExperienceFailureReason.fromString(map[keyReason]?.toString() ?? ''),
       experienceKeys: (map[keyExperienceKeys] as List?)
               ?.map((k) => k.toString())
               .toList() ??

@@ -40,7 +40,7 @@ melos:
   scripts:
     analyze: melos exec -- flutter analyze
     format: melos exec -- dart format .
-    get: melos exec -- flutter pub get
+    get: flutter pub get
     dry-run: flutter pub publish --dry-run
     unittest:
       run: melos exec -- flutter test

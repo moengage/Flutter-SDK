@@ -11,6 +11,8 @@ analyzer:
     # Ignore generate˚d files
     - '**/*.g.dart'
     - '**/*.mocks.dart' # Mockito @GenerateMocks
+    # Ignore build output (e.g. SPM package checkouts under */build/ios/SourcePackages)
+    - '**/build/**'
 
 linter:
   rules:

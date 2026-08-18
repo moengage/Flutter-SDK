@@ -8,7 +8,20 @@
 - [minor] Added support for JWT Authentication
 - Android
   - [major] Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
-  - [major] `android-bom` version updated to `4.0.0`.
+  - [major] `android-bom` version updated to `4.2.0`.
+- iOS
+    - [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+
+# 13-08-2026
+
+## 10.9.0
+
+- Android
+  - `android-bom` version updated to `2.3.1`.
+- iOS
+    - Updated `MoEngage-iOS-SDK` to `10.14.0`.
+- Web
+  - Standardized SDK initialization and API names
 
 # 17-06-2026
 

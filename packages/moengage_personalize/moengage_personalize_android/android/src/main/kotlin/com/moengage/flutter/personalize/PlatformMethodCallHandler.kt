@@ -3,10 +3,10 @@ package com.moengage.flutter.personalize
 import android.content.Context
 import com.moengage.core.internal.utils.postOnMainThread
 import com.moengage.core.model.RequestFailureReasonCode
-import com.moengage.plugin.base.personalization.PersonalizationHelper
-import com.moengage.plugin.base.personalization.PersonalizeExperienceListener
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
+import com.moengage.plugin.base.personalization.PersonalizationHelper
+import com.moengage.plugin.base.personalization.PersonalizeExperienceListener
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -22,7 +22,9 @@ class PlatformMethodCallHandler(
     ) {
         try {
             if (call.arguments == null) {
-                Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag onMethodCall() ${call.method}: Arguments null"
+                }
                 return
             }
             Logger.record { "$tag onMethodCall() : Method: ${call.method}" }
@@ -34,7 +36,9 @@ class PlatformMethodCallHandler(
                 METHOD_OFFERINGS_SHOWN -> offeringsShown(call)
                 METHOD_OFFERING_CLICKED -> offeringClicked(call)
                 else -> {
-                    Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag onMethodCall() : Method Not supported : ${call.method}"
+                    }
                     result.notImplemented()
                 }
             }
@@ -61,7 +65,9 @@ class PlatformMethodCallHandler(
                                 Logger.record { "$tag fetchExperiencesMeta(): Result : $result" }
                                 methodChannelResult.success(result)
                             } catch (t: Throwable) {
-                                Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
+                                Logger.record(PlatformLogLevel.ERROR, t) {
+                                    "$tag fetchExperiencesMeta() : "
+                                }
                             }
                         }
                     }
@@ -72,10 +78,14 @@ class PlatformMethodCallHandler(
                     ) {
                         postOnMainThread {
                             try {
-                                Logger.record(PlatformLogLevel.ERROR) { "$tag fetchExperiencesMeta(): Error : $reason - $message" }
+                                Logger.record(PlatformLogLevel.ERROR) {
+                                    "$tag fetchExperiencesMeta(): Error : $reason - $message"
+                                }
                                 methodChannelResult.error(reason.name, message, null)
                             } catch (t: Throwable) {
-                                Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchExperiencesMeta() : " }
+                                Logger.record(PlatformLogLevel.ERROR, t) {
+                                    "$tag fetchExperiencesMeta() : "
+                                }
                             }
                         }
                     }
@@ -103,7 +113,9 @@ class PlatformMethodCallHandler(
                                 Logger.record { "$tag fetchExperiences(): Result : $result" }
                                 methodChannelResult.success(result)
                             } catch (t: Throwable) {
-                                Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchExperiences() : " }
+                                Logger.record(PlatformLogLevel.ERROR, t) {
+                                    "$tag fetchExperiences() : "
+                                }
                             }
                         }
                     }
@@ -114,10 +126,14 @@ class PlatformMethodCallHandler(
                     ) {
                         postOnMainThread {
                             try {
-                                Logger.record(PlatformLogLevel.ERROR) { "$tag fetchExperiences(): Error : $reason - $message" }
+                                Logger.record(PlatformLogLevel.ERROR) {
+                                    "$tag fetchExperiences(): Error : $reason - $message"
+                                }
                                 methodChannelResult.error(reason.name, message, null)
                             } catch (t: Throwable) {
-                                Logger.record(PlatformLogLevel.ERROR, t) { "$tag fetchExperiences() : " }
+                                Logger.record(PlatformLogLevel.ERROR, t) {
+                                    "$tag fetchExperiences() : "
+                                }
                             }
                         }
                     }

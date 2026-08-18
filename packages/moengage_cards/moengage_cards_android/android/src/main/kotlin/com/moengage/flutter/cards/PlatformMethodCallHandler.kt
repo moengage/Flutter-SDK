@@ -3,12 +3,12 @@ package com.moengage.flutter.cards
 import android.content.Context
 import com.moengage.cards.core.model.CardData
 import com.moengage.core.internal.utils.postOnMainThread
-import com.moengage.plugin.base.cards.CardsPluginHelper
-import com.moengage.plugin.base.cards.internal.cardDataToJson
-import com.moengage.plugin.base.internal.instanceMetaFromJson
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.platform.internal.resources.PlatformResources
+import com.moengage.plugin.base.cards.CardsPluginHelper
+import com.moengage.plugin.base.cards.internal.cardDataToJson
+import com.moengage.plugin.base.internal.instanceMetaFromJson
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONObject
@@ -25,7 +25,9 @@ class PlatformMethodCallHandler(
     ) {
         try {
             if (call.arguments == null) {
-                Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() ${call.method}: Arguments null" }
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag onMethodCall() ${call.method}: Arguments null"
+                }
                 return
             }
             Logger.record { "$tag onMethodCall() : Method: ${call.method}" }
@@ -46,7 +48,9 @@ class PlatformMethodCallHandler(
                 METHOD_UN_CLICKED_CARDS_COUNT -> getUnClickedCardsCount(call, result)
                 METHOD_FETCH_CARDS -> fetchCards(call, result)
                 else -> {
-                    Logger.record(PlatformLogLevel.ERROR) { "$tag onMethodCall() : Method Not supported : ${call.method}" }
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag onMethodCall() : Method Not supported : ${call.method}"
+                    }
                 }
             }
         } catch (t: Throwable) {
@@ -165,12 +169,15 @@ class PlatformMethodCallHandler(
         try {
             Logger.record { "$tag fetchCards() : $payload" }
             PlatformResources.executor.submit {
-                cardsPluginHelper.fetchCards(context, payload, cardAvailableListener = {
-                    postOnMainThread {
-                        Logger.record { "$tag fetchCards(): Result Success: $it" }
-                        result.success(getCardPayload(it, payload).toString())
-                    }
-                })
+                cardsPluginHelper.fetchCards(
+                    context,
+                    payload,
+                    cardAvailableListener = {
+                        postOnMainThread {
+                            Logger.record { "$tag fetchCards(): Result Success: $it" }
+                            result.success(getCardPayload(it, payload).toString())
+                        }
+                    })
             }
         } catch (t: Throwable) {
             result.success(getCardPayload(null, payload).toString())
@@ -235,10 +242,14 @@ class PlatformMethodCallHandler(
                 val isAllCategoryEnabled = cardsPluginHelper.isAllCategoryEnabled(context, payload)
                 postOnMainThread {
                     try {
-                        Logger.record { "$tag isAllCategoryEnabled(): Result : $isAllCategoryEnabled" }
+                        Logger.record {
+                            "$tag isAllCategoryEnabled(): Result : $isAllCategoryEnabled"
+                        }
                         result.success(isAllCategoryEnabled)
                     } catch (t: Throwable) {
-                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag isAllCategoryEnabled() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) {
+                            "$tag isAllCategoryEnabled() : "
+                        }
                     }
                 }
             }
@@ -281,10 +292,14 @@ class PlatformMethodCallHandler(
                 val unClickedCardsCount = cardsPluginHelper.getUnClickedCardsCount(context, payload)
                 postOnMainThread {
                     try {
-                        Logger.record { "$tag getUnClickedCardsCount(): Result : $unClickedCardsCount" }
+                        Logger.record {
+                            "$tag getUnClickedCardsCount(): Result : $unClickedCardsCount"
+                        }
                         result.success(unClickedCardsCount)
                     } catch (t: Throwable) {
-                        Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUnClickedCardsCount() : " }
+                        Logger.record(PlatformLogLevel.ERROR, t) {
+                            "$tag getUnClickedCardsCount() : "
+                        }
                     }
                 }
             }

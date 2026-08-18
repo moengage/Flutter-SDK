@@ -13,7 +13,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:9.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
-        // classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
+        // classpath 'com.diffplug.spotless:spotless-plugin-gradle:8.5.1'
     }
 }
 
@@ -30,22 +30,35 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 }
 
 ext {
-    moengageNativeBomVersion = "4.0.0"
-    moengagePluginBaseBomVersion = "4.0.1-SNAPSHOT"
+     moengageNativeBomVersion = "4.2.0"
+    moengagePluginBaseBomVersion = "4.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
-// apply plugin: 'org.jlleitschuh.gradle.ktlint'
+// apply plugin: 'com.diffplug.spotless'
 
 hybridModuleConfig.configurePlugin {
     kotlinOptions {
         enableJvmTarget = true
         compilerArgs = []
+    }
+}
+
+if (project.plugins.hasPlugin('com.diffplug.spotless')) {
+    spotless {
+        ratchetFrom 'origin/development'
+        kotlin {
+            target 'src/**/*.kt'
+            targetExclude '**/build/**'
+            ktfmt('0.62').kotlinlangStyle().configure { options ->
+                options.setMaxWidth(100)
+                options.setTrailingCommaManagementStrategy(com.diffplug.spotless.kotlin.KtfmtStep.TrailingCommaManagementStrategy.NONE)
+            }
+        }
     }
 }
 

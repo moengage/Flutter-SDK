@@ -89,8 +89,8 @@ class _JwtAuthenticationPageState extends State<JwtAuthenticationPage> {
       client.close();
 
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        setState(() =>
-            _errorMessage = 'HTTP ${response.statusCode}\n${rawText}');
+        setState(
+            () => _errorMessage = 'HTTP ${response.statusCode}\n${rawText}');
         return;
       }
 
@@ -221,8 +221,7 @@ class _JwtAuthenticationPageState extends State<JwtAuthenticationPage> {
                     children: <Widget>[
                       const Text('Token received',
                           style: TextStyle(fontWeight: FontWeight.bold)),
-                      const Text(
-                          'Review below, then pass to the native SDK.'),
+                      const Text('Review below, then pass to the native SDK.'),
                       const SizedBox(height: 8),
                       const Text('jwt_token',
                           style: TextStyle(fontSize: 12, color: Colors.grey)),
