@@ -8,6 +8,8 @@
 - Android
   - [major] Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
   - [major] `android-bom` version updated to `4.2.0`.
+- iOS
+    - [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
 
 # 13-08-2026
 
