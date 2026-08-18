@@ -139,7 +139,7 @@ class MoEngageInboxPlugin : FlutterPlugin, MethodCallHandler {
         try {
             if (call.arguments == null) return
             val payload = call.arguments.toString()
-            Logger.print { "$tag deleteMessage() : Argument :$payload" }
+            Logger.record { "$tag deleteMessage() : Argument :$payload" }
             inboxHelper.deleteMessage(context, payload)
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "$tag deleteMessage() : " }
