@@ -115,6 +115,7 @@ dependencies {
   implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
   implementation("com.moengage:hms-pushkit")
   implementation("com.moengage:rich-notification")
+  implementation("com.moengage:security")
 
   /**
    * MoEngage required external dependencies (based on the modules you use)

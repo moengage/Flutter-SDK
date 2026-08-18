@@ -186,4 +186,28 @@ void main() {
   test('Logout Complete Data - Invalid Payload', () {
     expect(logoutCompleteDataFromJson(logoutCompletePayloadInvalid), null);
   });
+
+  test('JWT Authentication Details Payload', () {
+    expect(
+        getAuthenticationDetailsPayload(
+            AuthenticationDetailsRequest(
+                authenticationType: AuthenticationType.jwt,
+                data: JwtAuthenticationData(
+                    token: 'jwt-token', userIdentifier: 'user1234')),
+            '1234'),
+        jsonDecode(authenticationDetailsPayload));
+  });
+
+  test('Authentication Error Data', () {
+    expect(
+        Comparator().isAuthenticationErrorDataEqual(
+            authenticationErrorFromJson(authenticationErrorPayload),
+            authenticationErrorData),
+        true);
+  });
+
+  test('Authentication Error Data - Invalid Payload', () {
+    expect(
+        authenticationErrorFromJson(authenticationErrorPayloadInvalid), null);
+  });
 }

@@ -290,4 +290,11 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   void registerForProvisionalPush() {
     _methodChannel.invokeMethod(methodiOSRegisterProvisionalPush);
   }
+
+  @override
+  void passAuthenticationDetails(
+      AuthenticationDetailsRequest request, String appId) {
+    _methodChannel.invokeMethod(methodAuthenticationDetails,
+        json.encode(getAuthenticationDetailsPayload(request, appId)));
+  }
 }

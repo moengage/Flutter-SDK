@@ -6,6 +6,8 @@ import com.moengage.core.MoEngage
 import com.moengage.core.config.FcmConfig
 import com.moengage.core.config.LogConfig
 import com.moengage.core.config.MoEngageEnvironmentConfig
+import com.moengage.core.config.NetworkAuthorizationConfig
+import com.moengage.core.config.NetworkRequestConfig
 import com.moengage.core.config.NotificationConfig
 import com.moengage.core.config.PushKitConfig
 import com.moengage.core.model.AccountMeta
@@ -37,6 +39,10 @@ class SampleApplication : FlutterApplication() {
             .configureLogs(LogConfig(LogLevel.VERBOSE, true))
             .configureFcm(FcmConfig(true))
             .configurePushKit(PushKitConfig(true))
+            .configureNetworkRequest(NetworkRequestConfig(networkAuthorizationConfig = NetworkAuthorizationConfig(
+                isJwtEnabled = false,
+                shouldEnableForAllUsers = false
+            )))
             .configureMoEngageEnvironment(MoEngageEnvironmentConfig(MoEngageEnvironment.DEFAULT))
 
         // Source Code based initialization

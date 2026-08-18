@@ -17,7 +17,7 @@ parameters:
   - name: "feature_description"
     description: "Natural language description of the feature. E.g. 'JWT authentication parity'."
   - name: "contract_branch"
-    description: "Branch in 'mobile-sdk-contracts' with the feature contract."
+    description: "Branch in 'mobile-sdk-contracts' with the feature contract. If this is 'master' (or 'main'), there's no feature suffix to derive — the skill asks for a branch name/suffix (and an optional prefix) before proceeding."
   - name: "ios_plugin_version"
     description: "Target MoEngagePlugin<featureNameCamel> pod version. E.g. '3.10.0'."
   - name: "ios_plugin_base_pr_url"
@@ -71,6 +71,13 @@ If not found in the command or parameters, ask before proceeding.
 Strip everything up to and including the first `/` or `_MOEN-XXXXX_` prefix:
 - `feature/experience_contracts` → **`contractSuffix`** = `experience_contracts`
 - `MOEN-44072_jwt_contract` → **`contractSuffix`** = `jwt_contract`
+
+**If `contract_branch` is `master` or `main`** (iOS-first flow, no Android step to reuse
+identifiers from), there is no feature suffix to strip. Ask the user for the branch name/suffix
+to use for the `Flutter-SDK` implementation branch (this becomes `contractSuffix`). If the user
+doesn't provide one, offer to default `contractSuffix` to a prefix derived from `featureName`
+(e.g. `<featureName>_contract`) and confirm before using it. Skip this if `contractSuffix` was
+already derived by the Android bridge step (reuse it as-is).
 
 ### 1.2 Identifiers table
 
@@ -320,7 +327,18 @@ git push -u origin feature/<ticketId>-<contractSuffix>
 gh pr list --head feature/<ticketId>-<contractSuffix> --json number,url
 ```
 
-**If PR already exists** (Android bridge was done first): push new commit to same branch and add a PR comment explaining iOS was added. Do **not** create a second PR.
+**If PR already exists** (Android bridge was done first): push the new commit to the same branch.
+Do **not** just add a comment and leave the title/body stale — refresh **both** the PR title and
+body with `gh pr edit <number>` so they describe every layer implemented on the branch so far
+(Android + this iOS commit), not only what the title said before. Do **not** create a second PR:
+```bash
+gh pr edit <number> \
+  --title "<ticketId>: Add Flutter Android bridge and iOS bridge for <featureName>" \
+  --body "$(cat <<'EOF'
+<merged summary covering every step done so far — see the combined-PR-body convention in flutter-feature-implementation for the shape to merge into>
+EOF
+)"
+```
 
 **If no PR exists** (iOS-first flow):
 ```bash
@@ -391,6 +409,7 @@ Then **ask the user**:
 - `contract_branch` not found in `../mobile-sdk-contracts` → stop and tell the user
 - `contractDir` not found in `json/hybridToNative/` → list available dirs and ask
 - `iosPkgDir` already has iOS source files → read `<iosHandlerFile>` and constants file, add only missing methods/constants — never recreate existing files
+- **New method placement**: always insert a new method as the *last* method in the class/extension — after every existing method, never interleaved
 - Delegate protocol name unknown → add `// TODO: verify delegate protocol name` and continue
 - iOS pod dependency name unknown → add `// TODO: verify iOS pod dependency` in podspec and continue
 - Push fails → report error and local branch name so the user can push manually

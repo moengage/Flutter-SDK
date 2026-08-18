@@ -70,6 +70,9 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             MoEngagePluginBridge.sharedInstance.getUserIdentities(payload) { identitiesPayload in
                 MoEngageFlutterUtil.resume(channel: call.method, havingResult: result, withData: identitiesPayload)
             }
+        // JWT Authentication
+        case MoEngageFlutterConstants.MethodNames.kAuthenticationDetails:
+            MoEngagePluginBridge.sharedInstance.passAuthenticationDetails(payload)
         default:
             print("Invalid invocation: \(call.method)")
         }
@@ -141,6 +144,8 @@ extension MoEngageFlutterBridge: MoEngagePluginBridgeDelegate{
             return MoEngageFlutterConstants.CallbackNames.kInAppSelfHandled
         case MoEngagePluginConstants.CallBackEvents.logOutCompleted:
             return MoEngageFlutterConstants.CallbackNames.kLogoutComplete
+        case MoEngagePluginConstants.CallBackEvents.authenticationError:
+            return MoEngageFlutterConstants.CallbackNames.kAuthenticationError
         default:
             return nil
         }

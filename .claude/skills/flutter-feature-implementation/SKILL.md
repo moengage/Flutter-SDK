@@ -8,11 +8,16 @@ description: >
   - iOS Swift bridge only: flutter-ios-bridge-implementation
   - Dart platform interface + public API only: flutter-dart-interface-implementation
   Requires: a ticket ID (MOEN-XXXXX), a contract branch in 'mobile-sdk-contracts', and at least
-  one platform's plugin-base data. Android inputs (android_bom_version, plugin_base_bom_version,
-  android_plugin_base_pr_url) are required for the Android bridge step — if all three are absent,
-  the Android step is skipped. iOS inputs (ios_plugin_version, ios_plugin_base_pr_url) are required
-  for the iOS bridge step — if both are absent, the iOS step is skipped. At least one of Android
-  or iOS must be provided; if neither is present, the skill stops and asks.
+  one platform's plugin-base data. If contract_branch is 'master' (or 'main'), the skill asks for
+  a branch name/suffix (and an optional prefix) to use for the Flutter-SDK implementation branch,
+  since there's no feature suffix to derive from it. Android inputs: android_plugin_base_pr_url
+  is required for the Android bridge step to run; android_bom_version and plugin_base_bom_version
+  are optional (the BOM bump sometimes already exists on a development branch) — if either is
+  absent, the skill asks which branch to use as the base branch instead of a version. If
+  android_plugin_base_pr_url is absent, the Android step is skipped. iOS inputs (ios_plugin_version,
+  ios_plugin_base_pr_url) are required for the iOS bridge step — if both are absent, the iOS step
+  is skipped. At least one of Android or iOS must be provided; if neither is present, the skill
+  stops and asks.
   Run AFTER plugin-base-feature-implementation.
   Do NOT use for Dart-only changes or before plugin-base changes exist.
 parameters:
@@ -22,15 +27,15 @@ parameters:
   - name: "feature_description"
     description: "Natural language description of the feature, including framework keyword for iOS routing (analytics/inapps/messaging/core/cards/geofence). E.g. 'JWT authentication parity from core'."
   - name: "contract_branch"
-    description: "Branch in 'mobile-sdk-contracts' with the feature contract."
+    description: "Branch in 'mobile-sdk-contracts' with the feature contract. If this is 'master' (or 'main'), the skill asks for a branch name/suffix (and an optional prefix) before proceeding, since there's no feature suffix to derive."
   - name: "android_bom_version"
-    description: "Target MoEngage Android BOM version. E.g. '2.2.2'. Optional — if absent (along with plugin_base_bom_version and android_plugin_base_pr_url), Android step is skipped."
+    description: "Target MoEngage Android BOM version. E.g. '2.2.2'. Optional — sometimes the BOM is already bumped on a development branch. If absent, the skill asks which branch to use as the base branch instead of a version."
     optional: true
   - name: "plugin_base_bom_version"
-    description: "Target MoEngage plugin-base BOM version. E.g. '3.0.1'. Optional — required only when Android step runs."
+    description: "Target MoEngage plugin-base BOM version. E.g. '3.0.1'. Optional — same rule as android_bom_version."
     optional: true
   - name: "android_plugin_base_pr_url"
-    description: "URL of the android-plugin-base PR from plugin-base-feature-implementation. Optional — required only when Android step runs."
+    description: "URL of the android-plugin-base PR from plugin-base-feature-implementation. Required for the Android step to run — if absent, the Android step is skipped."
     optional: true
   - name: "ios_plugin_version"
     description: "Target MoEngagePlugin<featureNameCamel> pod version for iOS. Optional — if not provided, iOS bridge step is skipped."
@@ -72,7 +77,9 @@ flutter-dart-interface-implementation   (Step 3 — Dart, same branch)
 
 Before starting, verify at least one platform's data is present:
 
-- **Android data present** = all three of `android_bom_version`, `plugin_base_bom_version`, `android_plugin_base_pr_url` are provided
+- **Android data present** = `android_plugin_base_pr_url` is provided. `android_bom_version` and
+  `plugin_base_bom_version` are optional — if either is absent, ask the user which branch to use
+  as the base branch (the BOM bump may already be on a development branch) instead of blocking.
 - **iOS data present** = both `ios_plugin_version` and `ios_plugin_base_pr_url` are provided
 
 | Android data | iOS data  | Action                                                      |
@@ -82,15 +89,27 @@ Before starting, verify at least one platform's data is present:
 | ✗ absent     | ✓ present | Skip Android; run iOS + Dart; create branch in iOS step     |
 | ✗ absent     | ✗ absent  | **Stop and ask** — at least one platform's data is required |
 
+Also check `contract_branch`: if it is `master` or `main`, ask the user for the branch
+name/suffix to use for the `Flutter-SDK` implementation branch (and an optional prefix, if not
+already included) before running any step — there's no feature suffix to derive from `master`/`main`.
+
+**PR title/body stay current across steps:** every time a step pushes a commit onto a PR that
+already exists (Step 2 onto Step 1's PR, Step 3 onto whichever PR exists), refresh both the PR
+title and body via `gh pr edit` to describe the full combined scope so far — never leave a stale
+title (e.g. "Add Flutter Android bridge") once iOS or Dart changes have landed on the same
+branch, and never just append a comment instead of updating the description.
+
 ---
 
 ## Execution
 
 ### Step 1 — Run Android bridge
 
-**Pre-check:** If any of `android_bom_version`, `plugin_base_bom_version`, or `android_plugin_base_pr_url` is missing, **skip this step entirely**. Note in the final report that Android was skipped and can be run later with `flutter-android-bridge-implementation`. The branch will be created in Step 2 (iOS) or Step 3 (Dart) instead.
+**Pre-check:** If `android_plugin_base_pr_url` is missing, **skip this step entirely**. Note in the final report that Android was skipped and can be run later with `flutter-android-bridge-implementation`. The branch will be created in Step 2 (iOS) or Step 3 (Dart) instead.
 
-If all three are present, follow every phase of **`flutter-android-bridge-implementation`** in full:
+If `android_bom_version` or `plugin_base_bom_version` is missing (but `android_plugin_base_pr_url` is present), ask the user which branch to use as the base branch before creating the feature branch — per `flutter-android-bridge-implementation` Phase 0.2.
+
+If `android_plugin_base_pr_url` is present, follow every phase of **`flutter-android-bridge-implementation`** in full:
 - Phase 0: Clarify inputs / extract ticketId
 - Phase 1: Derive all identifiers
 - Phase 2: Read contracts and build method table
@@ -111,7 +130,7 @@ If both are present, follow every phase of **`flutter-ios-bridge-implementation`
   otherwise `MoEngagePlugin<featureNameCamel>Bridge`)
 - Phase 2: Contracts are already read — reuse the method table from Step 1
 - Phase 3: Scaffold iOS bridge files and commit to the same branch
-- Phase 4: Push additional commit to the existing PR (do **not** create a second PR); use `ios_plugin_base_pr_url` in the PR comment
+- Phase 4: Push additional commit to the existing PR (do **not** create a second PR); refresh the PR title and body via `gh pr edit` to cover Android + iOS, using `ios_plugin_base_pr_url` in the updated body
 - Phase 5: Report (abbreviated)
 
 Do **not** ask the user whether to continue — always proceeds to Step 3.
@@ -124,9 +143,10 @@ Follow every phase of **`flutter-dart-interface-implementation`** in full:
 - Phase 2: Reuse the method table from Step 1
 - Phase 3: Scaffold platform interface package and commit
 - Phase 4: Scaffold main public API package and commit
-- Phase 5: Verify native package pubspec dependencies
-- Phase 6: Push additional commits; update the existing PR body with combined template
-- Phase 7: Full report combining all three steps
+- Phase 5: Wire the new APIs into the sample app (`example/lib/main.dart`) and commit — skip only if the user explicitly opts out
+- Phase 6: Verify native package pubspec dependencies
+- Phase 7: Push additional commits; update the existing PR body with combined template
+- Phase 8: Full report combining all three steps
 
 ### Combined PR body
 
@@ -137,7 +157,7 @@ When updating the PR body after Step 3, replace it with:
 - Android: Constants.kt + MoEngage<featureNameCamel>Plugin + PlatformMethodCallHandler (+ EventEmitterImpl if events)  ← omit if Android skipped
 - iOS: Plugin.swift + Constants.swift (+ EventListener + Util as needed) + podspec  ← omit if iOS skipped
 - Dart: platform interface, MethodChannel impl, models, constants, payload mapper, public API class
-- Android BOM: <android_bom_version>, plugin-base BOM: <plugin_base_bom_version>    ← omit if Android skipped
+- Android BOM: <android_bom_version or "unchanged, inherited from base branch">, plugin-base BOM: <plugin_base_bom_version or "unchanged, inherited from base branch">    ← omit if Android skipped
 - iOS plugin version: <ios_plugin_version>                                           ← omit if iOS skipped
 
 ## Related PRs

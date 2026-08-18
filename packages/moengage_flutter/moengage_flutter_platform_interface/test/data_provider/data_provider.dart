@@ -240,3 +240,13 @@ const dummyAppId = 'Dummy_App_ID';
 const accountMetaPayload = {
   keyAccountMeta: {keyAppId: dummyAppId}
 };
+
+final AuthenticationErrorData authenticationErrorData = AuthenticationErrorData(
+    platform: Platforms.android,
+    accountMeta: AccountMeta('1234'),
+    authenticationType: AuthenticationType.jwt,
+    data: JwtAuthenticationErrorData(
+        code: JwtErrorCode.timeConstraintFailure,
+        token: 'jwt-token',
+        userIdentifier: 'user1234',
+        message: 'Token has expired'));

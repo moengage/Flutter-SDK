@@ -19,4 +19,7 @@ class CallbackCache {
 
   /// Logout Complete Callback
   LogoutCompleteCallbackHandler? logoutCompleteCallbackHandler;
+
+  /// JWT Authentication Error Callback
+  AuthenticationErrorCallbackHandler? authenticationErrorCallbackHandler;
 }

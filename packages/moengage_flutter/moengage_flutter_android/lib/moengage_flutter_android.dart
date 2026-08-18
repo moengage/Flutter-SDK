@@ -351,4 +351,11 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
       return Future.error(e);
     }
   }
+
+  @override
+  void passAuthenticationDetails(
+      AuthenticationDetailsRequest request, String appId) {
+    _methodChannel.invokeMethod(methodAuthenticationDetails,
+        json.encode(getAuthenticationDetailsPayload(request, appId)));
+  }
 }

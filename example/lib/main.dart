@@ -16,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'cards/cards_home.dart';
 import 'inapp.dart';
+import 'jwt_authentication_page.dart';
 import 'personalize_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
@@ -80,6 +81,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '$tag Main : _onLogoutCallbackHandler(): Logout complete callback from native to flutter. Data $data');
   }
 
+  void _onAuthenticationError(AuthenticationErrorData data) {
+    debugPrint(
+        '$tag Main : _onAuthenticationError(): JWT authentication error callback from native to flutter. Data $data');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +97,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setPermissionCallbackHandler(_permissionCallbackHandler);
     _moengagePlugin.configureLogs(LogLevel.VERBOSE);
     _moengagePlugin.setLogoutCompleteCallbackHandler(_onLogoutCallbackHandler);
+    _moengagePlugin
+        .setAuthenticationErrorCallbackHandler(_onAuthenticationError);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
   }
@@ -530,6 +538,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: const Text('Logout'),
                 onTap: () {
                   _moengagePlugin.logout();
+                },
+              ),
+              ListTile(
+                title: const Text('JWT authentication'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        JwtAuthenticationPage(moengagePlugin: _moengagePlugin),
+                  ));
                 },
               ),
               ListTile(

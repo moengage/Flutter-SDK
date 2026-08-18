@@ -28,4 +28,15 @@ void main() {
       expect(mock.setUserAttributeLastUserAttributeValue, null);
     }
   });
+
+  test('JWT Authentication details passed to platform', () async {
+    final platform = MoEngageFlutter('12345');
+    final AuthenticationDetailsRequest request = AuthenticationDetailsRequest(
+        authenticationType: AuthenticationType.jwt,
+        data: JwtAuthenticationData(
+            token: 'jwt-token', userIdentifier: 'user1234'));
+    platform.passAuthenticationDetails(request);
+    expect(mock.passAuthenticationDetailsLastData, request);
+    expect(mock.passAuthenticationDetailsLastAppId, '12345');
+  });
 }
