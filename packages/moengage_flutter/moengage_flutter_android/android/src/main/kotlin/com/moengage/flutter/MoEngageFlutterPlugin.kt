@@ -3,10 +3,10 @@ package com.moengage.flutter
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import com.moengage.core.LogLevel
 import com.moengage.core.MoECoreHelper
-import com.moengage.core.internal.logger.Logger
 import com.moengage.core.listeners.AppBackgroundListener
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
@@ -26,16 +26,15 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var context: Context
     private val pluginHelper = PluginHelper()
 
-    private val appBackgroundListener =
-        AppBackgroundListener { _, _ ->
-            run {
-                Logger.print { "$tag onAppBackground() : Detaching the Framework" }
-                pluginHelper.onFrameworkDetached()
-            }
+    private val appBackgroundListener = AppBackgroundListener { _, _ ->
+        run {
+            Logger.record { "$tag onAppBackground() : Detaching the Framework" }
+            pluginHelper.onFrameworkDetached()
         }
+    }
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
-        Logger.print { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
+        Logger.record { "$tag onAttachedToEngine() : Registering MoEngageFlutterPlugin" }
         context = binding.applicationContext
         flutterPluginBinding = binding
         if (methodChannel == null) {
@@ -45,25 +44,25 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
-            Logger.print { "$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin" }
+            Logger.record { "$tag onDetachedFromEngine() : Registering MoEngageFlutterPlugin" }
             pluginHelper.onFrameworkDetached()
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onDetachedFromEngine() " }
         }
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
-            Logger.print { "$tag initPlugin(): Initializing MoEngage Flutter Plugin" }
+            Logger.record { "$tag initPlugin(): Initializing MoEngage Flutter Plugin" }
             methodChannel = MethodChannel(binaryMessenger, FLUTTER_PLUGIN_CHANNEL_NAME)
             methodChannel?.setMethodCallHandler(this)
             setEventEmitter(EventEmitterImpl(::sendCallback))
             if (GlobalCache.lifecycleAwareCallbackEnabled) {
-                Logger.print { "$tag initPlugin()  Adding App Background Listener: " }
+                Logger.record { "$tag initPlugin()  Adding App Background Listener: " }
                 MoECoreHelper.addAppBackgroundListener(appBackgroundListener)
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag initPlugin()  : " }
         }
     }
 
@@ -76,11 +75,11 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 try {
                     methodChannel?.invokeMethod(methodName, message)
                 } catch (t: Throwable) {
-                    Logger.print(LogLevel.ERROR, t) { "$tag sendCallback() " }
+                    Logger.record(PlatformLogLevel.ERROR, t) { "$tag sendCallback() " }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag sendCallback() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag sendCallback() : " }
         }
     }
 
@@ -91,17 +90,18 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     ) {
         try {
             if (call == null) {
-                Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : MethodCall instance is null cannot proceed further." }
-                return
-            }
-            if (context == null) {
-                Logger.print(LogLevel.ERROR) {
-                    "$tag onMethodCall() : Context is null cannot " +
-                        "proceed further."
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag onMethodCall() : MethodCall instance is null cannot proceed further."
                 }
                 return
             }
-            Logger.print { "$tag onMethodCall() : method:  ${call.method}" }
+            if (context == null) {
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag onMethodCall() : Context is null cannot " + "proceed further."
+                }
+                return
+            }
+            Logger.record { "$tag onMethodCall() : method:  ${call.method}" }
             when (call.method) {
                 METHOD_NAME_INITIALISE -> onInitialised(call)
                 METHOD_NAME_SET_USER_ATTRIBUTE -> setUserAttribute(call)
@@ -135,24 +135,26 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_IDENTIFY_USER -> identifyUser(call)
                 METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
                 else ->
-                    Logger.print(LogLevel.ERROR) { "$tag onMethodCall() : No mapping for this method." }
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag onMethodCall() : No mapping for this method."
+                    }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onMethodCall() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onMethodCall() : " }
         }
     }
 
     private fun logout(methodCall: MethodCall) {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
-        Logger.print { "$tag logout() : Arguments: $payload" }
+        Logger.record { "$tag logout() : Arguments: $payload" }
         pluginHelper.logout(context, payload)
     }
 
     private fun showInApp(methodCall: MethodCall) {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
-        Logger.print { "$tag showInApp() : Arguments: $payload" }
+        Logger.record { "$tag showInApp() : Arguments: $payload" }
         pluginHelper.showInApp(context, payload)
     }
 
@@ -160,17 +162,17 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         if (methodCall.arguments == null) return
         val payload = methodCall.arguments.toString()
         pluginHelper.initialise(payload)
-        Logger.print { "$tag onInitialised() : MoEngage Flutter plugin initialised." }
+        Logger.record { "$tag onInitialised() : MoEngage Flutter plugin initialised." }
     }
 
     private fun setUserAttribute(methodCall: MethodCall) {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setUserAttribute() : Arguments: $payload" }
+            Logger.record { "$tag setUserAttribute() : Arguments: $payload" }
             pluginHelper.setUserAttribute(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setUserAttribute() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setUserAttribute() : " }
         }
     }
 
@@ -178,27 +180,26 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setUserLocation() : Argument: $payload" }
+            Logger.record { "$tag setUserLocation() : Argument: $payload" }
             pluginHelper.setUserAttribute(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setUserLocation() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setUserLocation() : " }
         }
     }
 
     private fun trackEvent(methodCall: MethodCall) {
         try {
             if (methodCall.arguments == null) {
-                Logger.print(LogLevel.ERROR) {
-                    "$tag trackEvent() : Arguments are null, cannot" +
-                        " trackEvent"
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag trackEvent() : Arguments are null, cannot" + " trackEvent"
                 }
                 return
             }
             val payload = methodCall.arguments as String
-            Logger.print { "$tag trackEvent() : Argument :$payload" }
+            Logger.record { "$tag trackEvent() : Argument :$payload" }
             pluginHelper.trackEvent(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag trackEvent() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag trackEvent() : " }
         }
     }
 
@@ -206,10 +207,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setAlias() : Argument :$payload" }
+            Logger.record { "$tag setAlias() : Argument :$payload" }
             pluginHelper.setAlias(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setAlias() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setAlias() : " }
         }
     }
 
@@ -217,10 +218,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setAppStatus() : Arguments :$payload" }
+            Logger.record { "$tag setAppStatus() : Arguments :$payload" }
             pluginHelper.setAppStatus(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setAppStatus() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setAppStatus() : " }
         }
     }
 
@@ -228,10 +229,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setTimestamp() : Arguments: $payload" }
+            Logger.record { "$tag setTimestamp() : Arguments: $payload" }
             pluginHelper.setUserAttribute(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setTimestamp() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setTimestamp() : " }
         }
     }
 
@@ -239,10 +240,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag getSelfHandledInApp() : Arguments: $payload" }
+            Logger.record { "$tag getSelfHandledInApp() : Arguments: $payload" }
             pluginHelper.getSelfHandledInApp(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getSelfHandledInApp() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getSelfHandledInApp() : " }
         }
     }
 
@@ -250,10 +251,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag setAppContext() : Arguments: $payload" }
+            Logger.record { "$tag setAppContext() : Arguments: $payload" }
             pluginHelper.setAppContext(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setAppContext() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setAppContext() : " }
         }
     }
 
@@ -261,10 +262,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag resetAppContext() : Arguments: $payload" }
+            Logger.record { "$tag resetAppContext() : Arguments: $payload" }
             pluginHelper.resetAppContext(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag resetAppContext() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag resetAppContext() : " }
         }
     }
 
@@ -272,10 +273,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag passPushToken() : Arguments: $payload" }
+            Logger.record { "$tag passPushToken() : Arguments: $payload" }
             pluginHelper.passPushToken(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag passPushToken() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag passPushToken() : " }
         }
     }
 
@@ -283,10 +284,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag passPushPayload() : Arguments: $payload" }
+            Logger.record { "$tag passPushPayload() : Arguments: $payload" }
             pluginHelper.passPushPayload(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag passPushPayload() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag passPushPayload() : " }
         }
     }
 
@@ -294,22 +295,22 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag optOutTracking() : Arguments: $payload" }
+            Logger.record { "$tag optOutTracking() : Arguments: $payload" }
             pluginHelper.optOutTracking(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag optOutTracking() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag optOutTracking() : " }
         }
     }
 
     private fun selfHandledCallback(methodCall: MethodCall) {
         try {
-            Logger.print { "$tag selfHandledCallback() : Arguments: $methodCall" }
+            Logger.record { "$tag selfHandledCallback() : Arguments: $methodCall" }
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag selfHandledCallback() : Arguments: $payload" }
+            Logger.record { "$tag selfHandledCallback() : Arguments: $payload" }
             pluginHelper.selfHandledCallback(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag selfHandledCallback() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag selfHandledCallback() : " }
         }
     }
 
@@ -317,15 +318,15 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag updateSdkState() : Arguments: $payload" }
+            Logger.record { "$tag updateSdkState() : Arguments: $payload" }
             pluginHelper.storeFeatureStatus(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag updateSdkState() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag updateSdkState() : " }
         }
     }
 
     private fun onOrientationChanged() {
-        Logger.print { "$tag onOrientationChanged() : " }
+        Logger.record { "$tag onOrientationChanged() : " }
         pluginHelper.onConfigurationChanged()
     }
 
@@ -333,10 +334,12 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag updateDeviceIdentifierTrackingStatus() : Arguments: $payload" }
+            Logger.record { "$tag updateDeviceIdentifierTrackingStatus() : Arguments: $payload" }
             pluginHelper.deviceIdentifierTrackingStatusUpdate(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag updateDeviceIdentifierTrackingStatus() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) {
+                "$tag updateDeviceIdentifierTrackingStatus() : "
+            }
         }
     }
 
@@ -344,7 +347,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             pluginHelper.setUpNotificationChannels(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag setupNotificationChannel() :" }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag setupNotificationChannel() :" }
         }
     }
 
@@ -352,7 +355,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             pluginHelper.navigateToSettings(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag navigateToSettings() :" }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag navigateToSettings() :" }
         }
     }
 
@@ -360,36 +363,39 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             pluginHelper.requestPushPermission(context)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag requestPushPermission() :" }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag requestPushPermission() :" }
         }
     }
 
     private fun permissionResponse(methodCall: MethodCall) {
         try {
-            Logger.print { "$tag permissionResponse() : Arguments: ${methodCall.arguments}" }
+            Logger.record { "$tag permissionResponse() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag permissionResponse() : Payload: $payload" }
+            Logger.record { "$tag permissionResponse() : Payload: $payload" }
             pluginHelper.permissionResponse(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag permissionResponse() :" }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag permissionResponse() :" }
         }
     }
 
     private fun updatePushPermissionRequestCount(methodCall: MethodCall) {
         try {
-            Logger.print { "$tag updatePushPermissionRequestCount() : Arguments: ${methodCall.arguments}" }
+            Logger.record {
+                "$tag updatePushPermissionRequestCount() : Arguments: ${methodCall.arguments}"
+            }
             if (methodCall.arguments == null) return
             val payload: String = methodCall.arguments.toString()
-            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            Logger.record { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
             pluginHelper.updatePushPermissionRequestCount(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag updatePushPermissionRequestCount() :" }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag updatePushPermissionRequestCount() :" }
         }
     }
 
     /**
      * API to delete the user from MoEngage Server
+     *
      * @param methodCall - Instance of [MethodCall] to get message from Flutter Method Channel
      * @param result - Instance of [MethodChannel.Result] to send result to Flutter Method Channel
      * @since 1.1.0
@@ -399,90 +405,85 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         result: MethodChannel.Result,
     ) {
         try {
-            Logger.print { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
+            Logger.record { "$tag deleteUser() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) {
                 result.error(ERROR_CODE_DELETE_USER, "Invalid Arguments", null)
                 return
             }
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
+            Logger.record { "$tag updatePushPermissionRequestCount() : Payload: $payload" }
             pluginHelper.deleteUser(context, payload) { data ->
                 result.success(userDeletionDataToJson(data).toString())
             }
         } catch (t: Throwable) {
             result.error(ERROR_CODE_DELETE_USER, "Error occured while Deleting the User", null)
-            Logger.print(LogLevel.ERROR, t) { "deleteUser(): " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "deleteUser(): " }
         }
     }
 
     /**
      * Called when the plugin is attached to Flutter Activity.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
-        flutterPluginBinding?.binaryMessenger?.let {
-            initPlugin(it)
-        }
+        Logger.record { "$tag onAttachedToActivity() : Attached To Activity" }
+        flutterPluginBinding?.binaryMessenger?.let { initPlugin(it) }
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity.
-     */
+    /** Called when the plugin is Detached From Flutter Activity. */
     override fun onDetachedFromActivity() {
-        Logger.print { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
+        Logger.record { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
         methodChannel = null
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity for Config Changes
-     */
+    /** Called when the plugin is Detached From Flutter Activity for Config Changes */
     override fun onDetachedFromActivityForConfigChanges() {
-        Logger.print {
+        Logger.record {
             "$tag onDetachedFromActivityForConfigChanges() : Detached From Activity for Config changes"
         }
     }
 
     /**
      * Called when the plugin is Reattached to Flutter Activity For Config Changes.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        Logger.print {
+        Logger.record {
             "$tag onReattachedToActivityForConfigChanges() : ReAttached To Activity for Config changes"
         }
     }
 
-    /**
-     * Show Non Intrusive Nudge InApp provided the payload in [methodCall] object.
-     */
+    /** Show Non Intrusive Nudge InApp provided the payload in [methodCall] object. */
     private fun showNudge(methodCall: MethodCall) {
         try {
-            Logger.print { "$tag showNudge() : Arguments: ${methodCall.arguments}" }
+            Logger.record { "$tag showNudge() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) return
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag showNudge() : Payload: $payload" }
+            Logger.record { "$tag showNudge() : Payload: $payload" }
             pluginHelper.showNudge(context, payload)
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag showNudge(): " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag showNudge(): " }
         }
     }
 
     /**
-     * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to Flutter.
+     * Get Self Handled InApps provided [methodCall] object and the [result] to send the callback to
+     * Flutter.
      */
     private fun getSelfHandledInApps(
         methodCall: MethodCall,
         result: MethodChannel.Result,
     ) {
         try {
-            Logger.print { "$tag getSelfHandledInApps() : Arguments: ${methodCall.arguments}" }
+            Logger.record { "$tag getSelfHandledInApps() : Arguments: ${methodCall.arguments}" }
             if (methodCall.arguments == null) {
                 result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Invalid Arguments", null)
                 return
             }
             val payload = methodCall.arguments.toString()
-            Logger.print { "$tag getSelfHandledInApps() : Payload: $payload" }
+            Logger.record { "$tag getSelfHandledInApps() : Payload: $payload" }
             pluginHelper.getSelfHandledInApps(context, payload) { data ->
                 if (data == null) {
                     result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Error occurred", null)
@@ -492,42 +493,40 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
         } catch (t: Throwable) {
             result.error(ERROR_CODE_SELF_HANDLED_IN_APPS, "Error occurred", null)
-            Logger.print(LogLevel.ERROR, t) { "$tag getSelfHandledInApps() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getSelfHandledInApps() : " }
         }
     }
 
-    /**
-     *  Identify the user with the given identity argument in [methodCall]
-     */
+    /** Identify the user with the given identity argument in [methodCall] */
     private fun identifyUser(methodCall: MethodCall) {
         try {
             val argument =
-                methodCall.arguments ?: run {
-                    Logger.print { "$tag identifyUser() : Invalid argument" }
-                    return@run
-                }
-            Logger.print { "$tag identifyUser() : Arguments: $argument" }
+                methodCall.arguments
+                    ?: run {
+                        Logger.record { "$tag identifyUser() : Invalid argument" }
+                        return@run
+                    }
+            Logger.record { "$tag identifyUser() : Arguments: $argument" }
             pluginHelper.identifyUser(context, argument.toString())
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag identifyUser() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag identifyUser() : " }
         }
     }
 
-    /**
-     *  Return Identities of the user that has been set.
-     */
+    /** Return Identities of the user that has been set. */
     private fun getUserIdentities(
         methodCall: MethodCall,
         result: MethodChannel.Result,
     ) {
         try {
             val argument =
-                methodCall.arguments ?: run {
-                    Logger.print { "$tag getUserIdentities() : Invalid argument" }
-                    result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
-                    return@run
-                }
-            Logger.print { "$tag getUserIdentities() : $argument" }
+                methodCall.arguments
+                    ?: run {
+                        Logger.record { "$tag getUserIdentities() : Invalid argument" }
+                        result.error(ERROR_CODE_GET_USER_IDENTITIES, "Invalid argument", null)
+                        return@run
+                    }
+            Logger.record { "$tag getUserIdentities() : $argument" }
             pluginHelper.getUserIdentities(context, argument.toString()) { identities ->
                 result.success(
                     if (identities != null) {
@@ -538,19 +537,18 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 )
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag getUserIdentities() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getUserIdentities() : " }
             result.error(ERROR_CODE_GET_USER_IDENTITIES, "Error occurred", null)
         }
     }
 
     companion object {
-        /**
-         * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
-         */
+        /** Static MethodChannel instance to avoid plugin reinitializing from Background Isolate */
         internal var methodChannel: MethodChannel? = null
 
         /**
-         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on
+         * [onAttachedToActivity]
          */
         internal var flutterPluginBinding: FlutterPluginBinding? = null
     }

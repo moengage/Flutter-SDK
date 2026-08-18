@@ -7,7 +7,9 @@ plugins {
 
 android {
     namespace = "com.example.example_spm"
-    compileSdk = flutter.compileSdkVersion
+    // permission_handler_android requires compiling against API 37 or later,
+    // which is ahead of flutter.compileSdkVersion (36) in the current Flutter SDK.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

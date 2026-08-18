@@ -2,7 +2,7 @@ group 'com.moengage.flutter'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.9.23'
+    ext.kotlin_version = '2.3.20'
     repositories {
         google()
         mavenCentral()
@@ -10,10 +10,23 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:8.13.2"
+        classpath "com.android.tools.build:gradle:9.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.5"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
+        // classpath 'com.diffplug.spotless:spotless-plugin-gradle:8.5.1'
     }
+}
+
+// gradle-config-plugin 2.0.0 dropped its own org.jetbrains.kotlin.android apply
+// in favor of AGP 9's built-in Kotlin, which is only active when AGP >= 9 and
+// android.builtInKotlin isn't opted out. Fall back to explicit kotlin-android.
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty("android.builtInKotlin")
+        .map { it.toBoolean() }
+        .orElse(agpMajor >= 9)
+        .get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
 }
 
 rootProject.allprojects {
@@ -25,11 +38,12 @@ rootProject.allprojects {
 
 
 ext {
-    moengageNativeBomVersion = "2.3.1"
-    moengagePluginBaseBomVersion = "3.1.0"
+     moengageNativeBomVersion = "4.2.0"
+    moengagePluginBaseBomVersion = "4.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
+// apply plugin: 'com.diffplug.spotless'
 
 hybridModuleConfig.configurePlugin {
     kotlinOptions {
@@ -38,7 +52,22 @@ hybridModuleConfig.configurePlugin {
     }
 }
 
+if (project.plugins.hasPlugin('com.diffplug.spotless')) {
+    spotless {
+        ratchetFrom 'origin/development'
+        kotlin {
+            target 'src/**/*.kt'
+            targetExclude '**/build/**'
+            ktfmt('0.62').kotlinlangStyle().configure { options ->
+                options.setMaxWidth(100)
+                options.setTrailingCommaManagementStrategy(com.diffplug.spotless.kotlin.KtfmtStep.TrailingCommaManagementStrategy.NONE)
+            }
+        }
+    }
+}
+
 android {
+    compileSdk 36
     namespace "com.moengage.flutter"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -50,7 +79,7 @@ dependencies {
     api("com.moengage:moe-android-sdk")
     api("com.moengage:inapp")
 
-    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    api(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
     api("com.moengage:plugin-base")
 
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")

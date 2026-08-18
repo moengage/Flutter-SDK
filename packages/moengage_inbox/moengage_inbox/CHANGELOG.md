@@ -1,5 +1,16 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Android
+  - [major] Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
+  - [major] `android-bom` version updated to `4.2.0`.
+- iOS
+    - [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+
 # 13-08-2026
 
 ## 9.6.0

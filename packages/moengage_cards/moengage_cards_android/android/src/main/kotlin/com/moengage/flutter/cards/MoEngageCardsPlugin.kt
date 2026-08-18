@@ -1,9 +1,9 @@
 package com.moengage.flutter.cards
 
 import android.content.Context
-import com.moengage.core.LogLevel
-import com.moengage.core.internal.global.GlobalResources
-import com.moengage.core.internal.logger.Logger
+import com.moengage.core.internal.utils.postOnMainThread
+import com.moengage.platform.internal.logger.Logger
+import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.plugin.base.cards.CardsPluginHelper
 import com.moengage.plugin.base.cards.internal.setCardsEventEmitter
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -22,20 +22,20 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         try {
-            Logger.print { "$tag onAttachedToEngine() : Registering MoEngageCardsPlugin" }
+            Logger.record { "$tag onAttachedToEngine() : Registering MoEngageCardsPlugin" }
             context = binding.applicationContext
             flutterPluginBinding = binding
             if (methodChannel == null) {
                 initPlugin(binding.binaryMessenger)
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onAttachedToEngine()  : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onAttachedToEngine()  : " }
         }
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
         try {
-            Logger.print { "$tag initPlugin(): Initializing MoEngage Cards Plugin" }
+            Logger.record { "$tag initPlugin(): Initializing MoEngage Cards Plugin" }
             methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
             methodChannel?.setMethodCallHandler(
                 PlatformMethodCallHandler(
@@ -45,16 +45,16 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
             )
             setCardsEventEmitter(EventEmitterImpl(::emitEvent))
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag initPlugin()  : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag initPlugin()  : " }
         }
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         try {
-            Logger.print { "$tag onDetachedFromEngine() : Detaching the Framework" }
+            Logger.record { "$tag onDetachedFromEngine() : Detaching the Framework" }
             cardsPluginHelper.onFrameworkDetached()
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag onDetachedFromEngine() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag onDetachedFromEngine() : " }
         }
     }
 
@@ -63,64 +63,59 @@ class MoEngageCardsPlugin : FlutterPlugin, ActivityAware {
         payload: String,
     ) {
         try {
-            GlobalResources.mainThread.post {
+            postOnMainThread {
                 try {
                     methodChannel?.invokeMethod(methodName, payload)
                 } catch (t: Throwable) {
-                    Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
+                    Logger.record(PlatformLogLevel.ERROR, t) { "$tag emitEvent() : " }
                 }
             }
         } catch (t: Throwable) {
-            Logger.print(LogLevel.ERROR, t) { "$tag emitEvent() : " }
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag emitEvent() : " }
         }
     }
 
     /**
      * Called when the plugin is attached to Flutter Activity.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        Logger.print { "$tag onAttachedToActivity() : Attached To Activity" }
-        flutterPluginBinding?.binaryMessenger?.let {
-            initPlugin(it)
-        }
+        Logger.record { "$tag onAttachedToActivity() : Attached To Activity" }
+        flutterPluginBinding?.binaryMessenger?.let { initPlugin(it) }
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity.
-     */
+    /** Called when the plugin is Detached From Flutter Activity. */
     override fun onDetachedFromActivity() {
-        Logger.print { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
+        Logger.record { "$tag onDetachedFromActivity() : Resetting methodChannel to `null`" }
         methodChannel = null
     }
 
-    /**
-     * Called when the plugin is Detached From Flutter Activity for Config Changes
-     */
+    /** Called when the plugin is Detached From Flutter Activity for Config Changes */
     override fun onDetachedFromActivityForConfigChanges() {
-        Logger.print {
+        Logger.record {
             "$tag onDetachedFromActivityForConfigChanges() : Detached From Activity for Config changes"
         }
     }
 
     /**
      * Called when the plugin is Reattached to Flutter Activity For Config Changes.
+     *
      * @param binding instance of [ActivityPluginBinding]
      */
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        Logger.print {
+        Logger.record {
             "$tag onReattachedToActivityForConfigChanges() : ReAttached To Activity for Config changes"
         }
     }
 
     companion object {
-        /**
-         * Static MethodChannel instance to avoid plugin reinitializing from Background Isolate
-         */
+        /** Static MethodChannel instance to avoid plugin reinitializing from Background Isolate */
         internal var methodChannel: MethodChannel? = null
 
         /**
-         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on [onAttachedToActivity]
+         * Instance of [FlutterPluginBinding] to reinitialize the Method Channel on
+         * [onAttachedToActivity]
          */
         internal var flutterPluginBinding: FlutterPluginBinding? = null
     }

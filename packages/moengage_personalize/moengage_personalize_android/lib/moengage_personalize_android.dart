@@ -12,7 +12,8 @@ class MoEngagePersonalizeAndroid extends MoEngagePersonalizePlatform {
 
   /// Registers this class as the default instance of [MoEngagePersonalizePlatform].
   static void registerWith() {
-    Logger.v('${moduleTag}MoEngagePersonalizeAndroid registerWith(): Registering MoEngagePersonalizeAndroid with Platform Interface');
+    Logger.v(
+        '${moduleTag}MoEngagePersonalizeAndroid registerWith(): Registering MoEngagePersonalizeAndroid with Platform Interface');
     MoEngagePersonalizePlatform.instance = MoEngagePersonalizeAndroid();
   }
 
@@ -27,7 +28,8 @@ class MoEngagePersonalizeAndroid extends MoEngagePersonalizePlatform {
           methodFetchExperiencesMeta, json.encode(payload));
       return deserializeExperiencesMeta(response);
     } catch (e, stackTrace) {
-      Logger.e('$_tag fetchExperiencesMeta(): Error: $e', stackTrace: stackTrace);
+      Logger.e('$_tag fetchExperiencesMeta(): Error: $e',
+          stackTrace: stackTrace);
       rethrow;
     }
   }

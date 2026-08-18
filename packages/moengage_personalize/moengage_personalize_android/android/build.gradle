@@ -2,7 +2,7 @@ group 'com.moengage.flutter_personalize'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.9.23'
+    ext.kotlin_version = '2.3.20'
     repositories {
         google()
         mavenCentral()
@@ -10,11 +10,20 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'com.android.tools.build:gradle:9.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:0.0.5"
-        // classpath "org.jlleitschuh.gradle:ktlint-gradle:12.1.1"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
+        // classpath 'com.diffplug.spotless:spotless-plugin-gradle:8.5.1'
     }
+}
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty("android.builtInKotlin")
+        .map { it.toBoolean() }
+        .orElse(agpMajor >= 9)
+        .get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
 }
 
 rootProject.allprojects {
@@ -25,12 +34,12 @@ rootProject.allprojects {
 }
 
 ext {
-    moengageNativeBomVersion = "2.3.1"
-    moengagePluginBaseBomVersion = "3.1.0"
+     moengageNativeBomVersion = "4.2.0"
+    moengagePluginBaseBomVersion = "4.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
-// apply plugin: 'org.jlleitschuh.gradle.ktlint'
+// apply plugin: 'com.diffplug.spotless'
 
 hybridModuleConfig.configurePlugin {
     kotlinOptions {
@@ -39,7 +48,22 @@ hybridModuleConfig.configurePlugin {
     }
 }
 
+if (project.plugins.hasPlugin('com.diffplug.spotless')) {
+    spotless {
+        ratchetFrom 'origin/development'
+        kotlin {
+            target 'src/**/*.kt'
+            targetExclude '**/build/**'
+            ktfmt('0.62').kotlinlangStyle().configure { options ->
+                options.setMaxWidth(100)
+                options.setTrailingCommaManagementStrategy(com.diffplug.spotless.kotlin.KtfmtStep.TrailingCommaManagementStrategy.NONE)
+            }
+        }
+    }
+}
+
 android {
+    compileSdk 36
     namespace "com.moengage.flutter.personalize"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

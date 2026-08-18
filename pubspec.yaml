@@ -4,6 +4,61 @@ version: 0.0.1
 publish_to: 'none'
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
+
+workspace:
+  - packages/moengage_cards/moengage_cards
+  - packages/moengage_cards/moengage_cards_android
+  - packages/moengage_cards/moengage_cards_ios
+  - packages/moengage_cards/moengage_cards_platform_interface
+  - packages/moengage_flutter/moengage_flutter
+  - packages/moengage_flutter/moengage_flutter_android
+  - packages/moengage_flutter/moengage_flutter_ios
+  - packages/moengage_flutter/moengage_flutter_platform_interface
+  - packages/moengage_flutter/moengage_flutter_web
+  - packages/moengage_geofence/moengage_geofence
+  - packages/moengage_geofence/moengage_geofence_android
+  - packages/moengage_geofence/moengage_geofence_ios
+  - packages/moengage_geofence/moengage_geofence_platform_interface
+  - packages/moengage_inbox/moengage_inbox
+  - packages/moengage_inbox/moengage_inbox_android
+  - packages/moengage_inbox/moengage_inbox_ios
+  - packages/moengage_inbox/moengage_inbox_platform_interface
+  - packages/moengage_personalize/moengage_personalize
+  - packages/moengage_personalize/moengage_personalize_android
+  - packages/moengage_personalize/moengage_personalize_ios
+  - packages/moengage_personalize/moengage_personalize_platform_interface
+  - example
+  - example_spm
+
 dev_dependencies:
-  melos: ^3.1.0
+  melos: ^8.1.0
+
+melos:
+  repository: https://github.com/moengage/Flutter-SDK/
+
+  scripts:
+    analyze: melos exec -- flutter analyze
+    format: melos exec -- dart format .
+    get: flutter pub get
+    dry-run: flutter pub publish --dry-run
+    unittest:
+      run: melos exec -- flutter test
+      select-package:
+        dir-exists:
+          - test
+        scope: "*interface*"
+    update-ios:
+      description: Update iOS dependencies
+      exec: $MELOS_ROOT_PATH/scripts/update-version.rb
+      packageFilters:
+        scope: '*_ios'
+      env:
+        MO_APPLE_VERSIONS: |
+          {
+            "MoEngagePluginBase": "6.9.0",
+            "MoEngagePluginCards": "3.10.0",
+            "MoEngagePluginGeofence": "4.9.0",
+            "MoEngagePluginInbox": "4.9.0",
+            "MoEngagePluginPersonalize": "1.0.0"
+          }

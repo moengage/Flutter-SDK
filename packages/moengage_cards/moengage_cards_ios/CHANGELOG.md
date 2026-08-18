@@ -1,5 +1,12 @@
 # MoEngage Cards iOS Plugin
 
+# Release Date
+
+## Release Version
+
+- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+
 # 13-08-2026
 
 ## 5.5.0
