@@ -403,4 +403,25 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   void dismissElementTooltip() {
     Logger.v('dismissElementTooltip(): Not supported in Web Platform');
   }
+
+  @override
+  void updateElementTooltipAnchor({
+    required DesignModeElementBounds bounds,
+    required String nodeId,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    Logger.v('updateElementTooltipAnchor(): Not supported in Web Platform');
+  }
+
+  @override
+  void showElementCoachMarks({
+    required List<Map<String, dynamic>> steps,
+  }) {
+    Logger.v('showElementCoachMarks(): Not supported in Web Platform');
+  }
+
+  @override
+  void dismissElementCoachMarks() {
+    Logger.v('dismissElementCoachMarks(): Not supported in Web Platform');
+  }
 }

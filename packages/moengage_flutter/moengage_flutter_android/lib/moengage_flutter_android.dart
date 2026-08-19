@@ -390,6 +390,34 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
   }
 
   @override
+  void showElementCoachMarks({
+    required List<Map<String, dynamic>> steps,
+  }) {
+    // `com.moengage:tooltip` has no coach mark helper - it exposes tooltip,
+    // beacon and spotlight only.
+    Logger.v('showElementCoachMarks(): Not supported in Android Platform');
+  }
+
+  @override
+  void dismissElementCoachMarks() {
+    Logger.v('dismissElementCoachMarks(): Not supported in Android Platform');
+  }
+
+  @override
+  void updateElementTooltipAnchor({
+    required DesignModeElementBounds bounds,
+    required String nodeId,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    // `com.moengage:tooltip`'s imperative helpers position the overlay once,
+    // from the anchor View's location at show time, and expose no re-anchor
+    // entry point - so moving the marker View this plugin attaches would not
+    // move a tooltip that is already up.
+    Logger.v(
+        'updateElementTooltipAnchor(): Not supported in Android Platform yet');
+  }
+
+  @override
   void dismissElementTooltip() {
     _methodChannel.invokeMethod(methodDismissElementTooltip);
   }

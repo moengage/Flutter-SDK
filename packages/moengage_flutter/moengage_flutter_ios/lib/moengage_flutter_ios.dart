@@ -321,6 +321,32 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
   }
 
   @override
+  void updateElementTooltipAnchor({
+    required DesignModeElementBounds bounds,
+    required String nodeId,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    _channel.invokeMethod(methodUpdateElementTooltipAnchor, <String, dynamic>{
+      keyNodeId: nodeId,
+      keyBounds: bounds.toMap(),
+      keyTooltipOverlayType: overlayType.wireValue,
+    });
+  }
+
+  @override
+  void showElementCoachMarks({
+    required List<Map<String, dynamic>> steps,
+  }) {
+    _channel.invokeMethod(methodShowElementCoachMarks,
+        <String, dynamic>{keyCoachMarkSteps: steps});
+  }
+
+  @override
+  void dismissElementCoachMarks() {
+    _channel.invokeMethod(methodDismissElementCoachMarks);
+  }
+
+  @override
   void dismissElementTooltip() {
     _channel.invokeMethod(methodDismissElementTooltip);
   }

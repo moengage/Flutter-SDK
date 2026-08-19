@@ -11,6 +11,12 @@ enum NativeTooltipOverlayType {
 
   /// A dimmed full-screen scrim with a cutout around the element.
   spotlight,
+
+  /// A dimmed overlay highlighting several elements at once, each with its own
+  /// copy - a walkthrough rather than a single callout. Unlike the others this
+  /// takes a list of targets, so it goes through
+  /// `showElementCoachMarks` rather than `showElementTooltip`.
+  coachMark,
 }
 
 /// Wire encoding for [NativeTooltipOverlayType], sent to native over the
@@ -25,6 +31,8 @@ extension NativeTooltipOverlayTypeWireValue on NativeTooltipOverlayType {
         return 'beacon';
       case NativeTooltipOverlayType.spotlight:
         return 'spotlight';
+      case NativeTooltipOverlayType.coachMark:
+        return 'coachMark';
     }
   }
 }

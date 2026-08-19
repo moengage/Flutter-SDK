@@ -216,6 +216,38 @@ const String methodShowElementTooltip = 'showElementTooltip';
 const String methodDismissElementTooltip = 'dismissElementTooltip';
 const String keyTooltipMessage = 'message';
 
+/// Dart -> Native: re-report the anchor element's bounds for a tooltip that is
+/// already showing, so it follows the element as it scrolls. Carries
+/// [keyBounds] and the [keyNodeId] identifying which tooltip to move.
+///
+/// Needed because native cannot track a Flutter widget by itself: its own
+/// scroll-follow watches a live `UIView`/`View`, and a Flutter widget has
+/// neither - only Dart knows the element moved.
+const String methodUpdateElementTooltipAnchor = 'updateElementTooltipAnchor';
+
+/// Coach marks.
+/// Dart -> Native: highlight every element in [keyCoachMarkSteps] on one dimmed
+/// overlay. Takes a list rather than a single anchor because a coach mark is a
+/// multi-target walkthrough; each step carries its own [keyBounds] and copy.
+const String methodShowElementCoachMarks = 'showElementCoachMarks';
+const String methodDismissElementCoachMarks = 'dismissElementCoachMarks';
+
+/// List of `MoECoachMarkStep.toMap()` entries in a
+/// [methodShowElementCoachMarks] payload.
+const String keyCoachMarkSteps = 'steps';
+
+/// Copy shown beside one highlighted element.
+const String keyCoachMarkText = 'text';
+
+/// Corner radius of the hole punched around a coach mark target, in logical
+/// pixels. Should match the widget's real radius - the cutout reveals the actual
+/// widget, not a copy of it.
+const String keyCoachMarkCutoutCornerRadius = 'cutoutCornerRadius';
+
+/// Padding added around a coach mark target before punching its hole, in logical
+/// pixels. `0` keeps the hole flush with the element.
+const String keyCoachMarkCutoutPadding = 'cutoutPadding';
+
 /// Which native `com.moengage:tooltip` overlay to render - one of
 /// [overlayTypeTooltip] / [overlayTypeBeacon] / [overlayTypeSpotlight].
 /// Sent alongside [methodShowElementTooltip]; defaults to [overlayTypeTooltip]

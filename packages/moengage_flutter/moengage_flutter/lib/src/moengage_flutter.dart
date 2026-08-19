@@ -3,6 +3,7 @@
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
 
 import 'internal/designmode/design_mode_controller.dart';
+import 'internal/registry/moe_element_registry.dart';
 import 'internal/tooltip/moe_tooltip_controller.dart';
 
 /// Helper Class to interact with MoEngage SDK
@@ -99,6 +100,113 @@ class MoEngageFlutter {
   void setElementTooltipRenderMode(TooltipRenderMode mode) {
     MoETooltipController.instance().renderMode = mode;
   }
+
+  /// Shows a native spotlight - a dimmed screen with a cutout - over the element
+  /// wrapped in a `MoEngageView` carrying [elementId].
+  ///
+  /// This resolves the element through the SDK's `MoEngageView` registry rather
+  /// than by searching the widget tree for a `ValueKey`, so it costs a map lookup
+  /// and one measurement.
+  ///
+  /// Returns `false` without showing anything when the element isn't registered,
+  /// isn't laid out, or isn't fully on screen - a spotlight cutout around a
+  /// half-scrolled element would sit over whatever is clipping it. Use
+  /// [elementVisibleFraction] to see which of those it was.
+  ///
+  /// [elementId] - the `MoEngageView.id` to anchor to.
+  /// [message] - copy shown beside the cutout.
+  bool showSpotlightOnElement({
+    required String elementId,
+    String message = '',
+  }) =>
+      _showOverlayOnElement(
+        elementId: elementId,
+        message: message,
+        overlayType: NativeTooltipOverlayType.spotlight,
+      );
+
+  /// Resolves [elementId] through the `MoEngageView` registry and asks native to
+  /// render [overlayType] over it. Shared by the registry-based show methods.
+  bool _showOverlayOnElement({
+    required String elementId,
+    required String message,
+    required NativeTooltipOverlayType overlayType,
+  }) {
+    final String name = overlayType.name;
+    final MoEElementMeasurement? measurement =
+        MoEElementRegistry.instance().measure(elementId);
+    if (measurement == null) {
+      Logger.w('show${name}OnElement(): no MoEngageView registered for '
+          '"$elementId", or it is not laid out yet. Registered: '
+          '${MoEElementRegistry.instance().registeredIds}');
+      return false;
+    }
+    if (!measurement.isFullyVisible) {
+      Logger.w('show${name}OnElement(): "$elementId" is only '
+          '${(measurement.visibleFraction * 100).round()}% on screen - not '
+          'anchoring. Scroll it fully into view first.');
+      return false;
+    }
+    _platform.showElementTooltip(
+      anchor: DesignModeElementTag(
+        nodeId: elementId,
+        widgetType: 'MoEngageView',
+        path: '',
+        screenName: '',
+        bounds: measurement.bounds,
+      ),
+      message: message,
+      overlayType: overlayType,
+    );
+    return true;
+  }
+
+  /// Shows a native beacon - an animated dot on the corner of the element - over
+  /// the element wrapped in a `MoEngageView` carrying [elementId].
+  ///
+  /// Same resolution and visibility rules as [showSpotlightOnElement]: returns
+  /// `false` without showing anything when the element isn't registered, isn't
+  /// laid out, or isn't fully on screen.
+  ///
+  /// The dot's corner, animation and size are **fixed natively** - the element
+  /// payload carries only bounds, a message and the overlay type, so there is
+  /// nowhere to put styling yet. See `MoEngageFlutterBeaconRenderer` on iOS.
+  ///
+  /// [elementId] - the `MoEngageView.id` to anchor to.
+  /// [message] - copy shown if the user taps the dot to expand it.
+  bool showBeaconOnElement({
+    required String elementId,
+    String message = '',
+  }) =>
+      _showOverlayOnElement(
+        elementId: elementId,
+        message: message,
+        overlayType: NativeTooltipOverlayType.beacon,
+      );
+
+  /// Dismisses the spotlight or beacon shown by [showSpotlightOnElement] /
+  /// [showBeaconOnElement], if any.
+  void dismissElementSpotlight() {
+    _platform.dismissElementTooltip();
+  }
+
+  /// Whether a `MoEngageView` with [elementId] is currently mounted and laid
+  /// out. Cheap enough to call before deciding to show something.
+  bool isElementRegistered(String elementId) =>
+      MoEElementRegistry.instance().isRegistered(elementId);
+
+  /// How much of [elementId] is on screen right now: `1.0` fully visible, `0.0`
+  /// entirely off screen, `null` when nothing is registered under that id.
+  ///
+  /// Measures clipping by the screen only - a widget hidden behind a bottom sheet
+  /// still reports `1.0`, since Flutter has no general occlusion query.
+  double? elementVisibleFraction(String elementId) =>
+      MoEElementRegistry.instance().measure(elementId)?.visibleFraction;
+
+  /// Ids of every `MoEngageView` currently mounted - what a campaign could
+  /// target on this screen.
+  List<String> get registeredElementIds =>
+      MoEElementRegistry.instance().registeredIds;
 
   /// Tracks an event with the given attributes.
   /// [eventName] - Name of the Event to be tracked

@@ -20,6 +20,19 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
             MoEngagePluginBridge.sharedInstance.registerForPush()
         case MoEngageFlutterConstants.MethodNames.kRegisterForProvisionalPush:
             registerForProvisionalPush()
+        // Both dismisses are sent with no arguments, so they have to be handled before
+        // `handleWithPayload`, which drops any call whose arguments aren't a map.
+        //
+        // Dart doesn't say which single-element overlay is showing - it has one dismiss for
+        // all of them - so every renderer is asked. Each is a no-op when it isn't the one on
+        // screen.
+        case MoEngageFlutterConstants.MethodNames.kDismissElementTooltip:
+            MoEngageFlutterSpotlightRenderer.dismiss()
+            MoEngageFlutterTooltipRenderer.dismiss()
+            MoEngageFlutterBeaconRenderer.dismiss()
+        // Coach marks live in their own overlay window, so Dart dismisses them separately.
+        case MoEngageFlutterConstants.MethodNames.kDismissElementCoachMarks:
+            MoEngageFlutterCoachMarkRenderer.dismiss()
         default:
             handleWithPayload(call: call, result: result)
         }
@@ -44,6 +57,18 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         case MoEngageFlutterConstants.MethodNames.kShowNudge:
             MoEngagePluginBridge.sharedInstance.showNudge(payload)
 
+        // Element-anchored overlays: Dart sends the resolved widget bounds, since native
+        // cannot locate a Flutter widget by itself.
+        case MoEngageFlutterConstants.MethodNames.kShowElementTooltip:
+            showElementOverlay(payload: payload)
+        // Dart re-reports the anchor's bounds as it scrolls; native can't track a
+        // Flutter widget on its own.
+        case MoEngageFlutterConstants.MethodNames.kUpdateElementTooltipAnchor:
+            updateElementOverlayAnchor(payload: payload)
+        // Several elements highlighted on one overlay, so this carries a list of steps
+        // rather than a single anchor.
+        case MoEngageFlutterConstants.MethodNames.kShowElementCoachMarks:
+            MoEngageFlutterCoachMarkRenderer.show(payload: payload)
 
         case MoEngageFlutterConstants.MethodNames.kSetAppStatus:
             MoEngagePluginBridge.sharedInstance.setAppStatus(payload)
@@ -95,6 +120,43 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         plugin.trackPluginInfo(MoEngageFlutterConstants.kPluginName, version: getCoreVersion())
     }
     
+    /// Dispatches a `showElementTooltip` payload to the renderer for its `overlayType`.
+    ///
+    /// The beacon renders as a dot on both platforms - see `MoEngageFlutterBeaconRenderer` for
+    /// how that is configured on iOS, where the dot can additionally expand into a card if the
+    /// user taps it.
+    private func showElementOverlay(payload: [String: Any]) {
+        let overlayType = payload[MoEngageFlutterConstants.ElementTooltipKeys.kOverlayType] as? String
+            ?? MoEngageFlutterConstants.ElementOverlayType.kTooltip
+        switch overlayType {
+        case MoEngageFlutterConstants.ElementOverlayType.kSpotlight:
+            MoEngageFlutterSpotlightRenderer.show(payload: payload)
+        case MoEngageFlutterConstants.ElementOverlayType.kBeacon:
+            MoEngageFlutterBeaconRenderer.show(payload: payload)
+        case MoEngageFlutterConstants.ElementOverlayType.kTooltip:
+            MoEngageFlutterTooltipRenderer.show(payload: payload)
+        default:
+            MoEngageLogger.logDefault(logLevel: .warning,
+                                      message: "Flutter - Element overlay: \"\(overlayType)\" is not a single-element overlay. Campaign not shown.")
+        }
+    }
+
+    /// Routes an anchor update to the overlay that is actually showing.
+    ///
+    /// The tooltip and the beacon are separate native views with separate re-anchor calls, so
+    /// the payload carries the overlay type. The spotlight and coach mark never reach here -
+    /// Dart doesn't track them for following, since native has no API to move either.
+    private func updateElementOverlayAnchor(payload: [String: Any]) {
+        let overlayType = payload[MoEngageFlutterConstants.ElementTooltipKeys.kOverlayType] as? String
+            ?? MoEngageFlutterConstants.ElementOverlayType.kTooltip
+        switch overlayType {
+        case MoEngageFlutterConstants.ElementOverlayType.kBeacon:
+            MoEngageFlutterBeaconRenderer.updateAnchor(payload: payload)
+        default:
+            MoEngageFlutterTooltipRenderer.updateAnchor(payload: payload)
+        }
+    }
+
     private func registerForProvisionalPush() {
         if #available(iOS 12.0, *) {
             MoEngagePluginBridge.sharedInstance.registerForProvisionalPush()

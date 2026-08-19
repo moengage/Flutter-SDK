@@ -236,6 +236,11 @@ class _PersonalizeHomeState extends State<PersonalizeHome> {
           const SizedBox(height: 16),
           ...ListTile.divideTiles(context: context, tiles: [
             ListTile(
+              // Spotlight anchor. Identity comes from the ValueKey<String>:
+              // ElementInspector resolves this widget by that value, so the
+              // SDK's campaign for the PersonalizeHome screen can dim the rest
+              // of the screen and cut a hole around this row.
+              key: const ValueKey<String>('personalize_home_anchor'),
               title: const Text('Fetch Experience Meta'),
               onTap: _onFetchMeta,
             ),

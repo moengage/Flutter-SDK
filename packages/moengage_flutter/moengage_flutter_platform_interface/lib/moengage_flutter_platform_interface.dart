@@ -10,6 +10,7 @@ export 'src/model/account_meta.dart';
 export 'src/model/analytics/analytics_config.dart';
 export 'src/model/app_status.dart';
 export 'src/model/campaignsCore/accessibility_data.dart';
+export 'src/model/coach_mark_step.dart';
 export 'src/model/design_mode_element_tag.dart';
 export 'src/model/gender.dart';
 export 'src/model/geo_location.dart';

@@ -293,4 +293,45 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// screen it was anchored to.
   void dismissElementTooltip() => throw UnimplementedError(
       'dismissElementTooltip() not implemented for Platform');
+
+  /// Moves the tooltip already showing for [nodeId] to freshly measured
+  /// [bounds], so it follows its anchor element through a scroll.
+  ///
+  /// This re-anchors the existing overlay rather than showing a new one:
+  /// re-showing would track a second impression per scroll frame and leave the
+  /// previous card on screen. A no-op natively when no tooltip is showing for
+  /// [nodeId].
+  ///
+  /// [bounds] - the element's current bounds, in physical pixels.
+  /// [nodeId] - identity of the anchor element, as sent in
+  /// [showElementTooltip]'s [DesignModeElementTag].
+  /// [overlayType] - which overlay to move; the tooltip and the beacon are
+  /// separate native objects with separate re-anchor calls.
+  void updateElementTooltipAnchor({
+    required DesignModeElementBounds bounds,
+    required String nodeId,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) =>
+      throw UnimplementedError(
+          'updateElementTooltipAnchor() not implemented for Platform');
+
+  /// Asks native to show coach marks highlighting every element in [steps] at
+  /// once - one dimmed overlay with a cutout per target.
+  ///
+  /// Unlike the single-element overlays this takes a list, because a coach mark
+  /// is inherently a multi-target tour: all of its targets are highlighted on
+  /// the same scrim. Each entry carries the element's resolved `bounds` plus its
+  /// own copy - see `MoECoachMarkStep.toMap()`.
+  ///
+  /// Coach marks don't follow their elements: several cutouts and cards are
+  /// placed together and native has no API to move them once shown.
+  void showElementCoachMarks({
+    required List<Map<String, dynamic>> steps,
+  }) =>
+      throw UnimplementedError(
+          'showElementCoachMarks() not implemented for Platform');
+
+  /// Dismisses the coach mark overlay shown by [showElementCoachMarks], if any.
+  void dismissElementCoachMarks() => throw UnimplementedError(
+      'dismissElementCoachMarks() not implemented for Platform');
 }

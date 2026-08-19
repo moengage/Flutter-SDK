@@ -329,6 +329,35 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   }
 
   @override
+  void updateElementTooltipAnchor({
+    required DesignModeElementBounds bounds,
+    required String nodeId,
+    NativeTooltipOverlayType overlayType = NativeTooltipOverlayType.tooltip,
+  }) {
+    _methodChannel.invokeMethod(
+      methodUpdateElementTooltipAnchor,
+      json.encode(<String, dynamic>{
+        keyNodeId: nodeId,
+        keyBounds: bounds.toMap(),
+        keyTooltipOverlayType: overlayType.wireValue,
+      }),
+    );
+  }
+
+  @override
+  void showElementCoachMarks({
+    required List<Map<String, dynamic>> steps,
+  }) {
+    _methodChannel.invokeMethod(methodShowElementCoachMarks,
+        json.encode(<String, dynamic>{keyCoachMarkSteps: steps}));
+  }
+
+  @override
+  void dismissElementCoachMarks() {
+    _methodChannel.invokeMethod(methodDismissElementCoachMarks);
+  }
+
+  @override
   void dismissElementTooltip() {
     _methodChannel.invokeMethod(methodDismissElementTooltip);
   }

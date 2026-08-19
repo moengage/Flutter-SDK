@@ -72,8 +72,16 @@ class _MoEDesignModeWrapperState extends State<MoEDesignModeWrapper> {
     MoETooltipController.instance().attach(context);
   }
 
+  /// Fires for a scroll anywhere in the app - Flutter bubbles
+  /// [ScrollNotification] up the tree, so no per-list `ScrollController` is
+  /// needed.
+  ///
+  /// Both listeners re-measure their own element: the picker moves its
+  /// highlight, and a showing tooltip moves with its anchor. Returning `false`
+  /// lets the notification keep bubbling to the app's own listeners.
   bool _onScrollNotification(ScrollNotification notification) {
     DesignModeController.instance().notifyScrolled();
+    MoETooltipController.instance().notifyScrolled();
     return false;
   }
 

@@ -14,8 +14,11 @@ import 'package:moengage_geofence/moengage_geofence.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'beacon_demo.dart';
 import 'cards/cards_home.dart';
+import 'coach_mark_demo.dart';
 import 'inapp.dart';
+import 'moeview_spotlight_demo.dart';
 import 'personalize_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
@@ -154,9 +157,49 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   },
                 ),
                 ListTile(
-                  title: const Text('Go To Personalize'),
+                  title: const Text('Go To Beacon Demo'),
+                  subtitle: const Text(
+                      'A ripple dot on an anchor\'s corner - config is '
+                      'hardcoded in the iOS bridge.'),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const BeaconDemo()));
+                  },
+                ),
+                ListTile(
+                  title: const Text('Go To MoEngageView + Spotlight'),
+                  subtitle: const Text(
+                      'Wrapper-based targeting, app-triggered, with the '
+                      'visibility rule enforced.'),
+                  onTap: () {
+                    // No RouteSettings name needed: this screen triggers the
+                    // spotlight from app code rather than from a campaign that
+                    // matches on the screen name.
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const MoEViewSpotlightDemo()));
+                  },
+                ),
+                ListTile(
+                  title: const Text('Go To Coach Marks'),
+                  subtitle: const Text(
+                      'Three targets highlighted on one overlay, on entry.'),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        settings: const RouteSettings(name: 'CoachMarkDemo'),
+                        builder: (BuildContext context) =>
+                            const CoachMarkDemo()));
+                  },
+                ),
+                ListTile(
+                  title: const Text('Go To Personalize'),
+                  onTap: () {
+                    // Named so MoENavigationObserver can report the screen and
+                    // the SDK's spotlight campaign for it can resolve - an
+                    // unnamed route reports nothing and never matches.
+                    Navigator.of(context).push(MaterialPageRoute(
+                        settings:
+                            const RouteSettings(name: 'PersonalizeHome'),
                         builder: (BuildContext context) =>
                             const PersonalizeHome()));
                   },
