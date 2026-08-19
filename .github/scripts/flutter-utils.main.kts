@@ -23,7 +23,8 @@ val packageParentFolder = mapOf(
     "moengage_personalize" to "moengage_personalize",
     "moengage_personalize_android" to "moengage_personalize",
     "moengage_personalize_ios" to "moengage_personalize",
-    "moengage_personalize_platform_interface" to "moengage_personalize"
+    "moengage_personalize_platform_interface" to "moengage_personalize",
+    "moengage_sample" to "moengage_sample"
 )
 
 val dependencyMapping = mapOf(
@@ -119,6 +120,11 @@ val dependencyMapping = mapOf(
     ),
     "moengage_personalize_platform_interface" to mapOf(
         "moengage_flutter" to "incremental"
+    ),
+
+    /** Sample Package - scaffold/reference module, no android/ios/platform_interface siblings */
+    "moengage_sample" to mapOf(
+        "moengage_flutter" to "incremental"
     )
 )
 
@@ -206,4 +212,21 @@ fun getVersionWithoutPrefix(version: String): String {
     } else {
         version.trim()
     }
+}
+
+/**
+ * pub.dev refuses automated (service-account / OIDC / bearer-token) publishing of the very
+ * *first* version of a package that has never been published before - see
+ * https://dart.dev/tools/pub/automated-publishing. "Today, you can only automate publishing of
+ * existing packages. To create a new package, you must publish the first version using
+ * `dart pub publish`."
+ *
+ * This checks pub.dev's public API to tell whether [packageName] has ever been published,
+ * so the release automation can skip brand-new packages instead of failing the whole batch.
+ */
+fun isPublishedOnPubDev(packageName: String): Boolean {
+    val statusCode = executeShellCommandWithStringOutput(
+        "curl -s -o /dev/null -w \"%{http_code}\" https://pub.dev/api/packages/$packageName"
+    ).trim()
+    return statusCode == "200"
 }

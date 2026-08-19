@@ -1,0 +1,23 @@
+name: moengage_sample
+description: Sample Flutter Plugin scaffold for MoEngage Platform, used as a template/reference module and to validate the SDK's CI and pub.dev release pipeline for newly added modules.
+version: 0.1.0
+homepage: https://moengage.com
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.44.0"
+
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  moengage_flutter: ^10.0.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - config.json
