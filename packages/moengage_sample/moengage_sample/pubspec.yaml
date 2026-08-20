@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^10.0.0
+  moengage_sample_android: 0.1.0
+  moengage_sample_ios: 0.1.0
+  moengage_sample_platform_interface: 0.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -21,3 +24,9 @@ dev_dependencies:
 flutter:
   assets:
     - config.json
+  plugin:
+    platforms:
+      android:
+        default_package: moengage_sample_android
+      ios:
+        default_package: moengage_sample_ios

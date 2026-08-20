@@ -1,6 +1,13 @@
 # MoEngage Sample Plugin
 
-Sample Plugin scaffold for MoEngage Platform. This module is a lightweight, pure-Dart reference package used to:
+Sample Plugin scaffold for MoEngage Platform. This is a federated plugin, made up of:
+
+- `moengage_sample` (this package) - the app-facing Dart API
+- `moengage_sample_platform_interface` - the common platform interface
+- `moengage_sample_android` - the Android implementation
+- `moengage_sample_ios` - the iOS implementation
+
+It is used to:
 
 - serve as a template for scaffolding new Flutter SDK modules, and
 - validate that the CI pipeline and the pub.dev release pipeline correctly support a brand-new module being added to the workspace.
@@ -29,5 +36,5 @@ Note: This plugin is dependent on the `moengage_flutter` plugin. Make sure you h
 import 'package:moengage_sample/moengage_sample.dart';
 
 final sample = MoEngageSample(appId);
-final greeting = sample.greet();
+final greeting = await sample.greet();
 ```
