@@ -60,15 +60,23 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
     final SelfHandledActions? action = await asyncSelfHandledDialog(context);
     switch (action) {
       case SelfHandledActions.Shown:
+        debugPrint(
+            '$tag Main : handleAction() : Self Handled InApp Shown callback invoked. Payload $message');
         _moengagePlugin.selfHandledShown(message);
         break;
       case SelfHandledActions.Clicked:
+        debugPrint(
+            '$tag Main : handleAction() : Self Handled InApp Clicked callback invoked. Payload $message');
         _moengagePlugin.selfHandledClicked(message);
         break;
       case SelfHandledActions.Dismissed:
+        debugPrint(
+            '$tag Main : handleAction() : Self Handled InApp Dismissed callback invoked. Payload $message');
         _moengagePlugin.selfHandledDismissed(message);
         break;
       default:
+        debugPrint(
+            '$tag Main : handleAction() : No action selected for Self Handled InApp. Payload $message');
         break;
     }
   }
@@ -153,6 +161,12 @@ class _InAppHomeScreenState extends State<InAppHomeScreen> {
             title: const Text('Get Self handled InApps'),
             onTap: () {
               _moengagePlugin.getSelfHandledInApps().then((campaignsData) {
+                debugPrint(
+                    '$tag Main : getSelfHandledInApps() : Received ${campaignsData.campaigns.length} self handled campaign(s).');
+                for (var i = 0; i < campaignsData.campaigns.length; i++) {
+                  debugPrint(
+                      '$tag Main : getSelfHandledInApps() : Campaign[$i] = ${campaignsData.campaigns[i].campaign}');
+                }
                 _showBottomSheet(campaignsData, context);
               }).catchError((e) {
                 debugPrint('Error in getting self handled inapps $e');
