@@ -4,4 +4,4 @@
 
 ## Release Version
 
-- [minor] MOEN-46722: Initial scaffold of the `moengage_sample_android` module.
+- [major] MOEN-46722: Initial scaffold of the `moengage_sample_android` module.
