@@ -26,16 +26,23 @@ batch, so it no longer fails the release job for every other package. Its real
 release then requires one manual step, done locally, before the normal CD workflow
 can take over:
 
-### Step 1 - register the new package(s) so tooling knows about them
+### Step 1 - scaffold the new package(s) at version 0.0.1
 
-Before publishing anything, make sure the new package(s) are registered in:
+Before publishing anything:
 
-- the root `pubspec.yaml`'s `workspace:` list (required for `flutter pub get` /
-  `melos bootstrap` to resolve them at all - see the note below on why this used
-  to break CI), and
-- `.github/scripts/flutter-utils.main.kts`'s `packageParentFolder` and
-  `dependencyMapping` maps (required for the pre-release/release automation to
-  version-bump and publish them).
+- Set `version: 0.0.1` in every new package's `pubspec.yaml`, including every
+  federated sibling (`_android`/`_ios`/`_platform_interface`).
+  `scripts/publish-new-package.sh` **only publishes -
+  it does not choose version numbers for you.** If an unpublished package isn't
+  already staged at `0.0.1`, the script throws an error and refuses to proceed,
+  rather than silently rewriting the version for you.
+- Register the new package(s) in:
+  - the root `pubspec.yaml`'s `workspace:` list (required for `flutter pub get` /
+    `melos bootstrap` to resolve them at all - see the note below on why this
+    used to break CI), and
+  - `.github/scripts/flutter-utils.main.kts`'s `packageParentFolder` and
+    `dependencyMapping` maps (required for the pre-release/release automation to
+    version-bump and publish them later).
 
 > **Why `melos bootstrap` used to fail when adding a new module:** this repo uses
 > Dart's native pub workspaces (the root `workspace:` list + each member's
@@ -47,6 +54,9 @@ Before publishing anything, make sure the new package(s) are registered in:
 > `_platform_interface`) has an unresolvable dependency - pub tries to fetch it from
 > pub.dev, where it doesn't exist yet, and the whole workspace fails to resolve.
 
+The `flutter-new-module-review` Claude Code skill checks all of the above for any
+PR that adds a new module.
+
 ### Step 2 - bootstrap-publish 0.0.1 locally
 
 Run, from the repo root:
@@ -57,30 +67,41 @@ scripts/publish-new-package.sh packages/<feature>            # scopes to one mod
 This must be run by a publisher-admin (a member of the `moengage.com` verified
 pub.dev publisher), authenticated via `dart pub login` (token-based, human OAuth
 session - not the CI service account, which pub.dev blocks for a first publish).
-For every package under the given path that has never been published, it:
+It:
 
-- releases **only the unpublished ones** - anything already on pub.dev is skipped;
-- sets its version to a fixed `0.0.1` (in `pubspec.yaml` and `config.json`), and
-  re-points any other workspace package's dependency on it to `0.0.1`;
-- appends a dated `0.0.1` entry to its `CHANGELOG.md`, **leaving the pending
-  `# Release Date` / `## Release Version` placeholder and its real
-  `[major]/[minor]/[patch]` entry untouched** - that's what the next real CD
-  release will consume;
-- does **not** create a git tag for this bootstrap release, and does **not**
-  `git commit` or `git push` anything - review the changes (`git diff`) and commit
-  them yourself;
-- runs `dart pub publish --dry-run` for review, then, after one confirmation,
-  `dart pub publish --force` for real.
+1. Finds every package under the given path (or the whole workspace) and lists
+   the ones that have never been published on pub.dev - anything already
+   published is skipped.
+2. For each unpublished one, **validates** it's already staged at `0.0.1` in
+   `pubspec.yaml` - throwing an error naming the exact version found if not,
+   rather than fixing it for you.
+3. Overwrites its `CHANGELOG.md` with the standard first-release entry (today's
+   date, version `0.0.1`, "Initial release.") purely so pub.dev's publish
+   validation has something to check - this is a **working-tree-only** edit.
+   Your real `[major]/[minor]/[patch]` changelog entry for the feature is
+   already committed from Step 1 and is untouched in git; discard this edit
+   rather than committing it (see Step 3).
+4. Runs `flutter pub get` (catches any stale cross-references between the new
+   packages with a clear pub error) and `dart pub publish --dry-run` for review.
+5. Asks for a single `y`/`n` confirmation, then, only on `y`, runs
+   `dart pub publish --force` for each package.
+
+It creates **no git tag** and does **no `git commit`/`git push`**.
 
 ### Step 3 - hand off to the normal CD pipeline
 
-1. Commit and push the version/CHANGELOG changes the script made, and merge as usual.
+1. Discard the script's `CHANGELOG.md` edit (`git checkout -- <path>/CHANGELOG.md`)
+   - your real, already-committed entry from Step 1 is what should ship.
 2. On `https://pub.dev/packages/<package-name>/admin` for each newly-published
-   package, enable "Automated publishing" for `moengage/Flutter-SDK`'s
-   `release-plugins.yml` (or add the release service account as an uploader).
-3. Trigger the "Release Plugins" workflow from `development` as normal. Because the
-   pending placeholder entry (with its real release-type marker) was left in place,
-   pre-release automation still sees it and bumps the version accordingly from the
-   new `0.0.1` baseline - e.g. a `[major]` marker takes `0.0.1` straight to `1.0.0`,
-   the expected first real release. From here on the package is released
-   automatically like every other module - no more manual steps.
+   package, go to the "Admin" tab -> "Publishing with Google Cloud Service
+   account" and enter the service account's email address (the `client_email`
+   field inside the JSON key stored in this repo's `SERVICE_ACCOUNT` GitHub
+   secret, the same one `release-plugins.yml` authenticates with). This is
+   what authorizes that service account to publish this package automatically
+   from here on - it can only be done after the first version exists.
+3. Trigger the "Release Plugins" workflow from `development` as normal.
+   Pre-release automation reads your already-committed `[major]/[minor]/[patch]`
+   marker and bumps the version from the `0.0.1` baseline accordingly - e.g. a
+   `[major]` marker takes `0.0.1` straight to `1.0.0`, the expected first real
+   release. From here on the package is released automatically like every
+   other module - no more manual steps.

@@ -89,6 +89,14 @@ until someone notices.
 ### 3. Package metadata (per new package)
 
 - [ ] `pubspec.yaml` has `name`, `description`, `version`, `homepage`, `environment`
+- [ ] **`version:` is exactly `0.0.1`** for every new (never-published) package -
+      not `0.1.0`, not `1.0.0`. This is a hard requirement, not a preference:
+      `scripts/publish-new-package.sh` refuses to bootstrap-publish any
+      unpublished package whose `pubspec.yaml` version isn't `0.0.1`, and throws
+      an error instead of fixing it for you. Flag any new package pinned at a
+      different starting version as a blocking finding, and check that every
+      *other* package's dependency on it (pinned or caret) is consistent with
+      `0.0.1`/`^0.0.1` too.
 - [ ] `LICENSE` present (standard MoEngage license text - compare against a sibling
       package's `LICENSE`, don't accept a placeholder)
 - [ ] `README.md` present, with an SDK-installation snippet
@@ -96,7 +104,10 @@ until someone notices.
       a `# Release Date` / `## Release Version` header followed by at least one
       `- [major|minor|patch] TICKET-ID: <content>` bullet
 - [ ] if the app-facing package ships a `config.json` (version marker asset), it's
-      declared under `flutter: assets:` in its `pubspec.yaml`
+      declared under `flutter: assets:` in its `pubspec.yaml` - `config.json` is
+      optional, and `scripts/publish-new-package.sh` doesn't check or touch it,
+      but keeping its version in sync with `pubspec.yaml`'s `0.0.1` is a
+      nice-to-have for consistency
 
 ### 4. Federated plugin wiring (skip this section for a standalone Dart-only package)
 

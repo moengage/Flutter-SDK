@@ -12,7 +12,6 @@ import 'package:moengage_flutter/moengage_flutter.dart';
 import 'package:moengage_flutter_example/constants.dart';
 import 'package:moengage_geofence/moengage_geofence.dart';
 import 'package:moengage_inbox/moengage_inbox.dart';
-import 'package:moengage_sample/moengage_sample.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'cards/cards_home.dart';
@@ -56,7 +55,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               AnalyticsConfig(shouldTrackUserAttributeBooleanAsNumber: false)));
   final MoEngageGeofence _moEngageGeofence = MoEngageGeofence(WORKSPACE_ID);
   final MoEngageInbox _moEngageInbox = MoEngageInbox(WORKSPACE_ID);
-  final MoEngageSample _moEngageSample = MoEngageSample(WORKSPACE_ID);
 
   void _onPushClick(PushCampaignData message) {
     debugPrint(
@@ -613,13 +611,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                       }
                     }
                   }
-                },
-              ),
-              ListTile(
-                title: const Text('Sample: Greet'),
-                onTap: () async {
-                  final greeting = await _moEngageSample.greet();
-                  debugPrint('$tag Main : Sample greeting: $greeting');
                 },
               ),
               ListTile(

@@ -23,11 +23,7 @@ val packageParentFolder = mapOf(
     "moengage_personalize" to "moengage_personalize",
     "moengage_personalize_android" to "moengage_personalize",
     "moengage_personalize_ios" to "moengage_personalize",
-    "moengage_personalize_platform_interface" to "moengage_personalize",
-    "moengage_sample" to "moengage_sample",
-    "moengage_sample_android" to "moengage_sample",
-    "moengage_sample_ios" to "moengage_sample",
-    "moengage_sample_platform_interface" to "moengage_sample"
+    "moengage_personalize_platform_interface" to "moengage_personalize"
 )
 
 val dependencyMapping = mapOf(
@@ -122,25 +118,6 @@ val dependencyMapping = mapOf(
         "moengage_flutter" to "incremental"
     ),
     "moengage_personalize_platform_interface" to mapOf(
-        "moengage_flutter" to "incremental"
-    ),
-
-    /** Sample Packages - scaffold/reference federated plugin module */
-    "moengage_sample" to mapOf(
-        "moengage_sample_android" to "pinned",
-        "moengage_sample_ios" to "pinned",
-        "moengage_sample_platform_interface" to "pinned",
-        "moengage_flutter" to "incremental"
-    ),
-    "moengage_sample_android" to mapOf(
-        "moengage_sample_platform_interface" to "incremental",
-        "moengage_flutter" to "incremental"
-    ),
-    "moengage_sample_ios" to mapOf(
-        "moengage_sample_platform_interface" to "incremental",
-        "moengage_flutter" to "incremental"
-    ),
-    "moengage_sample_platform_interface" to mapOf(
         "moengage_flutter" to "incremental"
     )
 )
