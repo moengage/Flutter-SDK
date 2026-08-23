@@ -23,5 +23,6 @@ A flutter plugin for using Personalize Experience feature from MoEngage iOS SDK.
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.static_framework = true
   s.swift_version = '5.0'
 end
