@@ -1,5 +1,11 @@
 # MoEngage Inbox iOS Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Declared the iOS plugin pod as a static framework. The MoEngage iOS SDK now links its app-only modules statically, and CocoaPods rejects a target using `use_frameworks!` whose transitive dependencies include statically linked binaries — without this, `pod install` fails for integrating apps.
+
 # 01-09-2026
 
 ## 5.0.0
