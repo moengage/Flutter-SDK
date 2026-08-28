@@ -36,7 +36,17 @@ fun preRelease(releaseTicket: String) {
     val filteredReleasingPackage = packagesToBeRelease.filter {
         val changelogPath = "${getPackageFullPath(it)}/CHANGELOG.md"
         val releaseType = getReleaseTypeForModule(changelogPath)
-        releaseType != "NA"
+        if (releaseType == "NA") return@filter false
+
+        // Never-published packages need a manual first publish (see isPublishedOnPubDev) -
+        // leave their version/changelog marker untouched until that's done, otherwise this
+        // bumps a version that release.main.kts then declines to publish.
+        if (!isPublishedOnPubDev(it)) {
+            println("Skipping $it - never published on pub.dev yet, run scripts/publish-new-package.sh for it first")
+            return@filter false
+        }
+
+        true
     }
     println("Filtered packages to be release: $filteredReleasingPackage")
 
