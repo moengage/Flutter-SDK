@@ -1,0 +1,36 @@
+name: Release
+
+# Entry point for a release (isPatchRelease for a hotfix cut from master). Chains
+# pre_release.yml -> publish.yml; each stage can also be re-run independently on failure.
+on:
+  workflow_dispatch:
+    inputs:
+      releaseTicket:
+        type: string
+        description: 'Enter the Release ticket number'
+        required: true
+      releaseNotes:
+        type: string
+        description: 'Enter the Release note'
+        required: true
+      isPatchRelease:
+        type: boolean
+        description: 'Patch/hotfix release - cuts directly from master, skips the development <-> master merges'
+        required: false
+        default: false
+
+jobs:
+  pre-release:
+    if: contains(fromJSON('["umangmoe", "arshiya-moengage"]'), github.actor)
+    uses: ./.github/workflows/pre_release.yml
+    with:
+      releaseTicket: ${{ inputs.releaseTicket }}
+      isPatchRelease: ${{ inputs.isPatchRelease }}
+    secrets: inherit
+
+  publish:
+    needs: pre-release
+    uses: ./.github/workflows/publish.yml
+    with:
+      releaseNotes: ${{ inputs.releaseNotes }}
+    secrets: inherit
