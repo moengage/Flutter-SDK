@@ -1,12 +1,12 @@
 # MoEngage Geofence Android Plugin
 
-# Release Date
+# 01-09-2026
 
-## Release Version
+## 5.0.0
 
-- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
-- [major] Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
-- [major] `android-bom` version updated to `4.2.0`.
+- Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
+- `android-bom` version updated to `4.2.0`.
 
 # 13-08-2026
 

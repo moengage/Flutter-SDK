@@ -1,12 +1,12 @@
 # MoEngage Flutter iOS Plugin
 
-# Release Date
+# 01-09-2026
 
-## Release Version
+## 5.0.0
 
-- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
-- [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
-- [minor] Added support for JWT Authentication
+- Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Updated `MoEngage-iOS-SDK` to `11.00.0`.
+- Added support for JWT Authentication
 
 # 13-08-2026
 

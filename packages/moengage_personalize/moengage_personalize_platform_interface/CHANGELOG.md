@@ -1,10 +1,10 @@
 # MoEngage Personalize Platform Interface
 
-# Release Date
+# 01-09-2026
 
-## Release Version
+## 2.0.0
 
-- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
 
 # 07-05-2026
 

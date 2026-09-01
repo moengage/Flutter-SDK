@@ -1,15 +1,15 @@
 # MoEngage Personalize Plugin
 
-# Release Date
+# 01-09-2026
 
-## Release Version
+## 2.0.0
 
-- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
 - Android
-  - [major] Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
-  - [major] `android-bom` version updated to `4.2.0`.
+  - Upgraded Android Gradle Plugin (AGP) to `9.1.1` and Kotlin to `2.3.20`.
+  - `android-bom` version updated to `4.2.0`.
 - iOS
-    - [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+    - Updated `MoEngage-iOS-SDK` to `11.00.0`.
 
 # 13-08-2026
 

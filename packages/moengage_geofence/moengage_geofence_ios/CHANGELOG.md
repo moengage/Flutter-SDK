@@ -1,11 +1,11 @@
 # MoEngage Geofence iOS Plugin
 
-# Release Date
+# 01-09-2026
 
-## Release Version
+## 5.0.0
 
-- [major] Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
-- [major] Updated `MoEngage-iOS-SDK` to `11.00.0`.
+- Updated minimum supported Dart SDK to `3.6.0` and minimum Flutter SDK to `3.44.0`
+- Updated `MoEngage-iOS-SDK` to `11.00.0`.
 
 # 13-08-2026
 
