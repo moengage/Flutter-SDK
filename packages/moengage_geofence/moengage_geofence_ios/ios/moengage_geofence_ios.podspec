@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
+  s.static_framework = true
   s.swift_version = '5.0'
-  s.dependency 'MoEngagePluginGeofence', '5.00.0'
+  s.dependency 'MoEngagePluginGeofence', '5.01.0'
 end

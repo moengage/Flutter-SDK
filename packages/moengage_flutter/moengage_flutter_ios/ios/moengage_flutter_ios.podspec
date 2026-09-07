@@ -21,7 +21,8 @@ Pod::Spec.new do |s|
   s.source_files     = "#{root}/**/*"
   s.public_header_files = "#{root}/**/*.h"
   s.dependency 'Flutter'
-  s.dependency 'MoEngagePluginBase', '7.00.0'
+  s.dependency 'MoEngagePluginBase', '7.01.0'
+  s.static_framework = true
   s.swift_version = '5.0'
 
   test_file_glob = "#{s.name}/Tests/**/*.{swift}"
