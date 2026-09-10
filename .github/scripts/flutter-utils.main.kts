@@ -220,7 +220,7 @@ fun getVersionWithoutPrefix(version: String): String {
  */
 fun isPublishedOnPubDev(packageName: String): Boolean {
     val statusCode = executeShellCommandWithStringOutput(
-        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 https://pub.dev/api/packages/$packageName"
+        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 https://pub.dev/api/packages/$packageName"
     ).trim()
 
     // curl writes "000" (or nothing) when it never got an HTTP response at all - timeout, DNS

@@ -77,21 +77,25 @@ It:
    rather than fixing it for you.
 3. Overwrites its `CHANGELOG.md` with the standard first-release entry (today's
    date, version `0.0.1`, "Initial release.") purely so pub.dev's publish
-   validation has something to check - this is a **working-tree-only** edit.
-   Your real `[major]/[minor]/[patch]` changelog entry for the feature is
-   already committed from Step 1 and is untouched in git; discard this edit
-   rather than committing it (see Step 3).
+   validation has something to check - this is a **working-tree-only** edit,
+   and the script restores the original file automatically when it exits (on
+   success, abort, or error). Your real `[major]/[minor]/[patch]` changelog
+   entry for the feature is committed from Step 1 and is never touched in git.
 4. Runs `flutter pub get` (catches any stale cross-references between the new
    packages with a clear pub error) and `dart pub publish --dry-run` for review.
-5. Asks for a single `y`/`n` confirmation, then, only on `y`, runs
-   `dart pub publish --force` for each package.
+5. Asks for a single `y`/`n` confirmation, then, only on `y`, hands the actual
+   publishing to `melos publish --no-dry-run --no-git-tag-version --yes`
+   scoped to those packages - the same command `release-plugins.yml` uses, so
+   melos's own topological ordering puts a federated module's
+   `_platform_interface` on pub.dev before the `_android`/`_ios` packages and
+   the app-facing package that pin it.
 
 It creates **no git tag** and does **no `git commit`/`git push`**.
 
 ### Step 3 - hand off to the normal CD pipeline
 
-1. Discard the script's `CHANGELOG.md` edit (`git checkout -- <path>/CHANGELOG.md`)
-   - your real, already-committed entry from Step 1 is what should ship.
+1. Confirm the working tree is clean - the script restores its temporary
+   `CHANGELOG.md` edit itself, so your real entry from Step 1 is what ships.
 2. On `https://pub.dev/packages/<package-name>/admin` for each newly-published
    package, go to the "Admin" tab -> "Publishing with Google Cloud Service
    account" and enter the service account's email address (the `client_email`
