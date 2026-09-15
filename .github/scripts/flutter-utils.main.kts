@@ -207,3 +207,31 @@ fun getVersionWithoutPrefix(version: String): String {
         version.trim()
     }
 }
+
+/**
+ * pub.dev refuses automated (service-account / OIDC / bearer-token) publishing of the very
+ * *first* version of a package that has never been published before - see
+ * https://dart.dev/tools/pub/automated-publishing. "Today, you can only automate publishing of
+ * existing packages. To create a new package, you must publish the first version using
+ * `dart pub publish`."
+ *
+ * This checks pub.dev's public API to tell whether [packageName] has ever been published,
+ * so the release automation can skip brand-new packages instead of failing the whole batch.
+ */
+fun isPublishedOnPubDev(packageName: String): Boolean {
+    val statusCode = executeShellCommandWithStringOutput(
+        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 https://pub.dev/api/packages/$packageName"
+    ).trim()
+
+    // curl writes "000" (or nothing) when it never got an HTTP response at all - timeout, DNS
+    // failure, pub.dev outage. Treat that as unknown, not "not published", so a network blip
+    // can't make the release silently skip/strand already-published packages.
+    if (statusCode.isBlank() || statusCode == "000") {
+        throw IllegalStateException(
+            "Could not reach pub.dev to check whether $packageName is published (network error " +
+                "or timeout) - aborting rather than risk treating it as never-published."
+        )
+    }
+
+    return statusCode == "200"
+}
