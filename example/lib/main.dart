@@ -18,6 +18,7 @@ import 'cards/cards_home.dart';
 import 'inapp.dart';
 import 'jwt_authentication_page.dart';
 import 'personalize_home.dart';
+import 'recommendations_home.dart';
 import 'second_page.dart';
 import 'utils.dart';
 
@@ -160,6 +161,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>
                           const PersonalizeHome()));
+                },
+              ),
+              ListTile(
+                title: const Text('Go To Recommendations'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const RecommendationsHome()));
                 },
               ),
               ListTile(

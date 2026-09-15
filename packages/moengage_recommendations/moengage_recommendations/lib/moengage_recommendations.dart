@@ -1,0 +1,2 @@
+export 'package:moengage_recommendations_platform_interface/moengage_recommendations_platform_interface.dart';
+export 'src/moengage_recommendations.dart';
