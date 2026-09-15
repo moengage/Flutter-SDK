@@ -1,0 +1,84 @@
+group 'com.moengage.flutter_recommendations'
+version '1.0'
+
+buildscript {
+    ext.kotlin_version = '2.3.20'
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:9.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.moengage.android.hybrid.module.config.plugin:com.moengage.android.hybrid.module.config.plugin.gradle.plugin:2.0.0"
+        // classpath 'com.diffplug.spotless:spotless-plugin-gradle:8.5.1'
+    }
+}
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty("android.builtInKotlin")
+        .map { it.toBoolean() }
+        .orElse(agpMajor >= 9)
+        .get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
+}
+
+rootProject.allprojects {
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+    }
+}
+
+ext {
+    moengageNativeBomVersion = "4.2.0"
+    moengagePluginBaseBomVersion = "4.0.0"
+    moengageRecommendationsVersion = "0.0.1"
+    moengagePluginBaseRecommendationsVersion = "0.0.1"
+}
+
+apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
+// apply plugin: 'com.diffplug.spotless'
+
+hybridModuleConfig.configurePlugin {
+    kotlinOptions {
+        enableJvmTarget = true
+        compilerArgs = []
+    }
+}
+
+if (project.plugins.hasPlugin('com.diffplug.spotless')) {
+    spotless {
+        ratchetFrom 'origin/development'
+        kotlin {
+            target 'src/**/*.kt'
+            targetExclude '**/build/**'
+            ktfmt('0.62').kotlinlangStyle().configure { options ->
+                options.setMaxWidth(100)
+                options.setTrailingCommaManagementStrategy(com.diffplug.spotless.kotlin.KtfmtStep.TrailingCommaManagementStrategy.NONE)
+            }
+        }
+    }
+}
+
+android {
+    compileSdk 36
+    namespace "com.moengage.flutter.recommendations"
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    api("com.moengage:plugin-base-recommendations:$moengagePluginBaseRecommendationsVersion")
+    compileOnly("com.moengage:plugin-base")
+
+    implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
+    compileOnly("com.moengage:moe-android-sdk")
+    api("com.moengage:recommendations:$moengageRecommendationsVersion")
+}
