@@ -86,6 +86,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '$tag Main : _onAuthenticationError(): JWT authentication error callback from native to flutter. Data $data');
   }
 
+  void _onFirebaseInstallationIdAvailable(FirebaseInstallationIdData data) {
+    debugPrint(
+        '$tag Main : _onFirebaseInstallationIdAvailable(): Firebase Installation Id available callback from native to flutter. Data $data');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -99,6 +104,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _moengagePlugin.setLogoutCompleteCallbackHandler(_onLogoutCallbackHandler);
     _moengagePlugin
         .setAuthenticationErrorCallbackHandler(_onAuthenticationError);
+    _moengagePlugin.setFirebaseInstallationIdCallbackHandler(
+        _onFirebaseInstallationIdAvailable);
     _moengagePlugin.initialise();
     debugPrint('initState() : end ');
   }
@@ -733,7 +740,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     Map<String, String>? identities =
                         await _moengagePlugin.getUserIdentities();
                     debugPrint('$tag Main : User Identities $identities');
-                  })
+                  }),
+              ListTile(
+                title: const Text(
+                    'Pass Firebase Installation Id (Android Only)'),
+                onTap: () {
+                  // TODO: replace with a real Firebase Installation Id.
+                  _moengagePlugin
+                      .passFirebaseInstallationId('dummyInstallationId');
+                },
+              ),
+              ListTile(
+                title: const Text(
+                    'Get Firebase Installation Id (Android Only)'),
+                onTap: () async {
+                  final String? installationId =
+                      await _moengagePlugin.getFirebaseInstallationId();
+                  debugPrint(
+                      '$tag Main : Firebase Installation Id $installationId');
+                },
+              )
             ]).toList(),
           ),
         ),

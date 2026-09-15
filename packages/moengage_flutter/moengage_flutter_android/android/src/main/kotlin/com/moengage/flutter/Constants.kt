@@ -57,3 +57,8 @@ const val ERROR_CODE_GET_USER_IDENTITIES = "GET_USER_IDENTITIES_ERROR"
 
 // JWT Authentication
 const val METHOD_NAME_AUTHENTICATION_DETAILS = "authenticationDetails"
+
+// Firebase Installation Id
+const val METHOD_NAME_PASS_FIREBASE_INSTALLATION_ID = "passFirebaseInstallationId"
+const val METHOD_NAME_GET_FIREBASE_INSTALLATION_ID = "getFirebaseInstallationId"
+const val ERROR_CODE_GET_FIREBASE_INSTALLATION_ID = "GET_FIREBASE_INSTALLATION_ID_ERROR"

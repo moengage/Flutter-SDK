@@ -31,6 +31,7 @@ if (agpMajor < 9 || !builtInKotlin) {
 
 rootProject.allprojects {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
     }
@@ -83,4 +84,14 @@ dependencies {
     api("com.moengage:plugin-base")
 
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "com.moengage:plugin-base:7.0.0-fid-local"
+        force "com.moengage:core:10.2.0-fid-local"
+        force "com.moengage:platform:1.1.0-fid-local"
+        force "com.moengage:pushbase:10.1.0-fid-local"
+        force "com.moengage:moe-push-firebase:9.2.0-fid-local"
+    }
 }

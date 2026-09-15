@@ -4,6 +4,7 @@ import '../../model/inapp/inapp_data.dart';
 import '../../model/inapp/self_handled_data.dart';
 import '../../model/logout_complete_data.dart';
 import '../../model/permission_result.dart';
+import '../../model/push/firebase_installation_id_data.dart';
 import '../../model/push/push_campaign_data.dart';
 import '../../model/push/push_token_data.dart';
 
@@ -36,3 +37,7 @@ typedef LogoutCompleteCallbackHandler = void Function(LogoutCompleteData data);
 /// JWT Authentication Error Callback
 typedef AuthenticationErrorCallbackHandler = void Function(
     AuthenticationErrorData data);
+
+/// Firebase Installation Id Available Callback
+typedef FirebaseInstallationIdCallbackHandler = void Function(
+    FirebaseInstallationIdData data);

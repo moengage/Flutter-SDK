@@ -6,6 +6,7 @@ import com.moengage.plugin.base.internal.EventEmitter
 import com.moengage.plugin.base.internal.authenticationErrorToJson
 import com.moengage.plugin.base.internal.clickDataToJson
 import com.moengage.plugin.base.internal.inAppDataToJson
+import com.moengage.plugin.base.internal.installationIdEventToJson
 import com.moengage.plugin.base.internal.logoutCompleteEventToJson
 import com.moengage.plugin.base.internal.model.events.Event
 import com.moengage.plugin.base.internal.model.events.EventType
@@ -14,6 +15,7 @@ import com.moengage.plugin.base.internal.model.events.authentication.Authenticat
 import com.moengage.plugin.base.internal.model.events.inapp.InAppActionEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppLifecycleEvent
 import com.moengage.plugin.base.internal.model.events.inapp.InAppSelfHandledEvent
+import com.moengage.plugin.base.internal.model.events.push.InstallationIdEvent
 import com.moengage.plugin.base.internal.model.events.push.PermissionEvent
 import com.moengage.plugin.base.internal.model.events.push.PushClickedEvent
 import com.moengage.plugin.base.internal.model.events.push.TokenEvent
@@ -56,6 +58,9 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
                 }
                 is AuthenticationErrorEvent -> {
                     emitAuthenticationErrorEvent(event)
+                }
+                is InstallationIdEvent -> {
+                    emitInstallationIdEvent(event)
                 }
             }
         } catch (t: Throwable) {
@@ -172,6 +177,17 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
         }
     }
 
+    private fun emitInstallationIdEvent(event: InstallationIdEvent) {
+        try {
+            Logger.record { "$tag emitInstallationIdEvent() installation id event: $event:" }
+            val eventType = eventMap[event.eventType] ?: return
+            val payload = JSONObject(installationIdEventToJson(event).toString())
+            emit(eventType, payload)
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag emitInstallationIdEvent() : " }
+        }
+    }
+
     companion object {
         private val eventMap = EnumMap<EventType, String>(EventType::class.java)
 
@@ -186,6 +202,7 @@ class EventEmitterImpl(private val onEvent: (methodName: String, payload: String
             eventMap[EventType.PERMISSION] = "onPermissionResult"
             eventMap[EventType.LOGOUT_COMPLETE] = "onLogoutComplete"
             eventMap[EventType.AUTHENTICATION_ERROR] = "onAuthenticationError"
+            eventMap[EventType.INSTALLATION_ID_AVAILABLE] = "onFirebaseInstallationIdAvailable"
         }
     }
 }

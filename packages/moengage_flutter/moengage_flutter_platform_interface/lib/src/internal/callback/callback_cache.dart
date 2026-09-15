@@ -22,4 +22,7 @@ class CallbackCache {
 
   /// JWT Authentication Error Callback
   AuthenticationErrorCallbackHandler? authenticationErrorCallbackHandler;
+
+  /// Firebase Installation Id Available Callback
+  FirebaseInstallationIdCallbackHandler? firebaseInstallationIdCallbackHandler;
 }

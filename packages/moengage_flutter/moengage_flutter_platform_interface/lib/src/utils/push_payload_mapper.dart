@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/platforms.dart';
+import '../model/push/firebase_installation_id_data.dart';
 import '../model/push/moe_push_service.dart';
 import '../model/push/push_campaign.dart';
 import '../model/push/push_campaign_data.dart';
@@ -57,6 +58,28 @@ class PushPayloadMapper {
                   : false) as bool));
     } catch (e, stackTrace) {
       Logger.e('$_tag Error: pushCampaignFromJson() : ',
+          stackTrace: stackTrace, error: e);
+    }
+    return null;
+  }
+
+  /// Get [FirebaseInstallationIdData] from Json String
+  FirebaseInstallationIdData? firebaseInstallationIdDataFromJson(
+      dynamic methodCallArgs) {
+    try {
+      final Map<String, dynamic> payload =
+          json.decode(methodCallArgs.toString()) as Map<String, dynamic>;
+      final Map<String, dynamic> data =
+          payload[keyData] as Map<String, dynamic>;
+      return FirebaseInstallationIdData(
+          accountMeta: accountMetaFromMap(
+              payload[keyAccountMeta] as Map<String, dynamic>),
+          installationId: data[keyInstallationId].toString(),
+          platform: PlatformsExtension.fromString(data[keyPlatform].toString()),
+          pushService: MoEPushServiceExtention.fromString(
+              data[keyPushService].toString()));
+    } catch (e, stackTrace) {
+      Logger.e('$_tag Error: firebaseInstallationIdDataFromJson() : ',
           stackTrace: stackTrace, error: e);
     }
     return null;

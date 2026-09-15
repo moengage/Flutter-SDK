@@ -1,5 +1,11 @@
 # MoEngage Flutter Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support for Firebase Installation Id
+
 # 01-09-2026
 
 ## 6.0.0
