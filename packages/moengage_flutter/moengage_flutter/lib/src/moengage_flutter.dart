@@ -266,7 +266,11 @@ class MoEngageFlutter {
   /// Pass FCM Push Token to the MoEngage SDK.
   /// Note: This API is only for Android Platform.
   /// [pushToken] - FCM Push Token
+  @Deprecated(
+      'FCM has deprecated the registration token. This API stops working when FCM removes the legacy token support, or it will be removed in 12.0.0. Use passFirebaseInstallationId() instead.')
   void passFCMPushToken(String pushToken) {
+    Logger.w(
+        '"Deprecated function usage `passFCMPushToken`, use `passFirebaseInstallationId`');
     _platform.passPushToken(pushToken, MoEPushService.fcm, appId);
   }
 
@@ -458,5 +462,27 @@ class MoEngageFlutter {
     CoreInstanceProvider()
         .getCallbackCacheForInstance(appId)
         .authenticationErrorCallbackHandler = handler;
+  }
+
+  /// Passes an app-supplied Firebase Installation Id to the native SDK.
+  /// Note: This API is only for Android Platform.
+  /// [installationId] - Firebase Installation Id obtained by the app.
+  void passFirebaseInstallationId(String installationId) {
+    _platform.passFirebaseInstallationId(installationId, appId);
+  }
+
+  /// Returns the currently stored Firebase Installation Id, if any.
+  /// Note: This API is only for Android Platform.
+  Future<String?> getFirebaseInstallationId() {
+    return _platform.getFirebaseInstallationId(appId);
+  }
+
+  /// Sets Firebase Installation Id Available Callback Handler
+  /// [handler] - Callback of type [FirebaseInstallationIdCallbackHandler]
+  void setFirebaseInstallationIdCallbackHandler(
+      FirebaseInstallationIdCallbackHandler? handler) {
+    CoreInstanceProvider()
+        .getCallbackCacheForInstance(appId)
+        .firebaseInstallationIdCallbackHandler = handler;
   }
 }

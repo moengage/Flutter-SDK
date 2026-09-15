@@ -1,5 +1,11 @@
 # MoEngage Flutter Platform Interface
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support for Firebase Installation Id
+
 # 01-09-2026
 
 ## 5.0.0

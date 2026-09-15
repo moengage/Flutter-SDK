@@ -4,6 +4,13 @@
 
 ## Release Version
 
+- [minor] Added support for Firebase Installation Id
+- [minor] Deprecated APIs
+
+| Then                             | Now                                    |
+|:---------------------------------|:----------------------------------------|
+| passFCMPushToken(String pushToken) | passFirebaseInstallationId(String installationId) |
+
 - Android
   - [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
 

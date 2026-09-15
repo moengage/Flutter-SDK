@@ -4,10 +4,12 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.moengage.core.MoECoreHelper
+import com.moengage.core.internal.utils.postOnMainThread
 import com.moengage.core.listeners.AppBackgroundListener
 import com.moengage.platform.internal.logger.Logger
 import com.moengage.platform.internal.logger.PlatformLogLevel
 import com.moengage.plugin.base.internal.PluginHelper
+import com.moengage.plugin.base.internal.firebaseInstallationIdResultToJson
 import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
 import com.moengage.plugin.base.internal.userDeletionDataToJson
@@ -135,6 +137,8 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_IDENTIFY_USER -> identifyUser(call)
                 METHOD_NAME_GET_USER_IDENTITIES -> getUserIdentities(call, result)
                 METHOD_NAME_AUTHENTICATION_DETAILS -> authenticationDetails(call)
+                METHOD_NAME_PASS_FIREBASE_INSTALLATION_ID -> passFirebaseInstallationId(call)
+                METHOD_NAME_GET_FIREBASE_INSTALLATION_ID -> getFirebaseInstallationId(call, result)
                 else ->
                     Logger.record(PlatformLogLevel.ERROR) {
                         "$tag onMethodCall() : No mapping for this method."
@@ -552,6 +556,51 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             pluginHelper.passAuthenticationDetails(context, payload)
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "$tag authenticationDetails() : " }
+        }
+    }
+
+    /** Passes an app-supplied Firebase Installation Id provided in [methodCall] to the native SDK. */
+    private fun passFirebaseInstallationId(methodCall: MethodCall) {
+        try {
+            if (methodCall.arguments == null) return
+            val payload = methodCall.arguments.toString()
+            Logger.record { "$tag passFirebaseInstallationId() : Arguments: $payload" }
+            pluginHelper.passFirebaseInstallationId(context, payload)
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag passFirebaseInstallationId() : " }
+        }
+    }
+
+    /** Returns the currently stored Firebase Installation Id, if any, via [result]. */
+    private fun getFirebaseInstallationId(
+        methodCall: MethodCall,
+        result: MethodChannel.Result,
+    ) {
+        try {
+            if (methodCall.arguments == null) {
+                result.error(ERROR_CODE_GET_FIREBASE_INSTALLATION_ID, "Invalid Arguments", null)
+                return
+            }
+            val payload = methodCall.arguments.toString()
+            Logger.record { "$tag getFirebaseInstallationId() : Arguments: $payload" }
+            pluginHelper
+                .getFirebaseInstallationId(context, payload)
+                .onSuccess { installationIdResult ->
+                    postOnMainThread {
+                        result.success(
+                            firebaseInstallationIdResultToJson(payload, installationIdResult)
+                                .toString(),
+                        )
+                    }
+                }.onFailure { failure ->
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag getFirebaseInstallationId() : failed with reason: ${failure.reason} and message: ${failure.message}"
+                    }
+                    postOnMainThread { result.error(failure.reason.toString(), failure.message, null) }
+                }
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag getFirebaseInstallationId() : " }
+            postOnMainThread { result.error(ERROR_CODE_GET_FIREBASE_INSTALLATION_ID, "Error: ${t.message ?: "Unknown"}", null) }
         }
     }
 

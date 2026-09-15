@@ -193,3 +193,10 @@ const String methodGetUserIdentities = 'getUserIdentities';
 const String keyAccessibilityText = 'text';
 const String keyAccessibilityHint = 'hint';
 const String keyAccessibility = 'accessibility';
+
+/// Firebase Installation Id
+const String methodPassFirebaseInstallationId = 'passFirebaseInstallationId';
+const String methodGetFirebaseInstallationId = 'getFirebaseInstallationId';
+const String keyInstallationId = 'installationId';
+const String callbackOnFirebaseInstallationIdAvailable =
+    'onFirebaseInstallationIdAvailable';

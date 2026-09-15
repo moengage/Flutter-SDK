@@ -250,4 +250,20 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
           AuthenticationDetailsRequest request, String appId) =>
       throw UnimplementedError(
           'passAuthenticationDetails() not implemented for Platform');
+
+  /// Passes an app-supplied Firebase Installation Id to the native SDK.
+  /// Note: This API is only for Android Platform.
+  /// [installationId] - Firebase Installation Id obtained by the app.
+  /// [appId] - MoEngage App ID
+  void passFirebaseInstallationId(String installationId, String appId) =>
+      throw UnimplementedError(
+          'passFirebaseInstallationId() not implemented for Platform');
+
+  /// Returns the currently stored Firebase Installation Id, if any.
+  /// Note: This API is only for Android Platform.
+  /// [appId] - MoEngage App ID
+  /// @returns - Instance of [Future] of type [String]
+  Future<String?> getFirebaseInstallationId(String appId) =>
+      throw UnimplementedError(
+          'getFirebaseInstallationId() not implemented for Platform');
 }

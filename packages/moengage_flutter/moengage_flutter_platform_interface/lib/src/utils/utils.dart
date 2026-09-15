@@ -240,3 +240,11 @@ AuthenticationErrorData? authenticationErrorFromJson(dynamic methodCallArgs) {
   }
   return null;
 }
+
+/// Get Firebase Installation Id Payload for the given [installationId] and [appId]
+Map<String, dynamic> getFirebaseInstallationIdPayload(
+    String installationId, String appId) {
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  payload[keyData] = {keyInstallationId: installationId};
+  return payload;
+}
