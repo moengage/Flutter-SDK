@@ -208,6 +208,24 @@ fun getVersionWithoutPrefix(version: String): String {
     }
 }
 
+// curl writes "000" (or nothing) when it never got an HTTP response at all - timeout, DNS
+// failure, pub.dev outage. Treat that as unknown, not "not published", so a network blip
+// can't make the release silently skip/strand already-published packages/versions.
+private fun isPublishedOnPubDevUrl(url: String, description: String): Boolean {
+    val statusCode = executeShellCommandWithStringOutput(
+        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 $url"
+    ).trim()
+
+    if (statusCode.isBlank() || statusCode == "000") {
+        throw IllegalStateException(
+            "Could not reach pub.dev to check whether $description is published (network error " +
+                "or timeout) - aborting rather than risk treating it as unpublished."
+        )
+    }
+
+    return statusCode == "200"
+}
+
 /**
  * pub.dev refuses automated (service-account / OIDC / bearer-token) publishing of the very
  * *first* version of a package that has never been published before - see
@@ -218,20 +236,15 @@ fun getVersionWithoutPrefix(version: String): String {
  * This checks pub.dev's public API to tell whether [packageName] has ever been published,
  * so the release automation can skip brand-new packages instead of failing the whole batch.
  */
-fun isPublishedOnPubDev(packageName: String): Boolean {
-    val statusCode = executeShellCommandWithStringOutput(
-        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 https://pub.dev/api/packages/$packageName"
-    ).trim()
+fun isPublishedOnPubDev(packageName: String): Boolean =
+    isPublishedOnPubDevUrl("https://pub.dev/api/packages/$packageName", packageName)
 
-    // curl writes "000" (or nothing) when it never got an HTTP response at all - timeout, DNS
-    // failure, pub.dev outage. Treat that as unknown, not "not published", so a network blip
-    // can't make the release silently skip/strand already-published packages.
-    if (statusCode.isBlank() || statusCode == "000") {
-        throw IllegalStateException(
-            "Could not reach pub.dev to check whether $packageName is published (network error " +
-                "or timeout) - aborting rather than risk treating it as never-published."
-        )
-    }
-
-    return statusCode == "200"
-}
+/**
+ * Checks pub.dev's public API to tell whether this specific [packageName]-[version] has been
+ * published, so the release automation only tags/releases what's actually live.
+ */
+fun isPublishedOnPubDev(packageName: String, version: String): Boolean =
+    isPublishedOnPubDevUrl(
+        "https://pub.dev/api/packages/$packageName/versions/$version",
+        "$packageName-v$version"
+    )
