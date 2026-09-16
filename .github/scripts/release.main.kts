@@ -82,8 +82,19 @@ private fun tagAndReleasePublishedPackages(releaseNotes: String) {
 
 private fun isPublishedOnPubDev(packageName: String, version: String): Boolean {
     val statusCode = executeShellCommandWithStringOutput(
-        "curl --write-out %{http_code} --silent --output /dev/null https://pub.dev/api/packages/$packageName/versions/$version"
-    )
+        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 https://pub.dev/api/packages/$packageName/versions/$version"
+    ).trim()
+
+    // curl writes "000" (or nothing) when it never got an HTTP response at all - timeout, DNS
+    // failure, pub.dev outage. Treat that as unknown, not "not published", so a network blip
+    // can't make the release silently skip tagging/releasing an already-published version.
+    if (statusCode.isBlank() || statusCode == "000") {
+        throw IllegalStateException(
+            "Could not reach pub.dev to check whether $packageName-v$version is published " +
+                "(network error or timeout) - aborting rather than risk treating it as unpublished."
+        )
+    }
+
     return statusCode == "200"
 }
 
