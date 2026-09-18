@@ -7,6 +7,7 @@ import '../model/inapp/inapp_data.dart';
 import '../model/inapp/self_handled_data.dart';
 import '../model/logout_complete_data.dart';
 import '../model/permission_result.dart';
+import '../model/push/firebase_installation_id_data.dart';
 import '../model/push/push_campaign_data.dart';
 import '../model/push/push_token_data.dart';
 import '../utils/in_app_payload_mapper.dart';
@@ -140,6 +141,21 @@ class CoreController {
               CoreInstanceProvider()
                   .getCallbackCacheForInstance(data.accountMeta.appId)
                   .authenticationErrorCallbackHandler;
+          if (handler != null) {
+            handler.call(data);
+          }
+        }
+      }
+      if (call.method == callbackOnFirebaseInstallationIdAvailable) {
+        final FirebaseInstallationIdData? data =
+            PushPayloadMapper().firebaseInstallationIdDataFromJson(
+          call.arguments,
+        );
+        if (data != null) {
+          final FirebaseInstallationIdCallbackHandler? handler =
+              CoreInstanceProvider()
+                  .getCallbackCacheForInstance(data.accountMeta.appId)
+                  .firebaseInstallationIdCallbackHandler;
           if (handler != null) {
             handler.call(data);
           }

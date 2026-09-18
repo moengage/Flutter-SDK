@@ -1,5 +1,16 @@
 # MoEngage Flutter Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support for Firebase Installation Id
+- [minor] Deprecated APIs
+
+| Then                             | Now                                    |
+|:---------------------------------|:----------------------------------------|
+| passFCMPushToken(String pushToken) | passFirebaseInstallationId(String installationId) |
+
 # 01-09-2026
 
 ## 11.0.0

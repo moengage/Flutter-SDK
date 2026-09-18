@@ -37,6 +37,7 @@ export 'src/model/permission_result.dart';
 export 'src/model/permission_type.dart';
 export 'src/model/platforms.dart';
 export 'src/model/properties.dart';
+export 'src/model/push/firebase_installation_id_data.dart';
 export 'src/model/push/moe_push_service.dart';
 export 'src/model/push/push_campaign.dart';
 export 'src/model/push/push_campaign_data.dart';
