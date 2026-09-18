@@ -28,6 +28,10 @@ workspace:
   - packages/moengage_personalize/moengage_personalize_android
   - packages/moengage_personalize/moengage_personalize_ios
   - packages/moengage_personalize/moengage_personalize_platform_interface
+  - packages/moengage_recommendations/moengage_recommendations
+  - packages/moengage_recommendations/moengage_recommendations_android
+  - packages/moengage_recommendations/moengage_recommendations_ios
+  - packages/moengage_recommendations/moengage_recommendations_platform_interface
   - example
   - example_spm
 
