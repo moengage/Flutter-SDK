@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moengage_flutter_platform_interface/moengage_flutter_platform_interface.dart';
-import 'package:moengage_flutter_platform_interface/src/utils/push_payload_mapper.dart';
 import 'compator.dart';
 import 'data_provider/data_provider.dart';
 import 'data_provider/json_data.dart';
@@ -119,6 +118,26 @@ void main() {
             PushPayloadMapper().pushCampaignFromJson(pushCampaignPayload),
             pushCampaignData),
         true);
+  });
+
+  test('Firebase Installation Id Payload', () {
+    expect(getFirebaseInstallationIdPayload('fid-1234', '1234'),
+        jsonDecode(firebaseInstallationIdPayload));
+  });
+
+  test('Firebase Installation Id Data', () {
+    expect(
+        Comparator().isFirebaseInstallationIdDataEqual(
+            PushPayloadMapper()
+                .firebaseInstallationIdDataFromJson(
+                    firebaseInstallationIdDataPayload),
+            firebaseInstallationIdData),
+        true);
+  });
+
+  test('Firebase Installation Id Data - Invalid Payload', () {
+    expect(
+        PushPayloadMapper().firebaseInstallationIdDataFromJson('null'), null);
   });
 
   test('InApp Data Action Test', () {

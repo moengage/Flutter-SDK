@@ -562,7 +562,10 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /** Passes an app-supplied Firebase Installation Id provided in [methodCall] to the native SDK. */
     private fun passFirebaseInstallationId(methodCall: MethodCall) {
         try {
-            if (methodCall.arguments == null) return
+            if (methodCall.arguments == null) {
+                Logger.record(PlatformLogLevel.ERROR) { "$tag passFirebaseInstallationId() : Invalid Arguments" }
+                return
+            }
             val payload = methodCall.arguments.toString()
             Logger.record { "$tag passFirebaseInstallationId() : Arguments: $payload" }
             pluginHelper.passFirebaseInstallationId(context, payload)

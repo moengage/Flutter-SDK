@@ -471,9 +471,9 @@ class MoEngageFlutter {
     _platform.passFirebaseInstallationId(installationId, appId);
   }
 
-  /// Returns the currently stored Firebase Installation Id, if any.
+  /// Returns the currently stored Firebase Installation Id data, if any.
   /// Note: This API is only for Android Platform.
-  Future<String?> getFirebaseInstallationId() {
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId() {
     return _platform.getFirebaseInstallationId(appId);
   }
 

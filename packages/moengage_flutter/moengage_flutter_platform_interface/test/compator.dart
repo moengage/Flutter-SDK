@@ -105,6 +105,14 @@ class Comparator {
         isAuthenticationErrorDetailsEqual(data1?.data, data2?.data);
   }
 
+  bool isFirebaseInstallationIdDataEqual(
+      FirebaseInstallationIdData? data1, FirebaseInstallationIdData? data2) {
+    return isAccountMetaEqual(data1?.accountMeta, data2?.accountMeta) &&
+        data1?.installationId == data2?.installationId &&
+        data1?.platform == data2?.platform &&
+        data1?.pushService == data2?.pushService;
+  }
+
   bool isAuthenticationErrorDetailsEqual(
       AuthenticationErrorDetails? data1, AuthenticationErrorDetails? data2) {
     if (data1 is JwtAuthenticationErrorData &&

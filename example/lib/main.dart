@@ -754,10 +754,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 title: const Text(
                     'Get Firebase Installation Id (Android Only)'),
                 onTap: () async {
-                  final String? installationId =
+                  final FirebaseInstallationIdData? data =
                       await _moengagePlugin.getFirebaseInstallationId();
-                  debugPrint(
-                      '$tag Main : Firebase Installation Id $installationId');
+                  debugPrint('$tag Main : Firebase Installation Id Data $data');
                 },
               )
             ]).toList(),

@@ -290,4 +290,16 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
     _channel.invokeMethod(methodAuthenticationDetails,
         getAuthenticationDetailsPayload(request, appId));
   }
+
+  @override
+  void passFirebaseInstallationId(String installationId, String appId) {
+    Logger.v('passFirebaseInstallationId(): Not supported in iOS Platform');
+  }
+
+  @override
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+      String appId) async {
+    Logger.v('getFirebaseInstallationId(): Not supported in iOS Platform');
+    return null;
+  }
 }

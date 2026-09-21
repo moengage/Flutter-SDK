@@ -307,12 +307,10 @@ class MethodChannelMoEngageFlutter extends MoEngageFlutterPlatform {
   }
 
   @override
-  Future<String?> getFirebaseInstallationId(String appId) async {
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+      String appId) async {
     final dynamic result = await _methodChannel.invokeMethod(
         methodGetFirebaseInstallationId, jsonEncode(getAccountMeta(appId)));
-    final Map<String, dynamic> data =
-        (json.decode(result.toString()) as Map<String, dynamic>)[keyData]
-            as Map<String, dynamic>;
-    return data[keyInstallationId]?.toString();
+    return PushPayloadMapper().firebaseInstallationIdDataFromJson(result);
   }
 }

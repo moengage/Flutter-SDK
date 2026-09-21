@@ -12,6 +12,11 @@ class MockMoEngageFlutterPlatform extends MethodChannelMoEngageFlutter
   AuthenticationDetailsRequest? passAuthenticationDetailsLastData;
   String? passAuthenticationDetailsLastAppId;
 
+  String? passFirebaseInstallationIdLastInstallationId;
+  String? passFirebaseInstallationIdLastAppId;
+  FirebaseInstallationIdData? getFirebaseInstallationIdResult;
+  String? getFirebaseInstallationIdLastAppId;
+
   @override
   void setUserAttribute(
       String userAttributeName, userAttributeValue, String appId) {
@@ -27,11 +32,28 @@ class MockMoEngageFlutterPlatform extends MethodChannelMoEngageFlutter
     passAuthenticationDetailsLastAppId = appId;
   }
 
+  @override
+  void passFirebaseInstallationId(String installationId, String appId) {
+    passFirebaseInstallationIdLastInstallationId = installationId;
+    passFirebaseInstallationIdLastAppId = appId;
+  }
+
+  @override
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+      String appId) async {
+    getFirebaseInstallationIdLastAppId = appId;
+    return getFirebaseInstallationIdResult;
+  }
+
   void clear() {
     setUserAttributeLastUserAttributeName = null;
     setUserAttributeLastUserAttributeValue = null;
     setUserAttributeLastAppId = null;
     passAuthenticationDetailsLastData = null;
     passAuthenticationDetailsLastAppId = null;
+    passFirebaseInstallationIdLastInstallationId = null;
+    passFirebaseInstallationIdLastAppId = null;
+    getFirebaseInstallationIdResult = null;
+    getFirebaseInstallationIdLastAppId = null;
   }
 }

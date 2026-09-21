@@ -18,6 +18,13 @@ final MoEInitConfig moEInitConfig = MoEInitConfig(
 final PushTokenData tokenData =
     PushTokenData(Platforms.android, '1234abcd', MoEPushService.fcm);
 
+final FirebaseInstallationIdData firebaseInstallationIdData =
+    FirebaseInstallationIdData(
+        accountMeta: AccountMeta('1234'),
+        installationId: 'fid-1234',
+        platform: Platforms.android,
+        pushService: MoEPushService.fcm);
+
 final PushCampaignData pushCampaignData = PushCampaignData(
     Platforms.android,
     AccountMeta(''),

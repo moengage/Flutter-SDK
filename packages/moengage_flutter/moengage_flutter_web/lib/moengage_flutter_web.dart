@@ -361,4 +361,16 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
     final methodName = shouldEnableSdk ? methodEnableSDK : methodDisableSDK;
     _callMethod(methodName);
   }
+
+  @override
+  void passFirebaseInstallationId(String installationId, String appId) {
+    Logger.v('passFirebaseInstallationId(): Not supported in Web Platform');
+  }
+
+  @override
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+      String appId) async {
+    Logger.v('getFirebaseInstallationId(): Not supported in Web Platform');
+    return null;
+  }
 }

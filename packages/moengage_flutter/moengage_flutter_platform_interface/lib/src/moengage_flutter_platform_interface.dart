@@ -11,6 +11,7 @@ import 'model/gender.dart';
 import 'model/geo_location.dart';
 import 'model/inapp/nudge_position.dart';
 import 'model/moe_init_config.dart';
+import 'model/push/firebase_installation_id_data.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
@@ -259,11 +260,12 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
       throw UnimplementedError(
           'passFirebaseInstallationId() not implemented for Platform');
 
-  /// Returns the currently stored Firebase Installation Id, if any.
+  /// Returns the currently stored Firebase Installation Id data, if any.
   /// Note: This API is only for Android Platform.
   /// [appId] - MoEngage App ID
-  /// @returns - Instance of [Future] of type [String]
-  Future<String?> getFirebaseInstallationId(String appId) =>
+  /// @returns - Instance of [Future] of type [FirebaseInstallationIdData]
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+          String appId) =>
       throw UnimplementedError(
           'getFirebaseInstallationId() not implemented for Platform');
 }
