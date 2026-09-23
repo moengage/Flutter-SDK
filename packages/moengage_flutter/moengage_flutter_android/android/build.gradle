@@ -75,8 +75,7 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
-    api("com.moengage:moe-android-sdk")
+    api(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
     api("com.moengage:inapp")
 
     api(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))

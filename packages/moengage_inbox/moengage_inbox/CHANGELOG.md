@@ -1,5 +1,12 @@
 # MoEngage Flutter Inbox Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
+
 # 01-09-2026
 
 ## 10.0.0

@@ -1,5 +1,11 @@
 # MoEngage Inbox Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
+
 # 01-09-2026
 
 ## 5.0.0

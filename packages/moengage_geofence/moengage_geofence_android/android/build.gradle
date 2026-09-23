@@ -77,7 +77,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
-    compileOnly("com.moengage:moe-android-sdk")
     api("com.moengage:geofence")
 
     implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
