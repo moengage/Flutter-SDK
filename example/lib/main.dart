@@ -742,8 +742,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     debugPrint('$tag Main : User Identities $identities');
                   }),
               ListTile(
-                title: const Text(
-                    'Pass Firebase Installation Id (Android Only)'),
+                title:
+                    const Text('Pass Firebase Installation Id (Android Only)'),
                 onTap: () {
                   // TODO: replace with a real Firebase Installation Id.
                   _moengagePlugin
@@ -751,8 +751,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 },
               ),
               ListTile(
-                title: const Text(
-                    'Get Firebase Installation Id (Android Only)'),
+                title:
+                    const Text('Get Firebase Installation Id (Android Only)'),
                 onTap: () async {
                   final FirebaseInstallationIdData? data =
                       await _moengagePlugin.getFirebaseInstallationId();

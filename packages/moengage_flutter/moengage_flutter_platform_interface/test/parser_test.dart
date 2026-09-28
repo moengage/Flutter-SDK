@@ -128,9 +128,8 @@ void main() {
   test('Firebase Installation Id Data', () {
     expect(
         Comparator().isFirebaseInstallationIdDataEqual(
-            PushPayloadMapper()
-                .firebaseInstallationIdDataFromJson(
-                    firebaseInstallationIdDataPayload),
+            PushPayloadMapper().firebaseInstallationIdDataFromJson(
+                firebaseInstallationIdDataPayload),
             firebaseInstallationIdData),
         true);
   });

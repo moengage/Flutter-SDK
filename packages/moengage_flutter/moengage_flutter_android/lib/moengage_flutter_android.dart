@@ -361,10 +361,8 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
 
   @override
   void passFirebaseInstallationId(String installationId, String appId) {
-    _methodChannel.invokeMethod(
-        methodPassFirebaseInstallationId,
-        json.encode(
-            getFirebaseInstallationIdPayload(installationId, appId)));
+    _methodChannel.invokeMethod(methodPassFirebaseInstallationId,
+        json.encode(getFirebaseInstallationIdPayload(installationId, appId)));
   }
 
   @override

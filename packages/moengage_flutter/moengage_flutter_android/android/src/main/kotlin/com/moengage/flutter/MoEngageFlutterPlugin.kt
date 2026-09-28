@@ -559,11 +559,15 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    /** Passes an app-supplied Firebase Installation Id provided in [methodCall] to the native SDK. */
+    /**
+     * Passes an app-supplied Firebase Installation Id provided in [methodCall] to the native SDK.
+     */
     private fun passFirebaseInstallationId(methodCall: MethodCall) {
         try {
             if (methodCall.arguments == null) {
-                Logger.record(PlatformLogLevel.ERROR) { "$tag passFirebaseInstallationId() : Invalid Arguments" }
+                Logger.record(PlatformLogLevel.ERROR) {
+                    "$tag passFirebaseInstallationId() : Invalid Arguments"
+                }
                 return
             }
             val payload = methodCall.arguments.toString()
@@ -595,15 +599,23 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                                 .toString(),
                         )
                     }
-                }.onFailure { failure ->
+                }
+                .onFailure { failure ->
                     Logger.record(PlatformLogLevel.ERROR) {
                         "$tag getFirebaseInstallationId() : failed with reason: ${failure.reason} and message: ${failure.message}"
                     }
-                    postOnMainThread { result.error(failure.reason.toString(), failure.message, null) }
+                    postOnMainThread {
+                        result.error(failure.reason.toString(), failure.message, null)
+                    }
                 }
         } catch (t: Throwable) {
             Logger.record(PlatformLogLevel.ERROR, t) { "$tag getFirebaseInstallationId() : " }
-            postOnMainThread { result.error(ERROR_CODE_GET_FIREBASE_INSTALLATION_ID, "Error: ${t.message ?: "Unknown"}", null) }
+            postOnMainThread {
+                result.error(
+                    ERROR_CODE_GET_FIREBASE_INSTALLATION_ID,
+                    "Error: ${t.message ?: "Unknown"}",
+                    null)
+            }
         }
     }
 

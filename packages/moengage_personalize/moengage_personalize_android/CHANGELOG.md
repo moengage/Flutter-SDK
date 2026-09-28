@@ -4,6 +4,7 @@
 
 ## Release Version
 
+- [minor] `android-bom` version updated to `4.4.0`.
 - [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
 
 # 01-09-2026

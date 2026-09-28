@@ -264,8 +264,7 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   /// Note: This API is only for Android Platform.
   /// [appId] - MoEngage App ID
   /// @returns - Instance of [Future] of type [FirebaseInstallationIdData]
-  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
-          String appId) =>
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(String appId) =>
       throw UnimplementedError(
           'getFirebaseInstallationId() not implemented for Platform');
 }
