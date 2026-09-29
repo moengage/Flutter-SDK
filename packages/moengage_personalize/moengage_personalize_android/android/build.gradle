@@ -71,11 +71,10 @@ android {
 }
 
 dependencies {
-   implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
+    implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
     api("com.moengage:plugin-base-personalization")
     compileOnly("com.moengage:plugin-base")
 
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
-    compileOnly("com.moengage:moe-android-sdk")
     api("com.moengage:personalization-core")
 }

@@ -1,5 +1,11 @@
 # MoEngage Flutter Android Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
+
 # 01-09-2026
 
 ## 6.0.0

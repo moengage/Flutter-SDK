@@ -1,5 +1,12 @@
 # MoEngage Geofence Plugin
 
+# Release Date
+
+## Release Version
+
+- Android
+  - [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
+
 # 01-09-2026
 
 ## 7.0.0
