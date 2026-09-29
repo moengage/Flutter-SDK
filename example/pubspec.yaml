@@ -27,6 +27,7 @@ dependencies:
   collection:
   firebase_messaging: ^16.4.1
   firebase_core: ^4.11.0
+  html: 0.15.6
 
 dev_dependencies:
   flutter_test:
