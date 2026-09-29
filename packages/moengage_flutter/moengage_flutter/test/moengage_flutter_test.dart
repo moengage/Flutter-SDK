@@ -39,4 +39,25 @@ void main() {
     expect(mock.passAuthenticationDetailsLastData, request);
     expect(mock.passAuthenticationDetailsLastAppId, '12345');
   });
+
+  test('Firebase Installation Id passed to platform', () async {
+    final platform = MoEngageFlutter('12345');
+    platform.passFirebaseInstallationId('fid-1234');
+    expect(mock.passFirebaseInstallationIdLastInstallationId, 'fid-1234');
+    expect(mock.passFirebaseInstallationIdLastAppId, '12345');
+  });
+
+  test('Firebase Installation Id fetched from platform', () async {
+    final platform = MoEngageFlutter('12345');
+    final FirebaseInstallationIdData data = FirebaseInstallationIdData(
+        accountMeta: AccountMeta('12345'),
+        installationId: 'fid-1234',
+        platform: Platforms.android,
+        pushService: MoEPushService.fcm);
+    mock.getFirebaseInstallationIdResult = data;
+    final FirebaseInstallationIdData? result =
+        await platform.getFirebaseInstallationId();
+    expect(result?.installationId, 'fid-1234');
+    expect(mock.getFirebaseInstallationIdLastAppId, '12345');
+  });
 }

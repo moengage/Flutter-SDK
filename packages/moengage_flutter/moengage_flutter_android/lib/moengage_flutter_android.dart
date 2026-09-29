@@ -358,4 +358,23 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
     _methodChannel.invokeMethod(methodAuthenticationDetails,
         json.encode(getAuthenticationDetailsPayload(request, appId)));
   }
+
+  @override
+  void passFirebaseInstallationId(String installationId, String appId) {
+    _methodChannel.invokeMethod(methodPassFirebaseInstallationId,
+        json.encode(getFirebaseInstallationIdPayload(installationId, appId)));
+  }
+
+  @override
+  Future<FirebaseInstallationIdData?> getFirebaseInstallationId(
+      String appId) async {
+    try {
+      final dynamic result = await _methodChannel.invokeMethod(
+          methodGetFirebaseInstallationId, jsonEncode(getAccountMeta(appId)));
+      return PushPayloadMapper().firebaseInstallationIdDataFromJson(result);
+    } catch (e) {
+      Logger.e('$tag getFirebaseInstallationId(): Error', error: e);
+      return Future.error(e);
+    }
+  }
 }

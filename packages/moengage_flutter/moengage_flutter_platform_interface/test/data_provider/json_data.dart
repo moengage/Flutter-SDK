@@ -546,6 +546,30 @@ const String authenticationDetailsPayload = '''
 }
 ''';
 
+const String firebaseInstallationIdPayload = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "data": {
+    "installationId": "fid-1234"
+  }
+}
+''';
+
+const String firebaseInstallationIdDataPayload = '''
+{
+  "accountMeta": {
+    "appId": "1234"
+  },
+  "data": {
+    "installationId": "fid-1234",
+    "platform": "android",
+    "pushService": "fcm"
+  }
+}
+''';
+
 const String authenticationErrorPayload = '''
 {
   "accountMeta": {

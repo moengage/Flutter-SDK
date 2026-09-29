@@ -88,5 +88,9 @@
             android:name="com.moengage.pushbase.activities.PushTracker"
             android:launchMode="singleInstance"
             tools:replace="android:launchMode" />
+
+        <meta-data
+            android:name="firebase_messaging_installation_id_enabled"
+            android:value="true" />
     </application>
 </manifest>
