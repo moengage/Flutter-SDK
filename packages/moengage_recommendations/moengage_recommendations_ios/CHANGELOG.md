@@ -4,4 +4,4 @@
 
 ## Release Version
 
-- [major] Added support for fetching Recommendations.
+- [minor] MOEN-47187: Added support for fetching Recommendations.
