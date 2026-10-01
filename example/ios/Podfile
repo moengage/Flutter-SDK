@@ -29,17 +29,20 @@ def plugin_dev_pods
   test_plugininox_source = nil
   test_plugingeofence_source = nil
   test_pluginpersonalize_source = nil
+  test_pluginrecommendations_source = nil
   # test_pluginbase_source = { :git => 'https://github.com/moengage/iOS-PluginBase.git', :branch => '' }
   # test_pluginbase_source = { :path => '../../../iOS-PluginBase' }
   # test_plugincards_source = { :path => '../../../apple-plugin-cards' }
   # test_plugininox_source = { :path => '../../../apple-plugin-inbox' }
   # test_plugingeofence_source = { :path => '../../../apple-plugin-geofence' }
   # test_pluginpersonalize_source = { :path => '../../../apple-plugin-personalize' }
+  # test_pluginrecommendations_source = { :path => '../../../apple-plugin-recommendations' }
   pod 'MoEngagePluginBase', **test_pluginbase_source if test_pluginbase_source
   pod 'MoEngagePluginCards', **test_plugincards_source if test_plugincards_source
   pod 'MoEngagePluginInbox', **test_plugininox_source if test_plugininox_source
   pod 'MoEngagePluginGeofence', **test_plugingeofence_source if test_plugingeofence_source
   pod 'MoEngagePluginPersonalize', **test_pluginpersonalize_source if test_pluginpersonalize_source
+  pod 'MoEngagePluginRecommendations', **test_pluginrecommendations_source if test_pluginrecommendations_source
 end
 
 def native_source
@@ -64,6 +67,7 @@ def native_dev_pods
   pod 'MoEngageGeofence', **test_source
   pod 'MoEngageRichNotification', **test_source
   pod 'MoEngageRealTimeTrigger', **test_source
+  pod 'MoEngageRecommendations', **test_source
 end
 
 def extension_pods
