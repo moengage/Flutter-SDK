@@ -4,30 +4,44 @@
 //
 
 import Flutter
-// TODO(MOEN-47187): verify the actual module name once MoEngagePluginRecommendations ships —
-// mirrors MoEngagePluginCards below, but the plugin-base module does not exist yet.
-import MoEngagePluginRecommendations
+import MoEngageCore
 
 enum MoEngageRecommendationsUtil {
-    static func resume(
-        channel method: String,
-        havingResult result: @escaping FlutterResult,
-        withData data: [String: Any]
-    ) {
-        let resultData = Self.serialize(data: data)
-        MoEngagePluginRecommendationsLogger.debug(
-            "Providing data \(data) to client for channel method \(method)",
-            forData: data
-        )
-        DispatchQueue.main.async { result(resultData) }
-    }
+    /// Settles the Dart call with the bridge response.
+    ///
+    /// A response whose `data` carries a `reason` becomes a `FlutterError` with that reason as its
+    /// code; any other response is sent as a JSON string.
+    static func send(_ response: [String: Any], to result: FlutterResult) {
+        typealias FailureKeys = MoEngageFlutterRecommendationsConstants.FailureKeys
+        typealias FailureReasons = MoEngageFlutterRecommendationsConstants.FailureReasons
 
-    static func serialize(data: [String: Any]) -> String {
-        if let jsonData = try? JSONSerialization.data(withJSONObject: data),
-           let jsonStr = String(data: jsonData, encoding: .utf8) {
-            return jsonStr
-        } else {
-            return ""
+        if let data = response[FailureKeys.data] as? [String: Any],
+           let reason = data[FailureKeys.reason] as? String {
+            result(FlutterError(
+                code: reason,
+                message: data[FailureKeys.message] as? String,
+                details: nil
+            ))
+            return
         }
+
+        // JSONSerialization raises an uncatchable exception on invalid input, so check first.
+        guard JSONSerialization.isValidJSONObject(response),
+              let data = try? JSONSerialization.data(withJSONObject: response),
+              let json = String(data: data, encoding: .utf8)
+        else {
+            MoEngageLogger.logDefault(
+                logLevel: .error,
+                message: "\(MoEngageFlutterRecommendationsConstants.logTag) send(): failed to serialize response"
+            )
+            result(FlutterError(
+                code: FailureReasons.parseError,
+                message: "Failed to serialize the recommendations response",
+                details: nil
+            ))
+            return
+        }
+
+        result(json)
     }
 }
