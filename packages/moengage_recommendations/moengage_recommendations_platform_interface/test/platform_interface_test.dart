@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moengage_flutter/moengage_flutter.dart' show keyData;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show CommonFailureReason, keyData;
 import 'package:moengage_recommendations_platform_interface/moengage_recommendations_platform_interface.dart';
 
 import 'data/json_data_provider.dart';
@@ -74,7 +75,9 @@ void main() {
     test('sends the recommendation criteria on the wire', () async {
       // Built from a list rather than a set literal so the duplicate survives to the call —
       // a literal `{'size', 'color', 'size'}` is rejected by the analyzer.
-      final includedFields = <String>{...['size', 'color', 'size']};
+      final includedFields = <String>{
+        ...['size', 'color', 'size']
+      };
 
       await platform.fetchRecommendations(
           testRecommendationId, testItemId, includedFields, testAppId);
@@ -121,7 +124,7 @@ void main() {
         () => platform.fetchRecommendations(
             testRecommendationId, '', const {}, testAppId),
         throwsA(isA<RecommendationsFailure>().having((e) => e.failureReason,
-            'failureReason', RecommendationsFailureReason.parseError)),
+            'failureReason', CommonFailureReason.parseError)),
       );
     });
 
@@ -153,7 +156,7 @@ void main() {
         () => platform.fetchRecommendations(
             testRecommendationId, '', const {}, testAppId),
         throwsA(isA<RecommendationsFailure>().having((e) => e.failureReason,
-            'failureReason', RecommendationsFailureReason.unknownError)),
+            'failureReason', CommonFailureReason.unknownError)),
       );
     });
   });
@@ -172,15 +175,34 @@ void main() {
           RecommendationsFailureReason.unknownError);
     });
 
-    test('maps the shared core reasons from their string', () {
+    test('falls back to CommonFailureReason for the shared core reasons', () {
       expect(RecommendationsFailureReason.fromString('FEATURE_DISABLED'),
-          RecommendationsFailureReason.featureDisabled);
+          CommonFailureReason.featureDisabled);
       expect(RecommendationsFailureReason.fromString('SDK_STATE'),
-          RecommendationsFailureReason.sdkState);
+          CommonFailureReason.sdkState);
+      expect(RecommendationsFailureReason.fromString('SERVER_ERROR'),
+          CommonFailureReason.serverError);
       expect(RecommendationsFailureReason.fromString('NETWORK_ERROR'),
-          RecommendationsFailureReason.networkError);
+          CommonFailureReason.networkError);
       expect(RecommendationsFailureReason.fromString('PARSE_ERROR'),
-          RecommendationsFailureReason.parseError);
+          CommonFailureReason.parseError);
+      expect(RecommendationsFailureReason.fromString('INVALID_PARAMETERS'),
+          CommonFailureReason.invalidParameters);
+      expect(
+          RecommendationsFailureReason.fromString(
+              'INVALID_INITIALISATION_CONFIGURATION'),
+          CommonFailureReason.invalidInitialisationConfiguration);
+      expect(RecommendationsFailureReason.fromString('DUPLICATE_FUNCTION_CALL'),
+          CommonFailureReason.duplicateFunctionCall);
+      expect(RecommendationsFailureReason.fromString('AUTHENTICATION_FAILED'),
+          CommonFailureReason.authenticationFailed);
+    });
+
+    test(
+        'falls back to CommonFailureReason.unknownError for an unmodelled '
+        'failure reason', () {
+      expect(RecommendationsFailureReason.fromString('SOME_NEW_REASON'),
+          CommonFailureReason.unknownError);
     });
   });
 }

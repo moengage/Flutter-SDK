@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show Logger, getAccountMeta, keyData;
+    show CommonFailureReason, Logger, getAccountMeta, keyData;
 
 import '../model/models.dart';
 import 'constants.dart';
@@ -29,7 +29,7 @@ Map<String, dynamic> getFetchRecommendationsPayload(
 
 /// Deserialize the fetchRecommendations response.
 ///
-/// Throws a [RecommendationsFailure] carrying [RecommendationsFailureReason.parseError] when the
+/// Throws a [RecommendationsFailure] carrying [CommonFailureReason.parseError] when the
 /// response body cannot be read — the contract lists `parseError` against this method, so an
 /// undecodable body must not reach the caller as `unknownError`.
 RecommendedItems deserializeRecommendedItems(dynamic responsePayload) {
@@ -50,7 +50,7 @@ RecommendedItems deserializeRecommendedItems(dynamic responsePayload) {
     Logger.e('${moduleTag}deserializeRecommendedItems(): Error: $e',
         stackTrace: stackTrace);
     throw RecommendationsFailure(
-      failureReason: RecommendationsFailureReason.parseError,
+      failureReason: CommonFailureReason.parseError,
       message: e.toString(),
     );
   }
@@ -60,8 +60,8 @@ RecommendedItems deserializeRecommendedItems(dynamic responsePayload) {
 ///
 /// A [RecommendationsFailure] passes through unchanged — [deserializeRecommendedItems] has already
 /// classified it. The native bridge reports the failure reason as the [PlatformException.code], so
-/// the reason is read from there. Anything else is surfaced as
-/// [RecommendationsFailureReason.unknownError] rather than leaking a platform type to the caller.
+/// the reason is read from there. Anything else is surfaced as [CommonFailureReason.unknownError]
+/// rather than leaking a platform type to the caller.
 RecommendationsFailure toRecommendationsFailure(Object error) {
   if (error is RecommendationsFailure) {
     return error;
@@ -73,7 +73,7 @@ RecommendationsFailure toRecommendationsFailure(Object error) {
     );
   }
   return RecommendationsFailure(
-    failureReason: RecommendationsFailureReason.unknownError,
+    failureReason: CommonFailureReason.unknownError,
     message: error.toString(),
   );
 }

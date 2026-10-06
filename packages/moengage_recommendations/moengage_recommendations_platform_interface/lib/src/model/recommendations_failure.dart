@@ -1,3 +1,6 @@
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show CommonFailureReason, MoERequestFailureReason;
+
 import 'recommendations_failure_reason.dart';
 
 /// Failure raised by a recommendations request.
@@ -11,8 +14,9 @@ class RecommendationsFailure implements Exception {
     required this.message,
   });
 
-  /// Reason for the failure.
-  final RecommendationsFailureReason failureReason;
+  /// Reason for the failure — a [RecommendationsFailureReason] when recommendations-specific, or a
+  /// [CommonFailureReason] when Core raised it instead.
+  final MoERequestFailureReason failureReason;
 
   /// Human-readable failure message.
   final String message;

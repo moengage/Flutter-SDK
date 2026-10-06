@@ -2,6 +2,8 @@
 // ignore_for_file: type=lint
 
 import 'package:flutter/material.dart';
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show CommonFailureReason, Logger;
 import 'package:moengage_recommendations/moengage_recommendations.dart';
 
 import 'constants.dart';
@@ -18,7 +20,7 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
       MoEngageRecommendations(WORKSPACE_ID);
 
   final TextEditingController _recommendationIdController =
-      TextEditingController(text: 'clothing');
+      TextEditingController(text: '6ab61af414de69b70fe4819f');
   final TextEditingController _itemIdController = TextEditingController();
   final TextEditingController _includedFieldsController =
       TextEditingController();
@@ -26,6 +28,9 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
   List<Map<String, dynamic>> _items = [];
   bool _isLoading = false;
   String? _errorText;
+  // True for an informational notice (e.g. the feature is disabled) rather than an actual
+  // error — rendered as a neutral notice instead of a red error banner.
+  bool _isQuietNotice = false;
 
   Set<String> _parseSet(String input) =>
       input.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toSet();
@@ -35,6 +40,7 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
     setState(() {
       _isLoading = true;
       _errorText = null;
+      _isQuietNotice = false;
     });
     try {
       final RecommendedItems result =
@@ -49,17 +55,109 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
         _items = result.items;
       });
     } on RecommendationsFailure catch (failure) {
-      setState(() {
-        _items = [];
-        _errorText = '${failure.failureReason.value}: ${failure.message}';
-      });
+      _handleRecommendationsFailure(failure);
     } catch (e) {
+      Logger.e('RecommendationsHome _onFetchRecommendations(): $e');
       setState(() {
         _items = [];
         _errorText = 'Error: $e';
       });
     } finally {
       setState(() => _isLoading = false);
+    }
+  }
+
+  /// Dispatches on [failure.failureReason] — either a [RecommendationsFailureReason] (specific
+  /// to this feature) or a [CommonFailureReason] (shared across every MoEngage SDK request) — and
+  /// logs and renders each case appropriately rather than showing one generic error for all of
+  /// them.
+  void _handleRecommendationsFailure(RecommendationsFailure failure) {
+    final reason = failure.failureReason;
+    if (reason is RecommendationsFailureReason) {
+      _handleSpecificFailure(reason, failure.message);
+    } else if (reason is CommonFailureReason) {
+      _handleCommonFailure(reason, failure.message);
+    } else {
+      // Unreachable today — RecommendationsFailureReason.fromString only ever returns one of the
+      // two types above — but failureReason's declared type doesn't guarantee that, so fail safe
+      // rather than crash the sample app.
+      Logger.e('RecommendationsHome: Unmodelled failure reason type: $reason');
+      setState(() {
+        _items = [];
+        _errorText = 'Something went wrong: ${failure.message}';
+      });
+    }
+  }
+
+  void _handleSpecificFailure(
+      RecommendationsFailureReason reason, String message) {
+    switch (reason) {
+      case RecommendationsFailureReason.invalidRequest:
+        // Dev-time bug — the recommendationId the user typed was rejected. Log loudly.
+        Logger.e(
+            'RecommendationsHome: Invalid recommendation request: $message');
+        setState(() {
+          _items = [];
+          _errorText = 'Invalid request: $message';
+        });
+
+      case RecommendationsFailureReason.rateLimitExceeded:
+        Logger.w('RecommendationsHome: Rate limit exceeded: $message');
+        setState(() {
+          _items = [];
+          _errorText =
+              'Too many requests — please wait a moment and try again.';
+        });
+
+      case RecommendationsFailureReason.payloadTooLarge:
+      case RecommendationsFailureReason.internalServerError:
+      case RecommendationsFailureReason.unknownError:
+        Logger.e(
+            'RecommendationsHome: Recommendations request failed ($reason): $message');
+        setState(() {
+          _items = [];
+          _errorText =
+              'Could not fetch recommendations right now. Please try again later.';
+        });
+    }
+  }
+
+  void _handleCommonFailure(CommonFailureReason reason, String message) {
+    switch (reason) {
+      case CommonFailureReason.networkError:
+        Logger.w('RecommendationsHome: Network error: $message');
+        setState(() {
+          _items = [];
+          _errorText =
+              'You appear to be offline. Check your connection and try again.';
+        });
+
+      case CommonFailureReason.featureDisabled:
+      case CommonFailureReason.sdkState:
+        // Feature not available for this session — this isn't an error the user needs to act
+        // on, so log it quietly and show a neutral notice rather than a red error banner.
+        Logger.i(
+            'RecommendationsHome: Recommendations unavailable ($reason): $message');
+        setState(() {
+          _items = [];
+          _errorText = 'Recommendations aren\'t available right now.';
+          _isQuietNotice = true;
+        });
+
+      case CommonFailureReason.serverError:
+      case CommonFailureReason.parseError:
+      case CommonFailureReason.invalidParameters:
+      case CommonFailureReason.invalidInitialisationConfiguration:
+      case CommonFailureReason.duplicateFunctionCall:
+      case CommonFailureReason.authenticationFailed:
+      case CommonFailureReason.unknownError:
+        Logger.e(
+            'RecommendationsHome: Recommendations request failed ($reason): $message');
+        setState(() {
+          _items = [];
+          _errorText =
+              'Could not fetch recommendations right now. Please try again later.';
+        });
     }
   }
 
@@ -137,19 +235,28 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
           if (_errorText != null)
             Card(
               margin: EdgeInsets.zero,
-              color: theme.colorScheme.errorContainer,
+              color: _isQuietNotice
+                  ? theme.colorScheme.surfaceContainerHighest
+                  : theme.colorScheme.errorContainer,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Icon(Icons.error_outline,
-                        color: theme.colorScheme.onErrorContainer),
+                    Icon(
+                      _isQuietNotice ? Icons.info_outline : Icons.error_outline,
+                      color: _isQuietNotice
+                          ? theme.colorScheme.onSurfaceVariant
+                          : theme.colorScheme.onErrorContainer,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         _errorText!,
                         style: TextStyle(
-                            color: theme.colorScheme.onErrorContainer),
+                          color: _isQuietNotice
+                              ? theme.colorScheme.onSurfaceVariant
+                              : theme.colorScheme.onErrorContainer,
+                        ),
                       ),
                     ),
                   ],
@@ -195,8 +302,7 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
 
   Widget _buildItemTile(Map<String, dynamic> item) {
     final productId = item['product_id']?.toString();
-    final otherFields = Map<String, dynamic>.from(item)
-      ..remove('product_id');
+    final otherFields = Map<String, dynamic>.from(item)..remove('product_id');
     return ListTile(
       title: Text(productId ?? item.toString()),
       subtitle: otherFields.isEmpty

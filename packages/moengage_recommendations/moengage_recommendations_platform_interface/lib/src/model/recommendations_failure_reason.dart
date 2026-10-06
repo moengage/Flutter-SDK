@@ -1,9 +1,16 @@
-import 'package:moengage_flutter/moengage_flutter.dart' show Logger;
+import 'package:moengage_flutter/moengage_flutter.dart'
+    show CommonFailureReason, Logger, MoERequestFailureReason;
 
 import '../internal/constants.dart';
 
-/// Reason a recommendations request failed.
-enum RecommendationsFailureReason {
+/// Recommendations-specific reasons a recommendations request failed.
+///
+/// Not exhaustive — Core raises other [MoERequestFailureReason] reasons too (see
+/// [CommonFailureReason]), so [fromString] falls back to those before defaulting to
+/// [CommonFailureReason.unknownError]. This enum implements [MoERequestFailureReason] directly,
+/// the same way [CommonFailureReason] does, rather than inheriting from it — Dart enums cannot
+/// extend one another.
+enum RecommendationsFailureReason implements MoERequestFailureReason {
   /// The `recommendationId` was blank, or the server rejected the request — HTTP 400.
   invalidRequest('INVALID_REQUEST'),
 
@@ -16,38 +23,31 @@ enum RecommendationsFailureReason {
   /// The server failed to process the request — HTTP 500.
   internalServerError('INTERNAL_SERVER_ERROR'),
 
-  /// Recommendations is blocked from the dashboard, or disabled in the SDK configuration.
-  featureDisabled('FEATURE_DISABLED'),
-
-  /// The SDK is not initialized, or is not in a state that allows the operation.
-  sdkState('SDK_STATE'),
-
-  /// A network error occurred while making the request.
-  networkError('NETWORK_ERROR'),
-
-  /// The response body could not be parsed.
-  parseError('PARSE_ERROR'),
-
-  /// The server responded with an unhandled status code, or the failure could not be classified.
+  /// The server responded with an unhandled status code.
   unknownError('UNKNOWN_ERROR');
 
   const RecommendationsFailureReason(this.value);
 
-  /// JSON string representation of this reason.
+  @override
   final String value;
 
-  /// Get [RecommendationsFailureReason] from a JSON string value.
+  /// Get the [MoERequestFailureReason] matching a JSON string value.
   ///
-  /// Falls back to [RecommendationsFailureReason.unknownError] for unknown values — the native
-  /// failure reasons are not an exhaustive list, so a reason this enum does not model must not
-  /// break the caller.
-  static RecommendationsFailureReason fromString(String str) =>
-      RecommendationsFailureReason.values.firstWhere(
-        (r) => r.value == str,
-        orElse: () {
-          Logger.w(
-              '${moduleTag}RecommendationsFailureReason fromString(): Unknown value "$str", defaulting to unknownError');
-          return RecommendationsFailureReason.unknownError;
-        },
-      );
+  /// Tries this enum's recommendations-specific reasons first, then falls back to
+  /// [CommonFailureReason] for the reasons shared across features, and finally to
+  /// [CommonFailureReason.unknownError] when [str] matches neither.
+  static MoERequestFailureReason fromString(String str) {
+    for (final reason in RecommendationsFailureReason.values) {
+      if (reason.value == str) {
+        return reason;
+      }
+    }
+    final common = CommonFailureReason.tryFromString(str);
+    if (common != null) {
+      return common;
+    }
+    Logger.w(
+        '${moduleTag}RecommendationsFailureReason fromString(): Unknown value "$str", defaulting to unknownError');
+    return CommonFailureReason.unknownError;
+  }
 }
