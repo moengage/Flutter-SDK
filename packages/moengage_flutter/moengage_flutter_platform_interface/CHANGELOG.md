@@ -5,6 +5,7 @@
 ## Release Version
 
 - [minor] Added support for Firebase Installation Id
+- [minor] Added support for fetching Recommendations.
 
 # 01-09-2026
 
