@@ -12,6 +12,9 @@ import 'model/geo_location.dart';
 import 'model/inapp/nudge_position.dart';
 import 'model/moe_init_config.dart';
 import 'model/push/firebase_installation_id_data.dart';
+import 'model/unset_user_attribute_failure.dart';
+import 'model/unset_user_attribute_result.dart';
+import 'model/user_attribute_level.dart';
 import 'model/user_deletion_data.dart';
 
 /// Platform Interface for MoEngage Flutter Plugin
@@ -267,4 +270,15 @@ abstract class MoEngageFlutterPlatform extends PlatformInterface {
   Future<FirebaseInstallationIdData?> getFirebaseInstallationId(String appId) =>
       throw UnimplementedError(
           'getFirebaseInstallationId() not implemented for Platform');
+
+  /// Removes a user attribute from the user's profile at the given level.
+  /// [attributeName] - Attribute to remove, by the name it was set with.
+  /// [attributeLevel] - Which copy to remove, the calling project's or the portfolio-wide one.
+  /// [appId] - MoEngage App ID
+  /// @returns - Instance of [Future] of type [UnsetUserAttributeResult] on success.
+  /// Throws [UnsetUserAttributeFailure] on failure.
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+          String attributeName, UserAttributeLevel attributeLevel, String appId) =>
+      throw UnimplementedError(
+          'unsetUserAttribute() not implemented for Platform');
 }

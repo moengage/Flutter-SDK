@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
+
 import '../internal/constants.dart';
 import '../internal/logger.dart';
 import '../model/account_meta.dart';
@@ -9,11 +11,15 @@ import '../model/authentication/authentication_details_request.dart';
 import '../model/authentication/authentication_error_data.dart';
 import '../model/authentication/authentication_type.dart';
 import '../model/authentication/jwt_error_code.dart';
+import '../model/common_failure_reason.dart';
 import '../model/logout_complete_data.dart';
 import '../model/moe_request_failure_reason.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
 import '../model/platforms.dart';
+import '../model/unset_user_attribute_failure.dart';
+import '../model/unset_user_attribute_result.dart';
+import '../model/user_attribute_level.dart';
 
 /// Log Tag for Utils.dart
 const String tag = '${TAG}Utils';
@@ -262,4 +268,63 @@ T? tryFromValue<T extends MoERequestFailureReason>(List<T> values, String str) {
     }
   }
   return null;
+}
+
+/// Get unsetUserAttribute payload for the given [attributeName], [attributeLevel] and [appId].
+Map<String, dynamic> getUnsetUserAttributePayload(
+    String attributeName, UserAttributeLevel attributeLevel, String appId) {
+  final Map<String, dynamic> payload = getAccountMeta(appId);
+  payload[keyData] = {
+    keyAttributeName: attributeName,
+    keyAttributeLevel: attributeLevel.value,
+  };
+  return payload;
+}
+
+/// Deserialize the unsetUserAttribute response.
+///
+/// The native bridge always resolves successfully - the response is a single JSON shape for both
+/// outcomes, with `data.isUnsetSuccess` distinguishing them, per the contract (the same convention
+/// the React Native bridge uses for this call). Returns the [UnsetUserAttributeResult] when
+/// `isUnsetSuccess` is true. Throws [UnsetUserAttributeFailure], built from the embedded
+/// `data.failure.{reason,message}`, when it is false.
+UnsetUserAttributeResult unsetUserAttributeResultFromJson(dynamic methodCallResult) {
+  final Map<String, dynamic> response =
+      json.decode(methodCallResult.toString()) as Map<String, dynamic>;
+  final Map<String, dynamic> data = response[keyData] as Map<String, dynamic>;
+  if (data[keyIsUnsetSuccess] != true) {
+    final Map<String, dynamic> failure =
+        data[keyFailure] as Map<String, dynamic>? ?? const {};
+    throw UnsetUserAttributeFailure(
+      failureReason:
+          CommonFailureReason.fromString(failure[keyFailureReason]?.toString() ?? ''),
+      message: failure[keyFailureMessage]?.toString() ?? '',
+    );
+  }
+  return UnsetUserAttributeResult(
+    attributeName: data[keyAttributeName].toString(),
+    attributeLevel: UserAttributeLevel.fromString(data[keyAttributeLevel].toString()),
+  );
+}
+
+/// Convert an error raised while unsetting a user attribute into an [UnsetUserAttributeFailure].
+///
+/// [unsetUserAttributeResultFromJson] already throws a fully-formed [UnsetUserAttributeFailure]
+/// for a native-side failure, so it passes through unchanged here. This only handles a genuinely
+/// exceptional bridge-level error - e.g. a malformed method-channel call - reading
+/// [PlatformException.code] when present, the same fallback convention recommendations uses.
+UnsetUserAttributeFailure toUnsetUserAttributeFailure(Object error) {
+  if (error is UnsetUserAttributeFailure) {
+    return error;
+  }
+  if (error is PlatformException) {
+    return UnsetUserAttributeFailure(
+      failureReason: CommonFailureReason.fromString(error.code),
+      message: error.message ?? '',
+    );
+  }
+  return UnsetUserAttributeFailure(
+    failureReason: CommonFailureReason.unknownError,
+    message: error.toString(),
+  );
 }

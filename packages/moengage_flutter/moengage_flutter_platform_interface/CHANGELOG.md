@@ -6,6 +6,7 @@
 
 - [minor] Added support for Firebase Installation Id
 - [minor] Added support for fetching Recommendations.
+- [minor] Added support for unsetting a user attribute.
 
 # 01-09-2026
 

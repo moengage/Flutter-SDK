@@ -35,8 +35,9 @@ struct MoEngageFlutterConstants{
         static let kIdentifyUser                = "identifyUser"
         static let kGetUserIdentities           = "getUserIdentities"
         static let kAuthenticationDetails       = "authenticationDetails"
+        static let kUnsetUserAttribute          = "unsetUserAttribute"
     }
-    
+
     struct CallbackNames {
         static let kPushTokenGenerated          = "onPushTokenGenerated"
         static let kPushClicked                 = "onPushClick"

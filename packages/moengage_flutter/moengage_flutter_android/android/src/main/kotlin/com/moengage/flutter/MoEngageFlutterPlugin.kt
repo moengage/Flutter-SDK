@@ -12,6 +12,8 @@ import com.moengage.plugin.base.internal.PluginHelper
 import com.moengage.plugin.base.internal.firebaseInstallationIdResultToJson
 import com.moengage.plugin.base.internal.selfHandledInAppsToJson
 import com.moengage.plugin.base.internal.setEventEmitter
+import com.moengage.plugin.base.internal.unsetUserAttributeFailureToJson
+import com.moengage.plugin.base.internal.unsetUserAttributeResultToJson
 import com.moengage.plugin.base.internal.userDeletionDataToJson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
@@ -139,6 +141,7 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 METHOD_NAME_AUTHENTICATION_DETAILS -> authenticationDetails(call)
                 METHOD_NAME_PASS_FIREBASE_INSTALLATION_ID -> passFirebaseInstallationId(call)
                 METHOD_NAME_GET_FIREBASE_INSTALLATION_ID -> getFirebaseInstallationId(call, result)
+                METHOD_NAME_UNSET_USER_ATTRIBUTE -> unsetUserAttribute(call, result)
                 else ->
                     Logger.record(PlatformLogLevel.ERROR) {
                         "$tag onMethodCall() : No mapping for this method."
@@ -616,6 +619,42 @@ class MoEngageFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     "Error: ${t.message ?: "Unknown"}",
                     null)
             }
+        }
+    }
+
+    /**
+     * Removes a user attribute from the user's profile, provided the [methodCall] payload, and
+     * settles [result] with the outcome.
+     *
+     * [result] always resolves with success - the response JSON carries the outcome via
+     * `data.isUnsetSuccess`, with `data.failure.{reason,message}` present when it is `false` - the
+     * same convention the React Native bridge uses. [result.error] is reserved for a malformed
+     * method-channel call itself (missing/invalid arguments), not a native-side failure.
+     */
+    private fun unsetUserAttribute(
+        methodCall: MethodCall,
+        result: MethodChannel.Result,
+    ) {
+        try {
+            if (methodCall.arguments == null) {
+                result.error(ERROR_CODE_UNSET_USER_ATTRIBUTE, "Invalid Arguments", null)
+                return
+            }
+            val payload = methodCall.arguments.toString()
+            Logger.record { "$tag unsetUserAttribute() : Arguments: $payload" }
+            pluginHelper
+                .unsetUserAttribute(context, payload)
+                .onSuccess { data ->
+                    result.success(unsetUserAttributeResultToJson(payload, data).toString())
+                }.onFailure { failure ->
+                    Logger.record(PlatformLogLevel.ERROR) {
+                        "$tag unsetUserAttribute() : failed with reason: ${failure.reason} and message: ${failure.message}"
+                    }
+                    result.success(unsetUserAttributeFailureToJson(payload, failure).toString())
+                }
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag unsetUserAttribute() : " }
+            result.error(ERROR_CODE_UNSET_USER_ATTRIBUTE, t.message, null)
         }
     }
 

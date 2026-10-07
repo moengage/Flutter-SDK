@@ -200,3 +200,11 @@ const String methodGetFirebaseInstallationId = 'getFirebaseInstallationId';
 const String keyInstallationId = 'installationId';
 const String callbackOnFirebaseInstallationIdAvailable =
     'onFirebaseInstallationIdAvailable';
+
+/// Unset User Attribute
+const String methodNameUnsetUserAttribute = 'unsetUserAttribute';
+const String keyAttributeLevel = 'attributeLevel';
+const String keyIsUnsetSuccess = 'isUnsetSuccess';
+const String keyFailure = 'failure';
+const String keyFailureReason = 'reason';
+const String keyFailureMessage = 'message';

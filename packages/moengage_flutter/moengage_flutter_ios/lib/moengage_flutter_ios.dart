@@ -302,4 +302,21 @@ class MoEngageFlutterIOS extends MoEngageFlutterPlatform {
     Logger.v('getFirebaseInstallationId(): Not supported in iOS Platform');
     return null;
   }
+
+  @override
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+      String attributeName, UserAttributeLevel attributeLevel, String appId) async {
+    final Map<String, dynamic> payload =
+        getUnsetUserAttributePayload(attributeName, attributeLevel, appId);
+    Logger.v('$tag unsetUserAttribute(): invokeMethod payload: $payload');
+    try {
+      final response =
+          await _channel.invokeMethod(methodNameUnsetUserAttribute, payload);
+      Logger.v('$tag unsetUserAttribute(): invokeMethod response: $response');
+      return unsetUserAttributeResultFromJson(response);
+    } catch (e) {
+      Logger.e('$tag unsetUserAttribute(): Error', error: e);
+      throw toUnsetUserAttributeFailure(e);
+    }
+  }
 }

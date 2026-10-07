@@ -73,6 +73,13 @@ public class MoEngageFlutterBridge: NSObject, FlutterPlugin {
         // JWT Authentication
         case MoEngageFlutterConstants.MethodNames.kAuthenticationDetails:
             MoEngagePluginBridge.sharedInstance.passAuthenticationDetails(payload)
+        // Unset User Attribute - always resolves; the response JSON carries the outcome via
+        // `data.isUnsetSuccess`, with `data.failure` present when it is false, mirroring how the
+        // React Native bridge handles this same plugin bridge call.
+        case MoEngageFlutterConstants.MethodNames.kUnsetUserAttribute:
+            MoEngagePluginBridge.sharedInstance.unsetUserAttribute(payload) { responsePayload in
+                MoEngageFlutterUtil.resume(channel: call.method, havingResult: result, withData: responsePayload)
+            }
         default:
             print("Invalid invocation: \(call.method)")
         }

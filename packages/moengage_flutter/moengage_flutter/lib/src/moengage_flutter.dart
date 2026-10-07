@@ -485,4 +485,17 @@ class MoEngageFlutter {
         .getCallbackCacheForInstance(appId)
         .firebaseInstallationIdCallbackHandler = handler;
   }
+
+  /// Removes a user attribute from the user's profile at the given level.
+  /// [attributeName] - Attribute to remove, by the name it was set with.
+  /// [attributeLevel] - Which copy to remove, the calling project's own or the portfolio-wide
+  /// one. Defaults to [UserAttributeLevel.project].
+  /// @returns - Instance of [Future] of type [UnsetUserAttributeResult] on success.
+  /// Throws [UnsetUserAttributeFailure] on failure.
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+    String attributeName, {
+    UserAttributeLevel attributeLevel = UserAttributeLevel.project,
+  }) {
+    return _platform.unsetUserAttribute(attributeName, attributeLevel, appId);
+  }
 }
