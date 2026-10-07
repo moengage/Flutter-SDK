@@ -101,13 +101,20 @@ void main() {
       expect(result.items, isEmpty);
     });
 
-    test('returns an empty result when the data block is missing', () async {
+    test(
+        'throws RecommendationsFailure with parseError when the data block is '
+        'missing', () async {
+      // The body decodes fine here, unlike the not-valid-JSON case below — only the `data` key
+      // is absent. A missing/malformed data block must not be mistaken for "nothing to
+      // recommend", so this must surface as parseError rather than an empty result.
       mockResponse(fetchRecommendationsMalformedJson);
 
-      final result = await platform.fetchRecommendations(
-          testRecommendationId, '', const {}, testAppId);
-
-      expect(result.items, isEmpty);
+      expect(
+        () => platform.fetchRecommendations(
+            testRecommendationId, '', const {}, testAppId),
+        throwsA(isA<RecommendationsFailure>().having((e) => e.failureReason,
+            'failureReason', CommonFailureReason.parseError)),
+      );
     });
 
     test(

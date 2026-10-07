@@ -34,14 +34,18 @@ class MoEngageRecommendationsPlugin : FlutterPlugin, ActivityAware {
     }
 
     private fun initPlugin(binaryMessenger: BinaryMessenger) {
-        Logger.record { "$tag initPlugin(): Initializing MoEngage Recommendations Plugin" }
-        methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
-        methodChannel?.setMethodCallHandler(
-            PlatformMethodCallHandler(
-                context,
-                recommendationsHelper,
-            ),
-        )
+        try {
+            Logger.record { "$tag initPlugin(): Initializing MoEngage Recommendations Plugin" }
+            methodChannel = MethodChannel(binaryMessenger, CHANNEL_NAME)
+            methodChannel?.setMethodCallHandler(
+                PlatformMethodCallHandler(
+                    context,
+                    recommendationsHelper,
+                ),
+            )
+        } catch (t: Throwable) {
+            Logger.record(PlatformLogLevel.ERROR, t) { "$tag initPlugin()  : " }
+        }
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {

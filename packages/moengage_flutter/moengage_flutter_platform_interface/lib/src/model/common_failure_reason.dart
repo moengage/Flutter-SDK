@@ -1,5 +1,6 @@
 import '../internal/constants.dart';
 import '../internal/logger.dart';
+import '../utils/utils.dart';
 import 'moe_request_failure_reason.dart';
 
 /// Reason common to any MoEngage SDK request failure, not specific to one feature.
@@ -49,14 +50,8 @@ enum CommonFailureReason implements MoERequestFailureReason {
   /// Returns `null` when [str] does not match any common reason, rather than defaulting to
   /// [unknownError] — the caller is expected to try feature-specific reasons first and only fall
   /// back to [unknownError] once both have been exhausted.
-  static CommonFailureReason? tryFromString(String str) {
-    for (final reason in CommonFailureReason.values) {
-      if (reason.value == str) {
-        return reason;
-      }
-    }
-    return null;
-  }
+  static CommonFailureReason? tryFromString(String str) =>
+      tryFromValue(CommonFailureReason.values, str);
 
   /// Get a [CommonFailureReason] from its JSON string value, falling back to [unknownError] and
   /// logging a warning when [str] does not match any common reason.

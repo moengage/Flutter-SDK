@@ -30,22 +30,14 @@ Map<String, dynamic> getFetchRecommendationsPayload(
 /// Deserialize the fetchRecommendations response.
 ///
 /// Throws a [RecommendationsFailure] carrying [CommonFailureReason.parseError] when the
-/// response body cannot be read — the contract lists `parseError` against this method, so an
-/// undecodable body must not reach the caller as `unknownError`.
+/// response body cannot be read, or the decoded body is missing its `data` block — the contract
+/// lists `parseError` against this method, so a malformed body must not reach the caller
+/// disguised as a successful empty result.
 RecommendedItems deserializeRecommendedItems(dynamic responsePayload) {
   Logger.v('${moduleTag}deserializeRecommendedItems(): $responsePayload');
+  final Map<String, dynamic> response;
   try {
-    final Map<String, dynamic> response =
-        json.decode(responsePayload.toString()) as Map<String, dynamic>;
-
-    final dataPayload = response[keyData];
-    if (dataPayload is! Map<String, dynamic>) {
-      Logger.w(
-          '${moduleTag}deserializeRecommendedItems(): missing or invalid data key');
-      return RecommendedItems(items: []);
-    }
-
-    return RecommendedItems.fromJson(dataPayload);
+    response = json.decode(responsePayload.toString()) as Map<String, dynamic>;
   } catch (e, stackTrace) {
     Logger.e('${moduleTag}deserializeRecommendedItems(): Error: $e',
         stackTrace: stackTrace);
@@ -54,6 +46,18 @@ RecommendedItems deserializeRecommendedItems(dynamic responsePayload) {
       message: e.toString(),
     );
   }
+
+  final dataPayload = response[keyData];
+  if (dataPayload is! Map<String, dynamic>) {
+    const message = 'missing or invalid data key';
+    Logger.e('${moduleTag}deserializeRecommendedItems(): $message');
+    throw RecommendationsFailure(
+      failureReason: CommonFailureReason.parseError,
+      message: message,
+    );
+  }
+
+  return RecommendedItems.fromJson(dataPayload);
 }
 
 /// Convert an error raised while fetching into a [RecommendationsFailure].

@@ -1,7 +1,5 @@
 import 'package:moengage_flutter/moengage_flutter.dart'
-    show CommonFailureReason, Logger, MoERequestFailureReason;
-
-import '../internal/constants.dart';
+    show CommonFailureReason, MoERequestFailureReason, tryFromValue;
 
 /// Recommendations-specific reasons a recommendations request failed.
 ///
@@ -37,17 +35,10 @@ enum RecommendationsFailureReason implements MoERequestFailureReason {
   /// [CommonFailureReason] for the reasons shared across features, and finally to
   /// [CommonFailureReason.unknownError] when [str] matches neither.
   static MoERequestFailureReason fromString(String str) {
-    for (final reason in RecommendationsFailureReason.values) {
-      if (reason.value == str) {
-        return reason;
-      }
+    final specific = tryFromValue(RecommendationsFailureReason.values, str);
+    if (specific != null) {
+      return specific;
     }
-    final common = CommonFailureReason.tryFromString(str);
-    if (common != null) {
-      return common;
-    }
-    Logger.w(
-        '${moduleTag}RecommendationsFailureReason fromString(): Unknown value "$str", defaulting to unknownError');
-    return CommonFailureReason.unknownError;
+    return CommonFailureReason.fromString(str);
   }
 }

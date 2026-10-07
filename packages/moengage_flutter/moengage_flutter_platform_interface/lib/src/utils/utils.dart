@@ -10,6 +10,7 @@ import '../model/authentication/authentication_error_data.dart';
 import '../model/authentication/authentication_type.dart';
 import '../model/authentication/jwt_error_code.dart';
 import '../model/logout_complete_data.dart';
+import '../model/moe_request_failure_reason.dart';
 import '../model/permission_result.dart';
 import '../model/permission_type.dart';
 import '../model/platforms.dart';
@@ -247,4 +248,18 @@ Map<String, dynamic> getFirebaseInstallationIdPayload(
   final Map<String, dynamic> payload = getAccountMeta(appId);
   payload[keyData] = {keyInstallationId: installationId};
   return payload;
+}
+
+/// Get the first value in [values] whose [MoERequestFailureReason.value] matches [str].
+///
+/// Returns `null` when none match, rather than defaulting to a fallback reason — shared by the
+/// common failure reason enum and every feature-specific failure reason enum so the "match by
+/// wire value" loop isn't reimplemented per enum.
+T? tryFromValue<T extends MoERequestFailureReason>(List<T> values, String str) {
+  for (final value in values) {
+    if (value.value == str) {
+      return value;
+    }
+  }
+  return null;
 }

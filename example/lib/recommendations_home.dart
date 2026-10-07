@@ -50,20 +50,25 @@ class _RecommendationsHomeState extends State<RecommendationsHome> {
         includedFields: _parseSet(_includedFieldsController.text),
       );
       debugPrint('_onFetchRecommendations(): Result : $result');
+      if (!mounted) return;
       // An empty list is a success — there is simply nothing to recommend.
       setState(() {
         _items = result.items;
       });
     } on RecommendationsFailure catch (failure) {
+      if (!mounted) return;
       _handleRecommendationsFailure(failure);
     } catch (e) {
       Logger.e('RecommendationsHome _onFetchRecommendations(): $e');
+      if (!mounted) return;
       setState(() {
         _items = [];
         _errorText = 'Error: $e';
       });
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
