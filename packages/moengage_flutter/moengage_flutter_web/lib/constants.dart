@@ -11,6 +11,7 @@ const String methodLogout = 'logout';
 const String methodTrackEventSDK = 'trackEvent';
 const String methodSetIntegrationTypeSDK = 'setIntegrationType';
 const String methodSetUserAttributeSDK = 'setUserAttribute';
+const String methodUnsetUserAttributeSDK = 'unsetUserAttribute';
 const String methodSetUniqueIdSDK = 'add_unique_user_id';
 const String methodSetAliasSDK = 'update_unique_user_id';
 const String methodIdentifyUserSDK = 'identifyUser';

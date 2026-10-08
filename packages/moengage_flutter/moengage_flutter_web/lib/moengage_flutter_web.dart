@@ -107,6 +107,37 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   }
 
   @override
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+    String attributeName,
+    UserAttributeLevel attributeLevel,
+    String appId,
+  ) async {
+    try {
+      final isUnset = await _moengage!
+          .callMethod<JSPromise<JSBoolean>>(
+            methodUnsetUserAttributeSDK.toJS,
+            attributeName.toJS,
+            attributeLevel.value.toUpperCase().toJS,
+          )
+          .toDart;
+      if (isUnset.toDart) {
+        return UnsetUserAttributeResult(
+          attributeName: attributeName,
+          attributeLevel: attributeLevel,
+        );
+      }
+    } catch (e) {
+      Logger.e(' $tag unsetUserAttribute(): Error', error: e);
+      throw toUnsetUserAttributeFailure(e);
+    }
+    // The Web SDK resolves false and logs the reason to the console
+    throw UnsetUserAttributeFailure(
+      failureReason: CommonFailureReason.unknownError,
+      message: 'Web SDK did not unset "$attributeName"',
+    );
+  }
+
+  @override
   void setAlias(String newUniqueId, String appId) {
     _callMethod(methodSetAliasSDK, newUniqueId.toJS);
   }
