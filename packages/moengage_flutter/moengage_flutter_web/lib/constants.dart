@@ -11,6 +11,7 @@ const String methodLogout = 'logout';
 const String methodTrackEventSDK = 'trackEvent';
 const String methodSetIntegrationTypeSDK = 'setIntegrationType';
 const String methodSetUserAttributeSDK = 'setUserAttribute';
+const String methodUnsetUserAttributeSDK = 'unsetUserAttribute';
 const String methodSetUniqueIdSDK = 'add_unique_user_id';
 const String methodSetAliasSDK = 'update_unique_user_id';
 const String methodIdentifyUserSDK = 'identifyUser';
@@ -27,3 +28,7 @@ String keyEventAttributes = 'eventAttributes';
 String keyAttributeValue = 'attributeValue';
 String keyAttributeName = 'attributeName';
 String keyAlias = 'alias';
+
+// Web SDK User Attribute Levels
+const String userAttributeLevelProjectSDK = 'PROJECT';
+const String userAttributeLevelPortfolioSDK = 'PORTFOLIO';

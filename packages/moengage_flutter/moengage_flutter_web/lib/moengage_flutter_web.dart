@@ -107,6 +107,57 @@ class MoEngageFlutterWeb extends MoEngageFlutterPlatform {
   }
 
   @override
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+    String attributeName,
+    UserAttributeLevel attributeLevel,
+    String appId,
+  ) async {
+    final moengage = _moengage;
+    final method = moengage?.getProperty(methodUnsetUserAttributeSDK.toJS);
+    if (moengage == null ||
+        method == null ||
+        !method.typeofEquals('function')) {
+      throw UnsetUserAttributeFailure(
+        failureReason: CommonFailureReason.sdkState,
+        message: 'unsetUserAttribute() is not available in the loaded Web SDK',
+      );
+    }
+    try {
+      final promise = (method as JSFunction).callAsFunction(
+        moengage,
+        attributeName.toJS,
+        _toWebAttributeLevel(attributeLevel).toJS,
+      ) as JSPromise<JSBoolean?>?;
+      final isUnset =
+          promise != null && ((await promise.toDart)?.toDart ?? false);
+      if (!isUnset) {
+        // The Web SDK only resolves false and logs the reason to the console
+        throw UnsetUserAttributeFailure(
+          failureReason: CommonFailureReason.unknownError,
+          message: 'Web SDK did not unset "$attributeName", '
+              'check the browser console for the reason',
+        );
+      }
+      return UnsetUserAttributeResult(
+        attributeName: attributeName,
+        attributeLevel: attributeLevel,
+      );
+    } catch (e) {
+      Logger.e(' $tag unsetUserAttribute(): Error', error: e);
+      throw toUnsetUserAttributeFailure(e);
+    }
+  }
+
+  String _toWebAttributeLevel(UserAttributeLevel level) {
+    switch (level) {
+      case UserAttributeLevel.project:
+        return userAttributeLevelProjectSDK;
+      case UserAttributeLevel.portfolio:
+        return userAttributeLevelPortfolioSDK;
+    }
+  }
+
+  @override
   void setAlias(String newUniqueId, String appId) {
     _callMethod(methodSetAliasSDK, newUniqueId.toJS);
   }

@@ -1,5 +1,11 @@
 # MoEngage Flutter Web Plugin
 
+# Release Date
+
+## Release Version
+
+- [minor] Added support for `unsetUserAttribute()` at project and portfolio level
+
 # 01-09-2026
 
 ## 6.0.0
