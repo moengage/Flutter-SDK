@@ -377,4 +377,21 @@ class MoEngageFlutterAndroid extends MoEngageFlutterPlatform {
       return Future.error(e);
     }
   }
+
+  @override
+  Future<UnsetUserAttributeResult> unsetUserAttribute(
+      String attributeName, UserAttributeLevel attributeLevel, String appId) async {
+    final Map<String, dynamic> payload =
+        getUnsetUserAttributePayload(attributeName, attributeLevel, appId);
+    Logger.v('$tag unsetUserAttribute(): invokeMethod payload: $payload');
+    try {
+      final response = await _methodChannel.invokeMethod(
+          methodNameUnsetUserAttribute, json.encode(payload));
+      Logger.v('$tag unsetUserAttribute(): invokeMethod response: $response');
+      return unsetUserAttributeResultFromJson(response);
+    } catch (e) {
+      Logger.e('$tag unsetUserAttribute(): Error ', error: e);
+      throw toUnsetUserAttributeFailure(e);
+    }
+  }
 }

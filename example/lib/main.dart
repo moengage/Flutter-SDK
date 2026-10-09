@@ -20,6 +20,7 @@ import 'jwt_authentication_page.dart';
 import 'personalize_home.dart';
 import 'recommendations_home.dart';
 import 'second_page.dart';
+import 'unset_user_attribute_home.dart';
 import 'utils.dart';
 
 // ignore_for_file: deprecated_member_use
@@ -176,6 +177,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>
                           const RecommendationsHome()));
+                },
+              ),
+              ListTile(
+                title: const Text('Go To Unset User Attribute'),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const UnsetUserAttributeHome()));
                 },
               ),
               ListTile(

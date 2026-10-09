@@ -12,6 +12,7 @@
 | passFCMPushToken(String pushToken) | passFirebaseInstallationId(String installationId) |
 
 - [minor] Added support for fetching Recommendations.
+- [minor] Added support for unsetting a user attribute.
 
 - Android
   - [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
