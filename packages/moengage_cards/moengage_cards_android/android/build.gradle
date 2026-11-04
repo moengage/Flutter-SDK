@@ -34,7 +34,7 @@ allprojects {
 }
 
 ext {
-     moengageNativeBomVersion = "4.4.0"
+     moengageNativeBomVersion = "4.6.0"
     moengagePluginBaseBomVersion = "4.1.0"
 }
 
