@@ -11,8 +11,13 @@
 |:---------------------------------|:----------------------------------------|
 | passFCMPushToken(String pushToken) | passFirebaseInstallationId(String installationId) |
 
+- [minor] Added support for fetching Recommendations.
+
 - Android
+  - [minor] `android-bom` version updated to `4.6.0`.
   - [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
+- iOS
+    - [minor] Updated `MoEngage-iOS-SDK` to `11.04.0`.
 
 # 01-09-2026
 
