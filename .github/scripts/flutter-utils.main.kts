@@ -23,7 +23,11 @@ val packageParentFolder = mapOf(
     "moengage_personalize" to "moengage_personalize",
     "moengage_personalize_android" to "moengage_personalize",
     "moengage_personalize_ios" to "moengage_personalize",
-    "moengage_personalize_platform_interface" to "moengage_personalize"
+    "moengage_personalize_platform_interface" to "moengage_personalize",
+    "moengage_recommendations" to "moengage_recommendations",
+    "moengage_recommendations_android" to "moengage_recommendations",
+    "moengage_recommendations_ios" to "moengage_recommendations",
+    "moengage_recommendations_platform_interface" to "moengage_recommendations"
 )
 
 val dependencyMapping = mapOf(
@@ -118,6 +122,25 @@ val dependencyMapping = mapOf(
         "moengage_flutter" to "incremental"
     ),
     "moengage_personalize_platform_interface" to mapOf(
+        "moengage_flutter" to "incremental"
+    ),
+
+    /** Recommendations Packages */
+    "moengage_recommendations" to mapOf(
+        "moengage_recommendations_android" to "pinned",
+        "moengage_recommendations_ios" to "pinned",
+        "moengage_recommendations_platform_interface" to "pinned",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_recommendations_android" to mapOf(
+        "moengage_recommendations_platform_interface" to "incremental",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_recommendations_ios" to mapOf(
+        "moengage_recommendations_platform_interface" to "incremental",
+        "moengage_flutter" to "incremental"
+    ),
+    "moengage_recommendations_platform_interface" to mapOf(
         "moengage_flutter" to "incremental"
     )
 )

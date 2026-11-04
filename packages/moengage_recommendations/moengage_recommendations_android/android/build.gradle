@@ -28,7 +28,6 @@ if (agpMajor < 9 || !builtInKotlin) {
 
 rootProject.allprojects {
     repositories {
-        mavenLocal()
         google()
         mavenCentral()
     }
