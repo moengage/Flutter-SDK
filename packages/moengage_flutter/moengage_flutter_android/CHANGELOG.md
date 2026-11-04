@@ -5,7 +5,7 @@
 ## Release Version
 
 - [minor] Added support for Firebase Installation Id
-- [minor] `android-bom` version updated to `4.4.0`.
+- [minor] `android-bom` version updated to `4.6.0`.
 - [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
 
 # 01-09-2026
