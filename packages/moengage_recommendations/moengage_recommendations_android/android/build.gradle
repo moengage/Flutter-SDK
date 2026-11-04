@@ -35,10 +35,8 @@ rootProject.allprojects {
 }
 
 ext {
-    moengageNativeBomVersion = "4.2.0"
-    moengagePluginBaseBomVersion = "4.1.0"
-    moengageRecommendationsVersion = "0.0.1"
-    moengagePluginBaseRecommendationsVersion = "0.0.1"
+    moengageNativeBomVersion = "4.6.0"
+    moengagePluginBaseBomVersion = "5.0.0"
 }
 
 apply plugin: 'com.moengage.android.hybrid.module.config.plugin'
@@ -75,10 +73,10 @@ android {
 
 dependencies {
     implementation(platform("com.moengage:plugin-base-bom:$moengagePluginBaseBomVersion"))
-    api("com.moengage:plugin-base-recommendations:$moengagePluginBaseRecommendationsVersion")
+    api("com.moengage:plugin-base-recommendations")
     compileOnly("com.moengage:plugin-base")
 
     implementation(platform("com.moengage:android-bom:$moengageNativeBomVersion"))
     compileOnly("com.moengage:moe-android-sdk")
-    api("com.moengage:recommendations:$moengageRecommendationsVersion")
+    api("com.moengage:recommendations")
 }
