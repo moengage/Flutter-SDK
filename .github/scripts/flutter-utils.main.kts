@@ -235,9 +235,14 @@ fun getVersionWithoutPrefix(version: String): String {
 // failure, pub.dev outage. Treat that as unknown, not "not published", so a network blip
 // can't make the release silently skip/strand already-published packages/versions.
 private fun isPublishedOnPubDevUrl(url: String, description: String): Boolean {
-    val statusCode = executeShellCommandWithStringOutput(
-        "curl -s -o /dev/null -w \"%{http_code}\" --max-time 10 --retry 2 $url"
-    ).trim()
+    // Runs curl directly instead of calling utils.main.kts's executeShellCommandWithStringOutput:
+    // this file is itself pulled in through @file:Import, and an imported script cannot reliably
+    // call into another imported script (behaviour differs across Kotlin versions).
+    val process = ProcessBuilder(
+        "curl", "-s", "-o", "/dev/null", "-w", "%{http_code}", "--max-time", "10", "--retry", "2", url
+    ).redirectErrorStream(true).start()
+    val statusCode = process.inputStream.bufferedReader().readText().trim()
+    process.waitFor()
 
     if (statusCode.isBlank() || statusCode == "000") {
         throw IllegalStateException(
