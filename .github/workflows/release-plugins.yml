@@ -1,4 +1,4 @@
-name: Release
+name: Release Plugins
 
 # Entry point for a release (isPatchRelease for a hotfix cut from master). Chains
 # pre_release.yml -> publish.yml; each stage can also be re-run independently on failure.
