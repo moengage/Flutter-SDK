@@ -1,6 +1,6 @@
 name: moengage_recommendations_ios
 description: iOS implementation of the moengage_recommendations plugin
-version: 1.0.0
+version: 0.0.1
 homepage: https://www.moengage.com
 
 environment:
@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   moengage_flutter: ^11.0.0
-  moengage_recommendations_platform_interface: ^1.0.0
+  moengage_recommendations_platform_interface: ^0.0.1
 
 dev_dependencies:
   flutter_test:
