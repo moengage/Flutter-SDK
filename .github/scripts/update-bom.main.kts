@@ -72,6 +72,13 @@ val moduleConfigs = listOf(
         publicChangelogPath = "packages/moengage_personalize/moengage_personalize/CHANGELOG.md",
         androidBomArtifacts = setOf("moe-android-sdk", "personalization-core"),
         pluginBaseBomArtifacts = setOf("plugin-base-personalization")
+    ),
+    ModuleConfig(
+        gradleFilePath = "packages/moengage_recommendations/moengage_recommendations_android/android/build.gradle",
+        androidChangelogPath = "packages/moengage_recommendations/moengage_recommendations_android/CHANGELOG.md",
+        publicChangelogPath = "packages/moengage_recommendations/moengage_recommendations/CHANGELOG.md",
+        androidBomArtifacts = setOf("moe-android-sdk", "recommendations"),
+        pluginBaseBomArtifacts = setOf("plugin-base-recommendations")
     )
 )
 
