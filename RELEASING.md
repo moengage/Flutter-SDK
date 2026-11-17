@@ -10,7 +10,7 @@
 
 ## Publishing a brand-new module for the first time
 
-The `release-plugins.yml` workflow publishes with a Google service-account-derived
+The `release-plugins.yml` workflow (via `publish.yml`) publishes with a Google service-account-derived
 pub.dev token (`gcloud auth print-identity-token | dart pub token add ...`). pub.dev
 does **not** allow that (or any other automated/CI credential) to publish the first
 version of a package that has never existed on pub.dev before - see
@@ -85,7 +85,7 @@ It:
    packages with a clear pub error) and `dart pub publish --dry-run` for review.
 5. Asks for a single `y`/`n` confirmation, then, only on `y`, hands the actual
    publishing to `melos publish --no-dry-run --no-git-tag-version --yes`
-   scoped to those packages - the same command `release-plugins.yml` uses, so
+   scoped to those packages - the same command `publish.yml` uses, so
    melos's own topological ordering puts a federated module's
    `_platform_interface` on pub.dev before the `_android`/`_ios` packages and
    the app-facing package that pin it.
@@ -100,7 +100,7 @@ It creates **no git tag** and does **no `git commit`/`git push`**.
    package, go to the "Admin" tab -> "Publishing with Google Cloud Service
    account" and enter the service account's email address (the `client_email`
    field inside the JSON key stored in this repo's `SERVICE_ACCOUNT` GitHub
-   secret, the same one `release-plugins.yml` authenticates with). This is
+   secret, the same one `publish.yml` authenticates with). This is
    what authorizes that service account to publish this package automatically
    from here on - it can only be done after the first version exists.
 3. Trigger the "Release Plugins" workflow from `development` as normal.

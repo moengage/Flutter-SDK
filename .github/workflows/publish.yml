@@ -1,6 +1,6 @@
 name: Publish
 
-# Publishes plugins - chained from release.yml, or re-run standalone via workflow_dispatch.
+# Publishes plugins - chained from release-plugins.yml, or re-run standalone via workflow_dispatch.
 # Retry-safe: --no-published skips already-published packages; tags/releases are created idempotently.
 on:
   workflow_dispatch:
