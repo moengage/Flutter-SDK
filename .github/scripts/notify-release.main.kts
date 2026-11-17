@@ -11,7 +11,8 @@ val packages = listOf(
     "moengage_cards",
     "moengage_geofence",
     "moengage_inbox",
-    "moengage_personalize"
+    "moengage_personalize",
+    "moengage_recommendations"
 )
 
 /**
