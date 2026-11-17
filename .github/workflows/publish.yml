@@ -50,7 +50,7 @@ jobs:
           path: source
           token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
       - name: Set Up GCloud CLI
-        run: sudo snap install google-cloud-sdk --classic
+        run: sudo snap install google-cloud-cli --classic
       - name: Set Up Secrets
         run: |
           cat <<EOF > $HOME/key-file.json
