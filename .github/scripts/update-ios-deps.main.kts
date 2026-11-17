@@ -74,6 +74,15 @@ val podConfigs = listOf(
         iosChangelogPath = "packages/moengage_personalize/moengage_personalize_ios/CHANGELOG.md",
         publicChangelogPath = "packages/moengage_personalize/moengage_personalize/CHANGELOG.md",
     ),
+    PodConfig(
+        podName = "MoEngagePluginRecommendations",
+        pluginRepo = "apple-plugin-recommendations",
+        swiftPackageDirName = "apple-plugin-recommendations",
+        podspecPath = "packages/moengage_recommendations/moengage_recommendations_ios/ios/moengage_recommendations_ios.podspec",
+        packageSwiftPath = "packages/moengage_recommendations/moengage_recommendations_ios/ios/moengage_recommendations_ios/Package.swift",
+        iosChangelogPath = "packages/moengage_recommendations/moengage_recommendations_ios/CHANGELOG.md",
+        publicChangelogPath = "packages/moengage_recommendations/moengage_recommendations/CHANGELOG.md",
+    ),
 )
 
 data class UpstreamVersions(val podVersion: String, val nativeSdkVerMin: String)
