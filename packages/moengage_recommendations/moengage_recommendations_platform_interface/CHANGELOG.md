@@ -4,4 +4,10 @@
 
 ## Release Version
 
-- [major] Added Recommendations module and feature support.
+- [major] Added Recommendations module and feature support
+
+# 17-11-2026
+
+## 0.0.1
+
+- Added Recommendations module and feature support

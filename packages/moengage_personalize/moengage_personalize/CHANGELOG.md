@@ -5,7 +5,7 @@
 ## Release Version
 
 - Android
-  - [minor] `android-bom` version updated to `4.6.0`.
+  - [minor] `android-bom` version updated to `4.7.0`.
   - [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
 - iOS
     - [minor] Updated `MoEngage-iOS-SDK` to `11.04.0`.
