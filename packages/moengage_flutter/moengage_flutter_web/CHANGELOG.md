@@ -1,5 +1,11 @@
 # MoEngage Flutter Web Plugin
 
+# Release Date
+
+## Release Version
+
+- [patch] Internal improvements
+
 # 01-09-2026
 
 ## 6.0.0
