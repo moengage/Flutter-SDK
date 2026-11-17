@@ -1,23 +1,23 @@
 # MoEngage Flutter Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 11.1.0
 
-- [minor] Added support for Firebase Installation Id
-- [minor] Deprecated APIs
+- Added support for Firebase Installation Id
+- Deprecated APIs
 
 | Then                             | Now                                    |
 |:---------------------------------|:----------------------------------------|
 | passFCMPushToken(String pushToken) | passFirebaseInstallationId(String installationId) |
 
-- [minor] Added support for fetching Recommendations.
+- Added support for fetching Recommendations.
 
 - Android
-  - [minor] `android-bom` version updated to `4.7.0`.
-  - [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
+  - `android-bom` version updated to `4.7.0`.
+  - Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
 - iOS
-    - [minor] Updated `MoEngage-iOS-SDK` to `11.04.0`.
+    - Updated `MoEngage-iOS-SDK` to `11.04.0`.
 
 # 01-09-2026
 

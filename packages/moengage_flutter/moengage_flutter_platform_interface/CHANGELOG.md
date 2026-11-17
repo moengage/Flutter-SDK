@@ -1,11 +1,11 @@
 # MoEngage Flutter Platform Interface
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 5.1.0
 
-- [minor] Added support for Firebase Installation Id
-- [minor] Added support for fetching Recommendations.
+- Added support for Firebase Installation Id
+- Added support for fetching Recommendations.
 
 # 01-09-2026
 

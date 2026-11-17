@@ -1,12 +1,12 @@
 # MoEngage Personalize iOS Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 2.1.0
 
-- [patch] Declared the iOS plugin pod as a static framework. The MoEngage iOS SDK now links its app-only modules statically, and CocoaPods rejects a target using `use_frameworks!` whose transitive dependencies include statically linked binaries — without this, `pod install` fails for integrating apps.
-- [patch] Updated `MoEngagePluginPersonalize` to `2.2.0`.
-- [minor] Updated `MoEngage-iOS-SDK` to `11.04.0`.
+- Declared the iOS plugin pod as a static framework. The MoEngage iOS SDK now links its app-only modules statically, and CocoaPods rejects a target using `use_frameworks!` whose transitive dependencies include statically linked binaries — without this, `pod install` fails for integrating apps.
+- Updated `MoEngagePluginPersonalize` to `2.2.0`.
+- Updated `MoEngage-iOS-SDK` to `11.04.0`.
 
 # 01-09-2026
 

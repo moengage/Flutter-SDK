@@ -1,10 +1,10 @@
 # MoEngage Recommendations iOS Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 1.0.0
 
-- [major] Added support for fetching Recommendations.
+- Added support for fetching Recommendations.
 
 # 17-11-2026
 

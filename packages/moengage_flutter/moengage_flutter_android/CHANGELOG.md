@@ -1,12 +1,12 @@
 # MoEngage Flutter Android Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 6.1.0
 
-- [minor] Added support for Firebase Installation Id
-- [minor] `android-bom` version updated to `4.7.0`.
-- [patch] Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
+- Added support for Firebase Installation Id
+- `android-bom` version updated to `4.7.0`.
+- Fixed MoEngage native Android dependencies not resolving when the application does not add the MoEngage `android-bom`.
 
 # 01-09-2026
 

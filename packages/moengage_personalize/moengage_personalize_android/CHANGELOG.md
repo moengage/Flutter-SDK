@@ -1,11 +1,11 @@
 # MoEngage Personalize Android Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 2.1.0
 
-- [minor] `android-bom` version updated to `4.7.0`.
-- [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
+- `android-bom` version updated to `4.7.0`.
+- Removed redundant `compileOnly` dependency on `moe-android-sdk`.
 
 # 01-09-2026
 

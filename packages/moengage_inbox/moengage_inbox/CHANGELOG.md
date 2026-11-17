@@ -1,14 +1,14 @@
 # MoEngage Flutter Inbox Plugin
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 10.1.0
 
 - Android
-  - [minor] `android-bom` version updated to `4.7.0`.
-  - [patch] Removed redundant `compileOnly` dependency on `moe-android-sdk`.
+  - `android-bom` version updated to `4.7.0`.
+  - Removed redundant `compileOnly` dependency on `moe-android-sdk`.
 - iOS
-    - [minor] Updated `MoEngage-iOS-SDK` to `11.04.0`.
+    - Updated `MoEngage-iOS-SDK` to `11.04.0`.
 
 # 01-09-2026
 

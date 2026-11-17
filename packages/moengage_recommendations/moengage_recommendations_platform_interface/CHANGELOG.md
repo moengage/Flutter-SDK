@@ -1,10 +1,10 @@
 # MoEngage Recommendations Platform Interface
 
-# Release Date
+# 17-11-2026
 
-## Release Version
+## 1.0.0
 
-- [major] Added Recommendations module and feature support
+- Added Recommendations module and feature support
 
 # 17-11-2026
 
