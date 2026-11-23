@@ -23,7 +23,7 @@ jobs:
   publish:
     if: >-
       github.event_name == 'workflow_call' ||
-      contains(fromJSON('["umangmoe", "arshiya-moengage"]'), github.actor)
+      contains(fromJSON('["abhishek-engg-mobilesdk", "abhishek-moe", "arshiya-moengage"]'), github.actor)
     runs-on: ubuntu-latest
     steps:
       - name: Validate inputs
